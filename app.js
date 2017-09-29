@@ -6,6 +6,7 @@ var mongoose = require('mongoose');
 var promise = require('bluebird');
 mongoose.Promise = promise;
 
+// req models
 var User  = require('./model/registration');
 var Medicine = require('./model/drugindex');
 
@@ -22,12 +23,11 @@ app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({extended : false}));
 app.use(express.static(path.join(__dirname,'public')));
 
-// test for Android
+// test for Android app
 app.get('/test', function (req,res) {
     console.log('test');
     res.send(JSON.stringify({test : "test passed"}));
     res.render('test');
-
 });
 
 //front page
@@ -35,13 +35,10 @@ app.get('/',function (req,res) {
     res.render('index');
 });
 
-//registration with crosschecking of pre registered
+//registration with crosschecking of pre registrations
 app.get('/registration',function (req,res) {
     res.render('registration');
 });
-
-
-//registration with crosschecking of pre registered
 app.post('/registration',function (req,res) {
     User.findOne({Number : req.body.number}).exec(function (err,result) {
         if (err) {
@@ -77,12 +74,10 @@ app.post('/registration',function (req,res) {
     });
 });
 
+//Drug Registration
 app.get('/DrugIndex',function (req,res) {
     res.render('medicine');
 });
-
-
-//entering new drugs to the database
 app.post('/DrugIndex', function (req) {
     var medicine = new Medicine({
         Company : [{
@@ -97,7 +92,6 @@ app.post('/DrugIndex', function (req) {
             }]
         }]
     });
-
     medicine.save(function (err,result) {
         if(err) {
             console.log(err);
@@ -120,10 +114,10 @@ app.get('/find',function (req,res) {
     });
 });
 
+//login with filter
 app.get('/login',function (req,res) {
     res.render('login');
 });
-
 app.post('/login',function (req,res) {
     User.findOne({Number: req.body.number , Password : req.body.password}).exec(function (err,results) {
         if(err){
@@ -150,6 +144,7 @@ app.post('/login',function (req,res) {
     });
 });
 
+//data base connection and opening port
 var db = 'mongodb://localhost/Works';
 mongoose.connect(db,{ useMongoClient: true });
 //start server
