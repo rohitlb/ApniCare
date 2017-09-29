@@ -25,7 +25,7 @@ app.use(express.static(path.join(__dirname,'public')));
 
 // test for Android app
 app.get('/test', function (req,res) {
-    console.log('test');
+    console.log('test done by Android app');
     res.send(JSON.stringify({test : "test passed"}));
     res.render('test');
 });
