@@ -1,0 +1,47 @@
+doctype html
+
+html
+    head
+
+        link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css")
+
+        script(src="https://code.jquery.com/jquery-3.2.1.min.js")
+
+        script(src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js")
+
+        script(src="/js/medicine.js")
+
+        title Medicine
+
+    body
+        a.btn.waves-effect.waves-light#openbutton Open Form
+
+        div.row
+            form#registerform
+                div.row
+                    div.input-field.col.s12
+                        input#company_name(type="text")
+                        label(for="company_name") Company Name
+                div.row
+                    div.input-field.col.s12
+                        input#brand_name(type="text")
+                        label(for="brand_name") Brand Name
+                div.row
+                    div.input-field.col.s12
+                        input#salt(type="text")
+                        label(for="salt") Salt
+                div.row
+                    div.input-field.col.s12
+                        input#strength(type="text")
+                        label(for="strength") Strength
+                div.row
+                    div.input-field.col.s12
+                        input#packaging(type="text")
+                        label(for="packaging") Packaging
+                div.row
+                    div.input-field.col.s12
+                        input#price(type="text")
+                        label(for="price") Price
+
+                div.row
+                    a.btn.waves-light.waves-effect.purple#submitbutton Submit

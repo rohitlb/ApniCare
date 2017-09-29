@@ -1,0 +1,34 @@
+doctype html
+
+html
+    head
+
+        link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css")
+
+        script(src="https://code.jquery.com/jquery-3.2.1.min.js")
+
+        script(src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js")
+
+        script(src="/js/registration.js")
+
+        title registration
+
+    body
+        a.btn.waves-effect.waves-light#openbutton Open Form
+
+        div.row
+            form#registerform
+                div.row
+                    div.input-field.col.s12
+                        input#name(type="text")
+                        label(for="name") Name
+                div.row
+                    div.input-field.col.s12
+                        input#number(type="text")
+                        label(for="number") Number
+                div.row
+                    div.input-field.col.s12
+                        input#password(type="password")
+                        label(for="password") Password
+                div.row
+                    a.btn.waves-light.waves-effect.purple#submitbutton Submit
