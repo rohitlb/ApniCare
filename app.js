@@ -30,14 +30,22 @@ app.get('/test', function (req,res) {
     res.render('test');
 });
 
+// home page
+app.get('/home',function (req,res) {
+   res.render('home');
+   res.end();
+});
+
 //front page
 app.get('/',function (req,res) {
     res.render('index');
+    res.end();
 });
 
 //registration with crosschecking of pre registrations
 app.get('/registration',function (req,res) {
     res.render('registration');
+    res.end();
 });
 app.post('/registration',function (req,res) {
     User.findOne({Number : req.body.number}).exec(function (err,result) {
@@ -76,7 +84,8 @@ app.post('/registration',function (req,res) {
 
 //Drug Registration with drug update feature
 app.get('/medicine', function (req,res) {
-    res.render('medicine')
+    res.render('medicine');
+    res.end();
 });
 
 app.post('/medicine',function (req,res) {
@@ -205,12 +214,14 @@ app.post('/medicine',function (req,res) {
 //Profile page
 app.get('/profile',function (req,res) {
     res.render('profile');
+    res.end();
 });
 
 // incomplete = for listing the people reg
 app.get('/find',function (req,res) {
     User.find({},function (err,result) {
         res.send(result);
+        res.end();
     });
 });
 
