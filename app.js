@@ -202,8 +202,6 @@ app.post('/medicine',function (req,res) {
     });
 });
 
-
-
 //Profile page
 app.get('/profile',function (req,res) {
     res.render('profile');
