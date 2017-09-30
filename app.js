@@ -254,19 +254,19 @@ app.post('/login',function (req,res) {
         }
     });
 });
-
-// bad request error handler
-app.use(function (req, res, next) {
-    res.render('404');
-    res.end();
-});
-
-//server error handler
-app.use(function (err, req, res, next) {
-    res.render('500');
-    res.end();
-});
-
+//
+// // bad request error handler
+// app.use(function (req, res, next) {
+//     res.render('404');
+//     res.end();
+// });
+//
+// //server error handler
+// app.use(function (err, req, res, next) {
+//     res.render('500');
+//     res.end();
+// });
+//
 //data base connection and opening port
 var db = 'mongodb://localhost/Works';
 mongoose.connect(db,{ useMongoClient: true });
