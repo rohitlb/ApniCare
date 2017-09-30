@@ -45,27 +45,22 @@ app.get('/home',function (req,res) {
 // });
 
 //registration with crosschecking of pre registrations
-app.get('/register',function (req,res) {
+app.get('/registration',function (req,res) {
     res.render('register');
     res.end();
 });
-app.post('/register',function (req,res) {
+
+
+app.post('/registration',function (req,res) {
     User.findOne({Number : req.body.number}).exec(function (err,result) {
         if (err) {
             console.log("Some error occured");
             res.end();
-        }
-        else {
+        } else {
             console.log(result);
             if (result) {
-                console.log("User Alredy Exist");
-
-                res.json({no : "already exist"});
-                var result = {
-                    success: "0",
-                    message: "user already exists"
-                };
-                res.send(JSON.stringify(result));
+                console.log("User Already Exist");
+                res.send(JSON.stringify({failure : "user Already Exists"}));
                 res.end();
             } else {
                 var user = new User({
@@ -74,15 +69,21 @@ app.post('/register',function (req,res) {
                     Password: req.body.password
                 });
                 user.save(function (err,results) {
+                    if (err) {
+                        console.log("There is an error");
+                        res.end();
+                    } else {
                         console.log(results);
                         console.log('user save successfully');
-                       // res.json({yes : "Welcome"});
+                        res.send(JSON.stringify({success : "user save successfully"}));
                         res.end();
+                    }
                 });
             }
         }
     });
 });
+
 
 //Drug Registration with drug update feature
 app.get('/medicine', function (req,res) {
@@ -231,31 +232,32 @@ app.get('/find',function (req,res) {
 app.get('/login',function (req,res) {
     res.render('login');
 });
+
+
 app.post('/login',function (req,res) {
     User.findOne({Number: req.body.number , Password : req.body.password}).exec(function (err,results) {
         if(err){
             console.log("Some error occured");
+            res.send(JSON.stringify({failure : "some error occurred"}));
             res.end();
         } else {
             console.log(results);
             if(results) {
                 console.log("Successfully login");
-                //res.send('Successfully login');
-            //    res.json({yes : "success"});
+                res.send(JSON.stringify({name : 'res.body.name'}));
+
                 res.end();
             } else{
                 console.log("check your name or password");
-                //res.json({no : "Wrong no. or pwd"});
-                var result = {
-                    success: "0",
-                    message: "Wrong Number or Password"
-                };
-                res.send(JSON.stringify(result));
+                res.send(JSON.stringify({failure : "check your number"}));
                 res.end();
             }
         }
     });
 });
+
+
+
 //
 // // bad request error handler
 // app.use(function (req, res, next) {
