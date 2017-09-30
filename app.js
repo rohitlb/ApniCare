@@ -27,7 +27,7 @@ app.use(express.static(path.join(__dirname,'public')));
 app.get('/test', function (req,res) {
     console.log('test done by Android app');
     res.send(JSON.stringify({test : "test passed"}));
-    res.render('test');
+   // res.render('test');
 });
 
 // home page
@@ -36,11 +36,13 @@ app.get('/home',function (req,res) {
    res.end();
 });
 
+
+//NOT AVAILABLE
 //front page
-app.get('/',function (req,res) {
-    res.render('index');
-    res.end();
-});
+// app.get('/',function (req,res) {
+//     res.render('index');
+//     res.end();
+// });
 
 //registration with crosschecking of pre registrations
 app.get('/register',function (req,res) {
