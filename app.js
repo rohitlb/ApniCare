@@ -8,7 +8,7 @@ mongoose.Promise = promise;
 
 // req models
 var User  = require('./model/registration');
-var Medicine = require('./model/drugindex');
+var Drug = require('./model/drugindex');
 
 //declare the app
 var app = express();
@@ -25,7 +25,7 @@ app.use(express.static(path.join(__dirname,'public')));
 
 // test for Android app
 app.get('/test', function (req,res) {
-    console.log('test');
+    console.log('test done by Android app');
     res.send(JSON.stringify({test : "test passed"}));
     res.render('test');
 });
@@ -74,30 +74,130 @@ app.post('/registration',function (req,res) {
     });
 });
 
-//Drug Registration
-app.get('/DrugIndex',function (req,res) {
-    res.render('medicine');
+//Drug Registration with drug update feature
+app.get('/medicine', function (req,res) {
+    res.render('medicine')
 });
-app.post('/DrugIndex', function (req) {
-    var medicine = new Medicine({
-        Company : [{
-            company_name: req.body.company_name,
-            brand : [{
-                name : req.body.brand_name,
-                salt : req.body.salt,
-                strength : req.body.strength,
-                packaging : req.body.packaging,
-                price : req.body.price
 
-            }]
-        }]
-    });
-    medicine.save(function (err,result) {
-        if(err) {
+app.post('/medicine',function (req,res) {
+    var company_name = req.body.company_name;
+    var brand_name = req.body.brand_name;
+    var salt_name = req.body.salt_name;
+    var strength = req.body.strength;
+    var dosage = req.body.dosage;
+    var price = req.body.price;
+
+    Drug.findOne({
+        Company: {
+            $elemMatch: {
+                Company_name: company_name, Brands: {
+                    $elemMatch: {
+                        Brand_name: brand_name, Salts: {
+                            $elemMatch: {
+                                Salt_name: salt_name
+                            }
+                        }
+                    }
+                }
+            }
+        }}, function (err, result) {
+        if (err) {
             console.log(err);
+            res.end();
         } else {
-            console.log(result);
-            console.log('Medicine saved Successfully');
+            if(result) {
+                console.log("Already Exist");
+            } else {
+                Drug.findOne({
+                    Company: {
+                        $elemMatch: {
+                            Company_name: company_name, Brands: {
+                                $elemMatch: {
+                                    Brand_name: brand_name
+                                }
+                            }
+                        }
+                    }},function (err,result1) {
+                    if(err) {
+                        console.log(err);
+                    } else {
+                        if (result1) {
+                            Drug.update({"Company.Company_name": company_name}, {
+                                $push : {"Company.0.Brands.$.Salts" : {
+                                    Salt_name : salt_name,
+                                    Strength : strength
+                                }
+                                }
+                            }).exec(function (err) {
+                                if (err) {
+                                    console.log("there is an error");
+                                } else {
+                                    res.send("Salt successfully added");
+                                }
+                            });
+                        }    else {
+                            Drug.findOne({
+                                Company: {
+                                    $elemMatch: {
+                                        Company_name: company_name
+                                    }
+                                }},function (err,result1) {
+                                if(err) {
+                                    console.log(err);
+                                } else {
+                                    if (result1) {
+                                        console.log("Only Company Match");
+                                        Drug.update({"Company.Company_name": company_name}, {
+                                            $push : {
+                                                "Company.$.Brands": {
+                                                    Brand_name : brand_name,
+                                                    Salts : {
+                                                        Salt_name : salt_name,
+                                                        Strength : strength
+                                                    },
+                                                    Dosage_form : dosage,
+                                                    Price : price
+                                                }
+                                            }
+                                        }).exec(function (err) {
+                                            if (err) {
+                                                console.log("there is an error");
+                                            } else {
+                                                res.send("brand successfully added");
+                                            }
+                                        });
+                                    } else {
+                                        console.log("Not exist");
+                                        var drug = new Drug({
+                                            Company: [{
+                                                Company_name: company_name,
+                                                Brands: [{
+                                                    Brand_name: brand_name,
+                                                    Salts: [{
+                                                        Salt_name: salt_name,
+                                                        Strength: strength
+                                                    }],
+                                                    Dosage_form: dosage,
+                                                    Price: price
+                                                }]
+                                            }]
+                                        });
+                                        drug.save(function (err,pass) {
+                                            if (err) {
+                                                console.log(err);
+                                            } else {
+                                                console.log(pass);
+                                                console.log('full successfully save');
+                                                res.send("done");
+                                            }
+                                        });
+                                    }
+                                }
+                            });
+                        }
+                    }
+                });
+            }
         }
     });
 });
@@ -144,10 +244,12 @@ app.post('/login',function (req,res) {
     });
 });
 
+
 //data base connection and opening port
 var db = 'mongodb://localhost/Works';
 mongoose.connect(db,{ useMongoClient: true });
 //start server
+
 var database = mongoose.connection;
 database.on('open',function () {
     console.log("database is connected");
