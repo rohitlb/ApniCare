@@ -1,15 +1,11 @@
 $(document).ready(function(){
 
-
-
     $('.carousel').carousel();
     $('.carousel').carousel('next');
     $('.carousel').carousel('next',3);
     $('.carousel').carousel('prev');
     $('.carousel').carousel('prev',4);
     $('.carousel').carousel('set',4);
-
-
 
     $('.modal').modal({
         dismissible: true,
@@ -18,10 +14,7 @@ $(document).ready(function(){
         outDuration:200,
         startingTop: '4%',
         endingTop: '10%'
-
     });
-
-
 
     //for register
 
@@ -55,9 +48,6 @@ $(document).ready(function(){
                         Materialize.toast('unable to Register',2000);
                     }
 
-
-                   //  window.location="/profile";
-                    //Materialize.toast(result.message,5000);
                 },
                 error: function (err) {
 
@@ -65,11 +55,7 @@ $(document).ready(function(){
                 }
             }
         )
-
      });
-
-
-
 
     //for login
 
@@ -81,10 +67,9 @@ $(document).ready(function(){
 
         var data1 = {
 
-            number: number,
-            password: password
-        };
-
+                        number: number,
+                        password: password
+                    };
         $.ajax(
             {
                 url: "/login",
@@ -103,7 +88,4 @@ $(document).ready(function(){
             }
         )
     });
-
-
-
 });
