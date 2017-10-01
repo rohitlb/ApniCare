@@ -1,7 +1,8 @@
-a.waves-effect.waves-light.modal-trigger.btn.right(href="#modal2")#loginbutton login
-    //span.flow-text /
-div#modal2.modal.modal-fixed-footer
+div#modal1.modal.modal-fixed-footer
     div.modal-content
+        div.input-field.col.s12
+            input(type="text")#name
+            label(for="name") name
         div.input-field.col.s12
             input(type="text")#number
             label(for="number") number
@@ -9,4 +10,4 @@ div#modal2.modal.modal-fixed-footer
             input(type="password")#password
             label(for="password") Password
     div.modal-footer
-        a(href="#!").modal-action.modal-close.waves-effect.waves-green.btn-flat#loginButton1 login
+        a(href="/profile").modal-action.modal-close.waves-effect.waves-green.btn-flat#submitButton submit

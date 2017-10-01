@@ -42,15 +42,30 @@ app.get('/test', function (req,res) {
 
 
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> ffbe52f03ab3417418a941b0f27944d5d81e6689
 //registration with crosschecking of pre registrations
+// app.get('/register',function (req,res) {
+//     if(req.session.userID) {
+//         res.redirect('/nextpage');
+//     } else {
+//         res.render('register');
+//     }});
 app.get('/register',function (req,res) {
+<<<<<<< HEAD
+    res.render('home');
+    res.end();
+});
+
+=======
     if(req.session.userID) {
         res.redirect('/nextpage');
     } else {
         res.render('register');
     }});
-
+>>>>>>> 129e81cc8374d1692d6f6c11706249f462ad2a8a
 app.post('/register',function (req,res) {
     User.findOne({Number : req.body.number}).exec(function (err,result) {
         if (err) {
@@ -98,8 +113,7 @@ app.get('/find',function (req,res) {
     });
 });
 
-//login with filter
-
+//login with filter and session
 app.get('/login',function (req,res) {
     if(req.session.userID) {
         res.redirect('/nextpage');
@@ -107,7 +121,6 @@ app.get('/login',function (req,res) {
         res.render('login');
     }
 });
-
 app.post('/login',function (req,res) {
     User.findOne({Number: req.body.number , Password : req.body.password}).exec(function (err,results) {
         if(err){
@@ -126,6 +139,7 @@ app.post('/login',function (req,res) {
     });
 });
 
+// checking wither auth or not
 app.get('/nextpage',function (req,res) {
     console.log(req.session.userID);
     if(req.session.userID) {
@@ -138,10 +152,12 @@ app.get('/nextpage',function (req,res) {
     }
 });
 
+//render logout page
 app.get('/logout',function (req,res) {
     res.render('logout');
 });
 
+//logout the user
 app.get('/startlogout',function (req,res) {
     req.session.destroy(function (err) {
         if(err) {
@@ -152,6 +168,7 @@ app.get('/startlogout',function (req,res) {
     });
 });
 
+//render preofile page of user
 app.get('/profile',function (req,res) {
     res.render('profile',{number : req.session.userID});
 });
@@ -163,6 +180,7 @@ app.get('/medicine', function (req,res) {
     res.end();
 });
 
+// medicine registration (Drug Index)
 app.post('/medicine',function (req,res) {
     var company_name = req.body.company_name;
     var brand_name = req.body.brand_name;
@@ -298,17 +316,3 @@ database.on('open',function () {
         console.log('server connected to http:localhost:' + app.get('port'));
     });
 });
-
-//
-// // bad request error handler
-// app.use(function (req, res, next) {
-//     res.render('404');
-//     res.end();
-// });
-//
-// //server error handler
-// app.use(function (err, req, res, next) {
-//     res.render('500');
-//     res.end();
-// });
-//
