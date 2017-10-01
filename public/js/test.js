@@ -1,15 +1,5 @@
 $(document).ready(function(){
 
-    $('.dropdown-button').dropdown({
-        inDuration: 300,
-        outDuration: 225,
-        constraintWidth: true,
-        hover: true,
-        gutter: 0,
-        belowOrigin: true,
-        alignment: 'left',
-        stopPropagation: false
-    });
 
 
     $('.carousel').carousel();
@@ -20,17 +10,17 @@ $(document).ready(function(){
     $('.carousel').carousel('set',4);
 
 
-    $('#registerbutton').click(function() {
-                    $('.modal').modal({
-                    dismissible: true,
-                    opacity: .15,
-                    inDuration: 300,
-                    outDuration: 200,
-                    startingTop: '4%',
-                    endingTop: '10%'
 
-                });
-        });
+    $('.modal').modal({
+        dismissible: true,
+        opacity: .15,
+        inDuration:300,
+        outDuration:200,
+        startingTop: '4%',
+        endingTop: '10%'
+
+    });
+
 
 
     //for register

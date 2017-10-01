@@ -50,12 +50,16 @@ app.get('/test', function (req,res) {
 // });
 
 //registration with crosschecking of pre registrations
+// app.get('/register',function (req,res) {
+//     if(req.session.userID) {
+//         res.redirect('/nextpage');
+//     } else {
+//         res.render('register');
+//     }});
 app.get('/register',function (req,res) {
-    if(req.session.userID) {
-        res.redirect('/nextpage');
-    } else {
-        res.render('register');
-    }});
+    res.render('home');
+    res.end();
+});
 
 app.post('/register',function (req,res) {
     User.findOne({Number : req.body.number}).exec(function (err,result) {
