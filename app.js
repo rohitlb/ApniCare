@@ -42,13 +42,6 @@ app.get('/test', function (req,res) {
 
 
 
-//NOT AVAILABLE
-//front page
-// app.get('/',function (req,res) {
-//     res.render('index');
-//     res.end();
-// });
-
 //registration with crosschecking of pre registrations
 app.get('/register',function (req,res) {
     if(req.session.userID) {
