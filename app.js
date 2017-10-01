@@ -33,7 +33,7 @@ app.use(session({
     saveUninitialized : true
 }));
 
-app.get('/register',function (req,res) {
+app.get('/',function (req,res) {
 res.render('home');
     res.end();
 });
@@ -63,7 +63,6 @@ app.post('/register',function (req,res) {
                         console.log(results);
                         console.log('user save successfully');
                         res.send(JSON.stringify({success : "user save successfully"}));
-                        //res.redirect('/login');
                         res.end();
                     }
                 });
