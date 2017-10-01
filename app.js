@@ -47,7 +47,7 @@ app.post('/register',function (req,res) {
             console.log(result);
             if (result) {
                 console.log("User Already Exist");
-                res.send(JSON.stringify({failure : "user Already Exists"}));
+                res.send({status: "failure", message : "user Already Exists"});
                 res.end();
             } else {
                 var user = new User({
@@ -62,7 +62,7 @@ app.post('/register',function (req,res) {
                     } else {
                         console.log(results);
                         console.log('user save successfully');
-                        res.send(JSON.stringify({success : "user save successfully"}));
+                        res.send({status: "success", message : "successfully registered"});
                         //res.redirect('/login');
                         res.end();
                     }

@@ -30,6 +30,8 @@ $(document).ready(function(){
             password: password
         };
 
+
+
         $.ajax(
             {
                 url: "/register",
@@ -37,53 +39,25 @@ $(document).ready(function(){
                 data: JSON.stringify(data),
                 contentType: 'application/json',
                 success: function (result) {
-                    //alert(result);
-                    //Materialize.toast(result);
-                    //result = JSON.parse(result);
-                    //alert(result);
-                    if(result.success == "user save successfully")
-                    {
-                        //Materialize.toast('registered',2000);
-                        //window.location= '/profile';
 
-                        alert(result);
+                    if(result.status === "success")
+                    {
+                        window.location= '/profile';
 
                     }
                     else
                     {
-                        Materialize.toast(result,2000);
+                        Materialize.toast(result.message,2000);
                     }
 
-                    },
-                      error: function (err) {
+                },
+                error: function (err) {
 
-                     console.log(err);
-                   }
+                    console.log(err);
+                }
             }
         )
-     });
-
-
-    //     $.ajax(
-    //         {
-    //             url: "/register",
-    //             method: 'POST',
-    //             data: JSON.stringify(data),
-    //             contentType: 'application/json',
-    //             success: function (result) {
-    //               alert(result);
-    //
-    //                 //Materialize.toast(result)
-    //             },
-    //             error: function (err) {
-    //
-    //                 console.log(err);
-    //             }
-    //         }
-    //     )
-    // });
-    //
-
+    });
 
 
 
