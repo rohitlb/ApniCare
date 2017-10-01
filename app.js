@@ -33,25 +33,8 @@ app.use(session({
     saveUninitialized : true
 }));
 
-<<<<<<< HEAD
 
 
-=======
-// test for Android app
-app.get('/test', function (req,res) {
-    console.log('test done by Android app');
-    res.send(JSON.stringify({test : "test passed"}));
-   // res.render('test');
-});
->>>>>>> 071a5fdb16fd25b165c5efcd69e9c64db1114ea0
-
-
-//NOT AVAILABLE
-//front page
-// app.get('/',function (req,res) {
-//     res.render('index');
-//     res.end();
-// });
 
 //registration with crosschecking of pre registrations
 app.get('/register',function (req,res) {
