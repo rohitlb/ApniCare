@@ -95,61 +95,32 @@ app.get('/home',function (req,res) {
     });
 
 
-    app.post('/login', function (req, res) {
-        User.findOne({Number: req.body.number, Password: req.body.password}).exec(function (err, results) {
-            if (err) {
-                console.log("Some error occured");
-                res.send({status: "failure", message: "Some error occured"});
-                res.end();
-            } else {
-                console.log(results);
-                if (results) {
-                    console.log("Successfully login");
-                    res.send({status: "success", message: "successfully registered"});
-                    res.end();
-                } else {
-                    console.log("check your name or password");
-                    res.send({status: "failure", message: "check your number and password"});
-                    res.end();
-                }
-            }
-        });
-    });
+app.post('/login',function (req,res) {
 
-
-// app.post('/login',function (req,res) {
-//     console.log(req.body.number);
-//     console.log(req.body.password);
-//
-//     User.findOne({Number: req.body.number , Password : req.body.password}).exec(function (err,result) {
-//         if(err){
-//             console.log("Some error occurred");
-//             res.send({status: "failure", message : "Some error occurred"});
-//             res.end();
-//         } else {
-//             console.log(result);
-//             if(result) {
-//                 req.session.userID = req.body.number;
-//                 console.log("Successfully login");
-//                 res.end();
-//             }
-//             res.redirect('/nextpage');
-//         }
-//     });
-// });
-
-// checking wither auth or not
-    app.get('/nextpage', function (req, res) {
-        console.log(req.session.userID);
-        if (req.session.userID) {
-            res.render('profile', {number: req.session.userID});
-        } else {
-            console.log("check your name or password");
-            res.send({status: "failure", message: "Can't login"});
+    User.findOne({Number: req.body.number , Password : req.body.password}).exec(function (err,result) {
+        if(err){
+            console.log("Some error occurred");
+            res.send({status: "failure", message : "Some error occurred"});
             res.end();
+        } else {
+            console.log(result);
+            if(result) {
+                        console.log("Successfully login");
+                        req.session.userID = req.body.number;
+                        if (req.session.userID) {
+                            res.render('profile', {number: req.session.userID});
+                            res.end();
+                        }
 
+            } else {
+                        console.log("check your name or password");
+                        res.send({status: "failure", message: "Can't login"});
+                        res.end();
+            }
         }
     });
+});
+
 
 //render logout page
     app.get('/logout', function (req, res) {
