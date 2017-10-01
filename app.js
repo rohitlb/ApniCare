@@ -305,17 +305,3 @@ database.on('open',function () {
         console.log('server connected to http:localhost:' + app.get('port'));
     });
 });
-
-//
-// // bad request error handler
-// app.use(function (req, res, next) {
-//     res.render('404');
-//     res.end();
-// });
-//
-// //server error handler
-// app.use(function (err, req, res, next) {
-//     res.render('500');
-//     res.end();
-// });
-//
