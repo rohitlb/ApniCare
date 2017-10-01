@@ -36,7 +36,7 @@ app.use(session({
 
 app.get('/home',function (req,res) {
     if (req.session.userID) {
-        res.redirect('/nextpage');
+        res.redirect('/profile');
         res.end();
     } else {
         res.render('home');
@@ -85,14 +85,6 @@ app.get('/home',function (req,res) {
     });
 
 //login with filter and session
-    app.get('/login', function (req, res) {
-        if (req.session.userID) {
-            res.redirect('/nextpage');
-        } else {
-
-            res.render('login');
-        }
-    });
 
 
 app.post('/login',function (req,res) {
@@ -123,9 +115,9 @@ app.post('/login',function (req,res) {
 
 
 //render logout page
-    app.get('/logout', function (req, res) {
-        res.render('logout');
-    });
+app.get('/logout', function (req, res) {
+    res.render('logout');
+});
 
 //logout the user
     app.get('/startlogout', function (req, res) {
@@ -138,11 +130,11 @@ app.post('/login',function (req,res) {
         });
     });
 
+
 //render profile page of user
     app.get('/profile', function (req, res) {
         res.render('profile', {number: req.session.userID});
     });
-
 
 //data base connection and opening port
     var db = 'mongodb://localhost/Works';
@@ -158,8 +150,6 @@ app.post('/login',function (req,res) {
     });
 
 
-//
-//
 // //Drug Registration with drug update feature
 // app.get('/medicine', function (req,res) {
 //     res.render('medicine');
