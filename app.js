@@ -8,7 +8,6 @@ var session = require('express-session');
 var cookieParser = require('cookie-parser');
 mongoose.Promise = promise;
 
-
 // req models
 var User  = require('./model/registration');
 var Drug = require('./model/drugindex');
@@ -34,9 +33,17 @@ app.use(session({
     saveUninitialized : true
 }));
 
+<<<<<<< HEAD
 
 
-
+=======
+// test for Android app
+app.get('/test', function (req,res) {
+    console.log('test done by Android app');
+    res.send(JSON.stringify({test : "test passed"}));
+   // res.render('test');
+});
+>>>>>>> 071a5fdb16fd25b165c5efcd69e9c64db1114ea0
 
 
 //NOT AVAILABLE
@@ -87,7 +94,6 @@ app.post('/register',function (req,res) {
     });
 });
 
-
 //Profile page
 app.get('/profile',function (req,res) {
     res.render('profile');
@@ -130,7 +136,6 @@ app.post('/login',function (req,res) {
         }
     });
 });
-
 
 app.get('/nextpage',function (req,res) {
     console.log(req.session.userID);
@@ -292,7 +297,7 @@ app.post('/medicine',function (req,res) {
     });
 });
 
-
+//data base connection and opening port
 var db = 'mongodb://localhost/Works';
 mongoose.connect(db,{ useMongoClient: true });
 
@@ -304,8 +309,6 @@ database.on('open',function () {
         console.log('server connected to http:localhost:' + app.get('port'));
     });
 });
-
-
 
 //
 // // bad request error handler
@@ -320,4 +323,3 @@ database.on('open',function () {
 //     res.end();
 // });
 //
-//data base connection and opening port
