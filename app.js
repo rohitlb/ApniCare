@@ -42,12 +42,6 @@ app.get('/test', function (req,res) {
 
 
 
-//NOT AVAILABLE
-//front page
-// app.get('/',function (req,res) {
-//     res.render('index');
-//     res.end();
-// });
 
 //registration with crosschecking of pre registrations
 app.get('/register',function (req,res) {
@@ -125,7 +119,6 @@ app.post('/login',function (req,res) {
             if(results) {
                 req.session.userID = req.body.number;
                 console.log("Successfully login");
-                // res.send(JSON.stringify({success : "login"}));
                 res.end();
             }
             res.redirect('/nextpage');
