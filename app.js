@@ -63,6 +63,7 @@ app.post('/register',function (req,res) {
                         console.log(results);
                         console.log('user save successfully');
                         res.send(JSON.stringify({success : "user save successfully"}));
+                        //res.redirect('/login');
                         res.end();
                     }
                 });
@@ -134,9 +135,9 @@ app.get('/startlogout',function (req,res) {
 });
 
 //render preofile page of user
-app.get('/profile',function (req,res) {
-    res.render('profile',{number : req.session.userID});
-});
+// app.get('/profile',function (req,res) {
+//     res.render('profile',{number : req.session.userID});
+// });
 
 
 //data base connection and opening port

@@ -37,27 +37,57 @@ $(document).ready(function(){
                 data: JSON.stringify(data),
                 contentType: 'application/json',
                 success: function (result) {
-                    Materialize.toast(result);
-                    result = JSON.parse(result);
-                    alert(result);
-                    if(result.success ==="user save successfully")
+                    //alert(result);
+                    //Materialize.toast(result);
+                    //result = JSON.parse(result);
+                    //alert(result);
+                    if(result.success == "user save successfully")
                     {
-                        Materialize.toast('registered',2000);
-                        window.location= '/profile';
+                        //Materialize.toast('registered',2000);
+                        //window.location= '/profile';
+
+                        alert(result);
+
                     }
                     else
                     {
-                        Materialize.toast('unable to Register',2000);
+                        Materialize.toast(result,2000);
                     }
 
-                },
-                error: function (err) {
+                    },
+                      error: function (err) {
 
-                    console.log(err);
-                }
+                     console.log(err);
+                   }
             }
         )
      });
+
+
+    //     $.ajax(
+    //         {
+    //             url: "/register",
+    //             method: 'POST',
+    //             data: JSON.stringify(data),
+    //             contentType: 'application/json',
+    //             success: function (result) {
+    //               alert(result);
+    //
+    //                 //Materialize.toast(result)
+    //             },
+    //             error: function (err) {
+    //
+    //                 console.log(err);
+    //             }
+    //         }
+    //     )
+    // });
+    //
+
+
+
+
+
 
     //for login
 
@@ -80,7 +110,7 @@ $(document).ready(function(){
                 contentType: 'application/json',
                 success: function (result) {
                     result = JSON.parse(result);
-                    window.location = "/profile";
+                 //   window.location = "/profile";
                     Materialize.toast(result.message, 5000);
                 },
                 error: function (err) {
