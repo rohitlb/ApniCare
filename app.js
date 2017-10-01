@@ -41,7 +41,7 @@ app.get('/test', function (req,res) {
 });
 
 
-<<<<<<< HEAD
+
 
 //registration with crosschecking of pre registrations
 // app.get('/register',function (req,res) {
@@ -55,13 +55,6 @@ res.render('home');
     res.end();
 });
 
-    if(req.session.userID) {
-        res.redirect('/nextpage');
-    } else {
-        res.render('register');
-    }});
-=======
->>>>>>> bab1da21eb090738c00d503c308684377f4bc307
 app.post('/register',function (req,res) {
     User.findOne({Number : req.body.number}).exec(function (err,result) {
         if (err) {
