@@ -33,6 +33,7 @@ app.use(session({
     saveUninitialized : true
 }));
 
+<<<<<<< HEAD
 app.get('/home',function (req,res) {
     if(req.session.userID) {
         res.redirect('/nextpage');
@@ -41,6 +42,11 @@ app.get('/home',function (req,res) {
         res.render('home');
         res.end();
     }
+=======
+app.get('/',function (req,res) {
+res.render('home');
+    res.end();
+>>>>>>> 50f9ae36495aca96bcf13cec261a47dd2032d88c
 });
 
 app.post('/register',function (req,res) {
@@ -71,6 +77,7 @@ app.post('/register',function (req,res) {
                         //res.redirect('/login');
                         res.end();
                     }
+
                 });
             }
         }
