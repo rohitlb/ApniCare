@@ -31,7 +31,7 @@ $(function () {
                     Materialize.toast(result.message,5000);
                 }
                 else {
-                    window.location  = "/profile";
+                   // window.location  = "/profile";
 
                 }
             },
