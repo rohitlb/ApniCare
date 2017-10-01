@@ -4,6 +4,8 @@ var bodyparser = require('body-parser');
 var path = require('path');
 var mongoose = require('mongoose');
 var promise = require('bluebird');
+var session = require('express-session');
+var cookieParser = require('cookie-parser');
 mongoose.Promise = promise;
 
 // req models
@@ -24,6 +26,13 @@ app.set('view engine', 'pug');
 app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({extended : false}));
 app.use(express.static(path.join(__dirname,'public')));
+app.use(cookieParser());
+app.use(session({
+    secret : 'keyboard cat',
+    resave : false,
+    saveUninitialized : true
+}));
+
 
 // test for Android app
 app.get('/test', function (req,res) {
@@ -32,11 +41,6 @@ app.get('/test', function (req,res) {
    // res.render('test');
 });
 
-// home page
-app.get('/home',function (req,res) {
-   res.render('home');
-   res.end();
-});
 
 
 //NOT AVAILABLE
@@ -48,10 +52,11 @@ app.get('/home',function (req,res) {
 
 //registration with crosschecking of pre registrations
 app.get('/register',function (req,res) {
-    res.render('register');
-    res.end();
-});
-
+    if(req.session.userID) {
+        res.redirect('/nextpage');
+    } else {
+        res.render('register');
+    }});
 
 app.post('/register',function (req,res) {
     User.findOne({Number : req.body.number}).exec(function (err,result) {
@@ -84,6 +89,79 @@ app.post('/register',function (req,res) {
             }
         }
     });
+});
+
+//Profile page
+app.get('/profile',function (req,res) {
+    res.render('profile');
+    res.end();
+});
+
+// incomplete = for listing the people reg
+app.get('/find',function (req,res) {
+    User.find({},function (err,result) {
+        res.send(result);
+        res.end();
+    });
+});
+
+//login with filter
+
+app.get('/login',function (req,res) {
+    if(req.session.userID) {
+        res.redirect('/nextpage');
+    } else {
+        res.render('login');
+    }
+});
+
+app.post('/login',function (req,res) {
+    User.findOne({Number: req.body.number , Password : req.body.password}).exec(function (err,results) {
+        if(err){
+            console.log("Some error occurred");
+            res.send(JSON.stringify({failure : "some error occurred"}));
+            res.end();
+        } else {
+
+            if(results) {
+                req.session.userID = req.body.number;
+                console.log("Successfully login");
+                // res.send(JSON.stringify({success : "login"}));
+                res.end();
+            }
+            res.redirect('/nextpage');
+        }
+    });
+});
+
+app.get('/nextpage',function (req,res) {
+    console.log(req.session.userID);
+    if(req.session.userID) {
+        res.render('profile', {number :req.session.userID});
+    } else {
+        console.log("check your name or password");
+        res.send(JSON.stringify({failure : "check your number or password"}));
+        res.end();
+
+    }
+});
+
+app.get('/logout',function (req,res) {
+    res.render('logout');
+});
+
+app.get('/startlogout',function (req,res) {
+    req.session.destroy(function (err) {
+        if(err) {
+            console.log(err);
+        } else {
+            res.redirect('/login');
+        }
+    });
+});
+
+app.get('/profile',function (req,res) {
+    res.render('profile',{number : req.session.userID});
 });
 
 
@@ -216,49 +294,18 @@ app.post('/medicine',function (req,res) {
     });
 });
 
-//Profile page
-app.get('/profile',function (req,res) {
-    res.render('profile');
-    res.end();
-});
+//data base connection and opening port
+var db = 'mongodb://localhost/Works';
+mongoose.connect(db,{ useMongoClient: true });
 
-// incomplete = for listing the people reg
-app.get('/find',function (req,res) {
-    User.find({},function (err,result) {
-        res.send(result);
-        res.end();
+//connecting database and starting server
+var database = mongoose.connection;
+database.on('open',function () {
+    console.log("database is connected");
+    app.listen(app.get('port'), function () {
+        console.log('server connected to http:localhost:' + app.get('port'));
     });
 });
-
-//login with filter
-app.get('/login',function (req,res) {
-    res.render('login');
-});
-
-
-app.post('/login',function (req,res) {
-    User.findOne({Number: req.body.number , Password : req.body.password}).exec(function (err,results) {
-        if(err){
-            console.log("Some error occured");
-            res.send(JSON.stringify({failure : "some error occurred"}));
-            res.end();
-        } else {
-            console.log(results);
-            if(results) {
-                console.log("Successfully login");
-                res.send(JSON.stringify({name : 'res.body.name'}));
-
-                res.end();
-            } else{
-                console.log("check your name or password");
-                res.send(JSON.stringify({failure : "check your number"}));
-                res.end();
-            }
-        }
-    });
-});
-
-
 
 //
 // // bad request error handler
@@ -273,15 +320,3 @@ app.post('/login',function (req,res) {
 //     res.end();
 // });
 //
-//data base connection and opening port
-var db = 'mongodb://localhost/Works';
-mongoose.connect(db,{ useMongoClient: true });
-
-//connecting database and starting server
-var database = mongoose.connection;
-database.on('open',function () {
-    console.log("database is connected");
-    app.listen(app.get('port'), function () {
-        console.log('server connected to http:localhost:' + app.get('port'));
-    });
-});
