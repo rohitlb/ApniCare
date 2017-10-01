@@ -49,7 +49,6 @@ app.get('/register',function (req,res) {
     } else {
         res.render('register');
     }});
-
 app.post('/register',function (req,res) {
     User.findOne({Number : req.body.number}).exec(function (err,result) {
         if (err) {
@@ -97,8 +96,7 @@ app.get('/find',function (req,res) {
     });
 });
 
-//login with filter
-
+//login with filter and session
 app.get('/login',function (req,res) {
     if(req.session.userID) {
         res.redirect('/nextpage');
@@ -106,7 +104,6 @@ app.get('/login',function (req,res) {
         res.render('login');
     }
 });
-
 app.post('/login',function (req,res) {
     User.findOne({Number: req.body.number , Password : req.body.password}).exec(function (err,results) {
         if(err){
@@ -126,6 +123,7 @@ app.post('/login',function (req,res) {
     });
 });
 
+// checking wither auth or not
 app.get('/nextpage',function (req,res) {
     console.log(req.session.userID);
     if(req.session.userID) {
@@ -138,10 +136,12 @@ app.get('/nextpage',function (req,res) {
     }
 });
 
+//render logout page
 app.get('/logout',function (req,res) {
     res.render('logout');
 });
 
+//logout the user
 app.get('/startlogout',function (req,res) {
     req.session.destroy(function (err) {
         if(err) {
@@ -152,6 +152,7 @@ app.get('/startlogout',function (req,res) {
     });
 });
 
+//render preofile page of user
 app.get('/profile',function (req,res) {
     res.render('profile',{number : req.session.userID});
 });
@@ -163,6 +164,7 @@ app.get('/medicine', function (req,res) {
     res.end();
 });
 
+// medicine registration (Drug Index)
 app.post('/medicine',function (req,res) {
     var company_name = req.body.company_name;
     var brand_name = req.body.brand_name;
