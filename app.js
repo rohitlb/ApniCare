@@ -62,14 +62,11 @@ app.post('/register',function (req,res) {
                     } else {
                         console.log(results);
                         console.log('user save successfully');
-<<<<<<< HEAD
-                        res.send(JSON.stringify({success : "user save successfully"}));
-=======
                         res.send({status: "success", message : "successfully registered"});
                         //res.redirect('/login');
->>>>>>> 5ebeb21019c1c043659f948c70b8a7b9bc1aeeea
                         res.end();
                     }
+
                 });
             }
         }
