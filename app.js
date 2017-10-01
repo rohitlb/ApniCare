@@ -15,7 +15,7 @@ var Drug = require('./model/drugindex');
 //declare the app
 var app = express();
 // to hide X-Powered-By for Security,Save Bandwidth in ExpressJS(node.js)
-app.disable('x-powered-by');
+//app.disable('x-powered-by');
 
 //configure the app
 app.set('port',4000);
@@ -33,9 +33,14 @@ app.use(session({
     saveUninitialized : true
 }));
 
-app.get('/register',function (req,res) {
-res.render('home');
-    res.end();
+app.get('/home',function (req,res) {
+    if(req.session.userID) {
+        res.redirect('/nextpage');
+        res.end();
+    } else {
+        res.render('home');
+        res.end();
+    }
 });
 
 app.post('/register',function (req,res) {
@@ -72,38 +77,61 @@ app.post('/register',function (req,res) {
     });
 });
 
-//Profile page
-app.get('/profile',function (req,res) {
-    res.render('profile');
-    res.end();
-});
-
-
 //login with filter and session
 app.get('/login',function (req,res) {
     if(req.session.userID) {
         res.redirect('/nextpage');
     } else {
+
         res.render('login');
     }
 });
+
+
 app.post('/login',function (req,res) {
     User.findOne({Number: req.body.number , Password : req.body.password}).exec(function (err,results) {
         if(err){
-            console.log("Some error occurred");
-            res.send(JSON.stringify({failure : "some error occurred"}));
+            console.log("Some error occured");
+            res.send({status: "failure", message : "Some error occured"});
             res.end();
         } else {
-
+            console.log(results);
             if(results) {
-                req.session.userID = req.body.number;
                 console.log("Successfully login");
+                res.send({status: "success", message : "successfully registered"});
+                res.end();
+            } else{
+                console.log("check your name or password");
+                res.send({status: "failure", message : "check your number and password"});
                 res.end();
             }
-            res.redirect('/nextpage');
         }
     });
 });
+
+
+
+
+// app.post('/login',function (req,res) {
+//     console.log(req.body.number);
+//     console.log(req.body.password);
+//
+//     User.findOne({Number: req.body.number , Password : req.body.password}).exec(function (err,result) {
+//         if(err){
+//             console.log("Some error occurred");
+//             res.send({status: "failure", message : "Some error occurred"});
+//             res.end();
+//         } else {
+//             console.log(result);
+//             if(result) {
+//                 req.session.userID = req.body.number;
+//                 console.log("Successfully login");
+//                 res.end();
+//             }
+//             res.redirect('/nextpage');
+//         }
+//     });
+// });
 
 // checking wither auth or not
 app.get('/nextpage',function (req,res) {
@@ -112,7 +140,7 @@ app.get('/nextpage',function (req,res) {
         res.render('profile', {number :req.session.userID});
     } else {
         console.log("check your name or password");
-        res.send(JSON.stringify({failure : "check your number or password"}));
+        res.send({status: "failure", message : "Can't login"});
         res.end();
 
     }
@@ -129,15 +157,15 @@ app.get('/startlogout',function (req,res) {
         if(err) {
             console.log(err);
         } else {
-            res.redirect('/login');
+            res.redirect('/register');
         }
     });
 });
 
-//render preofile page of user
-// app.get('/profile',function (req,res) {
-//     res.render('profile',{number : req.session.userID});
-// });
+//render profile page of user
+app.get('/profile',function (req,res) {
+    res.render('profile',{number : req.session.userID});
+});
 
 
 //data base connection and opening port

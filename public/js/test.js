@@ -1,24 +1,24 @@
-$(document).ready(function(){
+$(document).ready(function() {
 
     $('.carousel').carousel();
     $('.carousel').carousel('next');
-    $('.carousel').carousel('next',3);
+    $('.carousel').carousel('next', 3);
     $('.carousel').carousel('prev');
-    $('.carousel').carousel('prev',4);
-    $('.carousel').carousel('set',4);
+    $('.carousel').carousel('prev', 4);
+    $('.carousel').carousel('set', 4);
 
     $('.modal').modal({
         dismissible: true,
         opacity: .15,
-        inDuration:300,
-        outDuration:200,
+        inDuration: 300,
+        outDuration: 200,
         startingTop: '4%',
         endingTop: '10%'
     });
 
     //for register
 
-    $('#submitButton').click(function() {
+    $('#submitButton').click(function () {
 
         var name = $('#name').val();
         var number = $('#number').val();
@@ -31,7 +31,6 @@ $(document).ready(function(){
         };
 
 
-
         $.ajax(
             {
                 url: "/register",
@@ -40,14 +39,12 @@ $(document).ready(function(){
                 contentType: 'application/json',
                 success: function (result) {
 
-                    if(result.status === "success")
-                    {
-                        window.location= '/profile';
+                    if (result.status === "success") {
+                        window.location = '/profile';
 
                     }
-                    else
-                    {
-                        Materialize.toast(result.message,2000);
+                    else {
+                        Materialize.toast(result.message, 2000);
                     }
 
                 },
@@ -60,22 +57,20 @@ $(document).ready(function(){
     });
 
 
-
-
-
     //for login
 
-    $('#loginButton1').click(function() {
+    $('#loginButton1').click(function () {
 
 
         var number = $('#number').val();
-        var password = $('#passsword').val();
+        var password = $('#password').val();
 
         var data1 = {
 
-                        number: number,
-                        password: password
-                    };
+            number: number,
+            password: password
+        };
+
         $.ajax(
             {
                 url: "/login",
@@ -83,9 +78,15 @@ $(document).ready(function(){
                 data: JSON.stringify(data1),
                 contentType: 'application/json',
                 success: function (result) {
-                    result = JSON.parse(result);
-                 //   window.location = "/profile";
-                    Materialize.toast(result.message, 5000);
+
+                    if (result.status === "success") {
+                        window.location = '/profile';
+
+                    }
+                    else {
+                        Materialize.toast(result.message, 2000);
+                    }
+
                 },
                 error: function (err) {
 
