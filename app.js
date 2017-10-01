@@ -48,14 +48,20 @@ app.get('/home',function (req,res) {
 
 //registration with crosschecking of pre registrations
 app.get('/register',function (req,res) {
+<<<<<<< HEAD
     if(req.session.userID) {
         res.redirect('/nextpage');
     } else {
         res.render('register');
     }});
+=======
+    res.render('register');
+    res.end();
+});
+>>>>>>> 334d724d47d2c52c83617cd0e574649c5144aaad
 
 
-app.post('/registration',function (req,res) {
+app.post('/register',function (req,res) {
     User.findOne({Number : req.body.number}).exec(function (err,result) {
         if (err) {
             console.log("Some error occured");
