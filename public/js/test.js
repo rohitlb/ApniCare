@@ -29,7 +29,7 @@ $(document).ready(function(){
 
         var name = $('#name').val();
         var number = $('#number').val();
-        var password = $('#passsword').val();
+        var password = $('#password').val();
 
         var data = {
             name: name,
@@ -44,8 +44,10 @@ $(document).ready(function(){
                 data: JSON.stringify(data),
                 contentType: 'application/json',
                 success: function (result) {
+                    Materialize.toast(result);
                     result = JSON.parse(result);
-                    if(result.success ==="1")
+                    alert(result);
+                    if(result.success ==="user save successfully")
                     {
                         Materialize.toast('registered',2000);
                         window.location= '/profile';
