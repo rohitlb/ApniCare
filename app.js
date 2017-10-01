@@ -8,7 +8,6 @@ var session = require('express-session');
 var cookieParser = require('cookie-parser');
 mongoose.Promise = promise;
 
-
 // req models
 var User  = require('./model/registration');
 var Drug = require('./model/drugindex');
@@ -34,8 +33,6 @@ app.use(session({
     saveUninitialized : true
 }));
 
-
-
 // test for Android app
 app.get('/test', function (req,res) {
     console.log('test done by Android app');
@@ -48,7 +45,6 @@ app.get('/home',function (req,res) {
    res.render('home');
    res.end();
 });
-
 
 //NOT AVAILABLE
 //front page
@@ -98,7 +94,6 @@ app.post('/register',function (req,res) {
     });
 });
 
-
 //Profile page
 app.get('/profile',function (req,res) {
     res.render('profile');
@@ -141,7 +136,6 @@ app.post('/login',function (req,res) {
         }
     });
 });
-
 
 app.get('/nextpage',function (req,res) {
     console.log(req.session.userID);
@@ -303,7 +297,7 @@ app.post('/medicine',function (req,res) {
     });
 });
 
-
+//data base connection and opening port
 var db = 'mongodb://localhost/Works';
 mongoose.connect(db,{ useMongoClient: true });
 
@@ -315,8 +309,6 @@ database.on('open',function () {
         console.log('server connected to http:localhost:' + app.get('port'));
     });
 });
-
-
 
 //
 // // bad request error handler
@@ -331,4 +323,3 @@ database.on('open',function () {
 //     res.end();
 // });
 //
-//data base connection and opening port
