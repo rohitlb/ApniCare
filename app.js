@@ -1,6 +1,6 @@
 // require dependicies
 var express = require('express');
-var bodyparser = require('body-parser');
+var bodyParser = require('body-parser');
 var path = require('path');
 var mongoose = require('mongoose');
 var promise = require('bluebird');
@@ -23,8 +23,8 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
 //set all middleware
-app.use(bodyparser.json());
-app.use(bodyparser.urlencoded({extended : false}));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended : false}));
 app.use(express.static(path.join(__dirname,'public')));
 app.use(cookieParser());
 app.use(session({
