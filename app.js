@@ -41,31 +41,6 @@ app.get('/test', function (req,res) {
 });
 
 
-
-<<<<<<< HEAD
-
-=======
->>>>>>> ffbe52f03ab3417418a941b0f27944d5d81e6689
-//registration with crosschecking of pre registrations
-// app.get('/register',function (req,res) {
-//     if(req.session.userID) {
-//         res.redirect('/nextpage');
-//     } else {
-//         res.render('register');
-//     }});
-app.get('/register',function (req,res) {
-<<<<<<< HEAD
-    res.render('home');
-    res.end();
-});
-
-=======
-    if(req.session.userID) {
-        res.redirect('/nextpage');
-    } else {
-        res.render('register');
-    }});
->>>>>>> 129e81cc8374d1692d6f6c11706249f462ad2a8a
 app.post('/register',function (req,res) {
     User.findOne({Number : req.body.number}).exec(function (err,result) {
         if (err) {
