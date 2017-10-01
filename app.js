@@ -33,7 +33,6 @@ app.use(session({
     saveUninitialized : true
 }));
 
-
 // test for Android app
 app.get('/test', function (req,res) {
     console.log('test done by Android app');
