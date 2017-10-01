@@ -33,90 +33,88 @@ app.use(session({
     saveUninitialized : true
 }));
 
-<<<<<<< HEAD
+
 app.get('/home',function (req,res) {
-    if(req.session.userID) {
+    if (req.session.userID) {
         res.redirect('/nextpage');
         res.end();
     } else {
         res.render('home');
         res.end();
     }
-=======
-app.get('/',function (req,res) {
-res.render('home');
-    res.end();
->>>>>>> 50f9ae36495aca96bcf13cec261a47dd2032d88c
 });
 
-app.post('/register',function (req,res) {
-    User.findOne({Number : req.body.number}).exec(function (err,result) {
-        if (err) {
-            console.log("Some error occured");
-            res.end();
-        } else {
-            console.log(result);
-            if (result) {
-                console.log("User Already Exist");
-                res.send({status: "failure", message : "user Already Exists"});
+    app.get('/', function (req, res) {
+        res.render('home');
+        res.end();
+    });
+
+    app.post('/register', function (req, res) {
+        User.findOne({Number: req.body.number}).exec(function (err, result) {
+            if (err) {
+                console.log("Some error occured");
                 res.end();
             } else {
-                var user = new User({
-                    Name: req.body.name,
-                    Number : req.body.number,
-                    Password: req.body.password
-                });
-                user.save(function (err,results) {
-                    if (err) {
-                        console.log("There is an error");
-                        res.end();
-                    } else {
-                        console.log(results);
-                        console.log('user save successfully');
-                        res.send({status: "success", message : "successfully registered"});
-                        //res.redirect('/login');
-                        res.end();
-                    }
+                console.log(result);
+                if (result) {
+                    console.log("User Already Exist");
+                    res.send({status: "failure", message: "user Already Exists"});
+                    res.end();
+                } else {
+                    var user = new User({
+                        Name: req.body.name,
+                        Number: req.body.number,
+                        Password: req.body.password
+                    });
+                    user.save(function (err, results) {
+                        if (err) {
+                            console.log("There is an error");
+                            res.end();
+                        } else {
+                            console.log(results);
+                            console.log('user save successfully');
+                            res.send({status: "success", message: "successfully registered"});
+                            //res.redirect('/login');
+                            res.end();
+                        }
 
-                });
+                    });
+                }
             }
-        }
+        });
     });
-});
 
 //login with filter and session
-app.get('/login',function (req,res) {
-    if(req.session.userID) {
-        res.redirect('/nextpage');
-    } else {
-
-        res.render('login');
-    }
-});
-
-
-app.post('/login',function (req,res) {
-    User.findOne({Number: req.body.number , Password : req.body.password}).exec(function (err,results) {
-        if(err){
-            console.log("Some error occured");
-            res.send({status: "failure", message : "Some error occured"});
-            res.end();
+    app.get('/login', function (req, res) {
+        if (req.session.userID) {
+            res.redirect('/nextpage');
         } else {
-            console.log(results);
-            if(results) {
-                console.log("Successfully login");
-                res.send({status: "success", message : "successfully registered"});
-                res.end();
-            } else{
-                console.log("check your name or password");
-                res.send({status: "failure", message : "check your number and password"});
-                res.end();
-            }
+
+            res.render('login');
         }
     });
-});
 
 
+    app.post('/login', function (req, res) {
+        User.findOne({Number: req.body.number, Password: req.body.password}).exec(function (err, results) {
+            if (err) {
+                console.log("Some error occured");
+                res.send({status: "failure", message: "Some error occured"});
+                res.end();
+            } else {
+                console.log(results);
+                if (results) {
+                    console.log("Successfully login");
+                    res.send({status: "success", message: "successfully registered"});
+                    res.end();
+                } else {
+                    console.log("check your name or password");
+                    res.send({status: "failure", message: "check your number and password"});
+                    res.end();
+                }
+            }
+        });
+    });
 
 
 // app.post('/login',function (req,res) {
@@ -141,52 +139,54 @@ app.post('/login',function (req,res) {
 // });
 
 // checking wither auth or not
-app.get('/nextpage',function (req,res) {
-    console.log(req.session.userID);
-    if(req.session.userID) {
-        res.render('profile', {number :req.session.userID});
-    } else {
-        console.log("check your name or password");
-        res.send({status: "failure", message : "Can't login"});
-        res.end();
-
-    }
-});
-
-//render logout page
-app.get('/logout',function (req,res) {
-    res.render('logout');
-});
-
-//logout the user
-app.get('/startlogout',function (req,res) {
-    req.session.destroy(function (err) {
-        if(err) {
-            console.log(err);
+    app.get('/nextpage', function (req, res) {
+        console.log(req.session.userID);
+        if (req.session.userID) {
+            res.render('profile', {number: req.session.userID});
         } else {
-            res.redirect('/register');
+            console.log("check your name or password");
+            res.send({status: "failure", message: "Can't login"});
+            res.end();
+
         }
     });
-});
+
+//render logout page
+    app.get('/logout', function (req, res) {
+        res.render('logout');
+    });
+
+//logout the user
+    app.get('/startlogout', function (req, res) {
+        req.session.destroy(function (err) {
+            if (err) {
+                console.log(err);
+            } else {
+                res.redirect('/register');
+            }
+        });
+    });
 
 //render profile page of user
-app.get('/profile',function (req,res) {
-    res.render('profile',{number : req.session.userID});
-});
+    app.get('/profile', function (req, res) {
+        res.render('profile', {number: req.session.userID});
+    });
 
 
 //data base connection and opening port
-var db = 'mongodb://localhost/Works';
-mongoose.connect(db,{ useMongoClient: true });
-
+    var db = 'mongodb://localhost/Works';
+    mongoose.connect(db, {useMongoClient: true});
 //connecting database and starting server
-var database = mongoose.connection;
-database.on('open',function () {
-    console.log("database is connected");
-    app.listen(app.get('port'), function () {
-        console.log('server connected to http:localhost:' + app.get('port'));
+
+    var database = mongoose.connection;
+    database.on('open', function () {
+        console.log("database is connected");
+        app.listen(app.get('port'), function () {
+            console.log('server connected to http:localhost:' + app.get('port'));
+        });
     });
-});
+
+
 //
 //
 // //Drug Registration with drug update feature
