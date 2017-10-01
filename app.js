@@ -36,18 +36,7 @@ app.use(session({
 
 
 
-// test for Android app
-app.get('/test', function (req,res) {
-    console.log('test done by Android app');
-    res.send(JSON.stringify({test : "test passed"}));
-   // res.render('test');
-});
 
-// home page
-app.get('/home',function (req,res) {
-   res.render('home');
-   res.end();
-});
 
 
 //NOT AVAILABLE

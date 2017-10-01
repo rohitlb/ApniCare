@@ -8,17 +8,17 @@ $(document).ready(function(){
     $('.carousel').carousel('set',4);
 
 
+    $('#registerbutton').click(function() {
+                    $('.modal').modal({
+                    dismissible: true,
+                    opacity: .15,
+                    inDuration: 300,
+                    outDuration: 200,
+                    startingTop: '4%',
+                    endingTop: '10%'
 
-    $('.modal').modal({
-        dismissible: true,
-        opacity: .15,
-        inDuration:300,
-        outDuration:200,
-        startingTop: '4%',
-        endingTop: '10%'
-
-    });
-
+                });
+        });
 
 
     //for register

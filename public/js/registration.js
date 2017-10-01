@@ -21,7 +21,7 @@ $(function () {
         };
 
         $.ajax({
-            url: "/registration",
+            url: "/register",
             method: 'POST',
             data: JSON.stringify(data),
             contentType: 'application/json',
