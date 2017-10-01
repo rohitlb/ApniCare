@@ -4,7 +4,10 @@ var bodyparser = require('body-parser');
 var path = require('path');
 var mongoose = require('mongoose');
 var promise = require('bluebird');
+var session = require('express-session');
+var cookieParser = require('cookie-parser');
 mongoose.Promise = promise;
+
 
 // req models
 var User  = require('./model/registration');
@@ -24,7 +27,7 @@ app.set('view engine', 'pug');
 app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({extended : false}));
 app.use(express.static(path.join(__dirname,'public')));
-
+app.use(cookieParser());
 // test for Android app
 app.get('/test', function (req,res) {
     console.log('test done by Android app');
