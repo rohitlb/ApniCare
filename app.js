@@ -47,13 +47,13 @@ app.get('/home',function (req,res) {
 // });
 
 //registration with crosschecking of pre registrations
-app.get('/registration',function (req,res) {
+app.get('/register',function (req,res) {
     res.render('register');
     res.end();
 });
 
 
-app.post('/registration',function (req,res) {
+app.post('/register',function (req,res) {
     User.findOne({Number : req.body.number}).exec(function (err,result) {
         if (err) {
             console.log("Some error occured");
