@@ -26,6 +26,7 @@ app.set('view engine', 'pug');
 //set all middleware
 app.use(bodyParser.json());
 //exteended false means it won't be accepting nested objects (accept only single)
+// here security for session to be added like.... session validate
 app.use(bodyParser.urlencoded({extended : false}));
 app.use(express.static(path.join(__dirname,'public')));
 app.use(cookieParser());
