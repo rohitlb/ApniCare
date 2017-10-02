@@ -14,8 +14,9 @@ var Drug = require('./model/drugindex');
 
 //declare the app
 var app = express();
+
 // to hide X-Powered-By for Security,Save Bandwidth in ExpressJS(node.js)
-//app.disable('x-powered-by');
+app.disable('x-powered-by');
 
 //configure the app
 app.set('port',4000);
