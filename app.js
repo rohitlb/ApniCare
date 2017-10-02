@@ -102,7 +102,7 @@ app.post('/register', function (req, res) {
     });
 
 
-// limitation :: if session id is the phone number than any one who knows the number of registered person can get unauth access.
+// limitation :: if session id is the phone number than any one who knows the number of registered person can get unauthorised access.
 //login with filter and sessio
 app.post('/login',function (req,res) {
     User.findOne({Number: req.body.number , Password : req.body.password}).exec(function (err,result) {
