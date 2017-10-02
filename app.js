@@ -25,9 +25,12 @@ app.set('view engine', 'pug');
 
 //set all middleware
 app.use(bodyParser.json());
+//exteended false means it won't be accepting nested objects (accept only single)
 app.use(bodyParser.urlencoded({extended : false}));
 app.use(express.static(path.join(__dirname,'public')));
 app.use(cookieParser());
+// if saveUninitialized : false than it will store session till the instance is in existence
+// secret is hashing secret
 app.use(session({
     secret : 'keyboard cat',
     resave : false,
@@ -99,7 +102,7 @@ app.post('/register', function (req, res) {
     });
 
 
-
+// limitation :: if session id is the phone number than any one who knows the number of registered person can get unauth access.
 //login with filter and sessio
 app.post('/login',function (req,res) {
     User.findOne({Number: req.body.number , Password : req.body.password}).exec(function (err,result) {
@@ -129,6 +132,7 @@ app.post('/login',function (req,res) {
 
 //render logout page
 app.get('/logout', function (req, res) {
+   // res.session.destroy()
     res.render('logout');
 });
 
