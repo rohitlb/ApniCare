@@ -16,6 +16,10 @@ $(document).ready(function() {
         endingTop: '10%'
     });
 
+
+    $('ul.tabs').tabs('select_tab', '#test-swipe-2');
+
+
     //for register
 
 
@@ -57,6 +61,8 @@ $(document).ready(function() {
             }
         )
     });
+
+
 
 
     //for login

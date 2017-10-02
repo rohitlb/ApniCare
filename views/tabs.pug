@@ -1,0 +1,32 @@
+ul#tabs-swipe-demo.tabs
+    li.tab.col.s3
+        a(href='#test-swipe-1')#r register
+    li.tab.col.s3
+        a.active(href='#test-swipe-2')#l login
+    //li.tab.col.s3
+    //    a.disable(href='#test-swipe-3') forgot password
+#test-swipe-1.col.s12
+    div.input-field.col.s12
+        input(type="text")#name
+        label(for="name") Name
+    div.input-field.col.s12
+        input(type="text")#number
+        label(for="number") Number
+    div.input-field.col.s12
+        input(type="password")#password
+        label(for="password") Password
+    div.modal-footer
+        a.modal-action.modal-close.waves-effect.waves-green.btn.green#submitButton Submit
+        a.modal-action.modal-close.waves-effect.waves-purple.btn.purple(href="/") for HealthCare Provider
+
+#test-swipe-2.col.s12
+    div.input-field.col.s12
+        input(type="text")#number1
+        label(for="number1") number
+    div.input-field.col.s12
+        input(type="password")#password1
+        label(for="password1") Password
+    div.modal-footer
+       a.modal-action.modal-close.waves-effect.waves-green.btn.green#loginButton1 login
+       a.modal-action.modal-close.waves-effect.waves-purple.btn.purple(href="/") for HealthCare Provider
+//#test-swipe-3.col.s12.green forgot password
