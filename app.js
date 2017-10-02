@@ -51,8 +51,19 @@ app.get('/home',function (req,res) {
     });
 
 
+app.get('/register',function (req,res) {
+    if (req.session.userID) {
+        res.redirect('/profile');
+        res.end();
+    } else {
+        res.render('home');
+        res.end();
+    }
+});
 
-    app.post('/register', function (req, res) {
+
+
+app.post('/register', function (req, res) {
         User.findOne({Number: req.body.number}).exec(function (err, result) {
             if (err) {
                 console.log("Some error occured");
