@@ -64,7 +64,7 @@ app.get('/register',function (req,res) {
     }
 });
 
-
+//registration
 
 app.post('/register', function (req, res) {
         User.findOne({Number: req.body.number}).exec(function (err, result) {
