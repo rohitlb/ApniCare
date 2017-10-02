@@ -130,14 +130,9 @@ app.post('/login',function (req,res) {
 });
 
 
-//render logout page
-app.get('/logout', function (req, res) {
-   // res.session.destroy()
-    res.render('logout');
-});
 
 //logout the user
-    app.get('/startlogout', function (req, res) {
+    app.get('/logout', function (req, res) {
         req.session.destroy(function (err) {
             if (err) {
                 console.log(err);
@@ -146,7 +141,6 @@ app.get('/logout', function (req, res) {
             }
         });
     });
-
 
 //render profile page of user
     app.get('/profile', function (req, res) {

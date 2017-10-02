@@ -18,7 +18,9 @@ $(document).ready(function() {
 
     //for register
 
-    $('#submitButton').click(function () {
+
+
+        $('#submitButton').click(function () {
 
         var name = $('#name').val();
         var number = $('#number').val();
