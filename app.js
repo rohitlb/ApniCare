@@ -50,11 +50,7 @@ app.get('/home',function (req,res) {
         res.end();
     });
 
-//registration with crosschecking of pre registrations
-app.get('/register',function (req,res) {
-    res.render('home');
-    res.end();
-});
+
 
     app.post('/register', function (req, res) {
         User.findOne({Number: req.body.number}).exec(function (err, result) {
@@ -91,17 +87,10 @@ app.get('/register',function (req,res) {
         });
     });
 
-//login with filter and session
-
-//login with filter
-app.get('/login',function (req,res) {
-    res.render('home');
-    res.end();
-});
 
 
+//login with filter and sessio
 app.post('/login',function (req,res) {
-
     User.findOne({Number: req.body.number , Password : req.body.password}).exec(function (err,result) {
         if(err){
             console.log("Some error occurred");
@@ -114,7 +103,6 @@ app.post('/login',function (req,res) {
                         req.session.userID = req.body.number;
                         if (req.session.userID) {
                             res.send({status: "success", message: "successfully login" ,number: req.session.userID});
-                           // res.render('profile', {number: req.session.userID});
                             res.end();
                         }
 
