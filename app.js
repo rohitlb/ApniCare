@@ -152,8 +152,8 @@ app.get('/logout', function (req, res) {
 //data base connection and opening port
     var db = 'mongodb://localhost/Works';
     mongoose.connect(db, {useMongoClient: true});
-//connecting database and starting server
 
+//connecting database and starting server
     var database = mongoose.connection;
     database.on('open', function () {
         console.log("database is connected");
