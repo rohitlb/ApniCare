@@ -62,8 +62,8 @@ $(document).ready(function() {
     $('#loginButton1').click(function () {
 
 
-        var number = $('#number').val();
-        var password = $('#password').val();
+        var number = $('#number1').val();
+        var password = $('#password1').val();
 
         var data1 = {
 
