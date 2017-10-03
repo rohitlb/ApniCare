@@ -33,6 +33,7 @@ app.use(express.static(path.join(__dirname,'public')));
 app.use(cookieParser());
 // if saveUninitialized : false than it will store session till the instance is in existence
 // secret is hashing secret
+// secret should be that much complex that one couldnt guess it easily
 app.use(session({
     secret : 'keyboard cat',
     resave : false,
