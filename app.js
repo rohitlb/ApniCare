@@ -10,6 +10,7 @@ mongoose.Promise = promise;
 
 // req models
 var User  = require('./model/registration');
+// use after 
 //var Drug = require('./model/drugindex');
 
 //declare the app
