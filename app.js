@@ -5,6 +5,7 @@ var path = require('path');
 var mongoose = require('mongoose');
 var promise = require('bluebird');
 var session = require('express-session');
+var expressValidator = require('express-validator');
 var cookieParser = require('cookie-parser');
 mongoose.Promise = promise;
 
@@ -30,6 +31,7 @@ app.use(bodyParser.json());
 //exteended false means it won't be accepting nested objects (accept only single)
 // here security for session to be added like.... session validate
 app.use(bodyParser.urlencoded({extended : false}));
+app.use(expressValidator());
 app.use(express.static(path.join(__dirname,'public')));
 app.use(cookieParser());
 // if saveUninitialized : false than it will store session till the instance is in existence
