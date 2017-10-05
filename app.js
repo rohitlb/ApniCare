@@ -5,11 +5,13 @@ var path = require('path');
 var mongoose = require('mongoose');
 var promise = require('bluebird');
 var session = require('express-session');
+var expressValidator = require('express-validator');
 var cookieParser = require('cookie-parser');
 mongoose.Promise = promise;
 
 // req models
 var User  = require('./model/registration');
+// use after drug index schema implementation
 //var Drug = require('./model/drugindex');
 
 //declare the app
@@ -17,6 +19,7 @@ var app = express();
 
 // to hide X-Powered-By for Security,Save Bandwidth in ExpressJS(node.js)
 app.disable('x-powered-by');
+
 
 //configure the app
 app.set('port',9000);
@@ -26,11 +29,14 @@ app.set('view engine', 'pug');
 //set all middleware
 app.use(bodyParser.json());
 //exteended false means it won't be accepting nested objects (accept only single)
+// here security for session to be added like.... session validate
 app.use(bodyParser.urlencoded({extended : false}));
+app.use(expressValidator());
 app.use(express.static(path.join(__dirname,'public')));
 app.use(cookieParser());
 // if saveUninitialized : false than it will store session till the instance is in existence
 // secret is hashing secret
+// secret should be that much complex that one couldnt guess it easily
 app.use(session({
     secret : 'keyboard cat',
     resave : false,
@@ -104,7 +110,7 @@ app.post('/register', function (req, res) {
     });
 
 
-// limitation :: if session id is the phone number than any one who knows the number of registered person can get unauth access.
+// limitation :: if session id is the phone number than any one who knows the number of registered person can get unauthorised access.
 //login with filter and sessio
 app.post('/login',function (req,res) {
     User.findOne({Number: req.body.number , Password : req.body.password}).exec(function (err,result) {
