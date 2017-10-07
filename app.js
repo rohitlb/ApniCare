@@ -31,7 +31,7 @@ app.use(bodyParser.json());
 //exteended false means it won't be accepting nested objects (accept only single)
 // here security for session to be added like.... session validate
 app.use(bodyParser.urlencoded({extended : false}));
-// app.use(expressValidator());
+app.use(expressValidator());
 app.use(express.static(path.join(__dirname,'public')));
 app.use(cookieParser());
 // if saveUninitialized : false than it will store session till the instance is in existence
