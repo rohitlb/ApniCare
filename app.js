@@ -108,6 +108,16 @@ app.post('/register', function (req, res) {
                         Name: req.body.name,
                         Number: req.body.number,
                         Password: req.body.password
+
+
+
+
+
+
+
+
+
+
                     });
                     user.save(function (err, results) {
                         if (err) {
