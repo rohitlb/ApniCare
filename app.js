@@ -4,6 +4,7 @@ var bodyParser = require('body-parser');
 var path = require('path');
 var mongoose = require('mongoose');
 var promise = require('bluebird');
+var Regex = require('regex');
 var sleep = require('thread-sleep');
 var session = require('express-session');
 var expressValidator = require('express-validator');
@@ -109,7 +110,8 @@ app.post('/register', function (req, res) {
                         Number: req.body.number,
                         Password: req.body.password
 
-
+                    var numregex = new Regex(^((\\+){0,1}91(\\s){0,1}(\\-){0,1}(\\s){0,1}){0,1}98(\\s){0,1}(\\-){0,1}(\\s){0,1}[1-9]{1}[0-9]{7}$);
+                    regex.test(Number);
 
 
 
