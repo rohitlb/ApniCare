@@ -97,6 +97,7 @@ app.post('/register', function (req, res) {
         // regex for checking weather password is numeric or not (pass iff pwd is numeric)
         var a = /[0-9]/.test(req.body.password);
         if(a === false){
+            // response for frontend is to be added here
             return;
         }
 
