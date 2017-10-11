@@ -110,15 +110,7 @@ app.post('/register', function (req, res) {
                         Number: req.body.number,
                         Password: req.body.password
 
-                    var numregex = new Regex(^((\\+){0,1}91(\\s){0,1}(\\-){0,1}(\\s){0,1}){0,1}98(\\s){0,1}(\\-){0,1}(\\s){0,1}[1-9]{1}[0-9]{7}$);
-                    regex.test(Number);
-
-
-
-
-
-
-
+                    
 
                     });
                     user.save(function (err, results) {
