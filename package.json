@@ -18,7 +18,6 @@
     "express-validator": "^4.2.1",
     "mongoose": "^4.12.1",
     "pug": "^2.0.0-rc.4",
-    "regex": "^0.1.1",
     "thread-sleep": "^2.0.0"
   },
   "repository": {

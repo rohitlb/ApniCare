@@ -94,6 +94,13 @@ app.get('/register',function (req,res) {
 //registration
 
 app.post('/register', function (req, res) {
+
+        // regex for checking weather password is numeric or not (pass iff pwd is numeric)
+        var a = /[0-9]/.test(req.body.password);
+        if(a === false){
+            return;
+        }
+
         User.findOne({Number: req.body.number}).exec(function (err, result) {
             if (err) {
                 console.log("Some error occured");
