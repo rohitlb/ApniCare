@@ -4,7 +4,6 @@ var bodyParser = require('body-parser');
 var path = require('path');
 var mongoose = require('mongoose');
 var promise = require('bluebird');
-var Regex = require('regex');
 var sleep = require('thread-sleep');
 var session = require('express-session');
 var expressValidator = require('express-validator');
