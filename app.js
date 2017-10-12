@@ -60,7 +60,6 @@ app.get('/test',function (req,res) {
     //render where you want
     res.render('');
     res.end();
-
 });
 
 
