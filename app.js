@@ -94,7 +94,15 @@ app.get('/register',function (req,res) {
 
 app.post('/register', function (req, res) {
 
-        // regex for checking weather password is numeric or not (pass iff pwd is numeric)
+    //regex for checking whether entered number is indian or not
+    var num = /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[789]\d{9}|(\d[ -]?){10}\d$/.test(req.body.number);
+    if(num === false){
+        console.log("wrong number entered");
+        res.send({status: "failure", message: "wrong number ! please try again "});
+        return;
+    }
+
+        // regex for checking whether password is numeric or not (pass iff pwd is numeric)
     var a = /[0-9]/.test(req.body.password);
     if(a === false){
         console.log("password is not numeric");
