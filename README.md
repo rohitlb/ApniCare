@@ -8,7 +8,3 @@
 5 thread-sleep
 6 500 & 404 error handling
 
-# 1st branch is made for
-1 OTP
-2 data hashing
-3 mongo-session
