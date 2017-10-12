@@ -21,7 +21,6 @@ var app = express();
 // to hide X-Powered-By for Security,Save Bandwidth in ExpressJS(node.js)
 app.disable('x-powered-by');
 
-
 //configure the app
 app.set('port',9000);
 app.set('views', path.join(__dirname, 'views'));
@@ -48,7 +47,6 @@ app.get('/adminprofile',function (req,res) {
     res.render('admin_home1');
 });
 
-
 // have thread-sleep (tested) . run "npm update --save" for adding modules
 app.get('/test',function (req,res) {
     var start = Date.now();
@@ -62,7 +60,6 @@ app.get('/test',function (req,res) {
     res.end();
 
 });
-
 
 app.get('/home',function (req,res) {
     if (req.session.userID) {
@@ -78,7 +75,6 @@ app.get('/home',function (req,res) {
         res.render('home');
         res.end();
     });
-
 
 app.get('/register',function (req,res) {
     if (req.session.userID) {
@@ -126,8 +122,6 @@ app.post('/register', function (req, res) {
                         Number: req.body.number,
                         Password: req.body.password
 
-
-
                     });
                     user.save(function (err, results) {
                         if (err) {
@@ -146,7 +140,6 @@ app.post('/register', function (req, res) {
             }
         });
     });
-
 
 // limitation :: if session id is the phone number than any one who knows the number of registered person can get unauthorised access.
 //login with filter and sessio
