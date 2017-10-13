@@ -22,7 +22,7 @@ var app = express();
 app.disable('x-powered-by');
 
 //configure the app
-app.set('port',9000);
+app.set('port',4000);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
