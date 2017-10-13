@@ -106,11 +106,13 @@ $(document).ready(function() {
             var name = $('#name').val();
         var number = $('#number').val();
         var password = $('#password').val();
+        var otp = $('#otp').val();
 
         var data = {
             name: name,
             number: number,
-            password: password
+            password: password,
+            otp: otp
         };
 
 
