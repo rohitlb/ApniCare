@@ -185,7 +185,7 @@ app.post('/login',function (req,res) {
     });
 
 //data base connection and opening port
-    var db = 'mongodb://localhost/Works';
+    var db = 'mongodb://localhost/ApniCare';
     mongoose.connect(db, {useMongoClient: true});
 
 //connecting database and starting server
