@@ -1,0 +1,15 @@
+div#pass.col.s12
+    p OTP sent to Mobile
+        span.badge.btn-flat.right Resend?
+
+    div.input-field.col.s12
+        input(type="text")#otp
+        label(for="otp") Enter OTP
+        //span(style={position: "absolute", right: "0"}).badge.btn.right Verify OTP
+    div.input-field.col.s12
+        input(type="password")#password
+        label(for="password") Password
+
+
+    div.modal-footer
+        a.modal-action.modal-close.waves-effect.waves-green.btn.green#submitButton Register

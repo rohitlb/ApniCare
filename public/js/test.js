@@ -11,37 +11,94 @@ $(document).ready(function() {
         dismissible: true,
         opacity: .15,
         inDuration: 300,
+        maxWidth: '550px',
+        //transform: 'scaleX(0.7)',
         outDuration: 200,
-        startingTop: '4%',
-        endingTop: '10%',
-        width:'80%',
-        height:'100'
-    });
+        startingTop: '3%',
+        endingTop: '25%',
+        padding: '0px'
+
+    })
 
 
     $('ul.tabs').tabs('select_tab', '#test-swipe-2');
 
 
-    $('#registerbutton').click(function () {
-        $( '#preloader' ).hide();
+
+    $('#pass').hide();
+    $('#pass1').hide();
+    $('#forgot').hide();
+    $('#forgotButton').click(function () {
+        $('#log').hide();
+        $('#forgot').show();
+
+    })
+    $('#arrow').click(function () {
+        $('#pass').hide();
+        $('#forgot').hide();
+        $('#log').show();
+
+    })
+    //otp sent to server
+    $('#send').click(function () {
+        $('#pass').show();
+
+
+    })
+
+
+    $('#continue').click(function () {
+
+        $('#field').hide();
+        $('#pass1').show();
+    })
+    $('#cancel').click(function () {
+        $('#forgot').hide();
+        $('#log').show();
+    })
+
+    //for otp request
+    $('#send').click(function () {
+        var name = $('#name').val();
+        var number = $('#number').val();
+
+        var data = {
+            name: name,
+            number: number,
+        };
+
+        $.ajax(
+            {
+                url: "/sendOTP",
+                method: 'POST',
+                data: JSON.stringify(data),
+                contentType: 'application/json',
+                success: function (result) {
+
+                    if (result.status === "success") {
+                        $('#pass').show();
+                        $('#name').disabled;
+                        $('#number').disabled;
+                    }
+                    else {
+                        Materialize.toast(result.message, 2000);
+                    }
+
+                },
+                error: function (err) {
+
+                }
+            }
+
+        )
+
     });
-    $('#loginbutton').click(function () {
-       $( '#preloader' ).hide();
-    });
 
 
 
 
-    //for register
 
-    $( "#r" ).click(function() {
-        $( "#l" ).slideToggle( "slow" );
-    });
-    $( "#l" ).click(function() {
-        $( "#r" ).slideToggle( "slow" );
-    });
-
-        $('#submitButton').click(function () {
+    $('#submitButton').click(function () {
             $('#preloader').show();
             // $("#loginbutton").click(function(){ $('#test-swipe-2').remove() });
 

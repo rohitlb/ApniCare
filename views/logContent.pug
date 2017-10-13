@@ -1,0 +1,47 @@
+div#log.row
+    div.col.s12
+        ul.tabs(style={padding: "0px",margin:"0px",background:"white"})
+            li.tab.col.s6
+                a.active(href='#login') Log In
+            li.tab.col.s6
+                a(href='#register') Register
+
+    div#register.col.s12
+        br
+        br
+        div.input-field.col.s12(style={padding: "0px",margin:"0px",background:"white"})
+            input(type="text")#name
+            label(for="name") Name
+
+        div.input-field.col.s12
+            input(type="text")#number
+            label(for="number") Number
+            span(style={position: "absolute", right: "0"}).badge.btn.right#send Send OTP
+        include registerbut
+    div#login.col.s12
+        br
+        br
+        div.input-field.col.s12(style={padding: "0px",margin:"0px",background:"white"})
+            input(type="text")#number1
+            label(for="number1") Number
+        div.input-field.col.s12
+            input(type="password")#password1
+            label(for="password1") Password
+            span(style={position: "absolute", right: "0"}).badge.btn.right#loginViaOtp Login via OTP
+        div.row(style={padding: "0px",margin:"0px",border:"0"})
+            a.btn-flat(href="#")
+                span Show Password
+            a.btn-flat.right#forgotButton
+                span Forgot password?
+        br
+        div.row
+            div.col.s12
+                a.modal-action.modal-close.waves-effect.waves-green.btn.center.green#loginButton1 Login
+
+
+
+
+
+
+
+
