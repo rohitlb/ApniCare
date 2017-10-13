@@ -64,7 +64,7 @@ $(document).ready(function() {
 
         var data = {
             name: name,
-            number: number,
+            number: number
         };
 
         $.ajax(

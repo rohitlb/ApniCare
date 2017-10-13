@@ -12,5 +12,6 @@
 1 OTP
 2 data hashing
 3 mongo-session
+4 Doc reg & login
 
 test 2
