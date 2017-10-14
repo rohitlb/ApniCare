@@ -81,6 +81,7 @@ $(document).ready(function() {
                         $('#pass').show();
                         $('#name').attr('disabled','disabled');
                         $('#number').attr('disabled','disabled');
+                        $('#password').attr('disabled','disabled');
                     }
                     else {
                         Materialize.toast(result.message, 2000);
@@ -113,6 +114,8 @@ $(document).ready(function() {
 
                     if (result.status === "success") {
                         Materialize.toast(result.message, 2000);
+                     $('#password').removeAttr("disabled");
+
                     }
                     else {
                         Materialize.toast(result.message, 2000);
