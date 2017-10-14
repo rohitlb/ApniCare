@@ -67,20 +67,15 @@ app.get('/test',function (req,res) {
 });
 
 app.post('/sendOTP',function (req, res) {
-<<<<<<< HEAD
+    var number = req.body.number;
     //regex for checking whether entered number is indian or not
-    var num = /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[789]\d{9}|(\d[ -]?){10}\d$/.test(req.body.number);
+    var num = /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[789]\d{9}|(\d[ -]?){10}\d$/.test(number);
     if(num === false){
         console.log("wrong number entered");
         res.send({status: "failure", message: "wrong number ! please try again "});
         return;
     }
 
-    number = req.body.number;
-    console.log(number);
-    var request = require("request");
-=======
-    var number = req.body.number;
     User.findOne({number : number},function (err,result) {
         if(err){
             console.log(err);
@@ -93,17 +88,6 @@ app.post('/sendOTP',function (req, res) {
 
             }
             else{
-
-                //regex for checking whether entered number is indian or not
-                var num = /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[789]\d{9}|(\d[ -]?){10}\d$/.test(req.body.number);
-                if(num === false){
-                    console.log("wrong number entered");
-                    res.send({status: "failure", message: "wrong number ! please try again "});
-                    return;
-                }
-
->>>>>>> 8d7e178a52e43f5cc1415b2f947ccc2e04058922
-
                 var options = { method: 'GET',
                     url: 'http://2factor.in/API/V1/'+keys.api_key()+'/SMS/'+number+'/AUTOGEN',
                     headers: { 'content-type': 'application/x-www-form-urlencoded' },
