@@ -24,7 +24,7 @@ $(document).ready(function() {
     $('ul.tabs').tabs('select_tab', '#test-swipe-2');
 
 
-
+    $('#change').hide();
     $('#pass').hide();
     $('#pass1').hide();
     $('#forgot').hide();
@@ -39,10 +39,15 @@ $(document).ready(function() {
         $('#log').show();
 
     })
+    $('#change').click(function () {
+        $('#number').removeAttr("disabled");
+
+    })
     //otp sent to server
     $('#send').click(function () {
         $('#pass').show();
-
+        $('#send').hide();
+        $('#change').show();
 
     })
 
@@ -56,6 +61,7 @@ $(document).ready(function() {
         $('#forgot').hide();
         $('#log').show();
     })
+
 
     //for otp request
     $('#send').click(function () {
@@ -112,9 +118,9 @@ $(document).ready(function() {
                 contentType: 'application/json',
                 success: function (result) {
 
-                    if (result.status === "success") {
+                    if (result) {
                         Materialize.toast(result.message, 2000);
-                     $('#password').removeAttr("disabled");
+                        $('#password').removeAttr("disabled");
 
                     }
                     else {

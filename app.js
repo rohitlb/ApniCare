@@ -117,12 +117,9 @@ app.post('/VerifyOTP',function (req, res) {
         console.log(body);
         var temp = JSON.parse(body);
         console.log(temp.Details);
-
-        //res.send(temp.Details);
-        res.send({status: "success", message: "OTP Matched"});
-    });
+        res.send({message: temp.Details })
+        });
 });
-
 
 app.get('/home',function (req,res) {
     if (req.session.userID) {
