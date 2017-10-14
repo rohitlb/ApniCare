@@ -124,8 +124,13 @@ app.get('/home',function (req,res) {
 });
 
     app.get('/', function (req, res) {
-        res.render('home');
-        res.end();
+        if (req.session.userID) {
+            res.redirect('/profile');
+            res.end();
+        } else {
+            res.render('home');
+            res.end();
+        }
     });
 
 app.get('/register',function (req,res) {
@@ -149,7 +154,6 @@ app.post('/register', function (req, res) {
         res.send({status: "failure", message: "wrong number ! please try again "});
         return;
     }
-
         // regex for checking whether password is numeric or not (pass iff pwd is numeric)
     var a = /[0-9]/.test(req.body.password);
     if(a === false){
@@ -205,7 +209,7 @@ app.post('/login',function (req,res) {
             console.log(result);
             if(result) {
                         console.log("Successfully login");
-                        req.session.userID = req.body.number;
+                        req.session.userID = result._id;
                         if (req.session.userID) {
                             res.send({status: "success", message: "successfully login" ,number: req.session.userID});
                             res.end();
