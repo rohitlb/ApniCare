@@ -76,14 +76,15 @@ app.post('/sendOTP',function (req, res) {
         return;
     }
 
-    User.findOne({number : number},function (err,result) {
+    User.findOne({Number : number},function (err,result) {
         if(err){
             console.log(err);
         }
         else{
+            console.log(result);
             if (result) {
                 console.log("User Already Exist");
-                res.send({status: "failure", message: "user Already Exists"});
+                res.send({status: "failure", message: "number Already Exists"});
                 res.end();
 
             }
