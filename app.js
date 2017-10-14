@@ -10,6 +10,8 @@ var session = require('express-session');
 var expressValidator = require('express-validator');
 var cookieParser = require('cookie-parser');
 var keys = require('./private/keys');
+var request = require("request");
+
 
 mongoose.Promise = promise;
 
@@ -65,39 +67,51 @@ app.get('/test',function (req,res) {
 });
 
 app.post('/sendOTP',function (req, res) {
-    //regex for checking whether entered number is indian or not
-    var num = /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[789]\d{9}|(\d[ -]?){10}\d$/.test(req.body.number);
-    if(num === false){
-        console.log("wrong number entered");
-        res.send({status: "failure", message: "wrong number ! please try again "});
-        return;
-    }
-
-
-
-
-    
-    number = req.body.number;
-    console.log(number);
-    var request = require("request");
-
-    var options = { method: 'GET',
-        url: 'http://2factor.in/API/V1/'+keys.api_key()+'/SMS/'+number+'/AUTOGEN',
-        headers: { 'content-type': 'application/x-www-form-urlencoded' },
-        form: {} };
-
-    request(options, function (error, response, body) {
-        if (error) {
-            throw new Error(error);
+    var number = req.body.number;
+    User.findOne({number : number},function (err,result) {
+        if(err){
+            console.log(err);
         }
-        else {
-            console.log(body);
-            var temp = JSON.parse(body);
-            console.log(temp.Details);
-            sid = temp.Details;
-            res.send({status: "success", message: "OTP sent to your number"});
+        else{
+            if (result) {
+                console.log("User Already Exist");
+                res.send({status: "failure", message: "user Already Exists"});
+                res.end();
+
+            }
+            else{
+
+                //regex for checking whether entered number is indian or not
+                var num = /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[789]\d{9}|(\d[ -]?){10}\d$/.test(req.body.number);
+                if(num === false){
+                    console.log("wrong number entered");
+                    res.send({status: "failure", message: "wrong number ! please try again "});
+                    return;
+                }
+
+
+                var options = { method: 'GET',
+                    url: 'http://2factor.in/API/V1/'+keys.api_key()+'/SMS/'+number+'/AUTOGEN',
+                    headers: { 'content-type': 'application/x-www-form-urlencoded' },
+                    form: {} };
+
+                request(options, function (error, response, body) {
+                    if (error) {
+                        throw new Error(error);
+                    }
+                    else {
+                        console.log(body);
+                        var temp = JSON.parse(body);
+                        console.log(temp.Details);
+                        sid = temp.Details;
+                        res.send({status: "success", message: "OTP sent to your number"});
+                    }
+                });
+
+            }
         }
     });
+
 });
 
 app.post('/VerifyOTP',function (req, res) {
