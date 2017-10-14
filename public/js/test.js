@@ -39,18 +39,6 @@ $(document).ready(function() {
         $('#log').show();
 
     })
-    $('#change').click(function () {
-        $('#number').removeAttr("disabled");
-
-    })
-    //otp sent to server
-    $('#send').click(function () {
-        $('#pass').show();
-        $('#send').hide();
-        $('#change').show();
-
-    })
-
 
     $('#continue').click(function () {
 
@@ -62,9 +50,16 @@ $(document).ready(function() {
         $('#log').show();
     })
 
-
-    //for otp request
     $('#send').click(function () {
+
+        $('#pass').show();
+        $('#send').hide();
+        $('#change').show();
+    })
+        //for otp request
+    $('#send').click(function () {
+
+
         var name = $('#name').val();
         var number = $('#number').val();
 
@@ -84,13 +79,17 @@ $(document).ready(function() {
                     if (result.status === "success") {
                         Materialize.toast(result.message, 2000);
 
-                        $('#pass').show();
                         $('#name').attr('disabled','disabled');
                         $('#number').attr('disabled','disabled');
                         $('#password').attr('disabled','disabled');
                     }
                     else {
                         Materialize.toast(result.message, 2000);
+                        $('#change').click(function () {
+                            $('#number').removeAttr('disabled');
+                            $('#password').attr('disabled','disabled');
+
+                        });
                     }
 
                 },
@@ -102,7 +101,6 @@ $(document).ready(function() {
         )
 
     });
-
     $('#verify').click(function () {
         var otp = $('#otp').val();
 
@@ -120,11 +118,15 @@ $(document).ready(function() {
 
                     if (result) {
                         Materialize.toast(result.message, 2000);
-                        $('#password').removeAttr("disabled");
+                        $('#password').removeAttr('disabled');
 
                     }
                     else {
                         Materialize.toast(result.message, 2000);
+                        $('#change').click(function () {
+                            $('#number').removeAttr('disabled');
+
+                        });
                     }
 
                 },
@@ -138,22 +140,17 @@ $(document).ready(function() {
     });
 
 
-
-
-    $('#submitButton').click(function () {
-            //$('#preloader').show();
-            // $("#loginbutton").click(function(){ $('#test-swipe-2').remove() });
-
+        $('#submitButton').click(function () {
 
             var name = $('#name').val();
-        var number = $('#number').val();
-        var password = $('#password').val();
+            var number = $('#number').val();
+            var password = $('#password').val();
         //var otp = $('#otp').val();
 
         var data = {
             name: name,
             number: number,
-            password: password,
+            password: password
           //  otp: otp
         };
 
