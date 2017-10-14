@@ -153,7 +153,7 @@ app.post('/login',function (req,res) {
             console.log(result);
             if(result) {
                         console.log("Successfully login");
-                        req.session.userID = req.body.number;
+                        req.session.userID = result._id;
                         if (req.session.userID) {
                             res.send({status: "success", message: "successfully login" ,number: req.session.userID});
                             res.end();
