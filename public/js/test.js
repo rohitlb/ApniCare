@@ -101,6 +101,51 @@ $(document).ready(function() {
         )
 
     });
+    $('#continue').click(function () {
+
+
+       // var name = $('#name').val();
+        var number = $('#resetPassword').val();
+
+        var data = {
+            //name: name,
+            number: number
+        };
+
+        $.ajax(
+            {
+                url: "/sendOTP",
+                method: 'POST',
+                data: JSON.stringify(data),
+                contentType: 'application/json',
+                success: function (result) {
+
+                    if (result.status === "success") {
+                        Materialize.toast(result.message, 2000);
+
+                        $('#name').attr('disabled','disabled');
+                        $('#number').attr('disabled','disabled');
+                        $('#password').attr('disabled','disabled');
+                    }
+                    else {
+                        Materialize.toast(result.message, 2000);
+                        $('#change').click(function () {
+                            $('#number').removeAttr('disabled');
+                            $('#password').attr('disabled','disabled');
+
+                        });
+                    }
+
+                },
+                error: function (err) {
+
+                }
+            }
+
+        )
+
+    });
+
     $('#verify').click(function () {
         var otp = $('#otp').val();
 
