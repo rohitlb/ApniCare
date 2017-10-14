@@ -2,12 +2,15 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var path = require('path');
+var request = require('request');
 var mongoose = require('mongoose');
 var promise = require('bluebird');
 var sleep = require('thread-sleep');
 var session = require('express-session');
 var expressValidator = require('express-validator');
 var cookieParser = require('cookie-parser');
+var keys = require('./private/keys');
+
 mongoose.Promise = promise;
 
 // req models
@@ -61,6 +64,55 @@ app.get('/test',function (req,res) {
 
 });
 
+app.post('/sendOTP',function (req, res) {
+    console.log('reqfromapp');
+    number = req.body.number;
+    console.log(number);
+    var request = require("request");
+
+    var options = { method: 'GET',
+        url: 'http://2factor.in/API/V1/'+keys.api_key()+'/SMS/'+number+'/AUTOGEN',
+        headers: { 'content-type': 'application/x-www-form-urlencoded' },
+        form: {} };
+
+    request(options, function (error, response, body) {
+        if (error) {
+            throw new Error(error);
+        }
+        else {
+            console.log(body);
+            var temp = JSON.parse(body);
+            console.log(temp.Details);
+            sid = temp.Details;
+            res.send({status: "success", message: "OTP sent to your number"});
+        }
+    });
+});
+
+app.post('/VerifyOTP',function (req, res) {
+    otp = req.body.number;
+    console.log(otp);
+
+
+    var options = { method: 'GET',
+        url: 'http://2factor.in/API/V1/'+keys.api_key()+'/SMS/VERIFY/'+sid+'/'+otp,
+        headers: { 'content-type': 'application/x-www-form-urlencoded' },
+        form: {} };
+
+    request(options, function (error, response, body) {
+        if (error) throw new Error(error);
+
+        console.log('verifyotp');
+        console.log(body);
+        var temp = JSON.parse(body);
+        console.log(temp.Details);
+
+        //res.send(temp.Details);
+        res.send({status: "success", message: "OTP Matched"});
+    });
+});
+
+
 app.get('/home',function (req,res) {
     if (req.session.userID) {
         res.redirect('/profile');
@@ -105,7 +157,6 @@ app.post('/register', function (req, res) {
         res.send({status: "failure", message: "please enter a numeric password and try again"});
         return;
     }
-
         User.findOne({Number: req.body.number}).exec(function (err, result) {
             if (err) {
                 console.log("Some error occured");
@@ -116,6 +167,7 @@ app.post('/register', function (req, res) {
                     console.log("User Already Exist");
                     res.send({status: "failure", message: "user Already Exists"});
                     res.end();
+
                 } else {
                     var user = new User({
                         Name: req.body.name,
@@ -153,7 +205,7 @@ app.post('/login',function (req,res) {
             console.log(result);
             if(result) {
                         console.log("Successfully login");
-                        req.session.userID = result._id;
+                        req.session.userID = req.body.number;
                         if (req.session.userID) {
                             res.send({status: "success", message: "successfully login" ,number: req.session.userID});
                             res.end();

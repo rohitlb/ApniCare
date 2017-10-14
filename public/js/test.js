@@ -76,9 +76,43 @@ $(document).ready(function() {
                 success: function (result) {
 
                     if (result.status === "success") {
+                        Materialize.toast(result.message, 2000);
+
                         $('#pass').show();
-                        $('#name').disabled;
-                        $('#number').disabled;
+                        $('#name').attr('disabled','disabled');
+                        $('#number').attr('disabled','disabled');
+                    }
+                    else {
+                        Materialize.toast(result.message, 2000);
+                    }
+
+                },
+                error: function (err) {
+
+                }
+            }
+
+        )
+
+    });
+
+    $('#verify').click(function () {
+        var otp = $('#otp').val();
+
+        var data = {
+            number: otp
+        };
+
+        $.ajax(
+            {
+                url: "/VerifyOTP",
+                method: 'POST',
+                data: JSON.stringify(data),
+                contentType: 'application/json',
+                success: function (result) {
+
+                    if (result.status === "success") {
+                        Materialize.toast(result.message, 2000);
                     }
                     else {
                         Materialize.toast(result.message, 2000);
@@ -97,24 +131,22 @@ $(document).ready(function() {
 
 
 
-
     $('#submitButton').click(function () {
-            $('#preloader').show();
+            //$('#preloader').show();
             // $("#loginbutton").click(function(){ $('#test-swipe-2').remove() });
 
 
             var name = $('#name').val();
         var number = $('#number').val();
         var password = $('#password').val();
-        var otp = $('#otp').val();
+        //var otp = $('#otp').val();
 
         var data = {
             name: name,
             number: number,
             password: password,
-            otp: otp
+          //  otp: otp
         };
-
 
         $.ajax(
             {
