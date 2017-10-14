@@ -10,7 +10,6 @@ var session = require('express-session');
 var expressValidator = require('express-validator');
 var cookieParser = require('cookie-parser');
 var keys = require('./private/keys');
-var request = require("request");
 
 mongoose.Promise = promise;
 
