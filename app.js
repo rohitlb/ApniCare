@@ -65,7 +65,18 @@ app.get('/test',function (req,res) {
 });
 
 app.post('/sendOTP',function (req, res) {
-    console.log('reqfromapp');
+    //regex for checking whether entered number is indian or not
+    var num = /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[789]\d{9}|(\d[ -]?){10}\d$/.test(req.body.number);
+    if(num === false){
+        console.log("wrong number entered");
+        res.send({status: "failure", message: "wrong number ! please try again "});
+        return;
+    }
+
+
+
+
+    
     number = req.body.number;
     console.log(number);
     var request = require("request");
