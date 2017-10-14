@@ -12,7 +12,6 @@ var cookieParser = require('cookie-parser');
 var keys = require('./private/keys');
 var request = require("request");
 
-
 mongoose.Promise = promise;
 
 // req models
@@ -106,11 +105,9 @@ app.post('/sendOTP',function (req, res) {
                         res.send({status: "success", message: "OTP sent to your number"});
                     }
                 });
-
             }
         }
     });
-
 });
 
 app.post('/VerifyOTP',function (req, res) {
@@ -211,7 +208,6 @@ app.post('/register', function (req, res) {
                             //res.redirect('/login');
                             res.end();
                         }
-
                     });
                 }
             }
