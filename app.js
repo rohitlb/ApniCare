@@ -73,10 +73,6 @@ app.post('/sendOTP',function (req, res) {
         return;
     }
 
-
-
-
-    
     number = req.body.number;
     console.log(number);
     var request = require("request");
