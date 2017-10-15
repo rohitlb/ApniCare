@@ -268,7 +268,8 @@ app.post('/forgotpassword',function (req, res) {
                         console.log(temp.Details);
                         sid = temp.Details;
                         res.send({status: "success", message: "OTP sent to your number"});
-                        // UPDATE password here
+                        //1 verify OTP
+                        // 2 UPDATE password here
                     }
                 });
 
