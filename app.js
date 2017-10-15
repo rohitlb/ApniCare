@@ -214,20 +214,20 @@ app.post('/register', function (req, res) {
     });
 
 
-app.post('/forgotpassword',function (req,res) {
-    var number = req.body.number;
-    var num = /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[789]\d{9}|(\d[ -]?){10}\d$/.test(number);
-    if(num === false){
-        console.log("wrong number entered");
-        res.send({status: "failure", message: "wrong number ! please try again "});
-        return;
-    }
-
-    User.update({Number : number},{
-        $set : { Number :  }
-    });
-
-});
+// app.post('/forgotpassword',function (req,res) {
+//     var number = req.body.number;
+//     var num = /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[789]\d{9}|(\d[ -]?){10}\d$/.test(number);
+//     if(num === false){
+//         console.log("wrong number entered");
+//         res.send({status: "failure", message: "wrong number ! please try again "});
+//         return;
+//     }
+//
+//     User.update({Number : number},{
+//         $set : { Number :  }
+//     });
+//
+// });
 
 
 
