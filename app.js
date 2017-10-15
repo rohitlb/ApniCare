@@ -214,26 +214,10 @@ app.post('/register', function (req, res) {
     });
 
 
-// app.post('/forgotpassword',function (req,res) {
-//     var number = req.body.number;
-//     var num = /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[789]\d{9}|(\d[ -]?){10}\d$/.test(number);
-//     if(num === false){
-//         console.log("wrong number entered");
-//         res.send({status: "failure", message: "wrong number ! please try again "});
-//         return;
-//     }
-//
-//     User.update({Number : number},{
-//         $set : { Number :  }
-//     });
-//
-// });
-
-
 
 //forgot password
 app.post('/forgotpassword',function (req, res) {
-
+    console.log("reaches");
     var number = req.body.number;
     //regex for checking whether entered number is indian or not
     var num = /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[789]\d{9}|(\d[ -]?){10}\d$/.test(number);
@@ -268,11 +252,22 @@ app.post('/forgotpassword',function (req, res) {
                         console.log(temp.Details);
                         sid = temp.Details;
                         res.send({status: "success", message: "OTP sent to your number"});
-                        //1 verify OTP
-                        // 2 UPDATE password here
+
+                        User.update({Number : number},{
+                            $set : {Password : req.body.password}
+                        },function (err,result1) {
+                            if(err){
+                                console.log(err);
+                            }
+                            else{
+                                console.log(result1);
+                                res.send({status: "success", message: "OTP sent to your number"});
+                                res.end();
+                            }
+                        });
+
                     }
                 });
-
             }else{
                 console.log("user is not registered");
                 res.send({status: "failure", message: "this number is not registered"});
