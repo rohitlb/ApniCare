@@ -53,8 +53,8 @@ $(document).ready(function() {
     $('#send').click(function () {
 
         $('#pass').show();
-        $('#send').hide();
-        $('#change').show();
+        //$('#send').hide();
+        //$('#change').show();
     })
         //for otp request
     $('#send').click(function () {
@@ -85,11 +85,11 @@ $(document).ready(function() {
                     }
                     else {
                         Materialize.toast(result.message, 2000);
-                        $('#change').click(function () {
+
                             $('#number').removeAttr('disabled');
                             $('#password').attr('disabled','disabled');
 
-                        });
+
                     }
 
                 },
@@ -123,10 +123,7 @@ $(document).ready(function() {
                     }
                     else {
                         Materialize.toast(result.message, 2000);
-                        $('#change').click(function () {
-                            $('#number').removeAttr('disabled');
 
-                        });
                     }
 
                 },
