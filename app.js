@@ -2,6 +2,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var path = require('path');
+var favicon = require('serve-favicon');
 var request = require('request');
 var mongoose = require('mongoose');
 var promise = require('bluebird');
@@ -28,6 +29,9 @@ app.disable('x-powered-by');
 app.set('port',9000);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
+
+// adding favicon of Apnicare
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 
 //set all middleware
 app.use(bodyParser.json());
