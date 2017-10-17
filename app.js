@@ -224,7 +224,7 @@ app.post('/forgotpassword',function (req, res) {
     // In forgot password pug file ,after clicking on Continue .it is not reaching in here.
     console.log("reaches");
     var number = req.body.number;
-    //regex for checking whether entered number is indian or not
+    //regex for checking whether entered number is indian
     var num = /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[789]\d{9}|(\d[ -]?){10}\d$/.test(number);
     if(num === false){
         console.log("wrong number entered");
