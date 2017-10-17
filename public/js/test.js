@@ -17,8 +17,7 @@ $(document).ready(function() {
         startingTop: '3%',
         endingTop: '25%',
         padding: '0px'
-
-    })
+    });
 
 
     $('ul.tabs').tabs('select_tab', '#test-swipe-2');
