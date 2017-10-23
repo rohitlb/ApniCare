@@ -222,6 +222,7 @@ app.post('/register', function (req, res) {
 //forgot password
 app.post('/forgotpassword',function (req, res) {
     // In forgot password pug file ,after clicking on Continue .it is not reaching in here.
+    // not fixed yet, waiting for the front end response.
     console.log("reaches");
     var number = req.body.number;
     //regex for checking whether entered number is indian
