@@ -144,7 +144,7 @@ app.get('/home',function (req,res) {
     }
 });
 
-    app.get('/', function (req, res) {
+app.get('/', function (req, res) {
         if (req.session.userID) {
             res.redirect('/profile');
             res.end();
@@ -165,7 +165,6 @@ app.get('/register',function (req,res) {
 });
 
 //registration
-
 app.post('/register', function (req, res) {
 
     //regex for checking whether entered number is indian or not
@@ -216,8 +215,6 @@ app.post('/register', function (req, res) {
             }
         });
     });
-
-
 
 //forgot password
 app.post('/forgotpassword',function (req, res) {
@@ -282,7 +279,6 @@ app.post('/forgotpassword',function (req, res) {
     });
 });
 
-
 //login with filter and sessio
 app.post('/login',function (req,res) {
     User.findOne({Number: req.body.number , Password : req.body.password}).exec(function (err,result) {
@@ -310,7 +306,7 @@ app.post('/login',function (req,res) {
 });
 
 //logout the user
-    app.get('/logout', function (req, res) {
+app.get('/logout', function (req, res) {
         req.session.destroy(function (err) {
             if (err) {
                 console.log(err);
@@ -321,17 +317,17 @@ app.post('/login',function (req,res) {
     });
 
 //render profile page of user
-    app.get('/profile', function (req, res) {
+app.get('/profile', function (req, res) {
         res.render('profile', {number: req.session.userID});
     });
 
 //data base connection and opening port
-    var db = 'mongodb://localhost/ApniCare';
-    mongoose.connect(db, {useMongoClient: true});
+var db = 'mongodb://localhost/ApniCare';
+mongoose.connect(db, {useMongoClient: true});
 
 //connecting database and starting server
-    var database = mongoose.connection;
-    database.on('open', function () {
+var database = mongoose.connection;
+database.on('open', function () {
         console.log("database is connected");
         app.listen(app.get('port'), function () {
             console.log('server connected to http:localhost:' + app.get('port'));
