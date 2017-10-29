@@ -279,7 +279,7 @@ app.post('/forgotpassword',function (req, res) {
     });
 });
 
-//login with filter and sessio
+//login with filter and session
 app.post('/login',function (req,res) {
     User.findOne({Number: req.body.number , Password : req.body.password}).exec(function (err,result) {
         if(err){
