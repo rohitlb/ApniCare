@@ -175,7 +175,7 @@ app.post('/register', function (req, res) {
         return;
     }
         // regex for checking whether password is numeric or not (pass iff pwd is numeric)
-    var a = /[0-9]/.test(req.body.password);
+    var a = /[0-9]{4}/.test(req.body.password);
     if(a === false){
         console.log("password is not numeric");
         res.send({status: "failure", message: "please enter a numeric password and try again"});
