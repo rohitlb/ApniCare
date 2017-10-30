@@ -172,55 +172,56 @@ app.post('/register', function (req, res) {
     console.log("woow");
     //regex for checking whether entered number is indian or not
     var num = /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[789]\d{9}|(\d[ -]?){10}\d$/.test(req.body.number);
-    if(num === false){
+    if (num === false) {
         console.log("wrong number entered");
         res.send({status: "failure", message: "wrong number ! please try again "});
         return;
     }
-        // regex for checking whether password is numeric or not (pass iff pwd is numeric)
+    // regex for checking whether password is numeric or not (pass iff pwd is numeric)
     var a = /[0-9]{4}/.test(req.body.password);
-    if(a === false){
+    if (a === false) {
         console.log("password is not numeric");
         res.send({status: "failure", message: "please enter a numeric password and try again"});
         return;
     }
-        User.findOne({Number: req.body.number}).exec(function (err, result) {
-            if (err) {
-                console.log("Some error occured");
+    User.findOne({Number: req.body.number}).exec(function (err, result) {
+        if (err) {
+            console.log("Some error occured");
+            res.end();
+        } else {
+            console.log(result);
+            if (result) {
+                console.log("User Already Exist");
+                res.send({status: "failure", message: "user Already Exists"});
                 res.end();
+
             } else {
-                console.log(result);
-                if (result) {
-                    console.log("User Already Exist");
-                    res.send({status: "failure", message: "user Already Exists"});
-                    res.end();
+                var user = new User({
+                    Name: req.body.name,
+                    Number: req.body.number,
+                    Password: req.body.password
 
-                } else {
-                    var user = new User({
-                        Name: req.body.name,
-                        Number: req.body.number,
-                        Password: req.body.password
-
-                    });
-                    user.save(function (err, results) {
-                        if (err) {
-                            console.log("There is an error");
-                            res.end();
-                        } else {
-                            console.log(results);
-                            console.log('user save successfully');
-                            res.send({status: "success", message: "successfully registered"});
-                            //res.redirect('/login');
-                            res.end();
-                        }
-                    });
-                }
+                });
+                user.save(function (err, results) {
+                    if (err) {
+                        console.log("There is an error");
+                        res.end();
+                    } else {
+                        console.log(results);
+                        console.log('user save successfully');
+                        res.send({status: "success", message: "successfully registered"});
+                        //res.redirect('/login');
+                        res.end();
+                    }
+                });
             }
-        });
+        }
     });
+});
+
 
 //forgot password
-app.post('/forgotpassword',function (req,res) {
+app.post('/checkforgotpassword',function (req,res) {
     var number = req.body.number;
     //regex for checking whether entered number is indian
     var num = /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[789]\d{9}|(\d[ -]?){10}\d$/.test(number);
@@ -238,10 +239,12 @@ app.post('/forgotpassword',function (req,res) {
 
             if (result) {
                 console.log("sending otp");
-                var options = { method: 'GET',
-                    url: 'http://2factor.in/API/V1/'+keys.api_key()+'/SMS/'+number+'/AUTOGEN',
-                    headers: { 'content-type': 'application/x-www-form-urlencoded' },
-                    form: {} };
+                var options = {
+                    method: 'GET',
+                    url: 'http://2factor.in/API/V1/' + keys.api_key() + '/SMS/' + number + '/AUTOGEN',
+                    headers: {'content-type': 'application/x-www-form-urlencoded'},
+                    form: {}
+                };
 
                 request(options, function (error, response, body) {
                     if (error) {
@@ -258,7 +261,7 @@ app.post('/forgotpassword',function (req,res) {
                 });
 
             }
-            else{
+            else {
                 console.log("user is not registered");
                 res.send({status: "failure", message: "this number is not registered"});
             }
@@ -266,77 +269,88 @@ app.post('/forgotpassword',function (req,res) {
 
     });
 
-
 });
 
+app.post('/updatepassword',function (req,res) {
+    User.update({Number : number},{
+        $set : {Password : req.body.password}
 
+        },function (err,result1) {
 
-
-
-
-
-
-app.post('/forgotpassword',function (req, res) {
-    // In forgot password pug file ,after clicking on Continue .it is not reaching in here.
-    // not fixed yet, waiting for the front end response.
-    console.log("reaches");
-    var number = req.body.number;
-    //regex for checking whether entered number is indian
-    var num = /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[789]\d{9}|(\d[ -]?){10}\d$/.test(number);
-    if(num === false){
-        console.log("wrong number entered");
-        res.send({status: "failure", message: "wrong number ! please try again "});
-        return;
-    }
-
-    User.findOne({Number : number}, function (err,result) {
-        if(err){
+        if (err) {
             console.log(err);
-        }else{
-            console.log(result);
-            if(result){
-                console.log(req.body.number);
-                console.log("req for changing password");
-
-                // sending OTP
-                var options = { method: 'GET',
-                    url: 'http://2factor.in/API/V1/'+keys.api_key()+'/SMS/'+number+'/AUTOGEN',
-                    headers: { 'content-type': 'application/x-www-form-urlencoded' },
-                    form: {} };
-
-                request(options, function (error, response, body) {
-                    if (error) {
-                        throw new Error(error);
-                    }
-                    else {
-                        console.log(body);
-                        var temp = JSON.parse(body);
-                        console.log(temp.Details);
-                        sid = temp.Details;
-                        res.send({status: "success", message: "OTP sent to your number"});
-
-                        User.update({Number : number},{
-                            $set : {Password : req.body.password}
-                        },function (err,result1) {
-                            if(err){
-                                console.log(err);
-                            }
-                            else{
-                                console.log(result1);
-                                res.send({status: "success", message: "new password update"});
-                                res.end();
-                            }
-                        });
-
-                    }
-                });
-            }else{
-                console.log("user is not registered");
-                res.send({status: "failure", message: "this number is not registered"});
-            }
+        }
+        else {
+            console.log(result1);
+            res.send({status: "success", message: "new password update"});
+            res.end();
         }
     });
+
 });
+
+
+// app.post('/forgotpassword',function (req, res) {
+//     // In forgot password pug file ,after clicking on Continue .it is not reaching in here.
+//     // not fixed yet, waiting for the front end response.
+//     console.log("reaches");
+//     var number = req.body.number;
+//     //regex for checking whether entered number is indian
+//     var num = /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[789]\d{9}|(\d[ -]?){10}\d$/.test(number);
+//     if(num === false){
+//         console.log("wrong number entered");
+//         res.send({status: "failure", message: "wrong number ! please try again "});
+//         return;
+//     }
+//
+//     User.findOne({Number : number}, function (err,result) {
+//         if(err){
+//             console.log(err);
+//         }else{
+//             console.log(result);
+//             if(result){
+//                 console.log(req.body.number);
+//                 console.log("req for changing password");
+//
+//                 // sending OTP
+//                 var options = { method: 'GET',
+//                     url: 'http://2factor.in/API/V1/'+keys.api_key()+'/SMS/'+number+'/AUTOGEN',
+//                     headers: { 'content-type': 'application/x-www-form-urlencoded' },
+//                     form: {} };
+//
+//                 request(options, function (error, response, body) {
+//                     if (error) {
+//                         throw new Error(error);
+//                     }
+//                     else {
+//                         console.log(body);
+//                         var temp = JSON.parse(body);
+//                         console.log(temp.Details);
+//                         sid = temp.Details;
+//                         res.send({status: "success", message: "OTP sent to your number"});
+//
+//                         User.update({Number : number},{
+//                             $set : {Password : req.body.password}
+//                         },function (err,result1) {
+//                             if(err){
+//                                 console.log(err);
+//                             }
+//                             else{
+//                                 console.log(result1);
+//                                 res.send({status: "success", message: "new password update"});
+//                                 res.end();
+//                             }
+//                         });
+//
+//                     }
+//                 });
+//             }else{
+//                 console.log("user is not registered");
+//                 res.send({status: "failure", message: "this number is not registered"});
+//             }
+//         }
+//     });
+// });
 
 //login with filter and session
 app.post('/login',function (req,res) {
