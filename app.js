@@ -320,6 +320,10 @@ app.get('/profile', function (req, res) {
         res.render('profile', {number: req.session.userID});
     });
 
+app.get('/druginfo', function (req,res) {
+
+});
+
 //data base connection and opening port
 var db = 'mongodb://localhost/ApniCare';
 mongoose.connect(db, {useMongoClient: true});
