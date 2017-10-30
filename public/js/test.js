@@ -87,8 +87,6 @@ $(document).ready(function() {
 
                             $('#number').removeAttr('disabled');
                             $('#password').attr('disabled','disabled');
-
-
                     }
 
                 },
