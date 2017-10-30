@@ -52,10 +52,16 @@ $(document).ready(function() {
                     }
                     else {
                         Materialize.toast(result.message, 2000);
+<<<<<<< HEAD
                             //$('#number').removeAttr('disabled');
                             //$('#password').attr('disabled','disabled');
 
 
+=======
+
+                            $('#number').removeAttr('disabled');
+                            $('#password').attr('disabled','disabled');
+>>>>>>> 716d1db4ee5e5f6639cff4bd6ac4e612d2ccde5d
                     }
 
                 },

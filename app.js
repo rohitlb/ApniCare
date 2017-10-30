@@ -70,6 +70,7 @@ app.get('/test',function (req,res) {
 });
 
 app.post('/sendOTP',function (req, res) {
+
     var number = req.body.number;
     //regex for checking whether entered number is indian or not
     var num = /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[789]\d{9}|(\d[ -]?){10}\d$/.test(number);
@@ -118,7 +119,6 @@ app.post('/VerifyOTP',function (req, res) {
     otp = req.body.number;
     console.log(otp);
 
-
     var options = { method: 'GET',
         url: 'http://2factor.in/API/V1/'+keys.api_key()+'/SMS/VERIFY/'+sid+'/'+otp,
         headers: { 'content-type': 'application/x-www-form-urlencoded' },
@@ -165,8 +165,11 @@ app.get('/register',function (req,res) {
     }
 });
 
+
 //registration
 app.post('/register', function (req, res) {
+
+    console.log("woow");
     //regex for checking whether entered number is indian or not
     var num = /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[789]\d{9}|(\d[ -]?){10}\d$/.test(req.body.number);
     if(num === false){
@@ -217,6 +220,62 @@ app.post('/register', function (req, res) {
     });
 
 //forgot password
+app.post('/forgotpassword',function (req,res) {
+    var number = req.body.number;
+    //regex for checking whether entered number is indian
+    var num = /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[789]\d{9}|(\d[ -]?){10}\d$/.test(number);
+    if(num === false){
+        console.log("wrong number entered");
+        res.send({status: "failure", message: "wrong number ! please try again "});
+        return;
+    }
+
+    User.findOne({Number : number}, function (err,result) {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log(result);
+
+            if (result) {
+                console.log("sending otp");
+                var options = { method: 'GET',
+                    url: 'http://2factor.in/API/V1/'+keys.api_key()+'/SMS/'+number+'/AUTOGEN',
+                    headers: { 'content-type': 'application/x-www-form-urlencoded' },
+                    form: {} };
+
+                request(options, function (error, response, body) {
+                    if (error) {
+                        throw new Error(error);
+                    }
+                    else {
+                        console.log(body);
+                        var temp = JSON.parse(body);
+                        console.log(temp.Details);
+                        sid = temp.Details;
+                        res.send({status: "success", message: "OTP sent to your number"});
+
+                    }
+                });
+
+            }
+            else{
+                console.log("user is not registered");
+                res.send({status: "failure", message: "this number is not registered"});
+            }
+        }
+
+    });
+
+
+});
+
+
+
+
+
+
+
+
 app.post('/forgotpassword',function (req, res) {
     // In forgot password pug file ,after clicking on Continue .it is not reaching in here.
     // not fixed yet, waiting for the front end response.
@@ -264,7 +323,7 @@ app.post('/forgotpassword',function (req, res) {
                             }
                             else{
                                 console.log(result1);
-                                res.send({status: "success", message: "OTP sent to your number"});
+                                res.send({status: "success", message: "new password update"});
                                 res.end();
                             }
                         });
@@ -281,6 +340,7 @@ app.post('/forgotpassword',function (req, res) {
 
 //login with filter and session
 app.post('/login',function (req,res) {
+    console.log("login reaches here");
     User.findOne({Number: req.body.number , Password : req.body.password}).exec(function (err,result) {
         if(err){
             console.log("Some error occurred");
@@ -306,14 +366,14 @@ app.post('/login',function (req,res) {
 
 //logout the user
 app.get('/logout', function (req, res) {
-        req.session.destroy(function (err) {
-            if (err) {
-                console.log(err);
-            } else {
-                res.redirect('/register');
-            }
-        });
+    req.session.destroy(function (err) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.redirect('/register');
+        }
     });
+});
 
 //render profile page of user
 app.get('/profile', function (req, res) {
