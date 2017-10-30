@@ -1,7 +1,8 @@
-// require dependicies
+// require dependencies
 var express = require('express');
 var bodyParser = require('body-parser');
 var path = require('path');
+var favicon = require('serve-favicon');
 var request = require('request');
 var mongoose = require('mongoose');
 var promise = require('bluebird');
@@ -15,8 +16,9 @@ mongoose.Promise = promise;
 
 // req models
 var User  = require('./model/registration');
+
 // use after drug index schema implementation
-//var Drug = require('./model/drugindex');
+// var Drug = require('./model/drugindex');
 
 //declare the app
 var app = express();
@@ -28,6 +30,9 @@ app.disable('x-powered-by');
 app.set('port',9000);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
+
+// adding favicon of Apnicare
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 
 //set all middleware
 app.use(bodyParser.json());
@@ -140,7 +145,7 @@ app.get('/home',function (req,res) {
     }
 });
 
-    app.get('/', function (req, res) {
+app.get('/', function (req, res) {
         if (req.session.userID) {
             res.redirect('/profile');
             res.end();
@@ -161,9 +166,7 @@ app.get('/register',function (req,res) {
 });
 
 //registration
-
 app.post('/register', function (req, res) {
-
     //regex for checking whether entered number is indian or not
     var num = /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[789]\d{9}|(\d[ -]?){10}\d$/.test(req.body.number);
     if(num === false){
@@ -172,7 +175,7 @@ app.post('/register', function (req, res) {
         return;
     }
         // regex for checking whether password is numeric or not (pass iff pwd is numeric)
-    var a = /[0-9]/.test(req.body.password);
+    var a = /[0-9]{4}/.test(req.body.password);
     if(a === false){
         console.log("password is not numeric");
         res.send({status: "failure", message: "please enter a numeric password and try again"});
@@ -213,14 +216,13 @@ app.post('/register', function (req, res) {
         });
     });
 
-
-
 //forgot password
 app.post('/forgotpassword',function (req, res) {
     // In forgot password pug file ,after clicking on Continue .it is not reaching in here.
+    // not fixed yet, waiting for the front end response.
     console.log("reaches");
     var number = req.body.number;
-    //regex for checking whether entered number is indian or not
+    //regex for checking whether entered number is indian
     var num = /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[789]\d{9}|(\d[ -]?){10}\d$/.test(number);
     if(num === false){
         console.log("wrong number entered");
@@ -277,9 +279,7 @@ app.post('/forgotpassword',function (req, res) {
     });
 });
 
-
-// limitation :: if session id is the phone number than any one who knows the number of registered person can get unauthorised access.
-//login with filter and sessio
+//login with filter and session
 app.post('/login',function (req,res) {
     User.findOne({Number: req.body.number , Password : req.body.password}).exec(function (err,result) {
         if(err){
@@ -295,7 +295,6 @@ app.post('/login',function (req,res) {
                             res.send({status: "success", message: "successfully login" ,number: req.session.userID});
                             res.end();
                         }
-
             } else {
                         console.log("check your name or password");
                         res.send({status: "failure", message: "Can't login"});
@@ -306,7 +305,7 @@ app.post('/login',function (req,res) {
 });
 
 //logout the user
-    app.get('/logout', function (req, res) {
+app.get('/logout', function (req, res) {
         req.session.destroy(function (err) {
             if (err) {
                 console.log(err);
@@ -317,17 +316,17 @@ app.post('/login',function (req,res) {
     });
 
 //render profile page of user
-    app.get('/profile', function (req, res) {
+app.get('/profile', function (req, res) {
         res.render('profile', {number: req.session.userID});
     });
 
 //data base connection and opening port
-    var db = 'mongodb://localhost/ApniCare';
-    mongoose.connect(db, {useMongoClient: true});
+var db = 'mongodb://localhost/ApniCare';
+mongoose.connect(db, {useMongoClient: true});
 
 //connecting database and starting server
-    var database = mongoose.connection;
-    database.on('open', function () {
+var database = mongoose.connection;
+database.on('open', function () {
         console.log("database is connected");
         app.listen(app.get('port'), function () {
             console.log('server connected to http:localhost:' + app.get('port'));

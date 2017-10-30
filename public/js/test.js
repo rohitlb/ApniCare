@@ -13,8 +13,7 @@ $(document).ready(function() {
         inDuration: 300,
         outDuration: 200,
         padding: '0px'
-
-    })
+    });
 
 
         //for otp request
