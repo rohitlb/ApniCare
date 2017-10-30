@@ -168,11 +168,8 @@ app.get('/register',function (req,res) {
 
 //registration
 app.post('/register', function (req, res) {
-<<<<<<< HEAD
 
     console.log("woow");
-=======
->>>>>>> f06e6f9044cb9108b7f3c547b008ab3afc121d43
     //regex for checking whether entered number is indian or not
     var num = /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[789]\d{9}|(\d[ -]?){10}\d$/.test(req.body.number);
     if(num === false){
