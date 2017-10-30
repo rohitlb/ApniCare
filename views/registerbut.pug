@@ -7,10 +7,15 @@ div#pass.col.s12
         label(for="otp") Enter OTP
         span(style={position: "absolute", right: "0"}).badge.btn.right#verify Verify OTP
     div.input-field.col.s12
-        input(type="password" placeholder="numeric")#password
-        label(for="password") Password
+        input(type="password" placeholder="numeric")#password1
+        label(for="password1") Password
+    div.col.s12
+        input(type="checkbox")#check1
+        label(for="check1") show password
+        br
+        br
 
 
+    div.row.center
+        a.waves-effect.waves-purple.btn.purple.hoverable.darken-2.buttu#submitButton Signup
 
-    div.modal-footer
-        a.modal-action.modal-close.waves-effect.waves-green.btn.green#submitButton Register

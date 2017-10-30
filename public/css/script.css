@@ -1,5 +1,70 @@
 span
 {
-    font-size: 16px;
+    font-size: 15px;
 
+}
+.btn
+{
+    text-decoration-color: purple;
+}
+#div1
+{
+    padding: 0px;
+    border: 0px;
+    margin: 0px;
+    background-color: purple;
+}
+#div2
+{
+    padding: 0px;
+    border: 0px;
+    margin: 0px;
+    background-color: purple;
+}
+.image1
+{
+    height:410px;
+    width:100%;
+    padding:0px;
+    margin:0px;
+    border: 0px;
+}
+.image2
+{
+    height:1px;
+    width:40%;
+}
+#healthCare
+{
+    width:100%;
+}
+form
+{
+    padding: 0px;
+    border: 0px;
+}
+.modal
+{
+    width: 40%;
+    max-height:80%;
+    top: 6%;
+    padding: 0px;
+    border: 0px;
+
+}
+.row
+{
+    //background-color: purple;
+    padding:0px;
+    border:0px;
+    margin-bottom: 0px;
+    //margin:0px;
+}
+.input-field
+{
+    background-color: white;
+}
+.buttu
+{
+     width: 70%;
 }
