@@ -16,8 +16,9 @@ mongoose.Promise = promise;
 
 // req models
 var User  = require('./model/registration');
+
 // use after drug index schema implementation
-//var Drug = require('./model/drugindex');
+// var Drug = require('./model/drugindex');
 
 //declare the app
 var app = express();
@@ -166,7 +167,6 @@ app.get('/register',function (req,res) {
 
 //registration
 app.post('/register', function (req, res) {
-
     //regex for checking whether entered number is indian or not
     var num = /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[789]\d{9}|(\d[ -]?){10}\d$/.test(req.body.number);
     if(num === false){
@@ -319,10 +319,6 @@ app.get('/logout', function (req, res) {
 app.get('/profile', function (req, res) {
         res.render('profile', {number: req.session.userID});
     });
-
-app.get('/druginfo', function (req,res) {
-
-});
 
 //data base connection and opening port
 var db = 'mongodb://localhost/ApniCare';
