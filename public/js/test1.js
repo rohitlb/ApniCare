@@ -1,6 +1,7 @@
 $(document).ready(function() {
 
-
+        $('#Customer').hide();
+        $('#providers').hide();
     //if clicked on login button
     $('#loginbut').click(function () {
         $('#div2').hide();
@@ -35,11 +36,7 @@ $(document).ready(function() {
 
                                         })
                                      //on click on continue button
-                                         $('#OTPforForgot').click(function () {
-                                             $('#OTPforForgot').hide();
-                                             $('#pass1').show();
-                                             $('#healthCare').hide();
-                                         })
+                                           //used while calling ajax for continue
     //if clicked on signup button
     $('#signupbut').click(function () {
         $('#div2').show();
@@ -101,5 +98,24 @@ $(document).ready(function() {
                           pass3.setAttribute('type','password');
                       }
                   }
+
+
+
+                  //on click on health care provider
+                  $('#healthCare').click(function () {
+                      $('#providers').show();
+                      $('#healthCare').hide();
+                      $('#Customer').hide();
+
+
+                  })
+                    //on click on Customer
+                    $('#Customer').click(function () {
+                        $('#providers').hide();
+                        $('#healthCare').hide();
+                        $('#Customer').show();
+
+
+                    })
 
 });

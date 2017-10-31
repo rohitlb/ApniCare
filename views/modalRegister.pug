@@ -17,6 +17,10 @@ div.row
         img.image1(src='/images/black.png')
     div.col.s12.m8.l8
         form
+            div.row#providers
+                h5 For HealthCare Provider
+            br
+
             include logContent
             include logContent1
             //br
@@ -29,8 +33,11 @@ div.row
                     br
                     br
         div.modal-footer
-            a.waves-effect.waves-purple.btn.btn-large.purple.darken-2#healthCare
+            a.waves-effect.waves-purple.btn.btn-large#healthCare
                         | HealthCare_Provider
+        div.modal-footer
+            a.waves-effect.waves-purple.btn.btn-large#Customer
+                | Customer
 
 
 

@@ -1,11 +1,11 @@
 div#log.row
     div#login.col.s12
         div.input-field.col.s12(style={padding: "0px",margin:"0px",background:"white"})
-            input(type="text")#number2
+            input.required(type="text")#number2
             label(for="number2") Number
         div.input-field.col.s12
             input(type="password")#password2
-            label(for="password2") Password
+            label.required(for="password2") Password
             span(style={position: "absolute", right: "0"}).badge.btn.right#forgotButton Forgot?
         div.col.s12
             input(type="checkbox")#check2
@@ -13,14 +13,11 @@ div#log.row
             br
             br
 
-
-
-
         div.row.center
-            a.waves-effect.waves-purple.btn.purple.hoverable.darken-2#loginButton1(style={width:"80%"}) Login
+            a.waves-effect.waves-purple.btn.hoverable.mediumpurple#loginButton1(style={width:"80%"}) Login
             br
             br
-            a.waves-effect.waves-purple.hoverable.btn#NewtoApnicare(style={width:"80%",backgroundColor:"white"})
+            a.waves-effect.waves-purple.hoverable.btn#NewtoApnicare(style={width:"80%"})
                 | New to ApniCare?Sign Up
 
 

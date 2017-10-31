@@ -1,11 +1,12 @@
 span
 {
+    background-color: wheat;
     font-size: 15px;
 
 }
 .btn
 {
-    text-decoration-color: purple;
+    background-color: mediumpurple;
 }
 #div1
 {
@@ -34,8 +35,9 @@ span
     height:1px;
     width:40%;
 }
-#healthCare
+#healthCare,#Customer
 {
+    background-color: teal;
     width:100%;
 }
 form
@@ -64,8 +66,21 @@ form
 {
     background-color: white;
 }
+.textarea
+{
+    background-color: white;
+}
 .buttu
 {
-    background-color: aliceblue;
+    background-color: mediumpurple;
      width: 70%;
+}
+#providers
+{
+    color: teal;
+}
+#loginButton12,#NewtoApnicare
+{
+    color: purple;
+    background-color: whitesmoke;
 }

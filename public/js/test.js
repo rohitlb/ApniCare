@@ -1,4 +1,4 @@
-$(document).ready(function() {
+    $(document).ready(function() {
     $('.carousel.carousel-slider').carousel({fullWidth: false});
     $('.carousel').carousel();
     $('.carousel').carousel('next');
@@ -219,8 +219,11 @@ $(document).ready(function() {
                     if (result.status === "success") {
                         Materialize.toast(result.message, 2000);
 
-                        $('#number').attr('disabled','disabled');
-                        $('#password').attr('disabled','disabled');
+                           $('#OTPforForgot').hide();
+                            $('#pass1').show();
+                            $('#healthCare').hide();
+
+                        $('#password3').attr('disabled','disabled');
                     }
                     else {
                         Materialize.toast(result.message, 2000);
@@ -258,7 +261,7 @@ $(document).ready(function() {
 
                     if (result) {
                         Materialize.toast(result.message, 2000);
-                        $('#password').removeAttr('disabled');
+                        $('#password3').removeAttr('disabled');
 
                     }
                     else {
