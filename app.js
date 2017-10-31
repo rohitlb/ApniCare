@@ -167,8 +167,6 @@ app.get('/register',function (req,res) {
 
 //registration
 app.post('/register', function (req, res) {
-
-    console.log("woow");
     //regex for checking whether entered number is indian or not
     var num = /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[789]\d{9}|(\d[ -]?){10}\d$/.test(req.body.number);
     if (num === false) {
@@ -278,7 +276,6 @@ app.post('/updatepassword',function (req,res) {
     User.update({Number : number},{
         $set : {Password : password}
         },function (err,result1) {
-
         if (err) {
             console.log(err);
         }

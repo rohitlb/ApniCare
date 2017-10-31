@@ -13,5 +13,4 @@
 2 data hashing
 3 mongo-session
 4 Doc reg & login
-
-test 2
+5 recover forgotten password
