@@ -25,6 +25,7 @@ $(document).ready(function() {
                             $('#forgot').show();
                             $('#divider').hide();
                             $('#healthCare').hide();
+                            $('#Customer').hide();
                         })
                                      //on click on arrow
                                         $('#arrow').click(function () {
@@ -32,7 +33,7 @@ $(document).ready(function() {
                                             $('#forgot').hide();
                                             $('#log').show();
                                             $('#divider').show();
-                                            $('#healthCare').show();
+                                            $('#Customer').show();
 
                                         })
                                      //on click on continue button
@@ -105,16 +106,15 @@ $(document).ready(function() {
                   $('#healthCare').click(function () {
                       $('#providers').show();
                       $('#healthCare').hide();
-                      $('#Customer').hide();
+                      $('#Customer').show();
 
 
                   })
                     //on click on Customer
                     $('#Customer').click(function () {
                         $('#providers').hide();
-                        $('#healthCare').hide();
-                        $('#Customer').show();
-
+                        $('#Customer').hide();
+                        $('#healthCare').show();
 
                     })
 
