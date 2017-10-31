@@ -53,18 +53,12 @@ $(document).ready(function() {
                     else {
                         Materialize.toast(result.message, 2000);
 
-<<<<<<< HEAD
-
-=======
->>>>>>> e34335a67d7ffe29b5c7e782d2c0343f50b18f93
                             //$('#number').removeAttr('disabled');
                             //$('#password').attr('disabled','disabled');
 
 
-<<<<<<< HEAD
-=======
 
->>>>>>> e34335a67d7ffe29b5c7e782d2c0343f50b18f93
+
 
                             $('#number').removeAttr('disabled');
                             $('#password').attr('disabled','disabled');
