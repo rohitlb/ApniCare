@@ -276,7 +276,6 @@ app.post('/updatepassword',function (req,res) {
     User.update({Number : number},{
         $set : {Password : password}
         },function (err,result1) {
-
         if (err) {
             console.log(err);
         }
