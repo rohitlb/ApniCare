@@ -220,7 +220,10 @@ var number = null;
 
 //forgot password
 app.post('/checkforgotpassword',function (req,res) {
+    console.log("app");
+    console.log(req.body.number);
      number = req.body.number;
+     console.log(number);
     //regex for checking whether entered number is indian
     var num = /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[789]\d{9}|(\d[ -]?){10}\d$/.test(number);
     if(num === false){
