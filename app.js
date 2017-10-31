@@ -272,11 +272,7 @@ app.post('/checkforgotpassword',function (req,res) {
 });
 
 app.post('/updatepassword',function (req,res) {
-<<<<<<< HEAD
-    User.update({1:1},{
-=======
     User.update({1 : 1},{
->>>>>>> da7eef30adec982396e161a6005b3a9d80591974
         $set : {Password : req.body.password}
 
         },function (err,result1) {
