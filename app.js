@@ -219,10 +219,11 @@ app.post('/register', function (req, res) {
     });
 });
 
+var number = null;
 
 //forgot password
 app.post('/checkforgotpassword',function (req,res) {
-    var number = req.body.number;
+     number = req.body.number;
     //regex for checking whether entered number is indian
     var num = /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[789]\d{9}|(\d[ -]?){10}\d$/.test(number);
     if(num === false){
@@ -272,8 +273,11 @@ app.post('/checkforgotpassword',function (req,res) {
 });
 
 app.post('/updatepassword',function (req,res) {
-    User.update({1 : 1},{
-        $set : {Password : req.body.password}
+    console.log(number);
+    var password = req.body.password;
+    console.log(password);
+    User.update({Number : number},{
+        $set : {Password : password}
 
         },function (err,result1) {
 
