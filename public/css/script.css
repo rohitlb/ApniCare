@@ -12,14 +12,14 @@ span
     padding: 0px;
     border: 0px;
     margin: 0px;
-    background-color: purple;
+    background-color: mediumpurple;
 }
 #div2
 {
     padding: 0px;
     border: 0px;
     margin: 0px;
-    background-color: purple;
+    background-color: rebeccapurple;
 }
 .image1
 {
@@ -66,5 +66,6 @@ form
 }
 .buttu
 {
+    background-color: aliceblue;
      width: 70%;
 }

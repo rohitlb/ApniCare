@@ -10,6 +10,7 @@ $(document).ready(function() {
     })
                       //if clicked on NewtoApnicare
                       $('#NewtoApnicare').click(function () {
+                          $('#pass').hide();
                           $('#div2').show();
                           $('#register').show();
                           $('#div1').hide();
