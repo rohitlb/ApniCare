@@ -222,7 +222,7 @@
                            $('#OTPforForgot').hide();
                             $('#pass1').show();
                             $('#healthCare').hide();
-
+                        $('#Customer').hide();
                         $('#password3').attr('disabled','disabled');
                     }
                     else {
