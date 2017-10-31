@@ -165,7 +165,6 @@ app.get('/register',function (req,res) {
     }
 });
 
-
 //registration
 app.post('/register', function (req, res) {
 
@@ -271,7 +270,6 @@ app.post('/checkforgotpassword',function (req,res) {
     });
 
 });
-
 
 app.post('/updatepassword',function (req,res) {
     console.log(number);
