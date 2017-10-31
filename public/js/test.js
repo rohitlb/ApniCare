@@ -52,25 +52,20 @@ $(document).ready(function() {
                     }
                     else {
                         Materialize.toast(result.message, 2000);
-<<<<<<< HEAD
 
-=======
->>>>>>> da7eef30adec982396e161a6005b3a9d80591974
+
                             //$('#number').removeAttr('disabled');
                             //$('#password').attr('disabled','disabled');
 
 
-<<<<<<< HEAD
+
+                            $('#number').removeAttr('disabled');
+                            $('#password').attr('disabled','disabled');
 
 
                             $('#number').removeAttr('disabled');
                             $('#password').attr('disabled','disabled');
 
-=======
-
-                            $('#number').removeAttr('disabled');
-                            $('#password').attr('disabled','disabled');
->>>>>>> da7eef30adec982396e161a6005b3a9d80591974
                     }
 
                 },
