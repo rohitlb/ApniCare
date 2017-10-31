@@ -48,24 +48,10 @@
 
                         $('#name').attr('disabled','disabled');
                         $('#number').attr('disabled','disabled');
-                        $('#password').attr('disabled','disabled');
+                        $('#password1').attr('disabled','disabled');
                     }
                     else {
                         Materialize.toast(result.message, 2000);
-
-                            //$('#number').removeAttr('disabled');
-                            //$('#password').attr('disabled','disabled');
-
-
-
-
-
-                            $('#number').removeAttr('disabled');
-                            $('#password').attr('disabled','disabled');
-
-
-                            $('#number').removeAttr('disabled');
-                            $('#password').attr('disabled','disabled');
 
                     }
 
@@ -96,7 +82,7 @@
 
                     if (result) {
                         Materialize.toast(result.message, 2000);
-                        $('#password').removeAttr('disabled');
+                        $('#password1').removeAttr('disabled');
 
                     }
                     else {
