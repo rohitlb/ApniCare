@@ -272,13 +272,13 @@ app.post('/checkforgotpassword',function (req,res) {
 
 });
 
+
 app.post('/updatepassword',function (req,res) {
     console.log(number);
     var password = req.body.password;
     console.log(password);
     User.update({Number : number},{
         $set : {Password : password}
-
         },function (err,result1) {
 
         if (err) {
@@ -290,7 +290,6 @@ app.post('/updatepassword',function (req,res) {
             res.end();
         }
     });
-
 });
 
 // forgetpassword
