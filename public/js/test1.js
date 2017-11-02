@@ -1,11 +1,16 @@
 $(document).ready(function() {
 
+  //buttons for doctor use
     $('#Dverify').hide();
     $('#DsubmitButton').hide();
     $('#Dsend').hide();
     $('#DloginButton1').hide();
+    $('#DOTPforForgot').hide();
+    $('#Dverify1').hide();
+    $('#DagainLogin').hide();
 
-    $('#Customer').hide();
+
+        $('#Customer').hide();
         $('#providers').hide();
     //if clicked on login button
     $('#loginbut').click(function () {
@@ -117,20 +122,26 @@ $(document).ready(function() {
 
                   //on click on health care provider
                   $('#healthCare').click(function () {
-                      $('#providers').show();
-                      $('#healthCare').hide();
-                      $('#Customer').show();
-                      $('#send').hide();
-                      $('#Dsend').show();
-                      $('#submitButton').hide();
-                      $('#DsubmitButton').show();
-                      $('#verify').hide();
-                      $('#Dverify').show();
-                      $('#loginButton1').hide();
-                      $('#DloginButton1').show();
-
-
-
+                                  $('#providers').show();
+                                  $('#healthCare').hide();
+                                  $('#Customer').show();
+                                  $('#send').hide();
+                                  //doctor register buttons
+                                  $('#Dsend').show();
+                                  $('#submitButton').hide();
+                                  $('#DsubmitButton').show();
+                                  $('#verify').hide();
+                                  $('#Dverify').show();
+                                  //doctor login buttons
+                                  $('#loginButton1').hide();
+                                  $('#DloginButton1').show();
+                                  //doctor forgotPassword buttons
+                                  $('#OTPforForgot').hide();
+                                  $('#DOTPforForgot').show();
+                                  $('#verify1').hide();
+                                  $('#Dverify1').show();
+                                  $('#againLogin').hide();
+                                  $('#DagainLogin').show();
                   })
                     //on click on Customer
                     $('#Customer').click(function () {
