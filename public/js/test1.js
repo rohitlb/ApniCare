@@ -6,9 +6,16 @@ $(document).ready(function() {
     $('#loginbut').click(function () {
         $('#div2').hide();
         $('#register').hide();
-        $('#forgot').hide();
-        //$('#forgetTab').hide();
+        $('#div1').show();
+        $('#log').show();
+        $('#forgetTab').hide();
     })
+    // $('#loginbut').click(function () {
+    //     $('#div2').hide();
+    //     $('#register').hide();
+    //     $('#forgot').hide();
+    //     //$('#forgetTab').hide();
+    // })
                       //if clicked on NewtoApnicare
                       $('#NewtoApnicare').click(function () {
                           $('#pass').hide();
@@ -56,7 +63,7 @@ $(document).ready(function() {
                     $('#div1').show();
                     $('#log').show();
                     $('#forgot').hide();
-                    //$('#forgetTab').hide();
+                    $('#forgetTab').hide();
                 })
                  //for showing/hiding password
                  $('#check1').click(function () {

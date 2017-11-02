@@ -1,7 +1,10 @@
 span
 {
-    background-color: wheat;
-    font-size: 15px;
+    position: absolute;
+    right: 0px;
+    color: purple;
+    background-color: white;
+    font-size: 20px;
 
 }
 .btn
@@ -42,16 +45,17 @@ span
 }
 form
 {
+    background-color: white;
     padding: 0px;
     border: 0px;
 }
 .modal
-{
+{   border-color: purple;
     width: 40%;
     max-height:80%;
     top: 6%;
     padding: 0px;
-    border: 0px;
+    border: 1px;
 
 }
 .row
