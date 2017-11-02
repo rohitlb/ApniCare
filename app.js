@@ -374,6 +374,81 @@ app.post('/checkforgotpassword',function (req,res) {
 
 });
 
+//forgot password for doctor
+app.post('/doctorcheckforgotpassword',function (req,res) {
+    console.log("app");
+    console.log(req.body.number);
+    number = req.body.number;
+    console.log(number);
+    //regex for checking whether entered number is indian
+    var num = /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[789]\d{9}|(\d[ -]?){10}\d$/.test(number);
+    if(num === false){
+        console.log("wrong number entered");
+        res.send({status: "failure", message: "wrong number ! please try again "});
+        return;
+    }
+
+    Doctor.findOne({Number : number}, function (err,result) {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log(result);
+
+            if (result) {
+                console.log("sending otp");
+                var options = {
+                    method: 'GET',
+                    url: 'http://2factor.in/API/V1/' + keys.api_key() + '/SMS/' + number + '/AUTOGEN',
+                    headers: {'content-type': 'application/x-www-form-urlencoded'},
+                    form: {}
+                };
+
+                request(options, function (error, response, body) {
+                    if (error) {
+                        throw new Error(error);
+                    }
+                    else {
+                        console.log(body);
+                        var temp = JSON.parse(body);
+                        console.log(temp.Details);
+                        sid = temp.Details;
+                        res.send({status: "success", message: "OTP sent to your number"});
+
+                    }
+                });
+
+            }
+            else {
+                console.log("user is not registered");
+                res.send({status: "failure", message: "this number is not registered"});
+            }
+        }
+
+    });
+
+});
+
+//doc update password
+app.post('/doctorupdatepassword',function (req,res) {
+    console.log('updating password');
+    console.log(req.body.number);
+    console.log(number);
+    var password = req.body.password;
+    console.log(password);
+    Doctor.update({Number : number},{
+        $set : {Password : password}
+    },function (err,result1) {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            console.log(result1);
+            res.send({status: "success", message: "new password update"});
+            res.end();
+        }
+    });
+});
+
 app.post('/updatepassword',function (req,res) {
     console.log('updating password');
     console.log(req.body.number);
