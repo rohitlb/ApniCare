@@ -5,4 +5,9 @@ html
         p hello #{number}
         a(href='logout') logout
 
+        form(action="/uploadimage", method="post", enctype="multipart/form-data")
+            input(type="file", name="myimage")
+            input(type="submit", name="submit", value="submit")
+
+
 //make complete profile like app

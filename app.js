@@ -12,10 +12,13 @@ var expressValidator = require('express-validator');
 var cookieParser = require('cookie-parser');
 var keys = require('./private/keys');
 
+var otp;
+
 mongoose.Promise = promise;
 
 // req models
 var User  = require('./model/registration');
+var Doctor = require('./model/doctorregistration');
 
 // use after drug index schema implementation
 // var Drug = require('./model/drugindex');
@@ -165,7 +168,7 @@ app.get('/register',function (req,res) {
     }
 });
 
-//registration
+//doctor registration
 app.post('/register', function (req, res) {
     //regex for checking whether entered number is indian or not
     var num = /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[789]\d{9}|(\d[ -]?){10}\d$/.test(req.body.number);
@@ -182,6 +185,57 @@ app.post('/register', function (req, res) {
         return;
     }
     User.findOne({Number: req.body.number}).exec(function (err, result) {
+        if (err) {
+            console.log("Some error occured");
+            res.end();
+        } else {
+            console.log(result);
+            if (result) {
+                console.log("User Already Exist");
+                res.send({status: "failure", message: "user Already Exists"});
+                res.end();
+
+            } else {
+                var user = new User({
+                    Name: req.body.name,
+                    Number: req.body.number,
+                    Password: req.body.password
+
+                });
+                user.save(function (err, results) {
+                    if (err) {
+                        console.log("There is an error");
+                        res.end();
+                    } else {
+                        console.log(results);
+                        console.log('user save successfully');
+                        res.send({status: "success", message: "successfully registered"});
+                        //res.redirect('/login');
+                        res.end();
+                    }
+                });
+            }
+        }
+    });
+});
+
+//doctor registration
+app.post('/doctorregister', function (req, res) {
+    //regex for checking whether entered number is indian or not
+    var num = /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[789]\d{9}|(\d[ -]?){10}\d$/.test(req.body.number);
+    if (num === false) {
+        console.log("wrong number entered");
+        res.send({status: "failure", message: "wrong number ! please try again "});
+        return;
+    }
+    // regex for checking whether password is numeric or not (pass iff pwd is numeric)
+    var a = /[0-9]{4}/.test(req.body.password);
+    if (a === false) {
+        console.log("password is not numeric");
+        res.send({status: "failure", message: "please enter a numeric password and try again"});
+        return;
+    }
+    Doctor.findOne({Number: req.body.number}).exec(function (err, result) {
         if (err) {
             console.log("Some error occured");
             res.end();
@@ -273,6 +327,8 @@ app.post('/checkforgotpassword',function (req,res) {
 });
 
 app.post('/updatepassword',function (req,res) {
+    console.log('updating password');
+    console.log(req.body.number);
     console.log(number);
     var password = req.body.password;
     console.log(password);

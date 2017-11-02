@@ -18,3 +18,7 @@ var Medicines = new mongoose.Schema({
 
 
 module.exports=mongoose.model('medicines',Medicines);
+
+app.post('/uploadimage', function (req,res) {
+
+});
