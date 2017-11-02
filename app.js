@@ -296,13 +296,13 @@ app.post('/doctorregister', function (req, res) {
                 res.end();
 
             } else {
-                var Doctor = new Doctor({
+                var doctor = new Doctor({
                     Name: req.body.name,
                     Number: req.body.number,
                     Password: req.body.password
 
                 });
-                Doctor.save(function (err, results) {
+                doctor.save(function (err, results) {
                     if (err) {
                         console.log("There is an error");
                         res.end();
