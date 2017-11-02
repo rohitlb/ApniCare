@@ -436,6 +436,32 @@ app.post('/login',function (req,res) {
     });
 });
 
+//Doctor login
+app.post('/doctorlogin',function (req,res) {
+    console.log("login reaches here");
+    Doctor.findOne({Number: req.body.number , Password : req.body.password}).exec(function (err,result) {
+        if(err){
+            console.log("Some error occurred");
+            res.send({status: "failure", message : "Some error occurred"});
+            res.end();
+        } else {
+            console.log(result);
+            if(result) {
+                console.log("Successfully login");
+                req.session.userID = result._id;
+                if (req.session.userID) {
+                    res.send({status: "success", message: "successfully login" ,number: req.session.userID});
+                    res.end();
+                }
+            } else {
+                console.log("check your name or password");
+                res.send({status: "failure", message: "Can't login"});
+                res.end();
+            }
+        }
+    });
+});
+
 //logout the user
 app.get('/logout', function (req, res) {
     req.session.destroy(function (err) {
