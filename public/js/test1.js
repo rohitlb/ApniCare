@@ -137,6 +137,15 @@ $(document).ready(function() {
                         $('#providers').hide();
                         $('#Customer').hide();
                         $('#healthCare').show();
+                        $('#send').show();
+                        $('#Dsend').hide();
+                        $('#submitButton').show();
+                        $('#DsubmitButton').hide();
+                        $('#verify').show();
+                        $('#Dverify').hide();
+                        $('#loginButton1').show();
+                        $('#DloginButton1').hide();
+
 
                     })
 
