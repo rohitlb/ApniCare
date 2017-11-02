@@ -1,6 +1,11 @@
 $(document).ready(function() {
 
-        $('#Customer').hide();
+    $('#Dverify').hide();
+    $('#DsubmitButton').hide();
+    $('#Dsend').hide();
+    $('#DloginButton1').hide();
+
+    $('#Customer').hide();
         $('#providers').hide();
     //if clicked on login button
     $('#loginbut').click(function () {
@@ -8,7 +13,8 @@ $(document).ready(function() {
         $('#register').hide();
         $('#div1').show();
         $('#log').show();
-        $('#forgetTab').hide();
+        $('#forgot').hide();
+        //$('#forgetTab').hide();
     })
     // $('#loginbut').click(function () {
     //     $('#div2').hide();
@@ -114,6 +120,15 @@ $(document).ready(function() {
                       $('#providers').show();
                       $('#healthCare').hide();
                       $('#Customer').show();
+                      $('#send').hide();
+                      $('#Dsend').show();
+                      $('#submitButton').hide();
+                      $('#DsubmitButton').show();
+                      $('#verify').hide();
+                      $('#Dverify').show();
+                      $('#loginButton1').hide();
+                      $('#DloginButton1').show();
+
 
 
                   })

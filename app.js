@@ -72,6 +72,7 @@ app.get('/test',function (req,res) {
 
 });
 
+//user
 app.post('/sendOTP',function (req, res) {
 
     var number = req.body.number;
@@ -84,6 +85,53 @@ app.post('/sendOTP',function (req, res) {
     }
 
     User.findOne({Number : number},function (err,result) {
+        if(err){
+            console.log(err);
+        }
+        else{
+            console.log(result);
+            if (result) {
+                console.log("User Already Exist");
+                res.send({status: "failure", message: "number Already Exists"});
+                res.end();
+
+            }
+            else{
+                var options = { method: 'GET',
+                    url: 'http://2factor.in/API/V1/'+keys.api_key()+'/SMS/'+number+'/AUTOGEN',
+                    headers: { 'content-type': 'application/x-www-form-urlencoded' },
+                    form: {} };
+
+                request(options, function (error, response, body) {
+                    if (error) {
+                        throw new Error(error);
+                    }
+                    else {
+                        console.log(body);
+                        var temp = JSON.parse(body);
+                        console.log(temp.Details);
+                        sid = temp.Details;
+                        res.send({status: "success", message: "OTP sent to your number"});
+                    }
+                });
+            }
+        }
+    });
+});
+
+//doctor
+app.post('/DoctorsendOTP',function (req, res) {
+
+    var number = req.body.number;
+    //regex for checking whether entered number is indian or not
+    var num = /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[789]\d{9}|(\d[ -]?){10}\d$/.test(number);
+    if(num === false){
+        console.log("wrong number entered");
+        res.send({status: "failure", message: "wrong number ! please try again "});
+        return;
+    }
+
+    Doctor.findOne({Number : number},function (err,result) {
         if(err){
             console.log(err);
         }

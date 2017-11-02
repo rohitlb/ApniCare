@@ -6,7 +6,7 @@ div.row
             | Get access to your
             | account
             |
-        img.responsive.image1(src='/images/black.png')
+        img.image1(src='/images/black.png')
     div.col.l4.hide-on-med-and-down#div2
         p
             h3.strong Signup
@@ -25,6 +25,8 @@ div.row
             include logContent1
             //br
             include forgotPassword
+            br
+            br
             div#divider
                 div.row.center
                     img.image2(src='/images/black.png')
@@ -32,12 +34,12 @@ div.row
                     img.image2(src='/images/black.png')
                     br
                     br
-        div.modal-footer
+        div
+            .row.modal-footer
             a.waves-effect.waves-purple.btn.btn-large#healthCare
                         | HealthCare_Provider
-        div.modal-footer
             a.waves-effect.waves-purple.btn.btn-large#Customer
-                        | Customer
+                            | Customer
 
 
 
