@@ -346,8 +346,6 @@ app.post('/updatepassword',function (req,res) {
     });
 });
 
-// forgetpassword
-
 // app.post('/forgotpassword',function (req, res) {
 //     // In forgot password pug file ,after clicking on Continue .it is not reaching in here.
 //     // not fixed yet, waiting for the front end response.
