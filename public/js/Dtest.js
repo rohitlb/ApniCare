@@ -179,7 +179,7 @@ $('#DOTPforForgot').click(function () {
 
     $.ajax(
         {
-            url: "/checkforgotpassword",
+            url: "/doctorcheckforgotpassword",
             method: 'POST',
             data: JSON.stringify(data),
             contentType: 'application/json',
@@ -265,7 +265,7 @@ $('#DagainLogin').click(function () {
 
     $.ajax(
         {
-            url: "/updatepassword",
+            url: "/doctorupdatepassword",
             method: 'POST',
             data: JSON.stringify(data1),
             contentType: 'application/json',
