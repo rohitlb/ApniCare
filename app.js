@@ -134,7 +134,7 @@ app.post('/VerifyOTP',function (req, res) {
         console.log(body);
         var temp = JSON.parse(body);
         console.log(temp.Details);
-        res.send({message: temp.Details })
+        res.send({message: temp.Status })
         });
 });
 
@@ -174,14 +174,14 @@ app.post('/register', function (req, res) {
     var num = /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[789]\d{9}|(\d[ -]?){10}\d$/.test(req.body.number);
     if (num === false) {
         console.log("wrong number entered");
-        res.send({status: "failure", message: "wrong number ! please try again "});
+        res.send({Status: "failure", message: "wrong number ! please try again "});
         return;
     }
     // regex for checking whether password is numeric or not (pass iff pwd is numeric)
     var a = /[0-9]{4}/.test(req.body.password);
     if (a === false) {
         console.log("password is not numeric");
-        res.send({status: "failure", message: "please enter a numeric password and try again"});
+        res.send({Status: "failure", message: "please enter a numeric password and try again"});
         return;
     }
     User.findOne({Number: req.body.number}).exec(function (err, result) {
@@ -192,7 +192,7 @@ app.post('/register', function (req, res) {
             console.log(result);
             if (result) {
                 console.log("User Already Exist");
-                res.send({status: "failure", message: "user Already Exists"});
+                res.send({Status: "failure", message: "user Already Exists"});
                 res.end();
 
             } else {
@@ -209,7 +209,7 @@ app.post('/register', function (req, res) {
                     } else {
                         console.log(results);
                         console.log('user save successfully');
-                        res.send({status: "success", message: "successfully registered"});
+                        res.send({Status: "Success", message: "successfully registered"});
                         //res.redirect('/login');
                         res.end();
                     }
@@ -414,7 +414,7 @@ app.post('/login',function (req,res) {
     User.findOne({Number: req.body.number , Password : req.body.password}).exec(function (err,result) {
         if(err){
             console.log("Some error occurred");
-            res.send({status: "failure", message : "Some error occurred"});
+            res.send({Status: "failure", message : "Some error occurred"});
             res.end();
         } else {
             console.log(result);
@@ -422,12 +422,12 @@ app.post('/login',function (req,res) {
                         console.log("Successfully login");
                         req.session.userID = result._id;
                         if (req.session.userID) {
-                            res.send({status: "success", message: "successfully login" ,number: req.session.userID});
+                            res.send({Status: "Success", message: "successfully login" ,number: req.session.userID});
                             res.end();
                         }
             } else {
                         console.log("check your name or password");
-                        res.send({status: "failure", message: "Can't login"});
+                        res.send({Status: "failure", message: "Can't login"});
                         res.end();
             }
         }
