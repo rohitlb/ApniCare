@@ -581,9 +581,9 @@ app.get('/logout', function (req, res) {
 });
 
 //render profile page of user
-// app.get('/profile', function (req, res) {
-//     res.render('profile', {number: req.session.userID});
-// });
+app.get('/profile', function (req, res) {
+    res.render('profile', {number: req.session.userID});
+});
 
 //data base connection and opening port
 var db = 'mongodb://localhost/ApniCare';
