@@ -309,7 +309,7 @@ app.post('/profiles',function (req,res) {
             console.log(err);
         }
         else{
-            console.log(result);
+            //console.log(result);
             res.send("successfully updated");
         }
     });
