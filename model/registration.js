@@ -2,10 +2,12 @@ var mongoose = require('mongoose');
 
 
 var User = new mongoose.Schema({
+    //general information
     Name : {type:String},
     email : {type : String},
     Number : {type : String},
     Password : {type:String},
+    // featured information
     dob : {type:String},
     gender : {type : String},
     blood_group : {type:String},
