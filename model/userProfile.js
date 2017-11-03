@@ -1,7 +1,8 @@
 var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
 
-
-var Userprofile = new mongoose.Schema({
+var Userprofile = new Schema({
+    user : [{type : Schema.Types.ObjectId , ref : 'user'} ],
     dob : {type:String},
     gender : {type : String},
     blood_group : {type:String},

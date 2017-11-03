@@ -259,6 +259,7 @@ app.get('/register',function (req,res) {
     }
 });
 
+var ids = null;
 //User registration
 app.post('/register', function (req, res) {
     //regex for checking whether entered number is indian or not
@@ -290,23 +291,65 @@ app.post('/register', function (req, res) {
             } else {
                 var user = new User({
                     Name: req.body.name,
+                    email : req.body.email,
                     Number: req.body.number,
                     Password: req.body.password
-
                 });
                 user.save(function (err, results) {
                     if (err) {
                         console.log("There is an error");
                         res.end();
                     } else {
-                        console.log(results);
+                        console.log(results._id);
+                        ids = results._id;
                         console.log('user save successfully');
                         res.send({Status: "Success", message: "successfully registered"});
-                        //res.redirect('/login');
                         res.end();
                     }
                 });
             }
+        }
+    });
+});
+
+//user profile
+app.get('/profiles',function (req,res) {
+    res.render('profiles');
+});
+
+app.post('/profiles',function (req,res) {
+    var dob = req.body.dob;
+    var gender = req.body.gender;
+    var blood_group = req.body.blood_group;
+    var marital_status = req.body.marital_status;
+    var height = req.body.height;
+    var weight = req.body.height;
+    var address = req.body.address;
+    var aadhaar_number = req.body.aadhaar_number;
+    var income = req.body.income;
+    var contact = req.body.contact;
+    var relation = req.body.relation;
+
+    var profile = new Profile({
+        user : ids,
+        dob : dob,
+        gender : gender,
+        blood_group : blood_group,
+        marital_status : marital_status,
+        height : height,
+        weight : weight,
+        address : address,
+        adhaar_number : aadhaar_number,
+        income : income,
+        contact : contact,
+        relation : relation
+    });
+    profile.save(function (err,result) {
+        if(err){
+            console.log(err);
+        }
+        else{
+            res.send("profile successfully added");
         }
     });
 });
