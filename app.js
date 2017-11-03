@@ -271,11 +271,11 @@ app.post('/register', function (req, res) {
     });
 });
 
-app.get('/profile',function (req,res) {
+app.get('/profiles',function (req,res) {
     res.render('profiles');
 });
 //user profile update
-app.post('/profile',function (req,res) {
+app.post('/profiles',function (req,res) {
 
     var dob = req.body.dob;
     var gender = req.body.gender;

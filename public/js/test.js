@@ -126,7 +126,7 @@
                 success: function (result) {
 
                     if (result.status === "success") {
-                        window.location = '/profile';
+                        window.location = '/profiles';
 
                     }
                     else {
