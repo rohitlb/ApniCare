@@ -218,7 +218,7 @@ app.get('/register',function (req,res) {
 });
 
 
-var contact = null;
+var user_contact = null;
 //User registration
 app.post('/register', function (req, res) {
     //regex for checking whether entered number is indian or not
@@ -260,7 +260,7 @@ app.post('/register', function (req, res) {
                         res.end();
                     } else {
                         console.log(results._id);
-                        ids = results._id;
+                        user_contact = results.Number;
                         console.log('user save successfully');
                         res.send({Status: "Success", message: "successfully registered"});
                         res.end();
@@ -289,7 +289,7 @@ app.post('/profiles',function (req,res) {
     var contact = req.body.contact;
     var relation = req.body.relation;
 
-    User.update({Number : contact}, {
+    User.update({Number : user_contact}, {
         $set : {
             dob: dob,
             gender: gender,
@@ -297,7 +297,7 @@ app.post('/profiles',function (req,res) {
             marital_status: marital_status,
             height: height,
             weight: weight,
-            address: address,
+            address: [address],
             adhaar_number: aadhaar_number,
             income: income,
             contact: contact,
