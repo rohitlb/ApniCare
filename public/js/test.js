@@ -104,12 +104,14 @@
         $('#submitButton').click(function () {
 
             var name = $('#name').val();
+            var email = $('#email').val();
             var number = $('#number').val();
             var password = $('#password1').val();
         //var otp = $('#otp').val();
 
         var data = {
             name: name,
+            email: email,
             number: number,
             password: password
           //  otp: otp
