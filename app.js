@@ -19,7 +19,6 @@ mongoose.Promise = promise;
 // req models
 var User  = require('./model/registration');
 var Doctor = require('./model/doctorregistration');
-var Profile = require('./model/userProfile');
 
 
 // use after drug index schema implementation
@@ -208,47 +207,6 @@ app.get('/', function (req, res) {
         }
     });
 
-app.get('/profiles',function (req,res) {
-    res.render('profiles');
-});
-
-app.post('/profiles',function (req,res) {
-    var dob = req.body.dob;
-    var gender = req.body.gender;
-    var blood_group = req.body.blood_group;
-    var marital_status = req.body.marital_status;
-    var height = req.body.height;
-    var weight = req.body.height;
-    var address = req.body.address;
-    var aadhaar_number = req.body.aadhaar_number;
-    var income = req.body.income;
-    var contact = req.body.contact;
-    var relation = req.body.relation;
-
-    var profile = new Profile({
-        dob : dob,
-        gender : gender,
-        blood_group : blood_group,
-        marital_status : marital_status,
-        height : height,
-        weight : weight,
-        address : address,
-        adhaar_number : aadhaar_number,
-        income : income,
-        contact : contact,
-        relation : relation
-    });
-    profile.save(function (err,result) {
-        if(err){
-            console.log(err);
-        }
-        else{
-            res.send("profile successfully added");
-        }
-    });
-});
-
-
 app.get('/register',function (req,res) {
     if (req.session.userID) {
         res.redirect('/profile');
@@ -259,7 +217,8 @@ app.get('/register',function (req,res) {
     }
 });
 
-var ids = null;
+
+var contact = null;
 //User registration
 app.post('/register', function (req, res) {
     //regex for checking whether entered number is indian or not
@@ -312,12 +271,9 @@ app.post('/register', function (req, res) {
     });
 });
 
-//user profile
-app.get('/profiles',function (req,res) {
-    res.render('profiles');
-});
-
+//user profile update
 app.post('/profiles',function (req,res) {
+
     var dob = req.body.dob;
     var gender = req.body.gender;
     var blood_group = req.body.blood_group;
@@ -330,29 +286,31 @@ app.post('/profiles',function (req,res) {
     var contact = req.body.contact;
     var relation = req.body.relation;
 
-    var profile = new Profile({
-        user : ids,
-        dob : dob,
-        gender : gender,
-        blood_group : blood_group,
-        marital_status : marital_status,
-        height : height,
-        weight : weight,
-        address : address,
-        adhaar_number : aadhaar_number,
-        income : income,
-        contact : contact,
-        relation : relation
-    });
-    profile.save(function (err,result) {
+    User.update({Number : contact}, {
+        $push : {
+            dob: dob,
+            gender: gender,
+            blood_group: blood_group,
+            marital_status: marital_status,
+            height: height,
+            weight: weight,
+            address: address,
+            adhaar_number: aadhaar_number,
+            income: income,
+            contact: contact,
+            relation: relation
+        }
+    },function (err,result) {
         if(err){
             console.log(err);
         }
         else{
-            res.send("profile successfully added");
+            console.log(result);
+            res.send("successfully updated");
         }
     });
 });
+
 
 //Doctor registration
 app.post('/doctorregister', function (req, res) {
@@ -555,68 +513,6 @@ app.post('/updatepassword',function (req,res) {
         }
     });
 });
-
-// app.post('/forgotpassword',function (req, res) {
-//     // In forgot password pug file ,after clicking on Continue .it is not reaching in here.
-//     // not fixed yet, waiting for the front end response.
-//     console.log("reaches");
-//     var number = req.body.number;
-//     //regex for checking whether entered number is indian
-//     var num = /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[789]\d{9}|(\d[ -]?){10}\d$/.test(number);
-//     if(num === false){
-//         console.log("wrong number entered");
-//         res.send({status: "failure", message: "wrong number ! please try again "});
-//         return;
-//     }
-//
-//     User.findOne({Number : number}, function (err,result) {
-//         if(err){
-//             console.log(err);
-//         }else{
-//             console.log(result);
-//             if(result){
-//                 console.log(req.body.number);
-//                 console.log("req for changing password");
-//
-//                 // sending OTP
-//                 var options = { method: 'GET',
-//                     url: 'http://2factor.in/API/V1/'+keys.api_key()+'/SMS/'+number+'/AUTOGEN',
-//                     headers: { 'content-type': 'application/x-www-form-urlencoded' },
-//                     form: {} };
-//
-//                 request(options, function (error, response, body) {
-//                     if (error) {
-//                         throw new Error(error);
-//                     }
-//                     else {
-//                         console.log(body);
-//                         var temp = JSON.parse(body);
-//                         console.log(temp.Details);
-//                         sid = temp.Details;
-//                         res.send({status: "success", message: "OTP sent to your number"});
-//
-//                         User.update({Number : number},{
-//                             $set : {Password : req.body.password}
-//                         },function (err,result1) {
-//                             if(err){
-//                                 console.log(err);
-//                             }
-//                             else{
-//                                 console.log(result1);
-//                                 res.send({status: "success", message: "new password update"});
-//                                 res.end();
-//                             }
-//                         });
-//
-//                     }
-//                 });
-//             }else{
-//                 console.log("user is not registered");
-//                 res.send({status: "failure", message: "this number is not registered"});
-//             }
-//         }
-//     });
-// });
 
 //login with filter and session
 app.post('/login',function (req,res) {
