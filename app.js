@@ -19,6 +19,8 @@ mongoose.Promise = promise;
 // req models
 var User  = require('./model/registration');
 var Doctor = require('./model/doctorregistration');
+var Profile = require('./model/userProfile');
+
 
 // use after drug index schema implementation
 // var Drug = require('./model/drugindex');
@@ -205,6 +207,47 @@ app.get('/', function (req, res) {
             res.end();
         }
     });
+
+app.get('/profiles',function (req,res) {
+    res.render('profiles');
+});
+
+app.post('/profiles',function (req,res) {
+    var dob = req.body.dob;
+    var gender = req.body.gender;
+    var blood_group = req.body.blood_group;
+    var marital_status = req.body.marital_status;
+    var height = req.body.height;
+    var weight = req.body.height;
+    var address = req.body.address;
+    var aadhaar_number = req.body.aadhaar_number;
+    var income = req.body.income;
+    var contact = req.body.contact;
+    var relation = req.body.relation;
+
+    var profile = new Profile({
+        dob : dob,
+        gender : gender,
+        blood_group : blood_group,
+        marital_status : marital_status,
+        height : height,
+        weight : weight,
+        address : address,
+        adhaar_number : aadhaar_number,
+        income : income,
+        contact : contact,
+        relation : relation
+    });
+    profile.save(function (err,result) {
+        if(err){
+            console.log(err);
+        }
+        else{
+            res.send("profile successfully added");
+        }
+    });
+});
+
 
 app.get('/register',function (req,res) {
     if (req.session.userID) {
@@ -597,8 +640,8 @@ app.get('/logout', function (req, res) {
 
 //render profile page of user
 app.get('/profile', function (req, res) {
-        res.render('profile', {number: req.session.userID});
-    });
+    res.render('profile', {number: req.session.userID});
+});
 
 //data base connection and opening port
 var db = 'mongodb://localhost/ApniCare';
