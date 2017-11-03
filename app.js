@@ -271,6 +271,9 @@ app.post('/register', function (req, res) {
     });
 });
 
+app.get('/profiles',function (req,res) {
+    res.render('profiles');
+});
 //user profile update
 app.post('/profiles',function (req,res) {
 
@@ -287,7 +290,7 @@ app.post('/profiles',function (req,res) {
     var relation = req.body.relation;
 
     User.update({Number : contact}, {
-        $push : {
+        $set : {
             dob: dob,
             gender: gender,
             blood_group: blood_group,
@@ -578,9 +581,9 @@ app.get('/logout', function (req, res) {
 });
 
 //render profile page of user
-app.get('/profile', function (req, res) {
-    res.render('profile', {number: req.session.userID});
-});
+// app.get('/profile', function (req, res) {
+//     res.render('profile', {number: req.session.userID});
+// });
 
 //data base connection and opening port
 var db = 'mongodb://localhost/ApniCare';
