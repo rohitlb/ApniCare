@@ -15,7 +15,8 @@ var User = new mongoose.Schema({
     address : [{type : String}],
     aadhaar_number : {type : String},
     income : {type : String},
-    contact : {type : String},
+    relative_name : {type : String },
+    relative_contact : {type : String},
     relation : {type : String}
 });
 

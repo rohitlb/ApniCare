@@ -209,7 +209,7 @@ app.get('/', function (req, res) {
 
 app.get('/register',function (req,res) {
     if (req.session.userID) {
-        res.redirect('/profile');
+        res.redirect('/profiles');
         res.end();
     } else {
         res.render('home');
@@ -259,7 +259,6 @@ app.post('/register', function (req, res) {
                         console.log("There is an error");
                         res.end();
                     } else {
-                        console.log(results._id);
                         user_contact = results.Number;
                         console.log('user save successfully');
                         res.send({Status: "Success", message: "successfully registered"});
@@ -286,7 +285,8 @@ app.post('/profiles',function (req,res) {
     var address = req.body.address;
     var aadhaar_number = req.body.aadhaar_number;
     var income = req.body.income;
-    var contact = req.body.contact;
+    var rel_name = req.body.relative_name;
+    var rel_contact = req.body.relative_contact;
     var relation = req.body.relation;
 
     User.update({Number : user_contact}, {
@@ -300,7 +300,8 @@ app.post('/profiles',function (req,res) {
             address: [address],
             adhaar_number: aadhaar_number,
             income: income,
-            contact: contact,
+            relative_name : rel_name,
+            relative_contact: rel_contact,
             relation: relation
         }
     },function (err,result) {
