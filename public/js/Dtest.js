@@ -109,7 +109,7 @@ $('#DsubmitButton').click(function () {
             success: function (result) {
 
                 if (result.status === "success") {
-                    window.location = '/profile';
+                    window.location = '/profiles';
 
                 }
                 else {
@@ -152,7 +152,7 @@ $('#DloginButton1').click(function () {
             success: function (result) {
 
                 if (result.status === "success") {
-                    window.location = '/profile';
+                    window.location = '/profiles';
 
                 }
                 else {
@@ -274,7 +274,7 @@ $('#DagainLogin').click(function () {
             success: function (result) {
 
                 if (result.status === "success") {
-                    window.location = '/profile';
+                    window.location = '/profiles';
 
                 }
                 else {
