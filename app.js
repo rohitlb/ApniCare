@@ -261,7 +261,7 @@ app.post('/register', function (req, res) {
                     } else {
                         user_contact = results.Number;
                         console.log('user save successfully');
-                        res.send({Status: "Success", message: "successfully registered"});
+                        res.send({Status: "success", message: "successfully registered"});
                         res.end();
                     }
                 });
