@@ -217,7 +217,6 @@ app.get('/register',function (req,res) {
     }
 });
 
-
 var user_contact = null;
 //User registration
 app.post('/register', function (req, res) {
@@ -358,7 +357,6 @@ app.post('/doctorregister', function (req, res) {
                         console.log(results);
                         console.log('user save successfully');
                         res.send({status: "success", message: "successfully registered"});
-                        //res.redirect('/login');
                         res.end();
                     }
                 });
@@ -367,8 +365,8 @@ app.post('/doctorregister', function (req, res) {
     });
 });
 
-var number = null;
 
+var number = null;
 //forgot password
 app.post('/checkforgotpassword',function (req,res) {
     console.log("app");
