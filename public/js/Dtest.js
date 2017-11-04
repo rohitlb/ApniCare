@@ -5,7 +5,6 @@ $('#Dsend').click(function () {
 
     var name = $('#name').val();
     var number = $('#number').val();
-
     var data = {
         name: name,
         number: number
@@ -23,6 +22,8 @@ $('#Dsend').click(function () {
                     Materialize.toast(result.message, 2000);
                     $('#divider').hide();
                     $('#healthCare').hide();
+                    $('#field1').hide();
+                    $('#field2').hide();
                     $('#send').hide();
                     $('#loginButton12').hide();
                     //$('#change').show();
