@@ -16,4 +16,5 @@
 5 recover forgotten password
 
 issues
-url/register does'nt have session id.
+1 url/register does'nt have session id.
+2 site crashes when url /profile [withought login]
