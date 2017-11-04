@@ -16,4 +16,4 @@
 5 recover forgotten password
 
 issues
-url/register does'nt have session id. 
+url/register does'nt have session id.
