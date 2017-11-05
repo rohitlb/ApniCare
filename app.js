@@ -296,7 +296,7 @@ app.get('/profiles',function (req,res) {
 });
 //user profile update
 app.post('/profiles',function (req,res) {
-
+    console.log("reaches");
     var dob = req.body.dob;
     var gender = req.body.gender;
     var blood_group = req.body.blood_group;
@@ -309,7 +309,7 @@ app.post('/profiles',function (req,res) {
     var rel_name = req.body.relative_name;
     var rel_contact = req.body.relative_contact;
     var relation = req.body.relation;
-
+    console.log(user_contact);
     User.update({number : user_contact}, {
         $set : {
             dob: dob,
@@ -330,7 +330,7 @@ app.post('/profiles',function (req,res) {
             console.log(err);
         }
         else{
-            //console.log(result);
+            console.log(result);
             res.send("successfully updated");
         }
     });
