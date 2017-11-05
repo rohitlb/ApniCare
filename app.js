@@ -654,7 +654,7 @@ app.post('/updateusersdetails',function (req,res) {
 
             }
             else {
-                res.send("cannot update");
+                res.send({status: "failure", message: "Cannot Update"});
             }
         }
     });
