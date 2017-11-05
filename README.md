@@ -15,6 +15,7 @@
 4 Doc reg & login
 5 recover forgotten password
 6 update user info and verify password
+7 don't depend on variables they reset when server get restarted
 
 issues
 1 url/register does'nt have session id.
