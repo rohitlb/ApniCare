@@ -205,8 +205,8 @@ app.post('/VerifyOTP',function (req, res) {
         console.log(body);
         var temp = JSON.parse(body);
         console.log(temp.Details);
-        res.send({message: temp.Status })
-        });
+        res.send({message: temp.Status})
+    });
 });
 
 app.get('/home',function (req,res) {
@@ -408,7 +408,6 @@ app.get('/profile', function (req, res) {
 });
 
 
-
 //***************************************Update Profile*************************************************
 
  //***************Edit Name and Email **********************************
@@ -439,7 +438,7 @@ app.post('/verifypassword',function (req,res) {
     });
 });
 
-app.get('updatenameandemail',function (req,res) {
+app.get('/updatenameandemail',function (req,res) {
     res.render('updatenameandemail');
 });
 
@@ -461,8 +460,6 @@ app.post('/updatenameandemail',function (req,res) {
             res.send({status: "success", message: "Successfully Updated"});
         }
     })
-
-
 });
 
 
