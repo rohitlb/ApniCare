@@ -4,6 +4,7 @@ html
     body
         h1 Fill your profile
         form(action='/profiles', method='POST')
+            h4 Enter General details
             | dob :
             input(type='date', name='dob')
             br
@@ -30,9 +31,23 @@ html
             | weight :
             input(type='text', name='weight')
             br
-            | address :
+            h4 Enter full address
+            | Address :
             input(type='text', name='address')
             br
+            | Landmark :
+            input(type='text', name='landmark')
+            br
+            | Pincode :
+            input(type='text', name='pincode')
+            br
+            | City :
+            input(type='text', name='city')
+            br
+            | State :
+            input(type='text', name='state')
+            br
+            h4 Enter Next details
             | aadhar_number :
             input(type='text', name='aadhaar_number')
             br

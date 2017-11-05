@@ -316,7 +316,11 @@ app.post('/profiles',function (req,res) {
     var marital_status = req.body.marital_status;
     var height = req.body.height;
     var weight = req.body.height;
-    var address = req.body.address;
+    var addresses = req.body.address;
+    var landmark = req.body.landmarks;
+    var pincode = req.body.pincode;
+    var city = req.body.city;
+    var state = req.body.state;
     var aadhaar_number = req.body.aadhaar_number;
     var income = req.body.income;
     var rel_name = req.body.relative_name;
@@ -331,7 +335,13 @@ app.post('/profiles',function (req,res) {
             marital_status: marital_status,
             height: height,
             weight: weight,
-            address: address,
+            address: {
+                address : addresses,
+                landmark : landmark,
+                pin_code : pincode,
+                city : city,
+                state : state
+            },
             adhaar_number: aadhaar_number,
             income: income,
             relative_name : rel_name,
@@ -343,7 +353,7 @@ app.post('/profiles',function (req,res) {
             console.log(err);
         }
         else{
-            //console.log(result);
+            console.log(result);
             res.send("successfully updated");
         }
     });
@@ -540,7 +550,7 @@ app.post('/updatepassword',function (req,res) {
     });
 });
 
-//****************Edit Personal Information******************************
+//****************Edit Personal Information********************************
 
 app.get('/verifydetailspassword',function (req,res) {
     res.render('verifydetailspassword');
@@ -578,12 +588,12 @@ app.post('/updateusersdetails',function (req,res) {
     var marital_status = req.body.marital_status;
     var height = req.body.height;
     var weight = req.body.height;
-    var address = req.body.address;
-    var aadhaar_number = req.body.aadhaar_number;
-    var income = req.body.income;
-    var rel_name = req.body.relative_name;
-    var rel_contact = req.body.relative_contact;
-    var relation = req.body.relation;
+    // var address = req.body.address;
+    // var aadhaar_number = req.body.aadhaar_number;
+    // var income = req.body.income;
+    // var rel_name = req.body.relative_name;
+    // var rel_contact = req.body.relative_contact;
+    // var relation = req.body.relation;
 
     User.find({_id : sessionID,password : details_password},function (err,result) {
         if (err) {
@@ -609,24 +619,24 @@ app.post('/updateusersdetails',function (req,res) {
                 if (weight === "") {
                     weight = result[0].weight;
                 }
-                if (address === "") {
-                    address = result[0].address;
-                }
-                if (aadhaar_number === "") {
-                    aadhaar_number = result[0].aadhaar_number;
-                }
-                if (income === "") {
-                    income = result[0].income;
-                }
-                if (rel_name === "") {
-                    rel_name = result[0].relative_name;
-                }
-                if (rel_contact === "") {
-                    rel_name = result[0].relative_contact;
-                }
-                if (relation === "") {
-                    relation = result[0].relation;
-                }
+                // if (address === "") {
+                //     address = result[0].address;
+                // }
+                // if (aadhaar_number === "") {
+                //     aadhaar_number = result[0].aadhaar_number;
+                // }
+                // if (income === "") {
+                //     income = result[0].income;
+                // }
+                // if (rel_name === "") {
+                //     rel_name = result[0].relative_name;
+                // }
+                // if (rel_contact === "") {
+                //     rel_name = result[0].relative_contact;
+                // }
+                // if (relation === "") {
+                //     relation = result[0].relation;
+                // }
 
                 User.update({_id: sessionID, password: details_password}, {
                     $set: {
@@ -635,13 +645,13 @@ app.post('/updateusersdetails',function (req,res) {
                         blood_group: blood_group,
                         marital_status: marital_status,
                         height: height,
-                        weight: weight,
-                        address: [address],
-                        adhaar_number: aadhaar_number,
-                        income: income,
-                        relative_name: rel_name,
-                        relative_contact: rel_contact,
-                        relation: relation
+                        weight: weight
+                        // address: [address],
+                        // adhaar_number: aadhaar_number,
+                        // income: income,
+                        // relative_name: rel_name,
+                        // relative_contact: rel_contact,
+                        // relation: relation
                     }
                 }, function (err, result) {
                     if (err) {
@@ -655,10 +665,97 @@ app.post('/updateusersdetails',function (req,res) {
 
             }
             else {
-                res.send({status: "failure", message: "Cannot Update"});
+                res.send({status: "failure", message: "Cannot Update Details"});
             }
         }
     });
+});
+
+//*****************Edit address*********************************************
+
+app.get('/addresspassword',function (req,res) {
+    res.render('addresspassword');
+});
+
+var address_password = null;
+app.post('/addresspassword',function (req,res) {
+    var password = req.body.password;
+    User.findOne({_id : sessionID,password : password},function (err,result) {
+        if(err){
+            console.log(err);
+        }
+        else{
+            if(result){
+                address_password = result.password;
+                console.log("password match");
+                res.render('editaddress',{status: "success", message: "Password match"});
+            }
+            else{
+                console.log("password not match");
+                res.send({status: "failure", message: "Incorrect password"});
+            }
+        }
+    });
+});
+
+app.get('/editaddress',function (req,res) {
+    res.render('editaddress');
+});
+
+app.post('/editaddress',function (req,res) {
+    var addresses = req.body.address;
+    var landmark = req.body.landmarks;
+    var pincode = req.body.pincode;
+    var city = req.body.city;
+    var state = req.body.state;
+
+    User.find({_id : sessionID,password : address_password},function (err,result) {
+        if(err){
+            console.log(err);
+        }
+        else{
+            if(result){
+                if(addresses === ""){
+                    addresses = result[0].address.address;
+                }
+                if(landmark === ""){
+                    landmark = result[0].address.landmarks;
+                }
+                if(pincode === ""){
+                    pincode = result[0].address.pin_code;
+                }
+                if(city === ""){
+                    city = result[0].address.city;
+                }
+                if(state === ""){
+                    state = result[0].address.state;
+                }
+
+                User.update({_id : sessionID,password : address_password},{
+                    $set : {
+                        address: {
+                            addresses: addresses,
+                            landmark: landmark,
+                            pin_code: pincode,
+                            city: city,
+                            state: state
+                        }
+                    }
+                },function (err1,result1) {
+                    if(err1){
+                        console.log(err1);
+                    }
+                    else{
+                        console.log(result1);
+                        res.send({status: "success", message: "Address successfully updated"});
+                    }
+                });
+            }
+            else{
+                res.send({status: "failure", message: "Cannot Update Address"});
+            }
+        }
+    })
 });
 
 
