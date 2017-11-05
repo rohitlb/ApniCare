@@ -280,7 +280,7 @@ app.post('/register', function (req, res) {
                         console.log("There is an error");
                         res.end();
                     } else {
-                        user_contact = results.Number;
+                        user_contact = results.number;
                         console.log('user save successfully');
                         res.send({status: "success", message: "successfully registered"});
                         res.end();
