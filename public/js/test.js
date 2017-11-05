@@ -38,9 +38,6 @@
 
                     if (result.status === "success") {
                         Materialize.toast(result.message, 2000);
-                        $('#field1').hide();
-                        $('#field2').hide();
-
                         $('#divider').hide();
                         $('#healthCare').hide();
                         $('#send').hide();
@@ -215,7 +212,6 @@
                             $('#healthCare').hide();
                         $('#Customer').hide();
                         $('#password3').attr('disabled','disabled');
-                        $('#registeredMOB').attr('disabled','disabled');
                     }
                     else {
                         Materialize.toast(result.message, 2000);

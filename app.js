@@ -34,8 +34,6 @@ var Disease = require('./model/disease');
 var Molecule = require('./model/molecule');
 
 
-
-
 //declare the app
 var app = express();
 
@@ -94,6 +92,8 @@ app.get('/test',function (req,res) {
     res.end();
 
 });
+
+//*************************************Insert profile*******************************************
 
 //user
 app.post('/sendOTP',function (req, res) {
@@ -267,7 +267,6 @@ app.post('/register', function (req, res) {
                 console.log("User Already Exist");
                 res.send({status: "failure", message: "user Already Exists"});
                 res.end();
-
             } else {
                 var user = new User({
                     name: req.body.name,
@@ -292,11 +291,11 @@ app.post('/register', function (req, res) {
 });
 
 app.get('/profiles',function (req,res) {
-    console.log(user_contact);
     res.render('profiles');
 });
 //user profile update
 app.post('/profiles',function (req,res) {
+
     var dob = req.body.dob;
     var gender = req.body.gender;
     var blood_group = req.body.blood_group;
@@ -309,6 +308,7 @@ app.post('/profiles',function (req,res) {
     var rel_name = req.body.relative_name;
     var rel_contact = req.body.relative_contact;
     var relation = req.body.relation;
+
     User.update({number : user_contact}, {
         $set : {
             dob: dob,
@@ -329,12 +329,145 @@ app.post('/profiles',function (req,res) {
             console.log(err);
         }
         else{
-            console.log(result);
+            //console.log(result);
             res.send("successfully updated");
         }
     });
 });
 
+//*****************************************USER LOGIN*************************************************************
+//login with filter and session
+
+var sessionID = null;
+app.post('/login',function (req,res) {
+    console.log("login reaches here");
+    User.findOne({number: req.body.number , password : req.body.password}).exec(function (err,result) {
+        if(err){
+            console.log("Some error occurred");
+            res.send({status: "failure", message : "Some error occurred"});
+            res.end();
+        } else {
+            //console.log(result);
+            if(result) {
+                console.log("Successfully login");
+                req.session.userID = result._id;
+                sessionID = result._id;
+                if (req.session.userID) {
+                    res.send({status: "success", message: "successfully login" ,number: req.session.userID});
+                    res.end();
+                }
+            } else {
+                console.log("check your name or password");
+                res.send({status: "failure", message: "Can't login"});
+                res.end();
+            }
+        }
+    });
+});
+
+//Doctor login
+app.post('/doctorlogin',function (req,res) {
+    console.log("login reaches here");
+    Doctor.findOne({number: req.body.number , Password : req.body.password}).exec(function (err,result) {
+        if(err){
+            console.log("Some error occurred");
+            res.send({status: "failure", message : "Some error occurred"});
+            res.end();
+        } else {
+            console.log(result);
+            if(result) {
+                console.log("Successfully login");
+                req.session.userID = result._id;
+                if (req.session.userID) {
+                    res.send({status: "success", message: "successfully login" ,number: req.session.userID});
+                    res.end();
+                }
+            } else {
+                console.log("check your name or password");
+                res.send({status: "failure", message: "Can't login"});
+                res.end();
+            }
+        }
+    });
+});
+
+//logout the user
+app.get('/logout', function (req, res) {
+    req.session.destroy(function (err) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.redirect('/register');
+        }
+    });
+});
+
+//render profile page of user
+app.get('/profile', function (req, res) {
+    res.render('profile', {number: req.session.userID});
+});
+
+
+
+//***************************************Update Profile*************************************************
+
+ //***************Edit Name and Email **********************************
+
+app.get('/verifypassword',function (req,res) {
+    res.render('verifypassword');
+});
+
+
+var new_password = null;
+app.post('/verifypassword',function (req,res) {
+    var password = req.body.password;
+    User.findOne({_id : sessionID,password : password},function (err,result) {
+        if(err){
+            console.log(err);
+        }
+        else{
+            if(result){
+                new_password = result.password;
+                console.log("password match");
+                res.render('updatenameandemail',{status: "success", message: "Password match"});
+            }
+            else{
+                console.log("password not match");
+                res.send({status: "failure", message: "Incorrect password"});
+            }
+        }
+    });
+});
+
+app.get('updatenameandemail',function (req,res) {
+    res.render('updatenameandemail');
+});
+
+app.post('/updatenameandemail',function (req,res) {
+    var name = req.body.name;
+    var email = req.body.email;
+
+    User.update({_id : sessionID,password : new_password},{
+        $set : {
+            name : name,
+            email : email
+        }
+    },function (err,result) {
+        if(err){
+            console.log(err);
+        }
+        else{
+            console.log(result);
+            res.send({status: "success", message: "Successfully Updated"});
+        }
+    })
+
+
+});
+
+
+
+//**************************************Insert Doctor***************************************************
 var doctor_contact = null;
 //Doctor registration
 app.post('/doctorregister', function (req, res) {
@@ -613,74 +746,6 @@ app.post('/updatepassword',function (req,res) {
             res.end();
         }
     });
-});
-
-//login with filter and session
-app.post('/login',function (req,res) {
-    console.log("login reaches here");
-    User.findOne({number: req.body.number , password : req.body.password}).exec(function (err,result) {
-        if(err){
-            console.log("Some error occurred");
-            res.send({status: "failure", message : "Some error occurred"});
-            res.end();
-        } else {
-            //console.log(result);
-            if(result) {
-                        console.log("Successfully login");
-                        req.session.userID = result._id;
-                        if (req.session.userID) {
-                            res.send({status: "success", message: "successfully login" ,number: req.session.userID});
-                            res.end();
-                        }
-            } else {
-                        console.log("check your name or password");
-                        res.send({status: "failure", message: "Can't login"});
-                        res.end();
-            }
-        }
-    });
-});
-
-//Doctor login
-app.post('/doctorlogin',function (req,res) {
-    console.log("login reaches here");
-    Doctor.findOne({number: req.body.number , Password : req.body.password}).exec(function (err,result) {
-        if(err){
-            console.log("Some error occurred");
-            res.send({status: "failure", message : "Some error occurred"});
-            res.end();
-        } else {
-            console.log(result);
-            if(result) {
-                console.log("Successfully login");
-                req.session.userID = result._id;
-                if (req.session.userID) {
-                    res.send({status: "success", message: "successfully login" ,number: req.session.userID});
-                    res.end();
-                }
-            } else {
-                console.log("check your name or password");
-                res.send({status: "failure", message: "Can't login"});
-                res.end();
-            }
-        }
-    });
-});
-
-//logout the user
-app.get('/logout', function (req, res) {
-    req.session.destroy(function (err) {
-        if (err) {
-            console.log(err);
-        } else {
-            res.redirect('/register');
-        }
-    });
-});
-
-//render profile page of user
-app.get('/profile', function (req, res) {
-    res.render('profile', {number: req.session.userID});
 });
 
 

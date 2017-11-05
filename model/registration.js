@@ -14,7 +14,7 @@ var User = new mongoose.Schema({
     marital_status : {type : String},
     height : {type : String},
     weight : {type : String},
-    address : [{type : String}],
+    address : {type : String},
     aadhaar_number : {type : String},
     income : {type : String},
     relative_name : {type : String },

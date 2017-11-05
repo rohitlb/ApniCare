@@ -40,14 +40,10 @@ span
     height:1px;
     width:40%;
 }
-#healthCare
+#healthCare,#Customer
 {
     background-color: teal;
     width:100%;
-}
-#Customer
-{
-
 }
 form
 {
@@ -66,11 +62,11 @@ form
 }
 .row
 {
-    /*background-color: purple;*/
+    //background-color: purple;
     padding:0px;
     border:0px;
     margin-bottom: 0px;
-    /*margin:0px;*/
+    //margin:0px;
 }
 .input-field
 {
