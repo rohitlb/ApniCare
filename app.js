@@ -40,6 +40,9 @@ var Disease = require('./model/disease');
 //require molecule
 var Molecule = require('./model/molecule');
 
+// to save profile pic of user
+var routes = require('./model/imagefile');
+
 //declare the app
 var app = express();
 
@@ -72,6 +75,9 @@ app.use(bodyParser.urlencoded({extended : false}));
 app.use(expressValidator());
 app.use(express.static(path.join(__dirname,'public')));
 app.use(cookieParser());
+
+// for imagefile in model
+app.use(routes);
 // if saveUninitialized : false than it will store session till the instance is in existence
 // secret is hashing secret
 // secret should be that much complex that one couldnt guess it easily
