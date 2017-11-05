@@ -1526,7 +1526,7 @@ app.post('/uploadimage', upload.any(), function(req, res) {
 
     //console.log(ID);
     //var test = bodyParser.toString(res)
-    res.send(Done);
+    res.send('Done');
 
     //var path = req.files[0].path;
     //var imageName = req.files[0].originalname;
