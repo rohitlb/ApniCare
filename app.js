@@ -427,7 +427,7 @@ app.get('/profile', function (req, res) {
 
 //***************************************Update Profile*****************************************************************
 
-            //***************Edit Name and Email **********************************
+//***************Edit Name and Email **********************************
 
 app.get('/verifypassword',function (req,res) {
     res.render('verifypassword');
@@ -443,9 +443,8 @@ app.post('/verifypassword',function (req,res) {
         else{
             if(result){
                 new_password = result.password;
-                console.log("password matched");
-                res.send({status: "success", message: "Password match"});
-                //res.render('updatenameandemail',{status: "success", message: "Password match"});
+                console.log("password match");
+                res.render('updatenameandemail',{status: "success", message: "Password match"});
             }
             else{
                 console.log("password not match");
@@ -462,60 +461,43 @@ app.get('/updatenameandemail',function (req,res) {
 app.post('/updatenameandemail',function (req,res) {
     var name = req.body.name;
     var email = req.body.email;
-    console.log(email);
-    console.log(name);
-    if(email === ""){
-        User.update({_id : sessionID,password : new_password},{
-            $set : {
-                name : name
-            }
-        },function (err,result) {
-            if(err){
-                console.log(err);
+
+    User.find({_id : sessionID,password : new_password},function (err,result) {
+        if(err){
+            console.log(err);
+        }
+        else{
+            if(result){
+                if(name === ""){
+                    name = result[0].name;
+                }
+                if(email === ""){
+                    email = result[0].email;
+                }
+
+                User.update({_id: sessionID, password: new_password}, {
+                    $set: {
+                        name: name,
+                        email: email
+                    }
+                }, function (err, result) {
+                    if (err) {
+                        console.log(err);
+                    }
+                    else {
+                        console.log(result);
+                        res.send({status: "success", message: "Successfully Updated"});
+                    }
+                });
             }
             else{
-                console.log(result);
-                res.send({status: "success", message: "Name Successfully Updated"});
+                res.send({status: "failure", message: "Cannot Update"});
             }
-        });
-    }
-    if(name === ""){
-        User.update({_id : sessionID,password : new_password},{
-            $set : {
-                email : email
-            }
-        },function (err,result) {
-            if(err){
-                console.log(err);
-            }
-            else{
-                console.log(result);
-                res.send({status: "success", message: "Email Successfully Updated"});
-            }
-        });
-    }
-    if(name=== "" && email === ""){
-        res.send({status: "success", message: "Nothing Can updated"});
-    }
-    if((name !== "") && (email !== "")) {
-        User.update({_id: sessionID, password: new_password}, {
-            $set: {
-                name: name,
-                email: email
-            }
-        }, function (err, result) {
-            if (err) {
-                console.log(err);
-            }
-            else {
-                console.log(result);
-                res.send({status: "success", message: "Successfully Updated"});
-            }
-        });
-    }
+        }
+    });
 });
 
-             //*******************Edit Password**************************************
+//*******************Edit Password**************************************
 
 app.get('/updatepassword',function (req,res) {
     res.render('updatepassword');
@@ -557,10 +539,10 @@ app.post('/updatepassword',function (req,res) {
     });
 });
 
-            //****************Edit Personal Information******************************
+//****************Edit Personal Information******************************
 
 app.get('/verifydetailspassword',function (req,res) {
-    res.render('verifypassword');
+    res.render('verifydetailspassword');
 });
 
 var details_password = null;
@@ -602,32 +584,81 @@ app.post('/updateusersdetails',function (req,res) {
     var rel_contact = req.body.relative_contact;
     var relation = req.body.relation;
 
-    User.update({_id : sessionID,password : details_password},{
-        $set : {
-            dob: dob,
-            gender: gender,
-            blood_group: blood_group,
-            marital_status: marital_status,
-            height: height,
-            weight: weight,
-            address: [address],
-            adhaar_number: aadhaar_number,
-            income: income,
-            relative_name : rel_name,
-            relative_contact: rel_contact,
-            relation: relation
-        }
-    },function (err,result) {
+    User.find({_id : sessionID,password : details_password},function (err,result) {
         if (err) {
             console.log(err);
         }
         else {
-            console.log(result);
-            res.send({status: "success", message: "Password Successfully Updated"});
+            if (result) {
+                if (dob === "") {
+                    dob = result[0].dob;
+                }
+                if (gender === "") {
+                    gender = result[0].gender;
+                }
+                if (blood_group === "") {
+                    blood_group = result[0].blood_group;
+                }
+                if (marital_status === "") {
+                    marital_status = result[0].marital_status;
+                }
+                if (height === "") {
+                    height = result[0].height;
+                }
+                if (weight === "") {
+                    weight = result[0].weight;
+                }
+                if (address === "") {
+                    address = result[0].address;
+                }
+                if (aadhaar_number === "") {
+                    aadhaar_number = result[0].aadhaar_number;
+                }
+                if (income === "") {
+                    income = result[0].income;
+                }
+                if (rel_name === "") {
+                    rel_name = result[0].relative_name;
+                }
+                if (rel_contact === "") {
+                    rel_name = result[0].relative_contact;
+                }
+                if (relation === "") {
+                    relation = result[0].relation;
+                }
+
+                User.update({_id: sessionID, password: details_password}, {
+                    $set: {
+                        dob: dob,
+                        gender: gender,
+                        blood_group: blood_group,
+                        marital_status: marital_status,
+                        height: height,
+                        weight: weight,
+                        address: [address],
+                        adhaar_number: aadhaar_number,
+                        income: income,
+                        relative_name: rel_name,
+                        relative_contact: rel_contact,
+                        relation: relation
+                    }
+                }, function (err, result) {
+                    if (err) {
+                        console.log(err);
+                    }
+                    else {
+                        console.log(result);
+                        res.send({status: "success", message: "Details Updated"});
+                    }
+                });
+
+            }
+            else {
+                res.send("cannot update");
+            }
         }
     });
 });
-
 
 
 
