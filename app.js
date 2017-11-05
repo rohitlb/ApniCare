@@ -71,6 +71,8 @@ app.use(cookieParser());
 // secret should be that much complex that one couldnt guess it easily
 app.use(session({
     secret : 'keyboard cat',
+    cookie : {maxAge : 1000* 60 * 60 * 24 * 7},
+    store : store,
     resave : false,
     saveUninitialized : true
 }));
@@ -231,7 +233,7 @@ app.get('/', function (req, res) {
 
 app.get('/register',function (req,res) {
     if (req.session.userID) {
-        res.redirect('/profiles');
+        res.redirect('/profile');
         res.end();
     } else {
         res.render('home');
