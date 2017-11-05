@@ -3,10 +3,10 @@ var mongoose = require('mongoose');
 
 var User = new mongoose.Schema({
     //general information
-    Name : {type:String},
+    name : {type:String},
     email : {type : String},
-    Number : {type : String},
-    Password : {type:String},
+    number : {type : String},
+    password : {type:String},
     // featured information
     dob : {type:String},
     gender : {type : String},

@@ -37,7 +37,12 @@ html
             input(type='text', name='aadhaar_number')
             br
             | income :
-            input(type='text', name='income')
+            select(name='income', size='1')
+                option(value='Poor', name='poor') Poor
+                |
+                option(value='Normal', name='normal') Normal
+                |
+                option(value='Rich', name='rich') Rich
             br
             | Name :
             input(type='text', name='relative_name')

@@ -10,6 +10,10 @@ var sleep = require('thread-sleep');
 var session = require('express-session');
 var expressValidator = require('express-validator');
 var cookieParser = require('cookie-parser');
+var bcrypt = require('bcryptjs');
+var mongoDBStore = require('connect-mongodb-session')(session);
+mongoose.Promise = promise;
+var async = require('async');
 var keys = require('./private/keys');
 
 var otp;
@@ -19,13 +23,31 @@ mongoose.Promise = promise;
 // req models
 var User  = require('./model/registration');
 var Doctor = require('./model/doctorregistration');
+//require for medicine index
+var Company = require('./model/company');
+var Brand = require('./model/brand');
+var Dosage = require('./model/dosage');
+var Strength = require('./model/strength');
+//require for disease
+var Disease = require('./model/disease');
+//require molecule
+var Molecule = require('./model/molecule');
 
 
-// use after drug index schema implementation
-// var Drug = require('./model/drugindex');
+
 
 //declare the app
 var app = express();
+
+var store = new mongoDBStore({
+    uri : 'mongodb://localhost/ApniCare',
+    collection : 'mySessions'
+});
+
+store.on('error',function (error) {
+    assert.ifError(error);
+    assert.ok(false);
+});
 
 // to hide X-Powered-By for Security,Save Bandwidth in ExpressJS(node.js)
 app.disable('x-powered-by');
@@ -85,7 +107,7 @@ app.post('/sendOTP',function (req, res) {
         return;
     }
 
-    User.findOne({Number : number},function (err,result) {
+    User.findOne({number : number},function (err,result) {
         if(err){
             console.log(err);
         }
@@ -132,7 +154,7 @@ app.post('/DoctorsendOTP',function (req, res) {
         return;
     }
 
-    Doctor.findOne({Number : number},function (err,result) {
+    Doctor.findOne({number : number},function (err,result) {
         if(err){
             console.log(err);
         }
@@ -235,7 +257,7 @@ app.post('/register', function (req, res) {
         res.send({status: "failure", message: "please enter a numeric password and try again"});
         return;
     }
-    User.findOne({Number: req.body.number}).exec(function (err, result) {
+    User.findOne({number: req.body.number}).exec(function (err, result) {
         if (err) {
             console.log("Some error occured");
             res.end();
@@ -248,10 +270,10 @@ app.post('/register', function (req, res) {
 
             } else {
                 var user = new User({
-                    Name: req.body.name,
+                    name: req.body.name,
                     email : req.body.email,
-                    Number: req.body.number,
-                    Password: req.body.password
+                    number: req.body.number,
+                    password: req.body.password
                 });
                 user.save(function (err, results) {
                     if (err) {
@@ -288,7 +310,7 @@ app.post('/profiles',function (req,res) {
     var rel_contact = req.body.relative_contact;
     var relation = req.body.relation;
 
-    User.update({Number : user_contact}, {
+    User.update({number : user_contact}, {
         $set : {
             dob: dob,
             gender: gender,
@@ -314,7 +336,7 @@ app.post('/profiles',function (req,res) {
     });
 });
 
-
+var doctor_contact = null;
 //Doctor registration
 app.post('/doctorregister', function (req, res) {
     //regex for checking whether entered number is indian or not
@@ -331,7 +353,7 @@ app.post('/doctorregister', function (req, res) {
         res.send({status: "failure", message: "please enter a numeric password and try again"});
         return;
     }
-    Doctor.findOne({Number: req.body.number}).exec(function (err, result) {
+    Doctor.findOne({number: req.body.number}).exec(function (err, result) {
         if (err) {
             console.log("Some error occured");
             res.end();
@@ -344,9 +366,9 @@ app.post('/doctorregister', function (req, res) {
 
             } else {
                 var doctor = new Doctor({
-                    Name: req.body.name,
-                    Number: req.body.number,
-                    Password: req.body.password
+                    name: req.body.name,
+                    number: req.body.number,
+                    password: req.body.password
 
                 });
                 doctor.save(function (err, results) {
@@ -354,7 +376,8 @@ app.post('/doctorregister', function (req, res) {
                         console.log("There is an error");
                         res.end();
                     } else {
-                        console.log(results);
+                        //console.log(results);
+                        doctor_contact = results.number;
                         console.log('user save successfully');
                         res.send({status: "success", message: "successfully registered"});
                         res.end();
@@ -365,6 +388,88 @@ app.post('/doctorregister', function (req, res) {
     });
 });
 
+//rendering to occupation
+app.get('/occupation',function (req,res) {
+    res.render('occupation');
+});
+//filling occupation
+app.post('/occupation',function (req,res) {
+    var occupation = req.body.occupation;
+    Doctor.update({number : doctor_contact},{
+        $set : {occupation : occupation}
+    },function (err,result) {
+        if(err){
+            console.log(err);
+        }
+        else{
+            console.log(result);
+            res.render('doctordetails');
+        }
+    });
+});
+
+//doctors details
+app.get('/doctor_details',function (req,res) {
+    res.render('doctordetails');
+});
+
+app.post('/doctor_details',function (req,res) {
+    var name = req.body.name;
+    var specialisation = req.body.specialisation;
+    var city = req.body.city;
+
+    Doctor.update({number : doctor_contact},{
+        $set : {
+            name : name,
+            specialisation : specialisation,
+            city : city
+        }
+    },function (err,result) {
+        console.log(result);
+        res.render('doctorprofile');
+    });
+});
+
+//doctor Profile
+app.get('/doctor_profile',function (req,res) {
+    res.render('doctorprofile');
+});
+
+app.post('/doctor_profile',function (req,res) {
+    var title = req.body.title;
+    var gender = req.body.gender;
+    var experience = req.body.year_of_experience;
+    var about = req.body.about_You;
+    var qualification = req.body.qualification;
+    var college = req.body.college;
+    var completion = req.body.completion;
+    var council_number = req.body.council_number;
+    var council_name = req.body.council_name;
+    var council_year = req.body.council_year;
+
+    Doctor.update({ number : doctor_contact },{
+        $set : {
+            title : title,
+            gender : gender,
+            year_of_experience : experience,
+            about_you : about,
+            qualification : qualification,
+            college : college,
+            completion_year : completion,
+            council_registration_number : council_number,
+            council_name : council_name,
+            council_registration_year : council_year
+        }
+    },function (err,result) {
+        if(err){
+            console.log(err);
+        }
+        else{
+            console.log(result);
+            res.send("doctors updated");
+        }
+    });
+});
 
 var number = null;
 //forgot password
@@ -381,7 +486,7 @@ app.post('/checkforgotpassword',function (req,res) {
         return;
     }
 
-    User.findOne({Number : number}, function (err,result) {
+    User.findOne({number : number}, function (err,result) {
         if (err) {
             console.log(err);
         } else {
@@ -416,9 +521,7 @@ app.post('/checkforgotpassword',function (req,res) {
                 res.send({status: "failure", message: "this number is not registered"});
             }
         }
-
     });
-
 });
 
 //forgot password for doctor
@@ -435,7 +538,7 @@ app.post('/doctorcheckforgotpassword',function (req,res) {
         return;
     }
 
-    Doctor.findOne({Number : number}, function (err,result) {
+    Doctor.findOne({number : number}, function (err,result) {
         if (err) {
             console.log(err);
         } else {
@@ -463,16 +566,13 @@ app.post('/doctorcheckforgotpassword',function (req,res) {
 
                     }
                 });
-
             }
             else {
                 console.log("user is not registered");
                 res.send({status: "failure", message: "this number is not registered"});
             }
         }
-
     });
-
 });
 
 //doc update password
@@ -482,8 +582,8 @@ app.post('/doctorupdatepassword',function (req,res) {
     console.log(number);
     var password = req.body.password;
     console.log(password);
-    Doctor.update({Number : number},{
-        $set : {Password : password}
+    Doctor.update({number : number},{
+        $set : {password : password}
     },function (err,result1) {
         if (err) {
             console.log(err);
@@ -502,8 +602,8 @@ app.post('/updatepassword',function (req,res) {
     console.log(number);
     var password = req.body.password;
     console.log(password);
-    User.update({Number : number},{
-        $set : {Password : password}
+    User.update({number : number},{
+        $set : {password : password}
         },function (err,result1) {
         if (err) {
             console.log(err);
@@ -519,13 +619,13 @@ app.post('/updatepassword',function (req,res) {
 //login with filter and session
 app.post('/login',function (req,res) {
     console.log("login reaches here");
-    User.findOne({Number: req.body.number , Password : req.body.password}).exec(function (err,result) {
+    User.findOne({number: req.body.number , password : req.body.password}).exec(function (err,result) {
         if(err){
             console.log("Some error occurred");
             res.send({status: "failure", message : "Some error occurred"});
             res.end();
         } else {
-            console.log(result);
+            //console.log(result);
             if(result) {
                         console.log("Successfully login");
                         req.session.userID = result._id;
@@ -545,7 +645,7 @@ app.post('/login',function (req,res) {
 //Doctor login
 app.post('/doctorlogin',function (req,res) {
     console.log("login reaches here");
-    Doctor.findOne({Number: req.body.number , Password : req.body.password}).exec(function (err,result) {
+    Doctor.findOne({number: req.body.number , Password : req.body.password}).exec(function (err,result) {
         if(err){
             console.log("Some error occurred");
             res.send({status: "failure", message : "Some error occurred"});
@@ -583,6 +683,561 @@ app.get('/logout', function (req, res) {
 app.get('/profile', function (req, res) {
     res.render('profile', {number: req.session.userID});
 });
+
+
+
+//********************************Drug index start from here********************************************
+
+
+app.get('/medicine',function (req,res) {
+    res.render('medicine');
+});
+
+app.post('/medicine',function (req,res) {
+    var dosage_form = req.body.dosage_form;
+    var brand_name = req.body.brand_name;
+    var categories = req.body.categories;
+    var company_name = req.body.company_name;
+    var strengtH = req.body.strength;
+    var active_ingredients = req.body.active_ingredients;
+    var packaging = req.body.packaging;
+    var price = req.body.price;
+    var dose_taken = req.body.dose_taken;
+    var dose_timing = req.body.dose_timing;
+    var warnings = req.body.warnings;
+    var prescription = req.body.prescription;
+    async.waterfall([
+            function (callback) {
+                Company.findOne({company_name: company_name}, function (err, result) {
+                    if (err) {
+                        console.log(err);
+                        throw new Error(err);
+                    }
+                    else {
+                        callback(null, result);
+                    }
+                });
+            },
+            function (result,callback) {
+                if(result){
+                    Brand.findOne({brand_name : brand_name},function (err,result1) {
+                        if(err){
+                            console.log(err);
+                            throw new Error(err);
+                        }
+                        else{
+                            callback(null,result1);
+                        }
+                    });
+                }
+                else{
+                    Brand.findOne({brand_name :brand_name},function (err1,result1) {
+                        if(err1){
+                            console.log(err1);
+                            throw new Error(err1);
+                        }
+                        else{
+                            if(result1){
+                                res.send("other company cannot have same brand");
+                            }
+                            else{
+                                var STRength = new Strength({
+                                    strength : strengtH,
+                                    active_ingredients : {name : active_ingredients},
+                                    packaging : packaging,
+                                    price : price,
+                                    dose_taken : dose_taken,
+                                    dose_timing : dose_timing,
+                                    warnings : warnings,
+                                    prescription : prescription
+                                });
+                                STRength.save(function (err2,result2) {
+                                    if(err2){
+                                        console.log(err2);
+                                        throw new Error(err2);
+                                    }
+                                    else {
+                                        var dosage = new Dosage({
+                                            dosage_form: dosage_form,
+                                            strength_id: result2._id
+                                        });
+                                        dosage.save(function (err3, result3) {
+                                            if(err3){
+                                                console.log(err3);
+                                                throw new Error(err3);                                        }
+                                            else{
+                                                var brand = new Brand({
+                                                    brand_name : brand_name,
+                                                    categories : categories,
+                                                    dosage_id : result3._id
+                                                });
+                                                brand.save(function (err4,result4) {
+                                                    if(err4){
+                                                        console.log(err4);
+                                                        throw new Error(err4);                                                }
+                                                    else{
+                                                        var company = new Company({
+                                                            company_name : company_name,
+                                                            brand_id : result4._id
+                                                        });
+                                                        company.save(function(err5){
+                                                            if(err5){
+                                                                console.log(err5);
+                                                                throw new Error(err5);                                                        }
+                                                            else{
+                                                                res.send("New medicine added");
+                                                            }
+                                                        });
+                                                    }
+                                                })
+                                            }
+                                        });
+                                    }
+                                });
+                            }
+
+                        }
+                    });
+                }
+            },
+            function (result,callback) {
+                if(result){
+                    Dosage.findOne({dosage_form : dosage_form},function (err,result1) {
+                        if(err){
+                            console.log(err);
+                            throw new Error(err);
+                        }
+                        else{
+                            callback(null,result1);
+                        }
+                    });
+                }
+                else{
+                    var strength = new Strength({
+                        strength : strengtH,
+                        active_ingredients : {name : active_ingredients},
+                        packaging : packaging,
+                        price : price,
+                        dose_taken : dose_taken,
+                        dose_timing : dose_timing,
+                        warnings : warnings,
+                        prescription : prescription
+                    });
+                    strength.save(function (err,result) {
+                        if(err){
+                            console.log(err);
+                        }
+                        else {
+                            var dosage = new Dosage({
+                                dosage_form: dosage_form,
+                                strength_id: result._id
+                            });
+                            dosage.save(function (err1, result1) {
+                                if(err1){
+                                    console.log(err1);
+                                }
+                                else{
+                                    var brand = new Brand({
+                                        brand_name : brand_name,
+                                        categories : categories,
+                                        dosage_id : result1._id
+                                    });
+                                    brand.save(function (err2,result2) {
+                                        if(err2){
+                                            console.log(err2);
+                                        }
+                                        else{
+                                            Company.update({company_name : company_name},{
+                                                $push :{brand_id : result2._id}
+                                            }).exec(function (err3) {
+                                                if (err3) {
+                                                    console.log(err3);
+                                                }
+                                                else {
+                                                    res.send("Brand added successfully  with dosage and strength");
+                                                }
+                                            });
+                                        }
+                                    });
+                                }
+                            });
+                        }
+                    });
+                }
+            },
+            function (result,callback) {
+                if(result){
+                    Strength.findOne({strength : strengtH},function (err,result1) {
+                        if(err){
+                            console.log(err);
+                            throw new Error(err);
+                        }
+                        else{
+                            callback(null,result1);
+                        }
+                    });
+                }
+                else{
+                    var sTrength = new Strength({
+                        strength : strengtH,
+                        active_ingredients : {name : active_ingredients},
+                        packaging : packaging,
+                        price : price,
+                        dose_taken : dose_taken,
+                        dose_timing : dose_timing,
+                        warnings : warnings,
+                        prescription : prescription
+                    });
+                    sTrength.save(function (err,result1) {
+                        if(err){
+                            console.log(err);
+                        }
+                        else {
+                            var dosage = new Dosage({
+                                dosage_form: dosage_form,
+                                strength_id: result1._id
+                            });
+                            dosage.save(function (err1, result2) {
+                                if(err1){
+                                    console.log(err1);
+                                }
+                                else{
+                                    Brand.update({brand_name : brand_name},{
+                                        $push : {dosage_id : result2._id}
+                                    }).exec(function (err2) {
+                                        if(err2){
+                                            console.log(err2);
+                                        }
+                                        else{
+                                            res.send("Dosage added successfully with strength");
+                                        }
+                                    });
+                                }
+                            });
+                        }
+                    });
+                }
+            },
+            function (result1) {
+                if(result1){
+                    res.send("Medicines already exists");
+                }
+                else{
+                    var strength = new Strength({
+                        strength : strengtH,
+                        active_ingredients : {name : active_ingredients},
+                        packaging : packaging,
+                        price : price,
+                        dose_taken : dose_taken,
+                        dose_timing : dose_timing,
+                        warnings : warnings,
+                        prescription : prescription
+                    });
+                    strength.save(function (err,result1) {
+                        if(err){
+                            console.log(err);
+                        }
+                        else{
+                            Dosage.update({dosage_form : dosage_form},{
+                                $push : {strength_id : result1._id}
+                            }).exec(function (err2) {
+                                if(err2){
+                                    console.log(err2);
+                                }
+                                else{
+                                    res.send("strength added successfully");
+                                }
+                            });
+                        }
+                    });
+                }
+            }
+        ],
+        function (err) {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                res.send("done");
+            }
+        });
+});
+
+app.get('/findcompany',function (req,res) {
+    Company.find().exec(function (err,result) {
+        if(err){
+            console.log(err);
+        }
+        else{
+            var data = {};
+            data['result'] = [];
+            for (var i=0; i<result.length; i++) {
+                data['result'][i] = {
+                    company : result[i].company_name,
+                    brand : result[i].brand_id
+                };
+            }
+            res.render('findcompany', {data: data});
+        }
+    });
+});
+
+app.get('/go_to_brand',function (req,res) {
+    var company = req.query.company;  // take value of brand from front end
+
+    //find all company
+    Company.find({company_name : company}).exec(function (err,result) {
+        if(err){
+            console.log(err);
+        }
+        else{
+            //create an object of data
+            var data = {};
+            data['brands'] = [];
+
+            // strt loop to store every brand inside a company
+            async.each(result[0].brand_id, function (brand,callback) {
+                //find brand by individual id get from collection company
+                Brand.findById(brand,function(err,result){
+                    if(err){
+                        callback("there is an error");
+                    }
+
+                    if(!data['brands']) {data['brands'] = [];} // to check if it is the first time you are inserting inside data['brand'], in which case it needs to be initialized.
+                    // store the all brand in data object
+                    data['brands'].push({
+                        brand: result.brand_name,
+                        dosage: result.dosage_id
+                    });
+                    callback();
+                });
+            },function (err) {
+                if(err){
+                    console.log(err);
+                }
+                //console.log(data);
+                res.render('showbrand', {data : data});
+            });
+        }
+    });
+});
+
+app.get('/go_to_dosage',function (req,res) {
+    var brand = req.query.brand;
+    Brand.find({brand_name : brand}).exec(function (err,result) {
+        if(err){
+            console.log(err);
+        }
+        else{
+            var data = {};
+            data['dosage'] = [];
+
+            async.each(result[0].dosage_id, function (dosage,callback) {
+
+                Dosage.findById(dosage,function(err,result){
+                    if(err){
+                        callback("there is an error");
+                    }
+
+                    if(!data['dosage']) {data['dosage'] = [];} // to check if it is the first time you are inserting inside data['brand'], in which case it needs to be initialized.
+                    data['dosage'].push({
+                        dosage: result.dosage_form,
+                        strength: result.strength_id
+                    });
+                    callback();
+                });
+            },function (err) {
+                if(err){
+                    console.log(err);
+                }
+                //console.log(data);
+                res.render('showdosage', {data : data});
+            });
+        }
+    });
+
+});
+
+app.get('/go_to_strength',function (req,res) {
+    var dosage = req.query.dosage;
+    Dosage.find({dosage_form : dosage}).exec(function (err,result) {
+        if(err){
+            console.log(err);
+        }
+        else{
+            //console.log(result[0].strength_id);
+            var data = {};
+            data['strength'] = [];
+
+            async.each(result[0].strength_id, function (strength,callback) {
+
+                Strength.findById(strength,function(err,result){
+                    if(err){
+                        callback("there is an error");
+                    }
+                    if(!data['strength']) {data['strength'] = [];} // to check if it is the first time you are inserting inside data['brand'], in which case it needs to be initialized.
+                    data['strength'].push({
+                        ingredients: result.active_ingredients[0].name
+                    });
+                    callback();
+                });
+            },function (err) {
+                if(err){
+                    console.log(err);
+                }
+                res.render('showingredients', {data : data});
+            });
+        }
+    });
+});
+
+app.get('/findbrand',function (req,res) {
+    Brand.find().exec(function (err,result) {
+        if(err){
+            console.log(err);
+        }
+        else{
+            var data = {};
+            data['result'] = [];
+            for (var i=0; i<result.length; i++) {
+                data['result'][i] = {brand : result[i].brand_name};
+            }
+            res.render('findbrand', {data: data});
+        }
+    });
+});
+
+app.get('/findingredients',function (req,res) {
+    Strength.find().exec(function (err,result) {
+        if(err){
+            console.log(err);
+        }
+        else{
+            var data = {};
+            data['result'] = [];
+            for (var i=0; i<result.length; i++) {
+                for (var j = 0; j < result[i].active_ingredients.length; j++) {
+                    data['result'][i] = {ingredients: result[i].active_ingredients[j].name};
+                }
+            }
+            console.log(data);
+            res.render('findingredients', {data: data});
+        }
+    });
+});
+
+app.get('/disease',function (req,res) {
+    res.render('disease');
+});
+
+app.post('/disease',function (req,res) {
+
+    var disease_name = req.body.disease_name;
+    var risk_factor = req.body.risk_factor;
+    var cause = req.body.cause;
+    var diagnosis = req.body.diagnosis;
+    var treatment = req.body.treatment;
+    var outlook = req.body.outlook;
+    var prevention = req.body.prevention;
+
+    Disease.findOne({disease_name : disease_name},function (err,result) {
+        if(err){
+            console.log(err);
+        }
+        else{
+            if(result){
+                res.send("Medicine already exist");
+            }
+            else{
+                var disease = new Disease({
+                    disease_name : disease_name,
+                    risk_factor : risk_factor,
+                    cause : cause,
+                    diagnosis : diagnosis,
+                    treatment : treatment,
+                    outlook : outlook,
+                    prevention : prevention
+                });
+
+                disease.save(function (err) {
+                    if(err){
+                        console.log(err);
+                    }
+                    else{
+                        res.send("medicine save successfully");
+                    }
+                });
+            }
+        }
+    });
+
+});
+
+// ************************************About Molecule ***************************************************
+
+
+// molecule details
+app.get('/molecule',function (req,res) {
+    res.render('molecule');
+});
+
+app.post('/molecules',function (req,res) {
+    var molecule_name = req.body.molecule_name;
+    var drug_categories = req.body.drug_categories;
+    var description = req.body.description;
+    var absorption = req.body.absorption;
+    var distribution = req.body.distribution;
+    var metabolism = req.body.metabolism;
+    var excretion = req.body.excretion;
+    var side_effect = req.body.side_effect;
+    var precaution = req.body.precaution;
+    var drug_interaction = req.body.drug_interaction;
+    var food_interaction = req.body.food_interaction;
+    var dosage = req.body.dosage;
+    var food = req.body.food;
+    var subhead = req.body.subhead;
+    var info = req.body.info;
+
+    var molecule = new Molecule({
+        molecule_name : molecule_name,
+        drug_categories : drug_categories,
+        description : description,
+        absorption : absorption,
+        distribution : distribution,
+        metabolism : metabolism,
+        excretion : excretion,
+        side_effect : side_effect,
+        precaution : precaution,
+        drug_interaction : drug_interaction,
+        food_interaction : food_interaction,
+        dosage : dosage,
+        food : food,
+        contradictions : [{subhead : subhead},{info : info}]
+    });
+    molecule.save(function (err,result) {
+        if(err){
+            console.log(err);
+        }
+        else{
+            res.send("Molecules details added");
+        }
+    });
+});
+
+// search molecule
+app.get('/search_molecule',function (req,res) {
+    var ingredients = req.query.ingredients;
+    Molecule.find({molecule_name : ingredients}).exec(function (err,result) {
+        if(err){
+            console.log(err);
+        }
+        else{
+            res.render('moleculedetails',{data : result});
+        }
+    });
+});
+
+
 
 //data base connection and opening port
 var db = 'mongodb://localhost/ApniCare';
