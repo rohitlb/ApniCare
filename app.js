@@ -587,7 +587,7 @@ app.post('/updateusersdetails',function (req,res) {
     var blood_group = req.body.blood_group;
     var marital_status = req.body.marital_status;
     var height = req.body.height;
-    var weight = req.body.height;
+    var weight = req.body.weight;
     // var address = req.body.address;
     // var aadhaar_number = req.body.aadhaar_number;
     // var income = req.body.income;
