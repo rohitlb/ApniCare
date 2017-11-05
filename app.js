@@ -444,7 +444,8 @@ app.post('/verifypassword',function (req,res) {
             if(result){
                 new_password = result.password;
                 console.log("password match");
-                res.render('updatenameandemail',{status: "success", message: "Password match"});
+                res.send({status: "success", message: "Password match"})
+                //res.render('updatenameandemail',{status: "success", message: "Password match"});
             }
             else{
                 console.log("password not match");
