@@ -8,3 +8,4 @@ login.pug
 register.pug
 login.js
 register.js
+uploads/**
