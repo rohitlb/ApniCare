@@ -14,3 +14,7 @@
 3 mongo-session
 4 Doc reg & login
 5 recover forgotten password
+
+issues
+1 url/register does'nt have session id.
+2 site crashes when url /profile [withought login]

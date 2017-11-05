@@ -124,6 +124,7 @@ $(document).ready(function() {
                   $('#healthCare').click(function () {
                                   $('#providers').show();
                                   $('#healthCare').hide();
+                                  $('#divider').hide();
                                   $('#Customer').show();
                                   $('#send').hide();
                                   //doctor register buttons
@@ -147,15 +148,25 @@ $(document).ready(function() {
                     $('#Customer').click(function () {
                         $('#providers').hide();
                         $('#Customer').hide();
+                        $('#divider').show();
                         $('#healthCare').show();
+                        //signup
                         $('#send').show();
                         $('#Dsend').hide();
                         $('#submitButton').show();
                         $('#DsubmitButton').hide();
                         $('#verify').show();
                         $('#Dverify').hide();
+                        //login
                         $('#loginButton1').show();
                         $('#DloginButton1').hide();
+                        //forgot_Password
+                        $('#OTPforForgot').show();
+                        $('#DOTPforForgot').hide();
+                        $('#verify1').show();
+                        $('#Dverify1').hide();
+                        $('#againLogin').show();
+                        $('#DagainLogin').hide();
 
 
                     })
