@@ -342,7 +342,7 @@ app.post('/profiles',function (req,res) {
                 city : city,
                 state : state
             },
-            adhaar_number: aadhaar_number,
+            aadhaar_number: aadhaar_number,
             income: income,
             relative_name : rel_name,
             relative_contact: rel_contact,
@@ -435,7 +435,7 @@ app.get('/profile', function (req, res) {
 
 
 
-//***************************************Update Profile*****************************************************************
+//***************************************Edit Profile*****************************************************************
 
 //***************Edit Name and Email **********************************
 
