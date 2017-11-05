@@ -292,11 +292,12 @@ app.post('/register', function (req, res) {
 });
 
 app.get('/profiles',function (req,res) {
+    console.log(user_contact);
     res.render('profiles');
 });
 //user profile update
 app.post('/profiles',function (req,res) {
-    console.log("reaches");
+    console.log(user_contact);
     var dob = req.body.dob;
     var gender = req.body.gender;
     var blood_group = req.body.blood_group;
@@ -309,8 +310,7 @@ app.post('/profiles',function (req,res) {
     var rel_name = req.body.relative_name;
     var rel_contact = req.body.relative_contact;
     var relation = req.body.relation;
-    console.log(user_contact);
-    User.update({number : user_contact}, {
+    User.update({number : 7455969734}, {
         $set : {
             dob: dob,
             gender: gender,
