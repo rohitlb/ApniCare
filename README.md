@@ -14,6 +14,7 @@
 3 mongo-session
 4 Doc reg & login
 5 recover forgotten password
+6 update user info and verify password
 
 issues
 1 url/register does'nt have session id.
