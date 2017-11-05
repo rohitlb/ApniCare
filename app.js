@@ -107,7 +107,7 @@ app.get('/test',function (req,res) {
 
 });
 
-//*************************************Insert profile*******************************************************************
+//*************************************OTP*******************************************************************
 
 //user
 app.post('/sendOTP',function (req, res) {
@@ -1558,12 +1558,14 @@ app.post('/uploadimage', upload.any(), function(req, res) {
 
 });
 
-
+//==========================Database connection===========================
 
 //data base connection and opening port
 var db = 'mongodb://localhost/ApniCare';
 mongoose.connect(db, {useMongoClient: true});
 
+
+//=============================Start server========================
 //connecting database and starting server
 var database = mongoose.connection;
 database.on('open', function () {
