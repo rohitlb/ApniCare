@@ -1509,9 +1509,9 @@ var storage = multer.diskStorage({
         cb(null, 'uploads/')
     },
     filename: function(req, file, cb) {
-        console.log('test for file');
-        console.log(file);
-        console.log('end');
+        // console.log('test for file');
+        // console.log(file);
+        // console.log('end');
         // image name is set as number+orignal image name
         cb(null, dpname+file.originalname);
         dpindbname = dpname+file.originalname;
@@ -1525,8 +1525,8 @@ var upload = multer({
 app.post('/uploadimage', upload.any(), function(req, res) {
 
     //console.log(ID);
-    var test = bodyParser.toString(res)
-    res.send(test);
+    //var test = bodyParser.toString(res)
+    res.send(Done);
 
     //var path = req.files[0].path;
     //var imageName = req.files[0].originalname;
