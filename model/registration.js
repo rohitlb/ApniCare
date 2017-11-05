@@ -2,6 +2,17 @@ var mongoose = require('mongoose');
 
 
 var User = new mongoose.Schema({
+    image : {
+        path: {
+            type: String,
+            required: true,
+            trim: true
+        },
+        originalname: {
+            type: String,
+            required: true
+        }
+    },
     //general information
     name : {type:String},
     email : {type : String},

@@ -5,6 +5,7 @@ var path = require('path');
 var favicon = require('serve-favicon');
 var request = require('request');
 var mongoose = require('mongoose');
+var multer = require('multer');
 var promise = require('bluebird');
 var sleep = require('thread-sleep');
 var session = require('express-session');
@@ -15,6 +16,12 @@ var mongoDBStore = require('connect-mongodb-session')(session);
 mongoose.Promise = promise;
 var async = require('async');
 var keys = require('./private/keys');
+
+// variables for profile image
+var ID;
+var dpname;
+var dpindbname;
+
 
 var otp;
 
@@ -353,6 +360,8 @@ app.post('/login',function (req,res) {
                 console.log("Successfully login");
                 req.session.userID = result._id;
                 sessionID = result._id;
+                dpname = req.body.number;
+                ID = req.session.userID;
                 if (req.session.userID) {
                     res.send({status: "success", message: "successfully login" ,number: req.session.userID});
                     res.end();
@@ -1453,6 +1462,63 @@ app.get('/search_molecule',function (req,res) {
             res.render('moleculedetails',{data : result});
         }
     });
+});
+
+//======================= save profile pic====================
+
+
+var storage = multer.diskStorage({
+    destination: function(req, file, cb) {
+        cb(null, 'uploads/')
+    },
+    filename: function(req, file, cb) {
+        console.log('test for file');
+        console.log(file);
+        console.log('end');
+        // image name is set as number+orignal image name
+        cb(null, dpname+file.originalname);
+        dpindbname = dpname+file.originalname;
+    }
+});
+
+var upload = multer({
+    storage: storage
+});
+
+app.post('/uploadimage', upload.any(), function(req, res) {
+
+    //console.log(ID);
+    var test = bodyParser.toString(res)
+    res.send(test);
+
+    //var path = req.files[0].path;
+    //var imageName = req.files[0].originalname;
+    var path = req.files[0].path;
+    var imageName = dpindbname ;
+    console.log('storing in databases '+imageName+' test');
+    //console.log(req.session.userID);
+    console.log(path);
+    console.log(imageName);
+
+    User.update({_id : ID},{
+        $set : {
+            'image.path' : path,
+            'image.originalname' : imageName
+        }
+    },function (err,result) {
+        if(err){
+            console.log(err);
+        }
+        else{
+            console.log(result);
+        }
+    });
+
+
+    routes.addImage(User, function(err) {
+
+    });
+
 });
 
 
