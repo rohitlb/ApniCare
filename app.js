@@ -588,12 +588,6 @@ app.post('/updateusersdetails',function (req,res) {
     var marital_status = req.body.marital_status;
     var height = req.body.height;
     var weight = req.body.weight;
-    // var address = req.body.address;
-    // var aadhaar_number = req.body.aadhaar_number;
-    // var income = req.body.income;
-    // var rel_name = req.body.relative_name;
-    // var rel_contact = req.body.relative_contact;
-    // var relation = req.body.relation;
 
     User.find({_id : sessionID,password : details_password},function (err,result) {
         if (err) {
@@ -619,24 +613,6 @@ app.post('/updateusersdetails',function (req,res) {
                 if (weight === "") {
                     weight = result[0].weight;
                 }
-                // if (address === "") {
-                //     address = result[0].address;
-                // }
-                // if (aadhaar_number === "") {
-                //     aadhaar_number = result[0].aadhaar_number;
-                // }
-                // if (income === "") {
-                //     income = result[0].income;
-                // }
-                // if (rel_name === "") {
-                //     rel_name = result[0].relative_name;
-                // }
-                // if (rel_contact === "") {
-                //     rel_name = result[0].relative_contact;
-                // }
-                // if (relation === "") {
-                //     relation = result[0].relation;
-                // }
 
                 User.update({_id: sessionID, password: details_password}, {
                     $set: {
@@ -646,12 +622,6 @@ app.post('/updateusersdetails',function (req,res) {
                         marital_status: marital_status,
                         height: height,
                         weight: weight
-                        // address: [address],
-                        // adhaar_number: aadhaar_number,
-                        // income: income,
-                        // relative_name: rel_name,
-                        // relative_contact: rel_contact,
-                        // relation: relation
                     }
                 }, function (err, result) {
                     if (err) {
@@ -761,8 +731,148 @@ app.post('/editaddress',function (req,res) {
 
 //********************Edit Confidential *************************************
 
+app.get('/confidentialpassword',function (req,res) {
+    res.render('confidentialpassword');
+});
 
+var confidential_password = null;
+app.post('/confidentialpassword',function (req,res) {
+    var password = req.body.password;
+    User.findOne({_id : sessionID,password : password},function (err,result) {
+        if(err){
+            console.log(err);
+        }
+        else{
+            if(result){
+                confidential_password = result.password;
+                console.log("password match");
+                res.render('editconfidential',{status: "success", message: "Password match"});
+            }
+            else{
+                console.log("password not match");
+                res.send({status: "failure", message: "Incorrect password"});
+            }
+        }
+    });
+});
 
+app.get('/editconfidential',function (req,res) {
+    res.render('editconfidential');
+});
+
+app.post('/editconfidential',function (req,res) {
+    var aadhaarnumber = req.body.aadhaar_number;
+    var income = req.body.income;
+    
+    User.find({_id : sessionID,password : confidential_password},function (err,result) {
+        if(err){
+            console.log(err);
+        }
+        else{
+            if(result) {
+                if (aadhaarnumber === "") {
+                    aadhaarnumber = result[0].aadhaar_number;
+                }
+                if (income === "") {
+                    income = result[0].income;
+                }
+
+                User.update({_id: sessionID, password: confidential_password}, {
+                    $set: {
+                        aadhaar_number: aadhaarnumber,
+                        income: income
+                    }
+                }, function (err1, result1) {
+                    if (err1) {
+                        console.log(err1);
+                    }
+                    else {
+                        console.log(result1);
+                        res.send({status: "success", message: "confidential updated"});
+                    }
+                });
+            }
+            else{
+                res.send({status: "failure", message: "Confidential cannot update"});
+            }
+        }
+    });
+});
+
+//***********************Edit Emergency **************************************
+
+app.get('/emergencypassword',function (req,res) {
+    res.render('emergencypassword');
+});
+
+var emergency_password = null;
+app.post('/emergencypassword',function (req,res) {
+    var password = req.body.password;
+    User.findOne({_id : sessionID,password : password},function (err,result) {
+        if(err){
+            console.log(err);
+        }
+        else{
+            if(result){
+                emergency_password = result.password;
+                console.log("password match");
+                res.render('editemergency',{status: "success", message: "Password match"});
+            }
+            else{
+                console.log("password not match");
+                res.send({status: "failure", message: "Incorrect password"});
+            }
+        }
+    });
+});
+
+app.get('/editemergency',function (req,res) {
+    res.render('editemergency');
+});
+
+app.post('/editemergency',function (req,res) {
+    var rel_name = req.body.relative_name;
+    var rel_contact = req.body.relative_contact;
+    var relation = req.body.relation;
+
+    User.find({Id : sessionID,password : emergency_password},function (err,result) {
+        if(err){
+            console.log(err);
+        }
+        else{
+            if(result){
+                if (rel_name === "") {
+                    rel_name = result[0].relative_name;
+                }
+                if (rel_contact === "") {
+                    rel_name = result[0].relative_contact;
+                }
+                if (relation === "") {
+                    relation = result[0].relation;
+                }
+
+                User.update({_id : sessionID,password : emergency_password},{
+                    $set : {
+                        relative_name : rel_name,
+                        relative_contact : rel_contact,
+                        relation : relation
+                    }
+                },function (err1,result1) {
+                    if(err1){
+                        console.log(err1)
+                    }
+                    else{
+                        console.log(result1);
+                        res.send({status: "success", message: "Emergency Contact Updates"});
+                    }
+                });
+            }
+            else{
+                res.send({status: "failure", message: "Emergency Contact cannot update"});
+            }
+        }
+    });
+});
 
 
 
