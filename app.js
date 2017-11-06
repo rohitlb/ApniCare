@@ -276,28 +276,38 @@ app.post('/register', function (req, res) {
             console.log("Some error occured");
             res.end();
         } else {
-            console.log(result);
+            //console.log(result);
             if (result) {
                 console.log("User Already Exist");
                 res.send({status: "failure", message: "user Already Exists"});
                 res.end();
             } else {
-                var user = new User({
-                    name: req.body.name,
-                    email : req.body.email,
-                    number: req.body.number,
-                    password: req.body.password
-                });
-                user.save(function (err, results) {
-                    if (err) {
-                        console.log("There is an error");
-                        res.end();
-                    } else {
-                        user_contact = results.number;
-                        console.log('user save successfully');
-                        res.send({status: "success", message: "successfully registered"});
-                        res.end();
-                    }
+                bcrypt.genSalt(10, function (err, salt) {
+                    bcrypt.hash(req.body.password, salt, function (err, hash) {
+                        if(err){
+                            console.log("error in hashing");
+                        }
+                        else {
+                            var user = new User({
+                                name: req.body.name,
+                                email: req.body.email,
+                                number: req.body.number,
+                                password: hash
+                            });
+                            user.save(function (err, results) {
+                                if (err) {
+                                    console.log(err);
+                                    console.log("There is an error");
+                                    res.end();
+                                } else {
+                                    user_contact = results.number;
+                                    console.log('user save successfully');
+                                    res.send({status: "success", message: "successfully registered"});
+                                    res.end();
+                                }
+                            });
+                        }
+                    });
                 });
             }
         }
@@ -365,7 +375,7 @@ app.post('/profiles',function (req,res) {
 var sessionID = null;
 app.post('/login',function (req,res) {
     console.log("login reaches here");
-    User.findOne({number: req.body.number , password : req.body.password}).exec(function (err,result) {
+    User.findOne({number: req.body.number}).exec(function (err,result) {
         if(err){
             console.log("Some error occurred");
             res.send({status: "failure", message : "Some error occurred"});
@@ -373,16 +383,33 @@ app.post('/login',function (req,res) {
         } else {
             //console.log(result);
             if(result) {
-                console.log("Successfully login");
-                req.session.userID = result._id;
-                sessionID = result._id;
-                dpname = req.body.number;
-                ID = req.session.userID;
-                if (req.session.userID) {
-                    res.send({status: "success", message: "successfully login" ,number: req.session.userID});
-                    res.end();
-                }
-            } else {
+                bcrypt.compare(req.body.password,result.password,function(err, results) {
+                    if (err) {
+                        console.log(err);
+                    }
+                    else {
+                        if(results) {
+                            console.log("Successfully login");
+                            req.session.userID = result._id;
+                            sessionID = result._id;
+                            dpname = req.body.number;
+                            ID = req.session.userID;
+                            if (req.session.userID) {
+                                res.send({
+                                    status: "success",
+                                    message: "successfully login",
+                                    number: req.session.userID
+                                });
+                                res.end();
+                            }
+                        }
+                        else{
+                            res.send({status: "failure", message: "Wrong credentials"});
+                        }
+                    }
+                });
+            }
+            else {
                 console.log("check your name or password");
                 res.send({status: "failure", message: "Can't login"});
                 res.end();
@@ -446,16 +473,28 @@ app.get('/verifypassword',function (req,res) {
 var new_password = null;
 app.post('/verifypassword',function (req,res) {
     var password = req.body.password;
-    User.findOne({_id : sessionID,password : password},function (err,result) {
+    User.findOne({_id : sessionID},function (err,result) {
         if(err){
             console.log(err);
         }
         else{
-            if(result){
-                new_password = result.password;
-                console.log("password match");
-                res.send({status: "success", message: "Password match"})
-                //res.render('updatenameandemail',{status: "success", message: "Password match"});
+            if(result) {
+                bcrypt.compare(password, result.password, function (err, results) {
+                    if (err) {
+                        console.log(err);
+                    }
+                    else {
+                        if(results) {
+                            new_password = result.password;
+                            console.log("password match");
+                            //res.send({status: "success", message: "Password match"})
+                            res.render('updatenameandemail',{status: "success", message: "Password match"});
+                        }
+                        else{
+                            res.send({status: "failure", message: "Wrong credentials"});
+                        }
+                    }
+                });
             }
             else{
                 console.log("password not match");
@@ -472,21 +511,19 @@ app.get('/updatenameandemail',function (req,res) {
 app.post('/updatenameandemail',function (req,res) {
     var name = req.body.name;
     var email = req.body.email;
-
-    User.find({_id : sessionID,password : new_password},function (err,result) {
+    User.find({_id : sessionID},function (err,result) {
         if(err){
             console.log(err);
         }
-        else{
-            if(result){
-                if(name === ""){
+        else {
+            if (result[0].password === new_password) {
+                if (name === "") {
                     name = result[0].name;
                 }
-                if(email === ""){
+                if (email === "") {
                     email = result[0].email;
                 }
-
-                User.update({_id: sessionID, password: new_password}, {
+                User.update({_id: sessionID}, {
                     $set: {
                         name: name,
                         email: email
@@ -501,8 +538,8 @@ app.post('/updatenameandemail',function (req,res) {
                     }
                 });
             }
-            else{
-                res.send({status: "failure", message: "Cannot Update"});
+            else {
+                res.send({status: "failure", message: "Details Cannot update"});
             }
         }
     });
@@ -519,34 +556,50 @@ app.post('/updatepassword',function (req,res) {
     var newpassword = req.body.newpassword;
     var confpassword = req.body.confpassword;
 
-    User.findOne({_id : sessionID,password : oldpassword},function (err,result) {
+    User.findOne({_id : sessionID},function (err,result) {
         if(err){
             console.log(err);
         }
         else{
             if(result){
-                if(newpassword === confpassword){
-                    User.update({_id : sessionID,password : oldpassword},{
-                        $set : {password : newpassword}
-                    },function (err1,result1) {
-                        if(err1){
-                            console.log(err1);
+                bcrypt.compare(oldpassword,result.password,function(err, results) {
+                    if (err) {
+                        console.log(err);
+                    }
+                    else {
+                        if (results) {
+                            if (newpassword === confpassword) {
+                                bcrypt.genSalt(10, function (err, salt) {
+                                    bcrypt.hash(newpassword, salt, function (err, hash) {
+
+                                        User.update({_id: sessionID}, {
+                                            $set: {password: hash}
+                                        }, function (err1, result1) {
+                                            if (err1) {
+                                                console.log(err1);
+                                            }
+                                            else {
+                                                console.log(result1);
+                                                res.send({status: "success", message: "Password Successfully Updated"});
+                                            }
+                                        });
+                                    });
+                                });
+                            }
+                            else {
+                                res.send({status: "failure", message: "Both password not match"});
+                            }
                         }
-                        else{
-                            console.log(result1);
-                            res.send({status: "success", message: "Password Successfully Updated"});
+                    else{
+                            res.send({status: "failure", message: "Wrong credentials"});
                         }
-                    });
-                }
-                else{
-                    res.send({status: "failure", message: "Both password not match"});
-                }
+                    }
+                });
             }
             else{
                 res.send({status: "failure", message: "Please enter correct old password"});
             }
         }
-
     });
 });
 
@@ -559,15 +612,28 @@ app.get('/verifydetailspassword',function (req,res) {
 var details_password = null;
 app.post('/verifydetailspassword',function (req,res) {
     var password = req.body.password;
-    User.findOne({_id : sessionID,password : password},function (err,result) {
+    User.findOne({_id : sessionID},function (err,result) {
         if(err){
             console.log(err);
         }
         else{
-            if(result){
-                details_password = result.password;
-                console.log("password match");
-                res.render('updateusersdetails',{status: "success", message: "Password match"});
+            if(result) {
+                bcrypt.compare(password, result.password, function (err, results) {
+                    if (err) {
+                        console.log(err);
+                    }
+                    else {
+                        if(results) {
+                            details_password = result.password;
+                            console.log("password match");
+                            //res.send({status: "success", message: "Password match"})
+                            res.render('updateusersdetails',{status: "success", message: "Password match"});
+                        }
+                        else{
+                            res.send({status: "failure", message: "Wrong credentials"});
+                        }
+                    }
+                });
             }
             else{
                 console.log("password not match");
@@ -589,12 +655,13 @@ app.post('/updateusersdetails',function (req,res) {
     var height = req.body.height;
     var weight = req.body.weight;
 
-    User.find({_id : sessionID,password : details_password},function (err,result) {
+    User.find({_id : sessionID},function (err,result) {
         if (err) {
             console.log(err);
         }
         else {
-            if (result) {
+
+            if (result[0].password === details_password) {
                 if (dob === "") {
                     dob = result[0].dob;
                 }
@@ -614,7 +681,7 @@ app.post('/updateusersdetails',function (req,res) {
                     weight = result[0].weight;
                 }
 
-                User.update({_id: sessionID, password: details_password}, {
+                User.update({_id: sessionID}, {
                     $set: {
                         dob: dob,
                         gender: gender,
@@ -632,10 +699,9 @@ app.post('/updateusersdetails',function (req,res) {
                         res.send({status: "success", message: "Details Updated"});
                     }
                 });
-
             }
             else {
-                res.send({status: "failure", message: "Cannot Update Details"});
+                res.send({status: "failure", message: "Wrong credentials"});
             }
         }
     });
@@ -650,15 +716,28 @@ app.get('/addresspassword',function (req,res) {
 var address_password = null;
 app.post('/addresspassword',function (req,res) {
     var password = req.body.password;
-    User.findOne({_id : sessionID,password : password},function (err,result) {
+    User.findOne({_id : sessionID},function (err,result) {
         if(err){
             console.log(err);
         }
         else{
-            if(result){
-                address_password = result.password;
-                console.log("password match");
-                res.render('editaddress',{status: "success", message: "Password match"});
+            if(result) {
+                bcrypt.compare(password, result.password, function (err, results) {
+                    if (err) {
+                        console.log(err);
+                    }
+                    else {
+                        if(results) {
+                            address_password = result.password;
+                            console.log("password match");
+                            //res.send({status: "success", message: "Password match"})
+                            res.render('editaddress',{status: "success", message: "Password match"});
+                        }
+                        else{
+                            res.send({status: "failure", message: "Wrong credentials"});
+                        }
+                    }
+                });
             }
             else{
                 console.log("password not match");
@@ -674,58 +753,58 @@ app.get('/editaddress',function (req,res) {
 
 app.post('/editaddress',function (req,res) {
     var addresses = req.body.address;
-    var landmark = req.body.landmarks;
+    var landmark = req.body.landmark;
     var pincode = req.body.pincode;
     var city = req.body.city;
     var state = req.body.state;
 
-    User.find({_id : sessionID,password : address_password},function (err,result) {
+    User.find({_id : sessionID},function (err,result) {
         if(err){
             console.log(err);
         }
-        else{
-            if(result){
-                if(addresses === ""){
+        else {
+            if (result[0].password === address_password) {
+                if (addresses === "") {
                     addresses = result[0].address.address;
                 }
-                if(landmark === ""){
+                if (landmark === "") {
                     landmark = result[0].address.landmarks;
                 }
-                if(pincode === ""){
+                if (pincode === "") {
                     pincode = result[0].address.pin_code;
                 }
-                if(city === ""){
+                if (city === "") {
                     city = result[0].address.city;
                 }
-                if(state === ""){
+                if (state === "") {
                     state = result[0].address.state;
                 }
 
-                User.update({_id : sessionID,password : address_password},{
-                    $set : {
+                User.update({_id: sessionID}, {
+                    $set: {
                         address: {
                             addresses: addresses,
-                            landmark: landmark,
+                            landmarks: landmark,
                             pin_code: pincode,
                             city: city,
                             state: state
                         }
                     }
-                },function (err1,result1) {
-                    if(err1){
+                }, function (err1, result1) {
+                    if (err1) {
                         console.log(err1);
                     }
-                    else{
+                    else {
                         console.log(result1);
                         res.send({status: "success", message: "Address successfully updated"});
                     }
                 });
             }
-            else{
-                res.send({status: "failure", message: "Cannot Update Address"});
+            else {
+                res.send({status: "failure", message: "Wrong credentials"});
             }
         }
-    })
+    });
 });
 
 
@@ -738,15 +817,28 @@ app.get('/confidentialpassword',function (req,res) {
 var confidential_password = null;
 app.post('/confidentialpassword',function (req,res) {
     var password = req.body.password;
-    User.findOne({_id : sessionID,password : password},function (err,result) {
+    User.findOne({_id : sessionID},function (err,result) {
         if(err){
             console.log(err);
         }
         else{
-            if(result){
-                confidential_password = result.password;
-                console.log("password match");
-                res.render('editconfidential',{status: "success", message: "Password match"});
+            if(result) {
+                bcrypt.compare(password, result.password, function (err, results) {
+                    if (err) {
+                        console.log(err);
+                    }
+                    else {
+                        if(results) {
+                            confidential_password = result.password;
+                            console.log("password match");
+                            //res.send({status: "success", message: "Password match"})
+                            res.render('editconfidential',{status: "success", message: "Password match"});
+                        }
+                        else{
+                            res.send({status: "failure", message: "Wrong credentials"});
+                        }
+                    }
+                });
             }
             else{
                 console.log("password not match");
@@ -764,12 +856,13 @@ app.post('/editconfidential',function (req,res) {
     var aadhaarnumber = req.body.aadhaar_number;
     var income = req.body.income;
     
-    User.find({_id : sessionID,password : confidential_password},function (err,result) {
+    User.find({_id : sessionID},function (err,result) {
         if(err){
             console.log(err);
         }
-        else{
-            if(result) {
+        else {
+
+            if (result[0].password === confidential_password) {
                 if (aadhaarnumber === "") {
                     aadhaarnumber = result[0].aadhaar_number;
                 }
@@ -777,7 +870,7 @@ app.post('/editconfidential',function (req,res) {
                     income = result[0].income;
                 }
 
-                User.update({_id: sessionID, password: confidential_password}, {
+                User.update({_id: sessionID}, {
                     $set: {
                         aadhaar_number: aadhaarnumber,
                         income: income
@@ -792,8 +885,8 @@ app.post('/editconfidential',function (req,res) {
                     }
                 });
             }
-            else{
-                res.send({status: "failure", message: "Confidential cannot update"});
+            else {
+                res.send({status: "failure", message: "Wrong credentials"});
             }
         }
     });
@@ -808,15 +901,28 @@ app.get('/emergencypassword',function (req,res) {
 var emergency_password = null;
 app.post('/emergencypassword',function (req,res) {
     var password = req.body.password;
-    User.findOne({_id : sessionID,password : password},function (err,result) {
+    User.findOne({_id : sessionID},function (err,result) {
         if(err){
             console.log(err);
         }
         else{
-            if(result){
-                emergency_password = result.password;
-                console.log("password match");
-                res.render('editemergency',{status: "success", message: "Password match"});
+            if(result) {
+                bcrypt.compare(password, result.password, function (err, results) {
+                    if (err) {
+                        console.log(err);
+                    }
+                    else {
+                        if(results) {
+                            emergency_password = result.password;
+                            console.log("password match");
+                            //res.send({status: "success", message: "Password match"})
+                            res.render('editemergency',{status: "success", message: "Password match"});
+                        }
+                        else{
+                            res.send({status: "failure", message: "Wrong credentials"});
+                        }
+                    }
+                });
             }
             else{
                 console.log("password not match");
@@ -835,12 +941,12 @@ app.post('/editemergency',function (req,res) {
     var rel_contact = req.body.relative_contact;
     var relation = req.body.relation;
 
-    User.find({Id : sessionID,password : emergency_password},function (err,result) {
+    User.find({_id : sessionID},function (err,result) {
         if(err){
             console.log(err);
         }
-        else{
-            if(result){
+        else {
+            if (result[0].password === emergency_password) {
                 if (rel_name === "") {
                     rel_name = result[0].relative_name;
                 }
@@ -851,24 +957,24 @@ app.post('/editemergency',function (req,res) {
                     relation = result[0].relation;
                 }
 
-                User.update({_id : sessionID,password : emergency_password},{
-                    $set : {
-                        relative_name : rel_name,
-                        relative_contact : rel_contact,
-                        relation : relation
+                User.update({_id: sessionID}, {
+                    $set: {
+                        relative_name: rel_name,
+                        relative_contact: rel_contact,
+                        relation: relation
                     }
-                },function (err1,result1) {
-                    if(err1){
+                }, function (err1, result1) {
+                    if (err1) {
                         console.log(err1)
                     }
-                    else{
+                    else {
                         console.log(result1);
                         res.send({status: "success", message: "Emergency Contact Updates"});
                     }
                 });
             }
-            else{
-                res.send({status: "failure", message: "Emergency Contact cannot update"});
+            else {
+                res.send({status: "failure", message: "Wrong credentials"});
             }
         }
     });
@@ -1711,7 +1817,8 @@ app.get('/search_molecule',function (req,res) {
     });
 });
 
-//======================= save profile pic====================
+
+//======================= save profile pic ====================
 
 
 var storage = multer.diskStorage({
@@ -1733,13 +1840,7 @@ var upload = multer({
 });
 
 app.post('/uploadimage', upload.any(), function(req, res) {
-
-    //console.log(ID);
-    //var test = bodyParser.toString(res)
     res.send('Done');
-
-    //var path = req.files[0].path;
-    //var imageName = req.files[0].originalname;
     var path = req.files[0].path;
     var imageName = dpindbname ;
     console.log('storing in databases '+imageName+' test');
@@ -1760,13 +1861,83 @@ app.post('/uploadimage', upload.any(), function(req, res) {
             console.log(result);
         }
     });
-
-
     routes.addImage(User, function(err) {
-
     });
-
 });
+
+
+
+//////////////////// try for free /////////////////////////////////////////
+app.get('/userregister',function (req,res) {
+    res.render('userregister');
+});
+
+app.post('/userregister', function (req, res) {
+    var dob = req.body.dob;
+    var gender = req.body.gender;
+    var blood_group = req.body.blood_group;
+    var marital_status = req.body.marital_status;
+    var height = req.body.height;
+    var weight = req.body.height;
+    var addresses = req.body.address;
+    var landmark = req.body.landmarks;
+    var pincode = req.body.pincode;
+    var city = req.body.city;
+    var state = req.body.state;
+    var aadhaar_number = req.body.aadhaar_number;
+    var income = req.body.income;
+    var rel_name = req.body.relative_name;
+    var rel_contact = req.body.relative_contact;
+    var relation = req.body.relation;
+    bcrypt.genSalt(10, function (err, salt) {
+        bcrypt.hash(req.body.password, salt, function (err, hash) {
+            if (err) {
+                console.log("error in hashing");
+            }
+            else {
+                var user = new User({
+                    name: req.body.name,
+                    email: req.body.email,
+                    number: req.body.number,
+                    password: hash,
+                    dob: dob,
+                    gender: gender,
+                    blood_group: blood_group,
+                    marital_status: marital_status,
+                    height: height,
+                    weight: weight,
+                    address: {
+                        address: addresses,
+                        landmarks: landmark,
+                        pin_code: pincode,
+                        city: city,
+                        state: state
+                    },
+                    aadhaar_number: aadhaar_number,
+                    income: income,
+                    relative_name: rel_name,
+                    relative_contact: rel_contact,
+                    relation: relation
+                });
+                user.save(function (err, results) {
+                    if (err) {
+                        console.log(err);
+                        console.log("There is an error");
+                        res.end();
+                    } else {
+                        user_contact = results.number;
+                        console.log('user save successfully');
+                        res.send({status: "success", message: "successfully registered"});
+                        res.end();
+                    }
+                });
+            }
+        });
+    });
+});
+
+
+
 
 //==========================Database connection===========================
 
