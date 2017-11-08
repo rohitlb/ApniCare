@@ -16,6 +16,18 @@
 5 recover forgotten password
 6 update user info and verify password
 7 don't depend on variables they reset when server get restarted
+8 image
+
+
+to be done
+9 working for compression
+10 search
+
+
+
+
+
+live to site
 
 issues
 1 url/register does'nt have session id.
