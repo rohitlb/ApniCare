@@ -1595,7 +1595,7 @@ app.get('/go_to_brand',function (req,res) {
                 if(err){
                     console.log(err);
                 }
-                //console.log(data);
+                console.log(data);
                 res.render('showbrand', {data : data});
             });
         }
@@ -1682,6 +1682,7 @@ app.get('/findbrand',function (req,res) {
             for (var i=0; i<result.length; i++) {
                 data['result'][i] = {brand : result[i].brand_name};
             }
+            console.log(data);
             res.render('findbrand', {data: data});
         }
     });
@@ -1752,6 +1753,9 @@ app.post('/disease',function (req,res) {
     });
 
 });
+
+
+
 
 // ************************************About Molecule ***************************************************
 
@@ -1849,10 +1853,11 @@ app.post('/uploadimage', upload.any(), function(req, res) {
     console.log(imageName);
 
     User.update({_id : ID},{
-        $set : {
-            'image.path' : path,
-            'image.originalname' : imageName
-        }
+        // $set : {
+        //     'image.path' : path,
+        //     'image.originalname' : imageName
+        // }
+        $set : {path : path}
     },function (err,result) {
         if(err){
             console.log(err);
@@ -1936,6 +1941,67 @@ app.post('/userregister', function (req, res) {
     });
 });
 
+app.get('/findbrands',function (req,res) {
+    Brand.find().exec(function (err,result) {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            var id_brand = [];
+            var data = {};
+            data['brands'] = [];
+            data['companies'] = [];
+            data['dosages'] = [];
+            for (var i = 0; i < result.length; i++) {
+                data['brands'][i] = {
+                    brand: result[i].brand_name,
+                    category: result[i].categories
+                };
+                id_brand.push(result[i]._id);
+            }
+            // strt loop to store every brand inside a company
+            async.each(id_brand, function (company, callback) {
+
+                //find brand by individual id get from collection company
+                Company.find({brand_id: company}, function (err, result1) {
+
+                    data['companies'].push({
+                        company: result1[0].company_name
+                    });
+                    callback();
+                });
+
+            }, function (err) {
+                if (err) {
+                    console.log(err);
+                }
+                else {
+
+                    for(var j = 0 ;j < result.length ; j++) {
+                        async.each(result[j].dosage_id, function (dosage, callback) {
+
+                            Dosage.findById(dosage, function (err, result2) {
+                                //console.log(result2);
+                                data['dosages'].push({
+                                    dosage: result2.dosage_form
+                                });
+                                callback();
+                            });
+                            },function (err2) {
+                                if(err2){
+                                    console.log(err2);
+                                }
+                                else{
+                                    console.log(data);
+                                }
+                        });
+                    }
+                }
+            });
+        }
+    });
+});
+
 
 
 
@@ -1950,8 +2016,8 @@ mongoose.connect(db, {useMongoClient: true});
 //connecting database and starting server
 var database = mongoose.connection;
 database.on('open', function () {
-        console.log("database is connected");
-        app.listen(app.get('port'), function () {
-            console.log('server connected to http:localhost:' + app.get('port'));
-        });
+    console.log("database is connected");
+    app.listen(app.get('port'), function () {
+        console.log('server connected to http:localhost:' + app.get('port'));
     });
+});
