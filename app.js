@@ -55,6 +55,7 @@ store.on('error',function (error) {
     assert.ifError(error);
     assert.ok(false);
 });
+var assert = require('assert');
 
 // to hide X-Powered-By for Security,Save Bandwidth in ExpressJS(node.js)
 app.disable('x-powered-by');
