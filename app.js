@@ -23,6 +23,7 @@ var dpname;
 var dpindbname;
 
 
+
 mongoose.Promise = promise;
 
 // req models
@@ -45,7 +46,7 @@ var routes = require('./model/imagefile');
 var app = express();
 
 var store = new mongoDBStore({
-    uri : 'mongodb://localhost/ApniCare',
+    uri : 'mongodb://localhost/EditCare',
     collection : 'mySessions'
 });
 
@@ -53,7 +54,6 @@ store.on('error',function (error) {
     assert.ifError(error);
     assert.ok(false);
 });
-var assert = require('assert');
 
 // to hide X-Powered-By for Security,Save Bandwidth in ExpressJS(node.js)
 app.disable('x-powered-by');
@@ -67,9 +67,7 @@ app.set('view engine', 'pug');
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 
 //set all middleware
-//app.use(bodyParser.json());
-app.use(bodyParser.json({limit: "50mb"}));
-
+app.use(bodyParser.json());
 //exteended false means it won't be accepting nested objects (accept only single)
 // here security for session to be added like.... session validate
 app.use(bodyParser.urlencoded({extended : false}));
@@ -473,6 +471,7 @@ app.get('/verifypassword',function (req,res) {
 
 var new_password = null;
 app.post('/verifypassword',function (req,res) {
+
     var password = req.body.password;
     User.findOne({_id : sessionID},function (err,result) {
         if(err){
@@ -1274,12 +1273,16 @@ app.get('/medicine',function (req,res) {
     res.render('medicine');
 });
 
+
+var company_result = null;
 app.post('/medicine',function (req,res) {
     var dosage_form = req.body.dosage_form;
     var brand_name = req.body.brand_name;
     var categories = req.body.categories;
+    var primarilyusedfor = req.body.primarilyusedfor;
     var company_name = req.body.company_name;
     var strengtH = req.body.strength;
+    var types = req.body.types;
     var active_ingredients = req.body.active_ingredients;
     var packaging = req.body.packaging;
     var price = req.body.price;
@@ -1287,6 +1290,7 @@ app.post('/medicine',function (req,res) {
     var dose_timing = req.body.dose_timing;
     var warnings = req.body.warnings;
     var prescription = req.body.prescription;
+    var molecule_strengths = req.body.molecule_strength;
     async.waterfall([
             function (callback) {
                 Company.findOne({company_name: company_name}, function (err, result) {
@@ -1301,6 +1305,7 @@ app.post('/medicine',function (req,res) {
             },
             function (result,callback) {
                 if(result){
+                    company_result = result._id;
                     Brand.findOne({brand_name : brand_name},function (err,result1) {
                         if(err){
                             console.log(err);
@@ -1324,7 +1329,10 @@ app.post('/medicine',function (req,res) {
                             else{
                                 var STRength = new Strength({
                                     strength : strengtH,
-                                    active_ingredients : {name : active_ingredients},
+                                    active_ingredients : {
+                                        name : active_ingredients,
+                                        molecule_strength : molecule_strengths
+                                    },
                                     packaging : packaging,
                                     price : price,
                                     dose_taken : dose_taken,
@@ -1350,6 +1358,8 @@ app.post('/medicine',function (req,res) {
                                                 var brand = new Brand({
                                                     brand_name : brand_name,
                                                     categories : categories,
+                                                    types : types,
+                                                    primarily_used_for : primarilyusedfor,
                                                     dosage_id : result3._id
                                                 });
                                                 brand.save(function (err4,result4) {
@@ -1361,12 +1371,23 @@ app.post('/medicine',function (req,res) {
                                                             company_name : company_name,
                                                             brand_id : result4._id
                                                         });
-                                                        company.save(function(err5){
+                                                        company.save(function(err5,result5){
                                                             if(err5){
                                                                 console.log(err5);
                                                                 throw new Error(err5);                                                        }
                                                             else{
-                                                                res.send("New medicine added");
+                                                                Brand.update({brand_name : brand_name},{
+                                                                    $push : {
+                                                                        company_id : result5._id
+                                                                    }
+                                                                },function (err6) {
+                                                                    if(err6){
+                                                                        console.log(err6);
+                                                                    }
+                                                                    else{
+                                                                        res.send("New medicine added");
+                                                                    }
+                                                                });
                                                             }
                                                         });
                                                     }
@@ -1376,7 +1397,6 @@ app.post('/medicine',function (req,res) {
                                     }
                                 });
                             }
-
                         }
                     });
                 }
@@ -1396,7 +1416,10 @@ app.post('/medicine',function (req,res) {
                 else{
                     var strength = new Strength({
                         strength : strengtH,
-                        active_ingredients : {name : active_ingredients},
+                        active_ingredients : {
+                            name : active_ingredients,
+                            molecule_strength : molecule_strengths
+                        },
                         packaging : packaging,
                         price : price,
                         dose_taken : dose_taken,
@@ -1421,6 +1444,8 @@ app.post('/medicine',function (req,res) {
                                     var brand = new Brand({
                                         brand_name : brand_name,
                                         categories : categories,
+                                        types : types,
+                                        primarily_used_for : primarilyusedfor,
                                         dosage_id : result1._id
                                     });
                                     brand.save(function (err2,result2) {
@@ -1435,7 +1460,19 @@ app.post('/medicine',function (req,res) {
                                                     console.log(err3);
                                                 }
                                                 else {
-                                                    res.send("Brand added successfully  with dosage and strength");
+
+                                                    Brand.update({brand_name : brand_name},{
+                                                        $push : {
+                                                            company_id : company_result
+                                                        }
+                                                    },function (err6) {
+                                                        if(err6){
+                                                            console.log(err6);
+                                                        }
+                                                        else{
+                                                            res.send("Brand added successfully  with dosage and strength");
+                                                        }
+                                                    });
                                                 }
                                             });
                                         }
@@ -1461,7 +1498,10 @@ app.post('/medicine',function (req,res) {
                 else{
                     var sTrength = new Strength({
                         strength : strengtH,
-                        active_ingredients : {name : active_ingredients},
+                        active_ingredients : {
+                            name : active_ingredients,
+                            molecule_strength : molecule_strengths
+                        },
                         packaging : packaging,
                         price : price,
                         dose_taken : dose_taken,
@@ -1484,7 +1524,9 @@ app.post('/medicine',function (req,res) {
                                 }
                                 else{
                                     Brand.update({brand_name : brand_name},{
-                                        $push : {dosage_id : result2._id}
+                                        $push : {
+                                            dosage_id : result2._id
+                                        }
                                     }).exec(function (err2) {
                                         if(err2){
                                             console.log(err2);
@@ -1506,7 +1548,10 @@ app.post('/medicine',function (req,res) {
                 else{
                     var strength = new Strength({
                         strength : strengtH,
-                        active_ingredients : {name : active_ingredients},
+                        active_ingredients : {
+                            name : active_ingredients,
+                            molecule_strength : molecule_strengths
+                        },
                         packaging : packaging,
                         price : price,
                         dose_taken : dose_taken,
@@ -1673,7 +1718,8 @@ app.get('/go_to_strength',function (req,res) {
 });
 
 app.get('/findbrand',function (req,res) {
-    Brand.find().exec(function (err,result) {
+    var brand = req.query.brand;
+    Brand.find({categories : brand}).exec(function (err,result) {
         if(err){
             console.log(err);
         }
@@ -1683,8 +1729,9 @@ app.get('/findbrand',function (req,res) {
             for (var i=0; i<result.length; i++) {
                 data['result'][i] = {brand : result[i].brand_name};
             }
-            console.log(data);
-            res.render('findbrand', {data: data});
+            //console.log(data);
+            res.send(data);
+            //res.render('findbrand', {data: result});
         }
     });
 });
@@ -1824,12 +1871,10 @@ app.get('/search_molecule',function (req,res) {
 
 
 //======================= save profile pic ====================
-//var save = multer({ encoding: base64_decode() });
 
-storage = multer.diskStorage({
+
+var storage = multer.diskStorage({
     destination: function(req, file, cb) {
-       // var save = multer({ encoding: base64_decode(file) });
-
         cb(null, 'uploads/')
     },
     filename: function(req, file, cb) {
@@ -1847,7 +1892,7 @@ var upload = multer({
 });
 
 app.post('/uploadimage', upload.any(), function(req, res) {
-    //res.send('Done');
+    res.send('Done');
     var path = req.files[0].path;
     var imageName = dpindbname ;
     console.log('storing in databases '+imageName+' test');
@@ -1856,11 +1901,10 @@ app.post('/uploadimage', upload.any(), function(req, res) {
     console.log(imageName);
 
     User.update({_id : ID},{
-        // $set : {
-        //     'image.path' : path,
-        //     'image.originalname' : imageName
-        // }
-        $set : {path : path}
+        $set : {
+            'image.path' : path,
+            'image.originalname' : imageName
+        }
     },function (err,result) {
         if(err){
             console.log(err);
@@ -1945,73 +1989,42 @@ app.post('/userregister', function (req, res) {
 });
 
 app.get('/findbrands',function (req,res) {
-    Brand.find().exec(function (err,result) {
+    Brand.find().populate({path : 'dosage_id',populate : {path : 'strength_id'}}).populate({path : 'company_id'}).exec(function (err,brand) {
         if (err) {
             console.log(err);
         }
         else {
-            var id_brand = [];
-            var data = {};
-            data['brands'] = [];
-            data['companies'] = [];
-            data['dosages'] = [];
-            for (var i = 0; i < result.length; i++) {
-                data['brands'][i] = {
-                    brand: result[i].brand_name,
-                    category: result[i].categories
-                };
-                id_brand.push(result[i]._id);
-            }
-            // strt loop to store every brand inside a company
-            async.each(id_brand, function (company, callback) {
-
-                //find brand by individual id get from collection company
-                Company.find({brand_id: company}, function (err, result1) {
-
-                    data['companies'].push({
-                        company: result1[0].company_name
-                    });
-                    callback();
-                });
-
-            }, function (err) {
-                if (err) {
-                    console.log(err);
-                }
-                else {
-
-                    for(var j = 0 ;j < result.length ; j++) {
-                        async.each(result[j].dosage_id, function (dosage, callback) {
-
-                            Dosage.findById(dosage, function (err, result2) {
-                                //console.log(result2);
-                                data['dosages'].push({
-                                    dosage: result2.dosage_form
-                                });
-                                callback();
-                            });
-                            },function (err2) {
-                                if(err2){
-                                    console.log(err2);
-                                }
-                                else{
-                                    console.log(data);
-                                }
-                        });
-                    }
-                }
-            });
+            //res.send(brand[0]);
+            res.render('all', {data: brand})
         }
     });
 });
 
+app.get('/findcategory',function (req,res) {
+    Brand.find().exec(function (err,result) {
+        res.render('category',{data : result});
+    });
+});
+
+app.get('/searchdisease',function (req,res) {
+    res.render('searchdisease');
+});
+
+app.post('/searchdisease',function (req,res) {
+    var disease = req.body.disease;
+    Brand.find({primarily_used_for : disease}).populate({path : 'dosage_id',populate : {path : 'strength_id'}}).exec(function (err,result) {
+        console.log(result);
+        //res.send(result[0]);
+        res.render('diseasebrands',{data : result})
+    });
+});
 
 
 
 //==========================Database connection===========================
 
 //data base connection and opening port
-var db = 'mongodb://localhost/ApniCare';
+var db = 'mongodb://localhost/EditCare';
 mongoose.connect(db, {useMongoClient: true});
 
 
@@ -2019,8 +2032,8 @@ mongoose.connect(db, {useMongoClient: true});
 //connecting database and starting server
 var database = mongoose.connection;
 database.on('open', function () {
-    console.log("database is connected");
-    app.listen(app.get('port'), function () {
-        console.log('server connected to http:localhost:' + app.get('port'));
+        console.log("database is connected");
+        app.listen(app.get('port'), function () {
+            console.log('server connected to http:localhost:' + app.get('port'));
+        });
     });
-});

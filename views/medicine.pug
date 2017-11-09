@@ -7,11 +7,20 @@ html
             | Company :
             input(type='text', name='company_name')
             br
+            | Brand :
+            input(type='text', name='brand_name')
+            br
             | Categories :
             input(type='text', name='categories')
             br
-            | Brand :
-            input(type='text', name='brand_name')
+            | Type :
+            select(name='types', size='1')
+                option(value='Branded', name='branded') Branded
+                |
+                option(value='Generic', name='generic') Generic
+            br
+            | primarily Used For :
+            input(type='text', name='primarilyusedfor')
             br
             | Dosage_form :
             input(type='text', name='dosage_form')
@@ -21,6 +30,9 @@ html
             br
             | Ingredients :
             input(type='text', name='active_ingredients')
+            br
+            | Molecule Strength :
+            input(type='text', name='molecule_strength')
             br
             | Packaging :
             input(type='text', name='packaging')

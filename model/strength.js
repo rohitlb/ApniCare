@@ -3,7 +3,10 @@ var Schema = mongoose.Schema;
 
 var Strength = new Schema({
     strength : {type : String},
-    active_ingredients : [{name : {type : String}}],
+    active_ingredients : [{
+        name : {type : String},
+        molecule_strength : {type : String}
+    }],
     packaging : {type : String},
     price : {type : String},
     prescription : {type : String},
