@@ -46,7 +46,7 @@ var routes = require('./model/imagefile');
 var app = express();
 
 var store = new mongoDBStore({
-    uri : 'mongodb://localhost/EditCare',
+    uri : 'mongodb://localhost/ApniCare',
     collection : 'mySessions'
 });
 
@@ -64,7 +64,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
 // adding favicon of Apnicare
-app.use(favicon(path.join(__dirname, './', 'favicon.ico')));
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 
 //set all middleware
 app.use(bodyParser.json());
@@ -2013,8 +2013,9 @@ app.get('/searchdisease',function (req,res) {
 app.post('/searchdisease',function (req,res) {
     var disease = req.body.disease;
     Brand.find({primarily_used_for : disease}).populate({path : 'dosage_id',populate : {path : 'strength_id'}}).exec(function (err,result) {
-        console.log(result);
-        //res.send(result[0]);
+        if(err){
+            console.log(err);
+        }
         res.render('diseasebrands',{data : result})
     });
 });
@@ -2024,7 +2025,7 @@ app.post('/searchdisease',function (req,res) {
 //==========================Database connection===========================
 
 //data base connection and opening port
-var db = 'mongodb://localhost/EditCare';
+var db = 'mongodb://localhost/ApniCare';
 mongoose.connect(db, {useMongoClient: true});
 
 
@@ -2032,8 +2033,9 @@ mongoose.connect(db, {useMongoClient: true});
 //connecting database and starting server
 var database = mongoose.connection;
 database.on('open', function () {
-        console.log("database is connected");
-        app.listen(app.get('port'), function () {
-            console.log('server connected to http:localhost:' + app.get('port'));
-        });
+    console.log("database is connected");
+    app.listen(app.get('port'), function () {
+        console.log('server connected to http:localhost:' + app.get('port'));
     });
+});
+
