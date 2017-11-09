@@ -69,7 +69,10 @@ app.set('view engine', 'pug');
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 
 //set all middleware
-app.use(bodyParser.json());
+console.log('start');
+//app.use(bodyParser.json());
+app.use(bodyParser.json({limit: "50mb"}));
+console.log('test BP');
 //exteended false means it won't be accepting nested objects (accept only single)
 // here security for session to be added like.... session validate
 app.use(bodyParser.urlencoded({extended : false}));
@@ -1845,7 +1848,7 @@ var upload = multer({
 });
 
 app.post('/uploadimage', upload.any(), function(req, res) {
-    res.send('Done');
+    //res.send('Done');
     var path = req.files[0].path;
     var imageName = dpindbname ;
     console.log('storing in databases '+imageName+' test');
