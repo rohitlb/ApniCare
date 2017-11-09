@@ -545,6 +545,35 @@ app.post('/updatenameandemail',function (req,res) {
     });
 });
 
+//================================Search===================
+
+app.post('/search',function(req,res){
+
+    var search = req.body.search;
+
+    var msg = {};
+
+    if(search == "a")
+    {
+        msg = { type: "test a", pref: "alpha" };
+    }
+    else if(search == "b")
+    {
+        msg = { type: "test b", pref: "beta" };
+    }
+    else if(search == "c")
+    {
+        msg = { type: "test c", pref: "charlie" };
+    }
+
+
+    res.send(JSON.stringify(msg));
+    res.end();
+
+});
+
+
+
 //*******************Edit Password**************************************
 
 app.get('/updatepassword',function (req,res) {
