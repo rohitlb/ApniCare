@@ -545,37 +545,7 @@ app.post('/updatenameandemail',function (req,res) {
     });
 });
 
-//================================Search===================
-
-app.post('/search',function(req,res){
-
-    var search = req.body.search;
-
-    var msg = {};
-
-    if(search == "a")
-    {
-        msg = { type: "test a", pref: "alpha" };
-    }
-    else if(search == "b")
-    {
-        msg = { type: "test b", pref: "beta" };
-    }
-    else if(search == "c")
-    {
-        msg = { type: "test c", pref: "charlie" };
-    }
-
-
-    res.send(JSON.stringify(msg));
-    res.end();
-
-});
-
-
-
 //*******************Edit Password**************************************
-
 
 app.get('/updatepassword',function (req,res) {
     res.render('updatepassword');
@@ -610,15 +580,13 @@ app.post('/updatepassword',function (req,res) {
                                             }
                                             else {
                                                 console.log(result1);
-                                                res.send({status: "success", message: "Password match"})
-                                                //res.send({status: "success", message: "Password Successfully Updated"});
+                                                res.send({status: "success", message: "Password Successfully Updated"});
                                             }
                                         });
                                     });
                                 });
                             }
                             else {
-
                                 res.send({status: "failure", message: "Both password not match"});
                             }
                         }
@@ -658,8 +626,8 @@ app.post('/verifydetailspassword',function (req,res) {
                         if(results) {
                             details_password = result.password;
                             console.log("password match");
-                            res.send({status: "success", message: "Password match"})
-                            //res.render('updateusersdetails',{status: "success", message: "Password match"});
+                            //res.send({status: "success", message: "Password match"})
+                            res.render('updateusersdetails',{status: "success", message: "Password match"});
                         }
                         else{
                             res.send({status: "failure", message: "Wrong credentials"});
@@ -1297,14 +1265,11 @@ app.post('/updatepassword',function (req,res) {
 });
 
 
-
 //********************************Drug index start from here************************************************************
-
 
 app.get('/medicine',function (req,res) {
     res.render('medicine');
 });
-
 
 var company_result = null;
 app.post('/medicine',function (req,res) {
@@ -1315,7 +1280,7 @@ app.post('/medicine',function (req,res) {
     var company_name = req.body.company_name;
     var strengtH = req.body.strength;
     var types = req.body.types;
-    var active_ingredients = req.body.active_ingredients;
+    var active_ingredients = req.body.potent_substance;
     var packaging = req.body.packaging;
     var price = req.body.price;
     var dose_taken = req.body.dose_taken;
@@ -1361,7 +1326,7 @@ app.post('/medicine',function (req,res) {
                             else{
                                 var STRength = new Strength({
                                     strength : strengtH,
-                                    active_ingredients : {
+                                    potent_substance : {
                                         name : active_ingredients,
                                         molecule_strength : molecule_strengths
                                     },
@@ -1448,7 +1413,7 @@ app.post('/medicine',function (req,res) {
                 else{
                     var strength = new Strength({
                         strength : strengtH,
-                        active_ingredients : {
+                        potent_substance : {
                             name : active_ingredients,
                             molecule_strength : molecule_strengths
                         },
@@ -1530,7 +1495,7 @@ app.post('/medicine',function (req,res) {
                 else{
                     var sTrength = new Strength({
                         strength : strengtH,
-                        active_ingredients : {
+                        potent_substance : {
                             name : active_ingredients,
                             molecule_strength : molecule_strengths
                         },
@@ -1580,7 +1545,7 @@ app.post('/medicine',function (req,res) {
                 else{
                     var strength = new Strength({
                         strength : strengtH,
-                        active_ingredients : {
+                        potent_substance : {
                             name : active_ingredients,
                             molecule_strength : molecule_strengths
                         },
