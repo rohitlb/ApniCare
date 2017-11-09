@@ -23,8 +23,6 @@ var dpname;
 var dpindbname;
 
 
-var otp;
-
 mongoose.Promise = promise;
 
 // req models
@@ -69,10 +67,9 @@ app.set('view engine', 'pug');
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 
 //set all middleware
-console.log('start');
 //app.use(bodyParser.json());
 app.use(bodyParser.json({limit: "50mb"}));
-console.log('test BP');
+
 //exteended false means it won't be accepting nested objects (accept only single)
 // here security for session to be added like.... session validate
 app.use(bodyParser.urlencoded({extended : false}));
@@ -208,7 +205,7 @@ app.post('/DoctorsendOTP',function (req, res) {
 });
 
 app.post('/VerifyOTP',function (req, res) {
-    otp = req.body.number;
+    var otp = req.body.number;
     console.log(otp);
 
     var options = { method: 'GET',
@@ -1827,10 +1824,12 @@ app.get('/search_molecule',function (req,res) {
 
 
 //======================= save profile pic ====================
+//var save = multer({ encoding: base64_decode() });
 
-
-var storage = multer.diskStorage({
+storage = multer.diskStorage({
     destination: function(req, file, cb) {
+       // var save = multer({ encoding: base64_decode(file) });
+
         cb(null, 'uploads/')
     },
     filename: function(req, file, cb) {
