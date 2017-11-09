@@ -680,6 +680,8 @@ app.get('/updateusersdetails',function (req,res) {
 });
 
 app.post('/updateusersdetails',function (req,res) {
+    console.log('req from app');
+    console.log(sessionID);
     var dob = req.body.dob;
     var gender = req.body.gender;
     var blood_group = req.body.blood_group;
