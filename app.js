@@ -487,8 +487,8 @@ app.post('/verifypassword',function (req,res) {
                         if(results) {
                             new_password = result.password;
                             console.log("password match");
-                            //res.send({status: "success", message: "Password match"})
-                            res.render('updatenameandemail',{status: "success", message: "Password match"});
+                            res.send({status: "success", message: "Password match"})
+                            //res.render('updatenameandemail',{status: "success", message: "Password match"});
                         }
                         else{
                             res.send({status: "failure", message: "Wrong credentials"});
@@ -576,6 +576,7 @@ app.post('/search',function(req,res){
 
 //*******************Edit Password**************************************
 
+
 app.get('/updatepassword',function (req,res) {
     res.render('updatepassword');
 });
@@ -609,13 +610,15 @@ app.post('/updatepassword',function (req,res) {
                                             }
                                             else {
                                                 console.log(result1);
-                                                res.send({status: "success", message: "Password Successfully Updated"});
+                                                res.send({status: "success", message: "Password match"})
+                                                //res.send({status: "success", message: "Password Successfully Updated"});
                                             }
                                         });
                                     });
                                 });
                             }
                             else {
+
                                 res.send({status: "failure", message: "Both password not match"});
                             }
                         }
@@ -655,8 +658,8 @@ app.post('/verifydetailspassword',function (req,res) {
                         if(results) {
                             details_password = result.password;
                             console.log("password match");
-                            //res.send({status: "success", message: "Password match"})
-                            res.render('updateusersdetails',{status: "success", message: "Password match"});
+                            res.send({status: "success", message: "Password match"})
+                            //res.render('updateusersdetails',{status: "success", message: "Password match"});
                         }
                         else{
                             res.send({status: "failure", message: "Wrong credentials"});
