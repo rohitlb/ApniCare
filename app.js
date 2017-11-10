@@ -46,7 +46,7 @@ var routes = require('./model/imagefile');
 var app = express();
 
 var store = new mongoDBStore({
-    uri : 'mongodb://localhost/ApniCare',
+    uri : 'mongodb://localhost/EditCare',
     collection : 'mySessions'
 });
 
@@ -64,7 +64,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
 // adding favicon of Apnicare
-app.use(favicon(path.join(__dirname, './', 'favicon.ico')));
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 
 //set all middleware
 app.use(bodyParser.json());
@@ -2042,19 +2042,31 @@ app.get('/doctorasuser',function (req,res) {
     res.render('doctoruser');
 });
 
-// app.post('/doctorasuser',function (req,res) {
-//     var name = req.body.name;
-//     var email = req.body.user;
-//     var number = req.body.number;
-//     var password = req.body.password;
-//
-//
-// });
+app.post('/doctorasuser',function (req,res) {
+    var name = req.body.name;
+    var email = req.body.email;
+    var number = req.body.number;
+    var password = req.body.password;
+
+    User.find({number : number}).exec(function (err,result) {
+        if(err){
+            console.log(err);
+        }
+        else{
+            if(result){
+                res.send({status : success})
+            }
+            else{
+
+            }
+        }
+    });
+});
 
 //==========================Database connection===========================
 
 //data base connection and opening port
-var db = 'mongodb://localhost/ApniCare';
+var db = 'mongodb://localhost/EditCare';
 mongoose.connect(db, {useMongoClient: true});
 
 
