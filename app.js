@@ -13,7 +13,7 @@ var expressValidator = require('express-validator');
 var cookieParser = require('cookie-parser');
 var bcrypt = require('bcryptjs');
 var mongoDBStore = require('connect-mongodb-session')(session);
-mongoose.Promise = promise;
+mongoose.Promise = global.promise;
 var async = require('async');
 var keys = require('./private/keys');
 
@@ -21,8 +21,6 @@ var keys = require('./private/keys');
 var ID;
 var dpname;
 var dpindbname;
-
-
 
 mongoose.Promise = promise;
 
