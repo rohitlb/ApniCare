@@ -22,6 +22,10 @@ var ID;
 var dpname;
 var dpindbname;
 
+
+
+mongoose.Promise = promise;
+
 // req models
 var User  = require('./model/registration');
 var Doctor = require('./model/doctorregistration');
@@ -229,14 +233,14 @@ app.get('/home',function (req,res) {
 });
 
 app.get('/', function (req, res) {
-        if (req.session.userID) {
-            res.redirect('/profile');
-            res.end();
-        } else {
-            res.render('home');
-            res.end();
-        }
-    });
+    if (req.session.userID) {
+        res.redirect('/profile');
+        res.end();
+    } else {
+        res.render('home');
+        res.end();
+    }
+});
 
 app.get('/register',function (req,res) {
     if (req.session.userID) {
@@ -483,8 +487,8 @@ app.post('/verifypassword',function (req,res) {
                         if(results) {
                             new_password = result.password;
                             console.log("password match");
-                            res.send({status: "success", message: "Password match"})
-                            //res.render('updatenameandemail',{status: "success", message: "Password match"});
+                            //res.send({status: "success", message: "Password match"})
+                            res.render('updatenameandemail',{status: "success", message: "Password match"});
                         }
                         else{
                             res.send({status: "failure", message: "Wrong credentials"});
@@ -501,8 +505,24 @@ app.post('/verifypassword',function (req,res) {
 });
 
 app.get('/updatenameandemail',function (req,res) {
-    res.render('updatenameandemail');
+
+    if (req.session.userID) {
+        res.send({status: "failure", message: "Please verify Password first"});
+        res.end();
+    } else {
+        res.render('updatenameandemail');
+        res.end();
+    }
+
+    // if(!req.session.userID) {
+    //     res.send({status: "failure", message: "Please verify Password first"});
+    // }
+    // else {
+    //     res.render('updatenameandemail');
+    // }
+
 });
+
 
 app.post('/updatenameandemail',function (req,res) {
     var name = req.body.name;
@@ -1826,26 +1846,26 @@ app.post('/molecules',function (req,res) {
     var info = req.body.info;
 
     var molecule = new Molecule({
-        molecule_name : molecule_name,
-        drug_categories : drug_categories,
-        description : description,
-        absorption : absorption,
-        distribution : distribution,
-        metabolism : metabolism,
-        excretion : excretion,
-        side_effect : side_effect,
-        precaution : precaution,
-        drug_interaction : drug_interaction,
-        food_interaction : food_interaction,
-        dosage : dosage,
-        food : food,
-        contradictions : [{subhead : subhead},{info : info}]
+        molecule_name: molecule_name,
+        drug_categories: drug_categories,
+        description: description,
+        absorption: absorption,
+        distribution: distribution,
+        metabolism: metabolism,
+        excretion: excretion,
+        side_effect: side_effect,
+        precaution: precaution,
+        drug_interaction: drug_interaction,
+        food_interaction: food_interaction,
+        dosage: dosage,
+        food: food,
+        contradictions: [{subhead: subhead}, {info: info}]
     });
-    molecule.save(function (err,result) {
-        if(err){
+    molecule.save(function (err, result) {
+        if (err) {
             console.log(err);
         }
-        else{
+        else {
             res.send("Molecules details added");
         }
     });
@@ -1854,12 +1874,12 @@ app.post('/molecules',function (req,res) {
 // search molecule
 app.get('/search_molecule',function (req,res) {
     var ingredients = req.query.ingredients;
-    Molecule.find({molecule_name : ingredients}).exec(function (err,result) {
-        if(err){
+    Molecule.find({molecule_name: ingredients}).exec(function (err, result) {
+        if (err) {
             console.log(err);
         }
-        else{
-            res.render('moleculedetails',{data : result});
+        else {
+            res.render('moleculedetails', {data: result});
         }
     });
 });
@@ -1869,16 +1889,16 @@ app.get('/search_molecule',function (req,res) {
 
 
 var storage = multer.diskStorage({
-    destination: function(req, file, cb) {
+    destination: function (req, file, cb) {
         cb(null, 'uploads/')
     },
-    filename: function(req, file, cb) {
+    filename: function (req, file, cb) {
         // console.log('test for file');
         // console.log(file);
         // console.log('end');
         // image name is set as number+orignal image name
-        cb(null, dpname+file.originalname);
-        dpindbname = dpname+file.originalname;
+        cb(null, dpname + file.originalname);
+        dpindbname = dpname + file.originalname;
     }
 });
 
@@ -1911,7 +1931,6 @@ app.post('/uploadimage', upload.any(), function(req, res) {
     routes.addImage(User, function(err) {
     });
 });
-
 
 
 //////////////////// try for free /////////////////////////////////////////
@@ -1983,6 +2002,8 @@ app.post('/userregister', function (req, res) {
     });
 });
 
+/////////////////////////medicine shows ////////////////////////////////////////////////////////////////////////////////
+
 app.get('/findbrands',function (req,res) {
     Brand.find().populate({path : 'dosage_id',populate : {path : 'strength_id'}}).populate({path : 'company_id'}).exec(function (err,brand) {
         if (err) {
@@ -2015,7 +2036,20 @@ app.post('/searchdisease',function (req,res) {
     });
 });
 
+////////////////////////////////////////// register as a doctor and user ///////////////////////////////////////////////
 
+app.get('/doctorasuser',function (req,res) {
+    res.render('doctoruser');
+});
+
+// app.post('/doctorasuser',function (req,res) {
+//     var name = req.body.name;
+//     var email = req.body.user;
+//     var number = req.body.number;
+//     var password = req.body.password;
+//
+//
+// });
 
 //==========================Database connection===========================
 
