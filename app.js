@@ -22,8 +22,6 @@ var ID;
 var dpname;
 var dpindbname;
 
-mongoose.Promise = promise;
-
 // req models
 var User  = require('./model/registration');
 var Doctor = require('./model/doctorregistration');
