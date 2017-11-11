@@ -1,8 +1,8 @@
 var mongoose = require('mongoose');
 
-
 var Doctor = new mongoose.Schema({
     //general information
+    doctor_image : {type : String},
     name : {type:String},
     email : {type : String},
     number : {type : String},
@@ -23,8 +23,9 @@ var Doctor = new mongoose.Schema({
     //registration and document
     council_registration_number : {type : String},
     council_name : {type : String},
-    council_registration_year : {type : String}
-    //document /certificate
+    council_registration_year : {type : String},
+    document : [{name : {type : String},path : {type : String}}],
+    certificate : [{name : {type : String},path : {type : String}}]
     //yet left
 });
 
