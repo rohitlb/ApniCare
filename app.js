@@ -1778,7 +1778,6 @@ var upload = multer({
 app.post('/uploadimage', upload.any(), function(req, res) {
     var path = req.files[0].path;
     var imageName = req.session.dpindbname ;
-    console.log(req.session.userID);
     User.update({_id : req.session.userID},{
         $set : {
             path : path
@@ -1788,7 +1787,6 @@ app.post('/uploadimage', upload.any(), function(req, res) {
             console.log(err);
         }
         else{
-            console.log(result);
             res.send({status: "success", message: "Image successfully registered"});
         }
     });
