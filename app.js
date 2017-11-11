@@ -17,11 +17,6 @@ mongoose.Promise = promise;
 var async = require('async');
 var keys = require('./private/keys');
 
-// variables for profile image
-
-
-
-mongoose.Promise = promise;
 
 // req models
 var User  = require('./model/registration');
@@ -190,7 +185,6 @@ app.post('/DoctorsendOTP',function (req, res) {
 
 app.post('/VerifyOTP',function (req, res) {
     var otp = req.body.number;
-
     var options = { method: 'GET',
         url: 'http://2factor.in/API/V1/'+keys.api_key()+'/SMS/VERIFY/'+req.session.sid+'/'+otp,
         headers: { 'content-type': 'application/x-www-form-urlencoded' },
@@ -207,30 +201,25 @@ app.get('/home',function (req,res) {
     if (req.session.userID) {
         res.redirect('/profile');
         res.end();
-    } else {
-        res.render('home');
-        res.end();
     }
+    if (req.session.doctorID) {
+        res.redirect('/doctorpage');
+    }
+    res.send({status: "success", message: "Please Login First"});
+    res.end();
 });
 
 app.get('/', function (req, res) {
     if (req.session.userID) {
         res.redirect('/profile');
         res.end();
-    } else {
-        res.render('home');
+    }
+    if(req.session.doctorID){
+        res.redirect('/doctorpage');
         res.end();
     }
-});
-
-app.get('/register',function (req,res) {
-    if (req.session.userID) {
-        res.redirect('/profiles');
-        res.end();
-    } else {
         res.render('home');
         res.end();
-    }
 });
 
 //User registration
@@ -286,28 +275,44 @@ app.post('/register', function (req, res) {
     });
 });
 
+//render profile page of user
+app.get('/profile', function (req, res) {
+    if (req.session.userID) {
+        res.render('profile', {number: req.session.userID});
+    }
+    if(req.session.doctorID) {
+        res.render('doctorpage', {number: req.session.doctorname});
+    }
+    res.send({status : "failed" , message : "Please Login First"});
+});
+
 app.get('/profiles',function (req,res) {
     res.render('profiles');
 });
+
 //user profile update
 app.post('/profiles',function (req,res) {
-
     var dob = req.body.dob;
     var gender = req.body.gender;
     var blood_group = req.body.blood_group;
     var marital_status = req.body.marital_status;
     var height = req.body.height;
     var weight = req.body.height;
+
+
     var addresses = req.body.address;
     var landmark = req.body.landmarks;
     var pincode = req.body.pincode;
     var city = req.body.city;
     var state = req.body.state;
+
+
     var aadhaar_number = req.body.aadhaar_number;
     var income = req.body.income;
     var rel_name = req.body.relative_name;
     var rel_contact = req.body.relative_contact;
     var relation = req.body.relation;
+
 
     User.update({number : req.session.userregistercontact}, {
         $set : {
@@ -358,9 +363,11 @@ app.post('/login',function (req,res) {
                     else {
                         if(results) {
                             req.session.userID = result._id;
+                            req.session.username = result.name;
                             req.session.usernumber = result.number;
                             req.session.userpassword = result.password;
                             req.session.dpname = req.body.number;
+                            //req.session.nextpage = "notmove";
                             if (req.session.userID) {
                                 res.send({
                                     status: "success",
@@ -394,7 +401,9 @@ app.post('/doctorlogin',function (req,res) {
         } else {
             if(result) {
                 req.session.doctorID = result._id;
+                req.session.doctorname = result.name;
                 req.session.doctorpassword = result.password;
+                req.session.dpname = req.body.number;
                 req.session.doctornumber = result.number;
                 if (req.session.userID) {
                     res.send({status: "success", message: "successfully login" ,number: req.session.userID});
@@ -419,10 +428,7 @@ app.get('/logout', function (req, res) {
     });
 });
 
-//render profile page of user
-app.get('/profile', function (req, res) {
-    res.render('profile', {number: req.session.userID});
-});
+
 
 
 
@@ -1011,14 +1017,18 @@ app.post('/doctor_details',function (req,res) {
     var specialisation = req.body.specialisation;
     var city = req.body.city;
 
-    Doctor.update({number : req.session.doctornumber},{
-        $set : {
-            name : name,
-            specialisation : specialisation,
-            city : city
+    Doctor.update({number: req.session.doctornumber}, {
+        $set: {
+            name: name,
+            specialisation: specialisation,
+            city: city
         }
-    },function (err,result) {
-        res.render('doctorprofile');
+    }, function (err, result) {
+        if(err){
+            console.log(err);
+        }
+        res.send({status : "success" , message : ""})
+        //res.render('doctorprofile');
     });
 });
 
@@ -1793,6 +1803,7 @@ app.post('/uploadimage', upload.any(), function(req, res) {
         }
     });
     routes.addImage(User, function(err) {
+        res.send({ status : "failure" , message : "Can not upload"});
     });
 });
 
@@ -1953,9 +1964,81 @@ app.post('/doctorasuser',function (req,res) {
         }
     });
 });
+//////////////////////////////////////Doctor  Profile Insert //////////////////////////////////////////////////////////
+
+app.post('/basic',function (req,res) {
+    var gender = req.body.gender;
+    var city = req.body.city;
+    var experience = req.body.experience;
+    var about = req.body.about;
+
+    Doctor.update({number : req.session.doctornumber},{
+        $push : {
+            gender : gender,
+            city : city,
+            year_of_experience : experience,
+            About_you : about
+        }
+    },function (err,result) {
+        if(err){
+            console.log(err);
+        }
+        console.log(result);
+        res.send({ status : "success" , message : "Basic Details successfully updates"});
+    });
+});
+
+app.post('/education',function (req,res) {
+    var qualification = req.body.qualification;
+    var college = req.body.college;
+    var completion = req.body.completion;
+    var specialization = req.body.specialization;
+
+    Doctor.update({number : req.session.doctornumber},{
+        $push : {
+            qualification : qualification,
+            college : college,
+            completion_year : completion,
+            specialization : specialization
+        }
+    },function (err,result) {
+        if(err){
+            console.log(err);
+        }
+        else{
+            console.log(result);
+            res.send({ status : "success" , message : "Basic Details successfully updates"});        }
+    });
+});
+
+app.post('/certificate',function (req,res) {
+    var council_number = req.body.council_number;
+    var council_name = req.body.council_name;
+    var council_year = req.body.council_year;
+    var path = req.files[0].path;
+    var imageName = req.session.dpindbname ;
+    var path1 = req.files[0].path;
+    var imageName1 = req.session.dpindbname ;
 
 
-
+    Doctor.update({number : req.session.doctornumber},{
+        $push : {
+            council_registration_number : council_number,
+            council_name : council_name,
+            council_registration_year : council_year,
+            document : path,
+            certificate : path1
+        }
+    },function (err,result) {
+        if(err){
+            console.log(err);
+        }
+        else{
+            console.log(result);
+            res.send({ status : "success" , message : "Basic Details successfully updates"});
+        }
+    });
+});
 
 
 
