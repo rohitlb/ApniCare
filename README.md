@@ -17,12 +17,16 @@
 6 update user info and verify password
 7 don't depend on variables they reset when server get restarted
 8 image
-
+9 working for compression
 
 to be done
-9 working for compression
-10 search
 
+9.1 all global variables should be eliminated
+10 search
+11 count of the profile and medicine should be increased
+12 track location
+13 provide shortest path from user to doctor
+14 
 
 
 
