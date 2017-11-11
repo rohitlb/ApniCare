@@ -1,7 +1,7 @@
 {
   "name": "apni-care",
   "version": "1.0.2",
-  "description": "1 login-reg\r 2 profile\r 3 regex for number and password\r 4 session\r 5 thread-sleep\r 6 500 & 404 error handling",
+  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

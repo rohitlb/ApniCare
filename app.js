@@ -393,23 +393,42 @@ app.post('/login',function (req,res) {
 
 //Doctor login
 app.post('/doctorlogin',function (req,res) {
-    Doctor.findOne({number: req.body.number , Password : req.body.password}).exec(function (err,result) {
+    Doctor.findOne({number: req.body.number}).exec(function (err,result) {
         if(err){
             console.log(err);
             res.send({status: "failure", message : "Some error occurred"});
             res.end();
         } else {
             if(result) {
-                req.session.doctorID = result._id;
-                req.session.doctorname = result.name;
-                req.session.doctorpassword = result.password;
-                req.session.dpname = req.body.number;
-                req.session.doctornumber = result.number;
-                if (req.session.userID) {
-                    res.send({status: "success", message: "successfully login" ,number: req.session.userID});
-                    res.end();
-                }
-            } else {
+
+                bcrypt.compare(req.body.password,result.password,function(err, results) {
+                    if (err) {
+                        console.log(err);
+                    }
+                    else {
+                        if(results) {
+                            req.session.doctorID = result._id;
+                            req.session.doctorname = result.name;
+                            req.session.doctorpassword = result.password;
+                            req.session.dpname = req.body.number;
+                            req.session.doctornumber = result.number;
+                            if (req.session.userID) {
+                                res.send({
+                                    status: "success",
+                                    message: "successfully login",
+                                    number: req.session.doctorID
+                                });
+                                res.end();
+                            }
+                        }
+                        else{
+                            res.send({status : "failure", message : "password incorrect"});
+                        }
+
+                    }
+                });
+            }
+            else {
                 res.send({status: "failure", message: "Can't login"});
                 res.end();
             }
@@ -1936,23 +1955,33 @@ app.post('/doctorasuser',function (req,res) {
                         console.log(err1);
                     }
                     else{
-                        if(result1){
-                            var doctor = new Doctor({
-                                name: name,
-                                email : email,
-                                number: number,
-                                password: password
+                        if(result1) {
 
-                            });
-                            doctor.save(function (err, results) {
-                                if (err) {
-                                    console.log(err);
-                                    res.end();
-                                } else {
-                                    doctor_contact = results.number;
-                                    res.send({status: "success", message: "successfully registered"});
-                                    res.end();
-                                }
+                            bcrypt.genSalt(10, function (err, salt) {
+                                bcrypt.hash(req.body.password, salt, function (err, hash) {
+                                    if (err) {
+                                        console.log(err);
+                                    }
+                                    else {
+                                        var doctor = new Doctor({
+                                            name: name,
+                                            email: email,
+                                            number: number,
+                                            password: hash
+
+                                        });
+                                        doctor.save(function (err, results) {
+                                            if (err) {
+                                                console.log(err);
+                                                res.end();
+                                            } else {
+                                                doctor_contact = results.number;
+                                                res.send({status: "success", message: "successfully registered"});
+                                                res.end();
+                                            }
+                                        });
+                                    }
+                                });
                             });
                         }
                         else{
