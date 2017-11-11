@@ -88,6 +88,52 @@ app.use(session({
     saveUninitialized : true
 }));
 
+//================================Search===================
+
+app.post('/search',function(req,res){
+
+    var search = req.body.search;
+
+    var msg = {};
+
+    if(search == "a")
+    {
+        msg = { f1: "test a", pref: "alpha" };
+    }
+    else if(search == "b")
+    {
+        msg = { f2: "test b", pref: "beta" };
+    }
+    else if(search == "c")
+    {
+        msg = { f3: "test c", pref: "charlie" };
+    }
+    else if(search == "d")
+    {
+        msg = {f4: "test d", pref: "delta" }
+    }
+    else if (search == "e")
+    {
+        msg = { f5: "test e", pref : "epsilon"}
+    }
+
+
+    res.send(JSON.stringify(msg));
+    res.end();
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
 app.get('/adminprofile',function (req,res) {
     res.render('admin_home1');
 });
