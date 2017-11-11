@@ -19,14 +19,13 @@ var Doctor = new mongoose.Schema({
     qualification : {typec :String},
     college : {type : String},
     completion_year : {type : String},
-    specialisation : {type : String},
+    specialization : {type : String},
     //registration and document
     council_registration_number : {type : String},
     council_name : {type : String},
     council_registration_year : {type : String},
-    document : [{name : {type : String},path : {type : String}}],
-    certificate : [{name : {type : String},path : {type : String}}]
-    //yet left
+    document : [{type : String}],
+    certificate : [{type : String}]
 });
 
 module.exports = mongoose.model('Doctor',Doctor);
