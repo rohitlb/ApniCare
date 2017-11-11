@@ -57,7 +57,7 @@ converting app.js => rotes+config (systematic)
 
 
 Rupesh
-
+handling global variable
 
 
 
