@@ -76,7 +76,9 @@ Rupesh
 
 
 Ritika
-
+- Working on doctor/pharmacist(health_care_provider) profile
+- drug,molecule,disease data form validation remaining
+- connection to back-end to be done
 
 
 
