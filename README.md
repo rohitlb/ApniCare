@@ -31,7 +31,7 @@ to be done
 
 
 
-live to site
+Site Live
 
 issues
 1 url/register does'nt have session id.
