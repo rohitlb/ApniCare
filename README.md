@@ -95,6 +95,8 @@ Ritika
 
 
 Nidhi
+-My profile for user
+-my contact
 
 
 
