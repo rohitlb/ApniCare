@@ -26,7 +26,7 @@ to be done
 11 count of the profile and medicine should be increased
 12 track location
 13 provide shortest path from user to doctor
-14 
+14
 
 
 
@@ -36,3 +36,83 @@ live to site
 issues
 1 url/register does'nt have session id.
 2 site crashes when url /profile [withought login]
+
+Rohit
+converting app.js => rotes+config (systematic)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Rupesh
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Ritika
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Nidhi
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
