@@ -1788,6 +1788,7 @@ var upload = multer({
 app.post('/uploadimage', upload.any(), function(req, res) {
     var path = req.files[0].path;
     var imageName = req.session.dpindbname ;
+    console.log(req.session.userID);
     User.update({_id : req.session.userID},{
         $set : {
             path : path
@@ -1797,6 +1798,7 @@ app.post('/uploadimage', upload.any(), function(req, res) {
             console.log(err);
         }
         else{
+            console.log(result);
             res.send({status: "success", message: "Image successfully registered"});
         }
     });
@@ -1962,7 +1964,30 @@ app.post('/doctorasuser',function (req,res) {
         }
     });
 });
+
 //////////////////////////////////////Doctor  Profile Insert //////////////////////////////////////////////////////////
+
+app.post('/createprofile',function (req,res) {
+    var name = req.body.name;
+    var specialization = req.body.specialization;
+    var city = req.body.city;
+
+    Doctor.update({number : req.session.doctornumber},{
+        $push : {
+            name : name,
+            specialization : specialization,
+            city : city
+        }
+    },function (err,result) {
+        if(err){
+            console.log(err);
+        }
+        else{
+            console.log(result);
+            res.send({ status : "success" , message : "Profile successfully updates"});
+        }
+    });
+});
 
 app.post('/basic',function (req,res) {
     var gender = req.body.gender;
