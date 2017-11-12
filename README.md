@@ -45,12 +45,14 @@ solving encoding problem while receiving image from app
 
 
 
+pending
 
-
-
-
-
-
+search
+image encoding
+completely structured code
+REST API
+mongoose
+image retrieve
 
 
 
