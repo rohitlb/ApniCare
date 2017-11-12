@@ -53,7 +53,7 @@ completely structured code
 REST API
 mongoose
 image retrieve
-
+OTP structure = [XXXX is your one time password for ApniCare https://apnicare.com]
 
 
 
