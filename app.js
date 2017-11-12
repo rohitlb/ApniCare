@@ -88,13 +88,6 @@ app.use(session({
     saveUninitialized : true
 }));
 
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> 8333a147c829fb9b69b3786cf95fec6715caeba6
->>>>>>> a26fb60f64db59c93dafa1931489b98a610a4895
 app.get('/home',function (req,res) {
     if (req.session.userID) {
         res.redirect('/profile');
@@ -122,11 +115,6 @@ app.get('/', function (req, res) {
 });
 
 
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
-=======
 //================================Search===================
 
 app.post('/search',function(req,res){
@@ -188,9 +176,6 @@ app.post('/search',function(req,res){
 
 
 
->>>>>>> 0c122fe3b96aa6a63bc9d7def201cf27f40e8d3b
->>>>>>> 8333a147c829fb9b69b3786cf95fec6715caeba6
->>>>>>> a26fb60f64db59c93dafa1931489b98a610a4895
 app.get('/adminprofile',function (req,res) {
     res.render('admin_home1');
 });
@@ -325,12 +310,7 @@ app.post('/VerifyOTP',function (req, res) {
         });
 });
 
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
+
 app.get('/home',function (req,res) {
     if (req.session.userID) {
         res.redirect('/profile');
@@ -360,11 +340,8 @@ app.get('/register',function (req,res) {
         res.end();
     }
 });
->>>>>>> 0c122fe3b96aa6a63bc9d7def201cf27f40e8d3b
->>>>>>> 8333a147c829fb9b69b3786cf95fec6715caeba6
->>>>>>> a26fb60f64db59c93dafa1931489b98a610a4895
 
-var user_contact = null;
+
 //User registration
 app.post('/register', function (req, res) {
     //regex for checking whether entered number is indian or not
@@ -411,7 +388,6 @@ app.post('/register', function (req, res) {
                                     console.log("There is an error");
                                     res.end();
                                 } else {
-                                    user_contact = results.number;
                                     console.log('user save successfully');
                                     res.send({status: "success", message: "successfully registered"});
                                     res.end();
@@ -425,7 +401,6 @@ app.post('/register', function (req, res) {
     });
 });
 
-<<<<<<< HEAD
 //render profile page of user
 app.get('/profile', function (req, res) {
     if (req.session.userID) {
@@ -1209,7 +1184,6 @@ app.post('/doctor_details',function (req,res) {
     var specialization = req.body.specialization;
     var city = req.body.city;
 
-<<<<<<< HEAD
     Doctor.update({number: req.session.doctornumber}, {
         $set: {
             name: name,
@@ -1223,27 +1197,6 @@ app.post('/doctor_details',function (req,res) {
         console.log(result);
         req.session.doctorname = name;
         res.send({status : "success" , message : " Profile Updated "});
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
-=======
-    Doctor.update({number : doctor_contact},{
-        $set : {
-            name : name,
-            specialisation : specialisation,
-            city : city
-        }
-    },function (err,result) {
-        console.log(result);
-        //res.render('doctorprofile');
-
-        console.log(name);
->>>>>>> 0c122fe3b96aa6a63bc9d7def201cf27f40e8d3b
->>>>>>> 8333a147c829fb9b69b3786cf95fec6715caeba6
->>>>>>> a26fb60f64db59c93dafa1931489b98a610a4895
-    });
-    res.end();
 });
 
 //doctor Profile
@@ -2325,56 +2278,25 @@ app.post('/doctorasuser',function (req,res) {
                         console.log(err1);
                     }
                     else{
-<<<<<<< HEAD
                         if(result1 !== ""){
-=======
-<<<<<<< HEAD
-                        if(result1 !== ""){
-=======
-<<<<<<< HEAD
-                        if(result1 !== ""){
-=======
-                        if(result1){
->>>>>>> 0c122fe3b96aa6a63bc9d7def201cf27f40e8d3b
->>>>>>> 8333a147c829fb9b69b3786cf95fec6715caeba6
->>>>>>> a26fb60f64db59c93dafa1931489b98a610a4895
                             var doctor = new Doctor({
                                 name: name,
                                 email : email,
                                 number: number,
                                 password: password
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
 
->>>>>>> 0c122fe3b96aa6a63bc9d7def201cf27f40e8d3b
->>>>>>> 8333a147c829fb9b69b3786cf95fec6715caeba6
->>>>>>> a26fb60f64db59c93dafa1931489b98a610a4895
                             });
                             doctor.save(function (err, results) {
                                 if (err) {
                                     console.log(err);
                                     res.end();
                                 } else {
-<<<<<<< HEAD
                                     req.session.doctornumber =  results.number;
                                     req.session.doctorname = results.name;
-=======
-<<<<<<< HEAD
                                     req.session.doctornumber =  results.number;
                                     req.session.doctorname = results.name;
-=======
-<<<<<<< HEAD
                                     req.session.doctornumber =  results.number;
                                     req.session.doctorname = results.name;
-=======
-                                    doctor_contact = results.number;
->>>>>>> 0c122fe3b96aa6a63bc9d7def201cf27f40e8d3b
->>>>>>> 8333a147c829fb9b69b3786cf95fec6715caeba6
->>>>>>> a26fb60f64db59c93dafa1931489b98a610a4895
                                     res.send({status: "success", message: "successfully registered"});
                                     res.end();
                                 }
@@ -2389,7 +2311,6 @@ app.post('/doctorasuser',function (req,res) {
         }
     });
 });
-<<<<<<< HEAD
 
 // ..............................DOCTOR AND PHARMACIST .........................................
 
@@ -2437,20 +2358,6 @@ app.get('/doctor',function (req,res) {
     res.redirect('/health_care_provider?page=profile_doctor');
 });
 
-
-app.get('/doctorlogedin',function (req,res) {
-    res.render('doctorlogedin');
-});
-
-app.post('/doctorlogedin',function (req,res) {
-    var number = req.body.number;
-    var password=req.body.password;
-
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
-=======
 //////////////////////////////////////Doctor  Profile Insert //////////////////////////////////////////////////////////
 //////////////////////////////////////Doctor  Profile Insert //////////////////////////////////////////////////////////
 app.get('/doctorlodedin',function (req,res) {
@@ -2461,39 +2368,20 @@ app.post('/doctorlogedin',function (req,res) {
     var number = req.body.number;
     var password=req.body.password;
 
->>>>>>> 0c122fe3b96aa6a63bc9d7def201cf27f40e8d3b
->>>>>>> 8333a147c829fb9b69b3786cf95fec6715caeba6
->>>>>>> a26fb60f64db59c93dafa1931489b98a610a4895
     Doctor.find({number : number , password : password},function (err,result) {
         if (err) {
             console.log(err);
         }
-        else {
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> 8333a147c829fb9b69b3786cf95fec6715caeba6
->>>>>>> a26fb60f64db59c93dafa1931489b98a610a4895
-            if (result != "") {
+            if (result !== "") {
                 req.session.doctorID = result[0]._id;
                 req.session.doctornumber = result[0].number;
                 req.session.doctorpassword = result[0].password;
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
-=======
+
             console.log(result);
             if (result) {
                 req.session.doctorID = result[0]._id;
                 req.session.doctornumber = result[0].number;
                 req.session.doctorpassword = result[0].password;
-                console.log(req.session.doctorID);
->>>>>>> 0c122fe3b96aa6a63bc9d7def201cf27f40e8d3b
->>>>>>> 8333a147c829fb9b69b3786cf95fec6715caeba6
->>>>>>> a26fb60f64db59c93dafa1931489b98a610a4895
                 if(req.session.doctorID) {
                     res.redirect('/health_care_provider');
                 }
