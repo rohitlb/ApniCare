@@ -65,8 +65,8 @@ $(function () {
 
     // PROFILE NAV-BAR TOOLTIPS: PROFILE AND NOTIFICATIONS
     $('.tooltipped').tooltip({
-        delay: 5000,
-        fontSize: '0.5rem'
+       delay: 5000,
+       fontSize: '0.5rem'
     });
 
 
@@ -277,10 +277,10 @@ $(function () {
                     Materialize.toast(result.message,1000);
                 }
             }
-            //window.location = '/health_care_provider?page=profile_pharmacist';
-            // $('#profile3').hide();
-            // $('#main_profile_pharmacist').show();
-        });
+        //window.location = '/health_care_provider?page=profile_pharmacist';
+        // $('#profile3').hide();
+        // $('#main_profile_pharmacist').show();
+    });
     });
 
 
@@ -326,7 +326,7 @@ $(function () {
             $('#navBar').click(function () {
                 marginLeft = "250px";
             });
-            //$('#menubar').hide();
+        //$('#menubar').hide();
         },
         onClose: function closeNav() {
             $('#side_navbar').click(function () {

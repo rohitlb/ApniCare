@@ -18,12 +18,11 @@ span1 {
 span#f1,span#f2{
     font-size: 12px;
     position: absolute;
-    right: 0px;
     color: teal;
 }
 li.bold {
 
-    font-family: 'Squada One', cursive;
+    font-family: Arial;
     font-weight: 800;
     display: block;
     padding: 2px 5px;
@@ -35,7 +34,7 @@ li.bold {
     z-index: 1;
 }
 h3 {
-    font-family: Impact cursive;
+    font-family: italic bold Verdana, serif;
 }
 .card-title {
     font-size: 120px;

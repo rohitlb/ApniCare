@@ -51,7 +51,7 @@ store.on('error',function (error) {
 app.disable('x-powered-by');
 
 //configure the app
-app.set('port',9000);
+app.set('port',4000);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
@@ -221,7 +221,7 @@ app.post('/VerifyOTP',function (req, res) {
         if (error) throw new Error(error);
         var temp = JSON.parse(body);
         res.send({message: temp.Status })
-        });
+    });
 });
 
 
@@ -590,7 +590,7 @@ app.post('/updatepassword',function (req,res) {
                                 res.send({status: "failure", message: "Both password not match"});
                             }
                         }
-                    else{
+                        else{
                             res.send({status: "failure", message: "Wrong credentials"});
                         }
                     }
@@ -842,7 +842,7 @@ app.get('/editconfidential',function (req,res) {
 app.post('/editconfidential',function (req,res) {
     var aadhaarnumber = req.body.aadhaar_number;
     var income = req.body.income;
-    
+
     User.find({_id : req.session.userID},function (err,result) {
         if(err){
             console.log(err);
@@ -1852,6 +1852,7 @@ app.post('/uploadimage', upload.any(), function(req, res) {
     });
 });
 
+
 //////////////////// try for free /////////////////////////////////////////
 app.get('/userregister',function (req,res) {
     res.render('userregister');
@@ -1916,6 +1917,9 @@ app.post('/searchdisease',function (req,res) {
         res.render('diseasebrands',{data : result})
     });
 });
+
+
+
 
 ////////////////////////////////////////// register as a doctor and user ///////////////////////////////////////////////
 
@@ -2106,22 +2110,23 @@ app.post('/education',function (req,res) {
 });
 
 app.post('/certificate',function (req,res) {
+    console.log('hi');
     var council_number = req.body.council_number;
     var council_name = req.body.council_name;
     var council_year = req.body.council_year;
-    var path = req.files[0].path;
-    var imageName = req.session.dpindbname ;
-    var path1 = req.files[0].path;
-    var imageName1 = req.session.dpindbname ;
+    // var path = req.files[0].path;
+    // var imageName = req.session.dpindbname ;
+    // var path1 = req.files[0].path;
+    // var imageName1 = req.session.dpindbname ;
 
 
     Doctor.update({number : req.session.doctornumber},{
         $push : {
             council_registration_number : council_number,
             council_name : council_name,
-            council_registration_year : council_year,
-            document : path,
-            certificate : path1
+            council_registration_year : council_year
+            // document : path,
+            // certificate : path1
         }
     },function (err,result) {
         if(err){
@@ -2129,7 +2134,7 @@ app.post('/certificate',function (req,res) {
         }
         else{
             console.log(result);
-            res.send({ status : "success" , message : "Basic Details successfully updates"});
+            res.send({ status : "success" , message : "Document Details successfully updates"});
         }
     });
 });

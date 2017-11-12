@@ -1,6 +1,7 @@
 doctype html
 html
     include ./health_care_provider/partial/head
+
     body
         header
             include ./health_care_provider/partial/header
@@ -20,16 +21,18 @@ html
                                         a.btn.btn-flat.white-text(href='/health_care_provider?page=notifications' data-balloon-pos="down" data-balloon="Notifications" data-delay="50" style="background-color: #660099")
                                             i.material-icons.large(style="font-size: 35px") notifications
                                     li
-                                        a.btn.btn-flat.white-text.dropdown-button(href='/health_care_provider?page=profile' data-activates='profile_drop' data-beloworigin='true' data-balloon="Profile" data-balloon-pos="down" data-delay="3000" style="background-color: #660099")
+                                        a.btn.btn-flat.white-text.dropdown-button(href='/health_care_provider?page=profile' data-activates='profile_drop' data-beloworigin='true' style="background-color: #660099")
                                             i.material-icons.large(style="font-size: 35px") person
 
                 ul.dropdown-content#profile_drop
                     li
-                        a(href="#!") My Profile
+                        a(href="/health_care_provider?page=profile") My Profile
                     li
-                        a(href="#") Logout
-
-
+                        a(href='#') My Activity
+                    li
+                        a(href='#') Edit Profile
+                    li
+                        a(href="/logout") Logout
 
         div.col.s12.m12.l8.offset-s4.offset-m4.offset-l4
                 if(page == 'home')
