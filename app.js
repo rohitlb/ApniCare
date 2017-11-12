@@ -1992,7 +1992,7 @@ app.post('/health_care_provider',function(req,res) {
             res.render('home_profile_doctor',
                 {
                     page: page,
-                    name: result
+                    data: result
 
                 });
         }
@@ -2011,7 +2011,7 @@ app.get('/health_care_provider',function(req,res) {
             res.render('home_profile_doctor',
                 {
                     page: page,
-                    name: result
+                    data: result
                 });
         }
     });

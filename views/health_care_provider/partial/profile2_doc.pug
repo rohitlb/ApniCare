@@ -3,7 +3,7 @@ div.collection#main_profile_doctor
     div.collection-item.dismissable
         div.row
             .col.s12.m12.l9.offset-l3
-                span.flow-text Dr. XYZ#{name}
+                span.flow-text Dr. #{data.name}
                 br
                 br
                 span.flow-text Profile is not complete yet
@@ -38,19 +38,19 @@ div.collection#main_profile_doctor
                 div.input-field.col.s12.m4.l4
                     span
                         | Name
-                        input(type="text" value='' readonly)
+                        input(type="text" value=data.name readonly)
                 div.input-field.col.s12.m4.l4
                     span
                         | Mobile Number &nbsp
                         span#f1 Verified
                             i.material-icons.teal-text.left done
-                        input.validate#mobNo(type='text', value='' readonly)
+                        input.validate#mobNo(type='text', value=data.number readonly)
                 div.input-field.col.s12.m4.l4
                     span
                         | Email ID  &nbsp
                         span#f2 Verified
                             i.material-icons.teal-text.left done
-                        input.validate#email(type='email' readonly)
+                        input.validate#email(type='email' name=data.name readonly)
                 div.input-field.col.s12.m4.l4
                     span
                         | City
