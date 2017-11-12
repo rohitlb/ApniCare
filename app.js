@@ -17,6 +17,14 @@ mongoose.Promise = promise;
 var async = require('async');
 var keys = require('./private/keys');
 
+// variables for profile image
+var ID;
+var dpname;
+var dpindbname;
+
+
+
+mongoose.Promise = promise;
 
 // req models
 var User  = require('./model/registration');
@@ -38,7 +46,7 @@ var routes = require('./model/imagefile');
 var app = express();
 
 var store = new mongoDBStore({
-    uri : 'mongodb://localhost/ApniCare',
+    uri : 'mongodb://localhost/EditCare',
     collection : 'mySessions'
 });
 
@@ -51,7 +59,7 @@ store.on('error',function (error) {
 app.disable('x-powered-by');
 
 //configure the app
-app.set('port',9000);
+app.set('port',4000);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
@@ -168,6 +176,7 @@ app.post('/sendOTP',function (req, res) {
     //regex for checking whether entered number is indian or not
     var num = /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[789]\d{9}|(\d[ -]?){10}\d$/.test(number);
     if(num === false){
+        console.log("wrong number entered");
         res.send({status: "failure", message: "wrong number ! please try again "});
         return;
     }
@@ -177,7 +186,9 @@ app.post('/sendOTP',function (req, res) {
             console.log(err);
         }
         else{
+            console.log(result);
             if (result) {
+                console.log("User Already Exist");
                 res.send({status: "failure", message: "number Already Exists"});
                 res.end();
 
@@ -193,8 +204,10 @@ app.post('/sendOTP',function (req, res) {
                         throw new Error(error);
                     }
                     else {
+                        console.log(body);
                         var temp = JSON.parse(body);
-                        req.session.sid = temp.Details;
+                        console.log(temp.Details);
+                        sid = temp.Details;
                         res.send({status: "success", message: "OTP sent to your number"});
                     }
                 });
@@ -205,10 +218,12 @@ app.post('/sendOTP',function (req, res) {
 
 //doctor
 app.post('/DoctorsendOTP',function (req, res) {
+
     var number = req.body.number;
     //regex for checking whether entered number is indian or not
     var num = /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[789]\d{9}|(\d[ -]?){10}\d$/.test(number);
     if(num === false){
+        console.log("wrong number entered");
         res.send({status: "failure", message: "wrong number ! please try again "});
         return;
     }
@@ -218,7 +233,9 @@ app.post('/DoctorsendOTP',function (req, res) {
             console.log(err);
         }
         else{
+            console.log(result);
             if (result) {
+                console.log("User Already Exist");
                 res.send({status: "failure", message: "number Already Exists"});
                 res.end();
 
@@ -234,8 +251,10 @@ app.post('/DoctorsendOTP',function (req, res) {
                         throw new Error(error);
                     }
                     else {
+                        console.log(body);
                         var temp = JSON.parse(body);
-                        req.session.sid = temp.Details;
+                        console.log(temp.Details);
+                        sid = temp.Details;
                         res.send({status: "success", message: "OTP sent to your number"});
                     }
                 });
@@ -246,14 +265,20 @@ app.post('/DoctorsendOTP',function (req, res) {
 
 app.post('/VerifyOTP',function (req, res) {
     var otp = req.body.number;
+    console.log(otp);
+
     var options = { method: 'GET',
-        url: 'http://2factor.in/API/V1/'+keys.api_key()+'/SMS/VERIFY/'+req.session.sid+'/'+otp,
+        url: 'http://2factor.in/API/V1/'+keys.api_key()+'/SMS/VERIFY/'+sid+'/'+otp,
         headers: { 'content-type': 'application/x-www-form-urlencoded' },
         form: {} };
 
     request(options, function (error, response, body) {
         if (error) throw new Error(error);
+
+        console.log('verifyotp');
+        console.log(body);
         var temp = JSON.parse(body);
+        console.log(temp.Details);
         res.send({message: temp.Status })
         });
 });
@@ -262,54 +287,65 @@ app.get('/home',function (req,res) {
     if (req.session.userID) {
         res.redirect('/profile');
         res.end();
+    } else {
+        res.render('home');
+        res.end();
     }
-    if (req.session.doctorID) {
-        res.redirect('/doctorpage');
-    }
-    res.send({status: "success", message: "Please Login First"});
-    res.end();
 });
 
 app.get('/', function (req, res) {
     if (req.session.userID) {
         res.redirect('/profile');
         res.end();
-    }
-    if(req.session.doctorID){
-        res.redirect('/doctorpage');
-        res.end();
-    }
+    } else {
         res.render('home');
         res.end();
+    }
 });
 
+app.get('/register',function (req,res) {
+    if (req.session.userID) {
+        res.redirect('/profiles');
+        res.end();
+    } else {
+        res.render('home');
+        res.end();
+    }
+});
+
+var user_contact = null;
 //User registration
 app.post('/register', function (req, res) {
     //regex for checking whether entered number is indian or not
     var num = /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[789]\d{9}|(\d[ -]?){10}\d$/.test(req.body.number);
     if (num === false) {
+        console.log("wrong number entered");
         res.send({status: "failure", message: "wrong number ! please try again "});
         return;
     }
     // regex for checking whether password is numeric or not (pass iff pwd is numeric)
     var a = /[0-9]{4}/.test(req.body.password);
     if (a === false) {
+        console.log(typeof req.body.password);
+        console.log("password is not numeric");
         res.send({status: "failure", message: "please enter a numeric password and try again"});
         return;
     }
     User.findOne({number: req.body.number}).exec(function (err, result) {
         if (err) {
-            console.log(err);
+            console.log("Some error occured");
             res.end();
         } else {
+            //console.log(result);
             if (result) {
+                console.log("User Already Exist");
                 res.send({status: "failure", message: "user Already Exists"});
                 res.end();
             } else {
                 bcrypt.genSalt(10, function (err, salt) {
                     bcrypt.hash(req.body.password, salt, function (err, hash) {
                         if(err){
-                            console.log(err);
+                            console.log("error in hashing");
                         }
                         else {
                             var user = new User({
@@ -321,9 +357,11 @@ app.post('/register', function (req, res) {
                             user.save(function (err, results) {
                                 if (err) {
                                     console.log(err);
+                                    console.log("There is an error");
                                     res.end();
                                 } else {
-                                    req.session.userregistercontact = results.number;
+                                    user_contact = results.number;
+                                    console.log('user save successfully');
                                     res.send({status: "success", message: "successfully registered"});
                                     res.end();
                                 }
@@ -336,46 +374,30 @@ app.post('/register', function (req, res) {
     });
 });
 
-//render profile page of user
-app.get('/profile', function (req, res) {
-    if (req.session.userID) {
-        res.render('profile', {number: req.session.userID});
-    }
-    if(req.session.doctorID) {
-        res.render('doctorpage', {number: req.session.doctorname});
-    }
-    res.send({status : "failed" , message : "Please Login First"});
-});
-
 app.get('/profiles',function (req,res) {
     res.render('profiles');
 });
-
 //user profile update
 app.post('/profiles',function (req,res) {
+
     var dob = req.body.dob;
     var gender = req.body.gender;
     var blood_group = req.body.blood_group;
     var marital_status = req.body.marital_status;
     var height = req.body.height;
     var weight = req.body.height;
-
-
     var addresses = req.body.address;
     var landmark = req.body.landmarks;
     var pincode = req.body.pincode;
     var city = req.body.city;
     var state = req.body.state;
-
-
     var aadhaar_number = req.body.aadhaar_number;
     var income = req.body.income;
     var rel_name = req.body.relative_name;
     var rel_contact = req.body.relative_contact;
     var relation = req.body.relation;
 
-
-    User.update({number : req.session.userregistercontact}, {
+    User.update({number : user_contact}, {
         $set : {
             dob: dob,
             gender: gender,
@@ -401,6 +423,7 @@ app.post('/profiles',function (req,res) {
             console.log(err);
         }
         else{
+            console.log(result);
             res.send("successfully updated");
         }
     });
@@ -409,13 +432,16 @@ app.post('/profiles',function (req,res) {
 //*****************************************USER LOGIN*******************************************************************
 //login with filter and session
 
+var sessionID = null;
 app.post('/login',function (req,res) {
+    console.log("login reaches here");
     User.findOne({number: req.body.number}).exec(function (err,result) {
         if(err){
-            console.log(err);
+            console.log("Some error occurred");
             res.send({status: "failure", message : "Some error occurred"});
             res.end();
         } else {
+            //console.log(result);
             if(result) {
                 bcrypt.compare(req.body.password,result.password,function(err, results) {
                     if (err) {
@@ -423,12 +449,11 @@ app.post('/login',function (req,res) {
                     }
                     else {
                         if(results) {
+                            console.log("Successfully login");
                             req.session.userID = result._id;
-                            req.session.username = result.name;
-                            req.session.usernumber = result.number;
-                            req.session.userpassword = result.password;
-                            req.session.dpname = req.body.number;
-                            //req.session.nextpage = "notmove";
+                            sessionID = result._id;
+                            dpname = req.body.number;
+                            ID = req.session.userID;
                             if (req.session.userID) {
                                 res.send({
                                     status: "success",
@@ -445,6 +470,7 @@ app.post('/login',function (req,res) {
                 });
             }
             else {
+                console.log("check your name or password");
                 res.send({status: "failure", message: "Can't login"});
                 res.end();
             }
@@ -454,42 +480,23 @@ app.post('/login',function (req,res) {
 
 //Doctor login
 app.post('/doctorlogin',function (req,res) {
-    Doctor.findOne({number: req.body.number}).exec(function (err,result) {
+    console.log("login reaches here");
+    Doctor.findOne({number: req.body.number , Password : req.body.password}).exec(function (err,result) {
         if(err){
-            console.log(err);
+            console.log("Some error occurred");
             res.send({status: "failure", message : "Some error occurred"});
             res.end();
         } else {
+            console.log(result);
             if(result) {
-
-                bcrypt.compare(req.body.password,result.password,function(err, results) {
-                    if (err) {
-                        console.log(err);
-                    }
-                    else {
-                        if(results) {
-                            req.session.doctorID = result._id;
-                            req.session.doctorname = result.name;
-                            req.session.doctorpassword = result.password;
-                            req.session.dpname = req.body.number;
-                            req.session.doctornumber = result.number;
-                            if (req.session.userID) {
-                                res.send({
-                                    status: "success",
-                                    message: "successfully login",
-                                    number: req.session.doctorID
-                                });
-                                res.end();
-                            }
-                        }
-                        else{
-                            res.send({status : "failure", message : "password incorrect"});
-                        }
-
-                    }
-                });
-            }
-            else {
+                console.log("Successfully login");
+                req.session.userID = result._id;
+                if (req.session.userID) {
+                    res.send({status: "success", message: "successfully login" ,number: req.session.userID});
+                    res.end();
+                }
+            } else {
+                console.log("check your name or password");
                 res.send({status: "failure", message: "Can't login"});
                 res.end();
             }
@@ -508,11 +515,14 @@ app.get('/logout', function (req, res) {
     });
 });
 
+//render profile page of user
+app.get('/profile', function (req, res) {
+    res.render('profile', {number: req.session.userID});
+});
 
 
 
-
-//***************************************Edit User Profile*****************************************************************
+//***************************************Edit Profile*****************************************************************
 
 //***************Edit Name and Email **********************************
 
@@ -520,10 +530,11 @@ app.get('/verifypassword',function (req,res) {
     res.render('verifypassword');
 });
 
+var new_password = null;
 app.post('/verifypassword',function (req,res) {
     console.log('app');
     var password = req.body.password;
-    User.findOne({_id : req.session.userID},function (err,result) {
+    User.findOne({_id : sessionID},function (err,result) {
         if(err){
             console.log(err);
         }
@@ -535,7 +546,8 @@ app.post('/verifypassword',function (req,res) {
                     }
                     else {
                         if(results) {
-                            //next();
+                            new_password = result.password;
+                            console.log("password match");
                             //res.send({status: "success", message: "Password match"})
                             //res.render('updatenameandemail',{status: "success", message: "Password match"});
                             res.send({status: "success", message: "Password match"});
@@ -547,6 +559,7 @@ app.post('/verifypassword',function (req,res) {
                 });
             }
             else{
+                console.log("password not match");
                 res.send({status: "failure", message: "Incorrect password"});
             }
         }
@@ -554,6 +567,7 @@ app.post('/verifypassword',function (req,res) {
 });
 
 app.get('/updatenameandemail',function (req,res) {
+
     if (req.session.userID) {
         res.send({status: "failure", message: "Please verify Password first"});
         res.end();
@@ -571,22 +585,23 @@ app.get('/updatenameandemail',function (req,res) {
 
 });
 
+
 app.post('/updatenameandemail',function (req,res) {
     var name = req.body.name;
     var email = req.body.email;
-    User.find({_id : req.session.userID},function (err,result) {
+    User.find({_id : sessionID},function (err,result) {
         if(err){
             console.log(err);
         }
         else {
-            if (result[0].password === req.session.userpassword) {
+            if (result[0].password === new_password) {
                 if (name === "") {
                     name = result[0].name;
                 }
                 if (email === "") {
                     email = result[0].email;
                 }
-                User.update({_id: req.session.userID}, {
+                User.update({_id: sessionID}, {
                     $set: {
                         name: name,
                         email: email
@@ -596,6 +611,7 @@ app.post('/updatenameandemail',function (req,res) {
                         console.log(err);
                     }
                     else {
+                        console.log(result);
                         res.send({status: "success", message: "Successfully Updated"});
                     }
                 });
@@ -618,7 +634,7 @@ app.post('/updatepassword',function (req,res) {
     var newpassword = req.body.newpassword;
     var confpassword = req.body.confpassword;
 
-    User.findOne({_id : req.session.userID},function (err,result) {
+    User.findOne({_id : sessionID},function (err,result) {
         if(err){
             console.log(err);
         }
@@ -634,13 +650,14 @@ app.post('/updatepassword',function (req,res) {
                                 bcrypt.genSalt(10, function (err, salt) {
                                     bcrypt.hash(newpassword, salt, function (err, hash) {
 
-                                        User.update({_id: req.session.userID}, {
+                                        User.update({_id: sessionID}, {
                                             $set: {password: hash}
                                         }, function (err1, result1) {
                                             if (err1) {
                                                 console.log(err1);
                                             }
                                             else {
+                                                console.log(result1);
                                                 res.send({status: "success", message: "Password Successfully Updated"});
                                             }
                                         });
@@ -670,9 +687,10 @@ app.get('/verifydetailspassword',function (req,res) {
     res.render('verifydetailspassword');
 });
 
+var details_password = null;
 app.post('/verifydetailspassword',function (req,res) {
     var password = req.body.password;
-    User.findOne({_id : req.session.userID},function (err,result) {
+    User.findOne({_id : sessionID},function (err,result) {
         if(err){
             console.log(err);
         }
@@ -684,6 +702,8 @@ app.post('/verifydetailspassword',function (req,res) {
                     }
                     else {
                         if(results) {
+                            details_password = result.password;
+                            console.log("password match");
                             //res.send({status: "success", message: "Password match"})
                             res.render('updateusersdetails',{status: "success", message: "Password match"});
                         }
@@ -694,6 +714,7 @@ app.post('/verifydetailspassword',function (req,res) {
                 });
             }
             else{
+                console.log("password not match");
                 res.send({status: "failure", message: "Incorrect password"});
             }
         }
@@ -705,6 +726,8 @@ app.get('/updateusersdetails',function (req,res) {
 });
 
 app.post('/updateusersdetails',function (req,res) {
+    console.log('req from app');
+    console.log(sessionID);
     var dob = req.body.dob;
     var gender = req.body.gender;
     var blood_group = req.body.blood_group;
@@ -712,13 +735,13 @@ app.post('/updateusersdetails',function (req,res) {
     var height = req.body.height;
     var weight = req.body.weight;
 
-    User.find({_id : req.session.userID},function (err,result) {
+    User.find({_id : sessionID},function (err,result) {
         if (err) {
             console.log(err);
         }
         else {
 
-            if (result[0].password === req.session.userpassword) {
+            if (result[0].password === details_password) {
                 if (dob === "") {
                     dob = result[0].dob;
                 }
@@ -738,7 +761,7 @@ app.post('/updateusersdetails',function (req,res) {
                     weight = result[0].weight;
                 }
 
-                User.update({_id: req.session.userID}, {
+                User.update({_id: sessionID}, {
                     $set: {
                         dob: dob,
                         gender: gender,
@@ -770,9 +793,10 @@ app.get('/addresspassword',function (req,res) {
     res.render('addresspassword');
 });
 
+var address_password = null;
 app.post('/addresspassword',function (req,res) {
     var password = req.body.password;
-    User.findOne({_id : req.session.userID},function (err,result) {
+    User.findOne({_id : sessionID},function (err,result) {
         if(err){
             console.log(err);
         }
@@ -784,6 +808,8 @@ app.post('/addresspassword',function (req,res) {
                     }
                     else {
                         if(results) {
+                            address_password = result.password;
+                            console.log("password match");
                             //res.send({status: "success", message: "Password match"})
                             res.render('editaddress',{status: "success", message: "Password match"});
                         }
@@ -794,6 +820,7 @@ app.post('/addresspassword',function (req,res) {
                 });
             }
             else{
+                console.log("password not match");
                 res.send({status: "failure", message: "Incorrect password"});
             }
         }
@@ -811,12 +838,12 @@ app.post('/editaddress',function (req,res) {
     var city = req.body.city;
     var state = req.body.state;
 
-    User.find({_id : req.session.userID},function (err,result) {
+    User.find({_id : sessionID},function (err,result) {
         if(err){
             console.log(err);
         }
         else {
-            if (result[0].password === req.session.userpassword) {
+            if (result[0].password === address_password) {
                 if (addresses === "") {
                     addresses = result[0].address.address;
                 }
@@ -833,7 +860,7 @@ app.post('/editaddress',function (req,res) {
                     state = result[0].address.state;
                 }
 
-                User.update({_id: req.session.userID}, {
+                User.update({_id: sessionID}, {
                     $set: {
                         address: {
                             addresses: addresses,
@@ -848,6 +875,7 @@ app.post('/editaddress',function (req,res) {
                         console.log(err1);
                     }
                     else {
+                        console.log(result1);
                         res.send({status: "success", message: "Address successfully updated"});
                     }
                 });
@@ -866,9 +894,10 @@ app.get('/confidentialpassword',function (req,res) {
     res.render('confidentialpassword');
 });
 
+var confidential_password = null;
 app.post('/confidentialpassword',function (req,res) {
     var password = req.body.password;
-    User.findOne({_id : req.session.userID},function (err,result) {
+    User.findOne({_id : sessionID},function (err,result) {
         if(err){
             console.log(err);
         }
@@ -880,6 +909,8 @@ app.post('/confidentialpassword',function (req,res) {
                     }
                     else {
                         if(results) {
+                            confidential_password = result.password;
+                            console.log("password match");
                             //res.send({status: "success", message: "Password match"})
                             res.render('editconfidential',{status: "success", message: "Password match"});
                         }
@@ -890,6 +921,7 @@ app.post('/confidentialpassword',function (req,res) {
                 });
             }
             else{
+                console.log("password not match");
                 res.send({status: "failure", message: "Incorrect password"});
             }
         }
@@ -904,13 +936,13 @@ app.post('/editconfidential',function (req,res) {
     var aadhaarnumber = req.body.aadhaar_number;
     var income = req.body.income;
     
-    User.find({_id : req.session.userID},function (err,result) {
+    User.find({_id : sessionID},function (err,result) {
         if(err){
             console.log(err);
         }
         else {
 
-            if (result[0].password === req.session.userpassword) {
+            if (result[0].password === confidential_password) {
                 if (aadhaarnumber === "") {
                     aadhaarnumber = result[0].aadhaar_number;
                 }
@@ -918,7 +950,7 @@ app.post('/editconfidential',function (req,res) {
                     income = result[0].income;
                 }
 
-                User.update({_id: req.session.userID}, {
+                User.update({_id: sessionID}, {
                     $set: {
                         aadhaar_number: aadhaarnumber,
                         income: income
@@ -928,6 +960,7 @@ app.post('/editconfidential',function (req,res) {
                         console.log(err1);
                     }
                     else {
+                        console.log(result1);
                         res.send({status: "success", message: "confidential updated"});
                     }
                 });
@@ -945,9 +978,10 @@ app.get('/emergencypassword',function (req,res) {
     res.render('emergencypassword');
 });
 
+var emergency_password = null;
 app.post('/emergencypassword',function (req,res) {
     var password = req.body.password;
-    User.findOne({_id : req.session.userID},function (err,result) {
+    User.findOne({_id : sessionID},function (err,result) {
         if(err){
             console.log(err);
         }
@@ -959,6 +993,8 @@ app.post('/emergencypassword',function (req,res) {
                     }
                     else {
                         if(results) {
+                            emergency_password = result.password;
+                            console.log("password match");
                             //res.send({status: "success", message: "Password match"})
                             res.render('editemergency',{status: "success", message: "Password match"});
                         }
@@ -969,6 +1005,7 @@ app.post('/emergencypassword',function (req,res) {
                 });
             }
             else{
+                console.log("password not match");
                 res.send({status: "failure", message: "Incorrect password"});
             }
         }
@@ -984,12 +1021,12 @@ app.post('/editemergency',function (req,res) {
     var rel_contact = req.body.relative_contact;
     var relation = req.body.relation;
 
-    User.find({_id : req.session.userID},function (err,result) {
+    User.find({_id : sessionID},function (err,result) {
         if(err){
             console.log(err);
         }
         else {
-            if (result[0].password === req.session.userpassword) {
+            if (result[0].password === emergency_password) {
                 if (rel_name === "") {
                     rel_name = result[0].relative_name;
                 }
@@ -1000,7 +1037,7 @@ app.post('/editemergency',function (req,res) {
                     relation = result[0].relation;
                 }
 
-                User.update({_id: req.session.userID}, {
+                User.update({_id: sessionID}, {
                     $set: {
                         relative_name: rel_name,
                         relative_contact: rel_contact,
@@ -1011,6 +1048,7 @@ app.post('/editemergency',function (req,res) {
                         console.log(err1)
                     }
                     else {
+                        console.log(result1);
                         res.send({status: "success", message: "Emergency Contact Updates"});
                     }
                 });
@@ -1026,26 +1064,31 @@ app.post('/editemergency',function (req,res) {
 
 
 //**************************************Insert Doctor*******************************************************************
+var doctor_contact = null;
 //Doctor registration
 app.post('/doctorregister', function (req, res) {
     //regex for checking whether entered number is indian or not
     var num = /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[789]\d{9}|(\d[ -]?){10}\d$/.test(req.body.number);
     if (num === false) {
+        console.log("wrong number entered");
         res.send({status: "failure", message: "wrong number ! please try again "});
         return;
     }
     // regex for checking whether password is numeric or not (pass iff pwd is numeric)
     var a = /[0-9]{4}/.test(req.body.password);
     if (a === false) {
+        console.log("password is not numeric");
         res.send({status: "failure", message: "please enter a numeric password and try again"});
         return;
     }
     Doctor.findOne({number: req.body.number}).exec(function (err, result) {
         if (err) {
-            console.log(err);
+            console.log("Some error occured");
             res.end();
         } else {
+            console.log(result);
             if (result) {
+                console.log("User Already Exist");
                 res.send({status: "failure", message: "user Already Exists"});
                 res.end();
 
@@ -1054,12 +1097,16 @@ app.post('/doctorregister', function (req, res) {
                     name: req.body.name,
                     number: req.body.number,
                     password: req.body.password
+
                 });
                 doctor.save(function (err, results) {
                     if (err) {
-                        console.log(err);
+                        console.log("There is an error");
                         res.end();
                     } else {
+                        //console.log(results);
+                        doctor_contact = results.number;
+                        console.log('user save successfully');
                         res.send({status: "success", message: "successfully registered"});
                         res.end();
                     }
@@ -1076,13 +1123,14 @@ app.get('/occupation',function (req,res) {
 //filling occupation
 app.post('/occupation',function (req,res) {
     var occupation = req.body.occupation;
-    Doctor.update({number : req.session.doctornumber},{
+    Doctor.update({number : doctor_contact},{
         $set : {occupation : occupation}
     },function (err,result) {
         if(err){
             console.log(err);
         }
         else{
+            console.log(result);
             res.render('doctordetails');
         }
     });
@@ -1098,19 +1146,19 @@ app.post('/doctor_details',function (req,res) {
     var specialisation = req.body.specialisation;
     var city = req.body.city;
 
-    Doctor.update({number: req.session.doctornumber}, {
-        $set: {
-            name: name,
-            specialisation: specialisation,
-            city: city
+    Doctor.update({number : doctor_contact},{
+        $set : {
+            name : name,
+            specialisation : specialisation,
+            city : city
         }
-    }, function (err, result) {
-        if(err){
-            console.log(err);
-        }
-        res.send({status : "success" , message : ""})
+    },function (err,result) {
+        console.log(result);
         //res.render('doctorprofile');
+
+        console.log(name);
     });
+    res.end();
 });
 
 //doctor Profile
@@ -1130,7 +1178,7 @@ app.post('/doctor_profile',function (req,res) {
     var council_name = req.body.council_name;
     var council_year = req.body.council_year;
 
-    Doctor.update({ number : req.session.doctornumber },{
+    Doctor.update({ number : doctor_contact },{
         $set : {
             title : title,
             gender : gender,
@@ -1148,17 +1196,23 @@ app.post('/doctor_profile',function (req,res) {
             console.log(err);
         }
         else{
+            console.log(result);
             res.send("doctors updated");
         }
     });
 });
 
+var number = null;
 //forgot password
 app.post('/checkforgotpassword',function (req,res) {
-    var number = req.body.number;
+    console.log("app");
+    console.log(req.body.number);
+     number = req.body.number;
+     console.log(number);
     //regex for checking whether entered number is indian
     var num = /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[789]\d{9}|(\d[ -]?){10}\d$/.test(number);
     if(num === false){
+        console.log("wrong number entered");
         res.send({status: "failure", message: "wrong number ! please try again "});
         return;
     }
@@ -1167,7 +1221,10 @@ app.post('/checkforgotpassword',function (req,res) {
         if (err) {
             console.log(err);
         } else {
+            console.log(result);
+
             if (result) {
+                console.log("sending otp");
                 var options = {
                     method: 'GET',
                     url: 'http://2factor.in/API/V1/' + keys.api_key() + '/SMS/' + number + '/AUTOGEN',
@@ -1180,8 +1237,10 @@ app.post('/checkforgotpassword',function (req,res) {
                         throw new Error(error);
                     }
                     else {
+                        console.log(body);
                         var temp = JSON.parse(body);
-                        req.session.sid = temp.Details;
+                        console.log(temp.Details);
+                        sid = temp.Details;
                         res.send({status: "success", message: "OTP sent to your number"});
 
                     }
@@ -1189,6 +1248,7 @@ app.post('/checkforgotpassword',function (req,res) {
 
             }
             else {
+                console.log("user is not registered");
                 res.send({status: "failure", message: "this number is not registered"});
             }
         }
@@ -1197,10 +1257,14 @@ app.post('/checkforgotpassword',function (req,res) {
 
 //forgot password for doctor
 app.post('/doctorcheckforgotpassword',function (req,res) {
-    var number = req.body.number;
+    console.log("app");
+    console.log(req.body.number);
+    number = req.body.number;
+    console.log(number);
     //regex for checking whether entered number is indian
     var num = /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[789]\d{9}|(\d[ -]?){10}\d$/.test(number);
     if(num === false){
+        console.log("wrong number entered");
         res.send({status: "failure", message: "wrong number ! please try again "});
         return;
     }
@@ -1209,8 +1273,10 @@ app.post('/doctorcheckforgotpassword',function (req,res) {
         if (err) {
             console.log(err);
         } else {
+            console.log(result);
 
             if (result) {
+                console.log("sending otp");
                 var options = {
                     method: 'GET',
                     url: 'http://2factor.in/API/V1/' + keys.api_key() + '/SMS/' + number + '/AUTOGEN',
@@ -1223,13 +1289,17 @@ app.post('/doctorcheckforgotpassword',function (req,res) {
                         throw new Error(error);
                     }
                     else {
+                        console.log(body);
                         var temp = JSON.parse(body);
-                        req.session.sid = temp.Details;
+                        console.log(temp.Details);
+                        sid = temp.Details;
                         res.send({status: "success", message: "OTP sent to your number"});
+
                     }
                 });
             }
             else {
+                console.log("user is not registered");
                 res.send({status: "failure", message: "this number is not registered"});
             }
         }
@@ -1238,14 +1308,39 @@ app.post('/doctorcheckforgotpassword',function (req,res) {
 
 //doc update password
 app.post('/doctorupdatepassword',function (req,res) {
+    console.log('updating password');
+    console.log(req.body.number);
+    console.log(number);
     var password = req.body.password;
-    Doctor.update({number : req.session.doctornumber},{
+    console.log(password);
+    Doctor.update({number : number},{
         $set : {password : password}
     },function (err,result1) {
         if (err) {
             console.log(err);
         }
         else {
+            console.log(result1);
+            res.send({status: "success", message: "new password update"});
+            res.end();
+        }
+    });
+});
+
+app.post('/updatepassword',function (req,res) {
+    console.log('updating password');
+    console.log(req.body.number);
+    console.log(number);
+    var password = req.body.password;
+    console.log(password);
+    User.update({number : number},{
+        $set : {password : password}
+        },function (err,result1) {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            console.log(result1);
             res.send({status: "success", message: "new password update"});
             res.end();
         }
@@ -1259,7 +1354,8 @@ app.get('/medicine',function (req,res) {
     res.render('medicine');
 });
 
-app.post('/medicine',function(req,res) {
+var company_result = null;
+app.post('/medicine',function (req,res) {
     var dosage_form = req.body.dosage_form;
     var brand_name = req.body.brand_name;
     var categories = req.body.categories;
@@ -1289,7 +1385,7 @@ app.post('/medicine',function(req,res) {
             },
             function (result,callback) {
                 if(result){
-                    req.session.companyresult = result._id;
+                    company_result = result._id;
                     Brand.findOne({brand_name : brand_name},function (err,result1) {
                         if(err){
                             console.log(err);
@@ -1447,7 +1543,7 @@ app.post('/medicine',function(req,res) {
 
                                                     Brand.update({brand_name : brand_name},{
                                                         $push : {
-                                                            company_id : req.session.companyresult
+                                                            company_id : company_result
                                                         }
                                                     },function (err6) {
                                                         if(err6){
@@ -1625,6 +1721,7 @@ app.get('/go_to_brand',function (req,res) {
                 if(err){
                     console.log(err);
                 }
+                console.log(data);
                 res.render('showbrand', {data : data});
             });
         }
@@ -1659,6 +1756,7 @@ app.get('/go_to_dosage',function (req,res) {
                 if(err){
                     console.log(err);
                 }
+                //console.log(data);
                 res.render('showdosage', {data : data});
             });
         }
@@ -1673,6 +1771,7 @@ app.get('/go_to_strength',function (req,res) {
             console.log(err);
         }
         else{
+            //console.log(result[0].strength_id);
             var data = {};
             data['strength'] = [];
 
@@ -1710,6 +1809,7 @@ app.get('/findbrand',function (req,res) {
             for (var i=0; i<result.length; i++) {
                 data['result'][i] = {brand : result[i].brand_name};
             }
+            //console.log(data);
             res.send(data);
             //res.render('findbrand', {data: result});
         }
@@ -1729,6 +1829,7 @@ app.get('/findingredients',function (req,res) {
                     data['result'][i] = {ingredients: result[i].active_ingredients[j].name};
                 }
             }
+            console.log(data);
             res.render('findingredients', {data: data});
         }
     });
@@ -1749,39 +1850,100 @@ app.post('/disease',function (req,res) {
     var prevention = req.body.prevention;
 
     Disease.findOne({disease_name : disease_name},function (err,result) {
-        if (err) {
+        if(err){
             console.log(err);
         }
-        else {
-            if (result) {
+        else{
+            if(result){
                 res.send("Medicine already exist");
             }
-            else {
+            else{
                 var disease = new Disease({
-                    disease_name: disease_name,
-                    risk_factor: risk_factor,
-                    cause: cause,
-                    diagnosis: diagnosis,
-                    treatment: treatment,
-                    outlook: outlook,
-                    prevention: prevention
+                    disease_name : disease_name,
+                    risk_factor : risk_factor,
+                    cause : cause,
+                    diagnosis : diagnosis,
+                    treatment : treatment,
+                    outlook : outlook,
+                    prevention : prevention
                 });
 
                 disease.save(function (err) {
-                    if (err) {
+                    if(err){
                         console.log(err);
                     }
-                    else {
+                    else{
                         res.send("medicine save successfully");
                     }
                 });
             }
         }
     });
+
 });
 
 
+// ..............................DOCTOR AND PHARMACIST .........................................
+app.post('/health_care_provider',function(req,res) {
+    //res.render('./../views/home_profile_doctor');
+    var page = 'profile';
+    console.log(page);
+    console.log('here');
+    if(req.query.page=='home' || req.query.page=='profile_doctor' || req.query.page=='profile' || req.query.page=='profile_pharmacist'|| req.query.page=='drug_data' || req.query.page=='molecule_data' || req.query.page=='disease_data' || req.query.page=='drug_data_form' || req.query.page=='molecule_data_form' || req.query.page=='disease_data_form' || req.query.page=='feedback_contributions' || req.query.page=='feedback_profile' || req.query.page=='notifications'|| req.query.page=='need_help' )
+        page = req.query.page;
+    //console.log('test');
+    //access database to find if the user is verified or not??
+    //if verified set verified to true
+    //else set verified to false
 
+    // var verified = true;
+    //
+    // if(verified)
+    // {
+    //     page = 'profile_doctor';
+    // }
+    // else
+    // {
+    //     page = 'profile';
+    // }
+    //var page = 'profile';
+    res.render('home_profile_doctor',
+        {
+            page : page
+        });
+    res.end();
+});
+
+
+app.get('/health_care_provider',function(req,res) {
+    //res.render('./../views/home_profile_doctor');
+    var page = 'profile';
+    console.log(page);
+    console.log('here');
+    if(req.query.page=='home' || req.query.page=='profile_doctor' || req.query.page=='profile' || req.query.page=='profile_pharmacist'|| req.query.page=='drug_data' || req.query.page=='molecule_data' || req.query.page=='disease_data' || req.query.page=='drug_data_form' || req.query.page=='molecule_data_form' || req.query.page=='disease_data_form' || req.query.page=='feedback_contributions' || req.query.page=='feedback_profile' || req.query.page=='notifications'|| req.query.page=='need_help' )
+        page = req.query.page;
+    //console.log('test');
+    //access database to find if the user is verified or not??
+    //if verified set verified to true
+    //else set verified to false
+
+    // var verified = true;
+    //
+    // if(verified)
+    // {
+    //     page = 'profile_doctor';
+    // }
+    // else
+    // {
+    //     page = 'profile';
+    // }
+    //var page = 'profile';
+    res.render('home_profile_doctor',
+        {
+            page : page
+        });
+    res.end();
+});
 
 // ************************************About Molecule ***************************************************
 
@@ -1856,9 +2018,12 @@ var storage = multer.diskStorage({
         cb(null, 'uploads/')
     },
     filename: function (req, file, cb) {
+        // console.log('test for file');
+        // console.log(file);
+        // console.log('end');
         // image name is set as number+orignal image name
-        cb(null, req.session.dpname + file.originalname);
-        req.session.dpindbname = req.session.dpname + file.originalname;
+        cb(null, dpname + file.originalname);
+        dpindbname = dpname + file.originalname;
     }
 });
 
@@ -1867,12 +2032,18 @@ var upload = multer({
 });
 
 app.post('/uploadimage', upload.any(), function(req, res) {
+    res.send('Done');
     var path = req.files[0].path;
-    var imageName = req.session.dpindbname ;
-    console.log(req.session.userID);
-    User.update({_id : req.session.userID},{
+    var imageName = dpindbname ;
+    console.log('storing in databases '+imageName+' test');
+    //console.log(req.session.userID);
+    console.log(path);
+    console.log(imageName);
+
+    User.update({_id : ID},{
         $set : {
-            path : path
+            'image.path' : path,
+            'image.originalname' : imageName
         }
     },function (err,result) {
         if(err){
@@ -1880,11 +2051,9 @@ app.post('/uploadimage', upload.any(), function(req, res) {
         }
         else{
             console.log(result);
-            res.send({status: "success", message: "Image successfully registered"});
         }
     });
     routes.addImage(User, function(err) {
-        res.send({ status : "failure" , message : "Can not upload"});
     });
 });
 
@@ -1914,7 +2083,7 @@ app.post('/userregister', function (req, res) {
     bcrypt.genSalt(10, function (err, salt) {
         bcrypt.hash(req.body.password, salt, function (err, hash) {
             if (err) {
-                console.log(err);
+                console.log("error in hashing");
             }
             else {
                 var user = new User({
@@ -1944,8 +2113,11 @@ app.post('/userregister', function (req, res) {
                 user.save(function (err, results) {
                     if (err) {
                         console.log(err);
+                        console.log("There is an error");
                         res.end();
                     } else {
+                        user_contact = results.number;
+                        console.log('user save successfully');
                         res.send({status: "success", message: "successfully registered"});
                         res.end();
                     }
@@ -1963,6 +2135,7 @@ app.get('/findbrands',function (req,res) {
             console.log(err);
         }
         else {
+            //res.send(brand[0]);
             res.render('all', {data: brand})
         }
     });
@@ -1987,9 +2160,6 @@ app.post('/searchdisease',function (req,res) {
         res.render('diseasebrands',{data : result})
     });
 });
-
-
-
 
 ////////////////////////////////////////// register as a doctor and user ///////////////////////////////////////////////
 
@@ -2017,33 +2187,23 @@ app.post('/doctorasuser',function (req,res) {
                         console.log(err1);
                     }
                     else{
-                        if(result1) {
+                        if(result1){
+                            var doctor = new Doctor({
+                                name: name,
+                                email : email,
+                                number: number,
+                                password: password
 
-                            bcrypt.genSalt(10, function (err, salt) {
-                                bcrypt.hash(req.body.password, salt, function (err, hash) {
-                                    if (err) {
-                                        console.log(err);
-                                    }
-                                    else {
-                                        var doctor = new Doctor({
-                                            name: name,
-                                            email: email,
-                                            number: number,
-                                            password: hash
-
-                                        });
-                                        doctor.save(function (err, results) {
-                                            if (err) {
-                                                console.log(err);
-                                                res.end();
-                                            } else {
-                                                doctor_contact = results.number;
-                                                res.send({status: "success", message: "successfully registered"});
-                                                res.end();
-                                            }
-                                        });
-                                    }
-                                });
+                            });
+                            doctor.save(function (err, results) {
+                                if (err) {
+                                    console.log(err);
+                                    res.end();
+                                } else {
+                                    doctor_contact = results.number;
+                                    res.send({status: "success", message: "successfully registered"});
+                                    res.end();
+                                }
                             });
                         }
                         else{
@@ -2055,36 +2215,54 @@ app.post('/doctorasuser',function (req,res) {
         }
     });
 });
-
 //////////////////////////////////////Doctor  Profile Insert //////////////////////////////////////////////////////////
+//////////////////////////////////////Doctor  Profile Insert //////////////////////////////////////////////////////////
+app.get('/doctorlodedin',function (req,res) {
+    res.render('doctorlogedin');
+});
 
-app.post('/createprofile',function (req,res) {
-    var name = req.body.name;
-    var specialization = req.body.specialization;
-    var city = req.body.city;
+app.post('/doctorlogedin',function (req,res) {
+    var number = req.body.number;
+    var password=req.body.password;
 
-    Doctor.update({number : req.session.doctornumber},{
-        $push : {
-            name : name,
-            specialization : specialization,
-            city : city
-        }
-    },function (err,result) {
-        if(err){
+    Doctor.find({number : number , password : password},function (err,result) {
+        if (err) {
             console.log(err);
         }
-        else{
+        else {
             console.log(result);
-            res.send({ status : "success" , message : "Profile successfully updates"});
+            if (result) {
+                req.session.doctorID = result[0]._id;
+                req.session.doctornumber = result[0].number;
+                req.session.doctorpassword = result[0].password;
+                console.log(req.session.doctorID);
+                if(req.session.doctorID) {
+                    res.redirect('/health_care_provider');
+                }
+                else {
+                    res.send({status: "failure", message: "some problem"});
+                }
+            }
+            else {
+                res.send({status: "failure", message: "can not loged in"});
+            }
         }
     });
 });
 
+
+
 app.post('/basic',function (req,res) {
+    console.log('basic');
     var gender = req.body.gender;
     var city = req.body.city;
     var experience = req.body.experience;
     var about = req.body.about;
+
+    console.log(gender);
+    console.log(city);
+    console.log(experience);
+    console.log(about);
 
     Doctor.update({number : req.session.doctornumber},{
         $push : {
@@ -2103,17 +2281,22 @@ app.post('/basic',function (req,res) {
 });
 
 app.post('/education',function (req,res) {
+
     var qualification = req.body.qualification;
     var college = req.body.college;
     var completion = req.body.completion;
-    var specialization = req.body.specialization;
+    //var specialization = req.body.specialization;
+
+    console.log(qualification);
+    console.log(college);
+    console.log(completion);
 
     Doctor.update({number : req.session.doctornumber},{
         $push : {
             qualification : qualification,
             college : college,
-            completion_year : completion,
-            specialization : specialization
+            completion_year : completion
+            //specialization : specialization
         }
     },function (err,result) {
         if(err){
@@ -2121,7 +2304,7 @@ app.post('/education',function (req,res) {
         }
         else{
             console.log(result);
-            res.send({ status : "success" , message : "Basic Details successfully updates"});        }
+            res.send({ status : "success" , message : "Education successfully updates"});        }
     });
 });
 
@@ -2159,7 +2342,7 @@ app.post('/certificate',function (req,res) {
 //==========================Database connection===========================
 
 //data base connection and opening port
-var db = 'mongodb://localhost/ApniCare';
+var db = 'mongodb://localhost/EditCare';
 mongoose.connect(db, {useMongoClient: true});
 
 
@@ -2172,5 +2355,4 @@ database.on('open', function () {
         console.log('server connected to http:localhost:' + app.get('port'));
     });
 });
-
 

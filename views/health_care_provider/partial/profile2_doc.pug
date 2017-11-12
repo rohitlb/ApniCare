@@ -1,0 +1,177 @@
+//- PROFILE STEP 3 FOR DOCTOR
+div.collection#main_profile_doctor
+    div.collection-item.dismissable
+        div.row
+            .col.s12.m12.l9.offset-l3
+                span.flow-text Dr. XYZ#{name}
+                br
+                br
+                span.flow-text Profile is not complete yet
+    div.collection-item.dismissable
+        div.row
+            div.col.s12.m12.l9.offset-l3
+                span.flow-text Profile Completeness
+                br
+                br
+                div#test-slider
+                p Complete Your Profile in 3 Easy steps
+
+        div.row
+            div.col.s12.m12.l10.offset-l2
+                ul.tabs
+                    li.tab.active.col.s4
+                        a.blue-text.darken-2(href='#basic_details') Basic Details
+                    li.tab.col.s4
+                        a.blue-text.darken-2(href='#edu_special') Education & Specialization
+                    li.tab.col.s4
+                        a.blue-text.darken-2(href='#register_doc') Registration & Documents
+
+    div.row
+        div.col.m12.l9.s12.offset-l3
+            form(name='form_basic_details' method='POST' action='#')
+                br
+                h3.center Personal Details
+                div.input-field.col.s12.m4.l4
+                    p
+                        | Title
+                        input#title(type='text' value='Dr.' readonly)
+                div.input-field.col.s12.m8.l8
+                    p
+                        | Name
+                        input(type="text" value='#{name}' readonly)
+                div.col.s12.m4.l4
+                    br
+                    p Gender:
+                        br
+                        br
+                        div#gender
+                            input.validate.with-gap#g1(name="gender" type="radio" value="male")
+                            label(for='g1') Male
+                            input.validate.with-gap#g2(name="gender" type="radio" value='female')
+                            label(for='g2') Female
+                            input.validate.with-gap#g3(name="gender" type="radio" value="other" )
+                            label(for="g3") Other
+                div.input-field.col.s12.m4.l4
+                    p
+                        | City
+                        input.validate#city(type='text' required)
+                div.input-field.col.s12.m4.l4
+                    p
+                        | Years of Experience
+                        input.validate#year_of_experience(type='text' required)
+                div.input-field.col.s12.m12.l12
+                    p
+                        | About You
+                        textarea.validate.materialize-textarea#about_you
+                div.row
+                    div.col.s6.m4.l2.offset-m1
+                        input.button(type='reset')
+
+
+                div.input-field.col.s12.m8.l8.offset-l2.offset-m2
+
+                            h3.center Contact Details
+                            p
+                                | Mobile Number
+                                span#f1 Verified
+                                    i.material-icons.teal-text.left done
+                                input.validate#mobNo(type='text', value='' readonly)
+                            br
+                            p
+                                | Email ID
+                                span.right#f2 Not Verified
+                                    i.material-icons.teal-text.left close
+                                input.validate#email(type='email' required)
+                            br
+                            br
+                            div.row
+                                div.col.s6.m4.l3.offset-l4.offset-m2
+                                    input.button(type='reset')
+                                div.col.s6.m4.l3
+                                    input.button#basic_details(type='submit' value='Submit' href='#edu_special')
+
+
+
+    div#edu_special
+        div.row
+            div.col.s12.m12.l9.offset-l3
+                form(name='form_education_specialization' method='POST' action='#')
+                    h3.center Education and Specialization
+
+                    div.input-field.col.s12.m6.l3
+                            p
+                                | Qualification
+                                input#qualification(type='text' required)
+
+                            p
+                                | College
+                                input#college(type='text' required)
+
+                            p
+                                | Year of Completion
+                                input#completion_year(type='text' required)
+
+                            p
+                                | Specialization
+                                input#specialization(type='text' readonly)
+
+
+
+                    div.col.s6.m4.l3.offset-l4.offset-m2
+                            input.button(type='reset')
+                    div.col.s6.m4.l3
+                            input.button#education(type='submit' value='Submit' href='#register_doc')
+
+
+
+    div#register_doc
+        div.row
+            div.col.s12.m12.l9.offset-l3
+                form(name='form_education_specialization' method='POST' action='#')
+                    h3.center Registration Details
+                    div.row
+                        div.input-field.col.s12.m4.l4
+                            input#council_reg_no(type='text')
+                            label(for='council_reg_no') Council Registration Number
+                        div.input-field.col.s12.m4.l4
+                            input#council_name(type='text')
+                            label(for='council_name') Council Name
+                        div.input-field.col.s12.m4.l4
+                            input#council_year(type='text')
+                            label(for='council_year') Year
+                        div.col.s12.m12.l9.offset-l3
+                            h3.center Documents/Certificates
+                            br
+                            div.row
+                                h5.flow-text Please Upload your Documents
+                                form(action="/uploadimage" , method='post' , enctype='multipart/form-data')
+                                    li Aadhar Card/Driving Licence/Voter ID
+                                    br
+
+                                    div.file-field.input-field
+                                        div.btn.waves-effect.waves-light
+                                            span Browse
+                                            input(type="file", name='myimage')
+                                        div.file-path-wrapper
+                                            input.file-path.validate(type="text")
+                                    img#image1(src="http://placehold.it/180" alt="your image")
+
+                                    br
+                                    br
+                                    br
+                                    br
+                                    li Medical Council Certificates
+                                    br
+                                    div.file-field.input-field
+                                        div.btn.waves-effect.waves-light
+                                            span Browse
+                                            input(type="file", name='myimage')
+                                        div.file-path-wrapper
+                                            input.file-path.validate(type="text")
+                                    img#image2(src="http://placehold.it/180" alt="your image")
+
+
+                        div.col.s6.m4.l3.offset-l4.offset-m2
+                                    input.button(type='reset')
+                        div.col.s6.m4.l3
+                                    input.button#document(type='submit' value='Submit' href='/health_care_provider?page=home')
