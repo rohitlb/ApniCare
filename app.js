@@ -1859,22 +1859,6 @@ app.get('/userregister',function (req,res) {
 });
 
 app.post('/userregister', function (req, res) {
-    var dob = req.body.dob;
-    var gender = req.body.gender;
-    var blood_group = req.body.blood_group;
-    var marital_status = req.body.marital_status;
-    var height = req.body.height;
-    var weight = req.body.height;
-    var addresses = req.body.address;
-    var landmark = req.body.landmarks;
-    var pincode = req.body.pincode;
-    var city = req.body.city;
-    var state = req.body.state;
-    var aadhaar_number = req.body.aadhaar_number;
-    var income = req.body.income;
-    var rel_name = req.body.relative_name;
-    var rel_contact = req.body.relative_contact;
-    var relation = req.body.relation;
     bcrypt.genSalt(10, function (err, salt) {
         bcrypt.hash(req.body.password, salt, function (err, hash) {
             if (err) {
@@ -1885,25 +1869,7 @@ app.post('/userregister', function (req, res) {
                     name: req.body.name,
                     email: req.body.email,
                     number: req.body.number,
-                    password: hash,
-                    dob: dob,
-                    gender: gender,
-                    blood_group: blood_group,
-                    marital_status: marital_status,
-                    height: height,
-                    weight: weight,
-                    address: {
-                        address: addresses,
-                        landmarks: landmark,
-                        pin_code: pincode,
-                        city: city,
-                        state: state
-                    },
-                    aadhaar_number: aadhaar_number,
-                    income: income,
-                    relative_name: rel_name,
-                    relative_contact: rel_contact,
-                    relation: relation
+                    password: hash
                 });
                 user.save(function (err, results) {
                     if (err) {
@@ -2033,7 +1999,6 @@ app.post('/health_care_provider',function(req,res) {
     });
 });
 
-
 app.get('/health_care_provider',function(req,res) {
     var page = 'profile';
     Doctor.findOne({_id : req.session.doctorID},function (err,result) {
@@ -2056,7 +2021,6 @@ app.get('/health_care_provider',function(req,res) {
 app.get('/doctor',function (req,res) {
     res.redirect('/health_care_provider?page=profile_doctor');
 });
-
 
 app.get('/doctorlogedin',function (req,res) {
     res.render('doctorlogedin');
@@ -2174,12 +2138,131 @@ app.post('/certificate',function (req,res) {
     });
 });
 
+////////////////////////////////////////User Profile Insert ////////////////////////////////////////////////////////////
+
+app.get('/',function (req,res) {
+    res.render('');
+});
+
+app.post('/contactinfo',function (req,res) {
+    var name = req.body.name;
+    var number = req.body.number;
+    var email = req.body.email;
+
+    User.update({number : req.session.userregistercontact},{
+        $push : {
+            name : name,
+            number : number,
+            email : email
+        }
+    },function (err,result) {
+        if(err){
+            console.log(err);
+        }
+        else{
+            res.send({status : "success" , message : "Contact updates"});
+        }
+    });
+});
+
+app.post('/personalinfo',function (req,res) {
+    var dob = req.body.dob;
+    var gender = req.body.gender;
+    var blood_group = req.body.blood_group;
+    var marital_status = req.body.marital_status;
+    var height = req.body.height;
+    var weight = req.body.height;
+
+    User.update({number : req.session.userregistercontact}, {
+        $set: {
+            dob: dob,
+            gender: gender,
+            blood_group: blood_group,
+            marital_status: marital_status,
+            height: height,
+            weight: weight
+        }
+    },function (err,result) {
+        if(err){
+            console.log(err);
+        }
+        else{
+            res.send({status : "success" , message : "Personal profile updated"});
+        }
+    });
+});
+
+app.post('/useraddress',function (req,res) {
+    var addresses = req.body.address;
+    var landmark = req.body.landmarks;
+    var pincode = req.body.pincode;
+    var city = req.body.city;
+    var state = req.body.state;
+
+    User.update({number : req.session.userregistercontact}, {
+        $set: {
+            address: {
+                address: addresses,
+                landmark: landmark,
+                pin_code: pincode,
+                city: city,
+                state: state
+            }
+        }
+    },function (err,result) {
+        if(err){
+            console.log(err);
+        }
+        else{
+            res.send({status : "success" , message : "Address updates"});
+        }
+    });
+});
+
+app.post('/userconfidential',function (req,res) {
+    var aadhaar_number = req.body.aadhaar_number;
+    var income = req.body.income;
+
+    User.update({number : req.session.userregistercontact}, {
+        $set: {
+            aadhaar_number: aadhaar_number,
+            income: income
+        }
+    },function (err,result) {
+        if(err){
+            console.log(err);
+        }
+        else{
+            res.send({status : "success" , message : "Confidential Updated"});
+        }
+    });
+});
+
+app.post('/useremergency',function (req,res) {
+    var rel_name = req.body.relative_name;
+    var rel_contact = req.body.relative_contact;
+    var relation = req.body.relation;
+    User.update({number : req.session.userregistercontact}, {
+        $set: {
+            relative_name : rel_name,
+            relative_contact: rel_contact,
+            relation: relation
+        }
+    },function (err,result) {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            res.send({status: "success", message: "Emergency Updated"});
+        }
+    });
+});
+
 //==========================Database connection===========================
 
 //data base connection and opening port
 var db = 'mongodb://localhost/ApniCare';
 mongoose.connect(db, {useMongoClient: true});
-
 
 //=============================Start server========================
 //connecting database and starting server

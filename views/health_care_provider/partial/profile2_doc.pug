@@ -22,91 +22,58 @@ div.collection#main_profile_doctor
             div.col.s12.m12.l10.offset-l2
                 ul.tabs
                     li.tab.active.col.s4
-                        a.blue-text.darken-2#tab1(href='#basic_detail' data-balloon-pos="down" data-balloon="Basic Details" data-delay="50") Basic Details
+                        a.blue-text.darken-2(href='#basic_details') Basic Details
                     li.tab.col.s4
-                        a.blue-text.darken-2#tab2(href='#edu_special' data-balloon-pos="right" data-balloon="Education & Specialization" data-delay="50") Education & Specialization
+                        a.blue-text.darken-2(href='#edu_special') Education & Specialization
                     li.tab.col.s4
-                        a.blue-text.darken-3#tab3(href='#register_doc' data-balloon-pos="left" data-balloon="Registration & Documents" data-delay="50") Registration & Documents
+                        a.blue-text.darken-2(href='#register_doc') Registration & Documents
 
-<<<<<<< HEAD
-    div.row#basic_detail
-=======
 
 
 
     div.row
->>>>>>> f29be96456ad0e118fd75e049d50dc36c811c205
         div.col.m12.l9.s12.offset-l3
             form(name='form_basic_details' method='POST' action='#')
                 br
-                h3.center Personal and Contact Details
+                h3.center Personal Details
                 div.input-field.col.s12.m4.l4
-<<<<<<< HEAD
-                    span
-=======
                     p
 
->>>>>>> f29be96456ad0e118fd75e049d50dc36c811c205
                         | Title
                         input#title(type='text' value='Dr.' readonly)
-                div.input-field.col.s12.m4.l4
-                    span
+                div.input-field.col.s12.m8.l8
+                    p
                         | Name
-<<<<<<< HEAD
-                        input(type="text" value='' readonly)
-                div.input-field.col.s12.m4.l4
-                    span
-                        | Mobile Number &nbsp
-                        span#f1 Verified
-                            i.material-icons.teal-text.left done
-                        input.validate#mobNo(type='text', value='' readonly)
-                div.input-field.col.s12.m4.l4
-                    span
-                        | Email ID  &nbsp
-                        span#f2 Verified
-                            i.material-icons.teal-text.left done
-                        input.validate#email(type='email' readonly)
-                div.input-field.col.s12.m4.l4
-                    span
-                        | City
-                        input.validate#city(type='text' required)
-=======
                         input(type="text" value=name.name readonly)
->>>>>>> f29be96456ad0e118fd75e049d50dc36c811c205
                 div.col.s12.m4.l4
                     br
-                    span Gender:
+                    p Gender:
+                        br
                         br
                         div#gender
-                            input.validate.with-gap#g1(name="gender" type="radio" value="male" checked)
-                            label(for='g1') Male&nbsp
+                            input.validate.with-gap#g1(name="gender" type="radio" value="male")
+                            label(for='g1') Male
                             input.validate.with-gap#g2(name="gender" type="radio" value='female')
-                            label(for='g2') Female&nbsp
+                            label(for='g2') Female
                             input.validate.with-gap#g3(name="gender" type="radio" value="other" )
                             label(for="g3") Other
-                            br
-                            br
                 div.input-field.col.s12.m4.l4
-<<<<<<< HEAD
-                    span
-=======
                     p
                         | City
                         input.validate#city(type='text' value=name.city readonly)
                 div.input-field.col.s12.m4.l4
                     p
->>>>>>> f29be96456ad0e118fd75e049d50dc36c811c205
                         | Years of Experience
-                        input.validate#year_of_experience(type='number' placeholder='years' required)
-                div.input-field.col.s12.m8.l8
-                    span
+                        input.validate#year_of_experience(type='text' required)
+                div.input-field.col.s12.m12.l12
+                    p
                         | About You
-                        input.validate#about_you(type='text' required)
-
-<<<<<<< HEAD
+                        textarea.validate.materialize-textarea#about_you
                 div.row
-                                div.col.s6.m4.l3.offset-l3.offset-m2
-=======
+                    div.col.s6.m4.l2.offset-m1
+                        input.button(type='reset')
+
+
                 div.input-field.col.s12.m8.l8.offset-l2.offset-m2
 
                             h3.center Contact Details
@@ -125,7 +92,6 @@ div.collection#main_profile_doctor
                             br
                             div.row
                                 div.col.s6.m4.l3.offset-l4.offset-m2
->>>>>>> f29be96456ad0e118fd75e049d50dc36c811c205
                                     input.button(type='reset')
                                 div.col.s6.m4.l3
                                     input.button#basic_details(type='submit' value='Submit' href='#edu_special')
@@ -137,21 +103,21 @@ div.collection#main_profile_doctor
             div.col.s12.m12.l9.offset-l3
                 form(name='form_education_specialization' method='POST' action='#')
                     h3.center Education and Specialization
-                    br
+
                     div.input-field.col.s12.m6.l3
-                            span
+                            p
                                 | Qualification
                                 input#qualification(type='text' required)
-                    div.input-field.col.s12.m6.l3
-                            span
+
+                            p
                                 | College
                                 input#college(type='text' required)
-                    div.input-field.col.s12.m6.l3
-                            span
-                                | Completion Year
+
+                            p
+                                | Year of Completion
                                 input#completion_year(type='text' required)
-                    div.input-field.col.s12.m6.l3
-                            span
+
+                            p
                                 | Specialization
                                 input#specialization(type='text' readonly)
 
@@ -167,61 +133,51 @@ div.collection#main_profile_doctor
     div#register_doc
         div.row
             div.col.s12.m12.l9.offset-l3
-                form.upload_image(action="/uploadimage" , method='post' , enctype='multipart/form-data')
+                form(name='form_education_specialization' method='POST' action='#')
                     h3.center Registration Details
-
-                    div.input-field.col.s12.m4.l4
-                        span
-                            | Council Reg. No.
+                    div.row
+                        div.input-field.col.s12.m4.l4
                             input#council_reg_no(type='text')
-                    div.input-field.col.s12.m4.l4
-                        span
-                            | Council Name
+                            label(for='council_reg_no') Council Registration Number
+                        div.input-field.col.s12.m4.l4
                             input#council_name(type='text')
-                    div.input-field.col.s12.m4.l4
-                        span
-                            | Council Year
+                            label(for='council_name') Council Name
+                        div.input-field.col.s12.m4.l4
                             input#council_year(type='text')
-                    div.col.s12.m10.l9.offset-m1
-                        input.button(type='reset')
-
-                    div.col.s12.m12.l12
-                        h3.center Documents/Certificates
-                        br
-                        div.row
-                            h5.flow-text Please Upload your Documents
-
-                            li Aadhar Card/Driving Licence/Voter ID
+                            label(for='council_year') Year
+                        div.col.s12.m12.l9.offset-l3
+                            h3.center Documents/Certificates
                             br
-                            div.col.s12.m12.l12
-                                div.file-field.input-field
-                                    div.btn.waves-effect.waves-light
-                                        span Browse
-                                        input#image1(type="file", name='myimage')
-                                    div.file-path-wrapper
-                                        div.col.s12.m6.l6
+                            div.row
+                                h5.flow-text Please Upload your Documents
+                                form(action="/uploadimage" , method='post' , enctype='multipart/form-data')
+                                    li Aadhar Card/Driving Licence/Voter ID
+                                    br
+
+                                    div.file-field.input-field
+                                        div.btn.waves-effect.waves-light
+                                            span Browse
+                                            input(type="file", name='myimage')
+                                        div.file-path-wrapper
                                             input.file-path.validate(type="text")
-                                        div.col.s12.m6.l6
-                                            img(src="" alt="Document image")
+                                    img#image1(src="http://placehold.it/180" alt="your image")
 
-                            br
-                            br
-                            br
-                            li Medical Council Certificates
-                            br
-                            div.col.s12.m12.l12
-                                div.file-field.input-field
-                                    div.btn.waves-effect.waves-light
-                                        span Browse
-                                        input#image2(type="file", name='myimage')
-                                    div.file-path-wrapper
-                                        div.col.s12.m6.l6
+                                    br
+                                    br
+                                    br
+                                    br
+                                    li Medical Council Certificates
+                                    br
+                                    div.file-field.input-field
+                                        div.btn.waves-effect.waves-light
+                                            span Browse
+                                            input(type="file", name='myimage')
+                                        div.file-path-wrapper
                                             input.file-path.validate(type="text")
-                                        div.col.s12.m6.l6
-                                            img(src="http://localhost:4000/images/"+profile_image alt="Certificate image")
+                                    img#image2(src="http://placehold.it/180" alt="your image")
 
 
-                    div.col.s6.m4.l3.offset-l4.offset-m2
-                                input.button(type='reset')
-                    div.col.s6.m4.l3
-                                input.button#certificate(type='submit' value='Submit' href='/health_care_provider?page=home')
+                        div.col.s6.m4.l3.offset-l4.offset-m2
+                                    input.button(type='reset')
+                        div.col.s6.m4.l3
+                                    input.button#document(type='submit' value='Submit' href='/health_care_provider?page=home')
