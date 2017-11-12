@@ -86,6 +86,21 @@ app.post('/search',function(req,res){
 
     var search = req.body.search;
 
+    // var  findData = function (search, callback) {
+    //     async.parallel({
+    //             findbrand: function (cb) {Brand.find(keywords : search).exec(cb); },
+    //             findCompany: function (cb) { Company.find(keywords : search).exec(cb); },
+    //             finddisease: function (cb) { Disease.find(keywords : search).exec(cb); },
+    //             finddoctor: function (cb) { Doctor.find(keywords : search).exec(cb); },
+    //             finddosage: function (cb) { Dosage.find(keywords : search).exec(cb); },
+    //             findmolecule: function (cb) { Molecule.find(keywords : search).exec(cb); },
+    //             findusers: function (cb) { User.find(keywords : search).exec(cb); },
+    //             findstrength: function (cb) { Strength.find(keywords : search).exec(cb); }
+    //
+    //         }
+    //     )}
+
+
     var msg = {};
 
     if(search == "a")
@@ -506,7 +521,7 @@ app.get('/verifypassword',function (req,res) {
 });
 
 app.post('/verifypassword',function (req,res) {
-
+    console.log('app');
     var password = req.body.password;
     User.findOne({_id : req.session.userID},function (err,result) {
         if(err){
@@ -522,7 +537,8 @@ app.post('/verifypassword',function (req,res) {
                         if(results) {
                             //next();
                             //res.send({status: "success", message: "Password match"})
-                            res.render('updatenameandemail',{status: "success", message: "Password match"});
+                            //res.render('updatenameandemail',{status: "success", message: "Password match"});
+                            res.send({status: "success", message: "Password match"});
                         }
                         else{
                             res.send({status: "failure", message: "Wrong credentials"});
