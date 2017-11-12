@@ -54,7 +54,7 @@ div.collection#main_profile_doctor
                 div.input-field.col.s12.m4.l4
                     span
                         | City
-                        input.validate#city(type='text' value=data.city required)
+                        input.validate#city(type='text' value=data.city readonly)
                 div.col.s12.m4.l4
                     br
                     span Gender:
@@ -97,12 +97,12 @@ div.collection#main_profile_doctor
                             input#qualification(type='text' required)
                     div.input-field.col.s12.m6.l3
                         span
-                            | College
+                            | College Name
                             input#college(type='text' required)
                     div.input-field.col.s12.m6.l3
                         span
                             | Completion Year
-                            input#completion_year(type='text' required)
+                            input#completion_year(type='text' placeholder='dd/mm/yyyy' required)
                     div.input-field.col.s12.m6.l3
                         span
                             | Specialization
@@ -134,7 +134,7 @@ div.collection#main_profile_doctor
                     div.input-field.col.s12.m4.l4
                         span
                             | Council Year
-                            input#council_year(type='text')
+                            input#council_year(type='text' placeholder='dd/mm/yyyy')
                     div.col.s12.m10.l9.offset-m1
                         input.button(type='reset')
 
