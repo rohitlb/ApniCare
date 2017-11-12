@@ -1852,7 +1852,6 @@ app.post('/uploadimage', upload.any(), function(req, res) {
     });
 });
 
-
 //////////////////// try for free /////////////////////////////////////////
 app.get('/userregister',function (req,res) {
     res.render('userregister');
@@ -1917,9 +1916,6 @@ app.post('/searchdisease',function (req,res) {
         res.render('diseasebrands',{data : result})
     });
 });
-
-
-
 
 ////////////////////////////////////////// register as a doctor and user ///////////////////////////////////////////////
 
