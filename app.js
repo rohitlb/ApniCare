@@ -1921,9 +1921,6 @@ app.post('/searchdisease',function (req,res) {
     });
 });
 
-
-
-
 ////////////////////////////////////////// register as a doctor and user ///////////////////////////////////////////////
 
 app.get('/doctorasuser',function (req,res) {
