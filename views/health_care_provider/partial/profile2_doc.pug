@@ -50,11 +50,11 @@ div.collection#main_profile_doctor
                         | Email ID  &nbsp
                         span#f2 Verified
                             i.material-icons.teal-text.left done
-                        input.validate#email(type='email' name=data.name readonly)
+                        input.validate#email(type='email', value=data.email readonly)
                 div.input-field.col.s12.m4.l4
                     span
                         | City
-                        input.validate#city(type='text' required)
+                        input.validate#city(type='text' value=data.city required)
                 div.col.s12.m4.l4
                     br
                     span Gender:
