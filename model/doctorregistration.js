@@ -16,7 +16,7 @@ var Doctor = new mongoose.Schema({
     year_of_experience : {type :String},
     About_you : {type : String},
     //educations
-    qualification : {typec :String},
+    qualification : {type :String},
     college : {type : String},
     completion_year : {type : String},
     specialization : {type : String},
