@@ -39,9 +39,7 @@ issues
 
 Rohit
 converting app.js => rotes+config (systematic)
-connecting user API with app
-applied algo for search
-solving encoding problem while receiving image from app
+
 
 
 
