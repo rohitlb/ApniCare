@@ -55,7 +55,7 @@ $(function () {
     $('.dropdown-button').dropdown({
         inDuration: 300,
         outDuration: 225,
-        constrainWidth: true, // Does not change width of dropdown to that of the activator
+        constrainWidth: false, // Does not change width of dropdown to that of the activator
         hover: true, // Activate on hover
         gutter: 0, // Spacing from edge
         belowOrigin: true, // Displays dropdown below the button
@@ -65,9 +65,10 @@ $(function () {
 
     // PROFILE NAV-BAR TOOLTIPS: PROFILE AND NOTIFICATIONS
     $('.tooltipped').tooltip({
-       delay: 50,
-       fontSize: '0.5rem'
+        delay: 5000,
+        fontSize: '0.5rem'
     });
+
 
     // var slider = document.getElementById('test-slider');
     // noUISlider.create(slider, {
@@ -84,12 +85,13 @@ $(function () {
     //    }
     // });
 
+
     // ................FOR PROFILE OF DOCTOR ...................
 
     $('#create_profile1').click(function () {
-        var name = $('#name1').val();
-        var specialization = $('#specialization1').val();
-        var city = $('#city1').val();
+        var name = $('#name').val();
+        var specialization = $('#specialization').val();
+        var city = $('#city').val();
 
         var data = {
             name : name,
@@ -102,11 +104,11 @@ $(function () {
             data : JSON.stringify(data),
             contentType : 'application/json',
             success: function (result) {
-                if(result.status === 'success')
+                if(result.success === 'success')
                 {
-                    alert(result.message);
-                    //window.render= '/health_care_provider?page=profile_doctor';
-                    window.location= '/doctor';
+                    Materialize.toast(result.message,1000);
+                    window.render= '/health_care_provider?page=profile_doctor';
+                    alert("msg");
                 }
                 else
                 {
@@ -118,6 +120,8 @@ $(function () {
         // $('#profile2').hide();
         // $('#main_profile_doctor').show();
     });
+
+
 
     $('#basic_details').click(function () {
         var gender = $("input[type='radio'][name='gender']:checked").val();
@@ -149,7 +153,12 @@ $(function () {
             // $('#profile3').hide();
             // $('#main_profile_pharmacist').show();
         });
-
+        //$('#tab2').focus();
+        $('#main_profile_doctor ul.tabs li.tab a').hover(function() {
+            $('#tab2').addClass('active').find('li.tab').show().css({'background-color':'lavender'});
+        });
+        $('#basic_detail').hide();
+        $('#edu_special').show();
     });
 
     $('#education').click(function () {
@@ -178,15 +187,22 @@ $(function () {
                 }
             }
         });
+        //$('#tab3').focus();
+        $('#main_profile_doctor ul.tabs li.tab a').hover(function() {
+            $('#tab3').addClass('active').find('li.tab').show().css({'background-color':'lavender'});
+        });
 
+        $('#edu_special').hide();
+        $('#register_doc').show();
     });
 
-    $('#education').click(function () {
-        var council_number = $('#council_number').val();
+    $('.upload_image1').submit(function () {
+        var council_number = $('#council_reg_no').val();
         var council_name = $('#council_name').val();
         var council_year = $('#council_year').val();
-        var image1 = $('#image1').val();
-        var image2 = $('#image2').val();
+        alert(council_number);
+        alert(council_name);
+        alert(council_year);
         var data = {
             council_number : council_number,
             council_name : council_name,
@@ -211,15 +227,35 @@ $(function () {
 
     });
 
+    // $('.upload_image').submit(function (e) {
+    //     e.preventDefault();
+    //     $.ajax({
+    //         url: '/certificate',
+    //         type: 'POST',
+    //         contentType : 'application/json',
+    //         success: function (result) {
+    //             if(result.success === 'success')
+    //             {
+    //                 Materialize.toast(result.message,1000);
+    //             }
+    //             else
+    //             {
+    //                 Materialize.toast(result.message,1000);
+    //             }
+    //         }
+    //     });
+    //
+    // });
+
 
 
 
     // ................FOR PROFILE OF PHARMACISTS ...................
 
     $('#create_profile2').click(function () {
-        var name = $('#name2').val();
+        var name = $('#name').val();
         //var specialization = $('#specialization').val();
-        var city = $('#city2').val();
+        var city = $('#city').val();
 
         var data = {
             name : name,
@@ -241,10 +277,10 @@ $(function () {
                     Materialize.toast(result.message,1000);
                 }
             }
-        //window.location = '/health_care_provider?page=profile_pharmacist';
-        // $('#profile3').hide();
-        // $('#main_profile_pharmacist').show();
-    });
+            //window.location = '/health_care_provider?page=profile_pharmacist';
+            // $('#profile3').hide();
+            // $('#main_profile_pharmacist').show();
+        });
     });
 
 
@@ -290,7 +326,7 @@ $(function () {
             $('#navBar').click(function () {
                 marginLeft = "250px";
             });
-        //$('#menubar').hide();
+            //$('#menubar').hide();
         },
         onClose: function closeNav() {
             $('#side_navbar').click(function () {
