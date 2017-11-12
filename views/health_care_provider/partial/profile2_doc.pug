@@ -3,7 +3,9 @@ div.collection#main_profile_doctor
     div.collection-item.dismissable
         div.row
             .col.s12.m12.l9.offset-l3
-                span.flow-text Dr. XYZ#{name}
+                span.flow-text
+
+                h4 Dr. #{name.name}
                 br
                 br
                 span.flow-text Profile is not complete yet
@@ -26,18 +28,31 @@ div.collection#main_profile_doctor
                     li.tab.col.s4
                         a.blue-text.darken-3#tab3(href='#register_doc' data-balloon-pos="left" data-balloon="Registration & Documents" data-delay="50") Registration & Documents
 
+<<<<<<< HEAD
     div.row#basic_detail
+=======
+
+
+
+    div.row
+>>>>>>> f29be96456ad0e118fd75e049d50dc36c811c205
         div.col.m12.l9.s12.offset-l3
             form(name='form_basic_details' method='POST' action='#')
                 br
                 h3.center Personal and Contact Details
                 div.input-field.col.s12.m4.l4
+<<<<<<< HEAD
                     span
+=======
+                    p
+
+>>>>>>> f29be96456ad0e118fd75e049d50dc36c811c205
                         | Title
                         input#title(type='text' value='Dr.' readonly)
                 div.input-field.col.s12.m4.l4
                     span
                         | Name
+<<<<<<< HEAD
                         input(type="text" value='' readonly)
                 div.input-field.col.s12.m4.l4
                     span
@@ -55,6 +70,9 @@ div.collection#main_profile_doctor
                     span
                         | City
                         input.validate#city(type='text' required)
+=======
+                        input(type="text" value=name.name readonly)
+>>>>>>> f29be96456ad0e118fd75e049d50dc36c811c205
                 div.col.s12.m4.l4
                     br
                     span Gender:
@@ -69,7 +87,15 @@ div.collection#main_profile_doctor
                             br
                             br
                 div.input-field.col.s12.m4.l4
+<<<<<<< HEAD
                     span
+=======
+                    p
+                        | City
+                        input.validate#city(type='text' value=name.city readonly)
+                div.input-field.col.s12.m4.l4
+                    p
+>>>>>>> f29be96456ad0e118fd75e049d50dc36c811c205
                         | Years of Experience
                         input.validate#year_of_experience(type='number' placeholder='years' required)
                 div.input-field.col.s12.m8.l8
@@ -77,8 +103,29 @@ div.collection#main_profile_doctor
                         | About You
                         input.validate#about_you(type='text' required)
 
+<<<<<<< HEAD
                 div.row
                                 div.col.s6.m4.l3.offset-l3.offset-m2
+=======
+                div.input-field.col.s12.m8.l8.offset-l2.offset-m2
+
+                            h3.center Contact Details
+                            p
+                                | Mobile Number
+                                span#f1 Verified
+                                    i.material-icons.teal-text.left done
+                                input.validate#mobNo(type='text', value='' readonly)
+                            br
+                            p
+                                | Email ID
+                                span#f2 Verified
+                                    i.material-icons.teal-text.left done
+                                input.validate#email(type='text', value='' readonly)
+                            br
+                            br
+                            div.row
+                                div.col.s6.m4.l3.offset-l4.offset-m2
+>>>>>>> f29be96456ad0e118fd75e049d50dc36c811c205
                                     input.button(type='reset')
                                 div.col.s6.m4.l3
                                     input.button#basic_details(type='submit' value='Submit' href='#edu_special')

@@ -69,7 +69,6 @@ $(function () {
        fontSize: '0.5rem'
     });
 
-
     // var slider = document.getElementById('test-slider');
     // noUISlider.create(slider, {
     //    start : [10],
@@ -85,13 +84,12 @@ $(function () {
     //    }
     // });
 
-
     // ................FOR PROFILE OF DOCTOR ...................
 
     $('#create_profile1').click(function () {
-        var name = $('#name').val();
-        var specialization = $('#specialization').val();
-        var city = $('#city').val();
+        var name = $('#name1').val();
+        var specialization = $('#specialization1').val();
+        var city = $('#city1').val();
 
         var data = {
             name : name,
@@ -104,11 +102,11 @@ $(function () {
             data : JSON.stringify(data),
             contentType : 'application/json',
             success: function (result) {
-                if(result.success === 'success')
+                if(result.status === 'success')
                 {
-                    Materialize.toast(result.message,1000);
-                    window.render= '/health_care_provider?page=profile_doctor';
-                    alert("msg");
+                    alert(result.message);
+                    //window.render= '/health_care_provider?page=profile_doctor';
+                    window.location= '/doctor';
                 }
                 else
                 {
@@ -219,9 +217,9 @@ $(function () {
     // ................FOR PROFILE OF PHARMACISTS ...................
 
     $('#create_profile2').click(function () {
-        var name = $('#name').val();
+        var name = $('#name2').val();
         //var specialization = $('#specialization').val();
-        var city = $('#city').val();
+        var city = $('#city2').val();
 
         var data = {
             name : name,
