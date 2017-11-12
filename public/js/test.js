@@ -34,6 +34,7 @@ $(function () {
         $('#profile1').hide();
         $('#profile3').show();
     });
+<<<<<<< HEAD
 
 
     // TO ADD NEW TEXT FIELD IN MOLECULE DATA FORM
@@ -90,6 +91,66 @@ $(function () {
         var name = $('#name1').val();
         var specialization = $('#specialization1').val();
         var city = $('#city1').val();
+=======
+
+
+    // TO ADD NEW TEXT FIELD IN MOLECULE DATA FORM
+    $('#new_text').hide();
+    $('#cl').hide();
+    $('#add_button').click(function () {
+        $('#new_text').show();
+        $('#cl').show();
+    });
+
+    // TO CLOSE THE ABOVE OPENED TEXT FIELD IN MOLECULE DATA FORM
+    $('#cl').click(function () {
+        $('#new_field').hide();
+    });
+
+
+
+
+    $('.dropdown-button').dropdown({
+        inDuration: 300,
+        outDuration: 225,
+        constrainWidth: true, // Does not change width of dropdown to that of the activator
+        hover: true, // Activate on hover
+        gutter: 0, // Spacing from edge
+        belowOrigin: true, // Displays dropdown below the button
+        alignment: 'right', // Displays dropdown with edge aligned to the left of button
+        stopPropagation: false // Stops event propagation
+    });
+
+    // PROFILE NAV-BAR TOOLTIPS: PROFILE AND NOTIFICATIONS
+    $('.tooltipped').tooltip({
+       delay: 50,
+       fontSize: '0.5rem'
+    });
+
+
+    // var slider = document.getElementById('test-slider');
+    // noUISlider.create(slider, {
+    //    start : [10],
+    //    step: 2,
+    //    connect: true,
+    //    range: {
+    //        'min' : [0],
+    //        'profile' : [20],
+    //        'drug': [40],
+    //        'molecule': [60],
+    //        'disease': [80],
+    //        'max' : [100]
+    //    }
+    // });
+
+
+    // ................FOR PROFILE OF DOCTOR ...................
+
+    $('#create_profile1').click(function () {
+        var name = $('#name').val();
+        var specialization = $('#specialization').val();
+        var city = $('#city').val();
+>>>>>>> 0c122fe3b96aa6a63bc9d7def201cf27f40e8d3b
 
         var data = {
             name : name,
@@ -102,11 +163,19 @@ $(function () {
             data : JSON.stringify(data),
             contentType : 'application/json',
             success: function (result) {
+<<<<<<< HEAD
                 if(result.status === 'success')
                 {
                     alert(result.message);
                     //window.render= '/health_care_provider?page=profile_doctor';
                     window.location= '/doctor';
+=======
+                if(result.success === 'success')
+                {
+                    Materialize.toast(result.message,1000);
+                    window.render= '/health_care_provider?page=profile_doctor';
+                    alert("msg");
+>>>>>>> 0c122fe3b96aa6a63bc9d7def201cf27f40e8d3b
                 }
                 else
                 {
@@ -149,9 +218,15 @@ $(function () {
             // $('#profile3').hide();
             // $('#main_profile_pharmacist').show();
         });
+<<<<<<< HEAD
 
     });
 
+=======
+
+    });
+
+>>>>>>> 0c122fe3b96aa6a63bc9d7def201cf27f40e8d3b
     $('#education').click(function () {
         var qualification = $('#qualification').val();
         var college = $('#college').val();
@@ -178,9 +253,15 @@ $(function () {
                 }
             }
         });
+<<<<<<< HEAD
 
     });
 
+=======
+
+    });
+
+>>>>>>> 0c122fe3b96aa6a63bc9d7def201cf27f40e8d3b
     $('#education').click(function () {
         var council_number = $('#council_number').val();
         var council_name = $('#council_name').val();
@@ -210,6 +291,7 @@ $(function () {
         });
 
     });
+<<<<<<< HEAD
 
 
 
@@ -220,6 +302,18 @@ $(function () {
         var name = $('#name2').val();
         //var specialization = $('#specialization').val();
         var city = $('#city2').val();
+=======
+
+
+
+
+    // ................FOR PROFILE OF PHARMACISTS ...................
+
+    $('#create_profile2').click(function () {
+        var name = $('#name').val();
+        //var specialization = $('#specialization').val();
+        var city = $('#city').val();
+>>>>>>> 0c122fe3b96aa6a63bc9d7def201cf27f40e8d3b
 
         var data = {
             name : name,
