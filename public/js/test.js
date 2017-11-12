@@ -34,6 +34,7 @@ $(function () {
         $('#profile1').hide();
         $('#profile3').show();
     });
+<<<<<<< HEAD
 
 
     // TO ADD NEW TEXT FIELD IN MOLECULE DATA FORM
@@ -132,6 +133,183 @@ $(function () {
         }
         $.ajax({
             url: '/basic',
+=======
+<<<<<<< HEAD
+
+
+    // TO ADD NEW TEXT FIELD IN MOLECULE DATA FORM
+    $('#new_text').hide();
+    $('#cl').hide();
+    $('#add_button').click(function () {
+        $('#new_text').show();
+        $('#cl').show();
+    });
+
+    // TO CLOSE THE ABOVE OPENED TEXT FIELD IN MOLECULE DATA FORM
+    $('#cl').click(function () {
+        $('#new_field').hide();
+    });
+
+
+
+
+    $('.dropdown-button').dropdown({
+        inDuration: 300,
+        outDuration: 225,
+        constrainWidth: true, // Does not change width of dropdown to that of the activator
+        hover: true, // Activate on hover
+        gutter: 0, // Spacing from edge
+        belowOrigin: true, // Displays dropdown below the button
+        alignment: 'right', // Displays dropdown with edge aligned to the left of button
+        stopPropagation: false // Stops event propagation
+    });
+
+    // PROFILE NAV-BAR TOOLTIPS: PROFILE AND NOTIFICATIONS
+    $('.tooltipped').tooltip({
+       delay: 50,
+       fontSize: '0.5rem'
+    });
+
+    // var slider = document.getElementById('test-slider');
+    // noUISlider.create(slider, {
+    //    start : [10],
+    //    step: 2,
+    //    connect: true,
+    //    range: {
+    //        'min' : [0],
+    //        'profile' : [20],
+    //        'drug': [40],
+    //        'molecule': [60],
+    //        'disease': [80],
+    //        'max' : [100]
+    //    }
+    // });
+
+    // ................FOR PROFILE OF DOCTOR ...................
+
+    $('#create_profile1').click(function () {
+        var name = $('#name1').val();
+        var specialization = $('#specialization1').val();
+        var city = $('#city1').val();
+=======
+
+
+    // TO ADD NEW TEXT FIELD IN MOLECULE DATA FORM
+    $('#new_text').hide();
+    $('#cl').hide();
+    $('#add_button').click(function () {
+        $('#new_text').show();
+        $('#cl').show();
+    });
+
+    // TO CLOSE THE ABOVE OPENED TEXT FIELD IN MOLECULE DATA FORM
+    $('#cl').click(function () {
+        $('#new_field').hide();
+    });
+
+
+
+
+    $('.dropdown-button').dropdown({
+        inDuration: 300,
+        outDuration: 225,
+        constrainWidth: true, // Does not change width of dropdown to that of the activator
+        hover: true, // Activate on hover
+        gutter: 0, // Spacing from edge
+        belowOrigin: true, // Displays dropdown below the button
+        alignment: 'right', // Displays dropdown with edge aligned to the left of button
+        stopPropagation: false // Stops event propagation
+    });
+
+    // PROFILE NAV-BAR TOOLTIPS: PROFILE AND NOTIFICATIONS
+    $('.tooltipped').tooltip({
+       delay: 50,
+       fontSize: '0.5rem'
+    });
+
+
+    // var slider = document.getElementById('test-slider');
+    // noUISlider.create(slider, {
+    //    start : [10],
+    //    step: 2,
+    //    connect: true,
+    //    range: {
+    //        'min' : [0],
+    //        'profile' : [20],
+    //        'drug': [40],
+    //        'molecule': [60],
+    //        'disease': [80],
+    //        'max' : [100]
+    //    }
+    // });
+
+
+    // ................FOR PROFILE OF DOCTOR ...................
+
+    $('#create_profile1').click(function () {
+        var name = $('#name').val();
+        var specialization = $('#specialization').val();
+        var city = $('#city').val();
+>>>>>>> 0c122fe3b96aa6a63bc9d7def201cf27f40e8d3b
+
+        var data = {
+            name : name,
+            specialization : specialization,
+            city : city
+        };
+        $.ajax({
+            url: '/doctor_details',
+>>>>>>> 8333a147c829fb9b69b3786cf95fec6715caeba6
+            type: 'POST',
+            data : JSON.stringify(data),
+            contentType : 'application/json',
+            success: function (result) {
+<<<<<<< HEAD
+                if(result.success === 'success')
+                {
+                    Materialize.toast(result.message,1000);
+=======
+<<<<<<< HEAD
+                if(result.status === 'success')
+                {
+                    alert(result.message);
+                    //window.render= '/health_care_provider?page=profile_doctor';
+                    window.location= '/doctor';
+=======
+                if(result.success === 'success')
+                {
+                    Materialize.toast(result.message,1000);
+                    window.render= '/health_care_provider?page=profile_doctor';
+                    alert("msg");
+>>>>>>> 0c122fe3b96aa6a63bc9d7def201cf27f40e8d3b
+>>>>>>> 8333a147c829fb9b69b3786cf95fec6715caeba6
+                }
+                else
+                {
+                    Materialize.toast(result.message,1000);
+                }
+            }
+<<<<<<< HEAD
+=======
+        });
+        //window.location = '/health_care_provider?page=profile_doctor';
+        // $('#profile2').hide();
+        // $('#main_profile_doctor').show();
+    });
+
+    $('#basic_details').click(function () {
+        var gender = $("input[type='radio'][name='gender']:checked").val();
+        var city = $('#city').val();
+        var experience = $('#year_of_experience').val();
+        var about = $('#about_you').val();
+        var data = {
+            gender : gender,
+            city: city,
+            experience : experience,
+            about: about
+        }
+        $.ajax({
+            url: '/basic',
             type: 'POST',
             data : JSON.stringify(data),
             contentType : 'application/json',
@@ -145,13 +323,26 @@ $(function () {
                     Materialize.toast(result.message,1000);
                 }
             }
+>>>>>>> 8333a147c829fb9b69b3786cf95fec6715caeba6
             //window.location = '/health_care_provider?page=profile_pharmacist';
             // $('#profile3').hide();
             // $('#main_profile_pharmacist').show();
         });
+<<<<<<< HEAD
 
     });
 
+=======
+<<<<<<< HEAD
+
+    });
+
+=======
+
+    });
+
+>>>>>>> 0c122fe3b96aa6a63bc9d7def201cf27f40e8d3b
+>>>>>>> 8333a147c829fb9b69b3786cf95fec6715caeba6
     $('#education').click(function () {
         var qualification = $('#qualification').val();
         var college = $('#college').val();
@@ -178,9 +369,21 @@ $(function () {
                 }
             }
         });
+<<<<<<< HEAD
 
     });
 
+=======
+<<<<<<< HEAD
+
+    });
+
+=======
+
+    });
+
+>>>>>>> 0c122fe3b96aa6a63bc9d7def201cf27f40e8d3b
+>>>>>>> 8333a147c829fb9b69b3786cf95fec6715caeba6
     $('#education').click(function () {
         var council_number = $('#council_number').val();
         var council_name = $('#council_name').val();
@@ -210,6 +413,7 @@ $(function () {
         });
 
     });
+<<<<<<< HEAD
 
 
 
@@ -220,6 +424,78 @@ $(function () {
         var name = $('#name2').val();
         //var specialization = $('#specialization').val();
         var city = $('#city2').val();
+
+        var data = {
+            name : name,
+            city : city
+        };
+        $.ajax({
+            url: '/doctor_details',
+            type: 'POST',
+            data : JSON.stringify(data),
+            contentType : 'application/json',
+            success: function (result) {
+                if(result.success === 'success')
+                {
+                    Materialize.toast(result.message,1000);
+                    window.location= '/health_care_provider?page=profile_pharmacist';
+                }
+                else
+                {
+                    Materialize.toast(result.message,1000);
+                }
+            }
+        //window.location = '/health_care_provider?page=profile_pharmacist';
+        // $('#profile3').hide();
+        // $('#main_profile_pharmacist').show();
+    });
+    });
+=======
+<<<<<<< HEAD
+
+
+
+
+    // ................FOR PROFILE OF PHARMACISTS ...................
+
+    $('#create_profile2').click(function () {
+        var name = $('#name2').val();
+        //var specialization = $('#specialization').val();
+        var city = $('#city2').val();
+=======
+
+
+
+>>>>>>> 8333a147c829fb9b69b3786cf95fec6715caeba6
+
+    // ................FOR PROFILE OF PHARMACISTS ...................
+
+<<<<<<< HEAD
+    //$('select').material_select();
+
+    // TABS USED IN PROFILE STEP 3
+    $('ul.tabs').tabs('select_tab','#tab3');
+
+    // $('.file_upload').change(function(input) {
+    //     if(input.files && input.files[0])
+    //     {
+    //         var reader = new FileReader();
+    //         $('#{reader}').load(function (e) {
+    //             $('#image_for_docs1').attr('src',e.target.result);
+    //             $('#image_for_docs2').attr('src',e.target.result);
+    //         });
+    //         $('#{reader}').readAsDataURL(input.files[0]);
+    //     }
+    // });
+
+    $('.datepicker').pickadate({
+
+=======
+    $('#create_profile2').click(function () {
+        var name = $('#name').val();
+        //var specialization = $('#specialization').val();
+        var city = $('#city').val();
+>>>>>>> 0c122fe3b96aa6a63bc9d7def201cf27f40e8d3b
 
         var data = {
             name : name,
@@ -267,6 +543,7 @@ $(function () {
 
     $('.datepicker').pickadate({
 
+>>>>>>> 8333a147c829fb9b69b3786cf95fec6715caeba6
         selectYears: 50,
         today: 'Today',
         clear: 'Clear',

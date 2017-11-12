@@ -3,9 +3,19 @@ div.collection#main_profile_doctor
     div.collection-item.dismissable
         div.row
             .col.s12.m12.l9.offset-l3
+<<<<<<< HEAD
                 span.flow-text
 
                 h4 Dr. #{name.name}
+=======
+<<<<<<< HEAD
+                span.flow-text
+
+                h4 Dr. #{name.name}
+=======
+                span.flow-text Dr. XYZ#{name}
+>>>>>>> 0c122fe3b96aa6a63bc9d7def201cf27f40e8d3b
+>>>>>>> 8333a147c829fb9b69b3786cf95fec6715caeba6
                 br
                 br
                 span.flow-text Profile is not complete yet
@@ -28,9 +38,18 @@ div.collection#main_profile_doctor
                     li.tab.col.s4
                         a.blue-text.darken-2(href='#register_doc') Registration & Documents
 
+<<<<<<< HEAD
 
 
 
+=======
+<<<<<<< HEAD
+
+
+
+=======
+>>>>>>> 0c122fe3b96aa6a63bc9d7def201cf27f40e8d3b
+>>>>>>> 8333a147c829fb9b69b3786cf95fec6715caeba6
     div.row
         div.col.m12.l9.s12.offset-l3
             form(name='form_basic_details' method='POST' action='#')
@@ -38,13 +57,28 @@ div.collection#main_profile_doctor
                 h3.center Personal Details
                 div.input-field.col.s12.m4.l4
                     p
+<<<<<<< HEAD
 
+=======
+<<<<<<< HEAD
+
+=======
+>>>>>>> 0c122fe3b96aa6a63bc9d7def201cf27f40e8d3b
+>>>>>>> 8333a147c829fb9b69b3786cf95fec6715caeba6
                         | Title
                         input#title(type='text' value='Dr.' readonly)
                 div.input-field.col.s12.m8.l8
                     p
                         | Name
+<<<<<<< HEAD
                         input(type="text" value=name.name readonly)
+=======
+<<<<<<< HEAD
+                        input(type="text" value=name.name readonly)
+=======
+                        input(type="text" value='#{name}' readonly)
+>>>>>>> 0c122fe3b96aa6a63bc9d7def201cf27f40e8d3b
+>>>>>>> 8333a147c829fb9b69b3786cf95fec6715caeba6
                 div.col.s12.m4.l4
                     br
                     p Gender:
@@ -60,7 +94,15 @@ div.collection#main_profile_doctor
                 div.input-field.col.s12.m4.l4
                     p
                         | City
+<<<<<<< HEAD
                         input.validate#city(type='text' value=name.city readonly)
+=======
+<<<<<<< HEAD
+                        input.validate#city(type='text' value=name.city readonly)
+=======
+                        input.validate#city(type='text' required)
+>>>>>>> 0c122fe3b96aa6a63bc9d7def201cf27f40e8d3b
+>>>>>>> 8333a147c829fb9b69b3786cf95fec6715caeba6
                 div.input-field.col.s12.m4.l4
                     p
                         | Years of Experience
@@ -85,9 +127,21 @@ div.collection#main_profile_doctor
                             br
                             p
                                 | Email ID
+<<<<<<< HEAD
                                 span#f2 Verified
                                     i.material-icons.teal-text.left done
                                 input.validate#email(type='text', value='' readonly)
+=======
+<<<<<<< HEAD
+                                span#f2 Verified
+                                    i.material-icons.teal-text.left done
+                                input.validate#email(type='text', value='' readonly)
+=======
+                                span.right#f2 Not Verified
+                                    i.material-icons.teal-text.left close
+                                input.validate#email(type='email' required)
+>>>>>>> 0c122fe3b96aa6a63bc9d7def201cf27f40e8d3b
+>>>>>>> 8333a147c829fb9b69b3786cf95fec6715caeba6
                             br
                             br
                             div.row
