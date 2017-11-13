@@ -2059,13 +2059,9 @@ app.post('/basic',function (req,res) {
     var experience = req.body.experience;
     var about = req.body.about;
 
-    console.log(gender);
-    console.log(city);
-    console.log(experience);
-    console.log(about);
 
     Doctor.update({number : req.session.doctornumber},{
-        $push : {
+        $set : {
             gender : gender,
             city : city,
             year_of_experience : experience,
@@ -2087,12 +2083,9 @@ app.post('/education',function (req,res) {
     var completion = req.body.completion;
     //var specialization = req.body.specialization;
 
-    console.log(qualification);
-    console.log(college);
-    console.log(completion);
 
     Doctor.update({number : req.session.doctornumber},{
-        $push : {
+        $set : {
             qualification : qualification,
             college : college,
             completion_year : completion
@@ -2109,7 +2102,6 @@ app.post('/education',function (req,res) {
 });
 
 app.post('/certificate',function (req,res) {
-    console.log('hi');
     var council_number = req.body.council_number;
     var council_name = req.body.council_name;
     var council_year = req.body.council_year;
@@ -2120,7 +2112,7 @@ app.post('/certificate',function (req,res) {
 
 
     Doctor.update({number : req.session.doctornumber},{
-        $push : {
+        $set : {
             council_registration_number : council_number,
             council_name : council_name,
             council_registration_year : council_year
