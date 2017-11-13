@@ -80,6 +80,7 @@ app.use(session({
     saveUninitialized : true
 }));
 
+
 app.get('/home',function (req,res) {
     if (req.session.userID) {
         res.redirect('/profile');
@@ -88,7 +89,7 @@ app.get('/home',function (req,res) {
     if (req.session.doctorID) {
         res.redirect('/doctorpage');
     }
-    res.send({status: "success", message: "Please Login First"});
+    res.render('home');
     res.end();
 });
 
