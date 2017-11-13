@@ -92,6 +92,7 @@ app.get('/home',function (req,res) {
     res.end();
 });
 
+
 app.get('/', function (req, res) {
     if (req.session.userID) {
         res.redirect('/profile');
