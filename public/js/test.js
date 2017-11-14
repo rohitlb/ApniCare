@@ -200,9 +200,7 @@ $(function () {
         var council_number = $('#council_reg_no').val();
         var council_name = $('#council_name').val();
         var council_year = $('#council_year').val();
-        alert(council_number);
-        alert(council_name);
-        alert(council_year);
+
         var data = {
             council_number : council_number,
             council_name : council_name,
