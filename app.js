@@ -105,13 +105,9 @@ app.get('/', function (req, res) {
         res.redirect('/doctorpage');
         res.end();
     }
-<<<<<<< HEAD
-    //if(!req.session.user && !req.session.doctorID) {
-=======
     if(!req.session.userID && !req.session.doctorID) {
->>>>>>> 95b9c94e43979c73b8cf5ed9402414ebde1ae9ca
         res.render('home');
-    //}
+    }
 });
 
 
