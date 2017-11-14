@@ -93,6 +93,8 @@ app.get('/home',function (req,res) {
 });
 
 app.get('/', function (req, res) {
+    console.log(req.session.userID);
+    console.log(req.session.doctorID);
     if (req.session.userID) {
         res.redirect('/profile');
         res.end();
@@ -101,9 +103,9 @@ app.get('/', function (req, res) {
         res.redirect('/doctorpage');
         res.end();
     }
-    if(!req.session.user && !req.session.doctorID) {
+    //if(!req.session.user && !req.session.doctorID) {
         res.render('home');
-    }
+    //}
 });
 
 
