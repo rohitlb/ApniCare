@@ -11,10 +11,10 @@ html
 
                     each val in data
                         li
-                          h3 Brand
-                              h4 brand_name &nbsp
+                            h3 Brand
+                                h4 brand_name &nbsp
                                 a(href="/go_to_dosage?brand="+val.brand) #{val.brand_name}
-                              h4 category &nbsp
+                                h4 category &nbsp
                                 a(href="/go_to_dosage?brand=" + val.brand) #{val.categories}
 
                                 ul
@@ -27,11 +27,11 @@ html
                                 h4 Dosage-
                                 ul
                                     each dosage in val.dosage_id
-                                      li
+                                          li
                                           h4 dosage &nbsp
-                                             a(href="/go_to_dosage?brand=" + dosage.dosage_form) #{dosage.dosage_form}
-                                                    ul
-                                                    each dose in dosage.strength_id
+                                                 a(href="/go_to_dosage?brand=" + dosage.dosage_form) #{dosage.dosage_form}
+                                                        ul
+                                                        each dose in dosage.strength_id
 
                                                             h4 strength &nbsp
                                                                a(href="/go_to_dosage?brand=" + dose.strength) #{dose.strength}

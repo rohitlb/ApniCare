@@ -5,44 +5,52 @@ div.row
             .row
                 .col.s12
                     form(name='disease_form', method='POST', onsubmit='return validateForm();', action='')
+
                         center
                             h2(style='font-weight:600;') Enter Disease Data
-                        div.col.s12.m6.l6
-                            span Disease Name
+                        div.col.s12.m12.l12
+                            span.target Disease Name
                             span.red-text &nbsp*
-                            input.validate(type='text', id='disease_name', value='', style='color:black;font-size: 18px;font-weight: 400;')
-                        div.col.s12.m6.l6
-                            span Symptoms
+                            input.validate(type='text', id='disease_name', style='color:black;font-size: 15px;font-weight: 400;')
+                        div.col.s12.m12.l12
+                            span.target What are its Symptoms?
                             span.red-text &nbsp*
-                            input.validate(type='text', id='symptoms', value='', style='color:black;font-size: 18px;font-weight: 400;')
-                        div.col.s12.m6.l6
-                            span Risk Factors
+                            textarea.materialize-textarea#symptoms
+                            label(for='symptoms', style='color:black;font-size: 15px;font-weight: 400;')
+                        div.col.s12.m12.l12
+                            span.target What are its possible Risk Factors?
                             span.red-text &nbsp*
-                            input.validate(type='text', id='risk_factors', value='', style='color:black;font-size: 18px;font-weight: 400;')
-                        div.col.s12.m6.l6
-                            span Causes
+                            textarea.materialize-textarea#risk_factors
+                            label(for='risk_factors', style='color:black;font-size: 15px;font-weight: 400;')
+                        div.col.s12.m12.l12
+                            span.target What are its Causes?
                             span.red-text &nbsp*
-                            input.validate(type='text', id='causes', value='', style='color:black;font-size: 18px;font-weight: 400;')
+                            textarea.materialize-textarea#causes
+                            label(for='causes', style='color:black;font-size: 15px;font-weight: 400;')
                             //input.button(type='submit')
-                        div.col.s12.m6.l6
-                            span Diagnosis
+                        div.col.s12.m12.l12
+                            span.target How is it Diagnosed?
                             span.red-text &nbsp*
-                            input.validate(type='text', id='diagnosis', value='', style='color:black;font-size: 18px;font-weight: 400;')
+                            textarea.materialize-textarea#diagnosis
+                            //label(for='diagnosis', style='color:black;font-size: 15px;font-weight: 400;')
                             //input.button(type='submit')
-                        div.col.s12.m6.l6
-                            span Treatment
+                        div.col.s12.m12.l12
+                            span.target How is it Treated?
                             span.red-text &nbsp*
-                            input.validate(type='text', id='treatment', value='', style='color:black;font-size: 18px;font-weight: 400;')
+                            textarea.materialize-textarea#treatment
+                            label(for='treatment', style='color:black;font-size: 15px;font-weight: 400;')
                             //input.button(type='submit')
-                        div.col.s12.m6.l6
-                            span Outlook
+                        div.col.s12.m12.l12
+                            span.target What is the Outlook for it?
                             span.red-text &nbsp*
-                            input.validate(type='text', id='outlook', value='', style='color:black;font-size: 18px;font-weight: 400;')
+                            textarea.materialize-textarea#outlook
+                            label(for='outlook', style='color:black;font-size: 15px;font-weight: 400;')
                             //input.button(type='submit')
-                        div.col.s12.m6.l6
-                            span Prevention
+                        div.col.s12.m12.l12
+                            span.target How can #{disease_name} be Prevented?
                             span.red-text &nbsp*
-                            input.validate(type='text', id='prevention', value='', style='color:black;font-size: 18px;font-weight: 400;')
+                            textarea.materialize-textarea#prevention
+                            label(for='prevention', style='color:black;font-size: 15px;font-weight: 400;')
                             //input.button(type='submit')
                         div.row
                             div.col.s6.l4.m4

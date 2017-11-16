@@ -1,6 +1,30 @@
 doctype html
 html
     head
+<<<<<<< HEAD
+        title Profile
+        script(type='text/javascript' src='./js/image_test.js')
+    body
+        p hello #{number}
+        a(href='logout') logout
+
+        form(name='uploadForm', action="/uploadimage", method="post", enctype="multipart/form-data")
+            input(type="file", name="myimage" id='file')
+            input(type="submit", name="submit", value="Upload")
+
+
+        a(href='/verifypassword') Edit Name And Profile
+        br
+        a(href='/updatepassword') Edit Password
+        br
+        a(href='/verifydetailspassword') Edit Details
+        br
+        a(href='/addresspassword') Edit Address
+        br
+        a(href='/confidentialpassword') Edit Confidential
+        br
+        a(href='/emergencypassword') Edit emergency
+=======
         link(href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css" rel="stylesheet")
 
         link(href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet")
@@ -49,6 +73,7 @@ html
             a(href='/confidentialpassword') Edit Confidential
             br
             a(href='/emergencypassword') Edit emergency
+>>>>>>> 44f322b6361c9d1821747676a36f21879307c440
 
 
 

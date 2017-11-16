@@ -74,50 +74,48 @@ div.row
                     div.col.s12.m12.l12
                         div.drug_list_col
                             div.row
-                                div.col.s12.m6.l6
-                                    each val in data.brands
-                                            table#table1(cellspacing='5' cellpadding='2' border='5' width='100%')
-                                                tbody
-                                                    tr
-                                                        td
-                                                            div.row
-                                                                        tr
-                                                                            td(colspan='5')
-                                                                        tr
-                                                                            td(colspan='6' align='left')
-                                                                                div.title
-                                                                                    a(href="/go_to_dosage?brand="+val.brand) #{val.brand}
-                                                                                    span#drugT1 - Company
-                                                                                    br
-                                                                                    span#drugT2
-                                                                                        a(href="/go_to_dosage?brand="+val.brand) [#{val.brand}]
-                                                                        tr
-                                                                            td(colspan='5')
-                                                                                hr
-                                                                        tr
-                                                                            td(valign='top' width='30%')
-                                                                                <b>Dosage Form</b>
-                                                                            td(valign='top' width='25%')
-                                                                                <b>Strength</b>
-                                                                            td(valign='top' width='25%')
-                                                                                <b>Packaging</b>
-                                                                            td(valign='top' width='20%')
-                                                                                <b>Price</b>
+                                div.col.s12.m12.l12
+                                        div.col.s12.m6.l6
+                                            each val in data
 
-                                                                        tr
-                                                                            td
-                                                                                a(href="/go_to_dosage?brand=" + val.brand) #{val.dosageform}
-                                                                            td
-                                                                                a(href="/go_to_dosage?brand=" + val.brand) #{val.strength}
-                                                                            td
-                                                                                a(href="/go_to_dosage?brand=" + val.brand) #{val.packaging}
-                                                                            td
-                                                                                a(href="/go_to_dosage?brand=" + val.brand) #{val.price}
+                                                table#table1(cellspacing='1' cellpadding='1' border='solid black')
+                                                    tbody
 
-                                                                        tr
-                                                                            td
-                                                                                a(href='') Read More...
-                                                                            td
-                                                                            td
-                                                                            td
+                                                        tr
+                                                            td(colspan='6' align='left')
+                                                                div.title
+                                                                    a.brands(href="/go_to_dosage?brand=" + val.brand_name) #{val.brand_name}&nbsp -&nbsp
+                                                                    span#drugT1
+                                                                        each company in val.company_id
+                                                                            a(href="/go_to_dosage?brand="+company.company_name) #{company.company_name}
+                                                                    br
+                                                                    span#drugT2
+                                                                        a(href="/go_to_dosage?brand="+val.categories) [#{val.categories}]
+                                                        tr
+                                                            td(colspan='5')
+                                                                hr
+                                                        tr
+                                                            td(valign='top' width='30%')
+                                                                <b>Dosage Form</b>
+                                                            td(valign='top' width='25%')
+                                                                <b>Strength</b>
+                                                            td(valign='top' width='25%')
+                                                                <b>Packaging</b>
+                                                            td(valign='top' width='20%')
+                                                                <b>Price</b>
 
+                                                        each dosage in val.dosage_id
+                                                            tr
+                                                                td #{dosage.dosage_form}
+                                                                each dose in dosage.strength_id
+                                                                    td #{dose.strength}
+                                                                    td #{dose.packaging}
+                                                                    td #{dose.price}
+
+                                                        tr
+                                                            td
+                                                                a(href='#') Read More...
+                                                            td
+                                                            td
+                                                            td
+                                                br
