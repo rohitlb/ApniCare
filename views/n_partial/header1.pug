@@ -1,0 +1,40 @@
+ul#dropdown1.dropdown-content
+    li
+        a(href='/user_profile?page=My Profile') My Profile
+    li
+        a(href='/user_profile?page=My Activity') My Activity
+    li
+        a(href='/user_profile?page=Refer Friends') Refer Friends
+    li
+        a(href='/user_profile?page=Contact Us') Contact Us
+    li
+        a(href='logout') Logout
+div
+    div.row#row1
+        i.material-icons.white-text.right notifications
+    div.row#row2
+        div.col.s2.m2.l1
+            a(href='/user_profile?page=profilePage')
+                img(src="/images/az.png" height="75px" width="150px")
+        div.col.s8.m8.l9
+            div.col.s4.m4.l2
+                h3#logoname ApniCare
+            div.col.s8.m8.l10
+                .input-field#input1
+                    input#search(type='search', required='',placeholder="search here")
+                    label.label-icon(for='search')
+                    .material-icons#searchbutton search
+                //include ../login-signup/register
+        div.col.s2.m2.l2
+            br
+            a.dropdown-button.btn-flat.white-text(data-activates='dropdown1') #{number}
+                i.material-icons.white-text.large person
+
+//include ../login-signup/body
+//body
+if('profile')
+    include ../login-signup/body
+else if(page == 'profilePage')
+    include ../login-signup/body
+else
+    include ../UserProfile/MyProfile
