@@ -102,6 +102,7 @@ app.get('/index',function (req,res) {
     if (req.session.doctorID) {
         res.redirect('/doctorpage');
     }
+
     res.render('index');
     res.end();
 });
