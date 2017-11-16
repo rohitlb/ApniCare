@@ -94,7 +94,7 @@ app.get('/home',function (req,res) {
 });
 
 //********************frontendchanges***********************
-app.get('/homes',function (req,res) {
+app.get('/index',function (req,res) {
     if (req.session.userID) {
         res.redirect('/profile');
         res.end();
@@ -102,7 +102,7 @@ app.get('/homes',function (req,res) {
     if (req.session.doctorID) {
         res.redirect('/doctorpage');
     }
-    res.render('homes');
+    res.render('index');
     res.end();
 });
 
@@ -469,14 +469,14 @@ app.get('/logout', function (req, res) {
         if (err) {
             console.log(err);
         } else {
-            res.redirect('homes');
+            res.redirect('/index');
         }
     });
 });
 //*******************************frontend changes***********************************************
-app.get('/user_profile',function (req,res) {
-    var page= 'user_profile';
-    if(req.query.page=='profilePage' || req.query.page=='My Profile' || req.query.page=='My Activity' || req.query.page=='Refer Friends' || req.query.page=='Contact Us' ||req.query.page=='Logout' || req.query.page=='Confidential Information' || req.query.page=='Emergency Contact Details' ||req.query.page=='Address' )
+app.get('/profile',function (req,res) {
+    var page= 'profile';
+    if(req.query.page=='profilePage' || req.query.page=='My_Profile' || req.query.page=='My Activity' || req.query.page=='Refer Friends' || req.query.page=='Contact Us' ||req.query.page=='Logout' || req.query.page=='Confidential Information' || req.query.page=='Emergency Contact Details' ||req.query.page=='Address' )
         page= req.query.page;
 
     User.findOne({_id : req.session.userID},function (err,result) {
@@ -486,10 +486,10 @@ app.get('/user_profile',function (req,res) {
         else{
             console.log(result);
             if(result !== ""){
-                res.render('user_profile',
+                res.render('profile',
                     {
-                        page:page,
-                        data : result
+                        page:page
+                        //data : result
                     });
             }
             else{

@@ -18,7 +18,14 @@ html
 
         //header
         div
-            include n_partial/header1
+                include n_partial/header1
+        //div
+        if(page == 'profilePage')
+            include ./login-signup/body
+        else if(page == 'My_Profile')
+            include ./UserProfile/MyProfile.pug
+        else
+            include ./login-signup/body
 
         div
             include n_partial/footer
