@@ -22,7 +22,7 @@ span#f1,span#f2{
 }
 li.bold {
 
-    font-family: Arial;
+    font-family: Verdana;
     font-weight: 800;
     display: block;
     padding: 2px 5px;
@@ -163,7 +163,7 @@ li {
     padding-right: 10px;
 }
 .drug-list_col {
-    height: 150px;
+    max-height: 150px;
     vertical-align: top;
     text-align: left;
     width: 100%;
@@ -173,6 +173,11 @@ table#table1{
     background: lavender;
     border-collapse: inherit;
 }
+
+span.target{
+    font-size: 15px;
+}
+
 .brands {
     font-size: 25px;
 }

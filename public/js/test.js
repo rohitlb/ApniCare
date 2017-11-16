@@ -122,13 +122,17 @@ $(function () {
     });
 
 
-
+    $('#edu_special').hide();
     $('#basic_details').click(function () {
+        var title = $('#title').val();
+        var name = $('#name').val();
         var gender = $("input[type='radio'][name='gender']:checked").val();
         var city = $('#city').val();
         var experience = $('#year_of_experience').val();
         var about = $('#about_you').val();
         var data = {
+            title: title,
+            name: name,
             gender : gender,
             city: city,
             experience : experience,
@@ -154,9 +158,8 @@ $(function () {
             // $('#main_profile_pharmacist').show();
         });
         //$('#tab2').focus();
-        $('#main_profile_doctor ul.tabs li.tab a').hover(function() {
-            $('#tab2').addClass('active').find('li.tab').show().css({'background-color':'lavender'});
-        });
+        //$('#main_profile_doctor ul.tabs li.tab a').hover(function() {
+        $('#tab2').focus();
         $('#basic_detail').hide();
         $('#edu_special').show();
     });
@@ -165,11 +168,12 @@ $(function () {
         var qualification = $('#qualification').val();
         var college = $('#college').val();
         var completion_year = $('#completion_year').val();
-
+        var specialization = $('#specialization').val();
         var data = {
             qualification : qualification,
             college : college,
-            completion : completion_year
+            completion : completion_year,
+            specialization : specialization
         }
         $.ajax({
             url: '/education',
@@ -187,10 +191,10 @@ $(function () {
                 }
             }
         });
-        //$('#tab3').focus();
-        $('#main_profile_doctor ul.tabs li.tab a').hover(function() {
-            $('#tab3').addClass('active').find('li.tab').show().css({'background-color':'lavender'});
-        });
+        $('#tab3').focus();
+        // $('#main_profile_doctor ul.tabs li.tab a').hover(function() {
+        //     $('#tab3').addClass('active').find('li.tab').show().css({'background-color':'lavender'});
+        // });
 
         $('#edu_special').hide();
         $('#register_doc').show();
@@ -200,7 +204,9 @@ $(function () {
         var council_number = $('#council_reg_no').val();
         var council_name = $('#council_name').val();
         var council_year = $('#council_year').val();
-
+        alert(council_number);
+        alert(council_name);
+        alert(council_year);
         var data = {
             council_number : council_number,
             council_name : council_name,
@@ -222,7 +228,6 @@ $(function () {
                 }
             }
         });
-
     });
 
     // $('.upload_image').submit(function (e) {
@@ -338,6 +343,12 @@ $(function () {
     });
 
 
+    //- ..............Disease data form.. name of disease to be changed on entry..................
+    $('#disease_name').change(function () {
+        var disease_name = $('#disease_name').val();
+
+    });
+
     // ...................FORM VALIDATION.......................
 
     // $('form[name="drug_form1"]').validate({
@@ -368,7 +379,20 @@ $(function () {
     //     }
     // });
 
+    $('#file').change(function () {
+        filePreview(this);
+    });
 });
+function filePreview(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            $('#uploadImage + img').remove();
+            $('#uploadImage').after('<img src="'+e.target.result+'" width="150" height="150"/>');
+        }
+        reader.readAsDataURL(input.files[0]);
+    }
+}
 
 
 // function readURL(input) {
