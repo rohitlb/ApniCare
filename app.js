@@ -81,17 +81,17 @@ app.use(session({
 }));
 
 
-app.get('/home',function (req,res) {
-    if (req.session.userID) {
-        res.redirect('/profile');
-        res.end();
-    }
-    if (req.session.doctorID) {
-        res.redirect('/doctorpage');
-    }
-    res.render('home');
-    res.end();
-});
+// app.get('/home',function (req,res) {
+//     if (req.session.userID) {
+//         res.redirect('/profile');
+//         res.end();
+//     }
+//     if (req.session.doctorID) {
+//         res.redirect('/doctorpage');
+//     }
+//     res.render('home');
+//     res.end();
+// });
 
 //********************frontendchanges***********************
 app.get('/index',function (req,res) {
@@ -474,9 +474,9 @@ app.get('/logout', function (req, res) {
     });
 });
 //*******************************frontend changes***********************************************
-app.get('/profile',function (req,res) {
-    var page= 'profile';
-    if(req.query.page=='profilePage' || req.query.page=='My_Profile' || req.query.page=='My Activity' || req.query.page=='Refer Friends' || req.query.page=='Contact Us' ||req.query.page=='Logout' || req.query.page=='Confidential Information' || req.query.page=='Emergency Contact Details' ||req.query.page=='Address' )
+app.get('/userprofile',function (req,res) {
+    var page= 'userprofile';
+    if(req.query.page=='profilePage' || req.query.page=='My_Profile' || req.query.page=='My_Activity' || req.query.page=='Refer_Friends' || req.query.page=='Contact_Us' ||req.query.page=='Logout' || req.query.page=='Confidential_Information' || req.query.page=='Emergency_Contact_Details' ||req.query.page=='Address' )
         page= req.query.page;
 
     User.findOne({_id : req.session.userID},function (err,result) {
@@ -488,8 +488,8 @@ app.get('/profile',function (req,res) {
             if(result !== ""){
                 res.render('profile',
                     {
-                        page:page
-                        //data : result
+                        page:page,
+                        data : result
                     });
             }
             else{
@@ -1907,38 +1907,38 @@ app.post('/uploadimage', upload.any(), function(req, res) {
 //////////////////// try for free /////////////////////////////////////////
 
 app.get('/userregister',function (req,res) {
-    res.render('userregister');
+    res.render('./testApni/userregister');
 });
 
-// app.post('/userregister', function (req, res) {
-//     bcrypt.genSalt(10, function (err, salt) {
-//         bcrypt.hash(req.body.password, salt, function (err, hash) {
-//             if (err) {
-//                 console.log(err);
-//             }
-//             else {
-//                 var user = new User({
-//                     name: req.body.name,
-//                     email: req.body.email,
-//                     number: req.body.number,
-//                     password: hash
-//                 });
-//                 user.save(function (err, results) {
-//                     if (err) {
-//                         console.log(err);
-//                         res.end();
-//                     } else {
-//                         req.session.userID = results._id;
-//                         console.log(req.session.userID);
-//                         req.session.usernumber = results.number;
-//                         res.send({status: "success", message: "successfully registered"});
-//                         res.end();
-//                     }
-//                 });
-//             }
-//         });
-//     });
-// });
+app.post('/userregister', function (req, res) {
+    bcrypt.genSalt(10, function (err, salt) {
+        bcrypt.hash(req.body.password, salt, function (err, hash) {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                var user = new User({
+                    name: req.body.name,
+                    email: req.body.email,
+                    number: req.body.number,
+                    password: hash
+                });
+                user.save(function (err, results) {
+                    if (err) {
+                        console.log(err);
+                        res.end();
+                    } else {
+                        req.session.userID = results._id;
+                        console.log(req.session.userID);
+                        req.session.usernumber = results.number;
+                        res.send({status: "success", message: "successfully registered"});
+                        res.end();
+                    }
+                });
+            }
+        });
+    });
+});
 
 /////////////////////////medicine shows ////////////////////////////////////////////////////////////////////////////////
 
@@ -2191,124 +2191,124 @@ app.post('/certificate',function (req,res) {
 // app.get('/contact',function (req,res) {
 //     res.render('contact');
 // });
-//
-// app.post('/contactinfo',function (req,res) {
-//     var name = req.body.name;
-//     var number = req.body.number;
-//     var email = req.body.email;
-//     User.update({_id : req.session.userID},{
-//         $set : {
-//             name : name,
-//             number : number,
-//             email : email
-//         }
-//     },{new : true },function (err,result) {
-//         if(err){
-//             console.log(err);
-//         }
-//         else{
-//             console.log(result);
-//             res.send({status : "success" , message : "Contact updates"});
-//         }
-//     });
-// });
-//
+
+app.post('/contactinfo',function (req,res) {
+    var name = req.body.name;
+    var number = req.body.number;
+    var email = req.body.email;
+    User.update({_id : req.session.userID},{
+        $set : {
+            name : name,
+            number : number,
+            email : email
+        }
+    },{new : true },function (err,result) {
+        if(err){
+            console.log(err);
+        }
+        else{
+            console.log(result);
+            res.send({status : "success" , message : "Contact updates"});
+        }
+    });
+});
+
 // app.get('/personalinfo',function (req,res) {
 //     res.render('info');
 // });
-//
-// app.post('/personalinfo',function (req,res) {
-//     var dob = req.body.dob;
-//     var gender = req.body.gender;
-//     var blood_group = req.body.blood_group;
-//     var marital_status = req.body.marital_status;
-//     var height = req.body.height;
-//     var weight = req.body.height;
-//
-//     User.update({_id : req.session.userID}, {
-//         $set: {
-//             dob: dob,
-//             gender: gender,
-//             blood_group: blood_group,
-//             marital_status: marital_status,
-//             height: height,
-//             weight: weight
-//         }
-//     },function (err,result) {
-//         if(err){
-//             console.log(err);
-//         }
-//         else{
-//             res.send({status : "success" , message : "Personal profile updated"});
-//         }
-//     });
-// });
-//
-// app.post('/useraddress',function (req,res) {
-//     var addresses = req.body.address;
-//     var landmark = req.body.landmarks;
-//     var pincode = req.body.pincode;
-//     var city = req.body.city;
-//     var state = req.body.state;
-//
-//     User.update({_id : req.session.userID}, {
-//         $set: {
-//             address: {
-//                 address: addresses,
-//                 landmark: landmark,
-//                 pin_code: pincode,
-//                 city: city,
-//                 state: state
-//             }
-//         }
-//     },function (err,result) {
-//         if(err){
-//             console.log(err);
-//         }
-//         else{
-//             res.send({status : "success" , message : "Address updates"});
-//         }
-//     });
-// });
-//
-// app.post('/userconfidential',function (req,res) {
-//     var aadhaar_number = req.body.aadhaar_number;
-//     var income = req.body.income;
-//     User.update({_id : req.session.userID}, {
-//         $set: {
-//             aadhaar_number: aadhaar_number,
-//             income: income
-//         }
-//     },function (err,result) {
-//         if(err){
-//             console.log(err);
-//         }
-//         else{
-//             res.send({status : "success" , message : "Confidential Updated"});
-//         }
-//     });
-// });
-//
-// app.post('/useremergency',function (req,res) {
-//     var rel_name = req.body.relative_name;
-//     var rel_contact = req.body.relative_contact;
-//     var relation = req.body.relation;
-//     User.update({_id : req.session.userID}, {
-//         $set: {
-//             relative_name : rel_name,
-//             relative_contact: rel_contact,
-//             relation: relation
-//         }
-//     },function (err,result) {
-//         if (err) {
-//             console.log(err);
-//         }
-//         else {
-//             res.send({status: "success", message: "Emergency Updated"});
-//         }
-//     });
-// });
-//
+
+app.post('/personalinfo',function (req,res) {
+    var dob = req.body.dob;
+    var gender = req.body.gender;
+    var blood_group = req.body.blood_group;
+    var marital_status = req.body.marital_status;
+    var height = req.body.height;
+    var weight = req.body.height;
+
+    User.update({_id : req.session.userID}, {
+        $set: {
+            dob: dob,
+            gender: gender,
+            blood_group: blood_group,
+            marital_status: marital_status,
+            height: height,
+            weight: weight
+        }
+    },function (err,result) {
+        if(err){
+            console.log(err);
+        }
+        else{
+            res.send({status : "success" , message : "Personal profile updated"});
+        }
+    });
+});
+
+app.post('/useraddress',function (req,res) {
+    var addresses = req.body.address;
+    var landmark = req.body.landmarks;
+    var pincode = req.body.pincode;
+    var city = req.body.city;
+    var state = req.body.state;
+
+    User.update({_id : req.session.userID}, {
+        $set: {
+            address: {
+                address: addresses,
+                landmark: landmark,
+                pin_code: pincode,
+                city: city,
+                state: state
+            }
+        }
+    },function (err,result) {
+        if(err){
+            console.log(err);
+        }
+        else{
+            res.send({status : "success" , message : "Address updates"});
+        }
+    });
+});
+
+app.post('/userconfidential',function (req,res) {
+    var aadhaar_number = req.body.aadhaar_number;
+    var income = req.body.income;
+    User.update({_id : req.session.userID}, {
+        $set: {
+            aadhaar_number: aadhaar_number,
+            income: income
+        }
+    },function (err,result) {
+        if(err){
+            console.log(err);
+        }
+        else{
+            res.send({status : "success" , message : "Confidential Updated"});
+        }
+    });
+});
+
+app.post('/useremergency',function (req,res) {
+    var rel_name = req.body.relative_name;
+    var rel_contact = req.body.relative_contact;
+    var relation = req.body.relation;
+    User.update({_id : req.session.userID}, {
+        $set: {
+            relative_name : rel_name,
+            relative_contact: rel_contact,
+            relation: relation
+        }
+    },function (err,result) {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            res.send({status: "success", message: "Emergency Updated"});
+        }
+    });
+});
+
 // app.post('/userregisters',function (req,res) {
 //     var name = req.body.name;
 //     var number = req.body.number;

@@ -34,23 +34,23 @@ div
                                     br
                                     br
                                 li.hoverable.lispan
-                                    a(href='/profile?page=My Profile').Pspan1 Personal Information
+                                    a(href='/userprofile?page=My_Profile').Pspan1 Personal Information
                                     br
                                     br
                                 li.hoverable.lispan
-                                    a(href='/profile?page=Contact Us').Pspan1 Contact Information
+                                    a(href='/userprofile?page=Contact_Us').Pspan1 Contact Information
                                     br
                                     br
                                 li.hoverable.lispan
-                                    a(href='/profile?page=Confidential Information').Pspan1 Confidential Information
+                                    a(href='/userprofile?page=Confidential_Information').Pspan1 Confidential Information
                                     br
                                     br
                                 li.hoverable.lispan
-                                    a(href='/profile?page=Emergency Contact Details').Pspan1 Emergency Contact Details
+                                    a(href='/userprofile?page=Emergency_Contact_Details').Pspan1 Emergency Contact Details
                                     br
                                     br
                                 li.hoverable.lispan
-                                    a(href='/profile?page=Address').Pspan1 Address
+                                    a(href='/userprofile?page=Address').Pspan1 Address
                                     br
                                     br
 
@@ -59,7 +59,7 @@ div
                                 br
                                 li
                                     i.material-icons.prefix local_activity
-                                    a(href='/profile?page=My Activity').Pspan2 My Activity
+                                    a(href='/userprofile?page=My Activity').Pspan2 My Activity
                                     br
                                     br
                                 li.hoverable
@@ -78,24 +78,24 @@ div
                             ul
                                 br
                                 li
-                                    a(href='/profile?page=Refer Friends').Pspan2 Refer Friends
+                                    a(href='/userprofile?page=Refer Friends').Pspan2 Refer Friends
                                 li.divider
                             ul
                                 br
                                 li
                                     i.material-icons.small.prefix call
-                                    a(href='/profile?page=Contact Us').Pspan2 Contact Us
+                                    a(href='/userprofile?page=Contact Us').Pspan2 Contact Us
                                     br
                 br
                 //i.material-icons person
             div.col.s12.m7.l8
-                if(page == 'My Profile')
+                if(page == 'My_Profile')
                     include ../UserProfile/PersonalInformation
-                else if(page == 'Contact Us')
+                else if(page == 'Contact_Us')
                     include ../UserProfile/ContactUs
-                else if(page == 'Confidential Information')
+                else if(page == 'Confidential_Information')
                     include ../UserProfile/ConfidentialInformation
-                else if(page == 'Emergency Contact Details')
+                else if(page == 'Emergency_Contact_Details')
                     include ../UserProfile/EmergencyContactDetails
                 else if(page == 'Address')
                     include ../UserProfile/Address
