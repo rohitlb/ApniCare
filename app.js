@@ -1865,9 +1865,7 @@ app.get('/search_molecule',function (req,res) {
     });
 });
 
-
 //======================= save profile pic ====================
-
 
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -1906,8 +1904,8 @@ app.post('/uploadimage', upload.any(), function(req, res) {
     });
 });
 
-
 //////////////////// try for free /////////////////////////////////////////
+
 app.get('/userregister',function (req,res) {
     res.render('userregister');
 });
