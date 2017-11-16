@@ -1,5 +1,7 @@
+doctype html
 html
     head
+<<<<<<< HEAD
         title Profile
         script(type='text/javascript' src='./js/image_test.js')
     body
@@ -22,6 +24,49 @@ html
         a(href='/confidentialpassword') Edit Confidential
         br
         a(href='/emergencypassword') Edit emergency
+=======
+        link(href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css" rel="stylesheet")
+
+        link(href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet")
+
+        script(src="https://code.jquery.com/jquery-3.2.1.min.js")
+
+        script(src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js")
+
+        script(src="/js/Utest.js")
+        link(href="/css/Uscript.css" rel="stylesheet")
+        link(href="/css/MyProfile.css" rel="stylesheet")
+
+    title Profile
+    body
+
+        //header
+        div
+            include n_partial/header1
+
+        div
+            include n_partial/footer
+//
+            p hello #{number}
+            a(href='logout') logout
+
+            form(action="/uploadimage", method="post", enctype="multipart/form-data")
+                input(type="file", name="myimage")
+                input(type="submit", name="submit", value="submit")
+
+
+            a(href='/verifypassword') Edit Name And Profile
+            br
+            a(href='/updatepassword') Edit Password
+            br
+            a(href='/verifydetailspassword') Edit Details
+            br
+            a(href='/addresspassword') Edit Address
+            br
+            a(href='/confidentialpassword') Edit Confidential
+            br
+            a(href='/emergencypassword') Edit emergency
+>>>>>>> 44f322b6361c9d1821747676a36f21879307c440
 
 
 
