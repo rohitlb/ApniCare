@@ -86,7 +86,6 @@ div.row
                                             span <strong>#{dose.strength}</strong> &nbsp &nbsp
                                             span <strong>#{dose.packaging}</strong> &nbsp &nbsp
                                             span <strong>#{dose.price}</strong>
-                                            span #{dose.prescription}
                                             br
                                             br
                                             li Involves Potent Substances:
@@ -96,7 +95,7 @@ div.row
                                                     span <strong>#{pot.molecule_strength}</strong>
                                             br
                                             br
-                                            if dose.prescription != ''
+                                            if (dose.prescription != '')
                                                 li For Consumption of <strong>#{val.brand_name.toUpperCase()}</strong>,
                                                 span a Prescription is <strong>#{dose.prescription}</strong>
                                             br
@@ -114,12 +113,12 @@ div.row
                                             br
                                             br
                                             if(dose.primarily_used_for != '')
-                                                li The Drug <strong>#{val.brand_name.toUpperCase()}</strong> is primarily used for <strong>#{dose.primarily_used_for}</strong>
+                                                li The Drug <strong>#{val.brand_name.toUpperCase()}</strong> is primarily used for <strong>#{val.primarily_used_for}</strong>
                                             br
                                             br
                                             if(dose.warning != '')
                                                 i.material-icons.left warning
                                                 span.red-text Warnings
                                                 br
-                                                span <strong>#{dose.warning}</strong>
+                                                span <strong>#{dose.warnings}</strong>
 

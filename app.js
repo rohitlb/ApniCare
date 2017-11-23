@@ -2094,9 +2094,9 @@ app.get('/health_care_provider',function(req,res) {
 
     if(req.query.brand) {
 
-        Brand.find({brand_name : brand},'-_id brand_name categories').populate(
+        Brand.find({brand_name : brand},'-_id brand_name categories primarily_used_for').populate(
             {path : 'dosage_id', select : '-_id dosage_form',populate :
-                {path : 'strength_id', select : '-_id strength packaging potent_substance.name'}
+                {path : 'strength_id', select : '-_id strength packaging prescription dose_taken warnings dose_timing potent_substance.name'}
             }).populate(
                 {path : 'company_id', select: '-_id company_name'}).sort({brand_name : 1}).exec(function (err,brand) {
             if (err) {
@@ -2373,9 +2373,9 @@ app.post('/health_care_provider',function(req,res) {
 
     if(req.query.brand) {
 
-        Brand.find({brand_name : brand},'-_id brand_name categories').populate(
+        Brand.find({brand_name : brand},'-_id brand_name categories primarily_used_for').populate(
             {path : 'dosage_id', select : '-_id dosage_form',populate :
-                {path : 'strength_id', select : '-_id strength packaging potent_substance.name'}
+                {path : 'strength_id', select : '-_id strength packaging prescription dose_taken warnings dose_timing potent_substance.name'}
             }).populate(
             {path : 'company_id', select: '-_id company_name'}).sort({brand_name : 1}).exec(function (err,brand) {
             if (err) {
