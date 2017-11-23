@@ -21,6 +21,8 @@ var keys = require('./private/keys');
 // req models
 var User  = require('./model/registration');
 var Doctor = require('./model/doctorregistration');
+var Pharma = require('./model/pharma');
+var Professional = require('./model/professional');
 //require for medicine index
 var Company = require('./model/company');
 var Brand = require('./model/brand');
@@ -51,7 +53,7 @@ store.on('error',function (error) {
 app.disable('x-powered-by');
 
 //configure the app
-app.set('port',4000);
+app.set('port',8888);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
@@ -80,62 +82,16 @@ app.use(session({
     saveUninitialized : true
 }));
 
-
-// app.get('/home',function (req,res) {
-//     if (req.session.userID) {
-//         res.redirect('/profile');
-//         res.end();
-//     }
-//     if (req.session.doctorID) {
-//         res.redirect('/doctorpage');
-//     }
-//     res.render('home');
-//     res.end();
-// });
-
-//********************frontendchanges***********************
-app.get('/index',function (req,res) {
-    if (req.session.userID) {
-        res.redirect('/profile');
-        res.end();
+app.get('/admin',function (req,res) {
+    var page = 'home';
+    if(page == 'home')
+    {
+        res.render('./admin/home_admin',
+            {
+                page: page
+            });
     }
-    if (req.session.doctorID) {
-        res.redirect('/doctorpage');
-    }
-
-    res.render('index');
-    res.end();
-});
-
-
-
-
-//**************************************************88
-
-
-
-
-
-
-app.get('/', function (req, res) {
-    console.log(req.session.userID);
-    console.log(req.session.doctorID);
-    if (req.session.userID) {
-        res.redirect('/profile');
-        res.end();
-    }
-    if(req.session.doctorID){
-        res.redirect('/doctorpage');
-        res.end();
-    }
-    if(!req.session.userID && !req.session.doctorID) {
-        res.render('home');
-    }
-});
-
-
-app.get('/adminprofile',function (req,res) {
-    res.render('admin_home1');
+    //res.render('./admin/home_admin');
 });
 
 // have thread-sleep (tested) . run "npm update --save" for adding modules
@@ -248,9 +204,33 @@ app.post('/VerifyOTP',function (req, res) {
         if (error) throw new Error(error);
         var temp = JSON.parse(body);
         res.send({message: temp.Status })
-    });
+        });
 });
 
+app.get('/home',function (req,res) {
+    if (req.session.userID) {
+        res.redirect('/profile');
+        res.end();
+    }
+    if (req.session.doctorID) {
+        res.redirect('/doctorpage');
+    }
+    res.send({status: "success", message: "Please Login First"});
+    res.end();
+});
+
+app.get('/', function (req, res) {
+    if (req.session.userID) {
+        res.redirect('/profile');
+        res.end();
+    }
+    if(req.session.doctorID){
+        res.render('doctorpage');
+        res.end();
+    }
+        res.render('home');
+        res.end();
+});
 
 //User registration
 app.post('/register', function (req, res) {
@@ -292,7 +272,7 @@ app.post('/register', function (req, res) {
                                     console.log(err);
                                     res.end();
                                 } else {
-                                    req.session.userregistercontact = results.number;
+                                    req.session.userID = results._id;
                                     res.send({status: "success", message: "successfully registered"});
                                     res.end();
                                 }
@@ -311,15 +291,16 @@ app.get('/profile', function (req, res) {
         res.render('profile', {number: req.session.userID});
     }
     if(req.session.doctorID) {
-        res.render('doctorpage', {number: req.session.doctorname});
+        res.render('doctorpage', {number: req.session.doctorID});
     }
-    if(!req.session.userID && !req.session.doctorID) {
-        res.send({status: "failed", message: "Please Login First"});
-    }
+    res.send({status : "failed" , message : "Please Login First"});
 });
 
 app.get('/profiles',function (req,res) {
-    res.render('profiles');
+    if(req.session.userID) {
+        res.render('profiles');
+    }
+    res.send({status : "failed" , message : "Please Login First"});
 });
 
 //user profile update
@@ -346,7 +327,7 @@ app.post('/profiles',function (req,res) {
     var relation = req.body.relation;
 
 
-    User.update({number : req.session.userregistercontact}, {
+    User.update({_id : req.session.userID}, {
         $set : {
             dob: dob,
             gender: gender,
@@ -395,13 +376,13 @@ app.post('/login',function (req,res) {
                     else {
                         if(results) {
                             req.session.userID = result._id;
-                            req.session.username = result.name;
-                            req.session.usernumber = result.number;
-                            req.session.userpassword = result.password;
                             req.session.dpname = req.body.number;
-                            //req.session.nextpage = "notmove";
                             if (req.session.userID) {
-                                res.send({status: "success", message: "successfully login", number: req.session.userID});
+                                res.send({
+                                    status: "success",
+                                    message: "successfully login",
+                                    number: req.session.userID
+                                });
                                 res.end();
                             }
                         }
@@ -436,10 +417,7 @@ app.post('/doctorlogin',function (req,res) {
                     else {
                         if(results) {
                             req.session.doctorID = result._id;
-                            req.session.doctorname = result.name;
-                            req.session.doctorpassword = result.password;
                             req.session.dpname = req.body.number;
-                            req.session.doctornumber = result.number;
                             if (req.session.userID) {
                                 res.send({
                                     status: "success",
@@ -470,32 +448,7 @@ app.get('/logout', function (req, res) {
         if (err) {
             console.log(err);
         } else {
-            res.redirect('/index');
-        }
-    });
-});
-//*******************************frontend changes***********************************************
-app.get('/userprofile',function (req,res) {
-    var page= 'userprofile';
-    if(req.query.page=='profilePage' || req.query.page=='My_Profile' || req.query.page=='My_Activity' || req.query.page=='Refer_Friends' || req.query.page=='Contact_Us' ||req.query.page=='Logout' || req.query.page=='Confidential_Information' || req.query.page=='Emergency_Contact_Details' ||req.query.page=='Address' )
-        page= req.query.page;
-
-    User.findOne({_id : req.session.userID},function (err,result) {
-        if(err){
-            console.log(err);
-        }
-        else{
-            console.log(result);
-            if(result !== ""){
-                res.render('profile',
-                    {
-                        page:page,
-                        data : result
-                    });
-            }
-            else{
-                res.send({status : "failed", message : "User not found"});
-            }
+            res.redirect('/');
         }
     });
 });
@@ -506,13 +459,13 @@ app.get('/userprofile',function (req,res) {
 
 //***************************************Edit User Profile*****************************************************************
 
-
-
-
 //***************Edit Name and Email **********************************
 
 app.get('/verifypassword',function (req,res) {
-    res.render('verifypassword');
+    if(req.session.userID) {
+        res.render('verifypassword');
+    }
+    res.send({status : "failure", message : "Please login first"});
 });
 
 app.post('/verifypassword',function (req,res) {
@@ -548,21 +501,10 @@ app.post('/verifypassword',function (req,res) {
 });
 
 app.get('/updatenameandemail',function (req,res) {
-    if (req.session.userID) {
-        res.send({status: "failure", message: "Please verify Password first"});
-        res.end();
-    } else {
+    if(req.session.userID){
         res.render('updatenameandemail');
-        res.end();
     }
-
-    // if(!req.session.userID) {
-    //     res.send({status: "failure", message: "Please verify Password first"});
-    // }
-    // else {
-    //     res.render('updatenameandemail');
-    // }
-
+    res.send({status : "failure", message : "Please login first"});
 });
 
 app.post('/updatenameandemail',function (req,res) {
@@ -573,7 +515,7 @@ app.post('/updatenameandemail',function (req,res) {
             console.log(err);
         }
         else {
-            if (result[0].password === req.session.userpassword) {
+            if (result[0]._id === req.session.userID) {
                 if (name === "") {
                     name = result[0].name;
                 }
@@ -604,7 +546,10 @@ app.post('/updatenameandemail',function (req,res) {
 //*******************Edit Password**************************************
 
 app.get('/updatepassword',function (req,res) {
-    res.render('updatepassword');
+    if(req.session.userID) {
+        res.render('updatepassword');
+    }
+    res.send({status : "failure", message : "Please login first"});
 });
 
 app.post('/updatepassword',function (req,res) {
@@ -645,7 +590,7 @@ app.post('/updatepassword',function (req,res) {
                                 res.send({status: "failure", message: "Both password not match"});
                             }
                         }
-                        else{
+                    else{
                             res.send({status: "failure", message: "Wrong credentials"});
                         }
                     }
@@ -661,7 +606,10 @@ app.post('/updatepassword',function (req,res) {
 //****************Edit Personal Information********************************
 
 app.get('/verifydetailspassword',function (req,res) {
-    res.render('verifydetailspassword');
+    if(req.session.userID) {
+        res.render('verifydetailspassword');
+    }
+    res.send({status : "failure", message : "Please login first"});
 });
 
 app.post('/verifydetailspassword',function (req,res) {
@@ -695,7 +643,10 @@ app.post('/verifydetailspassword',function (req,res) {
 });
 
 app.get('/updateusersdetails',function (req,res) {
-    res.render('updateusersdetails');
+    if(req.session,userID) {
+        res.render('updateusersdetails');
+    }
+    res.send({status : "failure", message : "Please login first"});
 });
 
 app.post('/updateusersdetails',function (req,res) {
@@ -712,7 +663,7 @@ app.post('/updateusersdetails',function (req,res) {
         }
         else {
 
-            if (result[0].password === req.session.userpassword) {
+            if (result[0]._id === req.session.userID) {
                 if (dob === "") {
                     dob = result[0].dob;
                 }
@@ -761,7 +712,10 @@ app.post('/updateusersdetails',function (req,res) {
 //*****************Edit address*********************************************
 
 app.get('/addresspassword',function (req,res) {
-    res.render('addresspassword');
+    if(req.session.userID) {
+        res.render('addresspassword');
+    }
+    res.send({status : "failure", message : "Please login first"});
 });
 
 app.post('/addresspassword',function (req,res) {
@@ -795,7 +749,10 @@ app.post('/addresspassword',function (req,res) {
 });
 
 app.get('/editaddress',function (req,res) {
-    res.render('editaddress');
+    if(req.session.userID) {
+        res.render('editaddress');
+    }
+    res.send({status : "failure", message : "Please login first"});
 });
 
 app.post('/editaddress',function (req,res) {
@@ -810,7 +767,7 @@ app.post('/editaddress',function (req,res) {
             console.log(err);
         }
         else {
-            if (result[0].password === req.session.userpassword) {
+            if (result[0]._id === req.session.userID) {
                 if (addresses === "") {
                     addresses = result[0].address.address;
                 }
@@ -857,7 +814,10 @@ app.post('/editaddress',function (req,res) {
 //********************Edit Confidential *************************************
 
 app.get('/confidentialpassword',function (req,res) {
-    res.render('confidentialpassword');
+    if(req.session.userID) {
+        res.render('confidentialpassword');
+    }
+    res.send({status : "failure", message : "Please login first"});
 });
 
 app.post('/confidentialpassword',function (req,res) {
@@ -891,20 +851,23 @@ app.post('/confidentialpassword',function (req,res) {
 });
 
 app.get('/editconfidential',function (req,res) {
-    res.render('editconfidential');
+    if(req.session.userID) {
+        res.render('editconfidential');
+    }
+    res.send({status : "failure", message : "Please login first"});
 });
 
 app.post('/editconfidential',function (req,res) {
     var aadhaarnumber = req.body.aadhaar_number;
     var income = req.body.income;
-
+    
     User.find({_id : req.session.userID},function (err,result) {
         if(err){
             console.log(err);
         }
         else {
 
-            if (result[0].password === req.session.userpassword) {
+            if (result[0]._id === req.session.userID) {
                 if (aadhaarnumber === "") {
                     aadhaarnumber = result[0].aadhaar_number;
                 }
@@ -936,7 +899,10 @@ app.post('/editconfidential',function (req,res) {
 //***********************Edit Emergency **************************************
 
 app.get('/emergencypassword',function (req,res) {
-    res.render('emergencypassword');
+    if(req.session.userID) {
+        res.render('emergencypassword');
+    }
+    res.send({status : "failure", message : "Please login first"});
 });
 
 app.post('/emergencypassword',function (req,res) {
@@ -970,7 +936,10 @@ app.post('/emergencypassword',function (req,res) {
 });
 
 app.get('/editemergency',function (req,res) {
-    res.render('editemergency');
+    if(req.session.userID) {
+        res.render('editemergency');
+    }
+    res.send({status : "failure", message : "Please login first"});
 });
 
 app.post('/editemergency',function (req,res) {
@@ -983,7 +952,7 @@ app.post('/editemergency',function (req,res) {
             console.log(err);
         }
         else {
-            if (result[0].password === req.session.userpassword) {
+            if (result[0]._id === req.session.userID) {
                 if (rel_name === "") {
                     rel_name = result[0].relative_name;
                 }
@@ -1018,8 +987,9 @@ app.post('/editemergency',function (req,res) {
 
 
 
+//////////////////////////////////////////Not Now///////////////////////////////////////////////////////////////////////
+////////////////////////////////////////Insert Doctor///////////////////////////////////////////////////////////////////
 
-//**************************************Insert Doctor*******************************************************************
 //Doctor registration
 app.post('/doctorregister', function (req, res) {
     //regex for checking whether entered number is indian or not
@@ -1063,100 +1033,6 @@ app.post('/doctorregister', function (req, res) {
     });
 });
 
-//rendering to occupation
-app.get('/occupation',function (req,res) {
-    res.render('occupation');
-});
-//filling occupation
-app.post('/occupation',function (req,res) {
-    var occupation = req.body.occupation;
-    Doctor.update({number : req.session.doctornumber},{
-        $set : {occupation : occupation}
-    },function (err,result) {
-        if(err){
-            console.log(err);
-        }
-        else{
-            res.render('doctordetails');
-        }
-    });
-});
-
-//doctors details
-app.get('/doctor_details',function (req,res) {
-    res.render('doctordetails');
-});
-
-app.post('/doctor_details',function (req,res) {
-    var name = req.body.name;
-    var specialization = req.body.specialization;
-    var city = req.body.city;
-
-    Doctor.update({number: req.session.doctornumber}, {
-        $set: {
-            name: name,
-            specialization: specialization,
-            city: city
-        }
-    }, function (err, result) {
-        if(err){
-            console.log(err);
-        }
-        console.log(result);
-        req.session.doctorname = name;
-        res.send({status : "success" , message : " Profile Updated "});
-    });
-});
-
-//doctor Profile
-app.get('/doctorpage',function (req,res) {
-    if(req.session.doctorID){
-        res.render('doctorpage');
-    }
-    if(!req.session.doctorID) {
-        res.send({status: "failure", message: "Please login as doctor"});
-    }
-});
-
-
-app.get('/doctor_profile',function (req,res) {
-    res.render('doctorprofile');
-});
-
-app.post('/doctor_profile',function (req,res) {
-    var title = req.body.title;
-    var gender = req.body.gender;
-    var experience = req.body.year_of_experience;
-    var about = req.body.about_You;
-    var qualification = req.body.qualification;
-    var college = req.body.college;
-    var completion = req.body.completion;
-    var council_number = req.body.council_number;
-    var council_name = req.body.council_name;
-    var council_year = req.body.council_year;
-
-    Doctor.update({ number : req.session.doctornumber },{
-        $set : {
-            title : title,
-            gender : gender,
-            year_of_experience : experience,
-            about_you : about,
-            qualification : qualification,
-            college : college,
-            completion_year : completion,
-            council_registration_number : council_number,
-            council_name : council_name,
-            council_registration_year : council_year
-        }
-    },function (err,result) {
-        if(err){
-            console.log(err);
-        }
-        else{
-            res.send("doctors updated");
-        }
-    });
-});
 
 //forgot password
 app.post('/checkforgotpassword',function (req,res) {
@@ -1244,21 +1120,7 @@ app.post('/doctorcheckforgotpassword',function (req,res) {
 //doc update password
 app.post('/doctorupdatepassword',function (req,res) {
     var password = req.body.password;
-    Doctor.update({number : req.session.doctornumber},{
-        $set : {password : password}
-    },function (err,result1) {
-        if (err) {
-            console.log(err);
-        }
-        else {
-            res.send({status: "success", message: "new password update"});
-            res.end();
-        }
-    });
-});
-app.post('/doctorupdatepassword',function (req,res) {
-    var password = req.body.password;
-    Doctor.update({number : req.session.doctornumber},{
+    Doctor.update({_id : req.session.doctorID},{
         $set : {password : password}
     },function (err,result1) {
         if (err) {
@@ -1271,10 +1133,16 @@ app.post('/doctorupdatepassword',function (req,res) {
     });
 });
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-//********************************Drug index start from here************************************************************
+//////////////////////////////////Drug index start from here////////////////////////////////////////////////////////////
 
 app.get('/medicine',function (req,res) {
+    // if(req.session.doctorID) {
+    //     res.render('medicine');
+    // }
+    // res.send({status : "failure", message : "Please login first"});
     res.render('medicine');
 });
 
@@ -1294,6 +1162,8 @@ app.post('/medicine',function(req,res) {
     var warnings = req.body.warnings;
     var prescription = req.body.prescription;
     var molecule_strengths = req.body.molecule_strength;
+    var companyresult = null;
+    var brandresult = null;
     async.waterfall([
             function (callback) {
                 Company.findOne({company_name: company_name}, function (err, result) {
@@ -1306,45 +1176,45 @@ app.post('/medicine',function(req,res) {
                     }
                 });
             },
-            function (result,callback) {
-                if(result){
-                    req.session.companyresult = result._id;
-                    Brand.findOne({brand_name : brand_name},function (err,result1) {
-                        if(err){
+            function (result, callback) {
+                if (result) {
+                    companyresult = result._id;
+                    Brand.findOne({brand_name: brand_name}, function (err, result1) {
+                        if (err) {
                             console.log(err);
                             throw new Error(err);
                         }
-                        else{
-                            callback(null,result1);
+                        else {
+                            callback(null, result1);
                         }
                     });
                 }
-                else{
-                    Brand.findOne({brand_name :brand_name},function (err1,result1) {
-                        if(err1){
+                else {
+                    Brand.findOne({brand_name: brand_name}, function (err1, result1) {
+                        if (err1) {
                             console.log(err1);
                             throw new Error(err1);
                         }
-                        else{
-                            if(result1){
+                        else {
+                            if (result1) {
                                 res.send("other company cannot have same brand");
                             }
-                            else{
+                            else {
                                 var STRength = new Strength({
-                                    strength : strengtH,
-                                    potent_substance : {
-                                        name : active_ingredients,
-                                        molecule_strength : molecule_strengths
+                                    strength: strengtH,
+                                    potent_substance: {
+                                        name: active_ingredients,
+                                        molecule_strength: molecule_strengths
                                     },
-                                    packaging : packaging,
-                                    price : price,
-                                    dose_taken : dose_taken,
-                                    dose_timing : dose_timing,
-                                    warnings : warnings,
-                                    prescription : prescription
+                                    packaging: packaging,
+                                    price: price,
+                                    dose_taken: dose_taken,
+                                    dose_timing: dose_timing,
+                                    warnings: warnings,
+                                    prescription: prescription
                                 });
-                                STRength.save(function (err2,result2) {
-                                    if(err2){
+                                STRength.save(function (err2, result2) {
+                                    if (err2) {
                                         console.log(err2);
                                         throw new Error(err2);
                                     }
@@ -1354,41 +1224,57 @@ app.post('/medicine',function(req,res) {
                                             strength_id: result2._id
                                         });
                                         dosage.save(function (err3, result3) {
-                                            if(err3){
+                                            if (err3) {
                                                 console.log(err3);
-                                                throw new Error(err3);                                        }
-                                            else{
+                                                throw new Error(err3);
+                                            }
+                                            else {
                                                 var brand = new Brand({
-                                                    brand_name : brand_name,
-                                                    categories : categories,
-                                                    types : types,
-                                                    primarily_used_for : primarilyusedfor,
-                                                    dosage_id : result3._id
+                                                    brand_name: brand_name,
+                                                    categories: categories,
+                                                    types: types,
+                                                    primarily_used_for: primarilyusedfor,
+                                                    dosage_id: result3._id
                                                 });
-                                                brand.save(function (err4,result4) {
-                                                    if(err4){
+                                                brand.save(function (err4, result4) {
+                                                    if (err4) {
                                                         console.log(err4);
-                                                        throw new Error(err4);                                                }
-                                                    else{
+                                                        throw new Error(err4);
+                                                    }
+                                                    else {
                                                         var company = new Company({
-                                                            company_name : company_name,
-                                                            brand_id : result4._id
+                                                            company_name: company_name,
+                                                            brand_id: result4._id
                                                         });
-                                                        company.save(function(err5,result5){
-                                                            if(err5){
+                                                        company.save(function (err5, result5) {
+                                                            if (err5) {
                                                                 console.log(err5);
-                                                                throw new Error(err5);                                                        }
-                                                            else{
-                                                                Brand.update({brand_name : brand_name},{
-                                                                    $push : {
-                                                                        company_id : result5._id
+                                                                throw new Error(err5);
+                                                            }
+                                                            else {
+                                                                Brand.update({brand_name: brand_name}, {
+                                                                    $set: {
+                                                                        company_id: result5._id
                                                                     }
-                                                                },function (err6) {
-                                                                    if(err6){
+                                                                }, function (err6) {
+                                                                    if (err6) {
                                                                         console.log(err6);
                                                                     }
-                                                                    else{
-                                                                        res.send("New medicine added");
+                                                                    else {
+
+                                                                        Strength.update({_id: result2._id}, {
+                                                                            $push: {
+                                                                                brands_id: result4._id
+                                                                            }
+                                                                        }, function (err7, result7) {
+                                                                            if (err7) {
+                                                                                console.log(err);
+                                                                            }
+                                                                            else {
+                                                                                console.log(result7);
+                                                                                res.send("New medicine added");
+                                                                            }
+                                                                        });
                                                                     }
                                                                 });
                                                             }
@@ -1404,34 +1290,35 @@ app.post('/medicine',function(req,res) {
                     });
                 }
             },
-            function (result,callback) {
-                if(result){
-                    Dosage.findOne({dosage_form : dosage_form},function (err,result1) {
-                        if(err){
+            function (result, callback) {
+                if (result) {
+                    brandresult = result._id;
+                    Dosage.findOne({dosage_form: dosage_form}, function (err, result1) {
+                        if (err) {
                             console.log(err);
                             throw new Error(err);
                         }
-                        else{
-                            callback(null,result1);
+                        else {
+                            callback(null, result1);
                         }
                     });
                 }
-                else{
+                else {
                     var strength = new Strength({
-                        strength : strengtH,
-                        potent_substance : {
-                            name : active_ingredients,
-                            molecule_strength : molecule_strengths
+                        strength: strengtH,
+                        potent_substance: {
+                            name: active_ingredients,
+                            molecule_strength: molecule_strengths
                         },
-                        packaging : packaging,
-                        price : price,
-                        dose_taken : dose_taken,
-                        dose_timing : dose_timing,
-                        warnings : warnings,
-                        prescription : prescription
+                        packaging: packaging,
+                        price: price,
+                        dose_taken: dose_taken,
+                        dose_timing: dose_timing,
+                        warnings: warnings,
+                        prescription: prescription
                     });
-                    strength.save(function (err,result) {
-                        if(err){
+                    strength.save(function (err, result) {
+                        if (err) {
                             console.log(err);
                         }
                         else {
@@ -1440,40 +1327,50 @@ app.post('/medicine',function(req,res) {
                                 strength_id: result._id
                             });
                             dosage.save(function (err1, result1) {
-                                if(err1){
+                                if (err1) {
                                     console.log(err1);
                                 }
-                                else{
+                                else {
                                     var brand = new Brand({
-                                        brand_name : brand_name,
-                                        categories : categories,
-                                        types : types,
-                                        primarily_used_for : primarilyusedfor,
-                                        dosage_id : result1._id
+                                        brand_name: brand_name,
+                                        categories: categories,
+                                        types: types,
+                                        primarily_used_for: primarilyusedfor,
+                                        dosage_id: result1._id
                                     });
-                                    brand.save(function (err2,result2) {
-                                        if(err2){
+                                    brand.save(function (err2, result2) {
+                                        if (err2) {
                                             console.log(err2);
                                         }
-                                        else{
-                                            Company.update({company_name : company_name},{
-                                                $push :{brand_id : result2._id}
+                                        else {
+                                            Company.update({company_name: company_name}, {
+                                                $push: {brand_id: result2._id}
                                             }).exec(function (err3) {
                                                 if (err3) {
                                                     console.log(err3);
                                                 }
                                                 else {
-
-                                                    Brand.update({brand_name : brand_name},{
-                                                        $push : {
-                                                            company_id : req.session.companyresult
+                                                    Brand.update({brand_name: brand_name}, {
+                                                        $push: {
+                                                            company_id: companyresult
                                                         }
-                                                    },function (err6) {
-                                                        if(err6){
+                                                    }, function (err6) {
+                                                        if (err6) {
                                                             console.log(err6);
                                                         }
-                                                        else{
-                                                            res.send("Brand added successfully  with dosage and strength");
+                                                        else {
+                                                            Strength.update({_id: result._id}, {
+                                                                $push: {
+                                                                    brands_id: result2._id
+                                                                }
+                                                            }, function (err7) {
+                                                                if (err7) {
+                                                                    console.log(err);
+                                                                }
+                                                                else {
+                                                                    res.send("Brand added successfully  with dosage and strength");
+                                                                }
+                                                            });
                                                         }
                                                     });
                                                 }
@@ -1486,34 +1383,35 @@ app.post('/medicine',function(req,res) {
                     });
                 }
             },
-            function (result,callback) {
-                if(result){
-                    Strength.findOne({strength : strengtH},function (err,result1) {
-                        if(err){
+            function (result, callback) {
+                if (result) {
+                    Strength.findOne({strength: strengtH}, function (err, result1) {
+                        if (err) {
                             console.log(err);
                             throw new Error(err);
                         }
-                        else{
-                            callback(null,result1);
+                        else {
+                            callback(null, result1);
                         }
                     });
                 }
-                else{
+                else {
                     var sTrength = new Strength({
-                        strength : strengtH,
-                        potent_substance : {
-                            name : active_ingredients,
-                            molecule_strength : molecule_strengths
+                        strength: strengtH,
+                        potent_substance: {
+                            name: active_ingredients,
+                            molecule_strength: molecule_strengths
                         },
-                        packaging : packaging,
-                        price : price,
-                        dose_taken : dose_taken,
-                        dose_timing : dose_timing,
-                        warnings : warnings,
-                        prescription : prescription
+                        brands_id: brandresult,
+                        packaging: packaging,
+                        price: price,
+                        dose_taken: dose_taken,
+                        dose_timing: dose_timing,
+                        warnings: warnings,
+                        prescription: prescription
                     });
-                    sTrength.save(function (err,result1) {
-                        if(err){
+                    sTrength.save(function (err, result1) {
+                        if (err) {
                             console.log(err);
                         }
                         else {
@@ -1522,19 +1420,19 @@ app.post('/medicine',function(req,res) {
                                 strength_id: result1._id
                             });
                             dosage.save(function (err1, result2) {
-                                if(err1){
+                                if (err1) {
                                     console.log(err1);
                                 }
-                                else{
-                                    Brand.update({brand_name : brand_name},{
-                                        $push : {
-                                            dosage_id : result2._id
+                                else {
+                                    Brand.update({brand_name: brand_name}, {
+                                        $push: {
+                                            dosage_id: result2._id
                                         }
                                     }).exec(function (err2) {
-                                        if(err2){
+                                        if (err2) {
                                             console.log(err2);
                                         }
-                                        else{
+                                        else {
                                             res.send("Dosage added successfully with strength");
                                         }
                                     });
@@ -1545,35 +1443,36 @@ app.post('/medicine',function(req,res) {
                 }
             },
             function (result1) {
-                if(result1){
+                if (result1) {
                     res.send("Medicines already exists");
                 }
-                else{
+                else {
                     var strength = new Strength({
-                        strength : strengtH,
-                        potent_substance : {
-                            name : active_ingredients,
-                            molecule_strength : molecule_strengths
+                        strength: strengtH,
+                        potent_substance: {
+                            name: active_ingredients,
+                            molecule_strength: molecule_strengths
                         },
-                        packaging : packaging,
-                        price : price,
-                        dose_taken : dose_taken,
-                        dose_timing : dose_timing,
-                        warnings : warnings,
-                        prescription : prescription
+                        brands_id: brandresult,
+                        packaging: packaging,
+                        price: price,
+                        dose_taken: dose_taken,
+                        dose_timing: dose_timing,
+                        warnings: warnings,
+                        prescription: prescription
                     });
-                    strength.save(function (err,result1) {
-                        if(err){
+                    strength.save(function (err, result1) {
+                        if (err) {
                             console.log(err);
                         }
-                        else{
-                            Dosage.update({dosage_form : dosage_form},{
-                                $push : {strength_id : result1._id}
+                        else {
+                            Dosage.update({dosage_form: dosage_form}, {
+                                $push: {strength_id: result1._id}
                             }).exec(function (err2) {
-                                if(err2){
+                                if (err2) {
                                     console.log(err2);
                                 }
-                                else{
+                                else {
                                     res.send("strength added successfully");
                                 }
                             });
@@ -1753,37 +1652,40 @@ app.get('/findingredients',function (req,res) {
     });
 });
 
-app.get('/disease',function (req,res) {
-    res.render('disease');
-});
+// app.get('/disease',function (req,res) {
+//     res.render('');
+// });
 
 app.post('/disease',function (req,res) {
-
     var disease_name = req.body.disease_name;
+    var symptoms = req.body.symptoms;
     var risk_factor = req.body.risk_factor;
     var cause = req.body.cause;
     var diagnosis = req.body.diagnosis;
     var treatment = req.body.treatment;
     var outlook = req.body.outlook;
     var prevention = req.body.prevention;
+    var source = req.body.source;
 
     Disease.findOne({disease_name : disease_name},function (err,result) {
         if (err) {
             console.log(err);
         }
         else {
-            if (result) {
-                res.send("Medicine already exist");
+            if (result != "") {
+                res.send("Medicine already exists");
             }
             else {
                 var disease = new Disease({
                     disease_name: disease_name,
+                    symptoms: symptoms,
                     risk_factor: risk_factor,
                     cause: cause,
                     diagnosis: diagnosis,
                     treatment: treatment,
                     outlook: outlook,
-                    prevention: prevention
+                    prevention: prevention,
+                    source : source
                 });
 
                 disease.save(function (err) {
@@ -1791,16 +1693,13 @@ app.post('/disease',function (req,res) {
                         console.log(err);
                     }
                     else {
-                        res.send("medicine save successfully");
+                        res.send("medicine saved successfully");
                     }
                 });
             }
         }
     });
 });
-
-
-
 
 // ************************************About Molecule ***************************************************
 
@@ -1822,7 +1721,8 @@ app.post('/molecules',function (req,res) {
     var precaution = req.body.precaution;
     var drug_interaction = req.body.drug_interaction;
     var food_interaction = req.body.food_interaction;
-    var dosage = req.body.dosage;
+    var oral = req.body.oral;
+    var intravenous = req.body.intravenous;
     var food = req.body.food;
     var subhead = req.body.subhead;
     var info = req.body.info;
@@ -1839,7 +1739,8 @@ app.post('/molecules',function (req,res) {
         precaution: precaution,
         drug_interaction: drug_interaction,
         food_interaction: food_interaction,
-        dosage: dosage,
+        oral: oral,
+        intravenous : intravenous,
         food: food,
         contradictions: [{subhead: subhead}, {info: info}]
     });
@@ -1866,7 +1767,15 @@ app.get('/search_molecule',function (req,res) {
     });
 });
 
+app.get('/inmolecule',function (req,res) {
+    var molecule = req.query.molecule;
+
+
+});
+
+
 //======================= save profile pic ====================
+
 
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -1875,7 +1784,7 @@ var storage = multer.diskStorage({
     filename: function (req, file, cb) {
         // image name is set as number+orignal image name
         cb(null, req.session.dpname + file.originalname);
-        req.session.dpindbname = req.session.dpname + file.originalname;
+        //req.session.dpindbname = req.session.dpname + file.originalname;
     }
 });
 
@@ -1885,7 +1794,7 @@ var upload = multer({
 
 app.post('/uploadimage', upload.any(), function(req, res) {
     var path = req.files[0].path;
-    var imageName = req.session.dpindbname ;
+    //var imageName = req.session.dpindbname ;
     console.log(req.session.userID);
     User.update({_id : req.session.userID},{
         $set : {
@@ -1897,21 +1806,40 @@ app.post('/uploadimage', upload.any(), function(req, res) {
         }
         else{
             console.log(result);
-            res.send({status: "success", message: "Image successfully registered"});
+            res.redirect('/health_care_provider?page=image');
+            //res.send({status: "success", message: "Image successfully registered"});
         }
     });
     routes.addImage(User, function(err) {
-        res.send({ status : "failure" , message : "Can not upload"});
     });
 });
 
-//////////////////// try for free /////////////////////////////////////////
+//app.get('/health_care_provider?page=profile_doctor',function(req,res){
 
+//});
+
+//////////////////// try for free /////////////////////////////////////////
 app.get('/userregister',function (req,res) {
-    res.render('./testApni/userregister');
+    res.render('userregister');
 });
 
 app.post('/userregister', function (req, res) {
+    var dob = req.body.dob;
+    var gender = req.body.gender;
+    var blood_group = req.body.blood_group;
+    var marital_status = req.body.marital_status;
+    var height = req.body.height;
+    var weight = req.body.height;
+    var addresses = req.body.address;
+    var landmark = req.body.landmarks;
+    var pincode = req.body.pincode;
+    var city = req.body.city;
+    var state = req.body.state;
+    var aadhaar_number = req.body.aadhaar_number;
+    var income = req.body.income;
+    var rel_name = req.body.relative_name;
+    var rel_contact = req.body.relative_contact;
+    var relation = req.body.relation;
     bcrypt.genSalt(10, function (err, salt) {
         bcrypt.hash(req.body.password, salt, function (err, hash) {
             if (err) {
@@ -1922,16 +1850,31 @@ app.post('/userregister', function (req, res) {
                     name: req.body.name,
                     email: req.body.email,
                     number: req.body.number,
-                    password: hash
+                    password: hash,
+                    dob: dob,
+                    gender: gender,
+                    blood_group: blood_group,
+                    marital_status: marital_status,
+                    height: height,
+                    weight: weight,
+                    address: {
+                        address: addresses,
+                        landmarks: landmark,
+                        pin_code: pincode,
+                        city: city,
+                        state: state
+                    },
+                    aadhaar_number: aadhaar_number,
+                    income: income,
+                    relative_name: rel_name,
+                    relative_contact: rel_contact,
+                    relation: relation
                 });
                 user.save(function (err, results) {
                     if (err) {
                         console.log(err);
                         res.end();
                     } else {
-                        req.session.userID = results._id;
-                        console.log(req.session.userID);
-                        req.session.usernumber = results.number;
                         res.send({status: "success", message: "successfully registered"});
                         res.end();
                     }
@@ -1943,13 +1886,20 @@ app.post('/userregister', function (req, res) {
 
 /////////////////////////medicine shows ////////////////////////////////////////////////////////////////////////////////
 
+////////////by Brands////////////////////////////
+
 app.get('/findbrands',function (req,res) {
-    Brand.find().populate({path : 'dosage_id',populate : {path : 'strength_id'}}).populate({path : 'company_id'}).exec(function (err,brand) {
+    var brand = req.query.brand;
+    Brand.find({},'-_id brand_name categories').populate(
+        {path : 'dosage_id', select : '-_id dosage_form',populate :
+            {path : 'strength_id', select : '-_id strength packaging potent_substance.name'}
+        }).populate({path : 'company_id', select: '-_id company_name'}).sort({brand_name : 1}).exec(function (err,brand) {
         if (err) {
             console.log(err);
         }
         else {
-            res.render('all', {data: brand})
+            res.send(brand[0]);
+            //res.render('./health_care_provider/r_partial/drugdata', {data: brand})
         }
     });
 });
@@ -1974,6 +1924,23 @@ app.post('/searchdisease',function (req,res) {
     });
 });
 
+/////////my molecule//////////////////////////////
+
+app.get('/searchmolecule',function (req,res) {
+    Molecule.find().exec(function (err,result) {
+        if(err){
+            console.log(err);
+        }
+        else{
+            //res.send(result);
+            res.render('molecules',{data : result});
+        }
+    });
+});
+
+
+
+
 ////////////////////////////////////////// register as a doctor and user ///////////////////////////////////////////////
 
 app.get('/doctorasuser',function (req,res) {
@@ -1991,8 +1958,7 @@ app.post('/doctorasuser',function (req,res) {
             console.log(err);
         }
         else{
-            console.log(result);
-            if(result != ""){
+            if(result === ""){
                 res.send({status: "failure", message: "User already exist"});
             }
             else{
@@ -2001,20 +1967,20 @@ app.post('/doctorasuser',function (req,res) {
                         console.log(err1);
                     }
                     else{
-                        if(result1 !== ""){
+                        if(result1){
                             var doctor = new Doctor({
                                 name: name,
                                 email : email,
                                 number: number,
                                 password: password
+
                             });
                             doctor.save(function (err, results) {
                                 if (err) {
                                     console.log(err);
                                     res.end();
                                 } else {
-                                    req.session.doctornumber =  results.number;
-                                    req.session.doctorname = results.name;
+                                    doctor_contact = results.number;
                                     res.send({status: "success", message: "successfully registered"});
                                     res.end();
                                 }
@@ -2030,48 +1996,744 @@ app.post('/doctorasuser',function (req,res) {
     });
 });
 
-// ..............................DOCTOR AND PHARMACIST .........................................
-
-app.post('/health_care_provider',function(req,res) {
-    var page = 'profile';
-    Doctor.findOne({_id : req.session.doctorID},function (err,result) {
-        if (err) {
-            console.log(err)
-        }
-        else {
-            if (req.query.page == 'home' || req.query.page == 'profile_doctor' || req.query.page == 'profile' || req.query.page == 'profile_pharmacist' || req.query.page == 'drug_data' || req.query.page == 'molecule_data' || req.query.page == 'disease_data' || req.query.page == 'drug_data_form' || req.query.page == 'molecule_data_form' || req.query.page == 'disease_data_form' || req.query.page == 'feedback_contributions' || req.query.page == 'feedback_profile' || req.query.page == 'notifications' || req.query.page == 'need_help')
-                page = req.query.page;
-            res.render('home_profile_doctor',
-                {
-                    page: page,
-                    data: result
-
-                });
-        }
-    });
-});
+///////////////////////////////////////Doctor  Profile Insert //////////////////////////////////////////////////////////
 
 app.get('/health_care_provider',function(req,res) {
     var page = 'profile';
-    Doctor.findOne({_id : req.session.doctorID},function (err,result) {
-        if (err) {
-            console.log(err)
+    var brand = req.query.brand;
+
+    if(req.query.page == 'profile') {
+        Doctor.findOne({_id: req.session.doctorID}, function (err, result) {
+            if (err) {
+                console.log(err)
+            }
+            else {
+                if (req.query.page == 'home' || req.query.page == 'profile_doctor' || req.query.page == 'profile_student_doctor' || req.query.page == 'profile_student_pharmacist' || req.query.page == 'profile' || req.query.page == 'profile_pharmacist' || req.query.page == 'drug_data' || req.query.page == 'molecule_data' || req.query.page == 'disease_data' || req.query.page == 'drug_data_form' || req.query.page == 'molecule_data_form' || req.query.page == 'disease_data_form' || req.query.page == 'feedback_contributions' || req.query.page == 'feedback_profile' || req.query.page == 'notifications' || req.query.page == 'need_help')
+                    page = req.query.page;
+                res.render('home_profile_doctor',
+                    {
+                        page: page,
+                        data: result
+
+                    });
+            }
+        });
+    }
+
+    if(req.query.page == 'profile_student_doctor') {
+        Doctor.findOne({_id: req.session.doctorID}, function (err, result) {
+            if (err) {
+                console.log(err)
+            }
+            else {
+                if (req.query.page == 'home' || req.query.page == 'profile_doctor' ||  req.query.page == 'profile_student_doctor' || req.query.page == 'profile_student_pharmacist' || req.query.page == 'profile' || req.query.page == 'profile_pharmacist' || req.query.page == 'drug_data' || req.query.page == 'molecule_data' || req.query.page == 'disease_data' || req.query.page == 'drug_data_form' || req.query.page == 'molecule_data_form' || req.query.page == 'disease_data_form' || req.query.page == 'feedback_contributions' || req.query.page == 'feedback_profile' || req.query.page == 'notifications' || req.query.page == 'need_help')
+                    page = req.query.page;
+                res.render('home_profile_doctor',
+                    {
+                        page: page,
+                        data: result
+
+                    });
+            }
+        });
+    }
+
+    if(req.query.page == 'profile_student_pharmacist') {
+        Pharma.findOne({_id: req.session.pharmaID}, function (err, result) {
+            if (err) {
+                console.log(err)
+            }
+            else {
+                if (req.query.page == 'home' || req.query.page == 'profile_doctor' ||  req.query.page == 'profile_student_doctor' || req.query.page == 'profile_student_pharmacist' || req.query.page == 'profile' || req.query.page == 'profile_pharmacist' || req.query.page == 'drug_data' || req.query.page == 'molecule_data' || req.query.page == 'disease_data' || req.query.page == 'drug_data_form' || req.query.page == 'molecule_data_form' || req.query.page == 'disease_data_form' || req.query.page == 'feedback_contributions' || req.query.page == 'feedback_profile' || req.query.page == 'notifications' || req.query.page == 'need_help')
+                    page = req.query.page;
+                res.render('home_profile_doctor',
+                    {
+                        page: page,
+                        data: result
+
+                    });
+            }
+        });
+    }
+
+    if(req.query.page == 'home') {
+        Doctor.findOne({_id: req.session.doctorID}, function (err, result) {
+            if (err) {
+                console.log(err)
+            }
+            else {
+                if (req.query.page == 'home' || req.query.page == 'profile_doctor' ||  req.query.page == 'profile_student_doctor'  || req.query.page == 'profile_student_pharmacist' || req.query.page == 'profile' || req.query.page == 'profile_pharmacist' || req.query.page == 'drug_data' || req.query.page == 'molecule_data' || req.query.page == 'disease_data' || req.query.page == 'drug_data_form' || req.query.page == 'molecule_data_form' || req.query.page == 'disease_data_form' || req.query.page == 'feedback_contributions' || req.query.page == 'feedback_profile' || req.query.page == 'notifications' || req.query.page == 'need_help')
+                    page = req.query.page;
+                res.render('home_profile_doctor',
+                    {
+                        page: page,
+                        data: result
+
+                    });
+            }
+        });
+    }
+
+    if(req.query.page == 'profile_doctor') {
+        Doctor.findOne({_id: req.session.doctorID}, function (err, result) {
+            if (err) {
+                console.log(err)
+            }
+            else {
+                if (req.query.page == 'home' || req.query.page == 'profile_doctor' || req.query.page == 'profile_student_pharmacist' ||  req.query.page == 'profile_student_doctor' || req.query.page == 'profile' || req.query.page == 'profile_pharmacist' || req.query.page == 'drug_data' || req.query.page == 'molecule_data' || req.query.page == 'disease_data' || req.query.page == 'drug_data_form' || req.query.page == 'molecule_data_form' || req.query.page == 'disease_data_form' || req.query.page == 'feedback_contributions' || req.query.page == 'feedback_profile' || req.query.page == 'notifications' || req.query.page == 'need_help')
+                    page = req.query.page;
+                res.render('home_profile_doctor',
+                    {
+                        page: page,
+                        data: result
+
+                    });
+            }
+        });
+    }
+
+    if(req.query.brand) {
+
+        Brand.find({brand_name : brand},'-_id brand_name categories').populate(
+            {path : 'dosage_id', select : '-_id dosage_form',populate :
+                {path : 'strength_id', select : '-_id strength packaging potent_substance.name'}
+            }).populate(
+                {path : 'company_id', select: '-_id company_name'}).sort({brand_name : 1}).exec(function (err,brand) {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                if(brand != "") {
+                    if (req.query.page == 'home' || req.query.page == 'profile_doctor' || req.query.page == 'profile_student_pharmacist' || req.query.page == 'profile_student_doctor' || req.query.page == 'profile_student_pharmacist' || req.query.page == 'profile' || req.query.page == 'profile_pharmacist' || req.query.page == 'drug_data' || req.query.page == 'molecule_data' || req.query.page == 'disease_data' || req.query.page == 'drug_data_form' || req.query.page == 'molecule_data_form' || req.query.page == 'disease_data_form' || req.query.page == 'feedback_contributions' || req.query.page == 'feedback_profile' || req.query.page == 'notifications' || req.query.page == 'need_help') {
+                        page = req.query.page;
+                    }
+                    res.render('home_profile_doctor',
+                        {
+                            page: 'drug_data_view',
+                            data: brand
+                        });
+                }
+                else{
+                    res.send({details : "failure", message : "No brand exist"});
+                }
+            }
+        });
+    }
+
+    if(req.query.page == 'drug_data_view'){
+        if (req.query.page == 'home' || req.query.page == 'profile_doctor' || req.query.page == 'drug_data_view' || req.query.page == 'profile_student_pharmacist' || req.query.page == 'profile_student_doctor' || req.query.page == 'profile_student_pharmacist' || req.query.page == 'profile' || req.query.page == 'profile_pharmacist' || req.query.page == 'drug_data' || req.query.page == 'molecule_data' || req.query.page == 'disease_data' || req.query.page == 'drug_data_form' || req.query.page == 'molecule_data_form' || req.query.page == 'disease_data_form' || req.query.page == 'feedback_contributions' || req.query.page == 'feedback_profile' || req.query.page == 'notifications' || req.query.page == 'need_help') {
+            page = req.query.page;
         }
-        else {
-            if (req.query.page == 'home' || req.query.page == 'profile_doctor' || req.query.page == 'profile' || req.query.page == 'profile_pharmacist' || req.query.page == 'drug_data' || req.query.page == 'molecule_data' || req.query.page == 'disease_data' || req.query.page == 'drug_data_form' || req.query.page == 'molecule_data_form' || req.query.page == 'disease_data_form' || req.query.page == 'feedback_contributions' || req.query.page == 'feedback_profile' || req.query.page == 'notifications' || req.query.page == 'need_help')
-                page = req.query.page;
-            res.render('home_profile_doctor',
-                {
-                    page: page,
-                    data: result
+        res.render('home_profile_doctor',
+            {
+                page: page,
+                data: brand
+            });
+    }
+
+    if(req.query.page == 'profile_pharmacist') {
+        Pharma.findOne({_id: req.session.pharmaID}, function (err, result) {
+            if (err) {
+                console.log(err)
+            }
+            else {
+                if (req.query.page == 'home' || req.query.page == 'profile_doctor' || req.query.page == 'profile_student_pharmacist' || req.query.page == 'profile_student_doctor' || req.query.page == 'profile' || req.query.page == 'profile_pharmacist' || req.query.page == 'drug_data' || req.query.page == 'molecule_data' || req.query.page == 'disease_data' || req.query.page == 'drug_data_form' || req.query.page == 'molecule_data_form' || req.query.page == 'disease_data_form' || req.query.page == 'feedback_contributions' || req.query.page == 'feedback_profile' || req.query.page == 'notifications' || req.query.page == 'need_help')
+                    page = req.query.page;
+                res.render('home_profile_doctor',
+                    {
+                        page: page,
+                        data: result
+
+                    });
+            }
+        });
+    }
+
+    if(req.query.page == 'drug_data') {
+
+        Brand.find({},'-_id brand_name categories').populate(
+            {path : 'dosage_id', select : '-_id dosage_form',populate :
+                {path : 'strength_id', select : '-_id strength packaging potent_substance.name'}
+            }).populate({path : 'company_id', select: '-_id company_name'}).sort({brand_name : 1}).exec(function (err,brand) {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                if(brand != "") {
+                    if (req.query.page == 'home' || req.query.page == 'profile_doctor' || req.query.page == 'profile_student_pharmacist' || req.query.page == 'profile_student_doctor' || req.query.page == 'profile_student_pharmacist' || req.query.page == 'profile' || req.query.page == 'profile_pharmacist' || req.query.page == 'drug_data' || req.query.page == 'molecule_data' || req.query.page == 'disease_data' || req.query.page == 'drug_data_form' || req.query.page == 'molecule_data_form' || req.query.page == 'disease_data_form' || req.query.page == 'feedback_contributions' || req.query.page == 'feedback_profile' || req.query.page == 'notifications' || req.query.page == 'need_help') {
+                        page = req.query.page;
+                    }
+                    res.render('home_profile_doctor',
+                        {
+                            page: page,
+                            data: brand
+                        });
+                }
+                else{
+                    res.send({details : "failure", message : "No brand exist"});
+                }
+            }
+        });
+    }
+
+    if(req.query.page == 'disease_data') {
+
+        //console.log('Hey there');
+        Brand.find().populate({path : 'dosage_id',populate : {path : 'strength_id'}}).populate({path : 'company_id'}).exec(function (err,brand) {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                if (req.query.page == 'home' || req.query.page == 'profile_doctor' || req.query.page == 'profile_student_pharmacist' || req.query.page == 'profile' ||  req.query.page == 'profile_student_doctor' || req.query.page == 'profile_pharmacist' || req.query.page == 'drug_data' || req.query.page == 'molecule_data' || req.query.page == 'disease_data' || req.query.page == 'drug_data_form' || req.query.page == 'molecule_data_form' || req.query.page == 'disease_data_form' || req.query.page == 'feedback_contributions' || req.query.page == 'feedback_profile' || req.query.page == 'notifications' || req.query.page == 'need_help')
+                    page = req.query.page;
+                res.render('home_profile_doctor',
+                    {
+                        page: page,
+                        data: brand
+
+                    });
+            }
+        });
+    }
+
+    if(req.query.page == 'drug_data_form') {
+
+        var brand = req.body.brand;
+        console.log(brand);
+        Brand.find({brand_name: brand}, function (err, brand) {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                if (req.query.page == 'home' || req.query.page == 'profile_doctor' || req.query.page == 'profile_student_pharmacist' || req.query.page == 'profile_student_doctor' || req.query.page == 'profile' || req.query.page == 'profile_pharmacist' || req.query.page == 'drug_data' || req.query.page == 'molecule_data' || req.query.page == 'disease_data' || req.query.page == 'drug_data_form' || req.query.page == 'molecule_data_form' || req.query.page == 'disease_data_form' || req.query.page == 'feedback_contributions' || req.query.page == 'feedback_profile' || req.query.page == 'notifications' || req.query.page == 'need_help')
+                    page = req.query.page;
+                res.render('home_profile_doctor',
+                    {
+                        page: page,
+                        data: brand
+
+                    });
+            }
+        });
+    }
+
+    if(req.query.page == 'molecule_data') {
+
+        Brand.find().populate({path : 'dosage_id',populate : {path : 'strength_id'}}).populate({path : 'company_id'}).exec(function (err,brand) {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                if (req.query.page == 'home' || req.query.page == 'profile_doctor' || req.query.page == 'profile_student_pharmacist' ||  req.query.page == 'profile_student_doctor' || req.query.page == 'profile' || req.query.page == 'profile_pharmacist' || req.query.page == 'drug_data' || req.query.page == 'molecule_data' || req.query.page == 'disease_data' || req.query.page == 'drug_data_form' || req.query.page == 'molecule_data_form' || req.query.page == 'disease_data_form' || req.query.page == 'feedback_contributions' || req.query.page == 'feedback_profile' || req.query.page == 'notifications' || req.query.page == 'need_help') {
+                    page = req.query.page;
+                }
+                res.render('home_profile_doctor',
+                    {
+                        page: page,
+                        data: brand
+
+                    });
+            }
+        });
+    }
+
+
+    if(req.query.page == 'image') {
+        Doctor.findOne({_id: req.session.doctorID}, function (err, result) {
+            if (err) {
+                console.log(err)
+            }
+            else {
+                if (req.query.page == 'home' || req.query.page == 'image' ||  req.query.page == 'profile_student_doctor' || req.query.page == 'profile_student_pharmacist'  || req.query.page == 'profile_doctor' || req.query.page == 'profile' || req.query.page == 'profile_pharmacist' || req.query.page == 'drug_data' || req.query.page == 'molecule_data' || req.query.page == 'disease_data' || req.query.page == 'drug_data_form' || req.query.page == 'molecule_data_form' || req.query.page == 'disease_data_form' || req.query.page == 'feedback_contributions' || req.query.page == 'feedback_profile' || req.query.page == 'notifications' || req.query.page == 'need_help')
+                    page = req.query.page;
+                res.render('home_profile_doctor',
+                    {
+                        page: page,
+                        data: result
+
+                    });
+            }
+        });
+    }
+
+    if((!req.query.page) && (!req.query.brand)) {
+
+        Doctor.findOne({_id: req.session.doctorID}, function (err, result) {
+            if (err) {
+                console.log(err)
+            }
+            else {
+                if (req.query.page == 'home' || req.query.page == 'profile_doctor' || req.query.page == 'profile_student_doctor' || req.query.page == 'profile_student_pharmacist' || req.query.page == 'profile' || req.query.page == 'profile_pharmacist' || req.query.page == 'drug_data' || req.query.page == 'molecule_data' || req.query.page == 'disease_data' || req.query.page == 'drug_data_form' || req.query.page == 'molecule_data_form' || req.query.page == 'disease_data_form' || req.query.page == 'feedback_contributions' || req.query.page == 'feedback_profile' || req.query.page == 'notifications' || req.query.page == 'need_help') {
+                    page = req.query.page;
+                }
+                res.render('home_profile_doctor',
+                    {
+                        page: page,
+                        data: result
+
+                    });
+            }
+        });
+    }
+});
+
+app.post('/health_care_provider',function(req,res) {
+    var page = 'profile';
+    var brand = req.query.brand;
+
+    if(req.query.page == 'profile') {
+        Doctor.findOne({_id: req.session.doctorID}, function (err, result) {
+            if (err) {
+                console.log(err)
+            }
+            else {
+                if (req.query.page == 'home' || req.query.page == 'profile_doctor' || req.query.page == 'profile_student_doctor' || req.query.page == 'profile_student_pharmacist' || req.query.page == 'profile' || req.query.page == 'profile_pharmacist' || req.query.page == 'drug_data' || req.query.page == 'molecule_data' || req.query.page == 'disease_data' || req.query.page == 'drug_data_form' || req.query.page == 'molecule_data_form' || req.query.page == 'disease_data_form' || req.query.page == 'feedback_contributions' || req.query.page == 'feedback_profile' || req.query.page == 'notifications' || req.query.page == 'need_help')
+                    page = req.query.page;
+                res.render('home_profile_doctor',
+                    {
+                        page: page,
+                        data: result
+
+                    });
+            }
+        });
+    }
+
+    if(req.query.page == 'profile_student_doctor') {
+        Doctor.findOne({_id: req.session.doctorID}, function (err, result) {
+            if (err) {
+                console.log(err)
+            }
+            else {
+                if (req.query.page == 'home' || req.query.page == 'profile_doctor' ||  req.query.page == 'profile_student_doctor' || req.query.page == 'profile_student_pharmacist' || req.query.page == 'profile' || req.query.page == 'profile_pharmacist' || req.query.page == 'drug_data' || req.query.page == 'molecule_data' || req.query.page == 'disease_data' || req.query.page == 'drug_data_form' || req.query.page == 'molecule_data_form' || req.query.page == 'disease_data_form' || req.query.page == 'feedback_contributions' || req.query.page == 'feedback_profile' || req.query.page == 'notifications' || req.query.page == 'need_help')
+                    page = req.query.page;
+                res.render('home_profile_doctor',
+                    {
+                        page: page,
+                        data: result
+
+                    });
+            }
+        });
+    }
+
+    if(req.query.page == 'profile_student_pharmacist') {
+        Pharma.findOne({_id: req.session.pharmaID}, function (err, result) {
+            if (err) {
+                console.log(err)
+            }
+            else {
+                if (req.query.page == 'home' || req.query.page == 'profile_doctor' ||  req.query.page == 'profile_student_doctor' || req.query.page == 'profile_student_pharmacist' || req.query.page == 'profile' || req.query.page == 'profile_pharmacist' || req.query.page == 'drug_data' || req.query.page == 'molecule_data' || req.query.page == 'disease_data' || req.query.page == 'drug_data_form' || req.query.page == 'molecule_data_form' || req.query.page == 'disease_data_form' || req.query.page == 'feedback_contributions' || req.query.page == 'feedback_profile' || req.query.page == 'notifications' || req.query.page == 'need_help')
+                    page = req.query.page;
+                res.render('home_profile_doctor',
+                    {
+                        page: page,
+                        data: result
+
+                    });
+            }
+        });
+    }
+
+    if(req.query.page == 'home') {
+        Doctor.findOne({_id: req.session.doctorID}, function (err, result) {
+            if (err) {
+                console.log(err)
+            }
+            else {
+                if (req.query.page == 'home' || req.query.page == 'profile_doctor' ||  req.query.page == 'profile_student_doctor'  || req.query.page == 'profile_student_pharmacist' || req.query.page == 'profile' || req.query.page == 'profile_pharmacist' || req.query.page == 'drug_data' || req.query.page == 'molecule_data' || req.query.page == 'disease_data' || req.query.page == 'drug_data_form' || req.query.page == 'molecule_data_form' || req.query.page == 'disease_data_form' || req.query.page == 'feedback_contributions' || req.query.page == 'feedback_profile' || req.query.page == 'notifications' || req.query.page == 'need_help')
+                    page = req.query.page;
+                res.render('home_profile_doctor',
+                    {
+                        page: page,
+                        data: result
+
+                    });
+            }
+        });
+    }
+
+    if(req.query.page == 'profile_doctor') {
+        Doctor.findOne({_id: req.session.doctorID}, function (err, result) {
+            if (err) {
+                console.log(err)
+            }
+            else {
+                if (req.query.page == 'home' || req.query.page == 'profile_doctor' || req.query.page == 'profile_student_pharmacist' ||  req.query.page == 'profile_student_doctor' || req.query.page == 'profile' || req.query.page == 'profile_pharmacist' || req.query.page == 'drug_data' || req.query.page == 'molecule_data' || req.query.page == 'disease_data' || req.query.page == 'drug_data_form' || req.query.page == 'molecule_data_form' || req.query.page == 'disease_data_form' || req.query.page == 'feedback_contributions' || req.query.page == 'feedback_profile' || req.query.page == 'notifications' || req.query.page == 'need_help')
+                    page = req.query.page;
+                res.render('home_profile_doctor',
+                    {
+                        page: page,
+                        data: result
+
+                    });
+            }
+        });
+    }
+
+    if(req.query.brand) {
+
+        Brand.find({brand_name : brand},'-_id brand_name categories').populate(
+            {path : 'dosage_id', select : '-_id dosage_form',populate :
+                {path : 'strength_id', select : '-_id strength packaging potent_substance.name'}
+            }).populate(
+            {path : 'company_id', select: '-_id company_name'}).sort({brand_name : 1}).exec(function (err,brand) {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                if(brand != "") {
+                    if (req.query.page == 'home' || req.query.page == 'profile_doctor' || req.query.page == 'profile_student_pharmacist' || req.query.page == 'profile_student_doctor' || req.query.page == 'profile_student_pharmacist' || req.query.page == 'profile' || req.query.page == 'profile_pharmacist' || req.query.page == 'drug_data' || req.query.page == 'molecule_data' || req.query.page == 'disease_data' || req.query.page == 'drug_data_form' || req.query.page == 'molecule_data_form' || req.query.page == 'disease_data_form' || req.query.page == 'feedback_contributions' || req.query.page == 'feedback_profile' || req.query.page == 'notifications' || req.query.page == 'need_help') {
+                        page = req.query.page;
+                    }
+                    res.render('home_profile_doctor',
+                        {
+                            page: 'drug_data_view',
+                            data: brand
+                        });
+                }
+                else{
+                    res.send({details : "failure", message : "No brand exist"});
+                }
+            }
+        });
+    }
+
+    if(req.query.page == 'drug_data_view'){
+        if (req.query.page == 'home' || req.query.page == 'profile_doctor' || req.query.page == 'drug_data_view' || req.query.page == 'profile_student_pharmacist' || req.query.page == 'profile_student_doctor' || req.query.page == 'profile_student_pharmacist' || req.query.page == 'profile' || req.query.page == 'profile_pharmacist' || req.query.page == 'drug_data' || req.query.page == 'molecule_data' || req.query.page == 'disease_data' || req.query.page == 'drug_data_form' || req.query.page == 'molecule_data_form' || req.query.page == 'disease_data_form' || req.query.page == 'feedback_contributions' || req.query.page == 'feedback_profile' || req.query.page == 'notifications' || req.query.page == 'need_help') {
+            page = req.query.page;
+        }
+        res.render('home_profile_doctor',
+            {
+                page: page,
+                data: brand
+            });
+    }
+
+    if(req.query.page == 'profile_pharmacist') {
+        Pharma.findOne({_id: req.session.pharmaID}, function (err, result) {
+            if (err) {
+                console.log(err)
+            }
+            else {
+                if (req.query.page == 'home' || req.query.page == 'profile_doctor' || req.query.page == 'profile_student_pharmacist' || req.query.page == 'profile_student_doctor' || req.query.page == 'profile' || req.query.page == 'profile_pharmacist' || req.query.page == 'drug_data' || req.query.page == 'molecule_data' || req.query.page == 'disease_data' || req.query.page == 'drug_data_form' || req.query.page == 'molecule_data_form' || req.query.page == 'disease_data_form' || req.query.page == 'feedback_contributions' || req.query.page == 'feedback_profile' || req.query.page == 'notifications' || req.query.page == 'need_help')
+                    page = req.query.page;
+                res.render('home_profile_doctor',
+                    {
+                        page: page,
+                        data: result
+
+                    });
+            }
+        });
+    }
+
+    if(req.query.page == 'drug_data') {
+
+        Brand.find({},'-_id brand_name categories').populate(
+            {path : 'dosage_id', select : '-_id dosage_form',populate :
+                {path : 'strength_id', select : '-_id strength packaging potent_substance.name'}
+            }).populate({path : 'company_id', select: '-_id company_name'}).sort({brand_name : 1}).exec(function (err,brand) {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                if(brand != "") {
+                    if (req.query.page == 'home' || req.query.page == 'profile_doctor' || req.query.page == 'profile_student_pharmacist' || req.query.page == 'profile_student_doctor' || req.query.page == 'profile_student_pharmacist' || req.query.page == 'profile' || req.query.page == 'profile_pharmacist' || req.query.page == 'drug_data' || req.query.page == 'molecule_data' || req.query.page == 'disease_data' || req.query.page == 'drug_data_form' || req.query.page == 'molecule_data_form' || req.query.page == 'disease_data_form' || req.query.page == 'feedback_contributions' || req.query.page == 'feedback_profile' || req.query.page == 'notifications' || req.query.page == 'need_help') {
+                        page = req.query.page;
+                    }
+                    res.render('home_profile_doctor',
+                        {
+                            page: page,
+                            data: brand
+                        });
+                }
+                else{
+                    res.send({details : "failure", message : "No brand exist"});
+                }
+            }
+        });
+    }
+
+    if(req.query.page == 'disease_data') {
+
+        //console.log('Hey there');
+        Brand.find().populate({path : 'dosage_id',populate : {path : 'strength_id'}}).populate({path : 'company_id'}).exec(function (err,brand) {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                if (req.query.page == 'home' || req.query.page == 'profile_doctor' || req.query.page == 'profile_student_pharmacist' || req.query.page == 'profile' ||  req.query.page == 'profile_student_doctor' || req.query.page == 'profile_pharmacist' || req.query.page == 'drug_data' || req.query.page == 'molecule_data' || req.query.page == 'disease_data' || req.query.page == 'drug_data_form' || req.query.page == 'molecule_data_form' || req.query.page == 'disease_data_form' || req.query.page == 'feedback_contributions' || req.query.page == 'feedback_profile' || req.query.page == 'notifications' || req.query.page == 'need_help')
+                    page = req.query.page;
+                res.render('home_profile_doctor',
+                    {
+                        page: page,
+                        data: brand
+
+                    });
+            }
+        });
+    }
+
+    if(req.query.page == 'drug_data_form') {
+
+        var brand = req.body.brand;
+        console.log(brand);
+        Brand.find({brand_name: brand}, function (err, brand) {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                if (req.query.page == 'home' || req.query.page == 'profile_doctor' || req.query.page == 'profile_student_pharmacist' || req.query.page == 'profile_student_doctor' || req.query.page == 'profile' || req.query.page == 'profile_pharmacist' || req.query.page == 'drug_data' || req.query.page == 'molecule_data' || req.query.page == 'disease_data' || req.query.page == 'drug_data_form' || req.query.page == 'molecule_data_form' || req.query.page == 'disease_data_form' || req.query.page == 'feedback_contributions' || req.query.page == 'feedback_profile' || req.query.page == 'notifications' || req.query.page == 'need_help')
+                    page = req.query.page;
+                res.render('home_profile_doctor',
+                    {
+                        page: page,
+                        data: brand
+
+                    });
+            }
+        });
+    }
+
+    if(req.query.page == 'molecule_data') {
+
+        Brand.find().populate({path : 'dosage_id',populate : {path : 'strength_id'}}).populate({path : 'company_id'}).exec(function (err,brand) {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                if (req.query.page == 'home' || req.query.page == 'profile_doctor' || req.query.page == 'profile_student_pharmacist' ||  req.query.page == 'profile_student_doctor' || req.query.page == 'profile' || req.query.page == 'profile_pharmacist' || req.query.page == 'drug_data' || req.query.page == 'molecule_data' || req.query.page == 'disease_data' || req.query.page == 'drug_data_form' || req.query.page == 'molecule_data_form' || req.query.page == 'disease_data_form' || req.query.page == 'feedback_contributions' || req.query.page == 'feedback_profile' || req.query.page == 'notifications' || req.query.page == 'need_help') {
+                    page = req.query.page;
+                }
+                res.render('home_profile_doctor',
+                    {
+                        page: page,
+                        data: brand
+
+                    });
+            }
+        });
+    }
+
+
+    if(req.query.page == 'image') {
+        Doctor.findOne({_id: req.session.doctorID}, function (err, result) {
+            if (err) {
+                console.log(err)
+            }
+            else {
+                if (req.query.page == 'home' || req.query.page == 'image' ||  req.query.page == 'profile_student_doctor' || req.query.page == 'profile_student_pharmacist'  || req.query.page == 'profile_doctor' || req.query.page == 'profile' || req.query.page == 'profile_pharmacist' || req.query.page == 'drug_data' || req.query.page == 'molecule_data' || req.query.page == 'disease_data' || req.query.page == 'drug_data_form' || req.query.page == 'molecule_data_form' || req.query.page == 'disease_data_form' || req.query.page == 'feedback_contributions' || req.query.page == 'feedback_profile' || req.query.page == 'notifications' || req.query.page == 'need_help')
+                    page = req.query.page;
+                res.render('home_profile_doctor',
+                    {
+                        page: page,
+                        data: result
+
+                    });
+            }
+        });
+    }
+
+    if((!req.query.page) && (!req.query.brand)) {
+
+        Doctor.findOne({_id: req.session.doctorID}, function (err, result) {
+            if (err) {
+                console.log(err)
+            }
+            else {
+                if (req.query.page == 'home' || req.query.page == 'profile_doctor' || req.query.page == 'profile_student_doctor' || req.query.page == 'profile_student_pharmacist' || req.query.page == 'profile' || req.query.page == 'profile_pharmacist' || req.query.page == 'drug_data' || req.query.page == 'molecule_data' || req.query.page == 'disease_data' || req.query.page == 'drug_data_form' || req.query.page == 'molecule_data_form' || req.query.page == 'disease_data_form' || req.query.page == 'feedback_contributions' || req.query.page == 'feedback_profile' || req.query.page == 'notifications' || req.query.page == 'need_help') {
+                    page = req.query.page;
+                }
+                res.render('home_profile_doctor',
+                    {
+                        page: page,
+                        data: result
+
+                    });
+            }
+        });
+    }
+});
+
+//////////////////// DRUG DATA VIEW//////////////////////////////
+
+// app.get('/drug_data_view',function (req,res) {
+//    var brand = req.query.brand;
+//
+//     Brand.find({brand_name : brand},'-_id brand_name categories').populate(
+//         {path : 'dosage_id', select : '-_id dosage_form',populate :
+//             {path : 'strength_id', select : '-_id strength packaging potent_substance.name'}
+//         }).populate(
+//         {path : 'company_id', select: '-_id company_name'}).sort({brand_name : 1}).exec(function (err,brand) {
+//         if (err) {
+//             console.log(err);
+//         }
+//         else {
+//             if(brand != "") {
+//                 if (req.query.page == 'home' || req.query.page == 'profile_doctor' || req.query.page == 'profile_student_pharmacist' || req.query.page == 'profile_student_doctor' || req.query.page == 'profile_student_pharmacist' || req.query.page == 'profile' || req.query.page == 'profile_pharmacist' || req.query.page == 'drug_data' || req.query.page == 'molecule_data' || req.query.page == 'disease_data' || req.query.page == 'drug_data_form' || req.query.page == 'molecule_data_form' || req.query.page == 'disease_data_form' || req.query.page == 'feedback_contributions' || req.query.page == 'feedback_profile' || req.query.page == 'notifications' || req.query.page == 'need_help') {
+//                     page = req.query.page;
+//                 }
+//                 res.render('drug_data_view',{});
+//             }
+//             else{
+//                 res.send({details : "failure", message : "No brand exist"});
+//             }
+//         }
+//     });
+//
+// });
+
+app.get('/testing',function(req,res) {
+    res.render('imgtesting');
+    res.end();
+});
+
+//////////////////////////////////////Doctor  Profile Insert ///////////////////////////////////////////////////////////
+app.post('/professionals',function (req,res) {
+    var name = req.body.name;
+    var email = req.body.email;
+    var number = req.body.number;
+    var password = req.body.password;
+    User.find({number : number},function (err,result) {
+        if(err){
+            console.log(err);
+        }
+        else{
+            if(result != ""){
+                res.send({status : "failure", message : "User already exist"});
+            }
+            else{
+                Doctor.find({number : number},function (err1,result1) {
+                    if(err){
+                        console.log(err);
+                    }
+                    else{
+                        if(result1 != ""){
+                            res.send({status : "failure", message : "Doctor already exist"});
+                        }
+                        else{
+                            Pharma.find({number : number},function (err2,result2) {
+                                if(err2){
+                                    console.log(err2);
+                                }
+                                else{
+                                    if(result2 != ""){
+                                        res.send({status : "failure", message : "Doctor already exist"});
+                                    }
+                                    else{
+                                        var professional = new Professional({
+                                            name : name,
+                                            email : email,
+                                            number : number,
+                                            password : password
+                                        });
+                                        professional.save(function (err3,result3) {
+                                            if(err3){
+                                                console.log(err3);
+                                            }
+                                            else{
+                                                req.session.proID = result3._id;
+                                                res.send({status : "success", message : "health_care registered"});
+                                            }
+                                        });
+                                    }
+                                }
+                            });
+                        }
+                    }
                 });
+            }
         }
     });
 });
 
-//////////////////////////////////////Doctor  Profile Insert ///////////////////////////////////////////////////////////
 app.get('/doctor',function (req,res) {
     res.redirect('/health_care_provider?page=profile_doctor');
+});
+
+app.post('/doctor',function (req,res) {
+    Professional.find({_id : req.session.proID}).exec(function (err,result) {
+        if(err){
+            console.log(err);
+        }
+        else {
+            if(result != "") {
+                Doctor.find({number: result[0].number}, function (errs, results) {
+                    if (errs) {
+                        console.log(errs);
+                    }
+                    else {
+                        if (results != "") {
+                            res.redirect('/health_care_provider?page=profile_doctor');
+                        }
+                        else {
+                            var doctor = new Doctor({
+                                name: result[0].name,
+                                email: result[0].email,
+                                number: result[0].number,
+                                password: result[0].password
+                            });
+                            doctor.save(function (err, results) {
+                                if (err) {
+                                    console.log(err);
+                                }
+                                else {
+                                    req.session.doctorID = results._id;
+                                    res.redirect('/health_care_provider?page=profile_doctor');
+                                }
+                            });
+                        }
+                    }
+                });
+            }
+            else{
+                res.send({details : "failure", message : "You already registered as Pharmacist"});
+            }
+        }
+    });
+});
+
+app.post('/pharma',function (req,res) {
+    Professional.find({_id : req.session.proID}).exec(function (err,result) {
+        if(err){
+            console.log(err);
+        }
+        else {
+            if(result != "") {
+                Pharma.find({number: result[0].number}, function (errs, results) {
+                    if (errs) {
+                        console.log(errs);
+                    }
+                    else {
+                        if (results != "") {
+                            res.redirect('/health_care_provider?page=profile_pharmacist');
+                        }
+                        else {
+                            var pharma = new Pharma({
+                                name: result[0].name,
+                                email: result[0].email,
+                                number: result[0].number,
+                                password: result[0].password
+                            });
+                            pharma.save(function (err, results) {
+                                if (err) {
+                                    console.log(err);
+                                }
+                                else {
+                                    req.session.pharmaID = results._id;
+                                    res.redirect('/health_care_provider?page=profile_pharmacist');
+                                }
+                            });
+                        }
+                    }
+                });
+            }
+            else {
+                res.send({details : "failure" , message : "You already registered as Doctor"});
+            }
+        }
+    });
 });
 
 app.get('/doctorlogedin',function (req,res) {
@@ -2082,15 +2744,13 @@ app.post('/doctorlogedin',function (req,res) {
     var number = req.body.number;
     var password=req.body.password;
 
-    Doctor.find({number : number , password : password},function (err,result) {
+    Professional.find({number : number , password : password},function (err,result) {
         if (err) {
             console.log(err);
         }
         else {
             if (result != "") {
                 req.session.doctorID = result[0]._id;
-                req.session.doctornumber = result[0].number;
-                req.session.doctorpassword = result[0].password;
                 if(req.session.doctorID) {
                     res.redirect('/health_care_provider');
                 }
@@ -2105,27 +2765,69 @@ app.post('/doctorlogedin',function (req,res) {
     });
 });
 
+app.post('/profession',function (req,res) {
+   var profession = req.body.profession;
+           Doctor.update({_id : req.session.doctorID},{
+               $set : {
+                   occupation: profession
+               }
+           },function (err,result) {
+               if(err)
+               {
+                   console.log(err);
+               }
+               else {
+                   res.send({details : "success", message : "Profession added"});
+           }
+       });
+});
+
 app.post('/basic',function (req,res) {
-    console.log('basic');
+    var title = req.body.title;
+    var name = req.body.name;
+    console.log(name);
     var gender = req.body.gender;
     var city = req.body.city;
     var experience = req.body.experience;
     var about = req.body.about;
 
-
-    Doctor.update({number : req.session.doctornumber},{
+    Doctor.update({_id : req.session.doctorID},{
         $set : {
+            title: title,
+            name: name,
             gender : gender,
             city : city,
             year_of_experience : experience,
             About_you : about
         }
-    },function (err,result) {
-        if(err){
+    },function (err) {
+        if (err) {
             console.log(err);
         }
-        console.log(result);
-        res.send({ status : "success" , message : "Basic Details successfully updates"});
+        else {
+            Professional.remove({_id : req.session.proID},function (errs,results) {
+                if(errs){
+                    console.log(errs);
+                }
+                else{
+                    Doctor.find({_id : req.session.doctorID},function (err1,result1) {
+                        if(err1){
+                            console.log(err);
+                        }
+                        else{
+                            Pharma.remove({number : result1[0].number},function (err2) {
+                                if(err2){
+                                    console.log(err2);
+                                }
+                                else{
+                                    res.send({status: "success", message: "Basic Details successfully updates"});
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+        }
     });
 });
 
@@ -2134,27 +2836,216 @@ app.post('/education',function (req,res) {
     var qualification = req.body.qualification;
     var college = req.body.college;
     var completion = req.body.completion;
-    //var specialization = req.body.specialization;
+    var batch_to = req.body.batch_to;
+    var batch_from = req.body.batch_from;
+    var specialization = req.body.specialization;
 
-
-    Doctor.update({number : req.session.doctornumber},{
+    Doctor.update({_id : req.session.doctorID},{
         $set : {
             qualification : qualification,
             college : college,
-            completion_year : completion
-            //specialization : specialization
+            completion_year : completion,
+            batch_from :batch_from,
+            batch_to : batch_to,
+            specialization : specialization
         }
     },function (err,result) {
         if(err){
             console.log(err);
         }
-        else{
-            console.log(result);
-            res.send({ status : "success" , message : "Education successfully updates"});        }
+        else {
+            Professional.remove({_id: req.session.proID}, function (errs, results) {
+                if (errs) {
+                    console.log(errs);
+                }
+                else {
+                    Doctor.find({_id : req.session.doctorID},function (err1,result1) {
+                        if(err1){
+                            console.log(err);
+                        }
+                        else{
+                            Pharma.remove({number : result1[0].number},function (err2) {
+                                if(err2){
+                                    console.log(err2);
+                                }
+                                else{
+                                    res.send({status: "success", message: "Education successfully updates"});
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+        }
     });
 });
 
 app.post('/certificate',function (req,res) {
+    //console.log('hi');
+    var council_number = req.body.council_number;
+    var council_name = req.body.council_name;
+    var council_year = req.body.council_year;
+    // var path = req.files[0].path;
+    // var imageName = req.session.dpindbname ;
+    // var path1 = req.files[0].path;
+    // var imageName1 = req.session.dpindbname ;
+
+    Doctor.update({_id : req.session.doctorID},{
+        $set : {
+            council_registration_number : council_number,
+            council_name : council_name,
+            council_registration_year : council_year
+            // document : path,
+            // certificate : path1
+        }
+    },function (err) {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            Professional.remove({_id: req.session.proID}, function (errs) {
+                if (errs) {
+                    console.log(errs);
+                }
+                else {
+                    Doctor.find({_id : req.session.doctorID},function (err1,result1) {
+                        if(err1){
+                            console.log(err);
+                        }
+                        else{
+                            Pharma.remove({number : result1[0].number},function (err2) {
+                                if(err2){
+                                    console.log(err2);
+                                }
+                                else{
+                                    res.send({status: "success", message: "Document Details successfully updates"});
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+        }
+    });
+});
+
+////////////////pharma insert////////////////////////////////////////////
+
+app.post('/pharma_profession',function (req,res) {
+    var profession = req.body.profession;
+    Pharma.update({_id : req.session.pharmaID},{
+        $set : {
+            occupation: profession
+        }
+    },function (err) {
+        if(err)
+        {
+            console.log(err);
+        }
+        else {
+            res.send({details : "success", message : "Profession added"});
+        }
+    });
+});
+
+app.post('/pharma_basic',function (req,res) {
+    var title = req.body.title;
+    var name = req.body.name;
+    var gender = req.body.gender;
+    var city = req.body.city;
+    var experience = req.body.experience;
+    var about = req.body.about;
+
+    Pharma.update({_id : req.session.pharmaID},{
+        $set : {
+            title: title,
+            name: name,
+            gender : gender,
+            city : city,
+            year_of_experience : experience,
+            About_you : about
+        }
+    },function (err) {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            Professional.remove({_id: req.session.proID}, function (errs, results) {
+                if (errs) {
+                    console.log(errs);
+                }
+                else {
+                    Pharma.find({_id : req.session.pharmaID},function (err1,result1) {
+                        if(err1){
+                            console.log(err);
+                        }
+                        else{
+                            Doctor.remove({number : result1[0].number},function (err2) {
+                                if(err2){
+                                    console.log(err2);
+                                }
+                                else{
+                                    res.send({status: "success", message: "Basic Details successfully updates"});
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+        }
+    });
+});
+
+app.post('/pharma_education',function (req,res) {
+
+    var qualification = req.body.qualification;
+    var college = req.body.college;
+    var completion = req.body.completion;
+    var batch_to = req.body.batch_to;
+    var batch_from = req.body.batch_from;
+    var specialization = req.body.specialization;
+
+    Pharma.update({_id : req.session.pharmaID},{
+        $set : {
+            qualification : qualification,
+            college : college,
+            completion_year : completion,
+            batch_from :batch_from,
+            batch_to : batch_to,
+            specialization : specialization
+        }
+    },function (err) {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            Professional.remove({_id: req.session.proID}, function (errs, results) {
+                if (errs) {
+                    console.log(errs);
+                }
+                else {
+                    Pharma.find({_id : req.session.pharmaID},function (err1,result1) {
+                        if(err1){
+                            console.log(err);
+                        }
+                        else{
+                            Doctor.remove({number : result1[0].number},function (err2) {
+                                if(err2){
+                                    console.log(err2);
+                                }
+                                else{
+                                    res.send({status: "success", message: "Education successfully updates"});
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+        }
+    });
+});
+
+app.post('/pharma_certificate',function (req,res) {
     var council_number = req.body.council_number;
     var council_name = req.body.council_name;
     var council_year = req.body.council_year;
@@ -2164,7 +3055,7 @@ app.post('/certificate',function (req,res) {
     // var imageName1 = req.session.dpindbname ;
 
 
-    Doctor.update({number : req.session.doctornumber},{
+    Pharma.update({_id : req.session.pharmaID},{
         $set : {
             council_registration_number : council_number,
             council_name : council_name,
@@ -2173,207 +3064,42 @@ app.post('/certificate',function (req,res) {
             // certificate : path1
         }
     },function (err,result) {
-        if(err){
-            console.log(err);
-        }
-        else{
-            console.log(result);
-            res.send({ status : "success" , message : "Document Details successfully updates"});
-        }
-    });
-});
-
-////////////////////////////////////////User Profile Insert ////////////////////////////////////////////////////////////
-
-// app.get('/',function (req,res) {
-//     res.render('');
-// });
-//
-// app.get('/contact',function (req,res) {
-//     res.render('contact');
-// });
-
-app.post('/contactinfo',function (req,res) {
-    var name = req.body.name;
-    var number = req.body.number;
-    var email = req.body.email;
-    User.update({_id : req.session.userID},{
-        $set : {
-            name : name,
-            number : number,
-            email : email
-        }
-    },{new : true },function (err,result) {
-        if(err){
-            console.log(err);
-        }
-        else{
-            console.log(result);
-            res.send({status : "success" , message : "Contact updates"});
-        }
-    });
-});
-
-// app.get('/personalinfo',function (req,res) {
-//     res.render('info');
-// });
-
-app.post('/personalinfo',function (req,res) {
-    var dob = req.body.dob;
-    var gender = req.body.gender;
-    var blood_group = req.body.blood_group;
-    var marital_status = req.body.marital_status;
-    var height = req.body.height;
-    var weight = req.body.height;
-
-    User.update({_id : req.session.userID}, {
-        $set: {
-            dob: dob,
-            gender: gender,
-            blood_group: blood_group,
-            marital_status: marital_status,
-            height: height,
-            weight: weight
-        }
-    },function (err,result) {
-        if(err){
-            console.log(err);
-        }
-        else{
-            res.send({status : "success" , message : "Personal profile updated"});
-        }
-    });
-});
-
-app.post('/useraddress',function (req,res) {
-    var addresses = req.body.address;
-    var landmark = req.body.landmarks;
-    var pincode = req.body.pincode;
-    var city = req.body.city;
-    var state = req.body.state;
-
-    User.update({_id : req.session.userID}, {
-        $set: {
-            address: {
-                address: addresses,
-                landmark: landmark,
-                pin_code: pincode,
-                city: city,
-                state: state
-            }
-        }
-    },function (err,result) {
-        if(err){
-            console.log(err);
-        }
-        else{
-            res.send({status : "success" , message : "Address updates"});
-        }
-    });
-});
-
-app.post('/userconfidential',function (req,res) {
-    var aadhaar_number = req.body.aadhaar_number;
-    var income = req.body.income;
-    User.update({_id : req.session.userID}, {
-        $set: {
-            aadhaar_number: aadhaar_number,
-            income: income
-        }
-    },function (err,result) {
-        if(err){
-            console.log(err);
-        }
-        else{
-            res.send({status : "success" , message : "Confidential Updated"});
-        }
-    });
-});
-
-app.post('/useremergency',function (req,res) {
-    var rel_name = req.body.relative_name;
-    var rel_contact = req.body.relative_contact;
-    var relation = req.body.relation;
-    User.update({_id : req.session.userID}, {
-        $set: {
-            relative_name : rel_name,
-            relative_contact: rel_contact,
-            relation: relation
-        }
-    },function (err,result) {
         if (err) {
             console.log(err);
         }
         else {
-            res.send({status: "success", message: "Emergency Updated"});
+            Professional.remove({_id: req.session.proID}, function (errs) {
+                if (errs) {
+                    console.log(errs);
+                }
+                else {
+                    Pharma.find({_id : req.session.pharmaID},function (err1,result1) {
+                        if(err1){
+                            console.log(err);
+                        }
+                        else{
+                            Doctor.remove({number : result1[0].number},function (err2) {
+                                if(err2){
+                                    console.log(err2);
+                                }
+                                else{
+                                    res.send({status: "success", message: "Document Details successfully updates"});
+                                }
+                            });
+                        }
+                    });
+                }
+            });
         }
     });
 });
-
-// app.post('/userregisters',function (req,res) {
-//     var name = req.body.name;
-//     var number = req.body.number;
-//     var email = req.body.email;
-//     var password = req.body.password;
-//     // var dob = req.body.dob;
-//     // var gender = req.body.gender;
-//     // var blood_group = req.body.blood_group;
-//     // var marital_status = req.body.marital_status;
-//     // var height = req.body.height;
-//     // var weight = req.body.weight;
-//     // var addresses = req.body.address;
-//     // var landmark = req.body.landmarks;
-//     // var pincode = req.body.pincode;
-//     // var city = req.body.city;
-//     // var state = req.body.state;
-//     // var aadhaar_number = req.body.aadhaar_number;
-//     // var income = req.body.income;
-//     // var rel_name = req.body.relative_name;
-//     // var rel_contact = req.body.relative_contact;
-//     // var relation = req.body.relation;
-//
-//     var user = new User({
-//         name: name,
-//         email: email,
-//         number: number,
-//         password: password
-//         // dob: dob,
-//         // gender: gender,
-//         // blood_group: blood_group,
-//         // marital_status: marital_status,
-//         // height: height,
-//         // weight: weight,
-//         // address: {
-//         //     addresses: addresses,
-//         //     landmarks: landmark,
-//         //     pin_code: pincode,
-//         //     city: city,
-//         //     state: state
-//         // },
-//         // aadhaar_number : aadhaar_number,
-//         // income : income,
-//         // relative_name : rel_name,
-//         // relative_contact: rel_contact,
-//         // relation: relation
-//     });
-//     user.save(function (err,result) {
-//         console.log(result._id);
-//         req.session.userID = result._id;
-//         if(req.session.userID) {
-//             res.send("done");
-//         }
-//         else {
-//             res.send("not done");
-//         }
-//     });
-// });
-
 
 //==========================Database connection===========================
 
 //data base connection and opening port
 var db = 'mongodb://localhost/ApniCare';
 mongoose.connect(db, {useMongoClient: true});
+
 
 //=============================Start server========================
 //connecting database and starting server
@@ -2384,6 +3110,5 @@ database.on('open', function () {
         console.log('server connected to http:localhost:' + app.get('port'));
     });
 });
-
 
 

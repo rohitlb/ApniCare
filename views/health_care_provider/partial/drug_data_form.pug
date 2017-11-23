@@ -5,15 +5,23 @@ div.row
             .row
                 center
                     h2(style='font-weight:600;') Enter Drug Data
+                //a.btn.right(href='/health_care_provider?page=molecule_data') Enter Molecule Data
 
                 .col.s12
-                    form(name='drug_form1', method='get', onsubmit='return validateForm()', action='#drug_form2')
+                    form(name='drug_form1', method='post', onsubmit='return validateForm()', action='#drug_form2')
                         div.col.s12.m6.l6
                             span Brand Name
                             span.red-text &nbsp*
+                                //input(list='brand_list')
+                                //datalist#brand_list
+                                //    each lis in data
+                                //        //h4 #{lis.brand_name}
+                                //        option #{lis.brand_name}
                             input(type='text', id='brand_name', value='', style='color:black;font-size: 18px;font-weight: 400;' required)
                         div.col.s12.m6.l6
                             span Company Name
+                            //each lis in data
+                            //    h4 #{lis.brand_name}
                             span.red-text &nbsp*
                             input(type='text', id='company_name', value='', style='color:black;font-size: 18px;font-weight: 400;' required)
                         div.col.s12.m6.l6
@@ -23,11 +31,11 @@ div.row
                         div.col.s12.m6.l6
                             span Strength
                             span.red-text &nbsp*
-                                input(list='str')
-                                datalist#str
-                                    option mg
-                                    option ml
-                                    input(type='text', id='strength', value='', style='color:black;font-size: 18px;font-weight: 400;' required)
+                            input(list='str')
+                            datalist#str
+                                option mg
+                                option ml
+                                input(type='text', id='strength', value='', style='color:black;font-size: 18px;font-weight: 400;' required)
                             //input.button(type='submit')
                         div.col.s12.m6.l6
                             span Potent Substances
@@ -79,19 +87,18 @@ div.row
                         div.col.s12.m6.l6
                             span Price
                             span.red-text &nbsp*
-                            input(type='text', id='price', value='₹' style='color:black;font-size: 18px;font-weight: 400;' required)
-
+                            input(type='text', id='price', value='₹' placeholder='₹' style='color:black;font-size: 18px;font-weight: 400;' required)
                         div.row
                             div.col.s6.l4.m4
-                                input.button#reset_button(type='reset')
+                                input.reset#reset_button(type='reset')
                             div.col.s12.l4.m4
                                 input.button#enter_more_data(type='button' value='Enter more data')
                             div.col.s6.l4.m4
-                                input.button#drugs1(type='submit')
+                                input.button.btn-drugs#drugs1(type='submit')
 
                             //a#enter_more_data.btn.right(href='#drug_form2') Enter more data...
 
-                    form#drug_form2(method='get', onsubmit='return validateForm()')
+                    form#drug_form2(method='post', onsubmit='return validateForm()')
                         div.col.s12.m6.l6
                             span Prescription
                                     input(list='pres')
@@ -124,6 +131,7 @@ div.row
 
                         div.row
                             div.col.s6.l4.m4
-                                input.button(type='reset')
+                                input.reset(type='reset')
                             div.col.s6.l4.m4.offset-l4
-                                input.button#drugs2(type='submit')
+                                input.button.btn-drugs(type='submit')
+

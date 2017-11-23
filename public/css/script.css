@@ -1,13 +1,12 @@
-/*span*/
-/*{*/
-/*position: absolute;*/
-/*right: 0px;*/
-/*color: purple;*/
-/*background-color: white;*/
-/*font-size: 20px;*/
+span
+{
+    position: absolute;
+    right: 0px;
+    color: purple;
+    background-color: white;
+    font-size: 20px;
 
-/*}*/
-
+}
 .btn
 {
     background-color: mediumpurple;
@@ -41,16 +40,10 @@
     height:1px;
     width:40%;
 }
-#healthCare
+#healthCare,#Customer
 {
     background-color: teal;
     width:100%;
-}
-#Customer
-{
-    position: absolute;
-    right: 0px;
-    color: teal;
 }
 form
 {
@@ -69,11 +62,11 @@ form
 }
 .row
 {
-    /*//background-color: purple;*/
+    //background-color: purple;
     padding:0px;
     border:0px;
     margin-bottom: 0px;
-    /*//margin:0px;*/
+    //margin:0px;
 }
 .input-field
 {
@@ -86,7 +79,7 @@ form
 .buttu
 {
     background-color: mediumpurple;
-    width: 70%;
+     width: 70%;
 }
 #providers
 {
@@ -96,8 +89,4 @@ form
 {
     color: purple;
     background-color: whitesmoke;
-}
-.p2
-{
-    font-size: 12px;
 }

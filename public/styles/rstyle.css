@@ -43,7 +43,8 @@ h3 {
 
 .card
 {
-    max-width: 180px;
+    max-width: 400px;
+    padding: 10px;
 }
 .collection#home_card:hover {
     color: white;
@@ -55,13 +56,16 @@ h3 {
     max-width: none;
     font-size: small;
 }
+.card-t{
 
-.tabs .tab a {
+}
+
+.tabs .tab a ,.tabs1 .tab a{
     background-color: black;
     color: white;
 }
 
-.tabs .tab a:hover, .tabs .tab a.active {
+.tabs .tab a:hover, .tabs .tab a.active, .tabs1 .tab a:hover, .tabs1 .tab a.active{
     background-color: #5B4F66;
 }
 img
@@ -79,10 +83,10 @@ input[type=file]
 .drug_alphabets {
     width: fit-content;
     height: fit-content;
-    background: #660099;
+    background: teal;
     font-size: 14px;
     position: relative;
-    padding: 4px;
+    padding: 2px;
     line-height: 1.42857;
 }
 .pull-left {
@@ -141,9 +145,24 @@ li {
 }
 
 
-.two-col {
-    column-count: 2;
+.four-cols {
+    column-count: 4;
     vertical-align: top;
+}
+@media screen and (max-width: 900px) {
+    .four-cols {
+        column-count: 3;
+    }
+}
+@media screen and (max-width: 630px) {
+    .four-cols {
+        column-count: 2;
+    }
+}
+@media screen and (max-width: 362px) {
+    .four-cols {
+        column-count: 1;
+    }
 }
 
 

@@ -2,7 +2,7 @@ div.row
     div.col.s12.m12.l9.offset-l3
         img#drug(src='/images/drugsData.jpg', style='position:fixed;top:0px;left:0px;width:100%;height:100%;z-index:-1;')
         div#drugdata
-                .col.s12
+                .col.s12.m12.l12
                         center
                             h2(style='font-weight:600;') Drug Data
                         div.row
@@ -14,6 +14,8 @@ div.row
                             div.drug_alphabets.pull-left
                                 span.center
                                     ul
+                                        li.active
+                                            a.btn2.all.hoverable(href='#' type='all') All
                                         li
                                             a.btn2.hoverable(href='#') A
                                         li
@@ -67,55 +69,80 @@ div.row
                                         li
                                             a.btn2.hoverable(href='#') Z
                                         li
-                                            a.btn2.active.hoverable(href='#') All
+                                            a.btn2.all.hoverable(href='#' type='other') Other
 
 
-                div.row
-                    div.col.s12.m12.l12
-                        div.drug_list_col
+                        div#drug_lists.grey.lighten-2
                             div.row
                                 div.col.s12.m12.l12
-                                        div.col.s12.m6.l6
+                                    div.four-cols
+
+                                        .brands
                                             each val in data
+                                                //h4 #{val.brand_name[0].toUpperCase()}
+                                                //each alpha in val.brand_name
 
-                                                table#table1(cellspacing='1' cellpadding='1' border='solid black')
-                                                    tbody
 
-                                                        tr
-                                                            td(colspan='6' align='left')
-                                                                div.title
-                                                                    a.brands(href="/go_to_dosage?brand=" + val.brand_name) #{val.brand_name}&nbsp -&nbsp
-                                                                    span#drugT1
-                                                                        each company in val.company_id
-                                                                            a(href="/go_to_dosage?brand="+company.company_name) #{company.company_name}
-                                                                    br
-                                                                    span#drugT2
-                                                                        a(href="/go_to_dosage?brand="+val.categories) [#{val.categories}]
-                                                        tr
-                                                            td(colspan='5')
-                                                                hr
-                                                        tr
-                                                            td(valign='top' width='30%')
-                                                                <b>Dosage Form</b>
-                                                            td(valign='top' width='25%')
-                                                                <b>Strength</b>
-                                                            td(valign='top' width='25%')
-                                                                <b>Packaging</b>
-                                                            td(valign='top' width='20%')
-                                                                <b>Price</b>
+                                                ul
+                                                        li
+                                                            h5(name=val.brand_name style="width: 228px;margin-top: 0px;") #{val.brand_name}
 
-                                                        each dosage in val.dosage_id
-                                                            tr
-                                                                td #{dosage.dosage_form}
-                                                                each dose in dosage.strength_id
-                                                                    td #{dose.strength}
-                                                                    td #{dose.packaging}
-                                                                    td #{dose.price}
+                                                                    a#drug_dataa(href='/health_care_provider?brand='+val.brand_name) &nbsp
 
-                                                        tr
-                                                            td
-                                                                a(href='#') Read More...
-                                                            td
-                                                            td
-                                                            td
-                                                br
+
+                                                                        each dosage in val.dosage_id
+                                                                            br
+                                                                            span
+                                                                                | #{val.brand_name} #{dosage.dosage_form} &nbsp
+                                                                                each dose in dosage.strength_id
+                                                                                                    span #{dose.strength} &nbsp
+                                                                                                    span #{dose.packaging}
+
+
+
+
+                //div.row
+                //    div.col.s12.m12.l9.offset-l3
+                //        img#drugs(src='+ .../uploads/az2.png' , style='position:fixed;top:0px;left:0px;width:100%;height:100%;z-index:-1;')
+                //        div#drugs_data
+                //                div.col.s12.m12.l12
+                //                    h3 THE IMAGE
+                //        tr
+                //            td(colspan='6' align='left')
+                //                div.title
+                //                   a.brands(href="/go_to_dosage?brand=" + val.brand_name) #{val.brand_name}&nbsp -&nbsp
+                //                    span#drugT1
+                //
+                //                        each company in val.company_id
+                //                            a(href="/go_to_dosage?brand="+company.company_name) #{company.company_name}
+                //                    br
+                //                    span#drugT2
+                //                        a(href="/go_to_dosage?brand="+val.categories) [#{val.categories}]
+                //        tr
+                //            td(colspan='5')
+                //                hr
+                //        tr
+                //            td(valign='top' width='30%')
+                //                <b>Dosage Form</b>
+                //            td(valign='top' width='25%')
+                //                <b>Strength</b>
+                //            td(valign='top' width='25%')
+                //                <b>Packaging</b>
+                //            td(valign='top' width='20%')
+                //                <b>Price</b>
+                //
+                //        each dosage in val.dosage_id
+                //            tr
+                //                td #{dosage.dosage_form}
+                //                each dose in dosage.strength_id
+                //                    td #{dose.strength}
+                //                    td #{dose.packaging}
+                //                    td #{dose.price}
+                //
+                //        tr
+                //            td
+                //                a(href='#') Read More...
+                //            td
+                //            td
+                //            td
+                //br
