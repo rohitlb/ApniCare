@@ -2,10 +2,10 @@ div.row
     div.col.s12.m12.l9.offset-l3
         img#drug(src='/images/drugsData.jpg', style='position:fixed;top:0px;left:0px;width:100%;height:100%;z-index:-1;')
         div#drugdata
-                .col.s12.m12.l12
+                .col.s12.m12.l11
                         center
                             h2(style='font-weight:600;') Drug Data
-                        div.row
+
                             a.btn.waves-effect.waves-light.white-text.hoverable(href='/health_care_provider?page=drug_data_form' style='background-color:#660099; position:absolute;right:50px;') Contribute
                         br
                         br
@@ -72,7 +72,7 @@ div.row
                                             a.btn2.all.hoverable(href='#' type='other') Other
 
 
-                        div#drug_lists.grey.lighten-2
+                        div#drug_lists.grey.lighten-2(style='padding: 10px')
                             div.row
                                 div.col.s12.m12.l12
                                     div.four-cols
@@ -85,7 +85,7 @@ div.row
 
                                                 ul
                                                         li
-                                                            h5(name=val.brand_name style="width: 228px;margin-top: 0px;") #{val.brand_name}
+                                                            h5(name=val.brand_name style="width: 228px;margin-top: 0px;") #{val.brand_name.toUpperCase()}
 
                                                                     a#drug_dataa(href='/health_care_provider?brand='+val.brand_name) &nbsp
 
