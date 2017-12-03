@@ -4,56 +4,78 @@ div.row
         div.container#diseasedata
             .row
                 .col.s12
-                    form(name='disease_form', method='POST', onsubmit='return validateForm();', action='')
+                    form(name='disease_form', method='POST', onsubmit='return validateForm();', action='#')
 
                         center
-                            h2(style='font-weight:600;') Enter Disease Data
+                            h4(style='font-weight:600;') Enter Disease Data
                         div.col.s12.m12.l12
-                            span.target Disease Name
+                            span.target1 Disease Name
                             span.red-text &nbsp*
                             input.validate(type='text', id='disease_name', style='color:black;font-size: 15px;font-weight: 400;')
+
                         div.col.s12.m12.l12
-                            span.target What are its Symptoms?
+                            span.target2 What are its Symptoms?
                             span.red-text &nbsp*
-                            textarea.materialize-textarea#symptoms
+                            textarea#symptoms
                             label(for='symptoms', style='color:black;font-size: 15px;font-weight: 400;')
+                            //input.val11(style='color:black;font-size: 15px;font-weight: 400;')
                         div.col.s12.m12.l12
-                            span.target What are its possible Risk Factors?
+                            span.target3 What are its possible Risk Factors?
                             span.red-text &nbsp*
-                            textarea.materialize-textarea#risk_factors
+                            textarea#risk_factors
                             label(for='risk_factors', style='color:black;font-size: 15px;font-weight: 400;')
+                            //input.val12(type='text', style='color:black;font-size: 15px;font-weight: 400;')
+
                         div.col.s12.m12.l12
-                            span.target What are its Causes?
+                            span.target4 What are its Causes?
                             span.red-text &nbsp*
-                            textarea.materialize-textarea#causes
+                            textarea#causes
                             label(for='causes', style='color:black;font-size: 15px;font-weight: 400;')
-                            //input.button(type='submit')
+                            //input.val13(type='text', style='color:black;font-size: 15px;font-weight: 400;')
+                            br
                         div.col.s12.m12.l12
-                            span.target How is it Diagnosed?
+                            span.target5 How is it Diagnosed?
                             span.red-text &nbsp*
-                            textarea.materialize-textarea#diagnosis
-                            //label(for='diagnosis', style='color:black;font-size: 15px;font-weight: 400;')
-                            //input.button(type='submit')
+                            a(href='#diagnosis_sub')
+                                i.material-icons.right.small#add_button add_circle
+                            //i.material-icons.right#close close
+                            textarea#diagnosis
+                            label(for='diagnosis', style='color:black;font-size: 15px;font-weight: 400;')
+                            textarea#subhead
+                            label(for='diagnosis', style='color:black;font-size: 15px;font-weight: 400;')
+                            //textarea.materialize-textarea#diagnosis_sub
+                            //label#new_text(for='diagnosis_sub', style='color:black;font-size: 15px;font-weight: 400;')
+                            //input.val14(type='text', style='color:black;font-size: 15px;font-weight: 400;')
+                        br
                         div.col.s12.m12.l12
-                            span.target How is it Treated?
+                            span.target6 How is it Treated?
                             span.red-text &nbsp*
-                            textarea.materialize-textarea#treatment
+                            textarea#treatment
                             label(for='treatment', style='color:black;font-size: 15px;font-weight: 400;')
-                            //input.button(type='submit')
+                            //input.val15(type='text', style='color:black;font-size: 15px;font-weight: 400;')
+                        br
                         div.col.s12.m12.l12
-                            span.target What is the Outlook for it?
+                            span.target7 What is the Outlook for it?
                             span.red-text &nbsp*
-                            textarea.materialize-textarea#outlook
+                            textarea#outlook
                             label(for='outlook', style='color:black;font-size: 15px;font-weight: 400;')
-                            //input.button(type='submit')
+                            //input.val16(type='text', style='color:black;font-size: 15px;font-weight: 400;')
+                        br
                         div.col.s12.m12.l12
-                            span.target How can #{disease_name} be Prevented?
+                            span.target8 How can #{disease_name} be Prevented?
                             span.red-text &nbsp*
-                            textarea.materialize-textarea#prevention
+                            textarea#prevention
                             label(for='prevention', style='color:black;font-size: 15px;font-weight: 400;')
-                            //input.button(type='submit')
+                            //input.val17(type='text', style='color:black;font-size: 15px;font-weight: 400;')
+                        div.col.s12.m12.l12
+                            span.target8 Source of Information
+                            span.red-text &nbsp*
+                            textarea#source
+                            label(for='source', style='color:black;font-size: 15px;font-weight: 400;')
+
+                        br
                         div.row
                             div.col.s6.l4.m4
-                                input.button(type='reset')
+                                input.reset(type='reset')
                             div.col.s6.l4.m4.offset-l4
-                                input.button(type='submit')
+                                input.button#disease_data_button(type='submit')

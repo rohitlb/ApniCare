@@ -2,7 +2,7 @@ p {
     font: italic bold 20px Verdana, serif;
     color: inherit;
 }
-.button {
+.button, .reset {
     background-color: #660099;
     border: 1px solid grey;
     color: white;
@@ -16,9 +16,11 @@ p {
     cursor: pointer;
 }
 .button:hover {
-    background-color: darkblue;
+    background-color: teal;
 }
-
+.reset:hover {
+    background-color: red;
+}
 img#drug
 {
     width: 100%;
@@ -47,3 +49,9 @@ div#profile2.collection
     display: inherit;
 }
 
+.cardss {
+    background-color: lightgrey;
+}
+.cardss:hover {
+    background-color: teal;
+}
