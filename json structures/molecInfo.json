@@ -1,0 +1,23 @@
+{
+"moleculename" : "test molecule",
+"shortdescription" : "test shortdescription ",
+"pharmacokinetics" : {
+
+					"absorption" : "test absorption",
+				 	"distribution" : "test distribution", 
+				 	"metabolism" : "test metabolism",
+				 	"excretion" : "test excretion"
+				 	},
+"sideeffect" : "test sideeffect",
+"specialprecaution" : "test specialprecaution",
+"otherdruginteraction" : "test otherdruginteraction",
+"otherinterection" : "test otherinterection",
+"dosage" : "test dosage",
+"food" : " test food",
+"listofcontradiction" : [
+					      {"value": "name1", "text": "text 1"},
+					      {"value": "name2", "text": "text2"},
+					      {"value": "name3", "text": "text 3"}
+					    ],
+"source": "test source"	
+}
