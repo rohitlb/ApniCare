@@ -1,18 +1,33 @@
 $(function () {
 
-    // $('.modal').modal({
-    //     dismissible:true,
-    //     opacity: 0,
-    //     inDuration: 300,
-    //     outDuration:200,
-    //     startingTop:'70%',
-    //     endingTop: '10%'
-    //     //translate: scaleX(0.4)
-    //     //startingRight: '4%',
-    //     //endingRight: '80%'
-    // });
+    $('.modal').modal({
+        dismissible:true,
+        opacity: 0.2,
+        inDuration: 300,
+        outDuration:200,
+        startingTop:'4%',
+        endingTop: '11%'
+    });
+
+    $('#text1').val();
+    $('#text1').trigger('autoresize');
 
     $(':reset');
+
+    // $( "#progressbar" ).progressbar(function(){
+    //     value: 35
+    // });
+
+
+    $( "#progressbar" ).progressbar({
+        disabled: true,
+        value: 35,
+        max: 98,
+        min: 20,
+        classes: {
+            "ui-progressbar": "highlight"
+        }
+    });
 
 
     $('#drug_form2').hide();
@@ -40,8 +55,8 @@ $(function () {
 
 
 
-    $('#profile2').hide();
-    $('#profile3').hide();
+    //$('#profile2').hide();
+    //$('#profile3').hide();
     $('#doctor_card').click(function () {
         $('#profile1').hide();
         $('#profile2').show();
@@ -56,12 +71,13 @@ $(function () {
     // });
 
 
+
+
+
     //- ..................... ALPHABETICAL DISPLAY OF DRUG AND DISEASE AND MOLECULE DATA..............
 
     $(".drug_alphabets a").on("click", function() {
-
-        var type = $(this).attr("type")
-
+        var type = $(this).attr("type");
         if (type) {
             if (type == 'all') {
                 $(".brands h5").show();//show all
@@ -75,17 +91,15 @@ $(function () {
             }
             return;
         }
-
         var clickedLetter = $(this).text();
-        $(".brands h5").each(function() {
-            var brandName = $(this).attr("name");
-            if (brandName.toLowerCase()[0] == clickedLetter.toLowerCase()) {
-                $(this).show();
-            } else {
-                $(this).hide();
-            }
+        $(".brands h5").each(function () {
+                var brandName = $(this).attr("name");
+                if (brandName.toLowerCase()[0] == clickedLetter.toLowerCase()) {
+                    $(this).show();
+                } else {
+                    $(this).hide();
+                }
         });
-
     });
 
     // $('#drug_dataa').click(function () {
@@ -144,43 +158,86 @@ $(function () {
 
     //- .................FOR DISEASE DATA FORM HIDING TEXT AREAS....................
 
+    // $('#subhead2').hide();
+    // $('#subhead_text').hide();
+    // $('#add_button').click(function ()  {
+    //     $('#subhead2').show();
+    //     $('#subhead_text').show();
+    // });
+
+    // $(".repeat").click(function (e) {
+    //     e.preventDefault();
+    //     var $self = $(this);
+    //     $self.before($self.prev('.repeated').clone());
+    //     //$self.remove();
+    // });
+
+
+    $('.repeat').on('click', function() {
+        $('.repeater').append('<div><input id="subhead2" type="text"  placeholder="Enter a subheading" class="browser-default repeat_subhead" required/><button class="remove">x</button>' +
+            '<textarea class="text_subhead" id="subhead_text" required></textarea><label for="subhead2" style="color:black;font-size: 15px;font-weight: 400;">' +
+            '</label></div></div>');
+        return false; //prevent form submission
+    });
+
+    $('.repeat1').on('click', function() {
+        $('.repeater').append('<div><input id="subhead2" type="text" list="contra" placeholder="Choose subheading" class="browser-default repeat_subhead" required/><button class="remove">x</button>' +
+            '<textarea class="text_subhead" id="subhead_text" required></textarea><label for="subhead2" style="color:black;font-size: 15px;font-weight: 400;">' +
+            '</label></div></div>');
+        return false; //prevent form submission
+    });
+
+
+    $('.repeater').on('click', '.remove', function() {
+        $(this).parent().remove();
+        return false; //prevent form submission
+    });
+
+
+    // $(".repeat").on('click', function (e) {
+    //     $('.repeater').clone().insertAfter(".repeater");
+    // });
+
+
+
     //$('.materialize-textarea').hide();
     //$('input#disease_name').hide();
-    $('.val17').show();
-    $('.val17').click(function () {
-        $('.val17').toggle();
-        $('.materialize-textarea#prevention').toggle();
-    });
-    $('.val16').show();
-    $('.val16').click(function () {
-        $('.val16').hide();
-        $('.materialize-textarea#outlook').toggle();
-    });
-    $('.val15').show();
-    $('.val15').click(function () {
-        $('.val15').hide();
-        $('.materialize-textarea#treatment').toggle();
-    });
-    $('.val14').show();
-    $('.val14').click(function () {
-        $('.val14').hide();
-        $('.materialize-textarea#diagnosis').toggle();
-    });
-    $('.val13').show();
-    $('.val13').click(function () {
-        $('.val13').hide();
-        $('.materialize-textarea#causes').toggle();
-    });
-    $('.val12').show();
-    $('.val12').click(function () {
-        $('.val12').hide();
-        $('.materialize-textarea#risk_factors').toggle();
-    });
-    $('.val11').show();
-    $('.val11').click(function () {
-        $('.val11').hide();
-        $('.materialize-textarea#symptoms').toggle();
-    });
+    // $('.val17').show();
+    // $('.val17').click(function () {
+    //     $('.val17').toggle();
+    //     $('#prevention').toggle();
+    //     $('#prevention').trigger('autoresize');
+    // });
+    // $('.val16').show();
+    // $('.val16').click(function () {
+    //     $('.val16').hide();
+    //     $('#outlook').toggle();
+    // });
+    // $('.val15').show();
+    // $('.val15').click(function () {
+    //     $('.val15').hide();
+    //     $('#treatment').toggle();
+    // });
+    // $('.val14').show();
+    // $('.val14').click(function () {
+    //     $('.val14').hide();
+    //     $('#diagnosis').toggle();
+    // });
+    // $('.val13').show();
+    // $('.val13').click(function () {
+    //     $('.val13').hide();
+    //     $('#causes').toggle();
+    // });
+    // $('.val12').show();
+    // $('.val12').click(function () {
+    //     $('.val12').hide();
+    //     $('#risk_factors').toggle();
+    // });
+    // $('.val11').show();
+    // $('.val11').click(function () {
+    //     $('.val11').hide();
+    //     $('#symptoms').toggle();
+    // });
     // $('.val11').click(function () {
     //     $('.val1').hide();
     //     $('input#disease_name').toggle();
@@ -197,16 +254,18 @@ $(function () {
     });
 
     //- ........................DRUG DATA FORM SUBMIT ....................
-    $('#brand_name').change(function () {
-        var brand_name = $('#brand').val();
-        $.ajax({
+    // $('#brand_name').change(function () {
+    //     var brand_name = $('#brand').val();
+    //     $.ajax({
+    //
+    //     });
+    //     $('datalist#brand_list').each(function () {
+    //         brand_name += $(this).text();
+    //     });
+    // });
 
-        });
-        $('datalist#brand_list').each(function () {
-            brand_name += $(this).text();
-        });
-    });
 
+    //$textarea.val($textarea.val().replace(/\n/g,"\n\u2022").replace(/\r/g,"\r\u2022"));
 
 
     //- ................... DISEASE DATA FORM SUBMIT ....................
@@ -215,18 +274,27 @@ $(function () {
         var symptoms = $('#symptoms').val();
         var risk_factor = $('#risk_factors').val();
         var cause = $('#causes').val();
-        var diagnosis = $('#diagnosis').val();
+        var subhead1 = [];
+        $('.repeat_subhead').each(function(){
+            subhead1.push($(this).val()); //output <-- ['a','b','c']
+        });
+        var subhead2 = [];
+        $('.text_subhead').each(function () {
+            subhead2.push($(this).val());
+        });
         var treatment = $('#treatment').val();
         var outlook = $('#outlook').val();
         var prevention = $('#prevention').val();
         var source = $('#source').val();
-
+        //alert(subhead1);
+        //alert(subhead2);
         var data = {
                 disease_name: disease_name,
                 symptoms: symptoms,
                 risk_factor: risk_factor,
                 cause: cause,
-                diagnosis: diagnosis,
+                subhead1 : subhead1,
+                subhead2 : subhead2,
                 treatment: treatment,
                 outlook: outlook,
                 prevention: prevention,
@@ -255,7 +323,8 @@ $(function () {
         var brand_name = $('#brand_name').val();
         var company_name = $('#company_name').val();
         var categories = $('#categories').val();
-        var strength = $('#strength').val();
+        var strength1 = $("#strength").val();
+        var strength2 = $("#strengths").val();
         var potent_substances = $('#potent_substances').val();
         var dosage_form = $('#dosage_form').val();
         var packaging = $('#packaging').val();
@@ -271,7 +340,8 @@ $(function () {
             brand_name: brand_name,
             company_name: company_name,
             categories: categories,
-            strength: strength,
+            strength1: strength1,
+            strength2: strength2,
             potent_substances: potent_substances,
             dosage_form: dosage_form,
             packaging: packaging,
@@ -283,6 +353,25 @@ $(function () {
             primarily_used_for : primarily_used_for,
             warnings : warnings
         };
+        console.log(brand_name);
+        console.log(company_name);
+        console.log(categories);
+        console.log(strength1);
+        console.log(strength2);
+        console.log(potent_substances);
+        console.log(dosage_form);
+        console.log(packaging);console.log(price);console.log(prescription);console.log(dose_taken);console.log(type);
+        console.log(primarily_used_for);console.log(warnings);
+        console.log(dose_timing);
+
+
+
+
+
+
+
+
+
 
         $.ajax({
             url: '/medicine',
@@ -553,6 +642,7 @@ $(function () {
     $('#basic_details').click(function () {
             var title = $('#title').val();
             var name = $('#name').val();
+            var email = $('#email').val();
             var gender = $("input[type='radio'][name='gender']:checked").val();
             var city = $('#city').val();
             var experience = $('#year_of_experience').val();
@@ -560,6 +650,7 @@ $(function () {
             var data = {
                 title: title,
                 name: name,
+                email: email,
                 gender: gender,
                 city: city,
                 experience: experience,
@@ -592,6 +683,7 @@ $(function () {
     $('#basic_details_pharma').click(function () {
         var title = $('#title').val();
         var name = $('#name').val();
+        var email = $('#email').val();
         var gender = $("input[type='radio'][name='gender']:checked").val();
         var city = $('#city').val();
         var experience = $('#year_of_experience').val();
@@ -599,6 +691,7 @@ $(function () {
         var data = {
             title: title,
             name: name,
+            email : email,
             gender: gender,
             city: city,
             experience: experience,
@@ -625,7 +718,7 @@ $(function () {
         //$('#main_profile_doctor ul.tabs li.tab a').hover(function() {
         $('#tab2').focus();
         $('#basic_detail_pharma').hide();
-        $('#edu_special').show();
+        //$('#edu_special').show();
     });
 
     $('#education').click(function () {
@@ -909,7 +1002,6 @@ function filePreview(input) {
 //     }
 // }
 
-
 // function validateForm() {
 //     var brand_name = document.forms["drug_form1"]["brand_name"].value;
 //     if (x == "") {
@@ -917,7 +1009,6 @@ function filePreview(input) {
 //         return false;
 //     }
 // }
-
 
 // function validateForm() {
 //     Materialize.toast('this is a test', 2000);
