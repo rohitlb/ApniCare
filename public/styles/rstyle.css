@@ -71,7 +71,6 @@ h3 {
 img
 {
     padding: 10px;
-    max-width: 180px;
 }
 input[type=file]
 {
@@ -146,7 +145,7 @@ li {
 
 
 .four-cols {
-    column-count: 4;
+    column-count: 3;
     vertical-align: top;
 }
 @media screen and (max-width: 900px) {
@@ -159,14 +158,24 @@ li {
         column-count: 2;
     }
 }
-@media screen and (max-width: 362px) {
+@media screen and (max-width: 450px) {
     .four-cols {
         column-count: 1;
     }
 }
 
+textarea {
+    overflow-y: hidden;
+    padding: .8rem 0 1.6rem 0;
+    resize: none;
+    min-height: 3rem;
+}
 
-
+textarea.materialize-textarea.active {
+    min-height: 100px;
+    height: fit-content;
+    margin: 0px;
+}
 .side-nav li a:active
 {
     background-color: lavender;
@@ -215,4 +224,32 @@ a#enter_more_data
     background-color: lavender;
     color: black;
     font-size: 20px;
+}
+
+<!-- FOR DRUG DATA VIEW TABLE -->
+
+@media screen and (max-width: 450px)
+{
+    table.responsive-table td {
+        display: block;
+        min-height: 1.25em;
+        text-align: left;
+    }
+}
+
+.text_upper_case {
+    text-transform: uppercase;
+}
+
+.table-of-contents a.active {
+    color: blue;
+}
+
+span.small_font {
+    font-size: 14px;
+}
+
+.tobig:hover,.tobig:active
+{
+    height: 80px;
 }
