@@ -79,6 +79,7 @@ div.row
 
                                 .brands
                                     each val in data
+                                        //#{val}
                                         h5(name=val.disease_name, style="width: 228px;margin-top: 0px;")
                                             a(href='/health_care_provider?disease='+val.disease_name) #{val.disease_name}
                                         ////h4 #{val.brand_name[0].toUpperCase()} .toUpperCase()

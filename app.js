@@ -2180,7 +2180,7 @@ app.get('/health_care_provider',function(req,res) {
     if(req.query.page == 'disease_data') {
 
         //console.log('Hey there');
-        Brand.find().populate({path : 'dosage_id',populate : {path : 'strength_id'}}).populate({path : 'company_id'}).exec(function (err,brand) {
+        Disease.find().populate({path : 'dosage_id',populate : {path : 'strength_id'}}).populate({path : 'company_id'}).exec(function (err,brand) {
             if (err) {
                 console.log(err);
             }
@@ -2459,7 +2459,7 @@ app.post('/health_care_provider',function(req,res) {
     if(req.query.page == 'disease_data') {
 
         //console.log('Hey there');
-        Brand.find().populate({path : 'dosage_id',populate : {path : 'strength_id'}}).populate({path : 'company_id'}).exec(function (err,brand) {
+        Disease.find().populate({path : 'dosage_id',populate : {path : 'strength_id'}}).populate({path : 'company_id'}).exec(function (err,brand) {
             if (err) {
                 console.log(err);
             }
