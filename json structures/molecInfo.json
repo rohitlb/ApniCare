@@ -1,23 +1,19 @@
 {
-"moleculename" : "test molecule",
-"shortdescription" : "test shortdescription ",
-"pharmacokinetics" : {
+        "moleculename" : "test molecule",
+        "shortdescription" : "test shortdescription ",
+        "pharmacokinetics" : {
 
-					"absorption" : "test absorption",
-				 	"distribution" : "test distribution", 
-				 	"metabolism" : "test metabolism",
-				 	"excretion" : "test excretion"
-				 	},
-"sideeffect" : "test sideeffect",
-"specialprecaution" : "test specialprecaution",
-"otherdruginteraction" : "test otherdruginteraction",
-"otherinterection" : "test otherinterection",
-"dosage" : "test dosage",
-"food" : " test food",
-"listofcontradiction" : [
-					      {"value": "name1", "text": "text 1"},
-					      {"value": "name2", "text": "text2"},
-					      {"value": "name3", "text": "text 3"}
-					    ],
-"source": "test source"	
-}
+            "absorption" : "test absorption",
+            "distribution" : "test distribution",
+            "metabolism" : "test metabolism",
+            "excretion" : "test excretion"
+        },
+        "sideeffect" : ["a","b","c","d"],
+        "specialprecaution" : ["a","b","c","d"],
+        "otherdruginteraction" : ["a","b","c","d"],
+        "otherinterection" : ["a","b","c","d"],
+        "dosage" : "test dosage",
+        "food" : ["a","b","c","d"],
+        "listofcontradiction" : ["a","b","c","d"],
+        "source": ["a","b","c","d"]
+    }
