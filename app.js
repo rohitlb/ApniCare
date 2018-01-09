@@ -1939,8 +1939,6 @@ app.get('/searchmolecule',function (req,res) {
 });
 
 
-
-
 ////////////////////////////////////////// register as a doctor and user ///////////////////////////////////////////////
 
 app.get('/doctorasuser',function (req,res) {
@@ -3218,7 +3216,7 @@ app.post('/healthcarelogin',function(req,res) {
     var password = req.body.password;
 
     async.parallel({
-        doctor: function (ccallback) {
+        doctor: function (callback) {
             Doctor.find({number: number, password: password}, function (err, result) {
                 if (err) {
                     console.log(err);
@@ -3228,7 +3226,7 @@ app.post('/healthcarelogin',function(req,res) {
                 }
             })
         },
-        doctor: function (ccallback) {
+        pharma: function (callback) {
             Doctor.find({number: number, password: password}, function (err, result) {
                 if (err) {
                     console.log(err);
@@ -3256,7 +3254,7 @@ app.post('/healthcarelogin',function(req,res) {
                             req.session.pharmaID = result.pharma[0]._id;
                             res.redirect('/health_care_provider');
                         }
-                    };
+                    }
                 }
         })
 });
