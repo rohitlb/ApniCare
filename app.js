@@ -1652,9 +1652,9 @@ app.get('/findingredients',function (req,res) {
     });
 });
 
-// app.get('/disease',function (req,res) {
-//     res.render('');
-// });
+app.get('/disease',function (req,res) {
+    res.render('');
+});
 
 app.post('/disease',function (req,res) {
     var disease_name = req.body.disease_name;
