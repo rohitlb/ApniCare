@@ -16,6 +16,7 @@
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file leaf-file-name="app.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app.js">
+<<<<<<< HEAD
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="17">
               <caret line="3019" column="0" lean-forward="true" selection-start-line="3019" selection-start-column="0" selection-end-line="3019" selection-end-column="0" />
@@ -57,38 +58,93 @@
                 <element signature="e#128843#129444#0" expanded="false" />
                 <element signature="e#129494#131022#0" expanded="false" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="profile1_pharma.pug" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/views/health_care_provider/partial/profile1_pharma.pug">
+=======
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="4" column="36" lean-forward="false" selection-start-line="4" selection-start-column="36" selection-end-line="4" selection-end-column="36" />
+            <state relative-caret-position="198">
+              <caret line="59" column="29" lean-forward="true" selection-start-line="59" selection-start-column="29" selection-end-line="59" selection-end-column="29" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="disease_data.pug" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/views/health_care_provider/partial/disease_data.pug">
+      <file leaf-file-name="doctorregistration.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/model/doctorregistration.js">
           <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="136">
+              <caret line="8" column="29" lean-forward="false" selection-start-line="8" selection-start-column="29" selection-end-line="8" selection-end-column="29" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="profile2_doc.pug" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/views/health_care_provider/partial/profile2_doc.pug">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1989">
+              <caret line="117" column="0" lean-forward="false" selection-start-line="117" selection-start-column="0" selection-end-line="117" selection-end-column="0" />
+              <folding />
+>>>>>>> 1ed402eae002f1ae28b88d8d24b42cad89b4911b
+            </state>
+          </provider>
+        </entry>
+      </file>
+<<<<<<< HEAD
+      <file leaf-file-name="profile1_pharma.pug" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/views/health_care_provider/partial/profile1_pharma.pug">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="68">
+              <caret line="4" column="36" lean-forward="false" selection-start-line="4" selection-start-column="36" selection-end-line="4" selection-end-column="36" />
+=======
+      <file leaf-file-name="drug_data_view.pug" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/views/health_care_provider/partial/drug_data_view.pug">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1717">
+              <caret line="101" column="49" lean-forward="false" selection-start-line="101" selection-start-column="49" selection-end-line="101" selection-end-column="49" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="drugdata.pug" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/views/health_care_provider/partial/drugdata.pug">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1581">
+              <caret line="93" column="116" lean-forward="false" selection-start-line="93" selection-start-column="116" selection-end-line="93" selection-end-column="116" />
+>>>>>>> 1ed402eae002f1ae28b88d8d24b42cad89b4911b
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="profile1.pug" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/views/health_care_provider/partial/profile1.pug">
+          <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
             <state relative-caret-position="765">
               <caret line="45" column="44" lean-forward="false" selection-start-line="45" selection-start-column="44" selection-end-line="45" selection-end-column="44" />
               <folding>
                 <marker date="1512302990421" expanded="true" signature="760:926" ph="..." />
                 <marker date="1512302990421" expanded="true" signature="4525:4644" ph="..." />
               </folding>
+=======
+            <state relative-caret-position="561">
+              <caret line="33" column="32" lean-forward="false" selection-start-line="33" selection-start-column="32" selection-end-line="33" selection-end-column="32" />
+              <folding />
+>>>>>>> 1ed402eae002f1ae28b88d8d24b42cad89b4911b
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="profile_student_doctor.pug" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/views/health_care_provider/partial/profile_student_doctor.pug">
+      <file leaf-file-name="test.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/js/test.js">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
             <state relative-caret-position="969">
               <caret line="57" column="36" lean-forward="false" selection-start-line="57" selection-start-column="36" selection-end-line="57" selection-end-column="36" />
+=======
+            <state relative-caret-position="1292">
+              <caret line="76" column="24" lean-forward="false" selection-start-line="76" selection-start-column="24" selection-end-line="76" selection-end-column="24" />
+>>>>>>> 1ed402eae002f1ae28b88d8d24b42cad89b4911b
               <folding />
             </state>
           </provider>
@@ -126,8 +182,12 @@
       <find>/pharma_ba</find>
       <find>imag</find>
       <find>/health_care</find>
+<<<<<<< HEAD
       <find>/doctorres</find>
       <find>/</find>
+=======
+      <find>port</find>
+>>>>>>> 1ed402eae002f1ae28b88d8d24b42cad89b4911b
     </findStrings>
     <replaceStrings>
       <replace>18</replace>
@@ -144,7 +204,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/views/userregister.pug" />
         <option value="$PROJECT_DIR$/model/company.js" />
         <option value="$PROJECT_DIR$/model/registration.js" />
         <option value="$PROJECT_DIR$/views/category.pug" />
@@ -154,7 +213,7 @@
         <option value="$PROJECT_DIR$/views/molecules.pug" />
         <option value="$PROJECT_DIR$/views/all.pug" />
         <option value="$PROJECT_DIR$/views/health_care_provider/partial/head.pug" />
-        <option value="D:/old/views/partial/footer.pug" />
+        <option value="$PROJECT_DIR$/views/partial/footer.pug" />
         <option value="$PROJECT_DIR$/views/health_care_provider/partial/footer.pug" />
         <option value="$PROJECT_DIR$/model/disease.js" />
         <option value="$PROJECT_DIR$/views/admin/homepage.pug" />
@@ -170,7 +229,7 @@
         <option value="$PROJECT_DIR$/views/health_care_provider/partial/profile_student.pug" />
         <option value="$PROJECT_DIR$/views/health_care_provider/partial/drug_data_form.pug" />
         <option value="$PROJECT_DIR$/views/home_sideNav.pug" />
-        <option value="D:/old/public/css/Uscript.css" />
+        <option value="$PROJECT_DIR$/public/css/Uscript.css" />
         <option value="$PROJECT_DIR$/public/styles/rstyle4.css" />
         <option value="$PROJECT_DIR$/model/doctorregistration.js" />
         <option value="$PROJECT_DIR$/model/pharma.js" />
@@ -194,6 +253,7 @@
         <option value="$PROJECT_DIR$/views/health_care_provider/partial/profile_student_doctor.pug" />
         <option value="$PROJECT_DIR$/public/styles/rstyle.css" />
         <option value="$PROJECT_DIR$/views/health_care_provider/partial/disease_data.pug" />
+        <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/app.js" />
       </list>
     </option>
@@ -215,6 +275,7 @@
     <option name="width" value="662" />
     <option name="height" value="726" />
   </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
       <flattenPackages />
@@ -230,26 +291,39 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+<<<<<<< HEAD
+=======
+      <pane id="Scratches" />
+      <pane id="Scope" />
+>>>>>>> 1ed402eae002f1ae28b88d8d24b42cad89b4911b
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
+<<<<<<< HEAD
               <item name="Apnicare" type="b2602c69:ProjectViewProjectNode" />
               <item name="Apnicare" type="462c0819:PsiDirectoryNode" />
+=======
+              <item name="old" type="b2602c69:ProjectViewProjectNode" />
+              <item name="old" type="462c0819:PsiDirectoryNode" />
+>>>>>>> 1ed402eae002f1ae28b88d8d24b42cad89b4911b
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+<<<<<<< HEAD
       <pane id="Scope" />
       <pane id="Scratches" />
+=======
+>>>>>>> 1ed402eae002f1ae28b88d8d24b42cad89b4911b
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path" value="C:/Program Files/nodejs/node" />
-    <property name="settings.editor.selected.configurable" value="settings.nodejs" />
+    <property name="settings.editor.selected.configurable" value="vcs.Git" />
     <property name="javascript.nodejs.core.library.configured.version" value="8.4.0" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="HbShouldOpenHtmlAsHb" value="" />
@@ -316,23 +390,38 @@
       <workItem from="1511460420318" duration="179000" />
       <workItem from="1511461656481" duration="21603000" />
       <workItem from="1512271437514" duration="15768000" />
+<<<<<<< HEAD
       <workItem from="1512303075440" duration="154000" />
       <workItem from="1512308014335" duration="2310000" />
       <workItem from="1512368188108" duration="835000" />
+=======
+      <workItem from="1515410088916" duration="381000" />
+>>>>>>> 1ed402eae002f1ae28b88d8d24b42cad89b4911b
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
+<<<<<<< HEAD
     <option name="totallyTimeSpent" value="393957000" />
+=======
+    <option name="totallyTimeSpent" value="392212000" />
+>>>>>>> 1ed402eae002f1ae28b88d8d24b42cad89b4911b
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
+<<<<<<< HEAD
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.12276786" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.17434211" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+=======
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22181553" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+>>>>>>> 1ed402eae002f1ae28b88d8d24b42cad89b4911b
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -380,20 +469,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/views/health_care_provider/header.pug">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="23" lean-forward="true" selection-start-line="3" selection-start-column="23" selection-end-line="3" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/styles/style_admin.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="0" lean-forward="true" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/js/test_admin.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="442">
@@ -488,7 +563,7 @@
       </provider>
     </entry>
     <entry file="file://$USER_HOME$/WebstormProjects/GridLearning/public/js/test.js" />
-    <entry file="file://D:/old/public/css/Uscript.css" />
+    <entry file="file://$PROJECT_DIR$/public/css/Uscript.css" />
     <entry file="file://$PROJECT_DIR$/public/styles/rstyle4.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="464">
@@ -505,8 +580,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/model/doctorregistration.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="22" column="28" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
+        <state relative-caret-position="136">
+          <caret line="8" column="29" lean-forward="false" selection-start-line="8" selection-start-column="29" selection-end-line="8" selection-end-column="29" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -533,8 +609,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/public/js/test.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="206">
-          <caret line="17" column="13" lean-forward="false" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
+        <state relative-caret-position="1292">
+          <caret line="76" column="24" lean-forward="false" selection-start-line="76" selection-start-column="24" selection-end-line="76" selection-end-column="24" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -617,8 +694,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/views/health_care_provider/partial/drug_data_view.pug">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="308">
           <caret line="133" column="34" lean-forward="true" selection-start-line="133" selection-start-column="34" selection-end-line="133" selection-end-column="34" />
+=======
+        <state relative-caret-position="1717">
+          <caret line="101" column="49" lean-forward="false" selection-start-line="101" selection-start-column="49" selection-end-line="101" selection-end-column="49" />
+          <folding />
+>>>>>>> 1ed402eae002f1ae28b88d8d24b42cad89b4911b
         </state>
       </provider>
     </entry>
@@ -626,6 +709,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="289">
           <caret line="17" column="51" lean-forward="false" selection-start-line="17" selection-start-column="51" selection-end-line="17" selection-end-column="51" />
+<<<<<<< HEAD
         </state>
       </provider>
     </entry>
@@ -633,6 +717,8 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="300">
           <caret line="89" column="0" lean-forward="true" selection-start-line="89" selection-start-column="0" selection-end-line="89" selection-end-column="0" />
+=======
+>>>>>>> 1ed402eae002f1ae28b88d8d24b42cad89b4911b
         </state>
       </provider>
     </entry>
@@ -645,8 +731,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/views/health_care_provider/partial/profile1.pug">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="884">
           <caret line="52" column="0" lean-forward="false" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
+=======
+        <state relative-caret-position="561">
+          <caret line="33" column="32" lean-forward="false" selection-start-line="33" selection-start-column="32" selection-end-line="33" selection-end-column="32" />
+          <folding />
+>>>>>>> 1ed402eae002f1ae28b88d8d24b42cad89b4911b
         </state>
       </provider>
     </entry>
@@ -659,16 +751,27 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/views/health_care_provider/partial/profile2_doc.pug">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="238">
           <caret line="105" column="56" lean-forward="true" selection-start-line="105" selection-start-column="56" selection-end-line="105" selection-end-column="56" />
+=======
+        <state relative-caret-position="1989">
+          <caret line="117" column="0" lean-forward="false" selection-start-line="117" selection-start-column="0" selection-end-line="117" selection-end-column="0" />
+          <folding />
+>>>>>>> 1ed402eae002f1ae28b88d8d24b42cad89b4911b
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/views/health_care_provider/partial/profile_student_doctor.pug">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="969">
           <caret line="57" column="36" lean-forward="false" selection-start-line="57" selection-start-column="36" selection-end-line="57" selection-end-column="36" />
           <folding />
+=======
+        <state relative-caret-position="238">
+          <caret line="61" column="36" lean-forward="true" selection-start-line="61" selection-start-column="36" selection-end-line="61" selection-end-column="36" />
+>>>>>>> 1ed402eae002f1ae28b88d8d24b42cad89b4911b
         </state>
       </provider>
     </entry>
@@ -682,13 +785,18 @@
     <entry file="file://$PROJECT_DIR$/views/health_care_provider/partial/profile1_pharma.pug">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
+<<<<<<< HEAD
           <caret line="4" column="36" lean-forward="false" selection-start-line="4" selection-start-column="36" selection-end-line="4" selection-end-column="36" />
           <folding />
+=======
+          <caret line="4" column="36" lean-forward="true" selection-start-line="4" selection-start-column="36" selection-end-line="4" selection-end-column="36" />
+>>>>>>> 1ed402eae002f1ae28b88d8d24b42cad89b4911b
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/public/js/r_test.js">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="9605">
           <caret line="565" column="24" lean-forward="false" selection-start-line="565" selection-start-column="24" selection-end-line="565" selection-end-column="24" />
           <folding>
@@ -736,29 +844,67 @@
             <marker date="1512302990248" expanded="true" signature="29329:29537" ph="//..." />
             <marker date="1512302990248" expanded="true" signature="29540:32308" ph="//..." />
           </folding>
+=======
+        <state relative-caret-position="17">
+          <caret line="559" column="40" lean-forward="true" selection-start-line="559" selection-start-column="40" selection-end-line="559" selection-end-column="40" />
+>>>>>>> 1ed402eae002f1ae28b88d8d24b42cad89b4911b
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/public/styles/rstyle.css">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="2941">
           <caret line="173" column="0" lean-forward="false" selection-start-line="173" selection-start-column="0" selection-end-line="173" selection-end-column="0" />
+=======
+        <state relative-caret-position="229">
+          <caret line="167" column="8" lean-forward="false" selection-start-line="167" selection-start-column="8" selection-end-line="167" selection-end-column="8" />
+>>>>>>> 1ed402eae002f1ae28b88d8d24b42cad89b4911b
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/views/health_care_provider/partial/disease_data.pug">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="765">
           <caret line="45" column="44" lean-forward="false" selection-start-line="45" selection-start-column="44" selection-end-line="45" selection-end-column="44" />
           <folding>
             <marker date="1512302990421" expanded="true" signature="760:926" ph="..." />
             <marker date="1512302990421" expanded="true" signature="4525:4644" ph="..." />
           </folding>
+=======
+        <state relative-caret-position="272">
+          <caret line="43" column="44" lean-forward="false" selection-start-line="43" selection-start-column="44" selection-end-line="43" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/health_care_provider/partial/drugdata.pug">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1581">
+          <caret line="93" column="116" lean-forward="false" selection-start-line="93" selection-start-column="116" selection-end-line="93" selection-end-column="116" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/javascript/nodejs/8.4.0/core-modules/events.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="137">
+          <caret line="104" column="12" lean-forward="false" selection-start-line="104" selection-start-column="12" selection-end-line="104" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="0" lean-forward="true" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+          <folding />
+>>>>>>> 1ed402eae002f1ae28b88d8d24b42cad89b4911b
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app.js">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="17">
           <caret line="3019" column="0" lean-forward="true" selection-start-line="3019" selection-start-column="0" selection-end-line="3019" selection-end-column="0" />
           <folding>
@@ -799,6 +945,11 @@
             <element signature="e#128843#129444#0" expanded="false" />
             <element signature="e#129494#131022#0" expanded="false" />
           </folding>
+=======
+        <state relative-caret-position="198">
+          <caret line="59" column="29" lean-forward="true" selection-start-line="59" selection-start-column="29" selection-end-line="59" selection-end-column="29" />
+          <folding />
+>>>>>>> 1ed402eae002f1ae28b88d8d24b42cad89b4911b
         </state>
       </provider>
     </entry>
