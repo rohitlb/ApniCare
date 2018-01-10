@@ -643,7 +643,7 @@ app.post('/verifydetailspassword',function (req,res) {
 });
 
 app.get('/updateusersdetails',function (req,res) {
-    if(req.session,userID) {
+    if(req.session.userID) {
         res.render('updateusersdetails');
     }
     res.send({status : "failure", message : "Please login first"});
