@@ -2624,6 +2624,22 @@ app.post('/health_care_provider',function(req,res) {
     }
 });
 
+app.post('/apphealth_care_provider',function(req,res){
+            Brand.find({},'-_id brand_name categories').populate(
+            {path : 'dosage_id', select : '-_id dosage_form',populate :
+                {path : 'strength_id', select : '-_id strength packaging potent_substance.name'}
+            }).populate({path : 'company_id', select: '-_id company_name'}).sort({brand_name : 1}).exec(function (err,brand) {
+            if (err) {
+                console.log(err);
+            }
+            else {
+
+                    res.send({message :'brand data' ,data: brand});
+                }
+            }
+        });
+});
+
 //////////////////// DRUG DATA VIEW//////////////////////////////
 
 // app.get('/drug_data_view',function (req,res) {
