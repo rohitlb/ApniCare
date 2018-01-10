@@ -1512,7 +1512,7 @@ app.get('/findcompany',function (req,res) {
 
 app.get('/go_to_brand',function (req,res) {
     var company = req.query.company;  // take value of brand from front end
-
+    console.log( typeof company);
     //find all company
     Company.find({company_name : company}).exec(function (err,result) {
         if(err){
@@ -1770,7 +1770,7 @@ app.get('/search_molecule',function (req,res) {
 app.get('/inmolecule',function (req,res) {
     var molecule = req.query.molecule;
 
-
+res.end();
 });
 
 
