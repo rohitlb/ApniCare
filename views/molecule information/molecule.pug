@@ -1,0 +1,144 @@
+div.row#mol_row1
+    div.col.l12#mol_col1
+        div.row.center#mol_row1_subrow2
+            h4   #{data[0].molecule_name}
+
+
+        div.row.m_p_info
+            //h4.center #{data[0].molecule_name}
+            p.black-text.lighten-2 #{data[0].description}
+            //li #{val.description}
+            //li Drug Category #{val.drug_categories}
+        div.row
+            div.row
+                a(name="Pharma")
+                    p.m_p Pharmacokinetics
+                        ul.m_p_info
+                            li - Absorption: #{data[0].absorption}
+                            li - Distribution: #{data[0].distribution}
+                            li - Metabolism: #{data[0].metabolism}
+                            li - Excretion: #{data[0].excretion}
+        div.row
+            a(name="SideEffects")
+                p.m_p Adverse Reactions /  Side Effects
+                li.m_p_info #{data[0].side_effect}
+            a(href="Precautions")
+                p.m_p Special Precautions
+            li.m_p_info #{data[0].precaution}
+            a(name="Dosage")
+                p.m_p Dosage
+            p.m_p Other Drug Interactions
+            li.m_p_info #{data[0].drug_interaction}
+            a(name="interactions")
+                p.m_p Other Interactions
+                    ul.m_p_info
+                        li - food Interaction
+            p.m_p Dosage
+            li.m_p_info #{data[0].dosage}
+            ul.m_p_info
+                li - Oral
+                li - Intravenous
+                li - Liver Disorder
+                li - Hepatic
+                li - COPD
+            p.m_p Food(before/after)(dropdown)
+            li.m_p_info #{data[0].food}
+            a(name="Contradictions")
+                p.m_p List Of Contradications
+                    ul.m_p_info
+                        li - In Pregnancy
+                        li - In Children
+                        li - In Geriatic / Old person
+                        li - In Lactation
+                        li - Other Contraindications
+                        li - Storage
+                        li -Lab Interferance
+
+
+
+    div.col#mol_row1_subrow4
+        h5 Page Contents
+        a(href="#Pharma") Pharmacokinetics
+        br
+        a(href="#SideEffects") Adverse Reactions/Side Effects
+        br
+        a(href="#Precautions") Special Precautions
+        br
+        a(href="#Dosage") Dosage
+        br
+        a(href="#interactions") Other Drug Interactions
+        br
+        a(href="#Contradictions") List of Contraindications
+
+
+
+    //h5 Molecule related brand names
+
+
+
+    //div.row.center#mol_row1_subrow3
+            //    div.drug_alphabets.pull-left
+            //        span.center
+            //            ul
+            //                li.active
+            //                    a.btn2.all.hoverable(href='#' type='all') All
+            //                li
+            //                    a.btn2.hoverable(href='#') A
+            //                li
+            //                    a.btn2.hoverable(href='#') B
+            //                li
+            //                    a.btn2.hoverable(href='#') C
+            //                li
+            //                    a.btn2.hoverable(href='#') D
+            //                li
+            //                    a.btn2.hoverable(href='#') E
+            //                li
+            //                    a.btn2.hoverable(href='#') F
+            //                li
+            //                    a.btn2.hoverable(href='#') G
+            //                li
+            //                    a.btn2.hoverable(href='#') H
+            //                li
+            //                    a.btn2.hoverable(href='#') I
+            //                li
+            //                    a.btn2.hoverable(href='#') J
+            //                li
+            //                    a.btn2.hoverable(href='#') K
+            //                li
+            //                    a.btn2.hoverable(href='#') L
+            //                li
+            //                    a.btn2.hoverable(href='#') M
+            //                li
+            //                    a.btn2.hoverable(href='#') N
+            //                li
+            //                    a.btn2.hoverable(href='#') O
+            //                li
+            //                    a.btn2.hoverable(href='#') P
+            //                li
+            //                    a.btn2.hoverable(href='#') Q
+            //                li
+            //                    a.btn2.hoverable(href='#') R
+            //                li
+            //                    a.btn2.hoverable(href='#') S
+            //                li
+            //                    a.btn2.hoverable(href='#') T
+            //                li
+            //                    a.btn2.hoverable(href='#') U
+            //                li
+            //                    a.btn2.hoverable(href='#') V
+            //                li
+            //                    a.btn2.hoverable(href='#') W
+            //                li
+            //                    a.btn2.hoverable(href='#') X
+            //                li
+            //                    a.btn2.hoverable(href='#') Y
+            //                li
+            //                    a.btn2.hoverable(href='#') Z
+            //                li
+            //                    a.btn2.all.hoverable(href='#' type='other') Other
+            //div.row.center
+                //h6 Search Generic / Brand name
+                //.input-field#input3
+                //    input#search3(type='search', required='',placeholder="search here")
+                //    label.black-text.label-icon(for='search3')
+                //        button#go.black-text Go

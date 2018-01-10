@@ -1,0 +1,43 @@
+doctype html
+
+html
+
+    head
+        link(href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css" rel="stylesheet")
+
+        link(href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet")
+
+        script(src="https://code.jquery.com/jquery-3.2.1.min.js")
+
+        script(src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js")
+
+        link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css")
+        //------------------js files included--------------------------
+        script(src="/js/n_userlogin.js")
+        script(src="/js/n_Dtest.js")
+        script(src="/js/n_Ptest.js")
+        script(src="/js/n_main.js")
+        script(src="/js/n_LogReg.js")
+        //----------------css file included-------------------
+        link(href="/css/n_index.css" rel="stylesheet")
+        link(href="/css/n_moleculeInfo.css" rel="stylesheet")
+        link(href="/css/n_footer.css" rel="stylesheet")
+        link(href="/css/n_login.css" rel="stylesheet")
+
+
+
+
+    title HomePage
+
+    body
+
+        if(page == 'Drug_Information'||page =='Disease_Information'||page == 'Molecule_Information')
+            include molecule information/browse_main
+            include n_partial/footer
+        else if(page == 'molecule_name')
+            include molecule information/browse_main
+            include n_partial/footer
+        else
+            include ./n_partial/header
+            div
+                include ./n_partial/footer

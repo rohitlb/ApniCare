@@ -1,0 +1,105 @@
+#modalbackground(style=' position: absolute; height:100%; widh:100%; display:none; z-index:10001; background-color: #7F7F7F; opacity: 0.3;')
+div#idiv1
+    div.row
+        br
+        include ../login-signup/main
+        i.material-icons.black-text.right notifications
+        .input-field#input2
+            input#search(type='search', required='',placeholder="search here")
+            label.black-text.label-icon(for='search')
+    div.row#irow1
+        div.col.l4
+            span#logo1 ApniCare
+            br
+            span.span3.lavender-text - "It's All About Health!!"
+
+    div.row#irow4
+    div.row#irow3.center
+        div.col#col1
+
+            br
+            a(href='/ApniCare/information?page=Drug_Information')
+                span.white-text Drug Information
+            div.headerdivider
+        div.col#col2
+
+            br
+            a(href='/ApniCare/information?page=Disease_Information')
+                span.white-text Disease Information
+            div.headerdivider1
+        div.col#col3
+
+            br
+            a(href='/ApniCare/information?page=Molecule_Information')
+                span.white-text Molecule Information
+            div.headerdivider2
+        div.col#col4
+
+            br
+            a(href='/ApniCare/information?page=Find_a_Right_Doctor')
+                span.white-text Find A Right Doctor
+            div.headerdivider3
+        div.col#col5
+
+            br
+            a(href='#modal1')
+                span.white-text For HealthCare Providers
+
+
+div#idiv2
+    div.row
+        br
+        div.col.l4#idiv3
+            div.row
+                a(href='/ApniCare/information?page=Drug_Information').content
+                    span.btn-flat#drugInformation Drug Information
+
+            br
+            div.row
+                a(href='/ApniCare/information?page=Disease_Information').content
+                    span.btn-flat#diseaseInformation Disease Information
+
+            br
+            div.row
+                a(href='/ApniCare/information?page=Molecule_Information').content
+                    span.btn-flat#moleculeInformation Molecule Information
+
+            br
+            div.row#find_doctor
+                a(href='/ApniCare/information?page=Find_a_Right_Doctor').content
+                    span.btn-flat#find_a_right_doctor Find a Right Doctor
+
+        div.col.l8#idiv4
+            div.row
+                br
+                span.white-text BE AWARE ABOUT
+                .divider#divider1
+            div.row#irow2
+                div
+                    div.row#carousel
+
+                        a(href='/ApniCare/information?page=Drug_Information')
+                            div.row#crousel1.c
+                                br
+                                h4.center.black-text Drug Information
+                                p.center.black-text Impact where it matters
+
+                            .divider.b#drugdivider
+                        a(href='/ApniCare/information?page=Disease_Information')
+                            div.row#crousel2.a
+                                br
+                                h4.center.black-text Disease Information
+                                p.center.black-text Impact where it matters
+                            .divider.b#diseasedivider
+                        a(href='/ApniCare/information?page=Molecule_Information')
+                            div.row#crousel3.a
+                                br
+                                h4.center.white-text Molecule/Potent Substance Information
+                                p.center.white-text Impact where it matters
+                            .divider.b#moleculedivider
+                        a(href='/ApniCare/information?page=Find_a_Right_Doctor')
+                            div.row#crousel4.a
+                                br
+                                h4.center.black-text Find A Right Doctor
+                                p.center.black-text
+                            .divider.b#doctordivider

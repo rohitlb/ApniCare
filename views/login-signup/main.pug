@@ -1,0 +1,61 @@
+a.waves-effect.waves-light.btn-flat.right.modal-trigger.initial(href='#modal1')#loginbut Login
+a.waves-effect.waves-light.btn-flat.right.modal-trigger.initial(href='#modal1')#signupbut Signup
+
+#modal1.modal
+    .modal-content(style={padding: "0px",margin:"0px",border:"0"})
+
+        div.row
+        a
+            div.row
+                div.col.l4.hide-on-med-and-down#div1
+                    p
+                        h3.white-text Login
+                        p.black-text.p2
+                        | Get access to your
+                        | account
+                        |
+                    img.image1(src='/images/black.png')
+                div.col.l4.hide-on-med-and-down#div2
+                    p
+                        h3.white-text Signup
+                        p.black-text.p2
+                        | We do not share your
+                        | personal details with
+                        | anyone.
+                    img.image1(src='/images/black.png')
+                div.col.s12.m8.l8
+                    div.row#providers
+                        br
+                        h5.right For HealthCare Provider
+                        a.waves-effect.btn-flat#Customer(title="back to user")
+                            i.material-icons arrow_back
+                    div.row#doctorPhamacist
+                        br
+                        br
+                        div.col.s5.m3.l5.center#imdoctor
+                            br
+                            i.fa.fa-user-md.icon(style="font-size: 50px")
+                            br
+                            a(href='#',title="doctor") Doctor
+                        div.col.s2.m2.l2.center
+                            br
+
+                            h6.black-text OR
+                        div.col.s5.m7.l5.center#impharmacist
+                            br
+                            i.fa.fa-medkit.icon(style="font-size: 50px")
+                            br
+                            a(href="#",title="Pharmacist") Pharmacist
+                    br
+                    br
+                    form
+                        div.row#closebutton
+                            a(href='/')
+                                i.modal-action.modal-close.material-icons.right close
+
+
+                        include login
+                        include register
+                        include forgotPassword
+                        br
+                        br

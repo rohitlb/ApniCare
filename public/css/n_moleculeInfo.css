@@ -1,0 +1,188 @@
+/*----------------------------------------------------------molecule view page--------------------------------------------------------------------------------*/
+
+.drug_alphabets {
+    width: fit-content;
+    height: fit-content;
+    background: teal;
+    font-size: 14px;
+    position: relative;
+    padding: 2px;
+    line-height: 1.42857;
+}
+.pull-left {
+    float: left!important;
+}
+::after, ::before {
+    box-sizing: border-box;
+}
+.drug_alphabets li {
+    display: block;
+    float: left;
+    margin: 1.5px;
+    text-transform: uppercase;
+    color: #000;
+    line-height: 0.8;
+    padding: 2px;
+    font-family: OpenSans-Regular;
+}
+
+ul {
+    margin: 0;
+}
+ul li {
+    list-style: none;
+}
+::after, ::before {
+    box-sizing: border-box;
+}
+li {
+    text-align: -webkit-match-parent;
+}
+.drug_alphabets li a.btn2 {
+    font-size: 22px;
+    width: fit-content;
+    height: 24px;
+    padding: 2px 1px 2px 1px;
+    color: black;
+    background-color: white;
+}
+.drug_alphabets li a.btn2:hover {
+    box-shadow: lavender;
+    font-size: 28px;
+    background-color: lavender;
+}
+.drug_alphabets li a.btn2.active {
+    background-color: lavender;
+    font-size: 28px;
+    color: blue;
+}
+.drug_alphabets li a {
+    display: inline-block;
+    position: relative;
+    text-decoration: none;
+    background: #FFF;
+    border: #d1ecf1 solid 1px;
+}
+
+
+.four-cols {
+    column-count: 4;
+    vertical-align: top;
+}
+@media screen and (max-width: 900px) {
+    .four-cols {
+        column-count: 3;
+    }
+}
+@media screen and (max-width: 630px) {
+    .four-cols {
+        column-count: 2;
+    }
+}
+@media screen and (max-width: 362px) {
+    .four-cols {
+        column-count: 1;
+    }
+}
+#mol_row1_subrow5{
+    background-color: white;
+    height: 500px;
+}
+
+
+/*----------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+#mdiv1{
+    background-color: black;
+    font-family: OpenSans-Regular, sans-serif;
+    margin:0px;
+    padding: 0px;
+}
+#moleculeInformation1{
+    color: black;
+    margin-top: -20px;
+    padding: 0px;
+    background-color:lightgrey;
+}
+#mcol1{
+    background-color: lightgrey;
+}
+#mcol2{
+
+    background-color: lavender;
+}
+#mcol3{
+    background-color: lightgray;
+}
+
+
+/*---------------------------molecule section----------------------------------------------------------------------*/
+#mol_row1{
+    margin-top: 1%;
+}
+                #mol_row1_subrow1{
+                    padding-left: 7px;
+                    margin-left: -10px;
+                    margin-top: 3%;
+                    border-radius: 15px;
+                    background-color: white;
+                }
+
+
+        #mol_col1{
+            padding: 0px;
+            margin: 0px;
+            border-radius: 15px;
+            background-color: white;
+        }
+
+                #mol_row1_subrow2{
+                    border-top-left-radius: 5px;
+                    border-top-right-radius: 5px;
+                    margin-top: -8px;
+                    padding-top: 3px;
+                    background-color:#660099;
+                    color: white;
+                    height: 70px;
+                }
+                #mol_row1_subrow3{
+                    background-color: #9999a7;
+                    color: white;
+                    height: 40px;
+                }
+#input3{
+    margin-left: 20%;
+}
+#search3{
+    width: 70%;
+    background-color: white;
+    border-color: lightgrey;
+    border: solid lightgray;
+
+}
+#go{
+    margin-top: -2.8%;
+    margin-left: 520px;
+    width: 10%;
+    height: 98%;
+}
+.m_p{
+    color: black;
+    padding-left: 32px;
+    font-size: 21px;
+    font-weight: 600;
+}
+.m_p_info{
+    margin-left: 95px;
+    color:#2d2d2d;
+}
+#mol_row1_subrow4{
+    z-index: 2;
+    position: fixed;
+    right: 2%;
+    margin-left: -2px;
+    width: 16%;
+    border-radius: 15px;
+    margin-top: 50px;
+    background-color: lightgray;
+
+}

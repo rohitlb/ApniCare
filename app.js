@@ -207,9 +207,9 @@ app.post('/VerifyOTP',function (req, res) {
         });
 });
 
-app.get('/home',function (req,res) {
+app.get('/index',function (req,res) {
     if (req.session.userID) {
-        res.redirect('/profile');
+        res.redirect('index');
         res.end();
     }
     if (req.session.doctorID) {
@@ -221,14 +221,14 @@ app.get('/home',function (req,res) {
 
 app.get('/', function (req, res) {
     if (req.session.userID) {
-        res.redirect('/profile');
+        res.redirect('index');
         res.end();
     }
     if(req.session.doctorID){
         res.render('doctorpage');
         res.end();
     }
-        res.render('home');
+        res.render('index');
         res.end();
 });
 
@@ -357,6 +357,74 @@ app.post('/profiles',function (req,res) {
         }
     });
 });
+//***************************************frontend**************************************8888
+
+//*******************************frontend changes***********************************************
+app.get('/profile/userprofile',function (req,res) {
+    var page= 'userprofile';
+    if(req.query.page=='profilePage' || req.query.page=='My_Profile' || req.query.page=='My_Activity' || req.query.page=='Refer_Friends' ||
+        req.query.page=='Contact_Us' ||req.query.page=='Logout' || req.query.page=='Confidential_Information' ||
+        req.query.page=='Emergency_Contact_Details' ||req.query.page=='Address')
+        page= req.query.page;
+
+    User.findOne({_id : req.session.userID},function (err,result) {
+        if(err){
+            console.log(err);
+        }
+        else{
+            console.log(result);
+            if(result !== ""){
+                res.render('profile',
+                    {
+                        page:page,
+                        data : result
+                    });
+            }
+            else{
+                res.send({status : "failed", message : "User not found"});
+            }
+        }
+    });
+});
+//for basic info like disease,drug and molecule Information*******************************************************
+app.get('/ApniCare/information',function (req,res) {
+    var page= 'ApniCare';
+    if(req.query.page=='Drug_Information' || req.query.page=='Disease_Information' ||req.query.page=='Molecule_Information' )
+        page= req.query.page;
+
+    Molecule.find({},'-_id molecule_name').exec(function (err, result) {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            res.render('index',
+                {
+                    page:page,
+                    data : result
+                });
+        }
+    });
+});
+
+
+app.get('/ApniCare/information/Molecules',function (req,res) {
+    var page= 'ApniCare';
+    var molecule = req.query.molecule;
+
+    Molecule.find({molecule_name : molecule},'-_id -__v').exec(function (err, result) {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            res.render('index',
+                {
+                    page:'molecule_name',
+                    data : result
+                });
+        }
+    });
+});
+
 
 //*****************************************USER LOGIN*******************************************************************
 //login with filter and session

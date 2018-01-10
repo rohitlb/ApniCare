@@ -1,0 +1,118 @@
+.initial{
+    width: 90px;
+}
+a{
+    cursor: pointer;
+}
+.btn
+{
+    background-color: mediumpurple;
+}
+#div1
+{
+    max-height: 90%;
+    padding: 0px;
+    border: 0px;
+    margin: 0px;
+    background-color: mediumpurple;
+}
+#div2
+{
+    max-height:90%;
+    padding: 0px;
+    border: 0px;
+    margin: 0px;
+    background-color: rebeccapurple;
+}
+.image1
+{
+    height:410px;
+    width:100%;
+    padding:0px;
+    margin:0px;
+    border: 0px;
+}
+.image2
+{
+    height:1px;
+    width:40%;
+}
+#healthCare
+{
+    top:25px;
+    color: #660099;
+    position: absolute;
+    right: 0px;
+    /*left: 55%;*/
+    cursor: pointer;
+}
+#Customer
+{
+    font-size: xx-large;
+    font-weight: bold;
+    position: absolute;
+    left:30%;
+    color: teal;
+    cursor:pointer;
+}
+
+.verify{
+    position: absolute;
+    right: 10px;
+    top: 11px;
+}
+#closebutton{
+    position: absolute;
+    top: 1px;
+    right: 3px;
+}
+form
+{
+    background-color: white;
+    padding: 0px;
+    border: 0px;
+}
+.modal
+{   border-color: purple;
+    width: 45%;
+    max-height:90%;
+    top: 6%;
+    padding: 0px;
+    border: 1px;
+
+}
+.row
+{
+    padding:0px;
+    border:0px;
+    margin-bottom: 0px;
+}
+.input-field
+{
+    background-color: white;
+}
+.textarea
+{
+    background-color: white;
+}
+.buttu
+{
+    background-color: mediumpurple;
+    width: 70%;
+}
+#providers
+{
+    color: teal;
+}
+#loginButton12,#NewtoApnicare,#D_loginButton,#P_loginButton
+{
+    color: purple;
+    background-color: whitesmoke;
+}
+.p2
+{
+    font-size: 12px;
+}
+.icon{
+    color: black;
+}

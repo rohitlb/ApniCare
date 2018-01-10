@@ -1,0 +1,39 @@
+div#Mdiv1
+    img#drug(src='/images/doctor-spotligh.jpg', style='position:fixed;top:-50px;left:0px;width:100%;height:100%;z-index:-5;')
+    div.row#irow1(style='height: 145px;position:relative;top:0px;z-index:2;backgroundColor:purple;')
+        div.col.l4
+            br
+            br
+            span#logo1 ApniCare
+                br
+                span.span3 - it's all about Health!!
+
+            //a(href='/profile/userprofile?page=profilePage')
+                img#logoimg(src="/images/az.png" height="80px" width="150px")
+
+        div.col.l6
+            a(href="#")
+            br
+            br
+            .input-field#input1
+                input#search(type='search', required='',placeholder="search here")
+                label.label-icon(for='search')
+                //.material-icons#searchbutton search
+        div.col.l2.black-text
+            include ../login-signup/main
+
+
+div
+    div.row#moleculeInformation1
+        div.col.s12.m12.l12#mcol2
+            if(page == 'Drug_Information')
+                include ./drug
+            else if (page == 'Disease_Information')
+                include ./disease_front_view
+            else if (page == 'disease_name')
+                include ./disease
+            else if (page == 'Molecule_Information')
+                include ./molecule_front_view
+            else if (page == 'molecule_name')
+                include ./molecule
+        div.col.s1.m1.l1#mcol3
