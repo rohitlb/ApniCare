@@ -1,81 +1,99 @@
 div.row
     div.col.s12.m12.l9.offset-l3
         img#drug(src='/images/drugsData.jpg', style='position:fixed;top:0px;left:0px;width:100%;height:100%;z-index:-1;')
-        div.container#diseasedata
-            .row
-                .col.s12
-                    form(name='disease_form', method='POST', onsubmit='return validateForm();', action='#')
+        div#drugdata
+            .col.s12.m12.l11
+                center
+                    h2(style='font-weight:600;') Disease Data
 
-                        center
-                            h4(style='font-weight:600;') Enter Disease Data
-                        div.col.s12.m12.l12
-                            span.target1 Disease Name
-                            span.red-text &nbsp*
-                            input.validate(type='text', id='disease_name', style='color:black;font-size: 15px;font-weight: 400;')
+                    a.btn.waves-effect.waves-light.white-text.hoverable(href='/health_care_provider?page=disease_data_form' style='background-color:#660099; position:absolute;right:50px;') Contribute
+                br
+                br
 
-                        div.col.s12.m12.l12
-                            span.target2 What are its Symptoms?
-                            span.red-text &nbsp*
-                            textarea#symptoms
-                            label(for='symptoms', style='color:black;font-size: 15px;font-weight: 400;')
-                            //input.val11(style='color:black;font-size: 15px;font-weight: 400;')
-                        div.col.s12.m12.l12
-                            span.target3 What are its possible Risk Factors?
-                            span.red-text &nbsp*
-                            textarea#risk_factors
-                            label(for='risk_factors', style='color:black;font-size: 15px;font-weight: 400;')
-                            //input.val12(type='text', style='color:black;font-size: 15px;font-weight: 400;')
+                div.row
+                    div.drug_alphabets.pull-left
+                        span.center
+                            ul
+                                li.active
+                                    a.btn2.active.hoverable(href='#' type='all') All
+                                li
+                                    a.btn2.hoverable(href='#') A
+                                li
+                                    a.btn2.hoverable(href='#') B
+                                li
+                                    a.btn2.hoverable(href='#') C
+                                li
+                                    a.btn2.hoverable(href='#') D
+                                li
+                                    a.btn2.hoverable(href='#') E
+                                li
+                                    a.btn2.hoverable(href='#') F
+                                li
+                                    a.btn2.hoverable(href='#') G
+                                li
+                                    a.btn2.hoverable(href='#') H
+                                li
+                                    a.btn2.hoverable(href='#') I
+                                li
+                                    a.btn2.hoverable(href='#') J
+                                li
+                                    a.btn2.hoverable(href='#') K
+                                li
+                                    a.btn2.hoverable(href='#') L
+                                li
+                                    a.btn2.hoverable(href='#') M
+                                li
+                                    a.btn2.hoverable(href='#') N
+                                li
+                                    a.btn2.hoverable(href='#') O
+                                li
+                                    a.btn2.hoverable(href='#') P
+                                li
+                                    a.btn2.hoverable(href='#') Q
+                                li
+                                    a.btn2.hoverable(href='#') R
+                                li
+                                    a.btn2.hoverable(href='#') S
+                                li
+                                    a.btn2.hoverable(href='#') T
+                                li
+                                    a.btn2.hoverable(href='#') U
+                                li
+                                    a.btn2.hoverable(href='#') V
+                                li
+                                    a.btn2.hoverable(href='#') W
+                                li
+                                    a.btn2.hoverable(href='#') X
+                                li
+                                    a.btn2.hoverable(href='#') Y
+                                li
+                                    a.btn2.hoverable(href='#') Z
+                                li
+                                    a.btn2.all.hoverable(href='#' type='other') Other
 
-                        div.col.s12.m12.l12
-                            span.target4 What are its Causes?
-                            span.red-text &nbsp*
-                            textarea#causes
-                            label(for='causes', style='color:black;font-size: 15px;font-weight: 400;')
-                            //input.val13(type='text', style='color:black;font-size: 15px;font-weight: 400;')
-                            br
-                        div.col.s12.m12.l12
-                            span.target5 How is it Diagnosed?
-                            span.red-text &nbsp*
-                            a(href='#diagnosis_sub')
-                                i.material-icons.right.small#add_button add_circle
-                            //i.material-icons.right#close close
-                            textarea#diagnosis
-                            label(for='diagnosis', style='color:black;font-size: 15px;font-weight: 400;')
-                            textarea#subhead
-                            label(for='diagnosis', style='color:black;font-size: 15px;font-weight: 400;')
-                            //textarea.materialize-textarea#diagnosis_sub
-                            //label#new_text(for='diagnosis_sub', style='color:black;font-size: 15px;font-weight: 400;')
-                            //input.val14(type='text', style='color:black;font-size: 15px;font-weight: 400;')
-                        br
-                        div.col.s12.m12.l12
-                            span.target6 How is it Treated?
-                            span.red-text &nbsp*
-                            textarea#treatment
-                            label(for='treatment', style='color:black;font-size: 15px;font-weight: 400;')
-                            //input.val15(type='text', style='color:black;font-size: 15px;font-weight: 400;')
-                        br
-                        div.col.s12.m12.l12
-                            span.target7 What is the Outlook for it?
-                            span.red-text &nbsp*
-                            textarea#outlook
-                            label(for='outlook', style='color:black;font-size: 15px;font-weight: 400;')
-                            //input.val16(type='text', style='color:black;font-size: 15px;font-weight: 400;')
-                        br
-                        div.col.s12.m12.l12
-                            span.target8 How can #{disease_name} be Prevented?
-                            span.red-text &nbsp*
-                            textarea#prevention
-                            label(for='prevention', style='color:black;font-size: 15px;font-weight: 400;')
-                            //input.val17(type='text', style='color:black;font-size: 15px;font-weight: 400;')
-                        div.col.s12.m12.l12
-                            span.target8 Source of Information
-                            span.red-text &nbsp*
-                            textarea#source
-                            label(for='source', style='color:black;font-size: 15px;font-weight: 400;')
 
-                        br
-                        div.row
-                            div.col.s6.l4.m4
-                                input.reset(type='reset')
-                            div.col.s6.l4.m4.offset-l4
-                                input.button#disease_data_button(type='submit')
+                div#drug_lists.grey.lighten-2(style='padding: 10px')
+                    div.row
+                        div.col.s12.m12.l12
+                            div.four-cols
+
+                                .brands
+                                    each val in data
+                                        h5(name=val.disease_name, style="width: 228px;margin-top: 0px;")
+                                            a(href='/health_care_provider?disease=' + val.disease_name) #{val.disease_name}
+                                        ////h4 #{val.brand_name[0].toUpperCase()}
+                                        ////each alpha in val.brand_name
+                                        //ul
+                                        //    li
+                                        //        h5(name=val.brand_name, style="width: 228px;margin-top: 0px;") #{val.brand_name}
+                                        //
+                                        //            a#drug_dataa(href='/health_care_provider?brand='+val.brand_name) &nbsp
+                                        //
+                                        //
+                                        //                each dosage in val.dosage_id
+                                        //                    br
+                                        //                    span.text_upper_case
+                                        //                        | #{val.brand_name} #{dosage.dosage_form} &nbsp
+                                        //                        each dose in dosage.strength_id
+                                        //                            span #{dose.strength} &nbsp
+                                        //                            span #{dose.packaging}

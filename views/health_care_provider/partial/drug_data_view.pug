@@ -9,7 +9,7 @@ div.row
                     div.drug_alphabets.pull-left
                         span.center
                             ul
-                                li.active
+                                li
                                     a.btn2.all.hoverable(href='/health_care_provider?page=drug_data' type='all') All
                                 li
                                     a.btn2.hoverable(href='/health_care_provider?page=drug_data') A
@@ -91,7 +91,7 @@ div.row
                                         each dose in dosage.strength_id
                                             tr
                                                 td <strong>#{dosage.dosage_form.toUpperCase()}</strong> &nbsp &nbsp
-                                                td <strong>#{dose.strength}</strong> &nbsp &nbsp
+                                                td <strong>#{dose.strength} #{dose.strengths}</strong> &nbsp &nbsp
                                                 td <strong>#{dose.packaging}</strong> &nbsp &nbsp
                                                 td <strong>#{dose.price}</strong>
                                                 //each dose in dosage.strength_id
@@ -132,7 +132,7 @@ div.row
                         each doses in dosages.strength_id
                             each pots in doses.potent_substance
                                 br
-                                if doses.warnings != ''
+                                if(doses.warnings != '')
                                     i.material-icons.left warning
                                     span.red-text Warnings
                                     br
@@ -151,6 +151,7 @@ div.row
                 form.col.l10.m10.s10#form_feedback(method='POST')
                     div
                         span How useful is the data that we provide?
+                        br
                         br
                         input.with-gap#radio1(name='radio1_feedback' type='radio')
                         label(for='radio1') Very Useful
@@ -174,13 +175,12 @@ div.row
                     br
                     div.input-field
                         span Suggest changes in data(if any)
-                        textarea#text2
+                        textarea(style='height:90px;')#text2
                         label(for='text2')
-                    br
                     br
 
                     div.row
                         div.col.s6.l4.m4.offset-l1
                             input.reset(type='reset')
                         div.col.s6.l4.m4.offset-l3
-                            input.button(type='submit')
+                            input.button.feedback(type='submit')
