@@ -210,6 +210,7 @@ app.get('/index',function (req,res) {
     if (req.session.userID) {
         console.log(req.session.userID);
         res.render('index');
+        res.end();
     }
     if (req.session.doctorsID) {
         res.redirect('/doctorpage');
@@ -220,7 +221,7 @@ app.get('/index',function (req,res) {
 
 app.get('/', function (req, res) {
     if (req.session.userID) {
-        res.redirect('index');
+        res.render('/index');
         res.end();
     }
     if(req.session.doctorID){
