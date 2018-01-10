@@ -209,7 +209,7 @@ app.post('/VerifyOTP',function (req, res) {
 
 app.get('/index',function (req,res) {
     if (req.session.userID) {
-        res.redirect('index');
+        res.render('/index');
         res.end();
     }
     if (req.session.doctorID) {
@@ -221,7 +221,7 @@ app.get('/index',function (req,res) {
 
 app.get('/', function (req, res) {
     if (req.session.userID) {
-        res.redirect('index');
+        res.render('/index');
         res.end();
     }
     if(req.session.doctorID){
