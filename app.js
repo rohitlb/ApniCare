@@ -2636,8 +2636,7 @@ app.post('/apphealth_care_provider',function(req,res){
 
                     res.send({message :'brand data' ,data: brand});
                 }
-            }
-        });
+            });
 });
 
 //////////////////// DRUG DATA VIEW//////////////////////////////
