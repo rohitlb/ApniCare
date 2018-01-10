@@ -17,7 +17,6 @@ mongoose.Promise = promise;
 var async = require('async');
 var keys = require('./private/keys');
 
-
 // req models
 var User  = require('./model/registration');
 var Doctor = require('./model/doctorregistration');
@@ -209,14 +208,14 @@ app.post('/VerifyOTP',function (req, res) {
 
 app.get('/index',function (req,res) {
     if (req.session.userID) {
-        res.redirect('index');
-        res.end();
+        console.log(req.session.userID);
+        res.render('index');
     }
-    if (req.session.doctorID) {
+    if (req.session.doctorsID) {
         res.redirect('/doctorpage');
     }
-    res.send({status: "success", message: "Please Login First"});
-    res.end();
+    // res.send({status: "success", message: "Please Login First"});
+    // res.end();
 });
 
 app.get('/', function (req, res) {
