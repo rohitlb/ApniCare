@@ -221,15 +221,15 @@ app.get('/index',function (req,res) {
 
 app.get('/', function (req, res) {
     if (req.session.userID) {
-        res.render('/index');
+        res.render('index');
         res.end();
     }
     if(req.session.doctorID){
         res.render('doctorpage');
         res.end();
     }
-        res.render('index');
-        res.end();
+        // res.render('index');
+        // res.end();
 });
 
 //User registration
