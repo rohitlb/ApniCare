@@ -1,3 +1,6 @@
+//database ApniCare
+
+
 // require dependencies
 var express = require('express');
 var bodyParser = require('body-parser');
@@ -2001,14 +2004,15 @@ app.post('/searchdisease',function (req,res) {
 
 /////////my molecule//////////////////////////////
 
+// now its giving only molecule names
 app.get('/searchmolecule',function (req,res) {
-    Molecule.find().exec(function (err,result) {
+    Molecule.find({},'molecule_name').exec(function (err,result) {
         if(err){
             console.log(err);
         }
         else{
-            //res.send(result);
-            res.render('molecules',{data : result});
+            res.send(result);
+            //res.render('molecules',{data : result});
         }
     });
 });
