@@ -1820,6 +1820,7 @@ app.post('/molecules',function (req,res) {
 
 // search molecule
 app.get('/search_molecule',function (req,res) {
+    console.log("search_molecule");
     var ingredients = req.query.ingredients;
     Molecule.find({molecule_name: ingredients}).exec(function (err, result) {
         if (err) {
@@ -1832,6 +1833,7 @@ app.get('/search_molecule',function (req,res) {
 });
 
 app.get('/getmolecule',function (req,res) {
+    console.log("mol");
     Molecule.find({},'-_id molecule_name',function(err,molecule){
         if(err){
             console.log(err);
@@ -1843,6 +1845,7 @@ app.get('/getmolecule',function (req,res) {
 });
 
 app.get('/getcategories',function (req,res) {
+    console.log("cat");
     Molecule.find({},'-_id drug_categories',function(err,molecule){
         if(err){
             console.log(err);
@@ -1855,6 +1858,7 @@ app.get('/getcategories',function (req,res) {
 });
 
 app.get('/getbrands',function(req,res){
+    console.log("brand");
     Brand.find({},'-_id brand_name categories').populate(
         {path : 'dosage_id', select : '-_id dosage_form',populate :
                 {path : 'strength_id', select : '-_id strength packaging price potent_substance.name'}
@@ -1935,6 +1939,13 @@ app.get('/inmolecule',function (req,res) {
 app.get('/getgetsimilarbrands', function (req,res) {
    var simmolecule = req.body.molecule;
    var search = new RegExp('^'+simmolecule,'i' );
+
+   async.parallel([
+       function (callback) {
+           
+       }
+       
+   ])
 
 });
 //======================= save profile pic ====================
