@@ -2740,7 +2740,7 @@ app.post('/health_care_provider',function(req,res) {
         });
     }
 
-    if(req.query.molecule == 'molecule'){
+    if(req.query.molecule){
         Molecule.find({ molecule_name : molecule}).sort({molecule_name : 1},function(err,molecule){
             if(err){
                 console.log(err);
