@@ -2740,6 +2740,17 @@ app.post('/health_care_provider',function(req,res) {
         });
     }
 
+    if(req.query.page == 'molecule'){
+        Molecule.find({molecule},'-_id molecule_name',function(err,molecule){
+            if(err){
+                console.log(err);
+            }
+            else{
+                res.send({message : 'molecule list', result : molecule});
+            }
+        });
+    }
+
     if(req.query.page == 'need_help') {
         Doctor.findOne({_id: req.session.doctorID}, function (err, result) {
             if (err) {
