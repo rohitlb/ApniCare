@@ -1846,6 +1846,70 @@ app.get('/getmolecule',function (req,res) {
     });
 });
 
+app.get('/inmolecule',function (req,res) {
+    var molecule = req.query.molecule;
+    var types = req.query.types;
+
+    if(types == 'info'){
+    Molecule.find({molecule_name: molecule},'-_id -__v', function (err, info) {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            res.send({message: 'molecule information', data: info});
+        }
+    });
+    }
+    if(types == 'brands') {
+        Strength.find({potent_substance: {$elemMatch: {name: molecule}}}, '-_id -__v'
+        ).populate({path: 'brands_id', populate: {path: 'dosage_id'}}).populate({
+            path: 'brands_id',
+            populate: {path: 'company_id'}
+        }).exec(function (err, brands) {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                var brand = {};
+                brand['data'] = [];
+                async.each(brands, function (result, callback) {
+                    if (result.potent_substance.length === 1) {
+                        brand['data'].push({
+                            results: result
+                        });
+                        callback();
+                    }
+                    else {
+                        callback();
+                    }
+                }, function (err) {
+                    if (err) {
+                        console.log(err);
+                    }
+                    else {
+                        //res.send(brand);
+                        res.send({message: 'molecule brand', data: brand.data});
+                    }
+                });
+            }
+        });
+    }
+    if(types == 'combination') {
+        Strength.find({potent_substance: {$elemMatch: {name: molecule}}}, '-_id -__v'
+        ).populate({
+            path: 'brands_id', populate: {path: 'dosage_id', populate: {path: 'strength_id'}}
+        }).populate({path: 'brands_id', populate: {path: 'company_id'}}).exec(function (err, brands) {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                res.send({message: 'molecule combination', data: brands});
+            }
+        });
+    }
+});
+
+
 
 //======================= save profile pic ====================
 
