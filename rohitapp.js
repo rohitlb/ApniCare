@@ -1863,6 +1863,17 @@ app.get('/getcategories',function (req,res) {
     });
 });
 
+app.get('/getbrands', function (req,res) {
+    Brand.find({},'-_id brand_name', function (err,brand) {
+        if(err){
+            console.log(err);
+        }else{
+            res.send({message : 'brand list', result : brand})
+        }
+
+    })
+});
+
 //======================= save profile pic ====================
 
 
