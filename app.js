@@ -1841,7 +1841,6 @@ app.get('/getmolecule',function (req,res) {
             console.log(err);
         }
         else{
-            console.log(molecule);
             res.send({message : 'molecule list', result : molecule});
         }
     });
@@ -2747,197 +2746,16 @@ app.get('/testing',function(req,res) {
 });
 
 //////////////////////////////////////Doctor  Profile Insert ///////////////////////////////////////////////////////////
-app.post('/professionals',function (req,res) {
-    var name = req.body.name;
-    var email = req.body.email;
-    var number = req.body.number;
-    var password = req.body.password;
-    User.find({number : number},function (err,result) {
-        if(err){
-            console.log(err);
-        }
-        else{
-            if(result != ""){
-                res.send({status : "failure", message : "User already exist"});
-            }
-            else{
-                Doctor.find({number : number},function (err1,result1) {
-                    if(err){
-                        console.log(err);
-                    }
-                    else{
-                        if(result1 != ""){
-                            res.send({status : "failure", message : "Doctor already exist"});
-                        }
-                        else{
-                            Pharma.find({number : number},function (err2,result2) {
-                                if(err2){
-                                    console.log(err2);
-                                }
-                                else{
-                                    if(result2 != ""){
-                                        res.send({status : "failure", message : "Doctor already exist"});
-                                    }
-                                    else{
-                                        var professional = new Professional({
-                                            name : name,
-                                            email : email,
-                                            number : number,
-                                            password : password
-                                        });
-                                        professional.save(function (err3,result3) {
-                                            if(err3){
-                                                console.log(err3);
-                                            }
-                                            else{
-                                                req.session.proID = result3._id;
-                                                res.send({status : "success", message : "health_care registered"});
-                                            }
-                                        });
-                                    }
-                                }
-                            });
-                        }
-                    }
-                });
-            }
-        }
-    });
-});
 
 app.get('/doctor',function (req,res) {
     res.redirect('/health_care_provider?page=profile_doctor');
 });
 
-app.post('/doctor',function (req,res) {
-    Professional.find({_id : req.session.proID}).exec(function (err,result) {
-        if(err){
-            console.log(err);
-        }
-        else {
-            if(result != "") {
-                Doctor.find({number: result[0].number}, function (errs, results) {
-                    if (errs) {
-                        console.log(errs);
-                    }
-                    else {
-                        if (results != "") {
-                            res.redirect('/health_care_provider?page=profile_doctor');
-                        }
-                        else {
-                            var doctor = new Doctor({
-                                name: result[0].name,
-                                email: result[0].email,
-                                number: result[0].number,
-                                password: result[0].password
-                            });
-                            doctor.save(function (err, results) {
-                                if (err) {
-                                    console.log(err);
-                                }
-                                else {
-                                    req.session.doctorID = results._id;
-                                    res.redirect('/health_care_provider?page=profile_doctor');
-                                }
-                            });
-                        }
-                    }
-                });
-            }
-            else{
-                res.send({details : "failure", message : "You already registered as Pharmacist"});
-            }
-        }
-    });
-});
-
-app.post('/pharma',function (req,res) {
-    Professional.find({_id : req.session.proID}).exec(function (err,result) {
-        if(err){
-            console.log(err);
-        }
-        else {
-            if(result != "") {
-                Pharma.find({number: result[0].number}, function (errs, results) {
-                    if (errs) {
-                        console.log(errs);
-                    }
-                    else {
-                        if (results != "") {
-                            res.redirect('/health_care_provider?page=profile_pharmacist');
-                        }
-                        else {
-                            var pharma = new Pharma({
-                                name: result[0].name,
-                                email: result[0].email,
-                                number: result[0].number,
-                                password: result[0].password
-                            });
-                            pharma.save(function (err, results) {
-                                if (err) {
-                                    console.log(err);
-                                }
-                                else {
-                                    req.session.pharmaID = results._id;
-                                    res.redirect('/health_care_provider?page=profile_pharmacist');
-                                }
-                            });
-                        }
-                    }
-                });
-            }
-            else {
-                res.send({details : "failure" , message : "You already registered as Doctor"});
-            }
-        }
-    });
-});
 
 app.get('/doctorlogedin',function (req,res) {
     res.render('doctorlogedin');
 });
 
-app.post('/doctorlogedin',function (req,res) {
-    var number = req.body.number;
-    var password=req.body.password;
-
-    Professional.find({number : number , password : password},function (err,result) {
-        if (err) {
-            console.log(err);
-        }
-        else {
-            if (result != "") {
-                req.session.doctorID = result[0]._id;
-                if(req.session.doctorID) {
-                    res.redirect('/health_care_provider');
-                }
-                else {
-                    res.send({status: "failure", message: "some problem"});
-                }
-            }
-            else {
-                res.send({status: "failure", message: "can not loged in"});
-            }
-        }
-    });
-});
-
-app.post('/profession',function (req,res) {
-   var profession = req.body.profession;
-           Doctor.update({_id : req.session.doctorID},{
-               $set : {
-                   occupation: profession
-               }
-           },function (err,result) {
-               if(err)
-               {
-                   console.log(err);
-               }
-               else {
-                   res.send({details : "success", message : "Profession added"});
-           }
-       });
-});
 
 app.post('/basic',function (req,res) {
     var title = req.body.title;
@@ -3274,7 +3092,7 @@ app.post('/doctorregistration',function(req,res){
             //res.send({status : 'success', message : 'successfully registered'});
             res.redirect('/health_care_provider?page=profile');
         }
-    })
+    });
 });
 
 app.post('/pharmaregistration',function(req,res){
@@ -3345,7 +3163,7 @@ app.post('/healthcarelogin',function(req,res) {
                         }
                     }
                 }
-        })
+        });
 });
 
 //==========================Database connection===========================
