@@ -1846,11 +1846,35 @@ app.get('/getmolecule',function (req,res) {
     });
 });
 
+
+app.get('/getcategories',function (req,res) {
+    Molecule.find({},'-_id drug_categories',function(err,molecule){
+        if(err){
+            console.log(err);
+        }
+        else{
+
+            res.send({message : 'molecule list', result : molecule});
+        }
+    });
+});
+
+app.get('/getbrands', function (req,res) {
+    Brand.find({},'-_id brand_name', function (err,brand) {
+        if(err){
+            console.log(err);
+        }else{
+            res.send({message : 'brand list', result : brand})
+        }
+
+    })
+});
+
 app.get('/inmolecule',function (req,res) {
     var molecule = req.query.molecule;
     var types = req.query.types;
 
-    if(types == 'info'){
+    if(types === 'info'){
     Molecule.find({molecule_name: molecule},'-_id -__v', function (err, info) {
         if (err) {
             console.log(err);
@@ -1860,7 +1884,7 @@ app.get('/inmolecule',function (req,res) {
         }
     });
     }
-    if(types == 'brands') {
+    if(types === 'brands') {
         Strength.find({potent_substance: {$elemMatch: {name: molecule}}}, '-_id -__v'
         ).populate({path: 'brands_id', populate: {path: 'dosage_id'}}).populate({
             path: 'brands_id',
@@ -1894,7 +1918,7 @@ app.get('/inmolecule',function (req,res) {
             }
         });
     }
-    if(types == 'combination') {
+    if(types === 'combination') {
         Strength.find({potent_substance: {$elemMatch: {name: molecule}}}, '-_id -__v'
         ).populate({
             path: 'brands_id', populate: {path: 'dosage_id', populate: {path: 'strength_id'}}
