@@ -1210,7 +1210,7 @@ app.get('/medicine',function (req,res) {
     res.render('medicine');
 });
 
-app.post('/medicine',function(req,res) {
+app.post('/medicines',function(req,res) {
     var dosage_form = req.body.dosage_form;
     var brand_name = req.body.brand_name;
     var categories = req.body.categories;
