@@ -18,3 +18,5 @@
 #Health care professional
 1 Feedback system
 2 molecule data view
+
+similar brand means= those brands which have same molecules
