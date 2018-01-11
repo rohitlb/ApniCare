@@ -1932,8 +1932,12 @@ app.get('/inmolecule',function (req,res) {
     }
 });
 
-//======================= save profile pic ====================
+app.get('/getgetsimilarbrands', function (req,res) {
+   var simmolecule = req.body.molecule;
+   var search = new RegExp('^'+simmolecule,'i' );
 
+});
+//======================= save profile pic ====================
 
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
