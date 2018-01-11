@@ -17,6 +17,7 @@ mongoose.Promise = promise;
 var async = require('async');
 var keys = require('./private/keys');
 
+console.log("rohitapp.js");
 // req models
 var User  = require('./model/registration');
 var Doctor = require('./model/doctorregistration');
