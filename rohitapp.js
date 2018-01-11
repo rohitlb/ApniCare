@@ -2004,9 +2004,35 @@ app.post('/searchdisease',function (req,res) {
 
 /////////my molecule//////////////////////////////
 
+app.get('/moleculeall',function (req,res) {
+    Molecule.find().exec(function (err,result) {
+        if(err){
+            console.log(err);
+        }
+        else{
+            res.send(result);
+            //res.render('molecules',{data : result});
+        }
+    });
+});
+
+
 // now its giving only molecule names
-app.get('/searchmolecule',function (req,res) {
+app.get('/onlymolecule',function (req,res) {
     Molecule.find({},'molecule_name').exec(function (err,result) {
+        if(err){
+            console.log(err);
+        }
+        else{
+            res.send(result);
+            //res.render('molecules',{data : result});
+        }
+    });
+});
+
+// now its giving only molecule names
+app.get('/onlycategories',function (req,res) {
+    Molecule.find({},'drug_categories').exec(function (err,result) {
         if(err){
             console.log(err);
         }
