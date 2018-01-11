@@ -1851,6 +1851,17 @@ app.get('/getmolecule',function (req,res) {
     });
 });
 
+app.get('/getcategories',function (req,res) {
+    Molecule.find({},'-_id drug_categories',function(err,molecule){
+        if(err){
+            console.log(err);
+        }
+        else{
+
+            res.send({message : 'molecule list', result : molecule});
+        }
+    });
+});
 
 //======================= save profile pic ====================
 
@@ -2016,10 +2027,9 @@ app.get('/moleculeall',function (req,res) {
     });
 });
 
-
 // now its giving only molecule names
 app.get('/onlymolecule',function (req,res) {
-    Molecule.find({},'molecule_name').exec(function (err,result) {
+    Molecule.find().exec(function (err,result) {
         if(err){
             console.log(err);
         }
@@ -2029,20 +2039,6 @@ app.get('/onlymolecule',function (req,res) {
         }
     });
 });
-
-// now its giving only molecule names
-app.get('/onlycategories',function (req,res) {
-    Molecule.find({},'drug_categories').exec(function (err,result) {
-        if(err){
-            console.log(err);
-        }
-        else{
-            res.send(result);
-            //res.render('molecules',{data : result});
-        }
-    });
-});
-
 
 ////////////////////////////////////////// register as a doctor and user ///////////////////////////////////////////////
 
