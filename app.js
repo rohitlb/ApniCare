@@ -1846,7 +1846,6 @@ app.get('/getmolecule',function (req,res) {
     });
 });
 
-
 app.get('/getcategories',function (req,res) {
     Molecule.find({},'-_id drug_categories',function(err,molecule){
         if(err){
@@ -1858,7 +1857,6 @@ app.get('/getcategories',function (req,res) {
         }
     });
 });
-
 
 app.get('/getbrands',function(req,res){
     Brand.find({},'-_id brand_name categories').populate(
@@ -1874,7 +1872,6 @@ app.get('/getbrands',function(req,res){
         }
     });
 });
-
 
 app.get('/inmolecule',function (req,res) {
     var molecule = req.query.molecule;
