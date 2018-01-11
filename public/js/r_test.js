@@ -261,7 +261,7 @@ $(function () {
         var company_name = $('#company_name').val();
         var categories = $('#categories').val();
         var strength = $('#strength').val();
-        var potent_substances = $('#potent_substances').val();
+        var potent_substance = $('#potent_substance').val();
         var dosage_form = $('#dosage_form').val();
         var packaging = $('#packaging').val();
         var price = $('#price').val();
@@ -277,7 +277,7 @@ $(function () {
             company_name: company_name,
             categories: categories,
             strength: strength,
-            potent_substances: potent_substances,
+            potent_substance: potent_substance,
             dosage_form: dosage_form,
             packaging: packaging,
             price: price,
@@ -290,7 +290,7 @@ $(function () {
         };
 
         $.ajax({
-            url: '/medicine',
+            url: '/medicines',
             type: 'POST',
             data: JSON.stringify(data),
             contentType: 'application/json',

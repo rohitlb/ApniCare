@@ -1207,18 +1207,14 @@ app.post('/doctorupdatepassword',function (req,res) {
 //////////////////////////////////Drug index start from here////////////////////////////////////////////////////////////
 
 app.get('/medicine',function (req,res) {
-    // if(req.session.doctorID) {
-    //     res.render('medicine');
-    // }
-    // res.send({status : "failure", message : "Please login first"});
     res.render('medicine');
 });
 
-app.post('/medicine',function(req,res) {
+app.post('/medicines',function(req,res) {
     var dosage_form = req.body.dosage_form;
     var brand_name = req.body.brand_name;
     var categories = req.body.categories;
-    var primarilyusedfor = req.body.primarilyusedfor;
+    var primarilyusedfor = req.body.primarily_used_for;
     var company_name = req.body.company_name;
     var strengtH = req.body.strength;
     var types = req.body.types;
