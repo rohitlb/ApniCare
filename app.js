@@ -1835,10 +1835,16 @@ app.get('/search_molecule',function (req,res) {
     });
 });
 
-app.get('/inmolecule',function (req,res) {
-    var molecule = req.query.molecule;
-
-res.end();
+app.get('/getmolecule',function (req,res) {
+    Molecule.find({},'-_id molecule_name',function(err,molecule){
+        if(err){
+            console.log(err);
+        }
+        else{
+            console.log(molecule);
+            res.send({message : 'molecule list', result : molecule});
+        }
+    });
 });
 
 
