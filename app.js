@@ -1933,7 +1933,7 @@ app.get('/inmolecule',function (req,res) {
     }
 });
 
-app.post('/apphealth_care_provider',function(req,res){
+app.get('/apphealth_care_provider',function(req,res){
     Brand.find({},'-_id brand_name categories').populate(
         {path : 'dosage_id', select : '-_id dosage_form',populate :
                 {path : 'strength_id', select : '-_id strength packaging price potent_substance.name'}
