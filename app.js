@@ -2740,7 +2740,7 @@ app.post('/health_care_provider',function(req,res) {
         });
     }
 // ye me kara hu tu q kara h, rupeshapp.js me kar tu
-    if(req.query.page == 'molecule'){
+    if(req.query.molecule == 'molecule'){
         Molecule.find({ molecule_name : molecule},function(err,molecule){
             if(err){
                 console.log(err);
