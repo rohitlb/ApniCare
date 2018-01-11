@@ -1873,15 +1873,15 @@ app.get('/inmolecule',function (req,res) {
     var molecule = req.query.molecule;
     var types = req.query.types;
 
-    if(types === 'info'){
-    Molecule.find({molecule_name: molecule},'-_id -__v', function (err, info) {
-        if (err) {
-            console.log(err);
-        }
-        else {
-            res.send({message: 'molecule information', data: info});
-        }
-    });
+    if(types === 'info') {
+        Molecule.find({molecule_name: molecule}, '-_id -__v', function (err, info) {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                res.send({message: 'molecule information', data: info});
+            }
+        });
     }
     if(types === 'brands') {
         Strength.find({potent_substance: {$elemMatch: {name: molecule}}}, '-_id -__v'
