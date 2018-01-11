@@ -1859,16 +1859,22 @@ app.get('/getcategories',function (req,res) {
     });
 });
 
-app.get('/getbrands', function (req,res) {
-    Brand.find({},'-_id brand_name', function (err,brand) {
-        if(err){
-            console.log(err);
-        }else{
-            res.send({message : 'brand list', result : brand})
-        }
 
-    })
+app.get('/getbrands',function(req,res){
+    Brand.find({},'-_id brand_name categories').populate(
+        {path : 'dosage_id', select : '-_id dosage_form',populate :
+                {path : 'strength_id', select : '-_id strength packaging price potent_substance.name'}
+        }).populate({path : 'company_id', select: '-_id company_name'}).sort({brand_name : 1}).exec(function (err,brand) {
+        if (err) {
+            console.log(err);
+        }
+        else {
+
+            res.send({message :'brand data' ,data: brand});
+        }
+    });
 });
+
 
 app.get('/inmolecule',function (req,res) {
     var molecule = req.query.molecule;
@@ -1931,21 +1937,6 @@ app.get('/inmolecule',function (req,res) {
             }
         });
     }
-});
-
-app.get('/apphealth_care_provider',function(req,res){
-    Brand.find({},'-_id brand_name categories').populate(
-        {path : 'dosage_id', select : '-_id dosage_form',populate :
-                {path : 'strength_id', select : '-_id strength packaging price potent_substance.name'}
-        }).populate({path : 'company_id', select: '-_id company_name'}).sort({brand_name : 1}).exec(function (err,brand) {
-        if (err) {
-            console.log(err);
-        }
-        else {
-
-            res.send({message :'brand data' ,data: brand});
-        }
-    });
 });
 
 //======================= save profile pic ====================
