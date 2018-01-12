@@ -1965,6 +1965,11 @@ var upload = multer({
     storage: storage
 });
 
+// imge upload testing for web
+app.get('/uploadimage', function (req,res) {
+   res.render('rohitimage');
+});
+
 app.post('/uploadimage', upload.any(), function(req, res) {
     var path = req.files[0].path;
     //var imageName = req.session.dpindbname ;
@@ -1979,8 +1984,8 @@ app.post('/uploadimage', upload.any(), function(req, res) {
         }
         else{
             console.log(result);
-            res.redirect('/health_care_provider?page=image');
-            //res.send({status: "success", message: "Image successfully registered"});
+            //res.redirect('/health_care_provider?page=image');
+            res.send({status: "success", message: "Image successfully registered"});
         }
     });
     routes.addImage(User, function(err) {
