@@ -3,7 +3,7 @@ html
     head
     body
         h1 Enter medicine details
-        form(action='/medicines', method='POST')
+        form(action='/medicine', method='POST')
             | Company :
             input(type='text', name='company_name')
             br
@@ -20,16 +20,16 @@ html
                 option(value='Generic', name='generic') Generic
             br
             | primarily Used For :
-            input(type='text', name='primarilyusedfor')
+            input(type='text', name='primarily_used_for')
             br
             | Dosage_form :
             input(type='text', name='dosage_form')
             br
             | Strength :
-            input(type='text', name='strength')
+            input(type='text', name='strength1')
             br
             | Ingredients :
-            input(type='text', name='potent_substance')
+            input(type='text', name='potent_substances')
             br
             | Molecule Strength :
             input(type='text', name='molecule_strength')

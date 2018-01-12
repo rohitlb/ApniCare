@@ -18,8 +18,6 @@ $(function () {
     //     value: 35
     // });
 
-
-
     //............................./////////// Bullets in text area /////////////////////////////
     // $(".text_areas1").focus(function() {
     //     if(document.getElementById('symptoms').value === ''){
@@ -229,8 +227,6 @@ $(function () {
     //     }
     // });
 
-
-
     $( "#progressbar" ).progressbar({
         disabled: true,
         value: 35,
@@ -241,7 +237,6 @@ $(function () {
         }
     });
 
-
     $('#drug_form2').hide();
     $('#enter_more_data').click(function () {
         $('#enter_more_data').hide();
@@ -250,7 +245,6 @@ $(function () {
 
         $('#drug_form2').show();
     });
-
 
     //- .......... PROFILE OF DOCTOR AND PHARMACIST IF STUDENT ....................
     $('.card-s').select(function () {
@@ -277,8 +271,6 @@ $(function () {
     //     $('#profile1').hide();
     //     $('#profile3').show();
     // });
-
-
 
 
 
@@ -390,7 +382,8 @@ $(function () {
 
     $('.repeat1').on('click', function() {
         $('.repeater').append('<div><input id="subhead2" type="text" list="contra" placeholder="Choose subheading" class="browser-default repeat_subhead" required/><button class="remove">x</button>' +
-            '<textarea class="text_subhead" id="subhead_text" required></textarea><label for="subhead2" style="color:black;font-size: 15px;font-weight: 400;">' +
+            '<textarea class="text_subhead" id="subhead_text" required></textarea><label for="subhead2" style="color:black;font-size: 15px;font-weight: 400;"></label>' +
+            '<label for="subhead2" style="color:black;font-size: 15px;font-weight: 400;">' +
             '<datalist id="contra"> <option> In Lactation</option> <option>In Geriatric/Old Person</option><option>Other Contraindications</option>' +
             ' <option> In Pregnancy </option>Lab Interference <option></option> <option> In Children </option><option>Storage</option>' +
             '</label></div></div>');
@@ -617,7 +610,7 @@ $(function () {
     });
 
     $('#molecule_data_form').click(function (in_lactation) {
-        var subhead, info, molecule_name = $('#molecule_name').val();
+        var molecule_name = $('#molecule_name').val();
         var drug_categories = $('#drug_category').val();
         var absorption = $('#absorption').val();
         var distribution = $('#distribution').val();
@@ -632,6 +625,14 @@ $(function () {
         var oral = $('#oral').val();
         var intravenous = $('#intravenous').val();
         var source = $('#source').val();
+        var subhead1 = [];
+        $('.repeat_subhead').each(function(){
+            subhead1.push($(this).val()); //output <-- ['a','b','c']
+        });
+        var subhead2 = [];
+        $('.text_subhead').each(function () {
+            subhead2.push($(this).val());
+        });
         // var contraindications = [{
         //     subhead = $('#subheading').val(),
         //     info = $('#subhead_text').val()
@@ -652,30 +653,28 @@ $(function () {
             food : food,
             oral :oral,
             intravenous:intravenous,
-            source :source
-            // contraindications :[{
-            //     subhead: subhead,
-            //     info: info
-            // }],
+            source :source,
+            subhead1: subhead1,
+            subhead2: subhead2
         };
 
-        alert(molecule_name);
-        alert(drug_categories);
-        alert(description);
-        alert(absorption);
-        alert(distribution);
-        alert(metabolism);
-        alert(excretion);
-        alert(side_effect);
-        alert(precaution);
-        alert(drug_interaction);
-        alert(food_interaction);
-        alert(oral);
-        alert(intravenous);
-        alert(food);
-        //alert(subhead);
-        //alert(info);
-        alert(source);
+        console.log(molecule_name);
+        console.log(drug_categories);
+        console.log(description);
+        console.log(absorption);
+        console.log(distribution);
+        console.log(metabolism);
+        console.log(excretion);
+        console.log(side_effect);
+        console.log(precaution);
+        console.log(drug_interaction);
+        console.log(food_interaction);
+        console.log(oral);
+        console.log(intravenous);
+        console.log(food);
+        console.log(subhead1);
+        console.log(subhead2);
+        console.log(source);
 
 
         $.ajax({

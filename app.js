@@ -53,7 +53,7 @@ store.on('error',function (error) {
 app.disable('x-powered-by');
 
 //configure the app
-app.set('port',8000);
+app.set('port',8383);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
@@ -1846,26 +1846,42 @@ app.post('/molecules',function (req,res) {
     var oral = req.body.oral;
     var intravenous = req.body.intravenous;
     var food = req.body.food;
-    var subhead = req.body.subhead;
-    var info = req.body.info;
+    var subhead = req.body.subhead1;
+    var info = req.body.subhead2;
     var source = req.body.source;
+    var subhead11 = [];
+    subhead11['subhead1'] = {};
+    for(var i=0;i<subhead.length;i++){
+        subhead11['subhead1'] = {
+            subhead1 : subhead
+        }
+    }
 
-//    alert(molecule_name);
-//     alert(drug_categories);
-//     alert(description);
-//     alert(absorption);
-//     alert(distribution);
-//     alert(metabolism);
-//     alert(excretion);
-//     alert(side_effect);
-//     alert(precaution);
-//     alert(drug_interaction);
-//     alert(food_interaction);
-//     alert(oral);
-//     alert(intravenous);
-//     alert(food);
-//     alert(subhead);
-//     alert(info);
+    var subhead22 = [];
+    subhead22['subhead2'] = {};
+    for(var j=0;j<info.length;j++){
+        subhead22['subhead2'] = {
+            subhead2 : info
+        }
+    }
+
+    console.log("mol-name:"+molecule_name);
+    console.log("drug_categories:"+drug_categories);
+    console.log("description:"+description);
+    console.log("absorption:"+absorption);
+    console.log("distribution:"+distribution);
+    console.log("metabolism:"+metabolism);
+    console.log("excretion:"+excretion);
+    console.log("side_effect:"+side_effect);
+    console.log("precaution:"+precaution);
+    console.log("drug_interaction:"+drug_interaction);
+    console.log("food_interaction:"+food_interaction);
+    console.log("oral:"+oral);
+    console.log("intravenous:"+intravenous);
+    console.log("food:"+food);
+    console.log("subhead:"+subhead);
+    console.log("info:"+info);
+
 
     var molecule = new Molecule({
         molecule_name: molecule_name,
@@ -1960,19 +1976,6 @@ app.post('/uploadimage', upload.any(), function(req, res) {
     });
 });
 
-// base64 file upload and read back to client
-app.post('/appimageupload', upload.array(), function(req, res) {
-    var base64Data = req.body.testdot;
-    console.log('writing file...', base64Data);
-    fs.writeFile(__dirname + "/upload/out.png", base64Data, 'base64', function(err) {
-        if (err) console.log(err);
-        fs.readFile(__dirname + "/upload/out.png", function(err, data) {
-            if (err) throw err;
-            console.log('reading file...', data.toString('base64'));
-            res.send(data);
-        });
-    });
-});
 
 //app.get('/health_care_provider?page=profile_doctor',function(req,res){
 

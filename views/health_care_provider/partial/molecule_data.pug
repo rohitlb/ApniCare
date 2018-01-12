@@ -6,7 +6,7 @@ div.row
                 center
                     h2(style='font-weight:600;') Molecule Data
 
-                    a.btn.waves-effect.waves-light.white-text.hoverable(href='/health_care_provider?page=disease_data_form' style='background-color:#660099; position:absolute;right:50px;') Contribute
+                    a.btn.waves-effect.waves-light.white-text.hoverable(href='/health_care_provider?page=molecule_data_form' style='background-color:#660099; position:absolute;right:50px;') Contribute
                 br
                 br
 
@@ -80,7 +80,7 @@ div.row
                                     each val in data
                                         //a(href="/go_to_dosage?molecule=" + val.molecule_name) #{val.molecule_name}
                                         h5(name=val.molecule_name, style="width: 228px;margin-top: 0px;")
-                                            a(href='/health_care_provider?molecule=' + val.molecule_name) #{val.molecule_name.toUpperCase()}
+                                            a(href='/health_care_provider?molecule=' + val.molecule_name) #{val.molecule_name}
 
 
 
