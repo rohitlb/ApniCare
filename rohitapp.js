@@ -56,7 +56,7 @@ store.on('error',function (error) {
 app.disable('x-powered-by');
 
 //configure the app
-app.set('port',8000);
+app.set('port',9000);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
@@ -1841,6 +1841,7 @@ app.get('/search_molecule',function (req,res) {
 });
 
 app.get('/getmolecule',function (req,res) {
+    console.log("app");
     Molecule.find({},'-_id molecule_name',function(err,molecule){
         if(err){
             console.log(err);
