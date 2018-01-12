@@ -1,0 +1,11 @@
+doctype  html
+html
+    head
+        body
+            h1 image upload page
+            form(action='/uploadimage', method='post', enctype='multipart/form-data')
+                div
+                    label(for='file') Choose file to upload
+                    input#file(type='file', name='file', multiple='')
+                div
+                    button Submit
