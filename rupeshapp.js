@@ -2159,6 +2159,8 @@ app.post('/doctorasuser',function (req,res) {
 ///////////////////////////////////////Doctor  Profile Insert //////////////////////////////////////////////////////////
 
 app.get('/health_care_provider',function(req,res) {
+    console.log(req.query.page);
+    console.log('reaches');
     var page = 'home';
     var brand = req.query.brand;
 
@@ -2399,16 +2401,17 @@ app.get('/health_care_provider',function(req,res) {
 
         Molecule.find({},'-_id -__v').populate({path : 'dosage_id', select : '-_id -__v',populate : {
             path : 'strength_id', select : '-_id -__v'}}).populate({path : 'company_id'}
-        ).exec(function (err,brand) {
+        ).exec(function (err,molecule) {
             if (err) {
                 console.log(err);
             }
             else {
+                console.log(molecule);
                 page = req.query.page;
                 res.render('home_profile_doctor',
                     {
                         page: page,
-                        data: brand
+                        data: molecule
 
                     });
             }
@@ -2473,6 +2476,9 @@ app.get('/health_care_provider',function(req,res) {
 });
 
 app.post('/health_care_provider',function(req,res) {
+    console.log(req.query.page);
+    console.log('reaches');
+
     var page = 'home';
     var brand = req.query.brand;
 
@@ -2713,16 +2719,17 @@ app.post('/health_care_provider',function(req,res) {
 
         Molecule.find({},'-_id -__v').populate({path : 'dosage_id', select : '-_id -__v',populate : {
             path : 'strength_id', select : '-_id -__v'}}).populate({path : 'company_id'}
-        ).exec(function (err,brand) {
+        ).exec(function (err,molecule) {
             if (err) {
                 console.log(err);
             }
             else {
+                console.log(molecule);
                 page = req.query.page;
                 res.render('home_profile_doctor',
                     {
                         page: page,
-                        data: brand
+                        data: molecule
 
                     });
             }
