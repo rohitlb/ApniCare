@@ -445,7 +445,6 @@ app.get('/profile/userprofile',function (req,res) {
 app.get('/ApniCare/information',function (req,res) {
     var page= 'ApniCare';
     var brand = req.query.brand;
-    var disease = req.query.disease;
     if(req.query.page=='Molecule_Information') {
         page = req.query.page;
         Molecule.find({}, '-_id molecule_name').exec(function (err, result) {
@@ -462,52 +461,45 @@ app.get('/ApniCare/information',function (req,res) {
         });
     }
     if(req.query.page=='Disease_Information') {
-        console.log('disease_reaches');
         page = req.query.page;
-        Disease.find({}).sort({disease_name:1}).exec(function (err,disease) {
+        Disease.find({}, '-_id disease_name').exec(function (err, result) {
             if (err) {
                 console.log(err);
             }
             else {
-                if(disease != "") {
-                    res.render('index',
-                        {
-                            page: page,
-                            data: disease
-                        });
-                }
-                else{
-                    res.send({details : "failure", message : "No such disease exist"});
-                }
+                res.render('index',
+                    {
+                        page: page,
+                        data: result
+                    });
             }
         });
-
     }
     if (req.query.page=='Drug_Information'){
         console.log('reaches');
         page = req.query.page;
-                Brand.find({},'-_id brand_name categories types primarily_used_for').populate(
-                {path : 'dosage_id', select : '-_id dosage_form',populate :
-                    {path : 'strength_id', select : '-_id strength packaging prescription dose_taken warnings price dose_timing potent_substance.name'}
-                }).populate(
-                {path : 'company_id', select: '-_id company_name'}).sort({brand_name : 1}).exec(function (err,brand) {
-                if (err) {
-                    console.log(err);
+        Brand.find({},'-_id brand_name categories types primarily_used_for').populate(
+            {path : 'dosage_id', select : '-_id dosage_form',populate :
+                {path : 'strength_id', select : '-_id strength packaging prescription dose_taken warnings price dose_timing potent_substance.name'}
+            }).populate(
+            {path : 'company_id', select: '-_id company_name'}).sort({brand_name : 1}).exec(function (err,brand) {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                if(brand != "") {
+                    res.render('index',
+                        {
+                            page: page,
+                            data: brand
+                        });
                 }
-                else {
-                    if(brand != "") {
-                        res.render('index',
-                            {
-                                page: page,
-                                data: brand
-                            });
-                    }
-                    else{
-                        res.send({details : "failure", message : "No brand exist"});
-                    }
+                else{
+                    res.send({details : "failure", message : "No brand exist"});
                 }
-            });
-        }
+            }
+        });
+    }
 
 });
 
