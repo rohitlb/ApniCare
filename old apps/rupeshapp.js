@@ -1,6 +1,3 @@
-//database ApniCare
-
-
 // require dependencies
 var express = require('express');
 var bodyParser = require('body-parser');
@@ -18,26 +15,25 @@ var bcrypt = require('bcryptjs');
 var mongoDBStore = require('connect-mongodb-session')(session);
 mongoose.Promise = promise;
 var async = require('async');
-var keys = require('./private/keys');
+var keys = require('../private/keys');
 
-console.log("rohitapp.js");
 // req models
-var User  = require('./model/registration');
-var Doctor = require('./model/doctorregistration');
-var Pharma = require('./model/pharma');
-var Professional = require('./model/professional');
+var User  = require('../model/registration');
+var Doctor = require('../model/doctorregistration');
+var Pharma = require('../model/pharma');
+var Professional = require('../model/professional');
 //require for medicine index
-var Company = require('./model/company');
-var Brand = require('./model/brand');
-var Dosage = require('./model/dosage');
-var Strength = require('./model/strength');
+var Company = require('../model/company');
+var Brand = require('../model/brand');
+var Dosage = require('../model/dosage');
+var Strength = require('../model/strength');
 //require for disease
-var Disease = require('./model/disease');
+var Disease = require('../model/disease');
 //require molecule
-var Molecule = require('./model/molecule');
+var Molecule = require('../model/molecule');
 
 // to save profile pic of user
-var routes = require('./model/imagefile');
+var routes = require('../model/imagefile');
 
 //declare the app
 var app = express();
@@ -56,7 +52,7 @@ store.on('error',function (error) {
 app.disable('x-powered-by');
 
 //configure the app
-app.set('port',9000);
+app.set('port',8000);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
@@ -1577,8 +1573,7 @@ app.get('/findcompany',function (req,res) {
                     brand : result[i].brand_id
                 };
             }
-            res.send({data: data});
-            //res.render('findcompany', {data: data});
+            res.render('findcompany', {data: data});
         }
     });
 });
@@ -1841,7 +1836,6 @@ app.get('/search_molecule',function (req,res) {
 });
 
 app.get('/getmolecule',function (req,res) {
-    console.log("app");
     Molecule.find({},'-_id molecule_name',function(err,molecule){
         if(err){
             console.log(err);
@@ -1864,15 +1858,82 @@ app.get('/getcategories',function (req,res) {
     });
 });
 
-app.get('/getbrands', function (req,res) {
-    Brand.find({},'-_id brand_name', function (err,brand) {
-        if(err){
+app.get('/getbrands',function(req,res){
+    Brand.find({},'-_id brand_name categories').populate(
+        {path : 'dosage_id', select : '-_id dosage_form',populate :
+                {path : 'strength_id', select : '-_id strength packaging price potent_substance.name'}
+        }).populate({path : 'company_id', select: '-_id company_name'}).sort({brand_name : 1}).exec(function (err,brand) {
+        if (err) {
             console.log(err);
-        }else{
-            res.send({message : 'brand list', result : brand})
         }
+        else {
 
-    })
+            res.send({message :'brand data' ,data: brand});
+        }
+    });
+});
+
+app.get('/inmolecule',function (req,res) {
+    var molecule = req.query.molecule;
+    var types = req.query.types;
+
+    if(types === 'info'){
+    Molecule.find({molecule_name: molecule},'-_id -__v', function (err, info) {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            res.send({message: 'molecule information', data: info});
+        }
+    });
+    }
+    if(types === 'brands') {
+        Strength.find({potent_substance: {$elemMatch: {name: molecule}}}, '-_id -__v'
+        ).populate({path: 'brands_id', populate: {path: 'dosage_id'}}).populate({
+            path: 'brands_id',
+            populate: {path: 'company_id'}
+        }).exec(function (err, brands) {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                var brand = {};
+                brand['data'] = [];
+                async.each(brands, function (result, callback) {
+                    if (result.potent_substance.length === 1) {
+                        brand['data'].push({
+                            results: result
+                        });
+                        callback();
+                    }
+                    else {
+                        callback();
+                    }
+                }, function (err) {
+                    if (err) {
+                        console.log(err);
+                    }
+                    else {
+                        //res.send(brand);
+                        res.send({message: 'molecule brand', data: brand.data});
+                    }
+                });
+            }
+        });
+    }
+    if(types === 'combination') {
+        Strength.find({potent_substance: {$elemMatch: {name: molecule}}}, '-_id -__v'
+        ).populate({
+            path: 'brands_id', populate: {path: 'dosage_id', populate: {path: 'strength_id'}}
+        }).populate({path: 'brands_id', populate: {path: 'company_id'}}).exec(function (err, brands) {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                res.send({message: 'molecule combination', data: brands});
+            }
+        });
+    }
 });
 
 //======================= save profile pic ====================
@@ -2027,30 +2088,18 @@ app.post('/searchdisease',function (req,res) {
 
 /////////my molecule//////////////////////////////
 
-app.get('/moleculeall',function (req,res) {
+app.get('/searchmolecule',function (req,res) {
     Molecule.find().exec(function (err,result) {
         if(err){
             console.log(err);
         }
         else{
-            res.send(result);
-            //res.render('molecules',{data : result});
+            //res.send(result);
+            res.render('molecules',{data : result});
         }
     });
 });
 
-// now its giving only molecule names
-app.get('/onlymolecule',function (req,res) {
-    Molecule.find().exec(function (err,result) {
-        if(err){
-            console.log(err);
-        }
-        else{
-            res.send(result);
-            //res.render('molecules',{data : result});
-        }
-    });
-});
 
 ////////////////////////////////////////// register as a doctor and user ///////////////////////////////////////////////
 
@@ -2110,6 +2159,8 @@ app.post('/doctorasuser',function (req,res) {
 ///////////////////////////////////////Doctor  Profile Insert //////////////////////////////////////////////////////////
 
 app.get('/health_care_provider',function(req,res) {
+    console.log(req.query.page);
+    console.log('reaches');
     var page = 'home';
     var brand = req.query.brand;
 
@@ -2348,18 +2399,19 @@ app.get('/health_care_provider',function(req,res) {
 
     if(req.query.page == 'molecule_data') {
 
-        Brand.find().populate({path : 'dosage_id',populate : {path : 'strength_id'}}).populate({path : 'company_id'}).exec(function (err,brand) {
+        Molecule.find({},'-_id -__v').populate({path : 'dosage_id', select : '-_id -__v',populate : {
+            path : 'strength_id', select : '-_id -__v'}}).populate({path : 'company_id'}
+        ).exec(function (err,molecule) {
             if (err) {
                 console.log(err);
             }
             else {
-                if (req.query.page == 'home' || req.query.page == 'profile_doctor' || req.query.page == 'profile_student_pharmacist' ||  req.query.page == 'profile_student_doctor' || req.query.page == 'profile' || req.query.page == 'profile_pharmacist' || req.query.page == 'drug_data' || req.query.page == 'molecule_data' || req.query.page == 'disease_data' || req.query.page == 'drug_data_form' || req.query.page == 'molecule_data_form' || req.query.page == 'disease_data_form' || req.query.page == 'feedback_contributions' || req.query.page == 'feedback_profile' || req.query.page == 'notifications' || req.query.page == 'need_help') {
-                    page = req.query.page;
-                }
+                console.log(molecule);
+                page = req.query.page;
                 res.render('home_profile_doctor',
                     {
                         page: page,
-                        data: brand
+                        data: molecule
 
                     });
             }
@@ -2424,6 +2476,9 @@ app.get('/health_care_provider',function(req,res) {
 });
 
 app.post('/health_care_provider',function(req,res) {
+    console.log(req.query.page);
+    console.log('reaches');
+
     var page = 'home';
     var brand = req.query.brand;
 
@@ -2662,18 +2717,19 @@ app.post('/health_care_provider',function(req,res) {
 
     if(req.query.page == 'molecule_data') {
 
-        Brand.find().populate({path : 'dosage_id',populate : {path : 'strength_id'}}).populate({path : 'company_id'}).exec(function (err,brand) {
+        Molecule.find({},'-_id -__v').populate({path : 'dosage_id', select : '-_id -__v',populate : {
+            path : 'strength_id', select : '-_id -__v'}}).populate({path : 'company_id'}
+        ).exec(function (err,molecule) {
             if (err) {
                 console.log(err);
             }
             else {
-                if (req.query.page == 'home' || req.query.page == 'profile_doctor' || req.query.page == 'profile_student_pharmacist' ||  req.query.page == 'profile_student_doctor' || req.query.page == 'profile' || req.query.page == 'profile_pharmacist' || req.query.page == 'drug_data' || req.query.page == 'molecule_data' || req.query.page == 'disease_data' || req.query.page == 'drug_data_form' || req.query.page == 'molecule_data_form' || req.query.page == 'disease_data_form' || req.query.page == 'feedback_contributions' || req.query.page == 'feedback_profile' || req.query.page == 'notifications' || req.query.page == 'need_help') {
-                    page = req.query.page;
-                }
+                console.log(molecule);
+                page = req.query.page;
                 res.render('home_profile_doctor',
                     {
                         page: page,
-                        data: brand
+                        data: molecule
 
                     });
             }
@@ -2737,20 +2793,7 @@ app.post('/health_care_provider',function(req,res) {
     }
 });
 
-app.post('/apphealth_care_provider',function(req,res){
-            Brand.find({},'-_id brand_name categories').populate(
-            {path : 'dosage_id', select : '-_id dosage_form',populate :
-                {path : 'strength_id', select : '-_id strength packaging potent_substance.name'}
-            }).populate({path : 'company_id', select: '-_id company_name'}).sort({brand_name : 1}).exec(function (err,brand) {
-            if (err) {
-                console.log(err);
-            }
-            else {
 
-                    res.send({message :'brand data' ,data: brand});
-                }
-            });
-});
 
 //////////////////// DRUG DATA VIEW//////////////////////////////
 
