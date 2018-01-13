@@ -74,42 +74,44 @@ div.row
                         li.section.scrollspy#symptoms
                             span.bold What are the Symptoms of #{val.disease_name.toUpperCase()}?
                             br
-                            span.flow-text #{val.symptoms}
+                            span.next_line.flow-text #{val.symptoms}
                     if(val.risk_factor)
                         li.section.scrollspy#risk
                             span.bold Who is at Risk for #{val.disease_name.toUpperCase()}?
                             br
-                            span.flow-text #{val.risk_factor}
+                            span.next_line.flow-text #{val.risk_factor}
                     if(val.cause)
                         li.section.scrollspy#cause
                             span.bold What Causes #{val.disease_name.toUpperCase()}?
                             br
-                            span.flow-text #{val.cause}
+                            span.next_line.flow-text #{val.cause}
                     if(val.diagnosis)
                         li.section.scrollspy#diagnosis
                             span.bold  How is #{val.disease_name.toUpperCase()} Diagnosed?
                             br
                             each subhead in val.diagnosis
-                                span.flow-text #{subhead.subhead1} #{subhead.subhead2}
+                                span.next_line.text_upper_case #{subhead.subhead1}:
+                                span.next_line.flow-text #{subhead.subhead2}
                     if(val.treatment)
                         li.section.scrollspy#treatment
                             span.bold How is #{val.disease_name.toUpperCase()} Treated?
                             br
-                            span.flow-text #{val.treatment}
+                            span.next_line.flow-text #{val.treatment}
                     if(val.outlook)
                         li.section.scrollspy#outlook
                             span.bold What is the Outlook for #{val.disease_name.toUpperCase()}?
                             br
-                            span.flow-text #{val.outlook}
+                            span.next_line.flow-text #{val.outlook}
                     if(val.prevention)
                         li.section.scrollspy#prevention
                             span.bold How can #{val.disease_name.toUpperCase()} be Prevented?
                             br
-                            span.flow-text #{val.prevention}
-                    h5.section.scrollspy#source Source: #{val.source}
+                            span.next_line.flow-text #{val.prevention}
+                    h5.section.scrollspy#source Source:&nbsp
+                        span.next_line #{val.source}
 
             div.col.l3.m4.hide-on-small-only
-                ul.section.table-of-contents(style='position:fic;padding-bottom:10px;')
+                ul.section.table-of-contents(style='position:fixed;padding-bottom:10px;')
                     li
                         a(href='#symptoms') Symptoms
                     li

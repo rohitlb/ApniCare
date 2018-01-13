@@ -2384,6 +2384,28 @@ app.get('/health_care_provider',function(req,res) {
             });
     }
 
+    if(req.query.molecule) {
+
+        Molecule.find({molecule_name : molecule}).sort({molecule_name:1}).exec(function (err,result) {
+            //console.log(result);
+            if (err) {
+                console.log(err);
+            }
+            else {
+                if(molecule != "") {
+                    res.render('home_profile_doctor',
+                        {
+                            page: 'molecule_data_view',
+                            data: result
+                        });
+                }
+                else{
+                    res.send({details : "failure", message : "No such molecule exist"});
+                }
+            }
+        })
+    }
+
     if(req.query.disease) {
 
         Disease.find({disease_name : disease}).sort({disease_name:1}).exec(function (err,disease) {
@@ -2627,7 +2649,6 @@ app.post('/health_care_provider',function(req,res) {
     var page = 'home';
     var brand = req.query.brand;
     var disease = req.query.disease;
-    var molecule = req.query.molecule;
 
     if(req.query.page == 'profile') {
         Doctor.findOne({_id: req.session.doctorID}, function (err, result) {
@@ -2752,7 +2773,7 @@ app.post('/health_care_provider',function(req,res) {
                     if (req.query.page == 'home' || req.query.page == 'profile_doctor' || req.query.page == 'profile_student_pharmacist' || req.query.page == 'profile_student_doctor' || req.query.page == 'profile_student_pharmacist' || req.query.page == 'profile' || req.query.page == 'profile_pharmacist' || req.query.page == 'drug_data' || req.query.page == 'molecule_data' || req.query.page == 'disease_data' || req.query.page == 'drug_data_form' || req.query.page == 'molecule_data_form' || req.query.page == 'disease_data_form' || req.query.page == 'feedback_contributions' || req.query.page == 'feedback_profile' || req.query.page == 'notifications' || req.query.page == 'need_help') {
                         page = req.query.page;
                     }
-                    res.render('home_profile_doctor',
+                    res.render('index',
                         {
                             page: 'drug_data_view',
                             data: brand
@@ -2783,6 +2804,28 @@ app.post('/health_care_provider',function(req,res) {
                 page: page,
                 data: disease
             });
+    }
+
+    if(req.query.molecule) {
+
+        Molecule.find({molecule_name : molecule}).sort({molecule_name:1}).exec(function (err,result) {
+            //console.log(result);
+            if (err) {
+                console.log(err);
+            }
+            else {
+                if(molecule != "") {
+                    res.render('home_profile_doctor',
+                        {
+                            page: 'molecule_data_view',
+                            data: result
+                        });
+                }
+                else{
+                    res.send({details : "failure", message : "No such molecule exist"});
+                }
+            }
+        })
     }
 
     if(req.query.disease) {
