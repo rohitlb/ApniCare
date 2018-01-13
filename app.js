@@ -210,7 +210,7 @@ app.post('/VerifyOTP',function (req, res) {
 app.get('/home',function (req,res) {
     if (req.session.userID) {
         //var page= 'index';
-        res.render('index')//, {
+        res.render('index')
         //page: page
         //});
         res.redirect('/profile');
