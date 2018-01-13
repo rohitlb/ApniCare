@@ -302,23 +302,14 @@ app.post('/register', function (req, res) {
 //render profile page of user
 app.get('/profile', function (req, res) {
     if (req.session.userID) {
-        var page= '/profile';
-        res.render('profile', {
-            number: req.session.userID,
-            page: page
-        });
+        res.render('profile');
     }
-    if(req.session.doctorID) {
-        res.render('doctorpage', {number: req.session.doctorID});
-    }
-    //res.send({status : "failed" , message : "Please Login First"});
 });
 
 app.get('/profiles',function (req,res) {
     if(req.session.userID) {
         res.render('profiles');
     }
-    res.send({status : "failed" , message : "Please Login First"});
 });
 
 //user profile update
@@ -329,7 +320,6 @@ app.post('/profiles',function (req,res) {
     var marital_status = req.body.marital_status;
     var height = req.body.height;
     var weight = req.body.height;
-
 
     var addresses = req.body.address;
     var landmark = req.body.landmarks;
@@ -405,11 +395,11 @@ app.get('/profile/userprofile',function (req,res) {
         }
     });
 });
+
 //for basic info like disease,drug and molecule Information*******************************************************
 app.get('/ApniCare/information',function (req,res) {
-    console.log(req.query.page);
     var page= 'ApniCare';
-    //brand = req.query.brand;
+    var brand = req.query.brand;
     if(req.query.page=='Molecule_Information') {
         page = req.query.page;
         Molecule.find({}, '-_id molecule_name').exec(function (err, result) {
@@ -429,9 +419,9 @@ app.get('/ApniCare/information',function (req,res) {
         page = req.query.page;
     }
     if (req.query.page=='Drug_Information'){
+        console.log('reaches');
         page = req.query.page;
-        brand = req.query.brand;
-                Brand.find({brand_name : brand},'-_id brand_name categories types primarily_used_for').populate(
+                Brand.find({},'-_id brand_name categories types primarily_used_for').populate(
                 {path : 'dosage_id', select : '-_id dosage_form',populate :
                     {path : 'strength_id', select : '-_id strength packaging prescription dose_taken warnings price dose_timing potent_substance.name'}
                 }).populate(
@@ -453,8 +443,8 @@ app.get('/ApniCare/information',function (req,res) {
                 }
             });
         }
-});
 
+});
 
 app.get('/ApniCare/information/Molecules',function (req,res) {
     var page= 'ApniCare';
@@ -473,7 +463,6 @@ app.get('/ApniCare/information/Molecules',function (req,res) {
         }
     });
 });
-
 
 //*****************************************USER LOGIN*******************************************************************
 //login with filter and session
@@ -2242,7 +2231,6 @@ app.get('/health_care_provider',function(req,res) {
     var page = 'home';
     var brand = req.query.brand;
     var disease = req.query.disease;
-    var molecule = req.query.molecule;
 
     if(req.query.page == 'profile') {
         Doctor.findOne({_id: req.session.doctorID}, function (err, result) {
