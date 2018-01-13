@@ -210,7 +210,7 @@ app.post('/VerifyOTP',function (req, res) {
 app.get('/home',function (req,res) {
     if (req.session.userID) {
         //var page= 'index';
-        res.render('index')//, {
+        res.render('index')
         //page: page
         //});
         res.redirect('/profile');
@@ -412,10 +412,7 @@ app.post('/profiles',function (req,res) {
         }
     });
 });
-<<<<<<< HEAD
 
-=======
->>>>>>> eaae849fd3f293fb1a204dc023f4d97cf521a88e
 //***************************************frontend**************************************8888
 
 //*******************************frontend changes***********************************************
