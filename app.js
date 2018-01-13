@@ -229,7 +229,7 @@ app.get('/home',function (req,res) {
 app.get('/', function (req, res) {
     if (req.session.userID) {
         res.render('index');
-        res.redirect('/profile');
+        //res.redirect('/profile');
         res.end();
 
     }
@@ -244,44 +244,6 @@ app.get('/', function (req, res) {
 });
 
 //////////////// Molecule data ///////////////////
-
-app.get('/ApniCare/information',function (req,res) {
-    var page= 'ApniCare';
-    if(req.query.page=='Drug_Information' || req.query.page=='Disease_Information' ||req.query.page=='Molecule_Information' )
-        page= req.query.page;
-
-    Molecule.find({},'-_id molecule_name').exec(function (err, result) {
-        if (err) {
-            console.log(err);
-        }
-        else {
-            res.render('index',
-                {
-                    page:page,
-                    data : result
-                });
-        }
-    });
-});
-
-app.get('/ApniCare/information/Molecules',function (req,res) {
-    var page= 'ApniCare';
-    var molecule = req.query.molecule;
-
-    Molecule.find({molecule_name : molecule},'-_id -__v').exec(function (err, result) {
-        if (err) {
-            console.log(err);
-        }
-        else {
-            res.render('index',
-                {
-                    page:'molecule_name',
-                    data : result
-                });
-        }
-    });
-});
-
 
 //User registration
 app.post('/register', function (req, res) {
@@ -412,10 +374,6 @@ app.post('/profiles',function (req,res) {
         }
     });
 });
-<<<<<<< HEAD
-
-=======
->>>>>>> eaae849fd3f293fb1a204dc023f4d97cf521a88e
 //***************************************frontend**************************************8888
 
 //*******************************frontend changes***********************************************
@@ -467,13 +425,6 @@ app.get('/ApniCare/information',function (req,res) {
     }
     if(req.query.page=='Disease_Information') {
         page = req.query.page;
-
-
-
-
-
-
-
     }
     if (req.query.page=='Drug_Information'){
         page = req.query.page;
