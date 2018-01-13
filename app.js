@@ -19,6 +19,13 @@ var keys = require('./private/keys');
 
 
 // req models
+
+
+// req model for feedback and need help
+var Feedback = require('./model/feedback');
+var Needhelp = require('./model/needhelp');
+
+
 var User  = require('./model/registration');
 var Doctor = require('./model/doctorregistration');
 var Pharma = require('./model/pharma');
@@ -107,6 +114,44 @@ app.get('/test',function (req,res) {
     res.end();
 
 });
+//*************************************Feedback and needhelp*******************************************************************
+
+app.post('/feedback' , function (req,res) {
+    var usefulness = req.body.usefulness;
+    var suggestion = req.body.suggestion;
+
+    var feedback = new Feedback({
+        usefulness : usefulness,
+        suggestion : suggestion
+    });
+
+    feedback.save(function (err, result) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.send("Thnx for the feedback")
+        }
+    });
+});
+
+app.post('/needhelp' , function (req,res) {
+    var subject = req.body.subject;
+    var contact_message = req.body.contact_message;
+
+    var needhelp = new Needhelp({
+        subject : subject,
+        contact_message : contact_message
+    });
+
+    needhelp.save(function (err, result) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.send("We will contact you soon")
+        }
+    });
+});
+
 
 //*************************************OTP*******************************************************************
 
