@@ -20,7 +20,7 @@ var Molecule = new Schema({
     dosage : [ {subhead : {type : String},info : {type : String}}],
     // dasage can be oral,intravenous ,  liver disorder , hepatic , COPD
 
-    food : {type : String},
+    //food : {type : String},
     //list of contra indications
     contraindications : [ {subhead : {type : String},info : {type : String}}],
     source : [{type : String}]
