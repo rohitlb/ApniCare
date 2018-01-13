@@ -17,7 +17,6 @@ $(function () {
     // $( "#progressbar" ).progressbar(function(){
     //     value: 35
     // });
-
     //............................./////////// Bullets in text area /////////////////////////////
     // $(".text_areas1").focus(function() {
     //     if(document.getElementById('symptoms').value === ''){
@@ -306,38 +305,35 @@ $(function () {
     // $('#drug_dataa').click(function () {
     //    $('#drug_list').hide();
     // });
-
-
     // $( "li", "#test" ).sort(function( a, b ) {
     //     return $( a ).text() > $( b ).text();
     // }).appendTo( "#test" );
 
 
 
-    // TO ADD NEW TEXT FIELD IN MOLECULE DATA FORM
-    $('#new_text').hide();
-    $('#diagnosis_sub').hide();
-    $('#new_info').hide();
-    $('#close').hide();
-    $('#list_input').hide();
-    $('#add_button').click(function () {
-        $('#new_text').show();
-        $('#diagnosis_sub').show();
-        $('#new_info').show();
-        $('#close').show();
-        $('#list_input').show();
-        $('#close').click(function () {
-            $('#new_text').hide();
-            $('#new_info').hide();
-            $('#list_input').hide();
-            $('#close').hide();
-        });
-    });
-
+    // // TO ADD NEW TEXT FIELD IN MOLECULE DATA FORM
+    // $('#new_text').hide();
+    // $('#diagnosis_sub').hide();
+    // $('#new_info').hide();
+    // $('#close').hide();
+    // $('#list_input').hide();
+    // $('#add_button').click(function () {
+    //     $('#new_text').show();
+    //     $('#diagnosis_sub').show();
+    //     $('#new_info').show();
+    //     $('#close').show();
+    //     $('#list_input').show();
+    //     $('#close').click(function () {
+    //         $('#new_text').hide();
+    //         $('#new_info').hide();
+    //         $('#list_input').hide();
+    //         $('#close').hide();
+    //     });
+    // });
     // TO CLOSE THE ABOVE OPENED TEXT FIELD IN MOLECULE DATA FORM
-    $('#cl').click(function () {
-        $('#new_field').hide();
-    });
+    // $('#cl').click(function () {
+    //     $('#new_field').hide();
+    // });
 
 
     $('.dropdown-button').dropdown({
@@ -373,32 +369,114 @@ $(function () {
     //     //$self.remove();
     // });
 
-    $('.repeat').on('click', function() {
-        $('.repeater').append('<div><input id="subhead2" type="text"  placeholder="Enter a subheading" class="browser-default repeat_subhead" required/><button class="remove">x</button>' +
-            '<textarea class="text_subhead tobig" id="subhead_text" required></textarea><label for="subhead2" style="color:black;font-size: 15px;font-weight: 400;">' +
-            '</label><label for="subhead_text" style="color:black;font-size: 15px;font-weight: 400;"></label></div></div>');
+    //............................... For Diagnosis in Disease form...............//
+    $('.repeat1').on('click', function() {
+        $('.repeater1').append('<div><input id="subhead1" type="text"  placeholder="Enter a subheading" class="browser-default repeat_subhead" required/><button class="remove">x</button>' +
+            '<textarea class="text_subhead materialize-textarea tobig" id="subhead_text1" required></textarea><label for="subhead1" style="color:black;font-size: 15px;font-weight: 400;">' +
+            '</label><label for="subhead_text1",placeholder="Enter text", style="color:black;font-size: 15px;font-weight: 400;"></label></div></div>');
+        return false; //prevent form submission
+    });
+    $('.repeater1').on('click', '.remove', function() {
+        $(this).parent().remove();
         return false; //prevent form submission
     });
 
-    $('.repeat1').on('click', function() {
-        $('.repeater').append('<div><input id="subhead2" type="text" list="contra" placeholder="Choose subheading" class="browser-default repeat_subhead" required/><button class="remove">x</button>' +
-            '<textarea class="text_subhead" id="subhead_text" required></textarea><label for="subhead2" style="color:black;font-size: 15px;font-weight: 400;"></label>' +
-            '<label for="subhead2" style="color:black;font-size: 15px;font-weight: 400;">' +
+    //............................... For contraindications in molecule form ............//
+    $('.repeat2').on('click', function() {
+        $('.repeater2').append('<div><input id="subhead2" type="text" list="contra" placeholder="Choose subheading" class="browser-default repeat_subhead" required/><button class="remove">x</button>' +
+            '<textarea class="text_subhead materialize-textarea" placeholder="Enter Text" id="subhead_text2" required></textarea><label for="subhead2" style="color:black;font-size: 15px;font-weight: 400;"></label>' +
+            '<label for="subhead_text2" style="color:black;font-size: 15px;font-weight: 400;">' +
             '<datalist id="contra"> <option> In Lactation</option> <option>In Geriatric/Old Person</option><option>Other Contraindications</option>' +
             ' <option> In Pregnancy </option>Lab Interference <option></option> <option> In Children </option><option>Storage</option>' +
             '</label></div></div>');
         return false; //prevent form submission
     });
+    $('.repeater2').on('click', '.remove', function() {
+        $(this).parent().remove();
+        return false; //prevent form submission
+    });
 
-    $('.repeat2').on('click', function() {
-        $('.repeater').append('<div><button class="right remove">x</button><div class="collection" style="border-color:transparent;"><div class="col s12 m6 l6">' +
+    //............................... For Dosage in Molecule Form...............//
+    $('.repeat3').on('click', function() {
+        $('.repeater3').append('<div><input id="subhead3" type="text" list="dosage" placeholder="Choose subheading" class="browser-default repeat_subhead" required/><button class="remove">x</button>' +
+            '<textarea class="text_subhead materialize-textarea" placeholder="Enter Text" id="subhead_text3" required></textarea><label for="subhead3" style="color:black;font-size: 15px;font-weight: 400;"></label>' +
+            '<label for="subhead_text3" style="color:black;font-size: 15px;font-weight: 400;">' +
+            '<datalist id="dosage"> <option> Oral</option> <option>Intravenous</option><option>Liver Disorder</option>' +
+            ' <option> Hepatic </option> <option>COPD</option>' +
+            '</label></div></div>');
+        return false; //prevent form submission
+    });
+    $('.repeater3').on('click', '.remove', function() {
+        $(this).parent().remove();
+        return false; //prevent form submission
+    });
+
+    //............................... For Other Interactions in Molecule Form .........//
+    $('.repeat4').on('click', function() {
+        $('.repeater4').append('<div><input id="subhead4" type="text" placeholder="Enter subheading" class="browser-default repeat_subhead" required/><button class="remove">x</button>' +
+            '<textarea class="text_subhead materialize-textarea" placeholder="Enter Text" id="subhead_text4" required></textarea><label for="subhead4" style="color:black;font-size: 15px;font-weight: 400;"></label>' +
+            '<label for="subhead_text4" style="color:black;font-size: 15px;font-weight: 400;">' +
+            '</label></div></div>');
+        return false; //prevent form submission
+    });
+    $('.repeater4').on('click', '.remove', function() {
+        $(this).parent().remove();
+        return false; //prevent form submission
+    });
+
+    //............................... For Other Drug Interactions In Molecule Form ...........//
+    $('.repeat5').on('click', function() {
+        $('.repeater5').append('<div><input id="subhead5" type="text" placeholder="Enter subheading" class="browser-default repeat_subhead" required/><button class="remove">x</button>' +
+            '<textarea class="text_subhead materialize-textarea" placeholder="Enter Text" id="subhead_text5" required></textarea><label for="subhead5" style="color:black;font-size: 15px;font-weight: 400;"></label>' +
+            '<label for="subhead_text5" style="color:black;font-size: 15px;font-weight: 400;">' +
+            '</label></div></div>');
+        return false; //prevent form submission
+    });
+    $('.repeater5').on('click', '.remove', function() {
+        $(this).parent().remove();
+        return false; //prevent form submission
+    });
+
+    //............................... For
+    // $('.repeat1').on('click', function() {
+    //     $('.repeater').append('<div><input id="subhead2" type="text" list="contra" placeholder="Choose subheading" class="browser-default repeat_subhead" required/><button class="remove">x</button>' +
+    //         '<textarea class="text_subhead" id="subhead_text" required></textarea><label for="subhead2" style="color:black;font-size: 15px;font-weight: 400;"></label>' +
+    //         '<label for="subhead2" style="color:black;font-size: 15px;font-weight: 400;">' +
+    //         '<datalist id="contra"> <option> In Lactation</option> <option>In Geriatric/Old Person</option><option>Other Contraindications</option>' +
+    //         ' <option> In Pregnancy </option>Lab Interference <option></option> <option> In Children </option><option>Storage</option>' +
+    //         '</label></div></div>');
+    //     return false; //prevent form submission
+    // });
+    //
+    // $('.repeat1').on('click', function() {
+    //     $('.repeater').append('<div><input id="subhead2" type="text" list="contra" placeholder="Choose subheading" class="browser-default repeat_subhead" required/><button class="remove">x</button>' +
+    //         '<textarea class="text_subhead" id="subhead_text" required></textarea><label for="subhead2" style="color:black;font-size: 15px;font-weight: 400;"></label>' +
+    //         '<label for="subhead2" style="color:black;font-size: 15px;font-weight: 400;">' +
+    //         '<datalist id="contra"> <option> In Lactation</option> <option>In Geriatric/Old Person</option><option>Other Contraindications</option>' +
+    //         ' <option> In Pregnancy </option>Lab Interference <option></option> <option> In Children </option><option>Storage</option>' +
+    //         '</label></div></div>');
+    //     return false; //prevent form submission
+    // });
+    //
+    // $('.repeat1').on('click', function() {
+    //     $('.repeater').append('<div><input id="subhead2" type="text" list="contra" placeholder="Choose subheading" class="browser-default repeat_subhead" required/><button class="remove">x</button>' +
+    //         '<textarea class="text_subhead" id="subhead_text" required></textarea><label for="subhead2" style="color:black;font-size: 15px;font-weight: 400;"></label>' +
+    //         '<label for="subhead2" style="color:black;font-size: 15px;font-weight: 400;">' +
+    //         '<datalist id="contra"> <option> In Lactation</option> <option>In Geriatric/Old Person</option><option>Other Contraindications</option>' +
+    //         ' <option> In Pregnancy </option>Lab Interference <option></option> <option> In Children </option><option>Storage</option>' +
+    //         '</label></div></div>');
+    //     return false; //prevent form submission
+    // });
+
+    //............................... For Potent Substances in Drug Data Form.............//
+    $('.repeat6').on('click', function() {
+        $('.repeater6').append('<div><button class="right remove">x</button><div class="collection" style="border-color:transparent;"><div class="col s12 m6 l6">' +
             '<input id="subheading" type="text" placeholder="Enter Name" required="required" class="repeat_subhead"/></div>' +
             '<div class="col s12 m6 l6"> <input id="subhead_text" type="text" placeholder="Enter Molecule Strength" required="required" class="text_subhead"/> ' +
             '</div> </div> </div>');
         return false; //prevent form submission
     });
-
-    $('.repeater').on('click', '.remove', function() {
+    $('.repeater6').on('click', '.remove', function() {
         $(this).parent().remove();
         return false; //prevent form submission
     });
@@ -406,7 +484,6 @@ $(function () {
     // $(".repeat").on('click', function (e) {
     //     $('.repeater').clone().insertAfter(".repeater");
     // });
-
     //$('.materialize-textarea').hide();
     //$('input#disease_name').hide();
     // $('.val17').show();
@@ -1168,6 +1245,8 @@ $(function () {
         filePreview(this);
     });
 });
+
+
 function filePreview(input) {
     if (input.files && input.files[0]) {
         var reader = new FileReader();
@@ -1202,7 +1281,6 @@ function filePreview(input) {
 //         return false;
 //     }
 // }
-
 // function validateForm() {
 //     Materialize.toast('this is a test', 2000);
 //
