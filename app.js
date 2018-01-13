@@ -469,17 +469,17 @@ app.get('/ApniCare/information',function (req,res) {
                     console.log(err);
                 }
                 else {
-                    //if(brand = "") {
+                    if(brand != "") {
                         res.render('index',
                             {
                                 page: page,
                                 data: brand
                             });
-                    //}
-                    /*else{
+                    }
+                    else{
                         console.log("nidhi");
                         res.send({details : "failure", message : "No brand exist"});
-                    }*/
+                    }
                 }
             });
         }
