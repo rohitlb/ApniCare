@@ -78,9 +78,9 @@ div.row
 
                     li.section.scrollspy#prescription Prescription:
                     each dosages in val.dosage_id
-                        each doses in dosages.strength_id
-                            if (doses.prescription != '')
-                                span &nbsp<strong>#{doses.prescription}</strong>
+                            each doses in dosages.strength_id
+                                if (doses.prescription != '')
+                                    span &nbsp<strong>#{doses.prescription}</strong>
                 li.section.scrollspy#potent Involves Potent Substances: &nbsp
                     each vas in data
                         each dosages in vas.dosage_id
@@ -92,46 +92,46 @@ div.row
 
 
                 each vas in data
-                    each dosage in vas.dosage_id
-                        each dose in dosage.strength_id
+                            each dosage in vas.dosage_id
+                                each dose in dosage.strength_id
 
-                            table.responsive-table.responsive-on-down-only
-                                thead
-                                    tr
-                                        th.section.scrollspy#dosage_form Dosage Form
-                                        if(dose.strength != '')
-                                            th Strength
-                                        if(dose.packaging != '')
-                                            th Packaging
-                                        th Price
-                                tbody
-                                    tr
-                                        td <strong>#{dosage.dosage_form.toUpperCase()}</strong> &nbsp &nbsp
-                                        if(dose.strength != '')
-                                            td <strong>#{dose.strength} #{dose.strengths}</strong> &nbsp &nbsp
-                                        if(dose.packaging != '')
-                                            td <strong>#{dose.packaging}</strong> &nbsp &nbsp
-                                        td <strong>#{dose.price}</strong>
-                            each pots in dose.potent_substance
-                                if(dose.dose_taken != '')
-                                    li.section.scrollspy#dose_taken Dose Taken As:&nbsp
-                                        span <strong>#{dose.dose_taken}</strong>
+                                        table.responsive-table.responsive-on-down-only
+                                            thead
+                                                tr
+                                                    th.section.scrollspy#dosage_form Dosage Form
+                                                    if(dose.strength != '')
+                                                        th Strength
+                                                    if(dose.packaging != '')
+                                                        th Packaging
+                                                    th Price
+                                            tbody
+                                                tr
+                                                    td <strong>#{dosage.dosage_form.toUpperCase()}</strong> &nbsp &nbsp
+                                                    if(dose.strength != '')
+                                                        td <strong>#{dose.strength} #{dose.strengths}</strong> &nbsp &nbsp
+                                                    if(dose.packaging != '')
+                                                        td <strong>#{dose.packaging}</strong> &nbsp &nbsp
+                                                    td <strong>#{dose.price}</strong>
+                                        each pots in dose.potent_substance
+                                                    if(dose.dose_taken != '')
+                                                        li.section.scrollspy#dose_taken Dose Taken As:&nbsp
+                                                            span <strong>#{dose.dose_taken}</strong>
 
-                                if(dose.dose_timing != '')
-                                    li.section.scrollspy#timing Dose Timings:&nbsp
-                                        span <strong>#{dose.dose_timing}</strong>
+                                                    if(dose.dose_timing != '')
+                                                        li.section.scrollspy#timing Dose Timings:&nbsp
+                                                            span <strong>#{dose.dose_timing}</strong>
 
-                                if(vas.primarily_used_for != '')
-                                    li.section.scrollspy#primarily The Drug <strong>#{vas.brand_name.toUpperCase()}</strong> is primarily used for <strong>#{vas.primarily_used_for}</strong>
+                                                    if(vas.primarily_used_for != '')
+                                                        li.section.scrollspy#primarily The Drug <strong>#{vas.brand_name.toUpperCase()}</strong> is primarily used for <strong>#{vas.primarily_used_for}</strong>
 
-                                if(dose.warnings != '')
-                                    i.material-icons.left warning
-                                    span.section.scrollspy#warnings.red-text Warnings
-                                    br
-                                    span <strong>#{dose.warnings}</strong>
-                                    br
-                                    br
-                                    br
+                                                    if(dose.warnings != '')
+                                                        i.material-icons.left warning
+                                                        span.section.scrollspy#warnings.red-text Warnings
+                                                        br
+                                                        span <strong>#{dose.warnings}</strong>
+                                                        br
+                                                        br
+                                                        br
 
             div.col.m4.l3.hide-on-small-only
 
