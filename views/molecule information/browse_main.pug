@@ -122,7 +122,7 @@ div
                                             //include ./drug
                                         else if (page == 'Disease_Information')
                                             //*******************disease front view*******************************
-                                            a(href='/ApniCare/information/Molecules?disease=' + val.disease_name) #{val.disease_name}
+                                            a(href='/ApniCare/information/Molecules?disease=' + val.disease_name).text_upper_case #{val.disease_name}
                                             //include ./disease_front_view
 
                                         else if (page == 'Molecule_Information')
