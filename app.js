@@ -209,33 +209,17 @@ app.post('/VerifyOTP',function (req, res) {
 
 app.get('/home',function (req,res) {
     if (req.session.userID) {
-<<<<<<< HEAD
-        //var page= 'index';
-        res.render('index')//, {
-            //page: page
-        //});
-=======
-        res.redirect('/profile');
->>>>>>> 63378b42662a86b00f9eb653ad16a2ac556bf5cc
+        res.render('index');
         res.end();
     }
     if (req.session.doctorID) {
         res.redirect('/doctorpage');
-    } else {
-        res.render('index');
-        res.end();
     }
-    //res.send({status: "success", message: "Please Login First"});
-    res.end();
 });
 
 app.get('/', function (req, res) {
     if (req.session.userID) {
-<<<<<<< HEAD
         res.render('index');
-=======
-        res.redirect('/profile');
->>>>>>> 63378b42662a86b00f9eb653ad16a2ac556bf5cc
         res.end();
 
     }
@@ -243,12 +227,6 @@ app.get('/', function (req, res) {
         res.render('doctorpage');
         res.end();
     }
-<<<<<<< HEAD
-        //res.end();
-=======
-        res.render('home');
-        res.end();
->>>>>>> 63378b42662a86b00f9eb653ad16a2ac556bf5cc
 });
 
 //////////////// Molecule data ///////////////////
@@ -420,7 +398,6 @@ app.post('/profiles',function (req,res) {
         }
     });
 });
-<<<<<<< HEAD
 //***************************************frontend**************************************8888
 
 //*******************************frontend changes***********************************************
@@ -452,6 +429,7 @@ app.get('/profile/userprofile',function (req,res) {
 });
 //for basic info like disease,drug and molecule Information*******************************************************
 app.get('/ApniCare/information',function (req,res) {
+    console.log(req.query.page);
     var page= 'ApniCare';
     //brand = req.query.brand;
     if(req.query.page=='Molecule_Information') {
@@ -468,7 +446,8 @@ app.get('/ApniCare/information',function (req,res) {
                     });
             }
         });
-    } else if(req.query.page=='Disease_Information') {
+    }
+    if(req.query.page=='Disease_Information') {
         page = req.query.page;
 
 
@@ -477,7 +456,8 @@ app.get('/ApniCare/information',function (req,res) {
 
 
 
-    }else if (req.query.page=='Drug_Information'){
+    }
+    if (req.query.page=='Drug_Information'){
         page = req.query.page;
         brand = req.query.brand;
                 Brand.find({brand_name : brand},'-_id brand_name categories types primarily_used_for').populate(
@@ -503,9 +483,6 @@ app.get('/ApniCare/information',function (req,res) {
                 }
             });
         }
-
-
-
 });
 
 
@@ -527,8 +504,6 @@ app.get('/ApniCare/information/Molecules',function (req,res) {
     });
 });
 
-=======
->>>>>>> 63378b42662a86b00f9eb653ad16a2ac556bf5cc
 
 //*****************************************USER LOGIN*******************************************************************
 //login with filter and session
