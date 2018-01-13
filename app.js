@@ -302,23 +302,14 @@ app.post('/register', function (req, res) {
 //render profile page of user
 app.get('/profile', function (req, res) {
     if (req.session.userID) {
-        var page= '/profile';
-        res.render('profile', {
-            number: req.session.userID,
-            page: page
-        });
+        res.render('profile');
     }
-    if(req.session.doctorID) {
-        res.render('doctorpage', {number: req.session.doctorID});
-    }
-    //res.send({status : "failed" , message : "Please Login First"});
 });
 
 app.get('/profiles',function (req,res) {
     if(req.session.userID) {
         res.render('profiles');
     }
-    res.send({status : "failed" , message : "Please Login First"});
 });
 
 //user profile update
@@ -329,7 +320,6 @@ app.post('/profiles',function (req,res) {
     var marital_status = req.body.marital_status;
     var height = req.body.height;
     var weight = req.body.height;
-
 
     var addresses = req.body.address;
     var landmark = req.body.landmarks;
@@ -2241,7 +2231,6 @@ app.get('/health_care_provider',function(req,res) {
     var page = 'home';
     var brand = req.query.brand;
     var disease = req.query.disease;
-    var molecule = req.query.molecule;
 
     if(req.query.page == 'profile') {
         Doctor.findOne({_id: req.session.doctorID}, function (err, result) {
