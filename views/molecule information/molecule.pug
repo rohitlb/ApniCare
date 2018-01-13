@@ -28,18 +28,13 @@ div
             div.row#mol_row1
                 //**********data*********************
                 if(page == 'drug_name')
-                    //*********************drug data*****************************
-                    include ./drug
-                else if (page == 'disease_name')
-                    //*******************disease data*******************************
                     include ./disease
-                else if (page == 'molecule_name')
-                    //*******************molecule data*******************************************************
+                if (page == 'disease_name')
+                    include ./disease
+                if (page == 'molecule_name')
                     div.col.l11#mol_col1
                         div.row.center#mol_row1_subrow2
                             h4   #{data[0].molecule_name}
-
-
                         div.row.m_p_info
                             //h4.center #{data[0].molecule_name}
                             p.black-text.lighten-2 #{data[0].description}

@@ -284,7 +284,7 @@ app.get('/', function (req, res) {
         res.end();
     }
     //res.end();
-    res.render('home');
+    res.render('index');
     res.end();
 
 });
@@ -506,25 +506,56 @@ app.get('/ApniCare/information',function (req,res) {
 app.get('/ApniCare/information/Molecules',function (req,res) {
     var page= 'ApniCare';
     var molecule = req.query.molecule;
+    var brand = req.query.brand;
+    if(req.query.molecule){
+        console.log('reches in molecule');
+                    Molecule.find({molecule_name : molecule},'-_id -__v').exec(function (err, result) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        else {
+                            res.render('index',
+                                {
+                                    page:'molecule_name',
+                                    data : result
+                                });
+                        }
+                    });
+            }
 
-    Molecule.find({molecule_name : molecule},'-_id -__v').exec(function (err, result) {
-        if (err) {
-            console.log(err);
-        }
-        else {
-            res.render('index',
-                {
-                    page:'molecule_name',
-                    data : result
-                });
-        }
-    });
+    if(req.query.brand) {
+        console.log('reches in drug');
+
+        Brand.find({brand_name : brand},'-_id brand_name categories types primarily_used_for').populate(
+            {path : 'dosage_id', select : '-_id dosage_form',populate :
+                {path : 'strength_id', select : '-_id strength strengths packaging prescription dose_taken warnings price dose_timing potent_substance.name'}
+            }).populate(
+            {path : 'company_id', select: '-_id company_name'}).sort({brand_name : 1}).exec(function (err,brand) {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                if(brand != "") {
+                    res.render('index',
+                        {
+                            page: 'drug_data_view',
+                            data: brand
+                        });
+                }
+                else{
+                    res.send({details : "failure", message : "No brand exist"});
+                }
+            }
+        });
+    }
+    res.end();
 });
 
 //*****************************************USER LOGIN*******************************************************************
 //login with filter and session
 
 app.post('/login',function (req,res) {
+
     User.findOne({number: req.body.number}).exec(function (err,result) {
         if(err){
             console.log(err);
@@ -2353,7 +2384,7 @@ app.get('/health_care_provider',function(req,res) {
                     if (req.query.page == 'home' || req.query.page == 'profile_doctor' || req.query.page == 'profile_student_pharmacist' || req.query.page == 'profile_student_doctor' || req.query.page == 'profile_student_pharmacist' || req.query.page == 'profile' || req.query.page == 'profile_pharmacist' || req.query.page == 'drug_data' || req.query.page == 'molecule_data' || req.query.page == 'disease_data' || req.query.page == 'drug_data_form' || req.query.page == 'molecule_data_form' || req.query.page == 'disease_data_form' || req.query.page == 'feedback_contributions' || req.query.page == 'feedback_profile' || req.query.page == 'notifications' || req.query.page == 'need_help') {
                         page = req.query.page;
                     }
-                    res.render('index',
+                    res.render('home_profile_doctor',
                         {
                             page: 'drug_data_view',
                             data: brand
