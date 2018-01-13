@@ -1867,7 +1867,6 @@ app.get('/disease',function (req,res) {
 });
 
 app.post('/diseases',function (req,res) {
-    console.log('reaches');
     var disease_name = req.body.disease_name;
     var symptoms = req.body.symptoms;
     var risk_factor = req.body.risk_factor;
