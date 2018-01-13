@@ -14,7 +14,7 @@ var Molecule = new Schema({
     //adverse reactions/side effects
     side_effect : [{type : String}],
     precaution : [{type : String}],
-    other_drug_interaction : [{type : String}],
+    other_drug_interaction : [ {subhead : {type : String},info : {type : String}}],
     other_interaction :[ {subhead : {type : String},info : {type : String}}],
     // like food_interaction, etc : [{type : String}],
     dosage : [ {subhead : {type : String},info : {type : String}}],
