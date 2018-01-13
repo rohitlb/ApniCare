@@ -492,18 +492,7 @@ $(function () {
         var outlook = $('#outlook').val();
         var prevention = $('#prevention').val();
         var source = $('#source').val();
-        alert(disease_name);
-        alert(symptoms);
-        alert(risk_factor);
-        alert(cause);
-        alert(treatment);
-        alert(outlook);
-        alert(prevention);
-        alert(source);
-        // alert();
-        // alert();
-        alert(subhead1);
-        alert(subhead2);
+
         var data = {
             disease_name: disease_name,
             symptoms: symptoms,
@@ -518,7 +507,7 @@ $(function () {
         };
 
         $.ajax({
-            url: '/disease',
+            url: '/diseases',
             type: 'POST',
             data: JSON.stringify(data),
             contentType: 'application/json',
