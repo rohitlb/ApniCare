@@ -209,29 +209,27 @@ app.post('/VerifyOTP',function (req, res) {
 
 app.get('/home',function (req,res) {
     if (req.session.userID) {
-<<<<<<< HEAD
         //var page= 'index';
         res.render('index')//, {
-            //page: page
+        //page: page
         //});
         res.redirect('/profile');
-=======
-        res.render('index');
->>>>>>> eaae849fd3f293fb1a204dc023f4d97cf521a88e
         res.end();
     }
     if (req.session.doctorID) {
         res.redirect('/doctorpage');
+    } else {
+        res.render('index');
+        res.end();
     }
+    //res.send({status: "success", message: "Please Login First"});
+    res.end();
 });
 
 app.get('/', function (req, res) {
     if (req.session.userID) {
         res.render('index');
-<<<<<<< HEAD
         res.redirect('/profile');
-=======
->>>>>>> eaae849fd3f293fb1a204dc023f4d97cf521a88e
         res.end();
 
     }
@@ -239,13 +237,10 @@ app.get('/', function (req, res) {
         res.render('doctorpage');
         res.end();
     }
-<<<<<<< HEAD
-        //res.end();
-        res.render('home');
-        res.end();
+    //res.end();
+    res.render('home');
+    res.end();
 
-=======
->>>>>>> eaae849fd3f293fb1a204dc023f4d97cf521a88e
 });
 
 //////////////// Molecule data ///////////////////
