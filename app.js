@@ -1914,8 +1914,7 @@ app.post('/molecules',function (req,res) {
     var food = req.body.food;
     var subhead1 = req.body.subhead1;
     var subhead2 = req.body.subhead2;
-    console.log(subhead1);
-    console.log(subhead2);
+
 
     var molecule = new Molecule({
         molecule_name: molecule_name,
