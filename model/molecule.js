@@ -12,18 +12,18 @@ var Molecule = new Schema({
     metabolism : {type : String},
     excretion : {type : String},
     //adverse reactions/side effects
-    side_effect : [{type : String}],
-    precaution : [{type : String}],
-    other_drug_interaction : [ {subhead : {type : String},info : {type : String}}],
+    side_effect : {type : String},
+    precaution : {type : String},
+    other_drug_interaction : [{subhead : {type : String},info : {type:String}}],
     other_interaction :[ {subhead : {type : String},info : {type : String}}],
     // like food_interaction, etc : [{type : String}],
     dosage : [ {subhead : {type : String},info : {type : String}}],
-    // dasage can be oral,intravenous ,  liver disorder , hepatic , COPD
+    // dosage can be oral,intravenous ,  liver disorder , hepatic , COPD
 
-    food : {type : String}, // before/ after
+    //food : {type : String},
     //list of contra indications
     contraindications : [ {subhead : {type : String},info : {type : String}}],
-    source : [{type : String}]
+    source : {type : String}
 });
 
 module.exports = mongoose.model('molecule',Molecule); //
