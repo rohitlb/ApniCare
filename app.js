@@ -456,7 +456,6 @@ app.get('/ApniCare/information',function (req,res) {
 
 });
 
-
 app.get('/ApniCare/information/Molecules',function (req,res) {
     var page= 'ApniCare';
     var molecule = req.query.molecule;
@@ -474,7 +473,6 @@ app.get('/ApniCare/information/Molecules',function (req,res) {
         }
     });
 });
-
 
 //*****************************************USER LOGIN*******************************************************************
 //login with filter and session
