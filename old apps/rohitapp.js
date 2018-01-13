@@ -22,6 +22,12 @@ var keys = require('../private/keys');
 
 console.log("rohitapp.js");
 // req models
+
+// req model for feedback and need help
+var Feedback = require('./model/feedback');
+var Needhelp = require('./model/needhelp');
+
+
 var User  = require('../model/registration');
 var Doctor = require('../model/doctorregistration');
 var Pharma = require('../model/pharma');
@@ -96,6 +102,47 @@ app.get('/admin',function (req,res) {
     }
     //res.render('./admin/home_admin');
 });
+
+// middleware for feedback and Needhelp
+
+app.post('/feedback' , function (req,res) {
+    var usefulness = req.body.usefulness;
+    var suggestion = req.body.suggestion;
+
+    var feedback = new Feedback({
+        usefulness : usefulness,
+        suggestion : suggestion
+    });
+
+    feedback.save(function (err, result) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.send("Thnx for the feedback")
+        }
+    });
+});
+
+
+app.post('/needhelp' , function (req,res) {
+    var subject = req.body.subject;
+    var contact_message = req.body.contact_message;
+
+    var feedback = new Feedback({
+        subject : subject,
+        contact_message : contact_message
+    });
+
+    Needhelp.save(function (err, result) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.send("We will contact you")
+        }
+    });
+});
+
+
 
 // have thread-sleep (tested) . run "npm update --save" for adding modules
 app.get('/test',function (req,res) {
