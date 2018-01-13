@@ -209,14 +209,11 @@ app.post('/VerifyOTP',function (req, res) {
 
 app.get('/home',function (req,res) {
     if (req.session.userID) {
-<<<<<<< HEAD
         //var page= 'index';
         res.render('index')//, {
             //page: page
         //});
-=======
         res.redirect('/profile');
->>>>>>> 63378b42662a86b00f9eb653ad16a2ac556bf5cc
         res.end();
     }
     if (req.session.doctorID) {
@@ -231,11 +228,8 @@ app.get('/home',function (req,res) {
 
 app.get('/', function (req, res) {
     if (req.session.userID) {
-<<<<<<< HEAD
         res.render('index');
-=======
         res.redirect('/profile');
->>>>>>> 63378b42662a86b00f9eb653ad16a2ac556bf5cc
         res.end();
 
     }
@@ -243,12 +237,10 @@ app.get('/', function (req, res) {
         res.render('doctorpage');
         res.end();
     }
-<<<<<<< HEAD
         //res.end();
-=======
         res.render('home');
         res.end();
->>>>>>> 63378b42662a86b00f9eb653ad16a2ac556bf5cc
+
 });
 
 //////////////// Molecule data ///////////////////
@@ -420,7 +412,7 @@ app.post('/profiles',function (req,res) {
         }
     });
 });
-<<<<<<< HEAD
+
 //***************************************frontend**************************************8888
 
 //*******************************frontend changes***********************************************
@@ -497,7 +489,6 @@ app.get('/ApniCare/information',function (req,res) {
                             });
                     }
                     else{
-                        console.log("nidhi");
                         res.send({details : "failure", message : "No brand exist"});
                     }
                 }
@@ -527,8 +518,6 @@ app.get('/ApniCare/information/Molecules',function (req,res) {
     });
 });
 
-=======
->>>>>>> 63378b42662a86b00f9eb653ad16a2ac556bf5cc
 
 //*****************************************USER LOGIN*******************************************************************
 //login with filter and session
