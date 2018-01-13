@@ -405,11 +405,11 @@ app.get('/profile/userprofile',function (req,res) {
         }
     });
 });
+
 //for basic info like disease,drug and molecule Information*******************************************************
 app.get('/ApniCare/information',function (req,res) {
-    console.log(req.query.page);
     var page= 'ApniCare';
-    //brand = req.query.brand;
+    var brand = req.query.brand;
     if(req.query.page=='Molecule_Information') {
         page = req.query.page;
         Molecule.find({}, '-_id molecule_name').exec(function (err, result) {
@@ -429,9 +429,9 @@ app.get('/ApniCare/information',function (req,res) {
         page = req.query.page;
     }
     if (req.query.page=='Drug_Information'){
+        console.log('reaches');
         page = req.query.page;
-        brand = req.query.brand;
-                Brand.find({brand_name : brand},'-_id brand_name categories types primarily_used_for').populate(
+                Brand.find({},'-_id brand_name categories types primarily_used_for').populate(
                 {path : 'dosage_id', select : '-_id dosage_form',populate :
                     {path : 'strength_id', select : '-_id strength packaging prescription dose_taken warnings price dose_timing potent_substance.name'}
                 }).populate(
@@ -453,6 +453,7 @@ app.get('/ApniCare/information',function (req,res) {
                 }
             });
         }
+
 });
 
 
