@@ -80,20 +80,4 @@ div.row
                                 .brands
                                     each val in data
                                         h5(name=val.disease_name, style="width: 228px;margin-top: 0px;")
-                                            a(href='/health_care_provider?disease=' + val.disease_name) #{val.disease_name}
-                                        ////h4 #{val.brand_name[0].toUpperCase()}
-                                        ////each alpha in val.brand_name
-                                        //ul
-                                        //    li
-                                        //        h5(name=val.brand_name, style="width: 228px;margin-top: 0px;") #{val.brand_name}
-                                        //
-                                        //            a#drug_dataa(href='/health_care_provider?brand='+val.brand_name) &nbsp
-                                        //
-                                        //
-                                        //                each dosage in val.dosage_id
-                                        //                    br
-                                        //                    span.text_upper_case
-                                        //                        | #{val.brand_name} #{dosage.dosage_form} &nbsp
-                                        //                        each dose in dosage.strength_id
-                                        //                            span #{dose.strength} &nbsp
-                                        //                            span #{dose.packaging}
+                                            a(href='/health_care_provider?disease=' + val.disease_name).text_upper_case #{val.disease_name}

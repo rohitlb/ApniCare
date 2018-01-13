@@ -30,86 +30,87 @@ div.collection#main_profile_doctor
                     li.tab.col.s4
                         a.white-text.darken-5#tab3(href='#register_doc') Registration & Documents
 
-    div.row#basic_detail
-        div.col.m12.l10.s12.offset-l2
-            div.col.s12.m12.l10.offset-l2
-                div.input-field.col.s12.m8.l8
-                    h3 Personal Details
-
-                div.col.s12.m4.l4
-                    form(method='POST' action='/uploadimage' enctype='multipart/form-data' id='uploadImage')
-                        span Upload Your Profile Pic
-                        br
-                        img(src="http://placehold.it/150", alt="Profile image")
-                        input.white-text(type='file' name='file')#file
-                        input.button(type='submit' name='submit' value='UPLOAD')
-
-        br
-        br
-        br
-        br
-
-        div.col.m12.l10.s12.offset-l2
-            div.col.s12.m12.l10.offset-l2
-                form(name='form_basic_details' id='basic_profile' enctype="multipart/form-data" method='POST' action='#tab2')
-                    div.input-field.col.s12.m4.l4
-                        span
-                            | Title
-                            input#title(type='text' value='DRx.')
+    div#basic_detail
+        div.row
+            div.col.m12.l10.s12.offset-l2
+                div.col.s12.m12.l10.offset-l2
                     div.input-field.col.s12.m8.l8
-                        span
-                            | Name
-                            input#name(type="text" value=data.name)
+                        h3 Personal Details
 
                     div.col.s12.m4.l4
-                        br
-                        span Gender:
+                        form(method='POST' action='/uploadimage' enctype='multipart/form-data' id='uploadImage')
+                            span Upload Your Profile Pic
                             br
-                            div#gender
-                                input.with-gap#g1(name="gender" type="radio" value="male" checked)
-                                label(for='g1') Male&nbsp
-                                input.with-gap#g2(name="gender" type="radio" value='female')
-                                label(for='g2') Female&nbsp
-                                input.with-gap#g3(name="gender" type="radio" value="other" )
-                                label(for="g3") Other
+                            img(src="http://placehold.it/150", alt="Profile image")
+                            input.white-text(type='file' name='file')#file
+                            input.button(type='submit' name='submit' value='UPLOAD')
+
+            br
+            br
+            br
+            br
+
+            div.col.m12.l10.s12.offset-l2
+                div.col.s12.m12.l10.offset-l2
+                    form(name='form_basic_details' id='basic_profile' enctype="multipart/form-data" method='POST' action='#tab2')
+                        div.input-field.col.s12.m4.l4
+                            span
+                                | Title
+                                input#title(type='text' value='DRx.')
+                        div.input-field.col.s12.m8.l8
+                            span
+                                | Name
+                                input#name(type="text" value=data.name)
+
+                        div.col.s12.m4.l4
+                            br
+                            span Gender:
                                 br
-                                br
-                    div.input-field.col.s12.m4.l4
-                        span
-                            | City
-                            input#city(type='text')
-                    div.input-field.col.s12.m4.l4
-                        span
-                            | Years of Experience
-                            input#year_of_experience(type='number' placeholder='years' , required)
-                    div.col.s12.m12.l12
-                        span
-                            | About You
-                            textarea.materialize-textarea#about_you(required)
-                            label(for='about_you')
-                    br
-                    div.row
+                                div#gender
+                                    input.with-gap#g1(name="gender" type="radio" value="male" checked)
+                                    label(for='g1') Male&nbsp
+                                    input.with-gap#g2(name="gender" type="radio" value='female')
+                                    label(for='g2') Female&nbsp
+                                    input.with-gap#g3(name="gender" type="radio" value="other" )
+                                    label(for="g3") Other
+                                    br
+                                    br
+                        div.input-field.col.s12.m4.l4
+                            span
+                                | City
+                                input#city(type='text')
+                        div.input-field.col.s12.m4.l4
+                            span
+                                | Years of Experience
+                                input#year_of_experience(type='number' placeholder='years' , required)
                         div.col.s12.m12.l12
-                            h3 Contact Details
-                            div.row
-                                div.input-field.col.s12.m6.l6
-                                    span
-                                        | Mobile Number &nbsp
-                                        span#f1(style='color:#660099;') Verified
-                                            i.material-icons.left(style='color:#660099;') done
-                                        input#mobNo(type='text', value=data.number readonly)
-                            div.row
-                                div.input-field.col.s12.m6.l6
-                                    span
-                                        | Email ID  &nbsp
-                                        span#f2(style='color:#660099;') Not Verified
-                                            i.material-icons.left(style='color:#660099;') close
-                                        input#email(type='email', value=data.email)
-                    div.row
-                        div.col.s6.m4.l3.offset-l3.offset-m2
-                            input.reset(type='reset')
-                        div.col.s6.m4.l3
-                            input.button#basic_details_pharma(type='submit' value='Submit' href='#edu_special')
+                            span
+                                | About You
+                                textarea.materialize-textarea#about_you(required)
+                                label(for='about_you')
+                        br
+                        div.row
+                            div.col.s12.m12.l12
+                                h3 Contact Details
+                                div.row
+                                    div.input-field.col.s12.m6.l6
+                                        span
+                                            | Mobile Number &nbsp
+                                            span#f1(style='color:#660099;') Verified
+                                                i.material-icons.left(style='color:#660099;') done
+                                            input#mobNo(type='text', value=data.number readonly)
+                                div.row
+                                    div.input-field.col.s12.m6.l6
+                                        span
+                                            | Email ID  &nbsp
+                                            span#f2(style='color:#660099;') Not Verified
+                                                i.material-icons.left(style='color:#660099;') close
+                                            input#email(type='email', value=data.email)
+                        div.row
+                            div.col.s6.m4.l3.offset-l3.offset-m2
+                                input.reset(type='reset')
+                            div.col.s6.m4.l3
+                                input.button#basic_details_pharma(type='submit' value='Submit' href='#edu_special')
 
 
     div#edu_special
