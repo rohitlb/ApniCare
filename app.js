@@ -400,6 +400,7 @@ app.get('/profile/userprofile',function (req,res) {
 app.get('/ApniCare/information',function (req,res) {
     var page= 'ApniCare';
     var brand = req.query.brand;
+    var disease = req.query.disease;
     if(req.query.page=='Molecule_Information') {
         page = req.query.page;
         Molecule.find({}, '-_id molecule_name').exec(function (err, result) {
@@ -416,7 +417,26 @@ app.get('/ApniCare/information',function (req,res) {
         });
     }
     if(req.query.page=='Disease_Information') {
+        console.log('disease_reaches');
         page = req.query.page;
+        Disease.find({}).sort({disease_name:1}).exec(function (err,disease) {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                if(disease != "") {
+                    res.render('index',
+                        {
+                            page: page,
+                            data: disease
+                        });
+                }
+                else{
+                    res.send({details : "failure", message : "No such disease exist"});
+                }
+            }
+        });
+
     }
     if (req.query.page=='Drug_Information'){
         console.log('reaches');
