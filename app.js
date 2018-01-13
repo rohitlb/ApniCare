@@ -1821,7 +1821,8 @@ app.get('/disease',function (req,res) {
     res.render('disease');
 });
 
-app.post('/disease',function (req,res) {
+app.post('/diseases',function (req,res) {
+    console.log('reaches');
     var disease_name = req.body.disease_name;
     var symptoms = req.body.symptoms;
     var risk_factor = req.body.risk_factor;
@@ -1833,79 +1834,41 @@ app.post('/disease',function (req,res) {
     var prevention = req.body.prevention;
     var source = req.body.source;
 
-    var subhead11 = [];
-    subhead11['subhead1'] = {};
-    for(var i=0;i<subhead1.length;i++){
-        subhead11['subhead1'] = {
-            subhead1 : subhead1
-        }
-    }
-
-    var subhead22 = [];
-    subhead22['subhead2'] = {};
-    for(var j=0;j<subhead2.length;j++){
-        subhead22['subhead2'] = {
-            subhead2 : subhead2
-        }
-    }
-    //console.log();
-    console.log(disease_name);
-    console.log(symptoms);
-    console.log(risk_factor);
-    console.log(cause);
-    console.log(subhead11.subhead1.subhead1);
-    console.log(subhead22.subhead2.subhead2);
-    console.log(treatment);
-    console.log(outlook);
-    console.log(prevention);
-    console.log(source);
-
-
-    Disease.findOne({disease_name : disease_name},function (err,result) {
+    Disease.find({disease_name : disease_name},function (err,result) {
         if (err) {
             console.log(err);
         }
         else {
-            console.log(result);
-            // if (result != "") {
-            //     res.send("Medicine already exists");
-            // }
-            // else {
+            if (result != "") {
+                res.send({message : "Disease already exists"});
+            }
+            else {
                 var disease = new Disease({
                     disease_name: disease_name,
                     symptoms: symptoms,
                     risk_factor: risk_factor,
                     cause: cause,
+                    diagnosis: {
+                        subhead1 : subhead1,
+                        subhead2 : subhead2
+                    },
                     treatment: treatment,
                     outlook: outlook,
                     prevention: prevention,
                     source : source
                 });
 
-                disease.save(function (err) {
+                disease.save(function (err,result1) {
                     if (err) {
                         console.log(err);
                     }
                     else {
-                        async.each(subhead11.subhead1.subhead1,function (user,callback) {
-                            console.log(user);
-                            Disease.update({disease_name: disease_name}, {
-                                $push: {
-                                    subhead1 : {name : user}
-                                }
-                            });
-                            callback();
-                        },function (err) {
-                            if(err){
-                                console.log(err);
-                            }
-                            else{
-                                res.send("disease saved successfully");
-                            }
-                        });
+                        console.log(result1);
+                        res.send({message : "Disease saved successfully"});
                     }
                 });
             }
+        }
     });
 });
 
