@@ -1867,7 +1867,6 @@ app.get('/disease',function (req,res) {
 });
 
 app.post('/diseases',function (req,res) {
-    console.log('reaches');
     var disease_name = req.body.disease_name;
     var symptoms = req.body.symptoms;
     var risk_factor = req.body.risk_factor;
@@ -1943,33 +1942,44 @@ app.post('/molecules',function (req,res) {
     var subhead1 = req.body.subhead1;
     var subhead2 = req.body.subhead2;
 
-
-    var molecule = new Molecule({
-        molecule_name: molecule_name,
-        drug_categories: drug_categories,
-        description: description,
-        absorption: absorption,
-        distribution: distribution,
-        metabolism: metabolism,
-        excretion: excretion,
-        side_effect: side_effect,
-        precaution: precaution,
-        drug_interaction: drug_interaction,
-        food_interaction: food_interaction,
-        oral: oral,
-        intravenous : intravenous,
-        food: food,
-        contradictions: {
-            subhead1: subhead1,
-            subhead2: subhead2
+    Molecule.find({molecule_name : molecule_name},function(error,results){
+        if(error){
+            console.log(error);
         }
-    });
-    molecule.save(function (err, result) {
-        if (err) {
-            console.log(err);
-        }
-        else {
-            res.send("Molecules details added");
+        else{
+            if(results != ""){
+                res.send({message : 'molecule already exist'});
+            }
+            else{
+                var molecule = new Molecule({
+                    molecule_name: molecule_name,
+                    drug_categories: drug_categories,
+                    description: description,
+                    absorption: absorption,
+                    distribution: distribution,
+                    metabolism: metabolism,
+                    excretion: excretion,
+                    side_effect: side_effect,
+                    precaution: precaution,
+                    drug_interaction: drug_interaction,
+                    food_interaction: food_interaction,
+                    oral: oral,
+                    intravenous : intravenous,
+                    food: food,
+                    contradictions: {
+                        subhead1: subhead1,
+                        subhead2: subhead2
+                    }
+                });
+                molecule.save(function (err, result) {
+                    if (err) {
+                        console.log(err);
+                    }
+                    else {
+                        res.send("Molecules details added");
+                    }
+                });
+            }
         }
     });
 });
