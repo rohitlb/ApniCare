@@ -233,6 +233,7 @@ app.get('/', function (req, res) {
         res.end();
 
     }
+
     if(req.session.doctorID){
         res.render('doctorpage');
         res.end();
