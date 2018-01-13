@@ -1812,33 +1812,33 @@ app.post('/disease',function (req,res) {
     var outlook = req.body.outlook;
     var prevention = req.body.prevention;
     var source = req.body.source;
-
-    var subhead11 = [];
-    subhead11['subhead1'] = {};
-    for(var i=0;i<subhead1.length;i++){
-        subhead11['subhead1'] = {
-            subhead1 : subhead1
-        }
-    }
-
-    var subhead22 = [];
-    subhead22['subhead2'] = {};
-    for(var j=0;j<subhead2.length;j++){
-        subhead22['subhead2'] = {
-            subhead2 : subhead2
-        }
-    }
-    //console.log();
-    console.log(disease_name);
-    console.log(symptoms);
-    console.log(risk_factor);
-    console.log(cause);
-    console.log(subhead11.subhead1.subhead1);
-    console.log(subhead22.subhead2.subhead2);
-    console.log(treatment);
-    console.log(outlook);
-    console.log(prevention);
-    console.log(source);
+    //
+    // var subhead11 = [];
+    // subhead11['subhead1'] = {};
+    // for(var i=0;i<subhead1.length;i++){
+    //     subhead11['subhead1'] = {
+    //         subhead1 : subhead1
+    //     }
+    // }
+    //
+    // var subhead22 = [];
+    // subhead22['subhead2'] = {};
+    // for(var j=0;j<subhead2.length;j++){
+    //     subhead22['subhead2'] = {
+    //         subhead2 : subhead2
+    //     }
+    // }
+    // //console.log();
+    // console.log(disease_name);
+    // console.log(symptoms);
+    // console.log(risk_factor);
+    // console.log(cause);
+    // console.log(subhead11.subhead1.subhead1);
+    // console.log(subhead22.subhead2.subhead2);
+    // console.log(treatment);
+    // console.log(outlook);
+    // console.log(prevention);
+    // console.log(source);
 
 
     Disease.findOne({disease_name : disease_name},function (err,result) {
@@ -1867,22 +1867,24 @@ app.post('/disease',function (req,res) {
                         console.log(err);
                     }
                     else {
-                        async.each(subhead11.subhead1.subhead1,function (user,callback) {
-                            console.log(user);
-                            Disease.update({disease_name: disease_name}, {
-                                $push: {
-                                    subhead1 : {name : user}
-                                }
-                            });
-                            callback();
-                        },function (err) {
-                            if(err){
-                                console.log(err);
-                            }
-                            else{
-                                res.send("disease saved successfully");
-                            }
-                        });
+                        res.send("disease saved successfully");
+
+                        // async.each(subhead11.subhead1.subhead1,function (user,callback) {
+                        //     console.log(user);
+                        //     Disease.update({disease_name: disease_name}, {
+                        //         $push: {
+                        //             subhead1 : {name : user}
+                        //         }
+                        //     });
+                        //     callback();
+                        // },function (err) {
+                        //     if(err){
+                        //         console.log(err);
+                        //     }
+                        //     else{
+                        //         res.send("disease saved successfully");
+                        //     }
+                        // });
                     }
                 });
             }
