@@ -294,12 +294,12 @@ $(function () {
         }
         var clickedLetter = $(this).text();
         $(".brands h5").each(function () {
-                var brandName = $(this).attr("name");
-                if (brandName.toLowerCase()[0] == clickedLetter.toLowerCase()) {
-                    $(this).show();
-                } else {
-                    $(this).hide();
-                }
+            var brandName = $(this).attr("name");
+            if (brandName.toLowerCase()[0] == clickedLetter.toLowerCase()) {
+                $(this).show();
+            } else {
+                $(this).hide();
+            }
         });
     });
 
@@ -505,16 +505,16 @@ $(function () {
         alert(subhead1);
         alert(subhead2);
         var data = {
-                disease_name: disease_name,
-                symptoms: symptoms,
-                risk_factor: risk_factor,
-                cause: cause,
-                subhead1 : subhead1,
-                subhead2 : subhead2,
-                treatment: treatment,
-                outlook: outlook,
-                prevention: prevention,
-                source: source
+            disease_name: disease_name,
+            symptoms: symptoms,
+            risk_factor: risk_factor,
+            cause: cause,
+            subhead1 : subhead1,
+            subhead2 : subhead2,
+            treatment: treatment,
+            outlook: outlook,
+            prevention: prevention,
+            source: source
         };
 
         $.ajax({
@@ -578,22 +578,9 @@ $(function () {
             primarily_used_for : primarily_used_for,
             warnings : warnings
         };
-        console.log(brand_name);
-        console.log(company_name);
-        console.log(categories);
-        console.log(strength1);
-        console.log(strength2);
-        console.log(subhead1);
-        console.log(subhead2);
-        console.log(dosage_form);
-        console.log(packaging);console.log(price);
-        console.log(prescription);console.log(dose_taken);
-        console.log(dose_timing);
-        console.log(types);
-        console.log(primarily_used_for);console.log(warnings);
 
         $.ajax({
-            url: '/medicine',
+            url: '/drugData',
             type: 'POST',
             data: JSON.stringify(data),
             contentType: 'application/json',
@@ -633,10 +620,6 @@ $(function () {
         $('.text_subhead').each(function () {
             subhead2.push($(this).val());
         });
-        // var contraindications = [{
-        //     subhead = $('#subheading').val(),
-        //     info = $('#subhead_text').val()
-        // }];
 
         var data = {
             molecule_name: molecule_name,
@@ -658,25 +641,6 @@ $(function () {
             subhead2: subhead2
         };
 
-        console.log(molecule_name);
-        console.log(drug_categories);
-        console.log(description);
-        console.log(absorption);
-        console.log(distribution);
-        console.log(metabolism);
-        console.log(excretion);
-        console.log(side_effect);
-        console.log(precaution);
-        console.log(drug_interaction);
-        console.log(food_interaction);
-        console.log(oral);
-        console.log(intravenous);
-        console.log(food);
-        console.log(subhead1);
-        console.log(subhead2);
-        console.log(source);
-
-
         $.ajax({
             url: '/molecules',
             type: 'POST',
@@ -695,58 +659,58 @@ $(function () {
     });
 
     // var slider = document.getElementById('test-slider');
-        // noUISlider.create(slider, {
-        //    start : [10],
-        //    step: 2,
-        //    connect: true,
-        //    range: {
-        //        'min' : [0],
-        //        'profile' : [20],
-        //        'drug': [40],
-        //        'molecule': [60],
-        //        'disease': [80],
-        //        'max' : [100]
-        //    }
-        // });
+    // noUISlider.create(slider, {
+    //    start : [10],
+    //    step: 2,
+    //    connect: true,
+    //    range: {
+    //        'min' : [0],
+    //        'profile' : [20],
+    //        'drug': [40],
+    //        'molecule': [60],
+    //        'disease': [80],
+    //        'max' : [100]
+    //    }
+    // });
 
-        // ................FOR PROFILE OF DOCTOR ...................
+    // ................FOR PROFILE OF DOCTOR ...................
 
-        // $('#create_profile1').click(function () {
-        //     var name = $('#name').val();
-        //     var specialization = $('#specialization').val();
-        //     var city = $('#city').val();
-        //
-        //     var data = {
-        //         name: name,
-        //         specialization: specialization,
-        //         city: city
-        //     };
-        //     $.ajax({
-        //         url: '/doctor_details',
-        //         type: 'POST',
-        //         data: JSON.stringify(data),
-        //         contentType: 'application/json',
-        //         success: function (result) {
-        //             if (result.success === 'success') {
-        //                 Materialize.toast(result.message, 1000);
-        //                 window.render = '/health_care_provider?page=profile_doctor';
-        //                 alert("msg");
-        //             }
-        //             else {
-        //                 Materialize.toast(result.message, 1000);
-        //             }
-        //         }
-        //     });
-        //     //window.location = '/health_care_provider?page=profile_doctor';
-        //     // $('#profile2').hide();
-        //     // $('#main_profile_doctor').show();
-        // });
+    // $('#create_profile1').click(function () {
+    //     var name = $('#name').val();
+    //     var specialization = $('#specialization').val();
+    //     var city = $('#city').val();
+    //
+    //     var data = {
+    //         name: name,
+    //         specialization: specialization,
+    //         city: city
+    //     };
+    //     $.ajax({
+    //         url: '/doctor_details',
+    //         type: 'POST',
+    //         data: JSON.stringify(data),
+    //         contentType: 'application/json',
+    //         success: function (result) {
+    //             if (result.success === 'success') {
+    //                 Materialize.toast(result.message, 1000);
+    //                 window.render = '/health_care_provider?page=profile_doctor';
+    //                 alert("msg");
+    //             }
+    //             else {
+    //                 Materialize.toast(result.message, 1000);
+    //             }
+    //         }
+    //     });
+    //     //window.location = '/health_care_provider?page=profile_doctor';
+    //     // $('#profile2').hide();
+    //     // $('#main_profile_doctor').show();
+    // });
 
     $('#doctor').click(function () {
-       var profession = 'doctor';
-       var data= {
-           profession : profession
-       };
+        var profession = 'doctor';
+        var data= {
+            profession : profession
+        };
         $.ajax({
             url : '/doctor',
             type: 'POST',
@@ -872,45 +836,45 @@ $(function () {
     $('#edu_special').hide();
     //$('#register_doc').hide();
     $('#basic_details').click(function () {
-            var title = $('#title').val();
-            var name = $('#name').val();
-            var email = $('#email').val();
-            // var gender = $("input[type='radio'][name='gender']:checked").val();
-            var city = $('#city').val();
-            var experience = $('#year_of_experience').val();
-            var about = $('#about_you').val();
-            var data = {
-                title: title,
-                name: name,
-                email: email,
-                gender: gender,
-                city: city,
-                experience: experience,
-                about: about
-            };
-            $.ajax({
-                url: '/basic',
-                type: 'POST',
-                data: JSON.stringify(data),
-                contentType: 'application/json',
-                success: function (result) {
-                    if (result.success === 'success') {
-                        Materialize.toast(result.message, 1000);
-                    }
-                    else {
-                        Materialize.toast(result.message, 1000);
-                    }
+        var title = $('#title').val();
+        var name = $('#name').val();
+        var email = $('#email').val();
+        // var gender = $("input[type='radio'][name='gender']:checked").val();
+        var city = $('#city').val();
+        var experience = $('#year_of_experience').val();
+        var about = $('#about_you').val();
+        var data = {
+            title: title,
+            name: name,
+            email: email,
+            gender: gender,
+            city: city,
+            experience: experience,
+            about: about
+        };
+        $.ajax({
+            url: '/basic',
+            type: 'POST',
+            data: JSON.stringify(data),
+            contentType: 'application/json',
+            success: function (result) {
+                if (result.success === 'success') {
+                    Materialize.toast(result.message, 1000);
                 }
-                //window.location = '/health_care_provider?page=profile_pharmacist';
-                // $('#profile3').hide();
-                // $('#main_profile_pharmacist').show();
-            });
-            //$('#tab2').focus();
-            //$('#main_profile_doctor ul.tabs li.tab a').hover(function() {
-            $('#tab2').focus();
-            $('#basic_detail').hide();
-            $('#edu_special').show();
+                else {
+                    Materialize.toast(result.message, 1000);
+                }
+            }
+            //window.location = '/health_care_provider?page=profile_pharmacist';
+            // $('#profile3').hide();
+            // $('#main_profile_pharmacist').show();
         });
+        //$('#tab2').focus();
+        //$('#main_profile_doctor ul.tabs li.tab a').hover(function() {
+        $('#tab2').focus();
+        $('#basic_detail').hide();
+        $('#edu_special').show();
+    });
 
     $('#basic_details_pharma').click(function () {
         var title = $('#title').val();
@@ -954,43 +918,43 @@ $(function () {
     });
 
     $('#education').click(function () {
-            var qualification = $('#qualification').val();
-            var college = $('#college').val();
+        var qualification = $('#qualification').val();
+        var college = $('#college').val();
 
-            var completion_year = $('#completion_year').val();
-            var batch_from = $('#batch_from').val();
-            var batch_to = $('#batch_to').val();
-            var specialization = $('#specialization').val();
-            var data = {
-                qualification: qualification,
-                college: college,
-                completion: completion_year,
-                batch_from :batch_from,
-                batch_to : batch_to,
-                specialization: specialization
-            };
-            $.ajax({
-                url: '/education',
-                type: 'POST',
-                data: JSON.stringify(data),
-                contentType: 'application/json',
-                success: function (result) {
-                    if (result.success === 'success') {
-                        Materialize.toast(result.message, 1000);
-                    }
-                    else {
-                        Materialize.toast(result.message, 1000);
-                    }
+        var completion_year = $('#completion_year').val();
+        var batch_from = $('#batch_from').val();
+        var batch_to = $('#batch_to').val();
+        var specialization = $('#specialization').val();
+        var data = {
+            qualification: qualification,
+            college: college,
+            completion: completion_year,
+            batch_from :batch_from,
+            batch_to : batch_to,
+            specialization: specialization
+        };
+        $.ajax({
+            url: '/education',
+            type: 'POST',
+            data: JSON.stringify(data),
+            contentType: 'application/json',
+            success: function (result) {
+                if (result.success === 'success') {
+                    Materialize.toast(result.message, 1000);
                 }
-            });
-            $('#tab3').focus();
-            // $('#main_profile_doctor ul.tabs li.tab a').hover(function() {
-            //     $('#tab3').addClass('active').find('li.tab').show().css({'background-color':'lavender'});
-            // });
-
-            //$('#edu_special').hide();
-            $('#register_doc').show();
+                else {
+                    Materialize.toast(result.message, 1000);
+                }
+            }
         });
+        $('#tab3').focus();
+        // $('#main_profile_doctor ul.tabs li.tab a').hover(function() {
+        //     $('#tab3').addClass('active').find('li.tab').show().css({'background-color':'lavender'});
+        // });
+
+        //$('#edu_special').hide();
+        $('#register_doc').show();
+    });
 
     $('#education_pharma').click(function () {
         var qualification = $('#qualification').val();
@@ -1032,32 +996,32 @@ $(function () {
     });
 
     $('.upload_image1').submit(function () {
-            var council_number = $('#council_reg_no').val();
-            var council_name = $('#council_name').val();
-            var council_year = $('#council_year').val();
-            // alert(council_number);
-            // alert(council_name);
-            // alert(council_year);
-            var data = {
-                council_number: council_number,
-                council_name: council_name,
-                council_year: council_year
-            }
-            $.ajax({
-                url: '/certificate',
-                type: 'POST',
-                data: JSON.stringify(data),
-                contentType: 'application/json',
-                success: function (result) {
-                    if (result.success === 'success') {
-                        Materialize.toast(result.message, 1000);
-                    }
-                    else {
-                        Materialize.toast(result.message, 1000);
-                    }
+        var council_number = $('#council_reg_no').val();
+        var council_name = $('#council_name').val();
+        var council_year = $('#council_year').val();
+        // alert(council_number);
+        // alert(council_name);
+        // alert(council_year);
+        var data = {
+            council_number: council_number,
+            council_name: council_name,
+            council_year: council_year
+        }
+        $.ajax({
+            url: '/certificate',
+            type: 'POST',
+            data: JSON.stringify(data),
+            contentType: 'application/json',
+            success: function (result) {
+                if (result.success === 'success') {
+                    Materialize.toast(result.message, 1000);
                 }
-            });
+                else {
+                    Materialize.toast(result.message, 1000);
+                }
+            }
         });
+    });
 
     $('.upload_image1_pharma').submit(function () {
         var council_number = $('#council_reg_no').val();
@@ -1088,121 +1052,121 @@ $(function () {
     });
 
     // $('.upload_image').submit(function (e) {
-        //     e.preventDefault();
-        //     $.ajax({
-        //         url: '/certificate',
-        //         type: 'POST',
-        //         contentType : 'application/json',
-        //         success: function (result) {
-        //             if(result.success === 'success')
-        //             {
-        //                 Materialize.toast(result.message,1000);
-        //             }
-        //             else
-        //             {
-        //                 Materialize.toast(result.message,1000);
-        //             }
-        //         }
-        //     });
-        //
-        // });
+    //     e.preventDefault();
+    //     $.ajax({
+    //         url: '/certificate',
+    //         type: 'POST',
+    //         contentType : 'application/json',
+    //         success: function (result) {
+    //             if(result.success === 'success')
+    //             {
+    //                 Materialize.toast(result.message,1000);
+    //             }
+    //             else
+    //             {
+    //                 Materialize.toast(result.message,1000);
+    //             }
+    //         }
+    //     });
+    //
+    // });
 
 
-        // ................FOR PROFILE OF PHARMACISTS ...................
+    // ................FOR PROFILE OF PHARMACISTS ...................
 
 
-        //$('select').material_select();
+    //$('select').material_select();
 
-        // TABS USED IN PROFILE STEP 3
-        $('ul.tabs').tabs('select_tab', '#tab3');
+    // TABS USED IN PROFILE STEP 3
+    $('ul.tabs').tabs('select_tab', '#tab3');
 
-        // $('.file_upload').change(function(input) {
-        //     if(input.files && input.files[0])
-        //     {
-        //         var reader = new FileReader();
-        //         $('#{reader}').load(function (e) {
-        //             $('#image_for_docs1').attr('src',e.target.result);
-        //             $('#image_for_docs2').attr('src',e.target.result);
-        //         });
-        //         $('#{reader}').readAsDataURL(input.files[0]);
-        //     }
-        // });
+    // $('.file_upload').change(function(input) {
+    //     if(input.files && input.files[0])
+    //     {
+    //         var reader = new FileReader();
+    //         $('#{reader}').load(function (e) {
+    //             $('#image_for_docs1').attr('src',e.target.result);
+    //             $('#image_for_docs2').attr('src',e.target.result);
+    //         });
+    //         $('#{reader}').readAsDataURL(input.files[0]);
+    //     }
+    // });
 
-        $('.datepicker').pickadate({
+    $('.datepicker').pickadate({
 
-            selectYears: 50,
-            today: 'Today',
-            clear: 'Clear',
-            close: 'Ok',
-            closeOnSelect: false
-        });
+        selectYears: 50,
+        today: 'Today',
+        clear: 'Clear',
+        close: 'Ok',
+        closeOnSelect: false
+    });
 
-        $('.button-collapse').sideNav({
-            menuWidth: 265,
-            edge: 'left',
-            closeOnClick: true,
-            draggable: true,
-            opacity: 0,
-            onOpen: function openNav() {
-                $('#side_navbar').click(function () {
-                    width = "250px";
-                });
+    $('.button-collapse').sideNav({
+        menuWidth: 265,
+        edge: 'left',
+        closeOnClick: true,
+        draggable: true,
+        opacity: 0,
+        onOpen: function openNav() {
+            $('#side_navbar').click(function () {
+                width = "250px";
+            });
 
-                $('#navBar').click(function () {
-                    marginLeft = "250px";
-                });
-                //$('#menubar').hide();
-            },
-            onClose: function closeNav() {
-                $('#side_navbar').click(function () {
-                    width = "0px";
-                });
+            $('#navBar').click(function () {
+                marginLeft = "250px";
+            });
+            //$('#menubar').hide();
+        },
+        onClose: function closeNav() {
+            $('#side_navbar').click(function () {
+                width = "0px";
+            });
 
-                $('#navBar').click(function () {
-                    marginLeft = '0px';
-                });
-            }
-        });
+            $('#navBar').click(function () {
+                marginLeft = '0px';
+            });
+        }
+    });
 
-        //- ..............Disease data form..... name of disease to be changed on entry..................
-        // $('#disease_name').change(function () {
-        //     var disease_name = $('#disease_name').val();
-        //     $().load()
-        // });
+    //- ..............Disease data form..... name of disease to be changed on entry..................
+    // $('#disease_name').change(function () {
+    //     var disease_name = $('#disease_name').val();
+    //     $().load()
+    // });
 
-        // ...................FORM VALIDATION.......................
+    // ...................FORM VALIDATION.......................
 
-        // $('form[name="drug_form1"]').validate({
-        //     //Materialize.toast('this is a test', 2000);
-        //
-        //         brand_name : "required",
-        //         company_name : "required",
-        //         categories : "required",
-        //         strength : "required",
-        //         potent_substances : "required",
-        //         dosage_form : "required",
-        //         packaging : "required",
-        //         price : "required",
-        //
-        //
-        //     messages : {
-        //         brand_name : "Required!",
-        //         company_name : "Required!",
-        //         categories : "Required!",
-        //         strength : "Required!",
-        //         potent_substances : "Required!",
-        //         dosage_form : "Required!",
-        //         packaging : "Required!",
-        //         price : "Required!"
-        //     },
-        //     submitHandler: function(form) {
-        //         form.submit();
-        //     }
-        // });
+    // $('form[name="drug_form1"]').validate({
+    //     //Materialize.toast('this is a test', 2000);
+    //
+    //         brand_name : "required",
+    //         company_name : "required",
+    //         categories : "required",
+    //         strength : "required",
+    //         potent_substances : "required",
+    //         dosage_form : "required",
+    //         packaging : "required",
+    //         price : "required",
+    //
+    //
+    //     messages : {
+    //         brand_name : "Required!",
+    //         company_name : "Required!",
+    //         categories : "Required!",
+    //         strength : "Required!",
+    //         potent_substances : "Required!",
+    //         dosage_form : "Required!",
+    //         packaging : "Required!",
+    //         price : "Required!"
+    //     },
+    //     submitHandler: function(form) {
+    //         form.submit();
+    //     }
+    // });
 
-        $('#file').change(function () {
-            filePreview(this);
-        });
+    $('#file').change(function () {
+        filePreview(this);
+    });
 });
 function filePreview(input) {
     if (input.files && input.files[0]) {

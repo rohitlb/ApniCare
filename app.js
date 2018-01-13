@@ -1912,42 +1912,10 @@ app.post('/molecules',function (req,res) {
     var oral = req.body.oral;
     var intravenous = req.body.intravenous;
     var food = req.body.food;
-    var subhead = req.body.subhead1;
-    var info = req.body.subhead2;
-    var source = req.body.source;
-    var subhead11 = [];
-    subhead11['subhead1'] = {};
-    for(var i=0;i<subhead.length;i++){
-        subhead11['subhead1'] = {
-            subhead1 : subhead
-        }
-    }
-
-    var subhead22 = [];
-    subhead22['subhead2'] = {};
-    for(var j=0;j<info.length;j++){
-        subhead22['subhead2'] = {
-            subhead2 : info
-        }
-    }
-
-    console.log("mol-name:"+molecule_name);
-    console.log("drug_categories:"+drug_categories);
-    console.log("description:"+description);
-    console.log("absorption:"+absorption);
-    console.log("distribution:"+distribution);
-    console.log("metabolism:"+metabolism);
-    console.log("excretion:"+excretion);
-    console.log("side_effect:"+side_effect);
-    console.log("precaution:"+precaution);
-    console.log("drug_interaction:"+drug_interaction);
-    console.log("food_interaction:"+food_interaction);
-    console.log("oral:"+oral);
-    console.log("intravenous:"+intravenous);
-    console.log("food:"+food);
-    console.log("subhead:"+subhead);
-    console.log("info:"+info);
-
+    var subhead1 = req.body.subhead1;
+    var subhead2 = req.body.subhead2;
+    console.log(subhead1);
+    console.log(subhead2);
 
     var molecule = new Molecule({
         molecule_name: molecule_name,
@@ -1964,10 +1932,11 @@ app.post('/molecules',function (req,res) {
         oral: oral,
         intravenous : intravenous,
         food: food,
-        source : source,
-        contradictions: [{subhead: subhead}, {info: info}]
+        contradictions: {
+            subhead1: subhead1,
+            subhead2: subhead2
+        }
     });
-
     molecule.save(function (err, result) {
         if (err) {
             console.log(err);
