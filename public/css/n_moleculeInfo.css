@@ -117,7 +117,8 @@ li {
 
 /*---------------------------molecule section----------------------------------------------------------------------*/
 #mol_row1{
-    margin-top: 1%;
+    margin-top: 0.5%;
+    margin-left: 11%;
 }
                 #mol_row1_subrow1{
                     padding-left: 7px;
@@ -167,22 +168,21 @@ li {
 }
 .m_p{
     color: black;
-    padding-left: 32px;
+    padding-left: 8%;
     font-size: 21px;
     font-weight: 600;
 }
 .m_p_info{
-    margin-left: 95px;
+    margin-left: 15%;
     color:#2d2d2d;
 }
 #mol_row1_subrow4{
     z-index: 2;
     position: fixed;
-    right: 2%;
+    right: 8%;
     margin-left: -2px;
     width: 16%;
     border-radius: 15px;
-    margin-top: 50px;
-    background-color: lightgray;
-
+    margin-top: 52px;
+    background-color: lightgrey;
 }

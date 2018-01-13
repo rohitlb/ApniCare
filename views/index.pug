@@ -13,6 +13,7 @@ html
 
         link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css")
         //------------------js files included--------------------------
+        //script(src="/js/n_MyProfile.js")
         script(src="/js/n_userlogin.js")
         script(src="/js/n_Dtest.js")
         script(src="/js/n_Ptest.js")
@@ -33,11 +34,14 @@ html
 
         if(page == 'Drug_Information'||page =='Disease_Information'||page == 'Molecule_Information')
             include molecule information/browse_main
-            include n_partial/footer
+            //include n_partial/footer
         else if(page == 'molecule_name')
-            include molecule information/browse_main
-            include n_partial/footer
+            include molecule information/molecule
+        else if(page == 'drug_name')
+            include molecule information/molecule
+        else if(page == 'disease_name')
+            include molecule information/molecule
         else
             include ./n_partial/header
-            div
-                include ./n_partial/footer
+        div
+            include ./n_partial/footer

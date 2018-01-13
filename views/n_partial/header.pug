@@ -2,7 +2,11 @@
 div#idiv1
     div.row
         br
+        //if(page == 'index')
         include ../login-signup/main
+        //else if(page == 'profile')
+        a.dropdown-button.btn-flat.black-text#user(data-activates='dropdown1') #{number}
+            i.material-icons.black-text.large person
         i.material-icons.black-text.right notifications
         .input-field#input2
             input#search(type='search', required='',placeholder="search here")

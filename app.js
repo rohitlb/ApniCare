@@ -209,27 +209,33 @@ app.post('/VerifyOTP',function (req, res) {
 
 app.get('/index',function (req,res) {
     if (req.session.userID) {
-        res.render('/index');
+        //var page= 'index';
+        res.render('index')//, {
+            //page: page
+        //});
         res.end();
     }
     if (req.session.doctorID) {
         res.redirect('/doctorpage');
+    } else {
+        res.render('index');
+        res.end();
     }
-    res.send({status: "success", message: "Please Login First"});
+    //res.send({status: "success", message: "Please Login First"});
     res.end();
 });
 
 app.get('/', function (req, res) {
     if (req.session.userID) {
-        res.render('/index');
+        res.render('index');
         res.end();
+
     }
     if(req.session.doctorID){
         res.render('doctorpage');
         res.end();
     }
-        res.render('index');
-        res.end();
+        //res.end();
 });
 
 //User registration
@@ -288,12 +294,16 @@ app.post('/register', function (req, res) {
 //render profile page of user
 app.get('/profile', function (req, res) {
     if (req.session.userID) {
-        res.render('profile', {number: req.session.userID});
+        var page= '/profile';
+        res.render('profile', {
+            number: req.session.userID,
+            page: page
+        });
     }
     if(req.session.doctorID) {
         res.render('doctorpage', {number: req.session.doctorID});
     }
-    res.send({status : "failed" , message : "Please Login First"});
+    //res.send({status : "failed" , message : "Please Login First"});
 });
 
 app.get('/profiles',function (req,res) {
@@ -389,21 +399,59 @@ app.get('/profile/userprofile',function (req,res) {
 //for basic info like disease,drug and molecule Information*******************************************************
 app.get('/ApniCare/information',function (req,res) {
     var page= 'ApniCare';
-    if(req.query.page=='Drug_Information' || req.query.page=='Disease_Information' ||req.query.page=='Molecule_Information' )
-        page= req.query.page;
+    //brand = req.query.brand;
+    if(req.query.page=='Molecule_Information') {
+        page = req.query.page;
+        Molecule.find({}, '-_id molecule_name').exec(function (err, result) {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                res.render('index',
+                    {
+                        page: page,
+                        data: result
+                    });
+            }
+        });
+    } else if(req.query.page=='Disease_Information') {
+        page = req.query.page;
 
-    Molecule.find({},'-_id molecule_name').exec(function (err, result) {
-        if (err) {
-            console.log(err);
+
+
+
+
+
+
+    }else if (req.query.page=='Drug_Information'){
+        page = req.query.page;
+        brand = req.query.brand;
+                Brand.find({brand_name : brand},'-_id brand_name categories types primarily_used_for').populate(
+                {path : 'dosage_id', select : '-_id dosage_form',populate :
+                    {path : 'strength_id', select : '-_id strength packaging prescription dose_taken warnings price dose_timing potent_substance.name'}
+                }).populate(
+                {path : 'company_id', select: '-_id company_name'}).sort({brand_name : 1}).exec(function (err,brand) {
+                if (err) {
+                    console.log(err);
+                }
+                else {
+                    //if(brand = "") {
+                        res.render('index',
+                            {
+                                page: page,
+                                data: brand
+                            });
+                    //}
+                    /*else{
+                        console.log("nidhi");
+                        res.send({details : "failure", message : "No brand exist"});
+                    }*/
+                }
+            });
         }
-        else {
-            res.render('index',
-                {
-                    page:page,
-                    data : result
-                });
-        }
-    });
+
+
+
 });
 
 
@@ -516,7 +564,7 @@ app.get('/logout', function (req, res) {
         if (err) {
             console.log(err);
         } else {
-            res.redirect('/');
+            res.redirect('index');
         }
     });
 });
@@ -2178,7 +2226,7 @@ app.get('/health_care_provider',function(req,res) {
 
     if(req.query.brand) {
 
-        Brand.find({brand_name : brand},'-_id brand_name categories primarily_used_for').populate(
+        Brand.find({brand_name : brand},'-_id brand_name categories types primarily_used_for').populate(
             {path : 'dosage_id', select : '-_id dosage_form',populate :
                 {path : 'strength_id', select : '-_id strength packaging prescription dose_taken warnings price dose_timing potent_substance.name'}
             }).populate(
@@ -2191,7 +2239,7 @@ app.get('/health_care_provider',function(req,res) {
                     if (req.query.page == 'home' || req.query.page == 'profile_doctor' || req.query.page == 'profile_student_pharmacist' || req.query.page == 'profile_student_doctor' || req.query.page == 'profile_student_pharmacist' || req.query.page == 'profile' || req.query.page == 'profile_pharmacist' || req.query.page == 'drug_data' || req.query.page == 'molecule_data' || req.query.page == 'disease_data' || req.query.page == 'drug_data_form' || req.query.page == 'molecule_data_form' || req.query.page == 'disease_data_form' || req.query.page == 'feedback_contributions' || req.query.page == 'feedback_profile' || req.query.page == 'notifications' || req.query.page == 'need_help') {
                         page = req.query.page;
                     }
-                    res.render('home_profile_doctor',
+                    res.render('index',
                         {
                             page: 'drug_data_view',
                             data: brand

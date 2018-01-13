@@ -146,8 +146,8 @@ $(document).ready(function() {
 
         var number = $('#number2').val();
         var password = $('#password2').val();
-        alert(number);
-        alert(password);
+        //alert(number);
+        //alert(password);
 
         var data1 = {
 
