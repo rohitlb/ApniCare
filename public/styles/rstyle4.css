@@ -27,7 +27,7 @@ img#drug
     max-width: 100%;
     -webkit-filter: blur(3px);
     filter: blur(5px);
-    filter: opacity(5%);
+    filter: opacity(3%);
 }
 
 img#drugz

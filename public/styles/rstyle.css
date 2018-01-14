@@ -248,8 +248,16 @@ a#enter_more_data
 span.small_font {
     font-size: 14px;
 }
+.tobig{
+    height: 10px;
+    background-color: white;
+}
+/*.tobig:hover,.tobig:active*/
+/*{*/
+    /*height: 100px;*/
+/*}*/
 
-.tobig:hover,.tobig:active
-{
-    height: 100px;
+span.next_line, ul li.next_line {
+    white-space: pre-line;
+    list-style-type: disc;
 }
