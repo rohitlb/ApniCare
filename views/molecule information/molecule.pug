@@ -1,6 +1,5 @@
 div#Mdiv1
-    img#drug(src='/images/doctor-spotligh.jpg', style='position:fixed;top:-50px;left:0px;width:100%;height:100%;z-index:-5;')
-    div.row#irow1(style='height: 145px;position:relative;top:0px;z-index:2;backgroundColor:purple;')
+    div.row#irow11
         div.col.l4
             br
             br
@@ -27,17 +26,18 @@ div
 
             div.row#mol_row1
                 //**********data*********************
-                if(page == 'drug_name')
-                    include ./disease
+                if(page == 'drug_data_view')
+                    include ./drug
                 if (page == 'disease_name')
                     include ./disease
                 if (page == 'molecule_name')
                     div.col.l11#mol_col1
+                        - val = val
                         div.row.center#mol_row1_subrow2
-                            h4   #{data[0].molecule_name}
+                            h4   #{val.molecule_name}
                         div.row.m_p_info
-                            //h4.center #{data[0].molecule_name}
-                            p.black-text.lighten-2 #{data[0].description}
+                            //h4.center #{val.molecule_name}
+                            p.black-text.lighten-2 #{val.description}
                             //li #{val.description}
                             //li Drug Category #{val.drug_categories}
                         div.row
@@ -45,27 +45,27 @@ div
                                 a(name="Pharma")
                                     p.m_p Pharmacokinetics
                                         ul.m_p_info
-                                            li - Absorption: #{data[0].absorption}
-                                            li - Distribution: #{data[0].distribution}
-                                            li - Metabolism: #{data[0].metabolism}
-                                            li - Excretion: #{data[0].excretion}
+                                            li - Absorption: #{val.absorption}
+                                            li - Distribution: #{val.distribution}
+                                            li - Metabolism: #{val.metabolism}
+                                            li - Excretion: #{val.excretion}
                         div.row
                             a(name="SideEffects")
                                 p.m_p Adverse Reactions /  Side Effects
-                                li.m_p_info #{data[0].side_effect}
+                                li.m_p_info #{val.side_effect}
                             a(href="Precautions")
                                 p.m_p Special Precautions
-                            li.m_p_info #{data[0].precaution}
+                            li.m_p_info #{val.precaution}
                             a(name="Dosage")
                                 p.m_p Dosage
                             p.m_p Other Drug Interactions
-                            li.m_p_info #{data[0].drug_interaction}
+                            li.m_p_info #{val.drug_interaction}
                             a(name="interactions")
                                 p.m_p Other Interactions
                                     ul.m_p_info
                                         li - food Interaction
                             p.m_p Dosage
-                            li.m_p_info #{data[0].dosage}
+                            li.m_p_info #{val.dosage}
                             ul.m_p_info
                                 li - Oral
                                 li - Intravenous
@@ -73,7 +73,7 @@ div
                                 li - Hepatic
                                 li - COPD
                             p.m_p Food(before/after)(dropdown)
-                            li.m_p_info #{data[0].food}
+                            li.m_p_info #{val.food}
                             a(name="Contradictions")
                                 p.m_p List Of Contradications
                                     ul.m_p_info

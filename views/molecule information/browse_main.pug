@@ -1,6 +1,6 @@
 div#Mdiv1
-    img#drug(src='/images/doctor-spotligh.jpg', style='position:fixed;top:-50px;left:0px;width:100%;height:100%;z-index:-5;')
-    div.row#irow1(style='height: 145px;position:relative;top:0px;z-index:2;backgroundColor:purple;')
+    //img#drug(src='/images/doctor-spotligh.jpg', style='position:fixed;top:-50px;left:0px;width:100%;height:100%;z-index:-5;')
+    div.row#irow11
         div.col.l4
             br
             br
@@ -111,7 +111,7 @@ div
                                         //------------------------------------values-----------------------------------------------------
                                         if(page == 'Drug_Information')
                                             //*********************drug front view*****************************
-                                            a#drug_data(title='drug name' href='/ApniCare/information/Molecules?drug=' + val.brand_name) #{val.brand_name.toLocaleUpperCase()} &nbsp
+                                            a#drug_data(title='drug name' href='/ApniCare/information/Drug?brand=' + val.brand_name) #{val.brand_name.toLocaleUpperCase()} &nbsp
                                                 br
                                                 each dosage in val.dosage_id
                                                     span(title='brand name and dosage form').black-text
@@ -122,13 +122,13 @@ div
                                                             span(title='packaging') #{dose.packaging}
                                             br
                                             //include ./drug
-                                        else if (page == 'Disease_Information')
+                                        if (page == 'Disease_Information')
                                             //*******************disease front view*******************************
-                                            a(href='/ApniCare/information/Molecules?disease=' + val.disease_name) #{val.disease_name.toUpperCase()}
+                                            a(href='/ApniCare/information/Diseases?disease=' + val.disease_name) #{val.disease_name.toUpperCase()}
                                             br
                                             //include ./disease_front_view
 
-                                        else if (page == 'Molecule_Information')
+                                        if (page == 'Molecule_Information')
                                             //*************************************molecule front viw*******************************************************
                                             a(href='/ApniCare/information/Molecules?molecule=' + val.molecule_name) #{val.molecule_name.toUpperCase()}
                                             br
