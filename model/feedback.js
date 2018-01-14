@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var Feedback = new Schema({
+    number : {type : String},
     usefulness : {type : String},
     suggestion : {type : String}
 });
