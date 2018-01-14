@@ -481,7 +481,8 @@ app.get('/ApniCare/information',function (req,res) {
 
 app.get('/ApniCare/information/Molecules',function (req,res) {
     var molecule = req.query.molecule;
-
+    var disease = req.query.disease;
+    var brand = req.query.brand;
     Molecule.find({molecule_name : molecule},'-_id -__v').exec(function (err, result) {
         if (err) {
             console.log(err);
@@ -498,7 +499,7 @@ app.get('/ApniCare/information/Molecules',function (req,res) {
 
 app.get('/ApniCare/information/Diseases',function (req,res) {
     var disease = req.query.disease;
-
+    var brand = req.query.brand;
     Disease.find({disease_name : disease},'-_id -__v').exec(function (err, result) {
         if (err) {
             console.log(err);
@@ -526,7 +527,7 @@ app.get('/ApniCare/information/Drug',function (req,res) {
             else {
                 res.render('index',
                     {
-                        page: page,
+                        page: 'drug_data_view',
                         data: brand
                     });
             }
@@ -1340,19 +1341,23 @@ app.post('/medicine',function(req,res) {
     console.log(strength);
     console.log(strengths);
     var types = req.body.types;
-    var active_ingredients = req.body.subhead1;
+    var active_ingredients = req.body.potent_substances;
     var packaging = req.body.packaging;
     var price = req.body.price;
     var dose_taken = req.body.dose_taken;
     var dose_timing = req.body.dose_timing;
     var warnings = req.body.warnings;
     var prescription = req.body.prescription;
-    var molecule_strengths = req.body.subhead2;
+    var molecule_strengths = req.body.molecule_strength;
     var companyresult = null;
     var brandresult = null;
     var subhead11 = [];
     subhead11['subhead1'] = {};
-    for(var i=0;i<active_ingredients.length;i++){
+    console.log("here");
+    console.log("testing"+active_ingredients);
+    console.log(active_ingredients.length );
+    console.log("nidhi");
+    for(var i=0; i<active_ingredients.length ;i++){
         subhead11['subhead1'] = {
             subhead1 : active_ingredients
         }

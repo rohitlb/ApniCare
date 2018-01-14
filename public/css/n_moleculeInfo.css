@@ -105,9 +105,10 @@ li {
 }
 #mcol1{
     background-color: lightgrey;
+    margin: 0px;
 }
 #mcol2{
-
+    margin-bottom: -20px;
     background-color: lavender;
 }
 #mcol3{
@@ -148,7 +149,8 @@ li {
                 #mol_row1_subrow3{
                     background-color: #9999a7;
                     color: white;
-                    height: 20px;
+                    height: 36px;
+                    margin-top: -20px;
                 }
 #input3{
     margin-left: 20%;
