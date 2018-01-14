@@ -1353,10 +1353,6 @@ app.post('/medicine',function(req,res) {
     var brandresult = null;
     var subhead11 = [];
     subhead11['subhead1'] = {};
-    console.log("here");
-    console.log("testing"+active_ingredients);
-    console.log(active_ingredients.length );
-    console.log("nidhi");
     for(var i=0; i<active_ingredients.length ;i++){
         subhead11['subhead1'] = {
             subhead1 : active_ingredients
