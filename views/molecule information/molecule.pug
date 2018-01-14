@@ -32,7 +32,7 @@ div
                     include ./disease
                 if (page == 'molecule_name')
                     div.col.l11#mol_col1
-                        - val = val
+                        - val = data[0]
                         div.row.center#mol_row1_subrow2
                             h4   #{val.molecule_name}
                         div.row.m_p_info
