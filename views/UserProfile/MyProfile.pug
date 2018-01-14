@@ -1,0 +1,147 @@
+//header for Myprofile********************************************************************************************
+div#Mdiv1
+    div.row
+        //i.material-icons.white-text.right notifications
+
+    div.row#irow1
+        div.col.l4
+            br
+            br
+            span#logo1 ApniCare
+                br
+                span.span3 - it's all about Health!!
+
+            //a(href='/profile/userprofile?page=profilePage')
+                img#logoimg(src="/images/az.png" height="80px" width="150px")
+
+        div.col.l8
+            br
+            br
+            br
+            a.dropdown-button.btn-flat.white-text.right#profileperson(data-activates='dropdown1') #{number}
+                i.material-icons person
+
+
+
+
+
+
+ul#dropdownforupdate.dropdown-content
+    li
+        i.material-icons.prefix camera_alt
+        //a(href='#').Pspan2 Update
+        //    | Picture
+        a.waves-effect.black-text.waves-light.btn-flat.modal-trigger(href='#modal3')#signup Update Picture
+#modal3.modal
+    .modal-content(style={padding: "0px", margin: "0px", border: "0"})
+        a(href="/")
+            i.modal-action.modal-close.material-icons.right close
+        form(method='POST' action='/uploadimage' enctype='multipart/form-data' id='uploadImage')
+            span Upload Your Profile Pic
+            br
+            input.white-text(type='file' name='file')#file
+            input.button(type='submit' name='submit' value='UPLOAD')
+            br
+            br
+
+
+
+div
+    .container
+        div.row
+            div.col.s12.m5.l4#Pcard0
+                div#Pcard1
+                    div.row
+                        div.col.s5.m6.l8#Pperson
+                            //i.material-icons.medium image
+                            a.dropdown-button.btn-flat.white-text(data-activates='dropdownforupdate')
+                                img#apnilogo.circle.center(src="/images/moleculeData.jpg", height="73px" width="100px")
+
+                        div.col.s7.m6.l4#Pname
+                            p.P4.black-text.center Hello,
+                            p.P.black-text.center user
+                            //#{data.name}
+
+                div#Pcard2
+                    div.row
+                        div.col.s12.m12.l12
+                            ul
+                                br
+                                li
+                                    i.material-icons.prefix account_circle
+                                        a(href="#").Pspan2 My Profile
+                                    br
+                                    br
+                                li.hoverable.lispan
+                                    a(href='/profile/userprofile?page=Contact_Us').Pspan1 Contact Information
+                                    br
+                                    br
+                                li.hoverable.lispan
+                                    a(href='/profile/userprofile?page=My_Profile').Pspan1 Personal Information
+                                    br
+                                    br
+                                li.hoverable.lispan
+                                    a(href='/profile/userprofile?page=Confidential_Information').Pspan1 Confidential Information
+                                    br
+                                    br
+                                li.hoverable.lispan
+                                    a(href='/profile/userprofile?page=Emergency_Contact_Details').Pspan1 Emergency Contact Details
+                                    br
+                                    br
+                                li.hoverable.lispan
+                                    a(href='/profile/userprofile?page=Address').Pspan1 Address
+                                    br
+                                    br
+
+                                li.divider
+                            ul
+                                br
+                                li
+                                    i.material-icons.prefix local_activity
+                                    a(href='/profile/userprofile?page=My_Activity').Pspan2 My Activity
+                                    br
+                                    br
+                                li.hoverable
+                                    a(href="#").Pspan1 My Doctor
+                                    br
+                                    br
+                                li.hoverable
+                                    a(href="#").Pspan1 My Drugs
+                                    br
+                                    br
+                                li.hoverable
+                                    a(href="#").Pspan1 My Diseases
+                                    br
+                                    br
+                                li.divider
+                            ul
+                                br
+                                li
+                                    a(href='/profile/userprofile?page=Refer_Friends').Pspan2 Refer Friends
+                                li.divider
+                            ul
+                                br
+                                li
+                                    i.material-icons.small.prefix call
+                                    a(href='/profile/userprofile?page=Contact_Us').Pspan2 Contact Us
+                                    br
+                br
+                //i.material-icons person
+            div.col.s12.m7.l8
+                if(page == 'My_Profile')
+                    include ../UserProfile/PersonalInformation
+                else if(page == 'Contact_Us')
+                    include ../UserProfile/ContactUs
+                else if(page == 'Confidential_Information')
+                    include ../UserProfile/ConfidentialInformation
+                else if(page == 'Emergency_Contact_Details')
+                    include ../UserProfile/EmergencyContactDetails
+                else if(page == 'Address')
+                    include ../UserProfile/Address
+                else if(page == 'My_Activity')
+                    include ../UserProfile/MyActivity
+                else if(page == 'Refer_Friends')
+                    include ../UserProfile/ReferFriends
+                else if(page == 'Contact_Us')
+                    include ../UserProfile/ContactUs
+

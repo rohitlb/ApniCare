@@ -1,0 +1,57 @@
+.e{
+    color: grey;
+}
+#footer0,#footer1,#footer2,#footer3
+{
+    background-color: #111111;
+    font-family: OpenSans-Regular,sans-serif;
+    font-size: 15px;
+    line-height: 24px;
+    font-weight: 300;
+    letter-spacing: .025em;
+    padding: 0px;
+    margin: 0px;
+    color: #fff;
+}
+#footer1{
+    background-color: #0f0f0f;
+}
+#footer2{
+background-color: #0d0d0d;
+}
+#footer3{
+    background-color: #000000;
+}
+
+#madeforIndia{
+    font-size: 15px;
+    margin-left: -25px;
+    margin-top: -30px;
+}
+#logoimg2{
+    margin-top: 0px;
+    margin-left: 30%;
+}
+#logo1{
+    font-size: 37px;
+    margin-top: -4%;
+}
+#copyright{
+    font-size: 15px;
+    margin-top: -1%;
+    margin-left: -26px;
+}
+#footer4,#footer5
+{
+    width: 0px;
+    height: 0px;
+}
+.container
+{
+    padding: 0px;
+}
+.Uimg{
+    border: solid;
+    border-radius: 10px;
+    color: #f9f9f9;
+}

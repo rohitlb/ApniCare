@@ -1,0 +1,79 @@
+div.row#mol_row1
+    //div.col.l2
+        //div.row#mol_row1_subrow1
+        //    br
+        //    h6.black-text Molecule Information
+        //    p -Brand Index
+        //    p -Generic Index
+    div.col.l9#mol_col1
+        div.row.center#mol_row1_subrow2
+            h6 Disease_name
+        div.row.center#mol_row1_subrow3
+            div.drug_alphabets.pull-left
+                span.center
+                    ul
+                        li.active
+                            a.btn2.all.hoverable(href='#' type='all') All
+                        li
+                            a.btn2.hoverable(href='#') A
+                        li
+                            a.btn2.hoverable(href='#') B
+                        li
+                            a.btn2.hoverable(href='#') C
+                        li
+                            a.btn2.hoverable(href='#') D
+                        li
+                            a.btn2.hoverable(href='#') E
+                        li
+                            a.btn2.hoverable(href='#') F
+                        li
+                            a.btn2.hoverable(href='#') G
+                        li
+                            a.btn2.hoverable(href='#') H
+                        li
+                            a.btn2.hoverable(href='#') I
+                        li
+                            a.btn2.hoverable(href='#') J
+                        li
+                            a.btn2.hoverable(href='#') K
+                        li
+                            a.btn2.hoverable(href='#') L
+                        li
+                            a.btn2.hoverable(href='#') M
+                        li
+                            a.btn2.hoverable(href='#') N
+                        li
+                            a.btn2.hoverable(href='#') O
+                        li
+                            a.btn2.hoverable(href='#') P
+                        li
+                            a.btn2.hoverable(href='#') Q
+                        li
+                            a.btn2.hoverable(href='#') R
+                        li
+                            a.btn2.hoverable(href='#') S
+                        li
+                            a.btn2.hoverable(href='#') T
+                        li
+                            a.btn2.hoverable(href='#') U
+                        li
+                            a.btn2.hoverable(href='#') V
+                        li
+                            a.btn2.hoverable(href='#') W
+                        li
+                            a.btn2.hoverable(href='#') X
+                        li
+                            a.btn2.hoverable(href='#') Y
+                        li
+                            a.btn2.hoverable(href='#') Z
+                        li
+                            a.btn2.all.hoverable(href='#' type='other') Other
+        div.row.center#mol_row1_subrow5
+            div.col.l12.s12.m12
+                div.three-cols
+                    ul
+                        each val in data
+                            a(href='/ApniCare/information/Molecules?molecule='+val.molecule_name) #{val.molecule_name}
+                            br
+
+
