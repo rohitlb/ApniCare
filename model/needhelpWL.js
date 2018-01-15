@@ -10,7 +10,7 @@ var WLNeedhelp = new Schema({
 
 });
 
-module.exports = mongoose.model('WLneedhelp',WLNeedhelp);
+module.exports = mongoose.model('needhelpWL',NeedhelpWL);
 
 
 // there are 2 type
