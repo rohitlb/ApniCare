@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var WLNeedhelp = new Schema({
+var NeedhelpWL = new Schema({
     name : {type : String},
     email : {type : String},
     number : {type : String},
