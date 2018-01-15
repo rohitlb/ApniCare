@@ -24,6 +24,7 @@ var keys = require('./private/keys');
 // req model for feedback and need help
 var Feedback = require('./model/feedback');
 var Needhelp = require('./model/needhelp');
+var NeedhelpWL = require('./model/needhelpWL');
 
 
 var User  = require('./model/registration');
@@ -139,6 +140,7 @@ app.post('/needhelp' , function (req,res) {
     var contact_message = req.body.contact_message;
 
     var needhelp = new Needhelp({
+        //here user ID should be added
         subject : subject,
         contact_message : contact_message
     });
@@ -152,6 +154,30 @@ app.post('/needhelp' , function (req,res) {
     });
 });
 
+app.post('/needhelpWL' , function (req,res) {
+
+    var name = req.body.name;
+    var email = req.body.email;
+    var number = req.body.number;
+    var subject = req.body.subject;
+    var contact_message = req.body.contact_message;
+
+    var needhelpWL = new NeedhelpWL({
+        name : name,
+        email : email,
+        number : number,
+        subject : subject,
+        contact_message : contact_message
+    });
+
+    needhelpWL.save(function (err, result) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.send("We will contact you soon")
+        }
+    });
+});
 
 //*************************************OTP*******************************************************************
 
