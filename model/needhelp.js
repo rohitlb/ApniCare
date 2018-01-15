@@ -3,7 +3,7 @@ var Schema = mongoose.Schema;
 
 var Needhelp = new Schema({
     // user ID should be stored instead number
-    number : {type : String},
+
     subject : {type : String},
     contact_message : {type : String}
 
