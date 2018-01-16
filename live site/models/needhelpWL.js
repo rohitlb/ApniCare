@@ -1,15 +1,16 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var Needhelp = new Schema({
-    // user ID should be stored instead number
-
+var NeedhelpWL = new Schema({
+    name : {type : String},
+    email : {type : String},
+    number : {type : String},
     subject : {type : String},
     contact_message : {type : String}
 
 });
 
-module.exports = mongoose.model('needhelp',Needhelp);
+module.exports = mongoose.model('needhelpWL',NeedhelpWL);
 
 
 // there are 2 type

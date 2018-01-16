@@ -11,6 +11,7 @@ var EmailList = require('./models/EmailList');
 // req models for feedback and need help
 var Feedback = require('./models/feedback');
 var Needhelp = require('./models/needhelp');
+var NeedhelpWL = require('./models/needhelpWL');
 
 
 var User  = require('./models/registration');
@@ -960,11 +961,37 @@ app.post('/needhelp' , function (req,res) {
     var contact_message = req.body.contact_message;
 
     var needhelp = new Needhelp({
+        //here user ID should be added
         subject : subject,
         contact_message : contact_message
     });
 
     needhelp.save(function (err, result) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.send("We will contact you soon")
+        }
+    });
+});
+
+app.post('/needhelpWL' , function (req,res) {
+
+    var name = req.body.name;
+    var email = req.body.email;
+    var number = req.body.number;
+    var subject = req.body.subject;
+    var contact_message = req.body.contact_message;
+
+    var needhelpWL = new NeedhelpWL({
+        name : name,
+        email : email,
+        number : number,
+        subject : subject,
+        contact_message : contact_message
+    });
+
+    needhelpWL.save(function (err, result) {
         if (err) {
             console.log(err);
         } else {
