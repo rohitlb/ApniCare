@@ -1,0 +1,191 @@
+div.row
+    div.col.s12.m12.l9.offset-l3
+        img#drug(src='/images/drugsData.jpg', style='position:fixed;top:0px;left:0px;width:100%;height:100%;z-index:-1;')
+        div#drugdata
+            .col.s12.m12.l11.offset-l1
+                br
+
+                div.row
+                    div.drug_alphabets.pull-left
+                        span.center
+                            ul
+                                li
+                                    a.btn2.all.hoverable(href='/health_care_provider?page=molecule_data' type='all') All
+                                li
+                                    a.btn2.hoverable(href='/health_care_provider?page=molecule_data') A
+                                li
+                                    a.btn2.hoverable(href='/health_care_provider?page=molecule_data') B
+                                li
+                                    a.btn2.hoverable(href='/health_care_provider?page=molecule_data') C
+                                li
+                                    a.btn2.hoverable(href='/health_care_provider?page=molecule_data') D
+                                li
+                                    a.btn2.hoverable(href='/health_care_provider?page=molecule_data') E
+                                li
+                                    a.btn2.hoverable(href='/health_care_provider?page=molecule_data') F
+                                li
+                                    a.btn2.hoverable(href='/health_care_provider?page=molecule_data') G
+                                li
+                                    a.btn2.hoverable(href='/health_care_provider?page=molecule_data') H
+                                li
+                                    a.btn2.hoverable(href='/health_care_provider?page=molecule_data') I
+                                li
+                                    a.btn2.hoverable(href='/health_care_provider?page=molecule_data') J
+                                li
+                                    a.btn2.hoverable(href='/health_care_provider?page=molecule_data') K
+                                li
+                                    a.btn2.hoverable(href='/health_care_provider?page=molecule_data') L
+                                li
+                                    a.btn2.hoverable(href='/health_care_provider?page=molecule_data') M
+                                li
+                                    a.btn2.hoverable(href='/health_care_provider?page=molecule_data') N
+                                li
+                                    a.btn2.hoverable(href='/health_care_provider?page=molecule_data') O
+                                li
+                                    a.btn2.hoverable(href='/health_care_provider?page=molecule_data') P
+                                li
+                                    a.btn2.hoverable(href='/health_care_provider?page=molecule_data') Q
+                                li
+                                    a.btn2.hoverable(href='/health_care_provider?page=molecule_data') R
+                                li
+                                    a.btn2.hoverable(href='/health_care_provider?page=molecule_data') S
+                                li
+                                    a.btn2.hoverable(href='/health_care_provider?page=molecule_data') T
+                                li
+                                    a.btn2.hoverable(href='/health_care_provider?page=molecule_data') U
+                                li
+                                    a.btn2.hoverable(href='/health_care_provider?page=molecule_data') V
+                                li
+                                    a.btn2.hoverable(href='/health_care_provider?page=molecule_data') W
+                                li
+                                    a.btn2.hoverable(href='/health_care_provider?page=molecule_data') X
+                                li
+                                    a.btn2.hoverable(href='/health_care_provider?page=molecule_data') Y
+                                li
+                                    a.btn2.hoverable(href='/health_care_provider?page=molecule_data') Z
+                                li
+                                    a.btn2.all.hoverable(href='/health_care_provider?page=molecule_data' type='other') Other
+
+        div.col.s12.m12.l12
+            div.col.grey.lighten-3.s12.m8.l8.offset-l1
+                ul
+                    each val in data
+                        h4.bold.section.scrollspy#mol_name.next_line.text_upper_case <strong>#{val.molecule_name}</strong>
+                        h5.bold.section.scrollspy#drug_cat.small_font.next_line [#{val.drug_categories}]
+                        h5
+                            span.section.scrollspy#short.next_line #{val.description}
+                        h5 <strong>Pharmacokinetics</strong>
+                        li.next_line
+                            h5.section.scrollspy#absorption Absorption
+                            span.small_font.next_line #{val.absorption}
+                        li.next_line
+                            h5.bold.section.scrollspy#distribution Distribution
+                            span.small_font.next_line #{val.distribution}
+                        li.next_line
+                            h5.bold.section.scrollspy#metabolism Metabolism
+                            span.small_font.next_line #{val.metabolism}
+                        li.next_line
+                            h5.bold.section.scrollspy#excretion Excretion
+                            span.small_font.next_line #{val.excretion}
+                        h5.bold.section.scrollspy#adverse <strong>Adverse Reaction</strong>
+                        span.small_font.next_line #{val.side_effect}
+                        h5.bold.section.scrollspy#precaution <strong>Special Precautions</strong>
+                        span.small_font.next_line #{val.precaution}
+                        h5.bold.section.scrollspy#drug_int <strong>Other Drug Interaction</strong>
+                        each drug in val.other_drug_interaction
+                            span.small_font.next_line #{drug.subhead5}:&nbsp
+                            span.small_font.next_line #{drug.info5}
+                        h5.bold.section.scrollspy#other <strong>Other Interaction</strong>
+                        each other in val.other_interaction
+                            span.small_font.next_line #{other.subhead4}:&nbsp
+                            span.small_font.next_line #{other.info4}
+                        h5.bold.section.scrollspy#dosage <strong>Dosage</strong>
+                        each dose in val.dosage
+                            span.small_font.next_line #{dose.subhead3}:&nbsp
+                            span.small_font.next_line #{dose.info3}
+                        h5.bold.section.scrollspy#food <strong>Taken (Before/After) Food</strong>
+                        span.small_font.next_line #{val.food}
+                        h5.bold.section.scrollspy#contraindications <strong>List of Contraindications</strong>
+                        each cont in val.contraindications
+                            span.small_font.next_line #{cont.subhead2}:&nbsp
+                            span.small_font.next_line #{cont.info2}
+                        h5.bold.section.scrollspy#source <strong>Source Of Information</strong>
+                        span.small_font.next_line #{val.source}
+                        //h4 subhead
+                        //li #{val.contradictions[0].subhead}
+                        //h4 information
+                        //li #{val.contradictions[1].info}
+            div.col.m4.l3.hide-on-small-only
+                ul.section.table-of-contents(style='position:fixed;padding-bottom:10px;')
+                    li
+                        a(href='#mol_name') Molecule Name
+                    li
+                        a(href='#drug_cat') Category
+                    li
+                        a(href='#short') Short Description
+                    li
+                        a(href='#absorption') Absorption
+                    li
+                        a(href='#distribution') Distribution
+                    li
+                        a(href='#metabolism') Metabolism
+                    li
+                        a(href='#excretion') Excretion
+                    li
+                        a(href='#adverse') Adverse Reaction
+                    li
+                        a(href='#precautions') Precautions
+                    li
+                        a(href='#drug_int') Other Drug Interactions
+                    li
+                        a(href='#other') Other Interactions
+                    li
+                        a(href='#dosage') Dosage
+                    li
+                        a(href='#food') Food Interactions
+                    li
+                        a(href='#contraindications') List of contraindications
+                    li
+                        a(href='#source') Source of Information
+                    //li
+                    //    a(href='') Molecule Name
+                    //li
+                    //    a(href='') Molecule Name
+
+        div
+            br
+            br
+            div.col.s12.l12.m12.grey.lighten-1(style='padding:5px;margin-top:20px')
+                a.black-text.modal-trigger(href='#modal2') <strong>Give a Feedback on the above data</strong>
+                    i.material-icons.left.black-text feedback
+        div.modal#modal2
+            div.modal-content
+                h4.center.teal-text.darken-2 Your Feedback is valuable...
+                form.col.l10.m10.s10#form_feedback(method='POST')
+                    div
+                        span How useful is the data that we provide?
+                        br
+                        br
+                        input.with-gap#radio1(name='radio1_feedback' type='radio' value='Very Useful')
+                        label(for='radio1') Very Useful&nbsp
+                        input.with-gap#radio2(name='radio1_feedback' type='radio' value='Useful')
+                        label(for='radio2') Useful&nbsp
+                        input.with-gap#radio3(name='radio1_feedback' type='radio' value='Average')
+                        label(for='radio3') Average&nbsp
+                        input.with-gap#radio4(name='radio1_feedback' type='radio' value='Not Useful')
+                        label(for='radio4') Not Useful&nbsp
+                        input.with-gap#radio5(name='radio1_feedback' type='radio' value='Not Useful At All')
+                        label(for='radio5') Not Useful At All
+
+                    br
+                    div.input-field
+                        span Suggest changes in data(if any)
+                        textarea#suggestion(style='height:90px;')
+                        label(for='suggestion')
+                    br
+
+                    div.row
+                        div.col.s6.l4.m4.offset-l1
+                            input.reset(type='reset')
+                        div.col.s6.l4.m4.offset-l3
+                            input.button#submit_feedback(type='submit')
