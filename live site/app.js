@@ -8,24 +8,24 @@ var path = require('path');
 mongoose.Promise = bluebird;
 
 var EmailList = require('./models/EmailList');
-// req model for feedback and need help
-var Feedback = require('./model/feedback');
-var Needhelp = require('./model/needhelp');
+// req models for feedback and need help
+var Feedback = require('./models/feedback');
+var Needhelp = require('./models/needhelp');
 
 
-var User  = require('./model/registration');
-var Doctor = require('./model/doctorregistration');
-var Pharma = require('./model/pharma');
-var Professional = require('./model/professional');
+var User  = require('./models/registration');
+var Doctor = require('./models/doctorregistration');
+var Pharma = require('./models/pharma');
+var Professional = require('./models/professional');
 //require for medicine index
-var Company = require('./model/company');
-var Brand = require('./model/brand');
-var Dosage = require('./model/dosage');
-var Strength = require('./model/strength');
+var Company = require('./models/company');
+var Brand = require('./models/brand');
+var Dosage = require('./models/dosage');
+var Strength = require('./models/strength');
 //require for disease
-var Disease = require('./model/disease');
+var Disease = require('./models/disease');
 //require molecule
-var Molecule = require('./model/molecule');
+var Molecule = require('./models/molecule');
 
 var app = express();
 
