@@ -2244,6 +2244,7 @@ app.get('/health_care_provider',function(req,res) {
     var page = 'home';
     var brand = req.query.brand;
     var disease = req.query.disease;
+    var molecule = req.query.molecule;
 
     if(req.query.page == 'profile') {
         Doctor.findOne({_id: req.session.doctorID}, function (err, result) {
@@ -2666,6 +2667,7 @@ app.post('/health_care_provider',function(req,res) {
     var page = 'home';
     var brand = req.query.brand;
     var disease = req.query.disease;
+    var molecule = req.query.molecule;
 
     if(req.query.page == 'profile') {
         Doctor.findOne({_id: req.session.doctorID}, function (err, result) {
