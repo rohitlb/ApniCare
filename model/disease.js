@@ -9,7 +9,7 @@ var Disease = new Schema({
     cause : {type : String},
     diagnosis : [ {subhead1 : {type : String},subhead2 : {type : String}}],
     // organ which are mainly affected
-    organ : [{subhead : {type : String},info : {type:String}}],
+    organs : [{subhead : {type : String},info : {type:String}}],
     treatment : {type : String},
     outlook : {type : String},
     prevention : {type : String},
