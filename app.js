@@ -129,8 +129,9 @@ app.post('/feedback' , function (req,res) {
     feedback.save(function (err, result) {
         if (err) {
             console.log(err);
+            res.send({status: "failure", message: "some error"});
         } else {
-            res.send("Thnx for the feedback")
+            res.send({status: "success", message: "thnx for feedback"});
         }
     });
 });
@@ -148,7 +149,7 @@ app.post('/needhelp' , function (req,res) {
     needhelp.save(function (err, result) {
         if (err) {
             console.log(err);
-            res.send({status: "failure", message: "Wrong credentials"});
+            res.send({status: "failure", message: "some error"});
         } else {
             res.send({status: "success", message: "We will Contact you soon"});
         }
