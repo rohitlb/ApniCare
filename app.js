@@ -148,8 +148,9 @@ app.post('/needhelp' , function (req,res) {
     needhelp.save(function (err, result) {
         if (err) {
             console.log(err);
+            res.send({status: "failure", message: "Wrong credentials"});
         } else {
-            res.send("We will contact you soon")
+            res.send({status: "success", message: "We will Contact you soon"});
         }
     });
 });
@@ -173,8 +174,9 @@ app.post('/needhelpWL' , function (req,res) {
     needhelpWL.save(function (err, result) {
         if (err) {
             console.log(err);
+            res.send({status: "failure", message: "some error"});
         } else {
-            res.send("We will contact you soon")
+            res.send({status: "success", message: "We will Contact you soon"});
         }
     });
 });
