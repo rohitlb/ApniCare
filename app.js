@@ -1905,8 +1905,12 @@ app.post('/diseases',function (req,res) {
     var symptoms = req.body.symptoms;
     var risk_factor = req.body.risk_factor;
     var cause = req.body.cause;
-    var subhead1 = req.body.subhead1;
-    var subhead2 = req.body.subhead2;
+    //for diagnosis
+    var subhead1 = req.body.subhead1; // heading
+    var subhead2 = req.body.subhead2; // information about heading
+    // for organs
+    var subhead = req.body.subhead;
+    var info = req.body.info;
     var treatment = req.body.treatment;
     var outlook = req.body.outlook;
     var prevention = req.body.prevention;
@@ -1929,6 +1933,10 @@ app.post('/diseases',function (req,res) {
                     diagnosis: {
                         subhead1 : subhead1,
                         subhead2 : subhead2
+                    },
+                    organs: {
+                        subhead : subhead,
+                        info : info
                     },
                     treatment: treatment,
                     outlook: outlook,
