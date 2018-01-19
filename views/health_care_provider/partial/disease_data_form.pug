@@ -44,13 +44,29 @@ div.row
                         div.col.s12.m12.l12
                             div.repeater1
                                 div
-                                    input.browser-default.repeat_subhead#subheading(type='text', placeholder='Enter a subheading' required)
+                                    input.browser-default.repeat_subhead1#subhead1(type='text', placeholder='Enter a subheading' required)
                                     button.remove x
-                                    textarea.materialize-textarea.tobig.text_areas4.text_subhead#subhead_text
-                                    label(for='subheading', style='color:black;font-size: 15px;font-weight: 400;' required)
-                                    label(for='subhead_text', style='color:black;font-size: 15px;font-weight: 400;' required)
+                                    textarea.materialize-textarea.tobig.text_areas4.text_subhead1#subhead_text1
+                                    label(for='subhead1', style='color:black;font-size: 15px;font-weight: 400;' required)
+                                    label(for='subhead_text1', style='color:black;font-size: 15px;font-weight: 400;' required)
                             button.repeat1 Add A Subheading
-                        br
+                            br
+                            br
+                        div.col.s12.m12.l12
+                            span.target5 Which Organs does it affect?
+                            span.red-text &nbsp*
+                            br
+                        div.col.s12.m12.l12
+                            div.repeater7
+                                div
+                                    input.browser-default.repeat_subhead7#subheading7(type='text', placeholder='Enter a subheading' required)
+                                    button.remove x
+                                    textarea.materialize-textarea.tobig.text_areas7.text_subhead7#subhead_text7
+                                    label(for='subheading7', style='color:black;font-size: 15px;font-weight: 400;' required)
+                                    label(for='subhead_text7', style='color:black;font-size: 15px;font-weight: 400;' required)
+                            button.repeat7 Add A Subheading
+                            br
+                            br
                         div.col.s12.m12.l12
                             span.target6 How is it Treated?
                             span.red-text &nbsp*
@@ -82,4 +98,4 @@ div.row
                             div.col.s6.l4.m4
                                 input.reset(type='reset')
                             div.col.s6.l4.m4.offset-l4
-                                input.button#disease_data_button(type='submit')
+                                input.button#disease_data_button(type='submit' value='Submit')

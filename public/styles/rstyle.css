@@ -257,7 +257,12 @@ span.small_font {
     /*height: 100px;*/
 /*}*/
 
-span.next_line, ul li.next_line {
+span.next_line, ul li.next_line, .next_line {
     white-space: pre-line;
     list-style-type: disc;
+}
+
+.section {
+    padding-top: 0;
+    padding-bottom: 0;
 }

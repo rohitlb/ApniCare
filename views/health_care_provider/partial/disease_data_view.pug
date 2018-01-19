@@ -69,7 +69,7 @@ div.row
         div.col.s12.m12.l12
             div.col.grey.lighten-3.s12.m8.l8.offset-l1
                 each val in data
-                    h3 #{val.disease_name.toUpperCase()}
+                    h3#data_name #{val.disease_name.toUpperCase()}
                     if(val.symptoms)
                         li.section.scrollspy#symptoms
                             span.bold What are the Symptoms of #{val.disease_name.toUpperCase()}?
@@ -89,9 +89,28 @@ div.row
                         li.section.scrollspy#diagnosis
                             span.bold  How is #{val.disease_name.toUpperCase()} Diagnosed?
                             br
-                            each subhead in val.diagnosis
-                                span.next_line.text_upper_case #{subhead.subhead1}:
-                                span.next_line.flow-text #{subhead.subhead2}
+                            each other in val.diagnosis
+                                - var array1 = other.subhead1.split(",");
+                                - var array2 = other.subhead2.split(",");
+                                -for(var l = 0;l< array1.length ; l++)
+                                    li.next_line
+                                        h5.bold= array1[l]
+                                    span.next_line.small_font= array2[l]
+                                    br
+
+                    if(val.organs)
+                        li.section.scrollspy#organs
+                            span.bold  Which Organs are affected by #{val.disease_name.toUpperCase()}?
+                            br
+                            each other in val.organs
+                                - var array71 = other.subhead7.split(",");
+                                - var array72 = other.info7.split(",");
+                                -for(var l = 0;l< array71.length ; l++)
+                                li.next_line
+                                    h5.bold= array71[l]
+                                span.next_line.small_font= array72[l]
+                                br
+
                     if(val.treatment)
                         li.section.scrollspy#treatment
                             span.bold How is #{val.disease_name.toUpperCase()} Treated?
@@ -121,13 +140,15 @@ div.row
                     li
                         a(href='#diagnosis') Diagnosis
                     li
+                        a(href='#organs') Effect on Organs
+                    li
                         a(href='#treatment') Treatment
                     li
                         a(href='#outlook') Outlook
                     li
                         a(href='#prevention') Prevention
                     li
-                        a(href='#source') Source
+                        a(href='#source') Source of Information
 
         div
             br
@@ -143,34 +164,26 @@ div.row
                         span How useful is the data that we provide?
                         br
                         br
-                        input.with-gap#radio1(name='radio1_feedback' type='radio')
+                        input.with-gap#radio1(name='radio1_feedback' type='radio' value='Very Useful' checked)
                         label(for='radio1') Very Useful&nbsp
-                        input.with-gap#radio2(name='radio1_feedback' type='radio')
+                        input.with-gap#radio2(name='radio1_feedback' type='radio' value='Useful')
                         label(for='radio2') Useful&nbsp
-                        input.with-gap#radio3(name='radio1_feedback' type='radio')
+                        input.with-gap#radio3(name='radio1_feedback' type='radio' value='Average')
                         label(for='radio3') Average&nbsp
-                        input.with-gap#radio4(name='radio1_feedback' type='radio')
+                        input.with-gap#radio4(name='radio1_feedback' type='radio' value='Not Useful')
                         label(for='radio4') Not Useful&nbsp
-                        input.with-gap#radio5(name='radio1_feedback' type='radio')
+                        input.with-gap#radio5(name='radio1_feedback' type='radio' value='Not Useful At All')
                         label(for='radio5') Not Useful At All
 
-                        //div.question-wrapper.questionWrapper.false(style='display:inline-block; width: 100%; position:relative;')
-                        //    label#label1.form-label.form-label-left.form-label-auto(style='width:170px;')
-                        //        div.editor-container.editor(style='display:inline;width:100%;')
-                        //            div(placeholder='Type a Question' contenteditable='true' style='width:100%;') Questions
-                        //    div.form-input(style='position:relative')
-
-                        //textarea#text1
-                        //label(for='text1')
                     br
                     div.input-field
                         span Suggest changes in data(if any)
-                        textarea#text2(style='height:90px;')
-                        label(for='text2')
+                        textarea#suggestion(style='height:90px;' required)
+                        label(for='suggestion')
                     br
 
                     div.row
                         div.col.s6.l4.m4.offset-l1
                             input.reset(type='reset')
                         div.col.s6.l4.m4.offset-l3
-                            input.button(type='submit')
+                            input.button#submit_feedback(type='submit')

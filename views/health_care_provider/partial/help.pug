@@ -12,13 +12,22 @@ div.row
                 div.row
                     div.col.l4.m4.s12
                         h4 Contact Us
+
+                        h5 Communication Address:
+                        span.small_font TBI,KIET group of Institutions
+                        br
+                        span.small_font Ghaziabad
+                        br
+                        span.small_font Uttar Pradesh 201206
                         br
                         h5 Contact Info
-                        span.small_font Soni Brothers Pvt. Ltd.,
+                        span.small_font +91-8630051462
                         br
-                        span.small_font TBI, KIET Group of Institutions,
+                        span.small_font +91-7053973767
                         br
-                        span.small_font Ghaziabad, U.P
+                        span.small_font +91-7455969734
+                        br
+                        span.small_font +91-8506933328
                         br
                         h5 Email Us
                         span.small_font apnicare@gmail.com
@@ -26,24 +35,32 @@ div.row
                         //    h5 Email Us
                         //i.material-icons.left.large email
 
-                    div.col.l8.m8.s12
+                    div.col.l8.m8.s12#queries
                         h4 Get in touch with ApniCare
                         span.small_font Send Us Your Queries, and We'll Get Back to You!
                         div.row
-                            form(method='post', name='help', action='/feedback')
+                            form(method='post', name='help', action='/health_care_provider?page=need_help')
                                 div.input-field.col.s12.m12.l12
                                     span.small_font Subject
-                                    textarea.browser-default.white(type='text', name='query')#query
-                                    label(for='query')
+                                    // -- options for query-- drug information,query,molecule info,disease info,other
+                                    input.small_font.white(list='sub', placeholder='Select an option', name='query')#query
+                                    //label(for='query')
+                                    datalist#sub
+                                        option Drug Information
+                                        option Molecule Information
+                                        option Disease Information
+                                        option Report a site problem
+                                        //option Corporate Issue
                                 div.col.s12.input-field
                                     span.small_font Your Message
-                                    textarea.white#message(style='height:100px;')
+                                    textarea.white#message(style='height:100px;', placeholder='Type a message')
                                     label(for='message')
                                 div.row
                                     div.col.s6.l4.m4.offset-l1
                                         input.reset.hover(type='reset')
                                     div.col.s6.l4.m4.offset-l3
                                         input.button.hover#submit_help(type='submit')
+
 
                     //div.col.s4
                     //    a.modal-trigger.black-text(href="#modal5")

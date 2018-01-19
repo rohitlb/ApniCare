@@ -52,13 +52,12 @@ div.row
                             div.col.s12.m12.l12
                                 div.repeater6
                                     div
-
                                         div.collection(style='border-color:transparent;')
                                             div.col.s12.m6.l6
-                                                input.validate.repeat_subhead#subheading6(type='text', placeholder='Enter Name' required)
+                                                input.validate.repeat_subhead6#subheading6(type='text', placeholder='Enter Name' required)
                                                 //label(for='subheading', style='color:black;font-size: 15px;font-weight: 400;' required)
                                             div.col.s12.m6.l6
-                                                input.validate.text_subhead#subhead_text6(type='text',placeholder='Enter Molecule Strength' required)
+                                                input.validate.text_subhead6#subhead_text6(type='text', placeholder='Enter Molecule Strength' required)
                                                 //label(for='subheading', style='color:black;font-size: 15px;font-weight: 400;' required)
                                 button.repeat6 Add Another
                                 br
@@ -118,9 +117,9 @@ div.row
                                 div.col.s6.l4.m4
                                     input.reset#reset_button(type='reset')
                                 div.col.s12.l5.m5
-                                    input.button#enter_more_data(type='button' value='Enter more data')
+                                    input.button#enter_more_data(type='button', value='Enter more data')
                                 div.col.s6.l3.m3
-                                    input.button.btn-drugs#drugs1(type='submit')
+                                    input.button.btn-drugs#drugs1(type='submit', value='Submit')
 
                             //a#enter_more_data.btn.right(href='#drug_form2') Enter more data...
 
@@ -161,5 +160,5 @@ div.row
                                     div.col.s6.l4.m4
                                         input.reset(type='reset')
                                     div.col.s6.l3.m3.offset-l5
-                                        input.button.btn-drugs(type='submit')
+                                        input.button.btn-drugs(type='submit' value='Submit')
 

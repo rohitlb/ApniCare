@@ -69,12 +69,12 @@ div.row
         div.col.s12.m12.l12
             div.col.grey.lighten-3.s12.m8.l9
                 each val in data
-                    h3.section.scrollspy#brand #{val.brand_name.toUpperCase()}
+                    h3.section.scrollspy#data_name #{val.brand_name.toUpperCase()}
                         span <em>&nbsp - &nbsp</em>
                         each company in val.company_id
                             span <strong>manufactured by #{company.company_name.toUpperCase()}</strong>
                         if(val.categories != '')
-                            h5 [#{val.categories}]
+                            h5  [#{val.categories}]
 
                     li.section.scrollspy#prescription Prescription:
                     each dosages in val.dosage_id
@@ -86,8 +86,12 @@ div.row
                         each dosages in vas.dosage_id
                             each doses in dosages.strength_id
                                 each pots in doses.potent_substance
-                                    span <strong>#{pots.name}</strong> &nbsp
-                                    span <strong>#{pots.molecule_strength}</strong>
+                                    - var array1 = pots.name.split(",");
+                                    - var array2 = pots.molecule_strength.split(",");
+                                    -for(var l = 0;l< array1.length ; l++)
+                                        br
+                                        span.next_line= array1[l]+ " : " +array2[l]
+
 
 
 
@@ -112,18 +116,21 @@ div.row
                                                     if(dose.packaging != '')
                                                         td <strong>#{dose.packaging}</strong> &nbsp &nbsp
                                                     td <strong>#{dose.price}</strong>
+                                                br
                                         each pots in dose.potent_substance
                                                     if(dose.dose_taken != '')
                                                         li.section.scrollspy#dose_taken Dose Taken As:&nbsp
                                                             span <strong>#{dose.dose_taken}</strong>
+                                                    br
 
                                                     if(dose.dose_timing != '')
                                                         li.section.scrollspy#timing Dose Timings:&nbsp
                                                             span <strong>#{dose.dose_timing}</strong>
-
+                                                    br
                                                     if(vas.primarily_used_for != '')
-                                                        li.section.scrollspy#primarily The Drug <strong>#{vas.brand_name.toUpperCase()}</strong> is primarily used for <strong>#{vas.primarily_used_for}</strong>
-
+                                                        li.next_line.section.scrollspy#primarily The Drug <strong>#{vas.brand_name.toUpperCase()}</strong> is primarily used for
+                                                        span.next_line <strong>#{vas.primarily_used_for}</strong>
+                                                    br
                                                     if(dose.warnings != '')
                                                         i.material-icons.left warning
                                                         span.section.scrollspy#warnings.red-text Warnings
@@ -137,7 +144,7 @@ div.row
 
                 ul.section.table-of-contents(style='position:fixed;z-index:2;padding-bottom:10px;')
                     li
-                        a(href='#brand') Brand
+                        a(href='#data_name') Brand
                         each vas in data
                             if(vas.types!= '')
                                 span -#{vas.types}
@@ -175,36 +182,26 @@ div.row
                             span How useful is the data that we provide?
                             br
                             br
-                            input.with-gap#radio1(name='radio1_feedback' type='radio')
-                            label(for='radio1') Very Useful
-                            input.with-gap#radio2(name='radio1_feedback' type='radio')
-                            label(for='radio2') Useful
-                            input.with-gap#radio3(name='radio1_feedback' type='radio')
-                            label(for='radio3') Average
-                            input.with-gap#radio4(name='radio1_feedback' type='radio')
-                            label(for='radio4') Not Useful
-                            input.with-gap#radio5(name='radio1_feedback' type='radio')
+                            input.with-gap#radio1(name='radio1_feedback' type='radio' value='Very Useful' checked)
+                            label(for='radio1') Very Useful&nbsp
+                            input.with-gap#radio2(name='radio1_feedback' type='radio' value='Useful')
+                            label(for='radio2') Useful&nbsp
+                            input.with-gap#radio3(name='radio1_feedback' type='radio' value='Average')
+                            label(for='radio3') Average&nbsp
+                            input.with-gap#radio4(name='radio1_feedback' type='radio' value='Not Useful')
+                            label(for='radio4') Not Useful&nbsp
+                            input.with-gap#radio5(name='radio1_feedback' type='radio' value='Not Useful At All')
                             label(for='radio5') Not Useful At All
 
-                            //div.question-wrapper.questionWrapper.false(style='display:inline-block; width: 100%; position:relative;')
-                            //    label#label1.form-label.form-label-left.form-label-auto(style='width:170px;')
-                            //        div.editor-container.editor(style='display:inline;width:100%;')
-                            //            div(placeholder='Type a Question' contenteditable='true' style='width:100%;') Questions
-                            //    div.form-input(style='position:relative')
-
-                            //textarea#text1
-                            //label(for='text1')
                         br
                         div.input-field
-                            span Suggest changes in data(if any)
-                            textarea(style='height:90px;')#text2
-                            label(for='text2')
+                            span Suggest changes in data
+                            textarea#suggestion(style='height:90px;' required)
+                            label(for='suggestion')
                         br
 
                         div.row
                             div.col.s6.l4.m4.offset-l1
                                 input.reset(type='reset')
                             div.col.s6.l4.m4.offset-l3
-                                input.button.feedback(type='submit')
-
-
+                                input.button#submit_feedback(type='submit')
