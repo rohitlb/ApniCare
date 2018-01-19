@@ -87,7 +87,7 @@ div.row
                             each doses in dosages.strength_id
                                 each pots in doses.potent_substance
                                     - var array1 = pots.name.split(",");
-                                    - var array2 = pots.molecule_strength.split(",");
+                                    - var array2 = pots.molecule_strength.split(',');
                                     -for(var l = 0;l< array1.length ; l++)
                                         br
                                         span.next_line= array1[l]+ " : " +array2[l]

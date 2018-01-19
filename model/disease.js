@@ -7,13 +7,14 @@ var Disease = new Schema({
     symptoms : {type:String}, //a
     risk_factor : {type : String},
     cause : {type : String},
-    diagnosis : [ {subhead1 : {type : String},subhead2 : {type : String}}], // make subhead1 -> subhead          and         subhead2 -> information
+    diagnosis : [ {subhead : {type : String},info : {type : String}}],
     // organ which are mainly affected
-    organs : [{subhead7 : {type : String},info7 : {type:String}}],
+    organs : [{subhead : {type : String},info : {type:String}}],
     treatment : {type : String},
     outlook : {type : String},
     prevention : {type : String},
-    source : {type : String}
+    source : {type : String},
+    submitted_by : {type : String}
 });
 
 module.exports = mongoose.model('disease',Disease);

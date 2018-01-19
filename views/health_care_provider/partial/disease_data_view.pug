@@ -90,8 +90,8 @@ div.row
                             span.bold  How is #{val.disease_name.toUpperCase()} Diagnosed?
                             br
                             each other in val.diagnosis
-                                - var array1 = other.subhead1.split(",");
-                                - var array2 = other.subhead2.split(",");
+                                - var array1 = other.subhead.split(",");
+                                - var array2 = other.info.split(",");
                                 -for(var l = 0;l< array1.length ; l++)
                                     li.next_line
                                         h5.bold= array1[l]
@@ -103,13 +103,13 @@ div.row
                             span.bold  Which Organs are affected by #{val.disease_name.toUpperCase()}?
                             br
                             each other in val.organs
-                                - var array71 = other.subhead7.split(",");
-                                - var array72 = other.info7.split(",");
+                                - var array71 = other.subhead.split(",");
+                                - var array72 = other.info.split(",");
                                 -for(var l = 0;l< array71.length ; l++)
-                                li.next_line
-                                    h5.bold= array71[l]
-                                span.next_line.small_font= array72[l]
-                                br
+                                    li.next_line
+                                        h5.bold= array71[l]
+                                    span.next_line.small_font= array72[l]
+                                    br
 
                     if(val.treatment)
                         li.section.scrollspy#treatment

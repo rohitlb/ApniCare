@@ -592,8 +592,8 @@ $(function () {
             cause: cause,
             subhead1 : subhead1,
             subhead2 : subhead2,
-            subhead7 : subhead71,
-            info7: subhead72,
+            subhead : subhead71,
+            info : subhead72,
             treatment: treatment,
             outlook: outlook,
             prevention: prevention,
@@ -662,7 +662,7 @@ $(function () {
         };
 
         $.ajax({
-            url: '/medicine',
+            url: '/medicines',
             type: 'POST',
             data: JSON.stringify(data),
             contentType: 'application/json',

@@ -93,8 +93,8 @@ div.row
                         span.small_font.next_line #{val.precaution}
                         h5.bold.section.scrollspy#drug_int <strong>OTHER DRUG INTERACTION</strong>
                         each j in val.other_drug_interaction
-                            - var array51 = j.subhead5.split(",");
-                            - var array52 = j.info5.split(",")
+                            - var array51 = j.subhead.split(",");
+                            - var array52 = j.info.split(",")
                             -for(var l = 0;l< array51.length ; l++)
                                 li.next_line
                                     h5.bold= array51[l]
@@ -103,8 +103,8 @@ div.row
                                 br
                         h5.bold.section.scrollspy#other <strong>OTHER INTERACTION</strong>
                         each other in val.other_interaction
-                            - var array41 = other.subhead4.split(",");
-                            - var array42 = other.info4.split(",")
+                            - var array41 = other.subhead.split(",");
+                            - var array42 = other.info.split(",")
                             -for(var l = 0;l< array41.length ; l++)
                                 li.next_line
                                     h5.bold= array41[l]
@@ -113,8 +113,8 @@ div.row
 
                         h5.bold.section.scrollspy#dosage <strong>DOSAGE</strong>
                         each dose in val.dosage
-                            - var array31 = dose.subhead3.split(",");
-                            - var array32 = dose.info3.split(",")
+                            - var array31 = dose.subhead.split(",");
+                            - var array32 = dose.info.split(",")
                             -for(var l = 0;l< array31.length ; l++)
                                 li.next_line
                                     h5.bold= array31[l]
@@ -123,10 +123,10 @@ div.row
 
                         h5.bold.section.scrollspy#food <strong>TAKEN (BEFORE/AFTER) FOOD</strong>
                         span.small_font.next_line #{val.food}
-                        h5.bold.section.scrollspy#contraindications <strong>LIST OF CONTRAINDICATIONS</strong>
-                        each cont in val.contraindications
-                            - var array21 = cont.subhead2.split(",");
-                            - var array22 = cont.info2.split(",");
+                        h5.bold.section.scrollspy#contradictions <strong>LIST OF CONTRADICTIONS</strong>
+                        each cont in val.contradictions
+                            - var array21 = cont.subhead.split(",");
+                            - var array22 = cont.info.split(",");
                             -for(var l = 0;l< array21.length ; l++)
                                 li.next_line
                                     h5.bold= array21[l]
@@ -135,10 +135,7 @@ div.row
 
                         h5.bold.section.scrollspy#source <strong>SOURCE OF INFORMATION</strong>
                         span.small_font.next_line #{val.source}
-                        //h4 subhead
-                        //li #{val.contradictions[0].subhead}
-                        //h4 information
-                        //li #{val.contradictions[1].info}
+
             div.col.m4.l3.hide-on-small-only
                 ul.section.table-of-contents(style='position:fixed;padding-bottom:10px;')
                     li
@@ -168,7 +165,7 @@ div.row
                     li
                         a(href='#food') Food Interactions
                     li
-                        a(href='#contraindications') List of contraindications
+                        a(href='#contradictions') List of contradictions
                     li
                         a(href='#source') Source of Information
                     //li
