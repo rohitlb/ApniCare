@@ -20,10 +20,12 @@ var Molecule = new Schema({
     dosage : [ {subhead : {type : String},info : {type : String}}],
     // dosage can be oral,intravenous ,  liver disorder , hepatic , COPD
 
-    //food : {type : String},
+    food : {type : String},
     //list of contra indications
-    contraindications : [ {subhead : {type : String},info : {type : String}}],
-    source : {type : String}
+    contradictions : [ {subhead : {type : String},info : {type : String}}],
+    source : {type : String},
+    submitted_by : {type : String}
+
 });
 
-module.exports = mongoose.model('molecule',Molecule); //
+module.exports = mongoose.model('molecule',Molecule);

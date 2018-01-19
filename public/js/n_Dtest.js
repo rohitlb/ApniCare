@@ -3,17 +3,6 @@ $(document).ready(function() {
     $('#Dsend').click(function () {
 
 
-        //-----------------testing---------------------
-        $('.basic').hide();
-        $('#Dsend').hide();
-        $('#D_loginButton').hide();
-        //$('#change').show();
-        $('#pass').show();
-        $('#number').attr('disabled', 'disabled');
-        $('#password1').attr('disabled', 'disabled');
-
-        //----------------------------------------------
-
 
         var name = $('#name').val();
         var number = $('#number').val();

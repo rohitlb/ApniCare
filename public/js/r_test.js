@@ -236,25 +236,17 @@ $(function () {
         }
     });
 
-    $('#drug_form2').hide();
-    $('#enter_more_data').click(function () {
-        $('#enter_more_data').hide();
-        $('#drugs1').hide();
-        $('#reset_button').hide();
-
-        $('#drug_form2').show();
-    });
 
     //- .......... PROFILE OF DOCTOR AND PHARMACIST IF STUDENT ....................
-    $('.card-s').select(function () {
-        // $('#tab1').active();
-        // $('#city').hide();
-        // $('#year_of_experience').hide();
-        // $('#about_you').hide();
-        // $('#qualification').hide();
-        // $('#tab3').hide();
-        // $('#register_doc').hide();
-    });
+    // $('.card-s').select(function () {
+    //     // $('#tab1').active();
+    //     // $('#city').hide();
+    //     // $('#year_of_experience').hide();
+    //     // $('#about_you').hide();
+    //     // $('#qualification').hide();
+    //     // $('#tab3').hide();
+    //     // $('#register_doc').hide();
+    // });
 
     //$('#profile2').hide();
     //$('#profile3').hide();
@@ -308,9 +300,6 @@ $(function () {
     // $( "li", "#test" ).sort(function( a, b ) {
     //     return $( a ).text() > $( b ).text();
     // }).appendTo( "#test" );
-
-
-
     // // TO ADD NEW TEXT FIELD IN MOLECULE DATA FORM
     // $('#new_text').hide();
     // $('#diagnosis_sub').hide();
@@ -334,7 +323,6 @@ $(function () {
     // $('#cl').click(function () {
     //     $('#new_field').hide();
     // });
-
 
     $('.dropdown-button').dropdown({
         inDuration: 300,
@@ -371,8 +359,8 @@ $(function () {
 
     //............................... For Diagnosis in Disease form...............//
     $('.repeat1').on('click', function() {
-        $('.repeater1').append('<div><input id="subhead1" type="text"  placeholder="Enter a subheading" class="browser-default repeat_subhead" required/><button class="remove">x</button>' +
-            '<textarea class="text_subhead materialize-textarea tobig" id="subhead_text1" required></textarea><label for="subhead1" style="color:black;font-size: 15px;font-weight: 400;">' +
+        $('.repeater1').append('<div><input id="subhead1" type="text"  placeholder="Enter a subheading" class="browser-default repeat_subhead1" required/><button class="remove">x</button>' +
+            '<textarea class="text_subhead1 materialize-textarea tobig" id="subhead_text1" required></textarea><label for="subhead1" style="color:black;font-size: 15px;font-weight: 400;">' +
             '</label><label for="subhead_text1",placeholder="Enter text", style="color:black;font-size: 15px;font-weight: 400;"></label></div></div>');
         return false; //prevent form submission
     });
@@ -381,10 +369,22 @@ $(function () {
         return false; //prevent form submission
     });
 
+    // .............................. For ORGANS in Disease Form ....................//
+    $('.repeat7').on('click', function() {
+        $('.repeater7').append('<div><input id="subhead7" type="text"  placeholder="Enter a subheading" class="browser-default repeat_subhead7" required/><button class="remove">x</button>' +
+            '<textarea class="text_subhead7 materialize-textarea tobig" id="subhead_text7" required></textarea><label for="subhead7" style="color:black;font-size: 15px;font-weight: 400;">' +
+            '</label><label for="subhead_text7",placeholder="Enter text", style="color:black;font-size: 15px;font-weight: 400;"></label></div></div>');
+        return false; //prevent form submission
+    });
+    $('.repeater7').on('click', '.remove', function() {
+        $(this).parent().remove();
+        return false; //prevent form submission
+    });
+
     //............................... For contraindications in molecule form ............//
     $('.repeat2').on('click', function() {
-        $('.repeater2').append('<div><input id="subhead2" type="text" list="contra" placeholder="Choose subheading" class="browser-default repeat_subhead" required/><button class="remove">x</button>' +
-            '<textarea class="text_subhead materialize-textarea" placeholder="Enter Text" id="subhead_text2" required></textarea><label for="subhead2" style="color:black;font-size: 15px;font-weight: 400;"></label>' +
+        $('.repeater2').append('<div><input id="subhead2" type="text" list="contra" placeholder="Choose subheading" class="browser-default repeat_subhead2" required/><button class="remove">x</button>' +
+            '<textarea class="text_subhead2 materialize-textarea" placeholder="Enter Text" id="subhead_text2" required></textarea><label for="subhead2" style="color:black;font-size: 15px;font-weight: 400;"></label>' +
             '<label for="subhead_text2" style="color:black;font-size: 15px;font-weight: 400;">' +
             '<datalist id="contra"> <option> In Lactation</option> <option>In Geriatric/Old Person</option><option>Other Contraindications</option>' +
             ' <option> In Pregnancy </option>Lab Interference <option></option> <option> In Children </option><option>Storage</option>' +
@@ -398,8 +398,8 @@ $(function () {
 
     //............................... For Dosage in Molecule Form...............//
     $('.repeat3').on('click', function() {
-        $('.repeater3').append('<div><input id="subhead3" type="text" list="dosage" placeholder="Choose subheading" class="browser-default repeat_subhead" required/><button class="remove">x</button>' +
-            '<textarea class="text_subhead materialize-textarea" placeholder="Enter Text" id="subhead_text3" required></textarea><label for="subhead3" style="color:black;font-size: 15px;font-weight: 400;"></label>' +
+        $('.repeater3').append('<div><input id="subhead3" type="text" list="dosage" placeholder="Choose subheading" class="browser-default repeat_subhead3" required/><button class="remove">x</button>' +
+            '<textarea class="text_subhead3 materialize-textarea" placeholder="Enter Text" id="subhead_text3" required></textarea><label for="subhead3" style="color:black;font-size: 15px;font-weight: 400;"></label>' +
             '<label for="subhead_text3" style="color:black;font-size: 15px;font-weight: 400;">' +
             '<datalist id="dosage"> <option> Oral</option> <option>Intravenous</option><option>Liver Disorder</option>' +
             ' <option> Hepatic </option> <option>COPD</option>' +
@@ -413,8 +413,8 @@ $(function () {
 
     //............................... For Other Interactions in Molecule Form .........//
     $('.repeat4').on('click', function() {
-        $('.repeater4').append('<div><input id="subhead4" type="text" placeholder="Enter subheading" class="browser-default repeat_subhead" required/><button class="remove">x</button>' +
-            '<textarea class="text_subhead materialize-textarea" placeholder="Enter Text" id="subhead_text4" required></textarea><label for="subhead4" style="color:black;font-size: 15px;font-weight: 400;"></label>' +
+        $('.repeater4').append('<div><input id="subhead4" type="text" placeholder="Enter subheading" class="browser-default repeat_subhead4" required/><button class="remove">x</button>' +
+            '<textarea class="text_subhead4 materialize-textarea" placeholder="Enter Text" id="subhead_text4" required></textarea><label for="subhead4" style="color:black;font-size: 15px;font-weight: 400;"></label>' +
             '<label for="subhead_text4" style="color:black;font-size: 15px;font-weight: 400;">' +
             '</label></div></div>');
         return false; //prevent form submission
@@ -426,8 +426,8 @@ $(function () {
 
     //............................... For Other Drug Interactions In Molecule Form ...........//
     $('.repeat5').on('click', function() {
-        $('.repeater5').append('<div><input id="subhead5" type="text" placeholder="Enter subheading" class="browser-default repeat_subhead" required/><button class="remove">x</button>' +
-            '<textarea class="text_subhead materialize-textarea" placeholder="Enter Text" id="subhead_text5" required></textarea><label for="subhead5" style="color:black;font-size: 15px;font-weight: 400;"></label>' +
+        $('.repeater5').append('<div><input id="subhead5" type="text" placeholder="Enter subheading" class="browser-default repeat_subhead5" required/><button class="remove">x</button>' +
+            '<textarea class="text_subhead5 materialize-textarea" placeholder="Enter Text" id="subhead_text5" required></textarea><label for="subhead5" style="color:black;font-size: 15px;font-weight: 400;"></label>' +
             '<label for="subhead_text5" style="color:black;font-size: 15px;font-weight: 400;">' +
             '</label></div></div>');
         return false; //prevent form submission
@@ -471,15 +471,23 @@ $(function () {
     //............................... For Potent Substances in Drug Data Form.............//
     $('.repeat6').on('click', function() {
         $('.repeater6').append('<div><button class="right remove">x</button><div class="collection" style="border-color:transparent;"><div class="col s12 m6 l6">' +
-            '<input id="subheading" type="text" placeholder="Enter Name" required="required" class="repeat_subhead"/></div>' +
-            '<div class="col s12 m6 l6"> <input id="subhead_text" type="text" placeholder="Enter Molecule Strength" required="required" class="text_subhead"/> ' +
+            '<input id="subheading6" type="text" placeholder="Enter Name" required="required" class="repeat_subhead6"/></div>' +
+            '<div class="col s12 m6 l6"> <input id="subhead_text6" type="text" placeholder="Enter Molecule Strength" required="required" class="text_subhead6"/>' +
             '</div> </div> </div>');
         return false; //prevent form submission
     });
-    $('.repeater6').on('click', '.remove', function() {
+    $('.repeater6').on('click','.remove', function() {
         $(this).parent().remove();
         return false; //prevent form submission
     });
+    $('#drug_form2').hide();
+    $('#enter_more_data').click(function () {
+        $('#enter_more_data').hide();
+        $('#drugs1').hide();
+        $('#reset_button').hide();
+        $('#drug_form2').show();
+    });
+
 
     // $(".repeat").on('click', function (e) {
     //     $('.repeater').clone().insertAfter(".repeater");
@@ -527,7 +535,7 @@ $(function () {
     //     $('input#disease_name').toggle();
     // });
 
-    $('ul.tabs1').tabs('select_tab','#tab3');
+    //$('ul.tabs1').tabs();
 
     //$('.tabs1').hide();
     //$('#drug_data_form1').hide();
@@ -547,8 +555,7 @@ $(function () {
     //         brand_name += $(this).text();
     //     });
     // });
-
-    //$textarea.val($textarea.val().replace(/\n/g,"\n\u2022").replace(/\r/g,"\r\u2022"));
+    // $textarea.val($textarea.val().replace(/\n/g,"\n\u2022").replace(/\r/g,"\r\u2022"));
 
 
     //- ................... DISEASE DATA FORM SUBMIT ....................
@@ -558,12 +565,20 @@ $(function () {
         var risk_factor = $('#risk_factors').val();
         var cause = $('#causes').val();
         var subhead1 = [];
-        $('.repeat_subhead').each(function(){
+        $('.repeat_subhead1').each(function(){
             subhead1.push($(this).val()); //output <-- ['a','b','c']
         });
         var subhead2 = [];
-        $('.text_subhead').each(function () {
+        $('.text_subhead1').each(function () {
             subhead2.push($(this).val());
+        });
+        var subhead71 = [];
+        $('.repeat_subhead7').each(function(){
+            subhead71.push($(this).val()); //output <-- ['a','b','c']
+        });
+        var subhead72 = [];
+        $('.text_subhead7').each(function () {
+            subhead72.push($(this).val());
         });
         var treatment = $('#treatment').val();
         var outlook = $('#outlook').val();
@@ -577,6 +592,8 @@ $(function () {
             cause: cause,
             subhead1 : subhead1,
             subhead2 : subhead2,
+            subhead : subhead71,
+            info : subhead72,
             treatment: treatment,
             outlook: outlook,
             prevention: prevention,
@@ -607,11 +624,11 @@ $(function () {
         var strength1 = $("#strength").val();
         var strength2 = $("#strengths").val();
         var subhead1 = [];
-        $('.repeat_subhead').each(function(){
+        $('.repeat_subhead6').each(function(){
             subhead1.push($(this).val()); //output <-- ['a','b','c']
         });
         var subhead2 = [];
-        $('.text_subhead').each(function () {
+        $('.text_subhead6').each(function () {
             subhead2.push($(this).val());
         });
         //var potent_substance = $('#potent_substance').val();
@@ -631,9 +648,8 @@ $(function () {
             categories: categories,
             strength1: strength1,
             strength2: strength2,
-            //potent_substance: potent_substance,
-            subhead1: subhead1,
-            subhead2: subhead2,
+            subhead111: subhead1,
+            subhead222: subhead2,
             dosage_form: dosage_form,
             packaging: packaging,
             price: price,
@@ -646,7 +662,7 @@ $(function () {
         };
 
         $.ajax({
-            url: '/drugData',
+            url: '/medicines',
             type: 'POST',
             data: JSON.stringify(data),
             contentType: 'application/json',
@@ -662,7 +678,7 @@ $(function () {
         });
     });
 
-    $('#molecule_data_form').click(function (in_lactation) {
+    $('#molecule_data_form').click(function () {
         var molecule_name = $('#molecule_name').val();
         var drug_categories = $('#drug_category').val();
         var absorption = $('#absorption').val();
@@ -672,19 +688,52 @@ $(function () {
         var description = $('#short_description').val();
         var side_effect = $('#side_effect').val();
         var precaution = $('#precaution').val();
-        var drug_interaction = $('#other_drug_interaction').val();
-        var food_interaction = $('#other_interactions').val();
         var food = $('#food_taken').val();
-        var oral = $('#oral').val();
-        var intravenous = $('#intravenous').val();
         var source = $('#source').val();
-        var subhead1 = [];
-        $('.repeat_subhead').each(function(){
-            subhead1.push($(this).val()); //output <-- ['a','b','c']
+
+        //other drug interactions
+        var subhead51 = [];
+        $('.repeat_subhead5').each(function(){
+            subhead51.push($(this).val()); //output <-- ['a','b','c']
+            console.log("test subhead51" +subhead51);
         });
-        var subhead2 = [];
-        $('.text_subhead').each(function () {
-            subhead2.push($(this).val());
+        var subhead52 = [];
+        $('.text_subhead5').each(function () {
+            subhead52.push($(this).val());
+        });
+        //var drug_interaction = $('#other_drug_interaction').val();
+        //var food_interaction = $('#other_interactions').val();
+        //var oral = $('#oral').val();
+        //var intravenous = $('#intravenous').val();
+
+        // other interactions
+        var subhead41 = [];
+        $('.repeat_subhead4').each(function(){
+            subhead41.push($(this).val()); //output <-- ['a','b','c']
+        });
+        var subhead42 = [];
+        $('.text_subhead4').each(function () {
+            subhead42.push($(this).val());
+        });
+
+        // ........dosage field in molecule form............
+        var subhead31 = [];
+        $('.repeat_subhead3').each(function(){
+            subhead31.push($(this).val()); //output <-- ['a','b','c']
+        });
+        var subhead32 = [];
+        $('.text_subhead3').each(function () {
+            subhead32.push($(this).val());
+        });
+
+        // List of contraindications
+        var subhead21 = [];
+        $('.repeat_subhead2').each(function(){
+            subhead21.push($(this).val()); //output <-- ['a','b','c']
+        });
+        var subhead22 = [];
+        $('.text_subhead2').each(function () {
+            subhead22.push($(this).val());
         });
 
         var data = {
@@ -697,14 +746,16 @@ $(function () {
             description: description,
             side_effect: side_effect,
             precaution: precaution,
-            drug_interaction : drug_interaction,
-            food_interaction : food_interaction,
+            subhead5: subhead51,
+            info5: subhead52,
             food : food,
-            oral :oral,
-            intravenous:intravenous,
-            source :source,
-            subhead1: subhead1,
-            subhead2: subhead2
+            subhead4: subhead41,
+            info4: subhead42,
+            subhead3: subhead31,
+            info3: subhead32,
+            subhead2_dosage: subhead21,
+            info2: subhead22,
+            source :source
         };
 
         $.ajax({
@@ -738,9 +789,7 @@ $(function () {
     //        'max' : [100]
     //    }
     // });
-
     // ................FOR PROFILE OF DOCTOR ...................
-
     // $('#create_profile1').click(function () {
     //     var name = $('#name').val();
     //     var specialization = $('#specialization').val();
@@ -772,6 +821,61 @@ $(function () {
     //     // $('#main_profile_doctor').show();
     // });
 
+    // ............................. FEEDBACK AND NEED HELP ...................//
+
+    $('#submit_feedback').click(function () {
+        var usefulness = $("input[type='radio'][name='radio1_feedback']:checked").val();
+        var suggestion = $('#suggestion').val();
+        var about = $('#data_name').val();
+        var data = {
+            usefulness: usefulness,
+            suggestion: suggestion,
+            about : about
+        };
+        $.ajax({
+            url:'/feedback',
+            type: 'POST',
+            data: JSON.stringify(data),
+            contentType:'application/json',
+            success: function (result) {
+                if(result.message === 'success'){
+                    Materialize.toast(result.message, 1000);
+                }
+                else{
+                    Materialize.toast(result.message,1000);
+                }
+            }
+        });
+    });
+
+    $('#submit_help').click(function () {
+        //var number = $('#number').val();
+        var subject = $('#query').val();
+        var contact_message = $('#message').val();
+        var data = {
+            subject : subject,
+            contact_message : contact_message
+        };
+        $.ajax({
+            url : '/needhelp',
+            type: 'POST',
+            data: JSON.stringify(data),
+            contentType: 'application/json',
+            success: function (result) {
+                if (result.message === 'success') {
+                    Materialize.toast(result.message, 1000);
+                    // $('#queries').hide();
+                    // alert("We will Contact You soon! :)");
+                    //window.location = '/health_care_provider?page=need_help';
+                }
+                else {
+                    Materialize.toast(result.message, 1000);
+                }
+            }
+        });
+    });
+
+    // ............................. DOCTOR PROFILE ...........................//
     $('#doctor').click(function () {
         var profession = 'doctor';
         var data= {
@@ -898,14 +1002,28 @@ $(function () {
         });
     });
 
-    //- .............BASIC DETAILS SUBMIT FORM ........................
-    $('#edu_special').hide();
-    //$('#register_doc').hide();
+    // --------------------- TABS USED IN PROFILE STEP 3 ---------------------------
+    $('ul.tabs').tabs('select_tab', '#tab1');
+
+    // $('#edu_special').hide();
+    // $('#register_doc').hide();
+    // $("#tab2").click(function () {
+    //     //$('#tab2').focus().active();
+    //     $("#edu_special").show();
+    //     $('#basic_detail').hide();
+    // });
+    //
+    // $("#tab3").click(function () {
+    //     $('#tab3').focus().active();
+    //     $("#register_doc").show();
+    //     $('#basic_detail').hide();
+    // });
+
     $('#basic_details').click(function () {
         var title = $('#title').val();
         var name = $('#name').val();
         var email = $('#email').val();
-        // var gender = $("input[type='radio'][name='gender']:checked").val();
+        var gender = $("input[type='radio'][name='gender']:checked").val();
         var city = $('#city').val();
         var experience = $('#year_of_experience').val();
         var about = $('#about_you').val();
@@ -931,15 +1049,8 @@ $(function () {
                     Materialize.toast(result.message, 1000);
                 }
             }
-            //window.location = '/health_care_provider?page=profile_pharmacist';
-            // $('#profile3').hide();
-            // $('#main_profile_pharmacist').show();
+
         });
-        //$('#tab2').focus();
-        //$('#main_profile_doctor ul.tabs li.tab a').hover(function() {
-        $('#tab2').focus();
-        $('#basic_detail').hide();
-        $('#edu_special').show();
     });
 
     $('#basic_details_pharma').click(function () {
@@ -978,15 +1089,14 @@ $(function () {
         });
         //$('#tab2').focus();
         //$('#main_profile_doctor ul.tabs li.tab a').hover(function() {
-        $('#tab2').focus();
-        $('#basic_detail_pharma').hide();
-        //$('#edu_special').show();
+        // $('#tab2').focus();
+        // $('#basic_detail_pharma').hide();
+        // $('#edu_special').show();
     });
 
     $('#education').click(function () {
         var qualification = $('#qualification').val();
         var college = $('#college').val();
-
         var completion_year = $('#completion_year').val();
         var batch_from = $('#batch_from').val();
         var batch_to = $('#batch_to').val();
@@ -1052,13 +1162,12 @@ $(function () {
                 }
             }
         });
-        $('#tab3').focus();
+        //$('#tab3').focus();
         // $('#main_profile_doctor ul.tabs li.tab a').hover(function() {
         //     $('#tab3').addClass('active').find('li.tab').show().css({'background-color':'lavender'});
         // });
-
-        $('#edu_special').hide();
-        $('#register_doc').show();
+        //$('#edu_special').hide();
+        //$('#register_doc').show();
     });
 
     $('.upload_image1').submit(function () {
@@ -1140,11 +1249,6 @@ $(function () {
 
     // ................FOR PROFILE OF PHARMACISTS ...................
 
-
-    //$('select').material_select();
-
-    // TABS USED IN PROFILE STEP 3
-    $('ul.tabs').tabs('select_tab', '#tab3');
 
     // $('.file_upload').change(function(input) {
     //     if(input.files && input.files[0])

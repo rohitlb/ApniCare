@@ -9,7 +9,7 @@ div.row
                     div.drug_alphabets.pull-left
                         span.center
                             ul
-                                li.active
+                                li
                                     a.btn2.all.hoverable(href='/health_care_provider?page=molecule_data' type='all') All
                                 li
                                     a.btn2.hoverable(href='/health_care_provider?page=molecule_data') A
@@ -70,37 +70,72 @@ div.row
             div.col.grey.lighten-3.s12.m8.l8.offset-l1
                 ul
                     each val in data
-                        h5.section.scrollspy#mol_name Molecule name
-                        li.next_line #{val.molecule_name}
-                        h5.section.scrollspy#drug_cat Drug categories
-                        li.next_line #{val.drug_categories}
-                        h5.section.scrollspy#short description
-                        li.next_line #{val.description}
-                        h5.section.scrollspy#absorption absorption
-                        li.next_line #{val.absorption}
-                        h5.section.scrollspy#distribution distribution
-                        li.next_line #{val.distribution}
-                        h5.section.scrollspy#metabolism metabolism
-                        li.next_line #{val.metabolism}
-                        h5.section.scrollspy#excretion excretion
-                        li.next_line #{val.excretion}
-                        h5.section.scrollspy#adverse Adverse Reaction
-                        li.next_line #{val.side_effect}
-                        h5.section.scrollspy#precaution Precaution
-                        li.next_line #{val.precaution}
-                        h5.section.scrollspy#drug_int drug_interaction
-                        li.next_line #{val.drug_interaction}
-                        h5.section.scrollspy#other other interaction
-                        li.next_line #{val.drug_interaction}
-                        h5.section.scrollspy#dosage Dosage
-                        li.next_line #{val.dosage}
-                        h5.section.scrollspy#food Food
-                        li.next_line #{val.food}
-                        h5.section.scrollspy#contraindications List of contraindications
-                        //h4 subhead
-                        //li #{val.contradictions[0].subhead}
-                        //h4 information
-                        //li #{val.contradictions[1].info}
+                        h4.bold.section.scrollspy#mol_name.next_line.text_upper_case <strong>#{val.molecule_name}</strong>
+                        h5.bold.section.scrollspy#drug_cat.small_font.next_line [#{val.drug_categories}]
+                        h5
+                            span.section.scrollspy#short.next_line #{val.description}
+                        h5 <strong>PHARMACOKINETICS</strong>
+                        li.next_line
+                            h5.section.scrollspy#absorption Absorption
+                            span.small_font.next_line #{val.absorption}
+                        li.next_line
+                            h5.bold.section.scrollspy#distribution Distribution
+                            span.small_font.next_line #{val.distribution}
+                        li.next_line
+                            h5.bold.section.scrollspy#metabolism Metabolism
+                            span.small_font.next_line #{val.metabolism}
+                        li.next_line
+                            h5.bold.section.scrollspy#excretion Excretion
+                            span.small_font.next_line #{val.excretion}
+                        h5.bold.section.scrollspy#adverse <strong>ADVERSE REACTION</strong>
+                        span.small_font.next_line #{val.side_effect}
+                        h5.bold.section.scrollspy#precaution <strong>SPECIAL PRECAUTIONS</strong>
+                        span.small_font.next_line #{val.precaution}
+                        h5.bold.section.scrollspy#drug_int <strong>OTHER DRUG INTERACTION</strong>
+                        each j in val.other_drug_interaction
+                            - var array51 = j.subhead.split(",");
+                            - var array52 = j.info.split(",")
+                            -for(var l = 0;l< array51.length ; l++)
+                                li.next_line
+                                    h5.bold= array51[l]
+
+                                span.small_font.next_line.bold=  array52[l]
+                                br
+                        h5.bold.section.scrollspy#other <strong>OTHER INTERACTION</strong>
+                        each other in val.other_interaction
+                            - var array41 = other.subhead.split(",");
+                            - var array42 = other.info.split(",")
+                            -for(var l = 0;l< array41.length ; l++)
+                                li.next_line
+                                    h5.bold= array41[l]
+                                span.next_line.small_font= array42[l]
+                                br
+
+                        h5.bold.section.scrollspy#dosage <strong>DOSAGE</strong>
+                        each dose in val.dosage
+                            - var array31 = dose.subhead.split(",");
+                            - var array32 = dose.info.split(",")
+                            -for(var l = 0;l< array31.length ; l++)
+                                li.next_line
+                                    h5.bold= array31[l]
+                                span.next_line.small_font= array32[l]
+                                br
+
+                        h5.bold.section.scrollspy#food <strong>TAKEN (BEFORE/AFTER) FOOD</strong>
+                        span.small_font.next_line #{val.food}
+                        h5.bold.section.scrollspy#contradictions <strong>LIST OF CONTRADICTIONS</strong>
+                        each cont in val.contradictions
+                            - var array21 = cont.subhead.split(",");
+                            - var array22 = cont.info.split(",");
+                            -for(var l = 0;l< array21.length ; l++)
+                                li.next_line
+                                    h5.bold= array21[l]
+                                span.next_line.small_font= array22[l]
+                                br
+
+                        h5.bold.section.scrollspy#source <strong>SOURCE OF INFORMATION</strong>
+                        span.small_font.next_line #{val.source}
+
             div.col.m4.l3.hide-on-small-only
                 ul.section.table-of-contents(style='position:fixed;padding-bottom:10px;')
                     li
@@ -110,29 +145,29 @@ div.row
                     li
                         a(href='#short') Short Description
                     li
-                        a(href='#absorption') absorption
+                        a(href='#absorption') Absorption
                     li
-                        a(href='#distribution') distribution
+                        a(href='#distribution') Distribution
                     li
-                        a(href='#metabolism') metabolism
+                        a(href='#metabolism') Metabolism
                     li
-                        a(href='#excretion') excretion
+                        a(href='#excretion') Excretion
                     li
                         a(href='#adverse') Adverse Reaction
                     li
                         a(href='#precautions') Precautions
                     li
-                        a(href='#drug_int') drug_interactions
+                        a(href='#drug_int') Other Drug Interactions
                     li
-                        a(href='#other') other interactions
+                        a(href='#other') Other Interactions
                     li
                         a(href='#dosage') Dosage
                     li
                         a(href='#food') Food Interactions
                     li
-                        a(href='#contraindications') List of contraindications
-                    //li
-                    //    a(href='') Molecule Name
+                        a(href='#contradictions') List of contradictions
+                    li
+                        a(href='#source') Source of Information
                     //li
                     //    a(href='') Molecule Name
                     //li
@@ -141,7 +176,7 @@ div.row
         div
             br
             br
-            div.col.s12.l12.m12.grey.lighten-1(style='padding:5px;margin-top:20px')
+            div.col.s12.l12.m12.grey.lighten-1(style='padding:5px;margin-top:20px;')
                 a.black-text.modal-trigger(href='#modal2') <strong>Give a Feedback on the above data</strong>
                     i.material-icons.left.black-text feedback
         div.modal#modal2
@@ -152,34 +187,27 @@ div.row
                         span How useful is the data that we provide?
                         br
                         br
-                        input.with-gap#radio1(name='radio1_feedback' type='radio')
+                        input.with-gap#radio1(name='radio1_feedback' type='radio' value='Very Useful' checked)
                         label(for='radio1') Very Useful&nbsp
-                        input.with-gap#radio2(name='radio1_feedback' type='radio')
+                        input.with-gap#radio2(name='radio1_feedback' type='radio' value='Useful')
                         label(for='radio2') Useful&nbsp
-                        input.with-gap#radio3(name='radio1_feedback' type='radio')
+                        input.with-gap#radio3(name='radio1_feedback' type='radio' value='Average')
                         label(for='radio3') Average&nbsp
-                        input.with-gap#radio4(name='radio1_feedback' type='radio')
+                        input.with-gap#radio4(name='radio1_feedback' type='radio' value='Not Useful')
                         label(for='radio4') Not Useful&nbsp
-                        input.with-gap#radio5(name='radio1_feedback' type='radio')
+                        input.with-gap#radio5(name='radio1_feedback' type='radio' value='Not Useful At All')
                         label(for='radio5') Not Useful At All
 
-                        //div.question-wrapper.questionWrapper.false(style='display:inline-block; width: 100%; position:relative;')
-                        //    label#label1.form-label.form-label-left.form-label-auto(style='width:170px;')
-                        //        div.editor-container.editor(style='display:inline;width:100%;')
-                        //            div(placeholder='Type a Question' contenteditable='true' style='width:100%;') Questions
-                        //    div.form-input(style='position:relative')
-
-                        //textarea#text1
-                        //label(for='text1')
                     br
                     div.input-field
-                        span Suggest changes in data(if any)
-                        textarea#text2(style='height:90px;')
-                        label(for='text2')
+                        span Suggest changes in data
+                        textarea#suggestion(style='height:90px;' required)
+                        label(for='suggestion')
                     br
 
                     div.row
                         div.col.s6.l4.m4.offset-l1
                             input.reset(type='reset')
                         div.col.s6.l4.m4.offset-l3
-                            input.button(type='submit')
+                            input.button#submit_feedback(type='submit')
+
