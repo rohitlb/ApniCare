@@ -2287,7 +2287,7 @@ app.get('/search_molecule',function (req,res) {
 app.get('/formolecule',function (req,res) {
     var molecule = req.query.molecule;
 
-    if(req.query.info = 'info'){
+    if(req.query.page = 'info'){
         Molecule.find({molecule_name: molecule}, function (err, info) {
             if (err) {
                 console.log(err);
