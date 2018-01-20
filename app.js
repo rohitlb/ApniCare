@@ -578,6 +578,259 @@ app.get('/ApniCare/information/Drug',function (req,res) {
 
         });
 });
+//================================== search Middleware ===================
+
+app.post('/searchall',function (req,res) {
+    var raw = req.body.search;
+    var spaceRemoved = raw.replace(/\s/g, '');
+    var skip = parseInt(req.body.nskip);
+
+    var search = new RegExp('^'+spaceRemoved,'i' );
+    async.parallel([
+        function (callback) { // gives molecule_name sorted list
+            Molecule.find({molecule_name : search},'-_id molecule_name').sort({molecule_name : 1}).skip(skip).limit(10).exec(function (err,result) {
+                if(err){
+                    console.log(err);
+                }
+                else{
+                    callback(null,result);
+                }
+            });
+        },
+        function (callback) { // gives categories sorted list
+            Brand.find({categories : search},'-_id categories').sort({categories : 1}).skip(skip).limit(10).exec(function (err,result) {
+                if(err){
+                    console.log(err);
+                }
+                else{
+                    callback(null,result);
+                }
+            });
+        },
+        function (callback) {  // gives brand_name sorted list
+            Brand.find({brand_name : search},'-_id brand_name').sort({brand_name : 1}).skip(skip).limit(10).exec(function (err,result) {
+                if(err){
+                    console.log(err);
+                }
+                else{
+                    callback(null,result);
+                }
+            });
+        },
+        function (callback) { // gives disease_name sorted list
+            Disease.find({disease_name : search},'-_id disease_name').sort({disease_name : 1}).skip(skip).limit(10).exec(function (err,result) {
+                if(err){
+                    console.log(err);
+                }
+                else{
+                    callback(null,result);
+                }
+            });
+        },
+        function (callback) {  // gives organs sorted list
+            Disease.find({organs : search},'-_id organs').sort({organs : 1}).skip(skip).limit(10).exec(function (err,result) {
+                if(err){
+                    console.log(err);
+                }
+                else{
+                    callback(null,result);
+                }
+            });
+        },
+        function (callback) { // gives symptoms sorted list
+            Disease.find({symptoms : search},'-_id symptoms').sort({disease_name : 1}).skip(skip).limit(10).exec(function (err,result) {
+                if(err){
+                    console.log(err);
+                }
+                else{
+                    callback(null,result);
+                }
+            });
+        }
+    ],function (err,results) {
+        if(err){
+            console.log(err);
+        }
+        else {
+            res.send(results);
+
+            console.log(results);
+        }
+    });
+});
+
+app.post('/search_mbc',function (req,res) {
+    var raw = req.body.search;
+    var skip = parseInt(req.body.nskip);
+    var spaceRemoved = raw.replace(/\s/g, '');
+    var search = new RegExp('^'+spaceRemoved,'i' );
+    async.parallel([
+        function (callback) { // gives molecule_name sorted list
+            Molecule.find({molecule_name : search},'-_id molecule_name').sort({molecule_name : 1}).skip(skip).limit(10).exec(function (err,result) {
+                if(err){
+                    console.log(err);
+                }
+                else{
+                    callback(null,result);
+                }
+            });
+        },
+        function (callback) { // gives categories sorted list
+            Brand.find({categories : search},'-_id categories').sort({categories : 1}).skip(skip).limit(10).exec(function (err,result) {
+                if(err){
+                    console.log(err);
+                }
+                else{
+                    callback(null,result);
+                }
+            });
+        },
+        function (callback) { // gives categories sorted list
+            Brand.find({brand_name : search},'-_id categories').sort({brand_name : 1}).skip(skip).limit(10).exec(function (err,result) {
+                if(err){
+                    console.log(err);
+                }
+                else{
+                    callback(null,result);
+                }
+            });
+        }
+    ],function (err,results) {
+        if(err){
+            console.log(err);
+        }
+        else {
+            res.send(results);
+
+            console.log(results);
+        }
+    });
+});
+
+app.post('/search_dos',function (req,res) {
+    var raw = req.body.search;
+    var skip = parseInt(req.body.nskip);
+    console.log(raw);
+    var spaceRemoved = raw.replace(/\s/g, '');
+    var search = new RegExp('^'+spaceRemoved,'i' );
+    async.parallel([
+        function (callback) { // gives disease_name sorted list
+            Disease.find({disease_name : search},'-_id disease_name').sort({disease_name : 1}).skip(skip).limit(10).exec(function (err,result) {
+                if(err){
+                    console.log(err);
+                }
+                else{
+                    callback(null,result);
+                }
+            });
+        },
+        function (callback) { // gives organs sorted list
+            Disease.find({organs : search},'-_id organs').sort({organs : 1}).skip(skip).limit(10).exec(function (err,result) {
+                if(err){
+                    console.log(err);
+                }
+                else{
+                    callback(null,result);
+                }
+            });
+        },
+        function (callback) { // gives symptoms sorted list
+            Disease.find({symptoms : search},'-_id symptoms').sort({disease_name : 1}).skip(skip).limit(10).exec(function (err,result) {
+                if(err){
+                    console.log(err);
+                }
+                else{
+                    callback(null,result);
+                }
+            });
+        }
+    ],function (err,results) {
+        if(err){
+            console.log(err);
+        }
+        else {
+            res.send(results);
+
+            console.log(results);
+        }
+    });
+});
+
+app.post('/filtersearch', function (req,res) {
+    var filt = req.body.filter;
+    var raw = req.body.search;
+    var skip = parseInt(req.body.nskip);
+    var spaceRemoved = raw.replace(/\s/g, '');
+    var search = new RegExp(spaceRemoved, 'i');
+    switch (filt){
+        case "molecule_name"   :
+            Molecule.find({molecule_name : search},'-_id molecule_name').sort({molecule_name : 1}).skip(skip).limit(10).exec(function (err,result) {
+                if(err){
+                    console.log(err);
+                }
+                else{
+                    res.send(result);
+                }
+            });
+            break;
+
+        case "categories"   :
+            Brand.find({categories : search},'-_id categories').sort({categories : 1}).skip(skip).limit(10).exec(function (err,result) {
+                if(err){
+                    console.log(err);
+                }
+                else{
+                    res.send(result);
+                }
+            });
+            break;
+
+        case "brand_name"  :
+            Brand.find({brand_name : search},'-_id brand_name').sort({brand_name : 1}).skip(skip).limit(10).exec(function (err,result) {
+                if(err){
+                    console.log(err);
+                }
+                else{
+                    res.send(result);
+                }
+            });
+            break;
+
+        case "disease_name"   :
+            Disease.find({disease_name : search},'-_id disease_name').sort({disease_name : 1}).skip(skip).limit(10).exec(function (err,result) {
+                if(err){
+                    console.log(err);
+                }
+                else{
+                    res.send(result);
+                }
+            });
+            break;
+
+        case "organs"  :
+            Disease.find({organs : search},'-_id organs').sort({organs : 1}).skip(skip).limit(10).exec(function (err,result) {
+                if(err){
+                    console.log(err);
+                }
+                else{
+                    res.send(result);
+                }
+            });
+            break;
+
+        case "symptoms"  :
+            Disease.find({symptoms : search},'-_id symptoms').sort({symptoms : 1}).skip(skip).limit(10).exec(function (err,result) {
+                if(err){
+                    console.log(err);
+                }
+                else{
+                    res.send(result);
+                }
+            });
+            break;
+        default : res.send({result : "don't even dare to mess up with my code"});
+    }
+});
 
 
 //*****************************************USER LOGIN*******************************************************************
