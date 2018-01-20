@@ -528,7 +528,6 @@ app.get('/ApniCare/information/Molecules',function (req,res) {
 
 app.get('/ApniCare/information/Diseases',function (req,res) {
     var disease = req.query.disease;
-    var brand = req.query.brand;
     Disease.find({disease_name : disease},'-_id -__v').exec(function (err, result) {
         if (err) {
             console.log(err);
