@@ -55,3 +55,30 @@ background-color: #0d0d0d;
     border-radius: 10px;
     color: #f9f9f9;
 }
+/*---------------need help?---------------------------*/
+#modal_needhelp{
+    height: 90%;
+    max-height: 80%;
+}
+#main_text{
+    font-weight: 800;
+    font-family: OpenSans-Regular, sans-serif;
+}
+#fdropdown{
+    border: inset;
+    border-color: lightgrey;
+    height:50px ;
+}
+#textarea1{
+    border: outset;
+    height: 70px;
+}
+#n_emailof,#numberof,#nameof{
+    background-color: white;
+    border: outset;
+    height: 50px;
+}
+#submitbutt{
+    margin-left: 25%;
+    background-color: #660099;
+}

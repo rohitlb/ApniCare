@@ -60,7 +60,7 @@ $(document).ready(function() {
             }
         )
 
-    })
+    });
 
     $('#verify').click(function () {
         var otp = $('#otp').val();

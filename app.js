@@ -156,13 +156,11 @@ app.post('/needhelp' , function (req,res) {
 });
 
 app.post('/needhelpWL' , function (req,res) {
-
     var name = req.body.name;
     var email = req.body.email;
     var number = req.body.number;
     var subject = req.body.subject;
     var contact_message = req.body.contact_message;
-
     var needhelpWL = new NeedhelpWL({
         name : name,
         email : email,
@@ -281,10 +279,10 @@ app.post('/VerifyOTP',function (req, res) {
 });
 
 app.get('/home',function (req,res) {
-    if (req.session.userID) {
+    //if (req.session.userID) {
         res.render('index');
         res.end();
-    }
+    //}
 });
 
 app.get('/', function (req, res) {
