@@ -826,7 +826,7 @@ $(function () {
     $('#submit_feedback').click(function () {
         var usefulness = $("input[type='radio'][name='radio1_feedback']:checked").val();
         var suggestion = $('#suggestion').val();
-        var about = $('#data_name').val();
+        var about = $('#data_name').html();
         alert(suggestion);
         var d = new Date();
         var month = d.getMonth()+1;
