@@ -2579,16 +2579,15 @@ app.get('/health_care_provider',function(req,res) {
     var molecule = req.query.molecule;
 
     if(req.query.page == 'profile') {
+
         Doctor.findOne({_id: req.session.doctorID}, function (err, result) {
             if (err) {
                 console.log(err)
             }
             else {
-                if (req.query.page == 'home' || req.query.page == 'profile_doctor' || req.query.page == 'profile_student_doctor' || req.query.page == 'profile_student_pharmacist' || req.query.page == 'profile' || req.query.page == 'profile_pharmacist' || req.query.page == 'drug_data' || req.query.page == 'molecule_data' || req.query.page == 'disease_data' || req.query.page == 'drug_data_form' || req.query.page == 'molecule_data_form' || req.query.page == 'disease_data_form' || req.query.page == 'feedback_contributions' || req.query.page == 'feedback_profile' || req.query.page == 'notifications' || req.query.page == 'need_help')
-                    page = req.query.page;
                 res.render('home_profile_doctor',
                     {
-                        page: page,
+                        page: 'profile',
                         data: result
 
                     });
@@ -4020,8 +4019,8 @@ app.post('/healthcarelogin',function(req,res) {
                 }
             })
         },
-        doctor: function (callback) {
-            Doctor.find({number: number, password: password}, function (err, result) {
+        pharma: function (callback) {
+            Pharma.find({number: number, password: password}, function (err, result) {
                 if (err) {
                     console.log(err);
                 }
