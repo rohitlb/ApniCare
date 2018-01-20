@@ -827,10 +827,27 @@ $(function () {
         var usefulness = $("input[type='radio'][name='radio1_feedback']:checked").val();
         var suggestion = $('#suggestion').val();
         var about = $('#data_name').val();
+        alert(suggestion);
+        var d = new Date();
+        var month = d.getMonth()+1;
+        var day = d.getDate();
+        var output = d.getFullYear() + '' +
+            ((''+month).length<2 ? '0' : '') + month + '' +
+            ((''+day).length<2 ? '0' : '') + day;
+
+        var minNumber = 0000;
+        var maxNumber = 9999;
+        var randomNumber = randomNumberFromRange(minNumber, maxNumber);
+        var token = output+""+randomNumber;
+        function randomNumberFromRange(min,max)
+        {
+            return Math.floor(Math.random()*(max-min+1)+min);
+        }
         var data = {
             usefulness: usefulness,
             suggestion: suggestion,
-            about : about
+            about : about,
+            token : token
         };
         $.ajax({
             url:'/feedback',

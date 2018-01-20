@@ -22,7 +22,7 @@ var keys = require('./private/keys');
 
 
 // req model for feedback and need help
-var Feedback = require('./model/feedback');
+var Feedback = require('./model/adminfeedback');
 var Needhelp = require('./model/needhelp');
 var NeedhelpWL = require('./model/needhelpWL');
 
@@ -120,10 +120,28 @@ app.get('/test',function (req,res) {
 app.post('/feedback' , function (req,res) {
     var usefulness = req.body.usefulness;
     var suggestion = req.body.suggestion;
+    var feedbackFrom = req.body.about;
+    var ticket = req.body.token;
+    console.log(usefulness);
+    console.log(suggestion);
+    console.log(feedbackFrom);
+    console.log(ticket);
 
+    if(req.session.userID){
+        name = req.session.userID;
+    }
+    if(req.session.doctorID){
+        name = req.session.doctorID;
+    }
+    if(req.session.pharmaID){
+        name = req.session.pharmaID;
+    }
     var feedback = new Feedback({
-        usefulness : usefulness,
-        suggestion : suggestion
+        feedbackUsefulness : usefulness,
+        feedbackInfo : suggestion,
+        feedbackFrom : name,
+        feedbackCategory : feedbackFrom,
+        feedbackTicket : ticket
     });
 
     feedback.save(function (err, result) {
