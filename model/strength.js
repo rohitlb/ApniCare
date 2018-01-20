@@ -3,6 +3,7 @@ var Schema = mongoose.Schema;
 
 var Strength = new Schema({
     strength : {type : String},
+    strength_unit : {type : String},
     potent_substance : [{
         name : {type : String},
         molecule_strength : {type : String}
@@ -12,7 +13,9 @@ var Strength = new Schema({
     prescription : {type : String},
     dose_taken : {type : String},
     dose_timing : {type : String},
-    warnings : {type : String}
+    warnings : {type : String},
+    submitted_by : {type : String},
+    brands_id : [{type : Schema.Types.ObjectId , ref : 'brand'}]
 });
 
 module.exports = mongoose.model('strength',Strength);
