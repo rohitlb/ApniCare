@@ -2512,9 +2512,6 @@ app.get('/searchmolecule',function (req,res) {
     });
 });
 
-
-
-
 ////////////////////////////////////////// register as a doctor and user ///////////////////////////////////////////////
 
 app.get('/doctorasuser',function (req,res) {
@@ -2824,17 +2821,15 @@ app.get('/health_care_provider',function(req,res) {
     if(req.query.page == 'disease_data') {
 
         //console.log('Hey there');
-        Disease.find().populate({path : 'dosage_id',populate : {path : 'strength_id'}}).populate({path : 'company_id'}).exec(function (err,brand) {
+        Disease.find().sort({disease_name : 1}).exec(function (err,disease) {
             if (err) {
                 console.log(err);
             }
             else {
-                if (req.query.page == 'home' || req.query.page == 'profile_doctor' || req.query.page == 'profile_student_pharmacist' || req.query.page == 'profile' ||  req.query.page == 'profile_student_doctor' || req.query.page == 'profile_pharmacist' || req.query.page == 'drug_data' || req.query.page == 'molecule_data' || req.query.page == 'disease_data' || req.query.page == 'drug_data_form' || req.query.page == 'molecule_data_form' || req.query.page == 'disease_data_form' || req.query.page == 'feedback_contributions' || req.query.page == 'feedback_profile' || req.query.page == 'notifications' || req.query.page == 'need_help')
-                    page = req.query.page;
                 res.render('home_profile_doctor',
                     {
-                        page: page,
-                        data: brand
+                        page: "disease_data",
+                        data: disease
 
                     });
             }
@@ -2904,7 +2899,7 @@ app.get('/health_care_provider',function(req,res) {
 
         Molecule.find({},'-_id -__v').populate({path : 'dosage_id', select : '-_id -__v',populate : {
             path : 'strength_id', select : '-_id -__v'}}).populate({path : 'company_id'}
-        ).exec(function (err,molecule) {
+        ).sort({molecule_name:1}).exec(function (err,molecule) {
             if (err) {
                 console.log(err);
             }
@@ -3221,7 +3216,7 @@ app.post('/health_care_provider',function(req,res) {
 
         Brand.find({},'-_id brand_name types categories').populate(
             {path : 'dosage_id', select : '-_id dosage_form',populate :
-                {path : 'strength_id', select : '-_id strength strengths packaging potent_substance.name potent_substance.molecule_strength'}
+                {path : 'strength_id', select : '-_id strength strengths packaging potent_substance.name'}
             }).populate({path : 'company_id', select: '-_id company_name'}).sort({brand_name : 1}).exec(function (err,brand) {
             if (err) {
                 console.log(err);
@@ -3247,17 +3242,15 @@ app.post('/health_care_provider',function(req,res) {
     if(req.query.page == 'disease_data') {
 
         //console.log('Hey there');
-        Disease.find().populate({path : 'dosage_id',populate : {path : 'strength_id'}}).populate({path : 'company_id'}).exec(function (err,brand) {
+        Disease.find().sort({disease_name : 1}).exec(function (err,disease) {
             if (err) {
                 console.log(err);
             }
             else {
-                if (req.query.page == 'home' || req.query.page == 'profile_doctor' || req.query.page == 'profile_student_pharmacist' || req.query.page == 'profile' ||  req.query.page == 'profile_student_doctor' || req.query.page == 'profile_pharmacist' || req.query.page == 'drug_data' || req.query.page == 'molecule_data' || req.query.page == 'disease_data' || req.query.page == 'drug_data_form' || req.query.page == 'molecule_data_form' || req.query.page == 'disease_data_form' || req.query.page == 'feedback_contributions' || req.query.page == 'feedback_profile' || req.query.page == 'notifications' || req.query.page == 'need_help')
-                    page = req.query.page;
                 res.render('home_profile_doctor',
                     {
-                        page: page,
-                        data: brand
+                        page: "disease_data",
+                        data: disease
 
                     });
             }
@@ -3327,7 +3320,7 @@ app.post('/health_care_provider',function(req,res) {
 
         Molecule.find({},'-_id -__v').populate({path : 'dosage_id', select : '-_id -__v',populate : {
             path : 'strength_id', select : '-_id -__v'}}).populate({path : 'company_id'}
-        ).exec(function (err,molecule) {
+        ).sort({molecule_name:1}).exec(function (err,molecule) {
             if (err) {
                 console.log(err);
             }
