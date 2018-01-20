@@ -61,7 +61,7 @@ store.on('error',function (error) {
 app.disable('x-powered-by');
 
 //configure the app
-app.set('port',8000);
+app.set('port',9000);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
@@ -581,6 +581,7 @@ app.get('/ApniCare/information/Drug',function (req,res) {
 //================================== search Middleware ===================
 
 app.post('/searchall',function (req,res) {
+    console.log("searchall");
     var raw = req.body.search;
     var spaceRemoved = raw.replace(/\s/g, '');
     var skip = parseInt(req.body.nskip);
@@ -660,6 +661,8 @@ app.post('/searchall',function (req,res) {
 });
 
 app.post('/search_mbc',function (req,res) {
+    console.log("search_mbc");
+
     var raw = req.body.search;
     var skip = parseInt(req.body.nskip);
     var spaceRemoved = raw.replace(/\s/g, '');
@@ -708,6 +711,8 @@ app.post('/search_mbc',function (req,res) {
 });
 
 app.post('/search_dos',function (req,res) {
+    console.log("search_dos");
+
     var raw = req.body.search;
     var skip = parseInt(req.body.nskip);
     console.log(raw);
@@ -757,6 +762,8 @@ app.post('/search_dos',function (req,res) {
 });
 
 app.post('/filtersearch', function (req,res) {
+    console.log("filter");
+
     var filt = req.body.filter;
     var raw = req.body.search;
     var skip = parseInt(req.body.nskip);
@@ -2277,15 +2284,7 @@ app.get('/search_molecule',function (req,res) {
     });
 });
 
-app.get('/inmolecule',function (req,res) {
-    var molecule = req.query.molecule;
-
-
-});
-
-
 //======================= save profile pic ====================
-
 
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
