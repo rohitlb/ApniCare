@@ -5,7 +5,7 @@ div.collection#main_profile_student
         div.row
             .col.s12.m12.l9.offset-l3
                 //h5.bold.title1(style='font-size: 25px') Dr. #{data.name}
-                h5.bold.title1(style='font-size: 25px') DRx. #{data.name}
+                h5.bold.title1(style='font-size: 25px') DRx. #{data[0].name}
                 br
                 span.flow-text Profile is not complete yet
     div.collection-item.dismissable
@@ -17,7 +17,7 @@ div.collection#main_profile_student
                     a.btn.white-text.right(href='#' style='background-color:#660099') Edit Profile
                 br
                 br
-                div#progressbar
+                div#test-slider
     div.collection-item
         div.row
             div.col.s12.m12.l9.offset-l3
@@ -59,7 +59,7 @@ div.collection#main_profile_student
                     div.input-field.col.s12.m4.l4
                         span
                             | Name
-                            input#name(type="text" value=data.name)
+                            input#name(type="text" value=data[0].name)
 
                     div.col.s12.m4.l4
                         br
@@ -85,14 +85,14 @@ div.collection#main_profile_student
                                         | Mobile Number &nbsp
                                         span#f1(style='color:#660099;') Verified
                                             i.material-icons.left(style='color:#660099;') done
-                                        input#mobNo(type='text', value=data.number readonly)
+                                        input#mobNo(type='text', value=data[0].number readonly)
                             div.row
                                 div.input-field.col.s12.m6.l6
                                     span
                                         | Email ID  &nbsp
                                         span#f2(style='color:#660099;') Not Verified
                                             i.material-icons.left(style='color:#660099;') close
-                                        input#email(type='email', value=data.email)
+                                        input#email(type='email', value=data[0].email)
                     div.row
                         div.col.s6.m4.l3.offset-l3.offset-m2
                             input.reset(type='reset')
@@ -129,7 +129,7 @@ div.collection#main_profile_student
                             div.input-field.col.s12.m6.l6
                                 span
                                     | Specialization
-                                    input#specialization(type='text' value=data.specialization)
+                                    input#specialization(type='text' value=data[0].specialization)
 
 
 
