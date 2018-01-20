@@ -69,7 +69,7 @@ div.row
         div.col.s12.m12.l12
             div.col.grey.lighten-3.s12.m8.l8.offset-l1
                 each val in data
-                    h3#data_name #{val.disease_name.toUpperCase()}
+                    h3.about#data_name #{val.disease_name.toUpperCase()}
                     if(val.symptoms)
                         li.section.scrollspy#symptoms
                             span.bold What are the Symptoms of #{val.disease_name.toUpperCase()}?
