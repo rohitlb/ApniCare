@@ -24,3 +24,5 @@ server =  lots of console command been used
 frontend= Rupee sign should be symbol , its disturbing while entering data
             brand name capital
            first letter capital
+
+

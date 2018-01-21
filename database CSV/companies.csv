@@ -1,0 +1,45 @@
+{"_id":{"$oid":"5a644616324f572d8c470ecc"},"company_name":"Torrent Pharma","brand_id":[{"$oid":"5a644616324f572d8c470ecb"}],"__v":0}
+{"_id":{"$oid":"5a644a38324f572d8c470ed1"},"company_name":"Claris","brand_id":[{"$oid":"5a644a38324f572d8c470ed0"},{"$oid":"5a644e3ee1609631e8fdf4f7"}],"__v":0}
+{"_id":{"$oid":"5a644ad0e1609631e8fdf4c9"},"company_name":"Glenamrk","brand_id":[{"$oid":"5a644ad0e1609631e8fdf4c8"}],"__v":0}
+{"_id":{"$oid":"5a644b44e1609631e8fdf4d1"},"company_name":"Zee Lab","brand_id":[{"$oid":"5a644b44e1609631e8fdf4d0"}],"__v":0}
+{"_id":{"$oid":"5a644ba4e1609631e8fdf4d6"},"company_name":"Intas","brand_id":[{"$oid":"5a644ba4e1609631e8fdf4d5"},{"$oid":"5a644d5ee1609631e8fdf4ee"}],"__v":0}
+{"_id":{"$oid":"5a644bf8e1609631e8fdf4db"},"company_name":"Menarini","brand_id":[{"$oid":"5a644bf8e1609631e8fdf4da"}],"__v":0}
+{"_id":{"$oid":"5a644c9ee1609631e8fdf4e0"},"company_name":"Amideep","brand_id":[{"$oid":"5a644c9ee1609631e8fdf4df"}],"__v":0}
+{"_id":{"$oid":"5a644d1be1609631e8fdf4ea"},"company_name":"Albert David","brand_id":[{"$oid":"5a644d1ae1609631e8fdf4e9"}],"__v":0}
+{"_id":{"$oid":"5a644da5e1609631e8fdf4f3"},"company_name":"Baxter","brand_id":[{"$oid":"5a644da5e1609631e8fdf4f2"}],"__v":0}
+{"_id":{"$oid":"5a644f8ae1609631e8fdf4fc"},"company_name":"Bell Pharma","brand_id":[{"$oid":"5a644f8ae1609631e8fdf4fb"}],"__v":0}
+{"_id":{"$oid":"5a645041e1609631e8fdf50d"},"company_name":"Indica Laboratories","brand_id":[{"$oid":"5a645041e1609631e8fdf50c"}],"__v":0}
+{"_id":{"$oid":"5a6450ace1609631e8fdf512"},"company_name":"Sun","brand_id":[{"$oid":"5a6450ace1609631e8fdf511"}],"__v":0}
+{"_id":{"$oid":"5a645131e1609631e8fdf51b"},"company_name":"Entod","brand_id":[{"$oid":"5a64512ee1609631e8fdf519"},{"$oid":"5a645702e1609631e8fdf556"}],"__v":0}
+{"_id":{"$oid":"5a645131e1609631e8fdf51c"},"company_name":"Venus Remedies","brand_id":[{"$oid":"5a645131e1609631e8fdf51a"}],"__v":0}
+{"_id":{"$oid":"5a64513ee1609631e8fdf521"},"company_name":"Aaltramed Healthcare","brand_id":[{"$oid":"5a64513ee1609631e8fdf520"}],"__v":0}
+{"_id":{"$oid":"5a6451f5e1609631e8fdf526"},"company_name":"Ipca","brand_id":[{"$oid":"5a6451f5e1609631e8fdf525"},{"$oid":"5a6456c7e1609631e8fdf552"}],"__v":0}
+{"_id":{"$oid":"5a645216e1609631e8fdf52b"},"company_name":"Ajanta Pharma","brand_id":[{"$oid":"5a645216e1609631e8fdf52a"}],"__v":0}
+{"_id":{"$oid":"5a64529be1609631e8fdf533"},"company_name":"SPPL","brand_id":[{"$oid":"5a64529be1609631e8fdf532"}],"__v":0}
+{"_id":{"$oid":"5a64551ae1609631e8fdf53d"},"company_name":"Medico HC","brand_id":[{"$oid":"5a64551ae1609631e8fdf53c"}],"__v":0}
+{"_id":{"$oid":"5a645592e1609631e8fdf542"},"company_name":"IPCA","brand_id":[{"$oid":"5a645592e1609631e8fdf541"}],"__v":0}
+{"_id":{"$oid":"5a64561ce1609631e8fdf547"},"company_name":"Aristo","brand_id":[{"$oid":"5a64561ce1609631e8fdf546"},{"$oid":"5a645a32e1609631e8fdf5a8"}],"__v":0}
+{"_id":{"$oid":"5a64563fe1609631e8fdf54c"},"company_name":"Cadila(Genstar)","brand_id":[{"$oid":"5a64563fe1609631e8fdf54b"}],"__v":0}
+{"_id":{"$oid":"5a645723e1609631e8fdf55b"},"company_name":"Jenburkt","brand_id":[{"$oid":"5a645723e1609631e8fdf55a"}],"__v":0}
+{"_id":{"$oid":"5a645772e1609631e8fdf560"},"company_name":"Genesis","brand_id":[{"$oid":"5a645772e1609631e8fdf55f"},{"$oid":"5a645bdbe1609631e8fdf5b8"}],"__v":0}
+{"_id":{"$oid":"5a6457d5e1609631e8fdf569"},"company_name":"MMC Health","brand_id":[{"$oid":"5a6457d5e1609631e8fdf567"}],"__v":0}
+{"_id":{"$oid":"5a6457d5e1609631e8fdf56a"},"company_name":"Ranbaxy","brand_id":[{"$oid":"5a6457d5e1609631e8fdf568"}],"__v":0}
+{"_id":{"$oid":"5a6457e3e1609631e8fdf56f"},"company_name":"OPTHO REMEDIES","brand_id":[{"$oid":"5a6457e3e1609631e8fdf56e"}],"__v":0}
+{"_id":{"$oid":"5a645826e1609631e8fdf574"},"company_name":"","brand_id":[{"$oid":"5a645826e1609631e8fdf573"}],"__v":0}
+{"_id":{"$oid":"5a64587ee1609631e8fdf579"},"company_name":"Laborate","brand_id":[{"$oid":"5a64587ee1609631e8fdf578"}],"__v":0}
+{"_id":{"$oid":"5a645893e1609631e8fdf57e"},"company_name":"Calix Healthcare","brand_id":[{"$oid":"5a645893e1609631e8fdf57d"}],"__v":0}
+{"_id":{"$oid":"5a6458e3e1609631e8fdf583"},"company_name":"Vivid Labs","brand_id":[{"$oid":"5a6458e3e1609631e8fdf582"}],"__v":0}
+{"_id":{"$oid":"5a6458e6e1609631e8fdf588"},"company_name":"BBiochem","brand_id":[{"$oid":"5a6458e6e1609631e8fdf587"}],"__v":0}
+{"_id":{"$oid":"5a64592fe1609631e8fdf58d"},"company_name":"Wockhardt","brand_id":[{"$oid":"5a64592fe1609631e8fdf58c"}],"__v":0}
+{"_id":{"$oid":"5a64593de1609631e8fdf592"},"company_name":"Crest Pharma","brand_id":[{"$oid":"5a64593de1609631e8fdf591"}],"__v":0}
+{"_id":{"$oid":"5a645961e1609631e8fdf597"},"company_name":"Sun Pharmaceuticals","brand_id":[{"$oid":"5a645961e1609631e8fdf596"}],"__v":0}
+{"_id":{"$oid":"5a6459a6e1609631e8fdf59c"},"company_name":"JPEE Drugs","brand_id":[{"$oid":"5a6459a6e1609631e8fdf59b"}],"__v":0}
+{"_id":{"$oid":"5a6459fae1609631e8fdf5a1"},"company_name":"-","brand_id":[{"$oid":"5a6459fae1609631e8fdf5a0"}],"__v":0}
+{"_id":{"$oid":"5a645a32e1609631e8fdf5aa"},"company_name":"NRI VISION CARE","brand_id":[{"$oid":"5a645a32e1609631e8fdf5a9"}],"__v":0}
+{"_id":{"$oid":"5a645b38e1609631e8fdf5af"},"company_name":"Indoco","brand_id":[{"$oid":"5a645b38e1609631e8fdf5ae"}],"__v":0}
+{"_id":{"$oid":"5a645b4ee1609631e8fdf5b4"},"company_name":"Sunways","brand_id":[{"$oid":"5a645b4ee1609631e8fdf5b3"}],"__v":0}
+{"_id":{"$oid":"5a645c58e1609631e8fdf5bd"},"company_name":"Madhav Biotech","brand_id":[{"$oid":"5a645c58e1609631e8fdf5bc"}],"__v":0}
+{"_id":{"$oid":"5a645cdbe1609631e8fdf5c2"},"company_name":"Vensat","brand_id":[{"$oid":"5a645cdbe1609631e8fdf5c1"}],"__v":0}
+{"_id":{"$oid":"5a645d73e1609631e8fdf5c7"},"company_name":"Geno","brand_id":[{"$oid":"5a645d73e1609631e8fdf5c6"}],"__v":0}
+{"_id":{"$oid":"5a645dede1609631e8fdf5cc"},"company_name":"Strides","brand_id":[{"$oid":"5a645dede1609631e8fdf5cb"}],"__v":0}
+{"_id":{"$oid":"5a645e3be1609631e8fdf5d6"},"company_name":"Cadila Pharmaceuticals","brand_id":[{"$oid":"5a645e3be1609631e8fdf5d5"}],"__v":0}

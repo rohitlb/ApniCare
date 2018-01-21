@@ -1,0 +1,52 @@
+{"_id":{"$oid":"5a644616324f572d8c470eca"},"dosage_form":"Tablet","strength_id":[{"$oid":"5a644616324f572d8c470ec8"}],"__v":0}
+{"_id":{"$oid":"5a644a38324f572d8c470ecf"},"dosage_form":"inf","strength_id":[{"$oid":"5a644a38324f572d8c470ecd"}],"__v":0}
+{"_id":{"$oid":"5a644ad0e1609631e8fdf4c7"},"dosage_form":"Tablet","strength_id":[{"$oid":"5a644ad0e1609631e8fdf4c5"}],"__v":0}
+{"_id":{"$oid":"5a644b44e1609631e8fdf4cf"},"dosage_form":"Tablet","strength_id":[{"$oid":"5a644b43e1609631e8fdf4cd"}],"__v":0}
+{"_id":{"$oid":"5a644ba4e1609631e8fdf4d4"},"dosage_form":"Tablet","strength_id":[{"$oid":"5a644ba4e1609631e8fdf4d2"}],"__v":0}
+{"_id":{"$oid":"5a644bf8e1609631e8fdf4d9"},"dosage_form":"Gel","strength_id":[{"$oid":"5a644bf8e1609631e8fdf4d7"}],"__v":0}
+{"_id":{"$oid":"5a644c9ee1609631e8fdf4de"},"dosage_form":"Cream","strength_id":[{"$oid":"5a644c9ee1609631e8fdf4dc"}],"__v":0}
+{"_id":{"$oid":"5a644d1ae1609631e8fdf4e8"},"dosage_form":"Syrup","strength_id":[{"$oid":"5a644d1ae1609631e8fdf4e6"}],"__v":0}
+{"_id":{"$oid":"5a644d5ee1609631e8fdf4ed"},"dosage_form":"Tablet","strength_id":[{"$oid":"5a644d5ee1609631e8fdf4eb"}],"__v":0}
+{"_id":{"$oid":"5a644da4e1609631e8fdf4f1"},"dosage_form":"Syrup","strength_id":[{"$oid":"5a644da2e1609631e8fdf4ef"}],"__v":0}
+{"_id":{"$oid":"5a644e3ee1609631e8fdf4f6"},"dosage_form":"Syrup","strength_id":[{"$oid":"5a644e3ce1609631e8fdf4f4"}],"__v":0}
+{"_id":{"$oid":"5a644f8ae1609631e8fdf4fa"},"dosage_form":"Eye and Ear Drops","strength_id":[{"$oid":"5a644f8ae1609631e8fdf4f8"},{"$oid":"5a644fa7e1609631e8fdf4fd"}],"__v":0}
+{"_id":{"$oid":"5a645041e1609631e8fdf50b"},"dosage_form":"Tablet","strength_id":[{"$oid":"5a645041e1609631e8fdf509"}],"__v":0}
+{"_id":{"$oid":"5a6450ace1609631e8fdf510"},"dosage_form":"E\u0026E Drops","strength_id":[{"$oid":"5a6450ace1609631e8fdf50e"}],"__v":0}
+{"_id":{"$oid":"5a64512ee1609631e8fdf517"},"dosage_form":"E\u0026E Drops","strength_id":[{"$oid":"5a64512ce1609631e8fdf513"}],"__v":0}
+{"_id":{"$oid":"5a64512ee1609631e8fdf518"},"dosage_form":"Syrup","strength_id":[{"$oid":"5a64512ce1609631e8fdf515"}],"__v":0}
+{"_id":{"$oid":"5a64513ee1609631e8fdf51f"},"dosage_form":"Infusion","strength_id":[{"$oid":"5a64513ee1609631e8fdf51d"}],"__v":0}
+{"_id":{"$oid":"5a6451f5e1609631e8fdf524"},"dosage_form":"Tablet","strength_id":[{"$oid":"5a6451f5e1609631e8fdf522"}],"__v":0}
+{"_id":{"$oid":"5a645216e1609631e8fdf529"},"dosage_form":"Drops","strength_id":[{"$oid":"5a645216e1609631e8fdf527"}],"__v":0}
+{"_id":{"$oid":"5a64523de1609631e8fdf52e"},"dosage_form":"Injection","strength_id":[{"$oid":"5a64523de1609631e8fdf52c"},{"$oid":"5a645666e1609631e8fdf54d"}],"__v":0}
+{"_id":{"$oid":"5a64529be1609631e8fdf531"},"dosage_form":"Gel","strength_id":[{"$oid":"5a64529be1609631e8fdf52f"}],"__v":0}
+{"_id":{"$oid":"5a64551ae1609631e8fdf53b"},"dosage_form":"E\u0026E Drops","strength_id":[{"$oid":"5a64551ae1609631e8fdf539"}],"__v":0}
+{"_id":{"$oid":"5a645592e1609631e8fdf540"},"dosage_form":"Tab","strength_id":[{"$oid":"5a645592e1609631e8fdf53e"}],"__v":0}
+{"_id":{"$oid":"5a64561ce1609631e8fdf545"},"dosage_form":"Drops","strength_id":[{"$oid":"5a645619e1609631e8fdf543"}],"__v":0}
+{"_id":{"$oid":"5a64563fe1609631e8fdf54a"},"dosage_form":"Injection","strength_id":[{"$oid":"5a64563fe1609631e8fdf548"}],"__v":0}
+{"_id":{"$oid":"5a6456c7e1609631e8fdf551"},"dosage_form":"Tablet","strength_id":[{"$oid":"5a6456c7e1609631e8fdf54f"}],"__v":0}
+{"_id":{"$oid":"5a645702e1609631e8fdf555"},"dosage_form":"E\u0026E Drops","strength_id":[{"$oid":"5a6456ffe1609631e8fdf553"}],"__v":0}
+{"_id":{"$oid":"5a645723e1609631e8fdf559"},"dosage_form":"Tablet","strength_id":[{"$oid":"5a645723e1609631e8fdf557"}],"__v":0}
+{"_id":{"$oid":"5a645772e1609631e8fdf55e"},"dosage_form":"Tablet","strength_id":[{"$oid":"5a645772e1609631e8fdf55c"}],"__v":0}
+{"_id":{"$oid":"5a6457d5e1609631e8fdf565"},"dosage_form":"Tablet","strength_id":[{"$oid":"5a6457d5e1609631e8fdf561"}],"__v":0}
+{"_id":{"$oid":"5a6457d5e1609631e8fdf566"},"dosage_form":"Injection","strength_id":[{"$oid":"5a6457d5e1609631e8fdf563"}],"__v":0}
+{"_id":{"$oid":"5a6457e3e1609631e8fdf56d"},"dosage_form":"E\u0026E Drops","strength_id":[{"$oid":"5a6457e3e1609631e8fdf56b"}],"__v":0}
+{"_id":{"$oid":"5a645826e1609631e8fdf572"},"dosage_form":"Injection","strength_id":[{"$oid":"5a645826e1609631e8fdf570"}],"__v":0}
+{"_id":{"$oid":"5a64587ee1609631e8fdf577"},"dosage_form":"Injection","strength_id":[{"$oid":"5a64587ee1609631e8fdf575"}],"__v":0}
+{"_id":{"$oid":"5a645893e1609631e8fdf57c"},"dosage_form":"E\u0026E Drops","strength_id":[{"$oid":"5a645893e1609631e8fdf57a"}],"__v":0}
+{"_id":{"$oid":"5a6458e3e1609631e8fdf581"},"dosage_form":"Tablet","strength_id":[{"$oid":"5a6458e3e1609631e8fdf57f"}],"__v":0}
+{"_id":{"$oid":"5a6458e6e1609631e8fdf586"},"dosage_form":"Injection","strength_id":[{"$oid":"5a6458e6e1609631e8fdf584"}],"__v":0}
+{"_id":{"$oid":"5a64592fe1609631e8fdf58b"},"dosage_form":"Injection","strength_id":[{"$oid":"5a64592fe1609631e8fdf589"}],"__v":0}
+{"_id":{"$oid":"5a64593de1609631e8fdf590"},"dosage_form":"Tablet","strength_id":[{"$oid":"5a64593de1609631e8fdf58e"}],"__v":0}
+{"_id":{"$oid":"5a645961e1609631e8fdf595"},"dosage_form":"E\u0026E Drops","strength_id":[{"$oid":"5a645961e1609631e8fdf593"}],"__v":0}
+{"_id":{"$oid":"5a6459a6e1609631e8fdf59a"},"dosage_form":"Tablet","strength_id":[{"$oid":"5a6459a6e1609631e8fdf598"}],"__v":0}
+{"_id":{"$oid":"5a6459fae1609631e8fdf59f"},"dosage_form":"-","strength_id":[{"$oid":"5a6459fae1609631e8fdf59d"}],"__v":0}
+{"_id":{"$oid":"5a645a32e1609631e8fdf5a6"},"dosage_form":"Tablet","strength_id":[{"$oid":"5a645a32e1609631e8fdf5a2"}],"__v":0}
+{"_id":{"$oid":"5a645a32e1609631e8fdf5a7"},"dosage_form":"E\u0026E Drops","strength_id":[{"$oid":"5a645a32e1609631e8fdf5a4"}],"__v":0}
+{"_id":{"$oid":"5a645b38e1609631e8fdf5ad"},"dosage_form":"Tablet","strength_id":[{"$oid":"5a645b38e1609631e8fdf5ab"}],"__v":0}
+{"_id":{"$oid":"5a645b4ee1609631e8fdf5b2"},"dosage_form":"Drops","strength_id":[{"$oid":"5a645b4be1609631e8fdf5b0"}],"__v":0}
+{"_id":{"$oid":"5a645bdbe1609631e8fdf5b7"},"dosage_form":"Tablet","strength_id":[{"$oid":"5a645bdbe1609631e8fdf5b5"}],"__v":0}
+{"_id":{"$oid":"5a645c58e1609631e8fdf5bb"},"dosage_form":"Tablet","strength_id":[{"$oid":"5a645c58e1609631e8fdf5b9"}],"__v":0}
+{"_id":{"$oid":"5a645cdbe1609631e8fdf5c0"},"dosage_form":"Tablet","strength_id":[{"$oid":"5a645cdbe1609631e8fdf5be"}],"__v":0}
+{"_id":{"$oid":"5a645d73e1609631e8fdf5c5"},"dosage_form":"Tablet","strength_id":[{"$oid":"5a645d73e1609631e8fdf5c3"}],"__v":0}
+{"_id":{"$oid":"5a645dede1609631e8fdf5ca"},"dosage_form":"Tablet","strength_id":[{"$oid":"5a645dede1609631e8fdf5c8"}],"__v":0}
+{"_id":{"$oid":"5a645e3be1609631e8fdf5d4"},"dosage_form":"Tablet","strength_id":[{"$oid":"5a645e3be1609631e8fdf5d2"}],"__v":0}

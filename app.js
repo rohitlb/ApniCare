@@ -159,7 +159,7 @@ app.post('/needhelp' , function (req,res) {
     var contact_message = req.body.contact_message;
 
     var needhelp = new Needhelp({
-        //here user ID should be added
+        //here user ID should be adde/d
         subject : subject,
         contact_message : contact_message
     });
