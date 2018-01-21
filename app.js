@@ -585,7 +585,6 @@ app.get('/searching',function (req,res) {
     res.render('searching');
 });
 
-
 app.post('/searchall',function (req,res) {
     console.log("searchall");
     var raw = req.body.search;
@@ -845,7 +844,6 @@ app.post('/filtersearch', function (req,res) {
     }
 });
 
-
 //*****************************************USER LOGIN*******************************************************************
 //login with filter and session
 
@@ -941,10 +939,6 @@ app.get('/logout', function (req, res) {
         }
     });
 });
-
-
-
-
 
 //***************************************Edit User Profile*****************************************************************
 
