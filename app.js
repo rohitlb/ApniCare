@@ -625,7 +625,7 @@ app.post('/searchall',function (req,res) {
             });
         },
         diseases :  function (callback) { // gives disease_name sorted list
-            Disease.find({disease_name: search}).sort({disease_name: 1}).skip(skip).limit(10).exec(function (err, result) {
+            Disease.find({disease_name: search},  'disease_name').sort({disease_name: 1}).skip(skip).limit(10).exec(function (err, result) {
                 if (err) {
                     console.log(err);
                 }
@@ -636,11 +636,12 @@ app.post('/searchall',function (req,res) {
             });
         },
         organs :  function (callback) {  // gives organs sorted list
-            Disease.find({organs: search}).sort({organs: 1}).skip(skip).limit(10).exec(function (err, result) {
+            Disease.find({organs : {$eleMatch : {subhead : search}}}).sort({organs: 1}).skip(skip).limit(10).exec(function (err, result) {
                 if (err) {
                     console.log(err);
                 }
                 else {
+                    console.log(result);
                     callback(null, result);
                 }
             });
@@ -651,7 +652,6 @@ app.post('/searchall',function (req,res) {
                     console.log(err);
                 }
                 else {
-                    console.log(result);
                     callback(null, result);
                 }
             });
@@ -662,7 +662,7 @@ app.post('/searchall',function (req,res) {
         }
         else {
             res.send({"searchall" : results});
-            //console.log({"searchall" : results});
+            console.log({"searchall" : results});
             }
     });
 });
