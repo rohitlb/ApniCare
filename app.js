@@ -645,7 +645,7 @@ app.post('/searchall',function (req,res) {
             });
         },
         function (callback) { // gives symptoms sorted list
-            Disease.find({symptoms : search},'-_id symptoms').sort({disease_name : 1}).skip(skip).limit(10).exec(function (err,result) {
+            Disease.find({symptoms : search},'-_id symptoms').sort({symptoms : 1}).skip(skip).limit(10).exec(function (err,result) {
                 if(err){
                     console.log(err);
                 }
