@@ -48,7 +48,7 @@ var routes = require('./model/imagefile');
 var app = express();
 
 var store = new mongoDBStore({
-    uri : 'mongodb://localhost/ApniCare',
+    uri : 'mongodb://localhost/Apni',
     collection : 'mySessions'
 });
 
@@ -1868,7 +1868,7 @@ app.post('/medicines',function(req,res) {
             },
             function (result, callback) {
                 if (result) {
-                    Strength.findOne({strength: strength}, function (err, result1) {
+                    Strength.findOne({strength: strengths}, function (err, result1) {
                         if (err) {
                             console.log(err);
                             throw new Error(err);
@@ -4272,7 +4272,7 @@ app.post('/healthcarelogin',function(req,res) {
 //==========================Database connection===========================
 
 //data base connection and opening port
-var db = 'mongodb://localhost/ApniCare';
+var db = 'mongodb://localhost/Apni';
 mongoose.connect(db, {useMongoClient: true});
 
 
