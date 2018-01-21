@@ -601,7 +601,7 @@ app.post('/searchall',function (req,res) {
                     console.log(err);
                 }
                 else{
-                    callback(null,result);
+                    callback(null,{"molecules" : result});
                 }
             });
         },
@@ -611,7 +611,7 @@ app.post('/searchall',function (req,res) {
                     console.log(err);
                 }
                 else{
-                    callback(null,result);
+                    callback(null,{"categories" : result});
                 }
             });
         },
@@ -621,7 +621,7 @@ app.post('/searchall',function (req,res) {
                     console.log(err);
                 }
                 else{
-                    callback(null,result);
+                    callback(null,{"brands" :result});
                 }
             });
         },
@@ -631,7 +631,7 @@ app.post('/searchall',function (req,res) {
                     console.log(err);
                 }
                 else{
-                    callback(null,result);
+                    callback(null,{"diseases" : result});
                 }
             });
         },
@@ -641,7 +641,7 @@ app.post('/searchall',function (req,res) {
                     console.log(err);
                 }
                 else{
-                    callback(null,result);
+                    callback(null,{"organs": result});
                 }
             });
         },
@@ -651,7 +651,7 @@ app.post('/searchall',function (req,res) {
                     console.log(err);
                 }
                 else{
-                    callback(null,result);
+                    callback(null,{"symptoms" : result});
                 }
             });
         }
@@ -660,11 +660,9 @@ app.post('/searchall',function (req,res) {
             console.log(err);
         }
         else {
-            res.send({"result" : results});
-
-            console.log(results);
-            console.log(typeof results);
-        }
+            res.send({"searchall" : results});
+            console.log({"searchall" : results});
+            }
     });
 });
 
@@ -682,7 +680,7 @@ app.post('/search_mbc',function (req,res) {
                     console.log(err);
                 }
                 else{
-                    callback(null,result);
+                    callback(null,{"molecules" : result});
                 }
             });
         },
@@ -692,17 +690,17 @@ app.post('/search_mbc',function (req,res) {
                     console.log(err);
                 }
                 else{
-                    callback(null,result);
+                    callback(null,{"categories" : result});
                 }
             });
         },
         function (callback) { // gives categories sorted list
-            Brand.find({brand_name : search},'-_id categories').sort({brand_name : 1}).skip(skip).limit(10).exec(function (err,result) {
+            Brand.find({brand_name : search},'-_id brand_name').sort({brand_name : 1}).skip(skip).limit(10).exec(function (err,result) {
                 if(err){
                     console.log(err);
                 }
                 else{
-                    callback(null,result);
+                    callback(null,{"brands" : result});
                 }
             });
         }
@@ -713,7 +711,7 @@ app.post('/search_mbc',function (req,res) {
         else {
             res.send({"search_mbc" : results});
 
-            console.log(results);
+            console.log({"search_mbc" : results});
         }
     });
 });
@@ -733,7 +731,7 @@ app.post('/search_dos',function (req,res) {
                     console.log(err);
                 }
                 else{
-                    callback(null,result);
+                    callback(null,{"diseases" : result});
                 }
             });
         },
@@ -743,7 +741,7 @@ app.post('/search_dos',function (req,res) {
                     console.log(err);
                 }
                 else{
-                    callback(null,result);
+                    callback(null,{"organs" : result});
                 }
             });
         },
@@ -753,7 +751,7 @@ app.post('/search_dos',function (req,res) {
                     console.log(err);
                 }
                 else{
-                    callback(null,result);
+                    callback(null,{"symptoms" : result});
                 }
             });
         }
@@ -762,9 +760,9 @@ app.post('/search_dos',function (req,res) {
             console.log(err);
         }
         else {
-            res.send(results);
+            res.send({"search_dos" : results});
 
-            console.log(results);
+            console.log({"search_dos" : results});
         }
     });
 });
@@ -784,7 +782,7 @@ app.post('/filtersearch', function (req,res) {
                     console.log(err);
                 }
                 else{
-                    res.send(result);
+                    res.send({"molecules" : result});
                 }
             });
             break;
@@ -795,7 +793,7 @@ app.post('/filtersearch', function (req,res) {
                     console.log(err);
                 }
                 else{
-                    res.send(result);
+                    res.send({"categories" :result});
                 }
             });
             break;
@@ -806,7 +804,7 @@ app.post('/filtersearch', function (req,res) {
                     console.log(err);
                 }
                 else{
-                    res.send(result);
+                    res.send({"brand":result});
                 }
             });
             break;
@@ -817,7 +815,7 @@ app.post('/filtersearch', function (req,res) {
                     console.log(err);
                 }
                 else{
-                    res.send(result);
+                    res.send({"diseases":result});
                 }
             });
             break;
@@ -828,7 +826,7 @@ app.post('/filtersearch', function (req,res) {
                     console.log(err);
                 }
                 else{
-                    res.send(result);
+                    res.send({"organs":result});
                 }
             });
             break;
@@ -839,7 +837,7 @@ app.post('/filtersearch', function (req,res) {
                     console.log(err);
                 }
                 else{
-                    res.send(result);
+                    res.send({"symptoms":result});
                 }
             });
             break;
