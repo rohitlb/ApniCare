@@ -738,38 +738,38 @@ app.post('/search_mbc',function (req,res) {
     var skip = parseInt(req.body.nskip);
     var spaceRemoved = raw.replace(/\s/g, '');
     var search = new RegExp('^'+spaceRemoved,'i' );
-    async.parallel([
-        function (callback) { // gives molecule_name sorted list
-            Molecule.find({molecule_name : search},'-_id molecule_name').sort({molecule_name : 1}).skip(skip).limit(10).exec(function (err,result) {
-                if(err){
+    async.parallel({
+        molecules:  function (callback) { // gives molecule_name sorted list
+            Molecule.find({molecule_name: search}, '-_id molecule_name').sort({molecule_name: 1}).skip(skip).limit(10).exec(function (err, result) {
+                if (err) {
                     console.log(err);
                 }
-                else{
-                    callback(null,{"molecules" : result});
+                else {
+                    callback(null, result);
                 }
             });
         },
-        function (callback) { // gives categories sorted list
-            Brand.find({categories : search},'-_id categories').sort({categories : 1}).skip(skip).limit(10).exec(function (err,result) {
-                if(err){
+        categories:  function (callback) { // gives categories sorted list
+            Brand.find({categories: search}, '-_id categories').sort({categories: 1}).skip(skip).limit(10).exec(function (err, result) {
+                if (err) {
                     console.log(err);
                 }
-                else{
-                    callback(null,{"categories" : result});
+                else {
+                    callback(null, result);
                 }
             });
         },
-        function (callback) { // gives categories sorted list
-            Brand.find({brand_name : search},'-_id brand_name').sort({brand_name : 1}).skip(skip).limit(10).exec(function (err,result) {
-                if(err){
+        brands: function (callback) { // gives categories sorted list
+            Brand.find({brand_name: search}, '-_id brand_name').sort({brand_name: 1}).skip(skip).limit(10).exec(function (err, result) {
+                if (err) {
                     console.log(err);
                 }
-                else{
-                    callback(null,{"brands" : result});
+                else {
+                    callback(null,  result);
                 }
             });
         }
-    ],function (err,results) {
+    },function (err,results) {
         if(err){
             console.log(err);
         }
@@ -789,38 +789,38 @@ app.post('/search_dos',function (req,res) {
     console.log(raw);
     var spaceRemoved = raw.replace(/\s/g, '');
     var search = new RegExp('^'+spaceRemoved,'i' );
-    async.parallel([
-        function (callback) { // gives disease_name sorted list
-            Disease.find({disease_name : search},'-_id disease_name').sort({disease_name : 1}).skip(skip).limit(10).exec(function (err,result) {
-                if(err){
+    async.parallel({
+        diseases: function (callback) { // gives disease_name sorted list
+            Disease.find({disease_name: search}, '-_id disease_name').sort({disease_name: 1}).skip(skip).limit(10).exec(function (err, result) {
+                if (err) {
                     console.log(err);
                 }
-                else{
-                    callback(null,{"diseases" : result});
+                else {
+                    callback(null, result);
                 }
             });
         },
-        function (callback) { // gives organs sorted list
-            Disease.find({organs : search},'-_id organs').sort({organs : 1}).skip(skip).limit(10).exec(function (err,result) {
-                if(err){
+        organs: function (callback) { // gives organs sorted list
+            Disease.find({organs: search}, '-_id organs').sort({organs: 1}).skip(skip).limit(10).exec(function (err, result) {
+                if (err) {
                     console.log(err);
                 }
-                else{
-                    callback(null,{"organs" : result});
+                else {
+                    callback(null, result);
                 }
             });
         },
-        function (callback) { // gives symptoms sorted list
-            Disease.find({symptoms : search},'-_id symptoms').sort({symptoms : 1}).skip(skip).limit(10).exec(function (err,result) {
-                if(err){
+        symptoms: function (callback) { // gives symptoms sorted list
+            Disease.find({symptoms: search}, '-_id symptoms').sort({symptoms: 1}).skip(skip).limit(10).exec(function (err, result) {
+                if (err) {
                     console.log(err);
                 }
-                else{
-                    callback(null,{"symptoms" : result});
+                else {
+                    callback(null, result);
                 }
             });
         }
-    ],function (err,results) {
+    },function (err,results) {
         if(err){
             console.log(err);
         }
@@ -886,7 +886,7 @@ app.post('/filtersearch', function (req,res) {
             break;
 
         case "organs"  :
-            Disease.find({organs : search},'-_id organs').sort({organs : 1}).skip(skip).limit(10).exec(function (err,result) {
+            Disease.find({organs: {$elemMatch: {subhead: search}}},'-_id organs').sort({organs : 1}).skip(skip).limit(10).exec(function (err,result) {
                 if(err){
                     console.log(err);
                 }
