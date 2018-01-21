@@ -2617,63 +2617,31 @@ app.get('/health_care_provider',function(req,res) {
     }
 
     if(req.query.page == 'profile_student_doctor') {
-        Professional.find({_id : req.session.proID},function (errs,results) {
-            if(errs){
-                console.log(errs);
+        Doctor.find({_id : req.session.doctorID},function (err,result) {
+            if(err){
+                console.log(err);
             }
-            else {
-                if(results != "") {
-                    res.render('home_profile_doctor',
-                        {
-                            page: 'profile_student_doctor',
-                            data: results
-                        });
-                }
-                else{
-                    Doctor.find({_id : req.session.doctorID},function (err,result) {
-                        if(err){
-                            console.log(err);
-                        }
-                        else{
-                            res.render('home_profile_doctor',
-                                {
-                                    page: 'profile_student_doctor',
-                                    data: result
-                                });
-                        }
+            else{
+                res.render('home_profile_doctor',
+                    {
+                        page: 'profile_student_doctor',
+                        data: result
                     });
-                }
             }
         });
     }
 
     if(req.query.page == 'profile_student_pharmacist') {
-        Professional.find({_id : req.session.proID},function (errs,results) {
-            if(errs){
-                console.log(errs);
+        Pharma.find({_id : req.session.pharmaID},function (err,result) {
+            if(err){
+                console.log(err);
             }
-            else {
-                if (results != "") {
-                    res.render('home_profile_doctor',
-                        {
-                            page: 'profile_student_pharmacist',
-                            data: results
-                        });
-                }
-                else {
-                    Pharma.find({_id : req.session.pharmaID},function (err,result) {
-                        if(err){
-                            console.log(err);
-                        }
-                        else{
-                            res.render('home_profile_doctor',
-                                {
-                                    page: 'profile_student_pharmacist',
-                                    data: result
-                                });
-                        }
+            else{
+                res.render('home_profile_doctor',
+                    {
+                        page: 'profile_student_pharmacist',
+                        data: result
                     });
-                }
             }
         });
     }
@@ -2716,63 +2684,31 @@ app.get('/health_care_provider',function(req,res) {
 
     if(req.query.page == 'profile_doctor') {
 
-        Professional.find({_id : req.session.proID},function (errs,results) {
-            if(errs){
-                console.log(errs);
+        Doctor.find({_id : req.session.doctorID},function (err,result) {
+            if(err){
+                console.log(err);
             }
-            else {
-                if(results != "") {
-                    res.render('home_profile_doctor',
-                        {
-                            page: 'profile_doctor',
-                            data: results
-                        });
-                }
-                else{
-                    Doctor.find({_id : req.session.doctorID},function (err,result) {
-                        if(err){
-                            console.log(err);
-                        }
-                        else{
-                            res.render('home_profile_doctor',
-                                {
-                                    page: 'profile_doctor',
-                                    data: result
-                                });
-                        }
+            else{
+                res.render('home_profile_doctor',
+                    {
+                        page: 'profile_doctor',
+                        data: result
                     });
-                }
             }
         });
     }
 
     if(req.query.page == 'profile_pharmacist') {
-        Professional.find({_id : req.session.proID},function (errs,results) {
-            if(errs){
-                console.log(errs);
+        Pharma.find({_id: req.session.pharmaID}, function (err, result) {
+            if (err) {
+                console.log(err);
             }
             else {
-                if(results != "") {
-                    res.render('home_profile_doctor',
-                        {
-                            page: 'profile_pharmacist',
-                            data: results
-                        });
-                }
-                else{
-                    Pharma.find({_id : req.session.pharmaID},function (err,result) {
-                        if(err){
-                            console.log(err);
-                        }
-                        else{
-                            res.render('home_profile_doctor',
-                                {
-                                    page: 'profile_pharmacist',
-                                    data: result
-                                });
-                        }
+                res.render('home_profile_doctor',
+                    {
+                        page: 'profile_pharmacist',
+                        data: result
                     });
-                }
             }
         });
     }
@@ -3167,63 +3103,31 @@ app.post('/health_care_provider',function(req,res) {
     }
 
     if(req.query.page == 'profile_student_doctor') {
-        Professional.find({_id : req.session.proID},function (errs,results) {
-            if(errs){
-                console.log(errs);
+        Doctor.find({_id : req.session.doctorID},function (err,result) {
+            if(err){
+                console.log(err);
             }
-            else {
-                if(results != "") {
-                    res.render('home_profile_doctor',
-                        {
-                            page: 'profile_student_doctor',
-                            data: results
-                        });
-                }
-                else{
-                    Doctor.find({_id : req.session.doctorID},function (err,result) {
-                        if(err){
-                            console.log(err);
-                        }
-                        else{
-                            res.render('home_profile_doctor',
-                                {
-                                    page: 'profile_student_doctor',
-                                    data: result
-                                });
-                        }
+            else{
+                res.render('home_profile_doctor',
+                    {
+                        page: 'profile_student_doctor',
+                        data: result
                     });
-                }
             }
         });
     }
 
     if(req.query.page == 'profile_student_pharmacist') {
-        Professional.find({_id : req.session.proID},function (errs,results) {
-            if(errs){
-                console.log(errs);
+        Pharma.find({_id : req.session.pharmaID},function (err,result) {
+            if(err){
+                console.log(err);
             }
-            else {
-                if (results != "") {
-                    res.render('home_profile_doctor',
-                        {
-                            page: 'profile_student_pharmacist',
-                            data: results
-                        });
-                }
-                else {
-                    Pharma.find({_id : req.session.pharmaID},function (err,result) {
-                        if(err){
-                            console.log(err);
-                        }
-                        else{
-                            res.render('home_profile_doctor',
-                                {
-                                    page: 'profile_student_pharmacist',
-                                    data: result
-                                });
-                        }
+            else{
+                res.render('home_profile_doctor',
+                    {
+                        page: 'profile_student_pharmacist',
+                        data: result
                     });
-                }
             }
         });
     }
@@ -3266,63 +3170,31 @@ app.post('/health_care_provider',function(req,res) {
 
     if(req.query.page == 'profile_doctor') {
 
-        Professional.find({_id : req.session.proID},function (errs,results) {
-            if(errs){
-                console.log(errs);
+        Doctor.find({_id : req.session.doctorID},function (err,result) {
+            if(err){
+                console.log(err);
             }
-            else {
-                if(results != "") {
-                    res.render('home_profile_doctor',
-                        {
-                            page: 'profile_doctor',
-                            data: results
-                        });
-                }
-                else{
-                    Doctor.find({_id : req.session.doctorID},function (err,result) {
-                        if(err){
-                            console.log(err);
-                        }
-                        else{
-                            res.render('home_profile_doctor',
-                                {
-                                    page: 'profile_doctor',
-                                    data: result
-                                });
-                        }
+            else{
+                res.render('home_profile_doctor',
+                    {
+                        page: 'profile_doctor',
+                        data: result
                     });
-                }
             }
         });
     }
 
     if(req.query.page == 'profile_pharmacist') {
-        Professional.find({_id : req.session.proID},function (errs,results) {
-            if(errs){
-                console.log(errs);
+        Pharma.find({_id: req.session.pharmaID}, function (err, result) {
+            if (err) {
+                console.log(err);
             }
             else {
-                if(results != "") {
-                    res.render('home_profile_doctor',
-                        {
-                            page: 'profile_pharmacist',
-                            data: results
-                        });
-                }
-                else{
-                    Pharma.find({_id : req.session.pharmaID},function (err,result) {
-                        if(err){
-                            console.log(err);
-                        }
-                        else{
-                            res.render('home_profile_doctor',
-                                {
-                                    page: 'profile_pharmacist',
-                                    data: result
-                                });
-                        }
+                res.render('home_profile_doctor',
+                    {
+                        page: 'profile_pharmacist',
+                        data: result
                     });
-                }
             }
         });
     }
