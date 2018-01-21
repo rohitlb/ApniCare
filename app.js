@@ -580,9 +580,16 @@ app.get('/ApniCare/information/Drug',function (req,res) {
 });
 //================================== search Middleware ===================
 
+
+app.get('/searching',function (req,res) {
+    res.render('searching');
+});
+
+
 app.post('/searchall',function (req,res) {
     console.log("searchall");
     var raw = req.body.search;
+    console.log(raw);
     var spaceRemoved = raw.replace(/\s/g, '');
     var skip = parseInt(req.body.nskip);
 
@@ -653,9 +660,10 @@ app.post('/searchall',function (req,res) {
             console.log(err);
         }
         else {
-            res.send(results);
+            res.send({"result" : results});
 
             console.log(results);
+            console.log(typeof results);
         }
     });
 });
@@ -703,7 +711,7 @@ app.post('/search_mbc',function (req,res) {
             console.log(err);
         }
         else {
-            res.send(results);
+            res.send({"search_mbc" : results});
 
             console.log(results);
         }
