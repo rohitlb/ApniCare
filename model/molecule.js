@@ -14,15 +14,15 @@ var Molecule = new Schema({
     //adverse reactions/side effects
     side_effect : {type : String},
     precaution : {type : String},
-    other_drug_interaction : [{subhead : {type : String},info : {type:String}}],
-    other_interaction :[ {subhead : {type : String},info : {type : String}}],
+    other_drug_interaction : {subhead : [{type : String}],info : [{type:String}]},
+    other_interaction : {subhead : [{type : String}],info : [{type : String}]},
     // like food_interaction, etc : [{type : String}],
-    dosage : [ {subhead : {type : String},info : {type : String}}],
+    dosage : {subhead : [{type : String}],info : [{type : String}]},
     // dosage can be oral,intravenous ,  liver disorder , hepatic , COPD
 
     food : {type : String},
     //list of contra indications
-    contradictions : [ {subhead : {type : String},info : {type : String}}],
+    contradictions : {subhead : [{type : String}],info : [{type : String}]},
     source : {type : String},
     submitted_by : {type : String}
 
