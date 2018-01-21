@@ -585,6 +585,10 @@ app.get('/searching',function (req,res) {
     res.render('searching');
 });
 
+
+app.get('/rohitsearching',function (req,res) {
+    res.render('rohitsearching');
+});
 app.post('/searchall',function (req,res) {
     var raw = req.body.search;
     var spaceRemoved = raw.replace(/\s/g, '');
