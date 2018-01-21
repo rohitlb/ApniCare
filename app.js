@@ -805,7 +805,7 @@ app.post('/search_dos',function (req,res) {
             });
         },
         organs: function (callback) { // gives organs sorted list
-            Disease.find({organs: search}, '-_id organs').sort({organs: 1}).skip(skip).limit(10).exec(function (err, result) {
+            Disease.find({organs: {$elemMatch: {subhead: search}}}, '-_id organs').sort({organs: 1}).skip(skip).limit(10).exec(function (err, result) {
                 if (err) {
                     console.log(err);
                 }
