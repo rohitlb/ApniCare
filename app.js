@@ -636,7 +636,7 @@ app.post('/searchall',function (req,res) {
             });
         },
         organs :  function (callback) {  // gives organs sorted list
-            Disease.find({organs : {$elemMatch : {subhead : search}}}).sort({organs: 1}).skip(skip).limit(10).exec(function (err, result) {
+            Disease.find({organs : {$elemMatch : {subhead : search}}}, '-_id organs.subhead').sort({organs: 1}).skip(skip).limit(10).exec(function (err, result) {
                 if (err) {
                     console.log(err);
                 }
@@ -647,7 +647,7 @@ app.post('/searchall',function (req,res) {
             });
         },
         symptoms :  function (callback) { // gives symptoms sorted list
-            Disease.find({symptoms: search}, '-_id symptoms.subhead symptoms.info').sort({symptoms: 1}).skip(skip).limit(10).exec(function (err, result) {
+            Disease.find({symptoms: search}, '-_id symptoms').sort({symptoms: 1}).skip(skip).limit(10).exec(function (err, result) {
                 if (err) {
                     console.log(err);
                 }
