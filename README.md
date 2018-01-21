@@ -14,3 +14,11 @@
 3 mongo-session
 4 Doc reg & login
 5 recover forgotten password
+
+testing 21-01-2018
+
+errors
+database = warning for same brand
+server =  lots of console command been used
+
+frontend= Rupee sign should be symbol , its disturbing while entering data
