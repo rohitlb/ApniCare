@@ -108,6 +108,9 @@ html(lang='en')
                                             if(result.data.Organs != ""){
                                                 window.location = '/searchorgans?organs='+result.data.Organs;
                                             }
+                                            if(result.data.Categories){
+                                                window.location = '/searchcategories?categories=' + result.data.Categories;
+                                            }
                                         }
                                         else {
                                             Materialize.toast(result.message, 1000);
