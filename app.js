@@ -578,8 +578,8 @@ app.get('/ApniCare/information/Drug',function (req,res) {
 
         });
 });
-//================================== search Middleware ===================
 
+//*****************************************search Middleware*******************************************************************
 
 app.get('/rohitsearching',function (req,res) {
     res.render('rohitsearching');
