@@ -49,7 +49,7 @@ html(lang='en')
                                 if (data.Organs != "") {
                                     response($.map(data.Organs, function (el) {
                                         return {
-                                            label: el.organs.subhead
+                                            label: el.name
                                         };
                                     }));
                                 }
