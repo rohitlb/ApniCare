@@ -770,7 +770,6 @@ app.post('/searchspecific',function(req,res){
                 }
             });
         },
-
         Symptoms : function(callback){
             Disease.find({symptoms : value},'-_id disease_name').sort({"disease_name": 1}).exec(function(err,result){
                 if(err){
