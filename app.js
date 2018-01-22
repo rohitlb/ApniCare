@@ -865,6 +865,66 @@ app.get('/searchorgans',function(req,res){
     });
 });
 
+// similar barnds + info + combination
+app.get('/formolecule',function (req,res) {
+    var molecule = req.query.molecule;
+
+    if(req.query.page = 'info'){
+        Molecule.find({molecule_name: molecule}, function (err, info) {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                res.send({message: 'molecule information', data: info});
+            }
+        });
+    }
+    if(req.query.page = 'brands'){
+        Strength.find({potent_substance : {$elemMatch : {name : molecule}}}
+        ).populate({path: 'brands_id', populate: {path: 'dosage_id'}}).populate(
+            {path : 'brands_id',populate : {path : 'company_id'}}).exec(function (err,brands) {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                var brand = {};
+                brand['data'] = [];
+                async.each(brands, function (result, callback) {
+                    if (result.potent_substance.length === 1) {
+                        brand['data'].push({
+                            results: result
+                        });
+                        callback();
+                    }
+                    else {
+                        callback();
+                    }
+                }, function (err) {
+                    if (err) {
+                        console.log(err);
+                    }
+                    else {
+                        //res.send(brand);
+                        res.send({message : 'molecule brand', data: brand.data});
+                    }
+                });
+            }
+        });
+
+    }
+    if(req.query.page = 'combination'){
+        Strength.find({potent_substance : {$elemMatch : {name : molecule}}}
+        ).populate({path: 'brands_id', populate: {path: 'dosage_id', populate : {path : 'strength_id'}}
+        }).populate({path : 'brands_id',populate : {path : 'company_id'}}).exec(function (err,brands) {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                res.send({message : 'molecule combination',data : brands});
+            }
+        });
+    }
+});
 
 
 app.post('/search_mbc',function (req,res) {
@@ -2484,66 +2544,6 @@ app.get('/search_molecule',function (req,res) {
             res.render('moleculedetails', {data: result});
         }
     });
-});
-// similar barnds + info + combination
-app.get('/formolecule',function (req,res) {
-    var molecule = req.query.molecule;
-
-    if(req.query.page = 'info'){
-        Molecule.find({molecule_name: molecule}, function (err, info) {
-            if (err) {
-                console.log(err);
-            }
-            else {
-                res.send({message: 'molecule information', data: info});
-            }
-        });
-    }
-    if(req.query.page = 'brands'){
-        Strength.find({potent_substance : {$elemMatch : {name : molecule}}}
-        ).populate({path: 'brands_id', populate: {path: 'dosage_id'}}).populate(
-            {path : 'brands_id',populate : {path : 'company_id'}}).exec(function (err,brands) {
-            if (err) {
-                console.log(err);
-            }
-            else {
-                var brand = {};
-                brand['data'] = [];
-                async.each(brands, function (result, callback) {
-                    if (result.potent_substance.length === 1) {
-                        brand['data'].push({
-                            results: result
-                        });
-                        callback();
-                    }
-                    else {
-                        callback();
-                    }
-                }, function (err) {
-                    if (err) {
-                        console.log(err);
-                    }
-                    else {
-                        //res.send(brand);
-                        res.send({message : 'molecule brand', data: brand.data});
-                    }
-                });
-            }
-        });
-
-    }
-    if(req.query.page = 'combination'){
-        Strength.find({potent_substance : {$elemMatch : {name : molecule}}}
-        ).populate({path: 'brands_id', populate: {path: 'dosage_id', populate : {path : 'strength_id'}}
-        }).populate({path : 'brands_id',populate : {path : 'company_id'}}).exec(function (err,brands) {
-            if (err) {
-                console.log(err);
-            }
-            else {
-                res.send({message : 'molecule combination',data : brands});
-            }
-        });
-    }
 });
 
 //======================= save profile pic ====================
