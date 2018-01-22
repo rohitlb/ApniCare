@@ -750,7 +750,7 @@ app.post('/searchspecific',function(req,res){
                     console.log(err);
                 }
                 else {
-                    callback(null,result);
+                    callback(null,brand);
                 }
             });
         },
