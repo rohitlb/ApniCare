@@ -589,6 +589,76 @@ app.get('/searching',function (req,res) {
     res.render('searching');
 });
 
+app.post('/searchspecific',function(req,res){
+    var value = req.body.search;
+    async.parallel({
+        Brands : function(callback){
+            Brand.find({brand_name : value},'-_id brand_name categories types primarily_used_for').populate(
+                {path : 'dosage_id', select : '-_id dosage_form',populate :
+                        {path : 'strength_id', select : '-_id strength strengths packaging prescription dose_taken warnings price dose_timing potent_substance.name potent_substance.molecule_strength'}
+                }).populate(
+                {path : 'company_id', select: '-_id company_name'}).sort({brand_name : 1}).exec(function (err,brand) {
+                if (err) {
+                    console.log(err);
+                }
+                else {
+                    callback(null,brand);
+                }
+            });
+        },
+        Diseases : function(callback){
+            Disease.find({disease_name : value},'-_id',function(err,result){
+                if(err){
+                    console.log(err);
+                }
+                else{
+                    callback(null,result);
+                }
+            });
+        },
+        Organs: function (callback) {  // gives organs sorted list
+            Disease.find({'organs.subhead' : value}, '-_id disease_name').sort({"disease_name": 1}).exec(function (err, result) {
+                if (err) {
+                    console.log(err);
+                }
+                else {
+                    callback(null, result);
+                }
+            });
+        },
+        Symptoms : function(callback){
+            Disease.find({symptoms : value},'-_id disease_name').sort({"disease_name": 1}).exec(function(err,result){
+                if(err){
+                    console.log(err);
+                }
+                else{
+                    callback(null,result);
+                }
+            });
+        },
+        Molecules : function(callback){
+            Molecule.find({molecule_name : value},'-_id',function(err,result){
+                if(err){
+                    console.log(err);
+                }
+                else{
+                    callback(null,result);
+                }
+            });
+        }
+    },function(err,result){
+        if(err){
+            console.log(err);
+        }
+        else{
+            console.log(result);
+            res.send({status : 'success' , data : result});
+        }
+    });
+});
+
+//===================================for WEB============================
+
 app.post('/searchweb', function(req, res) {
     var raw = req.body.term;
     var spaceRemoved = raw.replace(/\s/g, '');
@@ -654,6 +724,133 @@ app.post('/searchweb', function(req, res) {
             }, 200);
         }
     });
+});
+
+app.get('/searchbrands',function(req,res){
+    var value = req.query.brands;
+    Brand.find({brand_name : value},'-_id brand_name categories types primarily_used_for').populate(
+        {path : 'dosage_id', select : '-_id dosage_form',populate :
+            {path : 'strength_id', select : '-_id strength strengths packaging prescription dose_taken warnings price dose_timing potent_substance.name potent_substance.molecule_strength'}
+        }).populate(
+        {path : 'company_id', select: '-_id company_name'}).sort({brand_name : 1}).exec(function (err,brand) {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            res.render('',{brand : brand})
+        }
+    });
+});
+
+app.get('/searchdiseases',function(req,res){
+    var value = req.query.diseases;
+    Disease.find({disease_name : value},'-_id',function(err,disease){
+        if(err){
+            console.log(err);
+        }
+        else{
+            res.render('',{data : disease});
+        }
+    });
+});
+
+app.get('/searchsymptons',function(req,res){
+    var value = req.query.symptoms;
+    Disease.find({symptoms : value},'-_id disease_name',function(err,symptom){
+        if(err){
+            console.log(err);
+        }
+        else{
+            res.render('',{data : symptom});
+        }
+    });
+});
+
+app.get('/searchmolecules',function(req,res){
+    var value = req.query.molecules;
+    Molecule.find({molecule_name : value},'-_id',function(err,molecule){
+        if(err){
+            console.log(err);
+        }
+        else{
+            res.render('',{data : molecule});
+        }
+    });
+});
+
+app.get('/searchorgans',function(req,res){
+    var value = req.query.organs;
+    Disease.find({'organs.subhead' : value},'-_id disease_name',function(err,disease) {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            res.render('', {data: disease});
+        }
+    });
+});
+
+//===================================for APP============================
+
+// similar barnds + info + combination
+app.post('/formolecule',function (req,res) {
+    var molecule = req.body.molecule;
+
+    if(req.body.page = 'info'){
+        Molecule.find({molecule_name: molecule}, function (err, info) {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                res.send({message: 'molecule information', data: info});
+            }
+        });
+    }
+    if(req.body.page = 'brands'){
+        Strength.find({potent_substance : {$elemMatch : {name : molecule}}}
+        ).populate({path: 'brands_id', populate: {path: 'dosage_id'}}).populate(
+            {path : 'brands_id',populate : {path : 'company_id'}}).exec(function (err,brands) {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                var brand = {};
+                brand['data'] = [];
+                async.each(brands, function (result, callback) {
+                    if (result.potent_substance.length === 1) {
+                        brand['data'].push({
+                            results: result
+                        });
+                        callback();
+                    }
+                    else {
+                        callback();
+                    }
+                }, function (err) {
+                    if (err) {
+                        console.log(err);
+                    }
+                    else {
+                        //res.send(brand);
+                        res.send({message : 'molecule brand', data: brand.data});
+                    }
+                });
+            }
+        });
+
+    }
+    if(req.body.page = 'combination'){
+        Strength.find({potent_substance : {$elemMatch : {name : molecule}}}
+        ).populate({path: 'brands_id', populate: {path: 'dosage_id', populate : {path : 'strength_id'}}
+        }).populate({path : 'brands_id',populate : {path : 'company_id'}}).exec(function (err,brands) {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                res.send({message : 'molecule combination',data : brands});
+            }
+        });
+    }
 });
 
 app.post('/searchall',function (req,res) {
@@ -736,200 +933,6 @@ app.post('/searchall',function (req,res) {
         }
     });
 });
-
-app.post('/searchspecific',function(req,res){
-    var value = req.body.search;
-    async.parallel({
-        Brands : function(callback){
-            Brand.find({brand_name : value},'-_id brand_name categories types primarily_used_for').populate(
-                {path : 'dosage_id', select : '-_id dosage_form',populate :
-                    {path : 'strength_id', select : '-_id strength strengths packaging prescription dose_taken warnings price dose_timing potent_substance.name potent_substance.molecule_strength'}
-                }).populate(
-                {path : 'company_id', select: '-_id company_name'}).sort({brand_name : 1}).exec(function (err,brand) {
-                if (err) {
-                    console.log(err);
-                }
-                else {
-                    callback(null,brand);
-                }
-            });
-        },
-        Diseases : function(callback){
-            Disease.find({disease_name : value},'-_id',function(err,result){
-                if(err){
-                    console.log(err);
-                }
-                else{
-                    callback(null,result);
-                }
-            });
-        },
-        Organs: function (callback) {  // gives organs sorted list
-            Disease.find({'organs.subhead' : value}, '-_id disease_name').sort({"disease_name": 1}).exec(function (err, result) {
-                if (err) {
-                    console.log(err);
-                }
-                else {
-                    callback(null, result);
-                }
-            });
-        },
-        Symptoms : function(callback){
-            Disease.find({symptoms : value},'-_id disease_name').sort({"disease_name": 1}).exec(function(err,result){
-                if(err){
-                    console.log(err);
-                }
-                else{
-                    callback(null,result);
-                }
-            });
-        },
-        Molecules : function(callback){
-            Molecule.find({molecule_name : value},'-_id',function(err,result){
-                if(err){
-                    console.log(err);
-                }
-                else{
-                    callback(null,result);
-                }
-            });
-        }
-    },function(err,result){
-        if(err){
-            console.log(err);
-        }
-        else{
-            console.log(result);
-            res.send({status : 'success' , data : result});
-        }
-    });
-});
-
-app.get('/searchbrands',function(req,res){
-    var value = req.query.brands;
-    Brand.find({brand_name : value},'-_id brand_name categories types primarily_used_for').populate(
-        {path : 'dosage_id', select : '-_id dosage_form',populate :
-            {path : 'strength_id', select : '-_id strength strengths packaging prescription dose_taken warnings price dose_timing potent_substance.name potent_substance.molecule_strength'}
-        }).populate(
-        {path : 'company_id', select: '-_id company_name'}).sort({brand_name : 1}).exec(function (err,brand) {
-        if (err) {
-            console.log(err);
-        }
-        else {
-            res.render('',{brand : brand})
-        }
-    });
-});
-
-app.get('/searchdiseases',function(req,res){
-    var value = req.query.diseases;
-    Disease.find({disease_name : value},'-_id',function(err,disease){
-        if(err){
-            console.log(err);
-        }
-        else{
-            res.render('',{data : disease});
-        }
-    });
-});
-
-app.get('/searchsymptons',function(req,res){
-    var value = req.query.symptoms;
-    Disease.find({symptoms : value},'-_id disease_name',function(err,symptom){
-        if(err){
-            console.log(err);
-        }
-        else{
-            res.render('',{data : symptom});
-        }
-    });
-});
-
-app.get('/searchmolecules',function(req,res){
-    var value = req.query.molecules;
-    Molecule.find({molecule_name : value},'-_id',function(err,molecule){
-        if(err){
-            console.log(err);
-        }
-        else{
-            res.render('',{data : molecule});
-        }
-    });
-});
-
-app.get('/searchorgans',function(req,res){
-    var value = req.query.organs;
-    Disease.find({'organs.subhead' : value},'-_id disease_name',function(err,disease) {
-        if (err) {
-            console.log(err);
-        }
-        else {
-            res.render('', {data: disease});
-        }
-    });
-});
-
-// similar barnds + info + combination
-app.get('/formolecule',function (req,res) {
-    var molecule = req.query.molecule;
-
-    if(req.query.page = 'info'){
-        Molecule.find({molecule_name: molecule}, function (err, info) {
-            if (err) {
-                console.log(err);
-            }
-            else {
-                res.send({message: 'molecule information', data: info});
-            }
-        });
-    }
-    if(req.query.page = 'brands'){
-        Strength.find({potent_substance : {$elemMatch : {name : molecule}}}
-        ).populate({path: 'brands_id', populate: {path: 'dosage_id'}}).populate(
-            {path : 'brands_id',populate : {path : 'company_id'}}).exec(function (err,brands) {
-            if (err) {
-                console.log(err);
-            }
-            else {
-                var brand = {};
-                brand['data'] = [];
-                async.each(brands, function (result, callback) {
-                    if (result.potent_substance.length === 1) {
-                        brand['data'].push({
-                            results: result
-                        });
-                        callback();
-                    }
-                    else {
-                        callback();
-                    }
-                }, function (err) {
-                    if (err) {
-                        console.log(err);
-                    }
-                    else {
-                        //res.send(brand);
-                        res.send({message : 'molecule brand', data: brand.data});
-                    }
-                });
-            }
-        });
-
-    }
-    if(req.query.page = 'combination'){
-        Strength.find({potent_substance : {$elemMatch : {name : molecule}}}
-        ).populate({path: 'brands_id', populate: {path: 'dosage_id', populate : {path : 'strength_id'}}
-        }).populate({path : 'brands_id',populate : {path : 'company_id'}}).exec(function (err,brands) {
-            if (err) {
-                console.log(err);
-            }
-            else {
-                res.send({message : 'molecule combination',data : brands});
-            }
-        });
-    }
-});
-
 
 app.post('/search_mbc',function (req,res) {
     console.log("search_mbc");
