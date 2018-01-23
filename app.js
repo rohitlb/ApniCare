@@ -790,7 +790,7 @@ app.get('/searchcategories',function(req,res){
 
 ////////////For search during submitting//////////////
 
-app.get('/forbrand',function(req,res){
+app.get('/forbrands',function(req,res){
     var value = req.query.term;
     Brand.find({brand_name : value},'-_id brand_name',function(err,result) {
         if (err) {
@@ -832,7 +832,7 @@ app.get('/forcompanies',function(req,res){
     });
 });
 
-app.get('/formolecule',function(req,res){
+app.get('/formolecules',function(req,res){
     var value = req.query.term;
     Molecule.find({molecule_name : value},'-_id molecule_name',function(err,result){
         if(err){
