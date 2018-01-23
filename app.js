@@ -589,6 +589,7 @@ app.get('/searching',function (req,res) {
     res.render('searching');
 });
 
+// it takes name and give all info or list
 app.post('/searchspecific',function(req,res){
     var value = req.body.search;
     async.parallel({
