@@ -7,9 +7,3 @@ var Search = new Schema({
 });
 
 module.exports = mongoose.model('search',Search);
-
-
-
-
-
-
