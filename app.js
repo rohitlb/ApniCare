@@ -851,10 +851,11 @@ app.get('/formolecules',function(req,res){
 
 // similar barnds + info + combination
 app.post('/formolecule',function (req,res) {
+    console.log("app");
     var molecule = req.body.molecule;
     var skip = parseInt(req.body.nskip);
     if(req.body.page == 'info'){
-        Molecule.find({molecule_name: molecule}, function (err, info) {
+        Molecule.find({molecule_name: molecule},'-_id -__v', function (err, info) {
             if (err) {
                 console.log(err);
             }
@@ -864,10 +865,9 @@ app.post('/formolecule',function (req,res) {
         });
     }
     if(req.body.page == 'brands'){
-        Strength.find({potent_substance : {$elemMatch : {name : molecule}}},'-_id -strength_id -strength_unit -packaging -strength -price -dose_taken' +
-            '-warnings -prescription'
-        ).populate({path: 'brands_id', select : '-_id -company_name', populate: {path: 'dosage_id', select : '-_id -strength'}}).populate(
-            {path : 'brands_id' , select : '-_id',populate : {path : 'company_id', select : '-_id -company_name'}}).sort({brand_name: 1}).skip(skip).limit(10).exec(function (err,brands) {
+        Strength.find({potent_substance : {$elemMatch : {name : molecule}}},'-_id -__v -potent_substance._id -potent_substance.name -strength_id -strength_unit -packaging -strength -__v -price -dose_taken -warnings -prescription -dose_timing'
+        ).populate({path: 'brands_id', select : '-_id', populate: {path: 'dosage_id', select : '-_id -dosage_form -dosage_id'}}).populate(
+            {path : 'brands_id' , select : '-_id -categories  -dosage_id -company_id -primarily_used_for -__v -types',populate : {path : 'company_id', select : '-_id  -__v -company_name'}}).sort({brand_name: 1}).skip(skip).limit(10).exec(function (err,brands) {
             if (err) {
                 console.log(err);
             }
@@ -898,9 +898,9 @@ app.post('/formolecule',function (req,res) {
 
     }
     if(req.body.page == 'combination'){
-        Strength.find({potent_substance : {$elemMatch : {name : molecule}}}
+        Strength.find({potent_substance : {$elemMatch : {name : molecule}}},'-_id -__v -potent_substance -strength_id -strength_unit -packaging -strength -__v -price -dose_taken -warnings -prescription -dose_timing'
         ).populate({path: 'brands_id', populate: {path: 'dosage_id', populate : {path : 'strength_id'}}
-        }).populate({path : 'brands_id',populate : {path : 'company_id'}}).sort({brand_name: 1}).skip(skip).limit(10).exec(function (err,brands) {
+        }).populate({path : 'brands_id', select : '-_id -categories  -dosage_id -company_id -primarily_used_for -__v -types',populate : {path : 'company_id'}}).sort({brand_name: 1}).skip(skip).limit(10).exec(function (err,brands) {
             if (err) {
                 console.log(err);
             }
