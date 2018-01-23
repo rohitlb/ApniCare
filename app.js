@@ -804,34 +804,34 @@ app.get('/forbrands',function(req,res){
         }
     });
 });
-
-app.get('/forcategories','-_id categories',function(req,res){
-    var value = req.query.term;
-    Brand.find({categories : value},function(err,result){
-        if(err){
-            console.log(err);
-        }
-        else{
-            res.send(result, {
-                'Content-Type': 'application/json'
-            }, 200);
-        }
-    });
-});
-
-app.get('/forcompanies',function(req,res){
-    var value = req.query.term;
-    Company.find({company_name : value},'-_id company_name',function(err,result){
-        if(err){
-            console.log(err);
-        }
-        else{
-            res.send(result, {
-                'Content-Type': 'application/json'
-            }, 200);
-        }
-    });
-});
+//
+// app.get('/forcategories','-_id categories',function(req,res){
+//     var value = req.query.term;
+//     Brand.find({categories : value},function(err,result){
+//         if(err){
+//             console.log(err);
+//         }
+//         else{
+//             res.send(result, {
+//                 'Content-Type': 'application/json'
+//             }, 200);
+//         }
+//     });
+// });
+//
+// app.get('/forcompanies',function(req,res){
+//     var value = req.query.term;
+//     Company.find({company_name : value},'-_id company_name',function(err,result){
+//         if(err){
+//             console.log(err);
+//         }
+//         else{
+//             res.send(result, {
+//                 'Content-Type': 'application/json'
+//             }, 200);
+//         }
+//     });
+// });
 
 app.get('/formolecules',function(req,res){
     var value = req.query.term;
