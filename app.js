@@ -912,7 +912,7 @@ app.post('/formolecule',function (req,res) {
 });
 
 app.post('/similarbrands',function(req,res){
-    var similar = req.body.molecule;
+    var molecule = req.body.molecule;
     var strength = req.body.strength;
     Strength.find({potent_substance : {$elemMatch : {name : molecule, molecule_strength : strength}}},'-_id -__v -potent_substance._id'
     ).populate({path: 'brands_id', select : '-_id', populate: {path: 'dosage_id', select : '-_id -__v'}}).populate(
