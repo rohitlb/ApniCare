@@ -838,7 +838,7 @@ app.post('/formolecule',function (req,res) {
     if(req.body.page = 'brands'){
         Strength.find({potent_substance : {$elemMatch : {name : molecule}}}
         ).populate({path: 'brands_id', populate: {path: 'dosage_id'}}).populate(
-            {path : 'brands_id',populate : {path : 'company_id'}}).exec(function (err,brands) {
+            {path : 'brands_id',populate : {path : 'company_id'}}).sort({brand_name: 1}).skip(skip).limit(10).exec(function (err,brands) {
             if (err) {
                 console.log(err);
             }
@@ -871,7 +871,7 @@ app.post('/formolecule',function (req,res) {
     if(req.body.page = 'combination'){
         Strength.find({potent_substance : {$elemMatch : {name : molecule}}}
         ).populate({path: 'brands_id', populate: {path: 'dosage_id', populate : {path : 'strength_id'}}
-        }).populate({path : 'brands_id',populate : {path : 'company_id'}}).exec(function (err,brands) {
+        }).populate({path : 'brands_id',populate : {path : 'company_id'}}).sort({brand_name: 1}).skip(skip).limit(10).exec(function (err,brands) {
             if (err) {
                 console.log(err);
             }
