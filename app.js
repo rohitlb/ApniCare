@@ -824,7 +824,7 @@ app.post('/forcategories',function(req,res){
 // similar barnds + info + combination
 app.post('/formolecule',function (req,res) {
     var molecule = req.body.molecule;
-
+    var skip = parseInt(req.body.nskip);
     if(req.body.page = 'info'){
         Molecule.find({molecule_name: molecule}, function (err, info) {
             if (err) {
