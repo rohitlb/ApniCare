@@ -790,7 +790,7 @@ app.get('/searchcategories',function(req,res){
 
 ////////////For search during submitting//////////////
 
-app.post('/forbrand',function(req,res){
+app.get('/forbrand',function(req,res){
     var value = req.query.term;
     Brand.find({brand_name : value},'-_id brand_name',function(err,result) {
         if (err) {
@@ -804,7 +804,7 @@ app.post('/forbrand',function(req,res){
     });
 });
 
-app.post('/forcategories',function(req,res){
+app.get('/forcategories','-_id categories',function(req,res){
     var value = req.query.term;
     Brand.find({categories : value},function(err,result){
         if(err){
@@ -815,9 +815,36 @@ app.post('/forcategories',function(req,res){
                 'Content-Type': 'application/json'
             }, 200);
         }
-    })
+    });
 });
 
+app.get('/forcompanies',function(req,res){
+    var value = req.query.term;
+    Company.find({company_name : value},'-_id company_name',function(err,result){
+        if(err){
+            console.log(err);
+        }
+        else{
+            res.send(result, {
+                'Content-Type': 'application/json'
+            }, 200);
+        }
+    });
+});
+
+app.get('/formolecule',function(req,res){
+    var value = req.query.term;
+    Molecule.find({molecule_name : value},'-_id molecule_name',function(err,result){
+        if(err){
+            console.log(err);
+        }
+        else{
+            res.send(result, {
+                'Content-Type': 'application/json'
+            }, 200);
+        }
+    });
+});
 
 //===================================for APP============================
 
