@@ -48,7 +48,7 @@ var routes = require('./model/imagefile');
 var app = express();
 
 var store = new mongoDBStore({
-    uri : 'mongodb://localhost/Apni',
+    uri : 'mongodb://localhost/Care',
     collection : 'mySessions'
 });
 
@@ -155,8 +155,13 @@ app.post('/feedback' , function (req,res) {
 });
 
 app.post('/needhelp' , function (req,res) {
+    console.log("pranjal");
     var subject = req.body.subject;
     var contact_message = req.body.contact_message;
+    console.log(subject);
+    console.log(contact_message);
+
+
 
     var needhelp = new Needhelp({
         //here user ID should be adde/d
@@ -4437,7 +4442,7 @@ app.post('/healthcarelogin',function(req,res) {
 //==========================Database connection===========================
 
 //data base connection and opening port
-var db = 'mongodb://localhost/Apni';
+var db = 'mongodb://localhost/Care';
 mongoose.connect(db, {useMongoClient: true});
 
 
