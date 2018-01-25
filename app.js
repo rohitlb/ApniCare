@@ -9,6 +9,8 @@ var multer = require('multer');
 var promise = require('bluebird');
 var sleep = require('thread-sleep');
 var session = require('express-session');
+var fileParser = require('connect-multiparty')();
+var cloudinary = require('cloudinary');
 var expressValidator = require('express-validator');
 var cookieParser = require('cookie-parser');
 var bcrypt = require('bcryptjs');
@@ -2657,26 +2659,26 @@ app.get('/search_molecule',function (req,res) {
 });
 
 //======================= save profile pic ====================================
-//
-// app.post('/upload', fileParser, function(req, res){
-//     console.log("app");
-//
-//     var imageFile = req.files.image;
-//
-//     cloudinary.uploader.upload(imageFile.path, function(result){
-//         if (result.url) {
-//
-//             //url should be stored in the database .. it is the path for profile pic of user
-//             console.log(result.url);
-//             //res.render('upload', {url: result.url});
-//
-//         } else {
-//             //if error
-//             console.log('Error uploading to cloudinary: ',result);
-//             res.send('did not get url');
-//         }
-//     });
-// });
+
+app.post('/upload', fileParser, function(req, res){
+    console.log("app");
+
+    var imageFile = req.files.image;
+
+    cloudinary.uploader.upload(imageFile.path, function(result){
+        if (result.url) {
+
+            //url should be stored in the database .. it is the path for profile pic of user
+            console.log(result.url);
+            //res.render('upload', {url: result.url});
+
+        } else {
+            //if error
+            console.log('Error uploading to cloudinary: ',result);
+            res.send('did not get url');
+        }
+    });
+});
 
 
 //////////////////// try for free /////////////////////////////////////////
