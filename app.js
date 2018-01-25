@@ -77,8 +77,6 @@ app.use(expressValidator());
 app.use(express.static(path.join(__dirname,'public')));
 app.use(cookieParser());
 
-// for imagefile in model
-app.use(routes);
 // if saveUninitialized : false than it will store session till the instance is in existence
 // secret is hashing secret
 // secret should be that much complex that one couldnt guess it easily
@@ -2658,76 +2656,28 @@ app.get('/search_molecule',function (req,res) {
     });
 });
 
-//======================= save profile pic ====================
+//======================= save profile pic ====================================
+//
+// app.post('/upload', fileParser, function(req, res){
+//     console.log("app");
+//
+//     var imageFile = req.files.image;
+//
+//     cloudinary.uploader.upload(imageFile.path, function(result){
+//         if (result.url) {
+//
+//             //url should be stored in the database .. it is the path for profile pic of user
+//             console.log(result.url);
+//             //res.render('upload', {url: result.url});
+//
+//         } else {
+//             //if error
+//             console.log('Error uploading to cloudinary: ',result);
+//             res.send('did not get url');
+//         }
+//     });
+// });
 
-
-app.post('/upload', fileParser, function(req, res){
-    console.log("app");
-
-    var imageFile = req.files.image;
-
-    cloudinary.uploader.upload(imageFile.path, function(result){
-        if (result.url) {
-
-            //url should be stored in the database .. it is the path for profile pic of user
-            console.log(result.url);
-            //res.render('upload', {url: result.url});
-
-        } else {
-            //if error
-            console.log('Error uploading to cloudinary: ',result);
-            res.send('did not get url');
-        }
-    });
-});
-
-
-
-var storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, 'uploads/')
-    },
-    filename: function (req, file, cb) {
-        // image name is set as number+orignal image name
-        cb(null, req.session.dpname + file.originalname);
-        //req.session.dpindbname = req.session.dpname + file.originalname;
-    }
-});
-
-var upload = multer({
-    storage: storage
-});
-
-app.get('/uploadimage', function (req,res) {
-    res.render('rohitimage');
-});
-
-app.post('/uploadimage', upload.any(), function(req, res) {
-    var path = req.files[0].path;
-    //var imageName = req.session.dpindbname ;
-    console.log(req.session.userID);
-    User.update({_id : req.session.userID},{
-        $set : {
-            path : path
-        }
-    },function (err,result) {
-        if(err){
-            console.log(err);
-        }
-        else{
-            console.log(result);
-            //res.redirect('/health_care_provider?page=image');
-            res.send({status: "success", message: "Image successfully registered"});
-        }
-    });
-    routes.addImage(User, function(err) {
-    });
-});
-
-
-//app.get('/health_care_provider?page=profile_doctor',function(req,res){
-
-//});
 
 //////////////////// try for free /////////////////////////////////////////
 app.get('/userregister',function (req,res) {
