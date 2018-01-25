@@ -3,7 +3,7 @@ html
     head
     body
         h1 Enter Disease details
-        form(action='/disease', method='POST')
+        form(action='/diseases', method='POST')
             | Disease Name :
             input(type='text', name='disease_name')
             br
@@ -16,8 +16,14 @@ html
             | Cause :
             input(type='text', name='cause')
             br
-            | Diagnosis :
-            input(type='text', name='diagnosis')
+            | Diagnosis_subhead :
+            input(type='text', name='subhead1')
+            br
+            | Diagnosis_info :
+            input(type='text', name='subhead2')
+            br
+            | organ_subhead :
+            input(type='text', name='subhead')
             br
             | Treatment :
             input(type='text', name='treatment')
