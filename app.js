@@ -40,7 +40,7 @@ var Strength = require('./model/strength');
 var Disease = require('./model/disease');
 //require molecule
 var Molecule = require('./model/molecule');
-
+var Search = require('./model/search');
 // to save profile pic of user
 var routes = require('./model/imagefile');
 
@@ -48,7 +48,7 @@ var routes = require('./model/imagefile');
 var app = express();
 
 var store = new mongoDBStore({
-    uri : 'mongodb://localhost/Apni',
+    uri : 'mongodb://localhost/Care',
     collection : 'mySessions'
 });
 
@@ -155,8 +155,13 @@ app.post('/feedback' , function (req,res) {
 });
 
 app.post('/needhelp' , function (req,res) {
+    console.log("pranjal");
     var subject = req.body.subject;
     var contact_message = req.body.contact_message;
+    console.log(subject);
+    console.log(contact_message);
+
+
 
     var needhelp = new Needhelp({
         //here user ID should be adde/d
@@ -589,6 +594,7 @@ app.get('/searching',function (req,res) {
     res.render('searching');
 });
 
+// it takes name and give all info or list
 app.post('/searchspecific',function(req,res){
     var value = req.body.search;
     async.parallel({
@@ -669,6 +675,74 @@ app.post('/searchspecific',function(req,res){
 
 //===================================for WEB============================
 
+app.post('/searchweb', function(req, res) {
+    var raw = req.body.term;
+    var spaceRemoved = raw.replace(/\s/g, '');
+    var search = new RegExp('^'+spaceRemoved,'i' );
+    async.parallel({
+        Brands : function(callback){
+            Brand.find({brand_name: search},'-_id brand_name', { 'brand_name': 1 }).sort({"updated_at":-1}).sort({"created_at":-1}).limit(20).exec(function(err,result) {
+                if(err) {
+                    console.log(result);
+                }
+                else{
+                    callback(null,result);
+                }
+            });
+        },
+        Categories: function (callback) { // gives categories sorted list
+            Brand.find({categories: search}, '-_id categories').sort({"updated_at":-1}).sort({"created_at":-1}).exec(function (err, result) {
+                if (err) {
+                    console.log(err);
+                }
+                else {
+                    callback(null, result);
+                }
+            });
+        },
+        Diseases : function(callback){
+            Disease.find({disease_name: search},'-_id disease_name ', { 'disease_name': 1 }).sort({"updated_at":-1}).sort({"created_at":-1}).limit(20).exec(function(err,result) {
+                if(err) {
+                    console.log(result);
+                }
+                else{
+                    callback(null,result);
+                }
+            });
+        },
+        Organs: function (callback) {  // gives organs sorted list
+            Search.find({name : search}, '-_id name').sort({"updated_at":-1}).sort({"created_at":-1}).exec(function (err, result) {
+                if (err) {
+                    console.log(err);
+                }
+                else {
+                    callback(null, result);
+                }
+            });
+        },
+        Molecules : function(callback){
+            Molecule.find({molecule_name: search},'-_id molecule_name', { 'molecule_name': 1,'symptoms' : 1 }).sort({"updated_at":-1}).sort({"created_at":-1}).limit(20).exec(function(err,result) {
+                if(err) {
+                    console.log(result);
+                }
+                else{
+                    callback(null,result);
+                }
+            });
+        }
+    },function(err,result){
+        if(err){
+            console.log(err);
+        }
+        else{
+            console.log(result);
+            res.send(result, {
+                'Content-Type': 'application/json'
+            }, 200);
+        }
+    });
+});
+
 app.get('/searchbrands',function(req,res){
     var value = req.query.brands;
     res.render('send',{data : value});
@@ -720,14 +794,73 @@ app.get('/searchcategories',function(req,res){
     res.send(value);
 });
 
+////////////For search during submitting//////////////
+
+app.get('/forbrands',function(req,res){
+    var value = req.query.term;
+    Brand.find({brand_name : value},'-_id brand_name',function(err,result) {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            res.send(result, {
+                'Content-Type': 'application/json'
+            }, 200);
+        }
+    });
+});
+
+app.get('/forcategories',function(req,res){
+    var value = req.query.term;
+    Brand.find({categories : value},'-_id categories',function(err,result){
+        if(err){
+            console.log(err);
+        }
+        else{
+            res.send(result, {
+                'Content-Type': 'application/json'
+            }, 200);
+        }
+    });
+});
+
+app.get('/forcompanies',function(req,res){
+    var value = req.query.term;
+    Company.find({company_name : value},'-_id company_name',function(err,result){
+        if(err){
+            console.log(err);
+        }
+        else{
+            res.send(result, {
+                'Content-Type': 'application/json'
+            }, 200);
+        }
+    });
+});
+
+app.get('/formolecules',function(req,res){
+    var value = req.query.term;
+    Molecule.find({molecule_name : value},'-_id molecule_name',function(err,result){
+        if(err){
+            console.log(err);
+        }
+        else{
+            res.send(result, {
+                'Content-Type': 'application/json'
+            }, 200);
+        }
+    });
+});
+
 //===================================for APP============================
 
 // similar barnds + info + combination
 app.post('/formolecule',function (req,res) {
+    console.log("app");
     var molecule = req.body.molecule;
-
-    if(req.body.page = 'info'){
-        Molecule.find({molecule_name: molecule}, function (err, info) {
+    var skip = parseInt(req.body.nskip);
+    if(req.body.page == 'info'){
+        Molecule.find({molecule_name: molecule},'-_id -__v', function (err, info) {
             if (err) {
                 console.log(err);
             }
@@ -736,10 +869,10 @@ app.post('/formolecule',function (req,res) {
             }
         });
     }
-    if(req.body.page = 'brands'){
-        Strength.find({potent_substance : {$elemMatch : {name : molecule}}}
-        ).populate({path: 'brands_id', populate: {path: 'dosage_id'}}).populate(
-            {path : 'brands_id',populate : {path : 'company_id'}}).exec(function (err,brands) {
+    if(req.body.page == 'brands'){
+        Strength.find({potent_substance : {$elemMatch : {name : molecule}}},'-_id -__v -potent_substance._id '
+        ).populate({path: 'brands_id', select : '-_id', populate: {path: 'dosage_id', select : '-_id -__v'}}).populate(
+            {path : 'brands_id' , select : '-_id  -__v ',populate : {path : 'company_id', select : '-_id  -__v '}}).sort({brand_name: 1}).skip(skip).limit(10).exec(function (err,brands) {
             if (err) {
                 console.log(err);
             }
@@ -769,10 +902,10 @@ app.post('/formolecule',function (req,res) {
         });
 
     }
-    if(req.body.page = 'combination'){
-        Strength.find({potent_substance : {$elemMatch : {name : molecule}}}
+    if(req.body.page == 'combination'){
+        Strength.find({potent_substance : {$elemMatch : {name : molecule}}},'-_id -__v -potent_substance._id'
         ).populate({path: 'brands_id', populate: {path: 'dosage_id', populate : {path : 'strength_id'}}
-        }).populate({path : 'brands_id',populate : {path : 'company_id'}}).exec(function (err,brands) {
+        }).populate({path : 'brands_id', select : '-_id -__v',populate : {path : 'company_id'}}).sort({brand_name: 1}).skip(skip).limit(10).exec(function (err,brands) {
             if (err) {
                 console.log(err);
             }
@@ -781,6 +914,41 @@ app.post('/formolecule',function (req,res) {
             }
         });
     }
+});
+
+app.post('/similarbrands',function(req,res){
+    var molecule = req.body.molecule;
+    var strength = req.body.strength;
+    Strength.find({potent_substance : {$elemMatch : {name : molecule, molecule_strength : strength}}},'-_id -__v -potent_substance._id'
+    ).populate({path: 'brands_id', select : '-_id', populate: {path: 'dosage_id', select : '-_id -__v'}}).populate(
+        {path : 'brands_id' , select : '-_id -__v',populate : {path : 'company_id', select : '-_id  -__v '}}).sort({brand_name: 1}).skip(skip).limit(10).exec(function (err,brands) {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            var brand = {};
+            brand['data'] = [];
+            async.each(brands, function (result, callback) {
+                if (result.potent_substance.length === 1) {
+                    brand['data'].push({
+                        results: result
+                    });
+                    callback();
+                }
+                else {
+                    callback();
+                }
+            }, function (err) {
+                if (err) {
+                    console.log(err);
+                }
+                else {
+                    //res.send(brand);
+                    res.send({message : 'molecule brand', data: brand.data});
+                }
+            });
+        }
+    });
 });
 
 app.post('/searchall',function (req,res) {
@@ -1325,7 +1493,7 @@ app.post('/verifydetailspassword',function (req,res) {
 });
 
 app.get('/updateusersdetails',function (req,res) {
-    if(req.session,userID) {
+    if(req.session.userID) {
         res.render('updateusersdetails');
     }
     res.send({status : "failure", message : "Please login first"});
@@ -2375,14 +2543,21 @@ app.post('/diseases',function (req,res) {
                     prevention: prevention,
                     source : source
                 });
-
                 disease.save(function (err,result1) {
                     if (err) {
                         console.log(err);
                     }
                     else {
-                        console.log(result1);
-                        res.send({message : "Disease saved successfully"});
+                        async.each(result1.organs.subhead,function(organ,callback){
+                            var search = new Search({
+                                name : organ
+                            });
+                            search.save(function(errs){
+                                callback()
+                            });
+                        },function(errs,update){
+                            res.send({message : "Disease saved successfully"});
+                        });
                     }
                 });
             }
@@ -2913,7 +3088,6 @@ app.get('/health_care_provider',function(req,res) {
     if(req.query.molecule) {
 
         Molecule.find({molecule_name : molecule}).sort({molecule_name:1}).exec(function (err,result) {
-            //console.log(result);
             if (err) {
                 console.log(err);
             }
@@ -2982,7 +3156,6 @@ app.get('/health_care_provider',function(req,res) {
 
     if(req.query.page == 'disease_data') {
 
-        //console.log('Hey there');
         Disease.find().sort({disease_name : 1}).exec(function (err,disease) {
             if (err) {
                 console.log(err);
@@ -3001,7 +3174,6 @@ app.get('/health_care_provider',function(req,res) {
     if(req.query.page == 'drug_data_form') {
 
         var brand = req.body.brand;
-        console.log(brand);
         Brand.find({brand_name: brand}, function (err, brand) {
             if (err) {
                 console.log(err);
@@ -3021,7 +3193,6 @@ app.get('/health_care_provider',function(req,res) {
 
     if(req.query.page == 'disease_data_form') {
         var disease = req.body.disease;
-        console.log(disease);
         Disease.find({disease_name: disease}, function (err, disease) {
             if (err) {
                 console.log(err);
@@ -3399,7 +3570,6 @@ app.post('/health_care_provider',function(req,res) {
     if(req.query.molecule) {
 
         Molecule.find({molecule_name : molecule}).sort({molecule_name:1}).exec(function (err,result) {
-            //console.log(result);
             if (err) {
                 console.log(err);
             }
@@ -3468,7 +3638,6 @@ app.post('/health_care_provider',function(req,res) {
 
     if(req.query.page == 'disease_data') {
 
-        //console.log('Hey there');
         Disease.find().sort({disease_name : 1}).exec(function (err,disease) {
             if (err) {
                 console.log(err);
@@ -3487,7 +3656,6 @@ app.post('/health_care_provider',function(req,res) {
     if(req.query.page == 'drug_data_form') {
 
         var brand = req.body.brand;
-        console.log(brand);
         Brand.find({brand_name: brand}, function (err, brand) {
             if (err) {
                 console.log(err);
@@ -3507,7 +3675,6 @@ app.post('/health_care_provider',function(req,res) {
 
     if(req.query.page == 'disease_data_form') {
         var disease = req.body.disease;
-        console.log(disease);
         Disease.find({disease_name: disease}, function (err, disease) {
             if (err) {
                 console.log(err);
@@ -4275,7 +4442,7 @@ app.post('/healthcarelogin',function(req,res) {
 //==========================Database connection===========================
 
 //data base connection and opening port
-var db = 'mongodb://localhost/Apni';
+var db = 'mongodb://localhost/Care';
 mongoose.connect(db, {useMongoClient: true});
 
 

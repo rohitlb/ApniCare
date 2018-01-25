@@ -1,0 +1,23 @@
+.button {
+    background-color: blue;
+    border: 2px solid black;
+    color: white;
+    padding: 10px 20px 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 20px;
+    border-radius: 5px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: black;
+}
+
+input[type='text'], input[type='password'] {
+    border-color: blue;
+    width:220px;
+    height:30px;
+}
