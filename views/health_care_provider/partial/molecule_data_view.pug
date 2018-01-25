@@ -139,7 +139,7 @@ div.row
                             h5.bold.section.scrollspy#food <strong>TAKEN (BEFORE/AFTER) FOOD</strong>
                             span.small_font.next_line #{val.food}
                         if(val.contraindications)
-                            h5.bold.section.scrollspy#contradictions <strong>LIST OF CONTRADICTIONS</strong>
+                            h5.bold.section.scrollspy#contraindications <strong>LIST OF CONTRAINDICATIONS</strong>
                             each cont in val.contraindications
                                 - var array21 = cont.subhead;
                                 - var array22 = cont.info;
@@ -193,9 +193,9 @@ div.row
                         if(val.food)
                             li
                                 a(href='#food') Food Interactions
-                        if(val.contradictions)
+                        if(val.contraindications)
                             li
-                                a(href='#contradictions') List of contradictions
+                                a(href='#contraindications') List of contraindications
                         if(val.source)
                             li
                                 a(href='#source') Source of Information

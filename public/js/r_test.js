@@ -226,27 +226,27 @@ $(function () {
     //     }
     // });
 
-    $( "#progressbar" ).progressbar({
-        disabled: true,
-        value: 35,
-        max: 98,
-        min: 20,
-        classes: {
-            "ui-progressbar": "highlight"
-        }
-    });
-
-
-    //- .......... PROFILE OF DOCTOR AND PHARMACIST IF STUDENT ....................
-    // $('.card-s').select(function () {
-    //     // $('#tab1').active();
-    //     // $('#city').hide();
-    //     // $('#year_of_experience').hide();
-    //     // $('#about_you').hide();
-    //     // $('#qualification').hide();
-    //     // $('#tab3').hide();
-    //     // $('#register_doc').hide();
+    // $( "#progressbar" ).progressbar({
+    //     disabled: true,
+    //     value: 35,
+    //     max: 98,
+    //     min: 20,
+    //     classes: {
+    //         "ui-progressbar": "highlight"
+    //     }
     // });
+    //
+    //
+    // //- .......... PROFILE OF DOCTOR AND PHARMACIST IF STUDENT ....................
+    // // $('.card-s').select(function () {
+    // //     // $('#tab1').active();
+    // //     // $('#city').hide();
+    // //     // $('#year_of_experience').hide();
+    // //     // $('#about_you').hide();
+    // //     // $('#qualification').hide();
+    // //     // $('#tab3').hide();
+    // //     // $('#register_doc').hide();
+    // // });
 
     //$('#profile2').hide();
     //$('#profile3').hide();
@@ -387,7 +387,7 @@ $(function () {
             '<textarea class="text_subhead2 materialize-textarea" placeholder="Enter Text" id="subhead_text2" required></textarea><label for="subhead2" style="color:black;font-size: 15px;font-weight: 400;"></label>' +
             '<label for="subhead_text2" style="color:black;font-size: 15px;font-weight: 400;">' +
             '<datalist id="contra"> <option> In Lactation</option> <option>In Geriatric/Old Person</option><option>Other Contraindications</option>' +
-            ' <option> In Pregnancy </option>Lab Interference <option></option> <option> In Children </option><option>Storage</option>' +
+            ' <option> In Pregnancy </option>Lab  <option>Interference</option> <option> In Children </option><option>Storage</option>' +
             '</label></div></div>');
         return false; //prevent form submission
     });
@@ -437,42 +437,43 @@ $(function () {
         return false; //prevent form submission
     });
 
-    //............................... For
-    // $('.repeat1').on('click', function() {
-    //     $('.repeater').append('<div><input id="subhead2" type="text" list="contra" placeholder="Choose subheading" class="browser-default repeat_subhead" required/><button class="remove">x</button>' +
-    //         '<textarea class="text_subhead" id="subhead_text" required></textarea><label for="subhead2" style="color:black;font-size: 15px;font-weight: 400;"></label>' +
-    //         '<label for="subhead2" style="color:black;font-size: 15px;font-weight: 400;">' +
-    //         '<datalist id="contra"> <option> In Lactation</option> <option>In Geriatric/Old Person</option><option>Other Contraindications</option>' +
-    //         ' <option> In Pregnancy </option>Lab Interference <option></option> <option> In Children </option><option>Storage</option>' +
-    //         '</label></div></div>');
+    //............................... For DOSAGE FORM, STRENGTH, PACKAGING, ...............//
+    // $('.repeat8').on('click', function() {
+    //     $('.repeater8').append('<div><button class="right remove"> x</button>' +
+    //         '<div style="padding:0 20px 0 10px;" class="collection"><div class="col s12 m6 l6"><span>Dosage Form</span>' +
+    //         '<span class="red-text">&nbsp*</span><input list="dosages" id="dosage_form" placeholder="Choose" style="color:black;font-size: 18px;font-weight: 400;" required="required" class="validate"/>\n' +
+    //         '<datalist id="dosages"><option value="Tablet">Tablet</option><option value="Capsule">Capsule</option>\n' +
+    //         '<option value="Solution">Solution</option><option value="Gels">Gels</option><option value="Pill">Pill</option>\n' +
+    //         '<option value="Powder">Powder</option><option value="Talc">Talc</option><option value="Paste">Paste</option>\n' +
+    //         '<option value="Drops">Drops</option><option value="Ointment">Ointment</option><option value="Inhaler">Inhaler</option>\n' +
+    //         '<option value="Aerosol">Aerosol</option><option value="Injection">Injection</option><option value="Cream">Cream</option>\n' +
+    //         '<option value="Ear Drops">Ear Drops</option><option value="Patch">Patch</option><option value="Dermal Patch">Dermal Patch</option>\n' +
+    //         '<option value="Lotion">Lotion</option><option value="Balm">Balm</option><option value="Skin Patch">Skin Patch</option>\n' +
+    //         '<option value="Syrup">Syrup</option><option value="Infusion">Infusion</option><option value="Vial">Vial</option>\n' +
+    //         '<option value="Suppository">Suppository</option><option value="Gargle">Gargle</option><option value="Kit">Kit</option>\n' +
+    //         '<option value="Shampoo">Shampoo</option><option value="Mouth wash">Mouth wash</option><option value="Soft-gel">Soft-gel</option>\n' +
+    //         '</datalist></div><div class="col s12 m6 l6"><span>Strength</span><div class="row"><div class="col s12 m12 l12">' +
+    //         '<input type="text" id="strength" placeholder="eg.500 mg" style="color:black;font-size: 18px;font-weight: 400;"/>' +
+    //         '</div></div></div><div class="col s12 m6 l6"><span>Packaging</span>' +
+    //         '<input type="text" id="packaging" style="color:black;font-size: 18px;font-weight: 400;"/>\n' +
+    //         '</div><div class="col s12 m6 l6"><span>Price</span><span class="red-text">&nbsp*</span>\n' +
+    //         '<div class="row"><div class="col s2 m1 l1"><span>' +
+    //         '<i aria-hidden="true" style="padding-top:12px;" class="fa fa-inr left"></i></span></div><div class="col s8 m11 l11">\n' +
+    //         '<input type="text" style="color:black; font-size: 18px;font-weight: 400;" required="required" class="validate"/>\n' +
+    //         '</div></div></div></div></div></div></div></div>');
     //     return false; //prevent form submission
     // });
-    //
-    // $('.repeat1').on('click', function() {
-    //     $('.repeater').append('<div><input id="subhead2" type="text" list="contra" placeholder="Choose subheading" class="browser-default repeat_subhead" required/><button class="remove">x</button>' +
-    //         '<textarea class="text_subhead" id="subhead_text" required></textarea><label for="subhead2" style="color:black;font-size: 15px;font-weight: 400;"></label>' +
-    //         '<label for="subhead2" style="color:black;font-size: 15px;font-weight: 400;">' +
-    //         '<datalist id="contra"> <option> In Lactation</option> <option>In Geriatric/Old Person</option><option>Other Contraindications</option>' +
-    //         ' <option> In Pregnancy </option>Lab Interference <option></option> <option> In Children </option><option>Storage</option>' +
-    //         '</label></div></div>');
-    //     return false; //prevent form submission
-    // });
-    //
-    // $('.repeat1').on('click', function() {
-    //     $('.repeater').append('<div><input id="subhead2" type="text" list="contra" placeholder="Choose subheading" class="browser-default repeat_subhead" required/><button class="remove">x</button>' +
-    //         '<textarea class="text_subhead" id="subhead_text" required></textarea><label for="subhead2" style="color:black;font-size: 15px;font-weight: 400;"></label>' +
-    //         '<label for="subhead2" style="color:black;font-size: 15px;font-weight: 400;">' +
-    //         '<datalist id="contra"> <option> In Lactation</option> <option>In Geriatric/Old Person</option><option>Other Contraindications</option>' +
-    //         ' <option> In Pregnancy </option>Lab Interference <option></option> <option> In Children </option><option>Storage</option>' +
-    //         '</label></div></div>');
+    // $('.repeater8').on('click','.remove', function() {
+    //     $(this).parent().remove();
     //     return false; //prevent form submission
     // });
 
+
     //............................... For Potent Substances in Drug Data Form.............//
-    $('.repeat6').on('click', function() {
-        $('.repeater6').append('<div><button class="right remove">x</button><div class="collection" style="border-color:transparent;"><div class="col s12 m6 l6">' +
-            '<input id="subheading6" type="text" placeholder="Enter Name" required="required" class="repeat_subhead6"/></div>' +
-            '<div class="col s12 m6 l6"> <input id="subhead_text6" type="text" placeholder="Enter Molecule Strength" required="required" class="text_subhead6"/>' +
+    $('.repeat6').on('click', function(){
+        $('.repeater6').append('<div><button class="right remove">x</button><div class="collection" style="border-color:transparent;padding-right:18px;">' +
+            '<div class="col s12 m6 l6"><input id="subheading6" type="text" placeholder="Enter Name" required="required" class="repeat_subhead6" style="text-transform:capitalize;"></div>' +
+            '<div class="col s12 m6 l6"> <input id="subhead_text6" type="text" placeholder="Enter Molecule Strength" required="required" style="text-transform:capitalize;" class="text_subhead6"/>' +
             '</div> </div> </div>');
         return false; //prevent form submission
     });
@@ -480,6 +481,7 @@ $(function () {
         $(this).parent().remove();
         return false; //prevent form submission
     });
+
     $('#drug_form2').hide();
     $('#enter_more_data').click(function () {
         $('#enter_more_data').hide();
@@ -534,9 +536,7 @@ $(function () {
     //     $('.val1').hide();
     //     $('input#disease_name').toggle();
     // });
-
     //$('ul.tabs1').tabs();
-
     //$('.tabs1').hide();
     //$('#drug_data_form1').hide();
     $('#extra').hide();
@@ -621,8 +621,9 @@ $(function () {
         var brand_name = $('#brand_name').val();
         var company_name = $('#company_name').val();
         var categories = $('#categories').val();
-        var strength1 = $("#strength").val();
-        var strength2 = $("#strengths").val();
+        var strength = $("#strength").val();
+        //var strength2 = $("#strengths").val();
+        //------ for potent substances ---------
         var subhead1 = [];
         $('.repeat_subhead6').each(function(){
             subhead1.push($(this).val()); //output <-- ['a','b','c']
@@ -642,12 +643,22 @@ $(function () {
         var primarily_used_for = $('#primarily_used_for').val();
         var warnings = $('#warnings').val();
 
+        // alert(brand_name);
+        // alert(categories);
+        // alert(strength);
+        // alert(dosage_form);
+        // alert(dose_timing);
+        // alert(types);
+        // alert(primarily_used_for);
+        // alert(subhead2);
+        // alert(subhead1);
+
         var data = {
             brand_name: brand_name,
             company_name: company_name,
             categories: categories,
-            strength1: strength1,
-            strength2: strength2,
+            strength1: strength,
+            //strength2: strength2,
             subhead111: subhead1,
             subhead222: subhead2,
             dosage_form: dosage_form,
@@ -1020,7 +1031,9 @@ $(function () {
     });
 
     // --------------------- TABS USED IN PROFILE STEP 3 ---------------------------
-    $('ul.tabs').tabs('select_tab', '#tab1');
+    //$('ul.tabs').tabs('select_tab', 'tab1');
+
+    $("ul.tabs").tabs('select_tab','tab1');
 
     // $('#edu_special').hide();
     // $('#register_doc').hide();
@@ -1320,9 +1333,7 @@ $(function () {
     //     var disease_name = $('#disease_name').val();
     //     $().load()
     // });
-
     // ...................FORM VALIDATION.......................
-
     // $('form[name="drug_form1"]').validate({
     //     //Materialize.toast('this is a test', 2000);
     //
@@ -1383,7 +1394,6 @@ function filePreview(input) {
 //         reader.readAsDataURL(input.files[0]);
 //     }
 // }
-
 // function validateForm() {
 //     var brand_name = document.forms["drug_form1"]["brand_name"].value;
 //     if (x == "") {
@@ -1446,7 +1456,6 @@ function filePreview(input) {
 //     });
 //     return true;
 // }
-
 // function openNav() {
 //     document.getElementById("mySidenav").style.width = "230px";
 //     document.getElementById("main").style.marginLeft = "230px";

@@ -2731,10 +2731,7 @@ app.post('/health_care_provider',function(req,res){
                         });
                 }
                 else{
-                    res.render('home_profile_doctor',
-                        {
-                            page: 'profile'
-                        });
+                    res.render('home');
                 }
             }
         }

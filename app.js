@@ -2590,8 +2590,8 @@ app.post('/molecules',function (req,res) {
     var other_info = req.body.info4;
     var dosage_subhead = req.body.subhead3;
     var dosage_info = req.body.info3;
-    var contradiction_subhead = req.body.subhead2_dosage;
-    var contradiction_info = req.body.info2;
+    var contraindication_subhead = req.body.subhead2_dosage;
+    var contraindication_info = req.body.info2;
     var source = req.body.source;
 
     Molecule.find({molecule_name : molecule_name},function(error,results){
@@ -2626,9 +2626,9 @@ app.post('/molecules',function (req,res) {
                         subhead: dosage_subhead,
                         info: dosage_info
                     },
-                    contradictions: {
-                        subhead: contradiction_subhead,
-                        info: contradiction_info
+                    contraindications: {
+                        subhead: contraindication_subhead,
+                        info: contraindication_info
                     },
                     source: source
                 });
