@@ -90,6 +90,19 @@ app.use(session({
     saveUninitialized : true
 }));
 
+
+
+
+cloudinary.config({
+    cloud_name: 'dgxhqin7e',
+    api_key:    '825578459372821',
+    api_secret: 'wk9ez8EkyiKVeGzGWD0rlUS1l0U'
+});
+
+
+
+
+
 app.get('/admin',function (req,res) {
     var page = 'home';
     if(page == 'home')
@@ -2659,6 +2672,9 @@ app.get('/search_molecule',function (req,res) {
 });
 
 //======================= save profile pic ====================================
+app.get('/upload', function(res,res){
+   res.render('rohitimage') ;
+});
 
 app.post('/upload', fileParser, function(req, res){
     console.log("app");
