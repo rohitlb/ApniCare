@@ -5,7 +5,7 @@ div#Mdiv1
             br
             span#logo1 ApniCare
                 br
-                span.span3 - it's all about Health!!
+                span.span3 - " Health You and Yours "
 
             //a(href='/profile/userprofile?page=profilePage')
                 img#logoimg(src="/images/az.png" height="80px" width="150px")
@@ -23,7 +23,6 @@ div#Mdiv1
 div
     div.row#moleculeInformation1
         div.col.s12.m12.l12#mcol2
-
             div.row#mol_row1
                 //**********data*********************
                 if(page == 'drug_data_view')
@@ -31,51 +30,126 @@ div
                 if (page == 'disease_name')
                     include ./disease
                 if (page == 'molecule_name')
-                    div.col.l11#mol_col1
+                    div.col.l10.m10.s10#mol_col1
                         - val = data[0]
                         div.row.center#mol_row1_subrow2
                             h4   #{val.molecule_name}
+                        div.row.center#mol_row1_subrow3
+                            div.drug_alphabets.pull-left
+                                span.center
+                                    ul
+                                        li.active
+                                            a.btn2.all.hoverable(href='#' type='all') All
+                                        li
+                                            a.btn2.hoverable(href='#') A
+                                        li
+                                            a.btn2.hoverable(href='#') B
+                                        li
+                                            a.btn2.hoverable(href='#') C
+                                        li
+                                            a.btn2.hoverable(href='#') D
+                                        li
+                                            a.btn2.hoverable(href='#') E
+                                        li
+                                            a.btn2.hoverable(href='#') F
+                                        li
+                                            a.btn2.hoverable(href='#') G
+                                        li
+                                            a.btn2.hoverable(href='#') H
+                                        li
+                                            a.btn2.hoverable(href='#') I
+                                        li
+                                            a.btn2.hoverable(href='#') J
+                                        li
+                                            a.btn2.hoverable(href='#') K
+                                        li
+                                            a.btn2.hoverable(href='#') L
+                                        li
+                                            a.btn2.hoverable(href='#') M
+                                        li
+                                            a.btn2.hoverable(href='#') N
+                                        li
+                                            a.btn2.hoverable(href='#') O
+                                        li
+                                            a.btn2.hoverable(href='#') P
+                                        li
+                                            a.btn2.hoverable(href='#') Q
+                                        li
+                                            a.btn2.hoverable(href='#') R
+                                        li
+                                            a.btn2.hoverable(href='#') S
+                                        li
+                                            a.btn2.hoverable(href='#') T
+                                        li
+                                            a.btn2.hoverable(href='#') U
+                                        li
+                                            a.btn2.hoverable(href='#') V
+                                        li
+                                            a.btn2.hoverable(href='#') W
+                                        li
+                                            a.btn2.hoverable(href='#') X
+                                        li
+                                            a.btn2.hoverable(href='#') Y
+                                        li
+                                            a.btn2.hoverable(href='#') Z
+                                        li
+                                            a.btn2.all.hoverable(href='#' type='other') Other
                         div.row.m_p_info
-                            //h4.center #{val.molecule_name}
-                            p.black-text.lighten-2 #{val.description}
-                            //li #{val.description}
-                            //li Drug Category #{val.drug_categories}
+                            if(val.description !='')
+                                //h4.center #{val.molecule_name}
+                                p.black-text.lighten-2 #{val.description}
+                                //li #{val.description}
+                                //li Drug Category #{val.drug_categories}
                         div.row
                             div.row
-                                a(name="Pharma")
-                                    p.m_p Pharmacokinetics
-                                        ul.m_p_info
-                                            li - Absorption: #{val.absorption}
-                                            li - Distribution: #{val.distribution}
-                                            li - Metabolism: #{val.metabolism}
-                                            li - Excretion: #{val.excretion}
+                                if(val.absorption != '' || val.distribution != '' || val.metabolism != '' || val.excretion != '')
+                                    a(name="Pharma")
+                                        p.m_p Pharmacokinetics
+
+                                            ul.m_p_info
+                                                if(val.absorption != '')
+                                                    p.m_p &nbsp &nbsp - Absorption:
+                                                    li #{val.absorption}
+                                                if(val.distribution != '')
+                                                    p.m_p &nbsp &nbsp - Distribution:
+                                                    li #{val.distribution}
+                                                if(val.metabolism != '')
+                                                    p.m_p &nbsp &nbsp - Metabolism:
+                                                    li #{val.metabolism}
+                                                if(val.excretion != '')
+                                                    p.m_p &nbsp &nbsp - Excretion:
+                                                    li #{val.excretion}
                         div.row
-                            a(name="SideEffects")
-                                p.m_p Adverse Reactions /  Side Effects
+                            if(val.side_effect != '')
+                                a(name="SideEffects")
+                                    p.m_p Adverse Reactions /  Side Effects
                                 li.m_p_info #{val.side_effect}
-                            a(href="Precautions")
-                                p.m_p Special Precautions
-                            li.m_p_info #{val.precaution}
-                            a(name="Dosage")
-                                p.m_p Dosage
-                            p.m_p Other Drug Interactions
-                            li.m_p_info #{val.drug_interaction}
-                            a(name="interactions")
+                            if(val.precaution != '')
+                                a(name="Precautions")
+                                    p.m_p Special Precautions
+                                li.m_p_info #{val.precaution}
+                            if(val.drug_interaction != '')
+                                a(name="interactions")
+                                    p.m_p Other Drug Interactions
+                                li.m_p_info #{val.drug_interaction}
+                            //a(name="interactions")
                                 p.m_p Other Interactions
                                     ul.m_p_info
                                         li - food Interaction
-                            p.m_p Dosage
-                            li.m_p_info #{val.dosage}
-                            ul.m_p_info
+                            if(val.dosage != '')
+                                p.m_p Dosage
+                                li.m_p_info #{val.dosage}
+                            //ul.m_p_info
                                 li - Oral
                                 li - Intravenous
                                 li - Liver Disorder
                                 li - Hepatic
                                 li - COPD
-                            p.m_p Food(before/after)(dropdown)
-                            li.m_p_info #{val.food}
-                            a(name="Contradictions")
-                                p.m_p List Of Contradications
+                            if(val.food != '')
+                                p.m_p Food(before/after)
+                                li.m_p_info #{val.food}
+                            //a(name="Contradictions")
+                                p.m_p List Of Contraindications
                                     ul.m_p_info
                                         li - In Pregnancy
                                         li - In Children
@@ -89,17 +163,25 @@ div
 
                     div.col#mol_row1_subrow4
                         h5 Page Contents
-                        a(href="#Pharma") Pharmacokinetics
-                        br
-                        a(href="#SideEffects") Adverse Reactions/Side Effects
-                        br
-                        a(href="#Precautions") Special Precautions
-                        br
-                        a(href="#Dosage") Dosage
-                        br
-                        a(href="#interactions") Other Drug Interactions
-                        br
-                        a(href="#Contradictions") List of Contraindications
+                        if(val.absorption !=''||val.distribution !=''||val.metabolism !=''||val.excretion !='')
+                            a(href="#Pharma") &nbsp Pharmacokinetics
+                            br
+                        if(val.side_effect !='')
+                            a(href="#SideEffects") &nbsp Adverse Reactions/Side Effects
+                            br
+                        if(val.precaution !='')
+                            a(href="#Precautions") &nbsp Special Precautions
+                            br
+                        if(val.drug_interaction !='')
+                            a(href="#interactions") &nbsp Other Drug Interactions
+                            br
+                        if(val.dosage != '')
+                            a(href="#Dosage") &nbsp Dosage
+                            br
+                        if(val.food != '')
+                            a(href="food") &nbsp Food (before/after)
+
+                        //a(href="#Contradictions") List of Contraindications
 
 
 
