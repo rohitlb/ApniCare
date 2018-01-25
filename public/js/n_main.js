@@ -14,6 +14,34 @@ $('.initial').click(function () {
 
     $('ul.tabs').tabs('select_tab', '#test-swipe-1');
     $('select').material_select();
+//***********************
+//for arranging alphabets-------------------------------
+    $(".drug_alphabets a").on("click", function() {
+        var type = $(this).attr("type");
+        if (type) {
+            if (type == 'all') {
+                $(".brands a").show();//show all
+
+            } else if (type == 'other') {
+                $(".brands a").hide();//hide all
+                $(".brands a").each(function() {
+                    var brandName = $(this).attr("name");
+                    if (!brandName.toLowerCase()[0].match(/[a-z]/i))//if name not starts with letter
+                        $(this).show();
+                });
+            }
+            return;
+        }
+        var clickedLetter = $(this).text();
+        $(".brands a").each(function () {
+            var brandName = $(this).attr("name");
+            if (brandName.toLowerCase()[0] == clickedLetter.toLowerCase()) {
+                $(this).show();
+            } else {
+                $(this).hide();
+            }
+        });
+    });
 
 
 //*************************************8

@@ -1,10 +1,72 @@
 - val = data[0]
-div.col.l11#mol_col1
+- subhead = data[0]
+div.col.l11.s11.m11#mol_col1
     div.row.center#mol_row1_subrow2
         h4   #{val.disease_name}
-    div.row.m_p_info
-        div.col.lighten-3.s12.m8.l11
-            each val in data
+div.row.m_p_info
+    div.col.lighten-3.s12.m8.l11
+        each val in data
+            //h3 #{val.disease_name.toUpperCase()}
+            if(val.symptoms)
+                li.section.scrollspy#symptoms
+                    span.bold What are the Symptoms of #{val.disease_name.toUpperCase()}?
+                    br
+                    span.next_line.flow-text #{val.symptoms}
+            if(val.risk_factor)
+                li.section.scrollspy#risk
+                    span.bold Who is at Risk for #{val.disease_name.toUpperCase()}?
+                    br
+                    span.next_line.flow-text #{val.risk_factor}
+            if(val.cause)
+                li.section.scrollspy#cause
+                    span.bold What Causes #{val.disease_name.toUpperCase()}?
+                    br
+                    span.next_line.flow-text #{val.cause}
+            if(val.diagnosis)
+                li.section.scrollspy#diagnosis
+                    span.bold  How is #{val.disease_name.toUpperCase()} Diagnosed?
+                    br
+                    each subhead in val.diagnosis
+                        span.next_line.text_upper_case #{subhead.subhead1}:
+                        span.next_line.flow-text #{subhead.subhead2}
+            if(val.treatment)
+                li.section.scrollspy#treatment
+                    span.bold How is #{val.disease_name.toUpperCase()} Treated?
+                    br
+                    span.next_line.flow-text #{val.treatment}
+            if(val.outlook)
+                li.section.scrollspy#outlook
+                    span.bold What is the Outlook for #{val.disease_name.toUpperCase()}?
+                    br
+                    span.next_line.flow-text #{val.outlook}
+            if(val.prevention)
+                li.section.scrollspy#prevention
+                    span.bold How can #{val.disease_name.toUpperCase()} be Prevented?
+                    br
+                    span.next_line.flow-text #{val.prevention}
+            h5.section.scrollspy#source Source:&nbsp
+                span.next_line #{val.source}
+
+        div.col.l3.m4.hide-on-small-only
+            ul.section.table-of-contents(style='position:fixed;padding-bottom:10px;')
+                li
+                    a(href='#symptoms') Symptoms
+                li
+                    a(href='#risk') Risk Factors
+                li
+                    a(href='#cause') Causes
+                li
+                    a(href='#diagnosis') Diagnosis
+                li
+                    a(href='#treatment') Treatment
+                li
+                    a(href='#outlook') Outlook
+                li
+                    a(href='#prevention') Prevention
+                li
+                    a(href='#source') Source
+
+            //each val in data
                 if(val.symptoms!='')
                     li#symptoms
                         span.bold What are the Symptoms of #{val.disease_name}?
@@ -44,7 +106,7 @@ div.col.l11#mol_col1
                         span.next_line.flow-text #{val.prevention}
                 h5.section.scrollspy#source Source:&nbsp
                     span.next_line #{val.source}
-div.col#mol_row1_subrow4
+//div.col#mol_row1_subrow4
     h5 Page Contents
     a(href="#Pharma") symptoms
     br
