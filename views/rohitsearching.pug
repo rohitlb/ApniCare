@@ -3,9 +3,9 @@ html
     head
     body
         h1 Enter medicine details
-        form(action='/searchall', method='POST')
-            | Search brandname :
-            input(type='text', name='search')
+        form(action='/formolecule', method='POST')
+            | Search molecule :
+            input(type='text', name='molecule')
             br
             | number of skips :
             input(type='text', name='nskip')
