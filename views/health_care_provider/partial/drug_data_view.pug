@@ -86,8 +86,8 @@ div.row
                         each dosages in vas.dosage_id
                             each doses in dosages.strength_id
                                 each pots in doses.potent_substance
-                                    - var array1 = pots.name.split(",");
-                                    - var array2 = pots.molecule_strength.split(',');
+                                    - var array1 = pots.name;
+                                    - var array2 = pots.molecule_strength;
                                     -for(var l = 0;l< array1.length ; l++)
                                         br
                                         span.next_line= array1[l]+ " : " +array2[l]
@@ -99,7 +99,8 @@ div.row
                             each dosage in vas.dosage_id
                                 each dose in dosage.strength_id
 
-                                        table.responsive-table.responsive-on-down-only
+                                        table
+                                            //.responsive-table.responsive-on-down-only
                                             thead
                                                 tr
                                                     th.section.scrollspy#dosage_form Dosage Form
@@ -115,7 +116,7 @@ div.row
                                                         td <strong>#{dose.strength} #{dose.strengths}</strong> &nbsp &nbsp
                                                     if(dose.packaging != '')
                                                         td <strong>#{dose.packaging}</strong> &nbsp &nbsp
-                                                    td <strong>#{dose.price}</strong>
+                                                    td <strong>₹ #{dose.price}</strong>
                                                 br
                                         each pots in dose.potent_substance
                                                     if(dose.dose_taken != '')

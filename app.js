@@ -1991,7 +1991,7 @@ app.post('/medicines',function(req,res) {
     var company_name = req.body.company_name;
     var categories = req.body.categories;
     var strengths = req.body.strength1;
-    var strength_unit = req.body.strength2;
+    //var strength_unit = req.body.strength2;
     var potent_name=  req.body.subhead111;
     var potent_strength = req.body.subhead222;
     var dosage_form = req.body.dosage_form;
@@ -2044,7 +2044,7 @@ app.post('/medicines',function(req,res) {
                             else {
                                 var STRength = new Strength({
                                     strength: strengths,
-                                    strength_unit : strength_unit,
+                                    //strength_unit : strength_unit,
                                     potent_substance: {
                                         name: potent_name,
                                         molecule_strength: potent_strength
@@ -2147,7 +2147,7 @@ app.post('/medicines',function(req,res) {
                 else {
                     var strength = new Strength({
                         strengths: strengths,
-                        strength_unit : strength_unit,
+                        //strength_unit : strength_unit,
                         potent_substance: {
                             name: potent_name,
                             molecule_strength: potent_strength
@@ -2240,7 +2240,7 @@ app.post('/medicines',function(req,res) {
                 else {
                     var sTrength = new Strength({
                         strengths: strengths,
-                        strength_unit : strength_unit,
+                        //strength_unit : strength_unit,
                         potent_substance: {
                             name: potent_name,
                             molecule_strength: potent_strength
@@ -2292,7 +2292,7 @@ app.post('/medicines',function(req,res) {
                 else {
                     var strength = new Strength({
                         strengths: strengths,
-                        strength_unit : strength_unit,
+                        //strength_unit : strength_unit,
                         potent_substance: {
                             name: potent_name,
                             molecule_strength: potent_strength

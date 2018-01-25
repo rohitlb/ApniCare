@@ -90,12 +90,14 @@ div.row
                             span.bold  How is #{val.disease_name.toUpperCase()} Diagnosed?
                             br
                             each other in val.diagnosis
-                                - var array1 = other.subhead.split(",");
-                                - var array2 = other.info.split(",");
+                                - var array1 = other.subhead;
+                                - var array2 = other.info;
                                 -for(var l = 0;l< array1.length ; l++)
-                                    li.next_line
-                                        h5.bold= array1[l]
-                                    span.next_line.small_font= array2[l]
+                                    if(array1[l])
+                                        li.next_line
+                                            h5.bold= array1[l]
+                                    if(array2[l])
+                                        span.next_line.small_font= array2[l]
                                     br
 
                     if(val.organs)
@@ -103,12 +105,14 @@ div.row
                             span.bold  Which Organs are affected by #{val.disease_name.toUpperCase()}?
                             br
                             each other in val.organs
-                                - var array71 = other.subhead.split(",");
-                                - var array72 = other.info.split(",");
+                                - var array71 = other.subhead;
+                                - var array72 = other.info;
                                 -for(var l = 0;l< array71.length ; l++)
-                                    li.next_line
-                                        h5.bold= array71[l]
-                                    span.next_line.small_font= array72[l]
+                                    if(array71[l])
+                                        li.next_line
+                                            h5.bold= array71[l]
+                                    if(array72[l])
+                                        span.next_line.small_font= array72[l]
                                     br
 
                     if(val.treatment)

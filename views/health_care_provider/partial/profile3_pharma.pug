@@ -36,11 +36,11 @@ div.collection#main_profile_doctor
                     h3 Personal Details
 
                 div.col.s12.m4.l4
-                    form(method='POST' action='/uploadimage' enctype='multipart/form-data' id='uploadImage')
+                    form(action='/upload', method='post', accept-charset='utf-8', enctype='multipart/form-data')
                         span Upload Your Profile Pic
                         br
-                        img(src="http://placehold.it/150", alt="Profile image")
-                        input.white-text(type='file' name='file')#file
+                        img(src="{{url}}", alt="Profile image")
+                        input(type='file', name='image')
                         input.button(type='submit' name='submit' value='UPLOAD')
 
         br
