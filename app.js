@@ -920,8 +920,6 @@ app.post('/similarbrands',function(req,res){
     var strength = req.body.strength;
     console.log(molecule);
     console.log(strength);
-
-
     var skip = req.body.nskip;
     Strength.find({'potent_substance.name' : molecule , 'potent_substance.molecule_strength' : strength},'-_id -__v -potent_substance._id '
     ).populate({path: 'brands_id', select : '-_id', populate: {path: 'dosage_id', select : '-_id -__v'}}).populate(
@@ -1212,6 +1210,22 @@ app.post('/filtersearch', function (req,res) {
             break;
         default : res.send({result : "don't even dare to mess up with my code"});
     }
+});
+
+app.post('/readmore', function(req,res){
+    var brand = req.body.brand;
+    Brand.find({brand_name : brand},'-_id brand_name categories types primarily_used_for').populate(
+        {path : 'dosage_id', select : '-_id dosage_form',populate :
+                {path : 'strength_id', select : '-_id strength strengths packaging prescription dose_taken warnings price dose_timing potent_substance.name potent_substance.molecule_strength'}
+        }).populate(
+        {path : 'company_id', select: '-_id company_name'}).sort({brand_name : 1}).exec(function (err,brand) {
+        if (err) {
+            console.log(err);
+        }
+        else{
+            res.send({ message : "read more" , data :brand });
+        }
+    });
 });
 
 //*****************************************USER LOGIN*******************************************************************
