@@ -666,7 +666,7 @@ app.post('/searchspecific',function(req,res){
             });
         },
         Molecules : function(callback){
-            Molecule.find({molecule_name : value},'-_id __v',function(err,result){
+            Molecule.find({molecule_name : value},'-_id',function(err,result){
                 if(err){
                     console.log(err);
                 }
