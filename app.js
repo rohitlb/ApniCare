@@ -2661,25 +2661,26 @@ app.get('/search_molecule',function (req,res) {
 //======================= save profile pic ====================
 
 
-app.post('/upload', fileParser, function(req, res){
-    console.log("app");
 
-    var imageFile = req.files.image;
-
-    cloudinary.uploader.upload(imageFile.path, function(result){
-        if (result.url) {
-
-            //url should be stored in the database .. it is the path for profile pic of user
-            console.log(result.url);
-            //res.render('upload', {url: result.url});
-
-        } else {
-            //if error
-            console.log('Error uploading to cloudinary: ',result);
-            res.send('did not get url');
-        }
-    });
-});
+// app.post('/upload', fileParser, function(req, res){
+//     console.log("app");
+//
+//     var imageFile = req.files.image;
+//
+//     cloudinary.uploader.upload(imageFile.path, function(result){
+//         if (result.url) {
+//
+//             //url should be stored in the database .. it is the path for profile pic of user
+//             console.log(result.url);
+//             //res.render('upload', {url: result.url});
+//
+//         } else {
+//             //if error
+//             console.log('Error uploading to cloudinary: ',result);
+//             res.send('did not get url');
+//         }
+//     });
+// });
 
 
 
@@ -4475,7 +4476,7 @@ var database = mongoose.connection;
 database.on('open', function () {
     console.log("database is connected");
     app.listen(app.get('port'), function () {
-        console.log('server connected to http:localhost:' + app.get('port'));
+        console.log('server connected to http://localhost:' + app.get('port'));
     });
 });
 

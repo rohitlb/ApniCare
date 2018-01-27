@@ -1035,8 +1035,8 @@ $(function () {
 
     $("ul.tabs").tabs('select_tab','tab1');
 
-    // $('#edu_special').hide();
-    // $('#register_doc').hide();
+    $('#form_education_specialization').hide();
+    $('#register_doc').hide();
     // $("#tab2").click(function () {
     //     //$('#tab2').focus().active();
     //     $("#edu_special").show();
