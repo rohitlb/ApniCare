@@ -9,8 +9,6 @@ var multer = require('multer');
 var promise = require('bluebird');
 var sleep = require('thread-sleep');
 var session = require('express-session');
-var fileParser = require('connect-multiparty')();
-var cloudinary = require('cloudinary');
 var expressValidator = require('express-validator');
 var cookieParser = require('cookie-parser');
 var bcrypt = require('bcryptjs');
@@ -79,6 +77,8 @@ app.use(expressValidator());
 app.use(express.static(path.join(__dirname,'public')));
 app.use(cookieParser());
 
+// for imagefile in model
+app.use(routes);
 // if saveUninitialized : false than it will store session till the instance is in existence
 // secret is hashing secret
 // secret should be that much complex that one couldnt guess it easily
@@ -89,19 +89,6 @@ app.use(session({
     resave : false,
     saveUninitialized : true
 }));
-
-
-
-
-cloudinary.config({
-    cloud_name: 'dgxhqin7e',
-    api_key:    '825578459372821',
-    api_secret: 'wk9ez8EkyiKVeGzGWD0rlUS1l0U'
-});
-
-
-
-
 
 app.get('/admin',function (req,res) {
     var page = 'home';
@@ -1723,7 +1710,7 @@ app.get('/editconfidential',function (req,res) {
 app.post('/editconfidential',function (req,res) {
     var aadhaarnumber = req.body.aadhaar_number;
     var income = req.body.income;
-    
+
     User.find({_id : req.session.userID},function (err,result) {
         if(err){
             console.log(err);
@@ -2671,10 +2658,8 @@ app.get('/search_molecule',function (req,res) {
     });
 });
 
-//======================= save profile pic ====================================
-app.get('/upload', function(res,res){
-   res.render('rohitimage') ;
-});
+//======================= save profile pic ====================
+
 
 app.post('/upload', fileParser, function(req, res){
     console.log("app");
@@ -2696,6 +2681,53 @@ app.post('/upload', fileParser, function(req, res){
     });
 });
 
+
+
+var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'uploads/')
+    },
+    filename: function (req, file, cb) {
+        // image name is set as number+orignal image name
+        cb(null, req.session.dpname + file.originalname);
+        //req.session.dpindbname = req.session.dpname + file.originalname;
+    }
+});
+
+var upload = multer({
+    storage: storage
+});
+
+app.get('/uploadimage', function (req,res) {
+    res.render('rohitimage');
+});
+
+app.post('/uploadimage', upload.any(), function(req, res) {
+    var path = req.files[0].path;
+    //var imageName = req.session.dpindbname ;
+    console.log(req.session.userID);
+    User.update({_id : req.session.userID},{
+        $set : {
+            path : path
+        }
+    },function (err,result) {
+        if(err){
+            console.log(err);
+        }
+        else{
+            console.log(result);
+            //res.redirect('/health_care_provider?page=image');
+            res.send({status: "success", message: "Image successfully registered"});
+        }
+    });
+    routes.addImage(User, function(err) {
+    });
+});
+
+
+//app.get('/health_care_provider?page=profile_doctor',function(req,res){
+
+//});
 
 //////////////////// try for free /////////////////////////////////////////
 app.get('/userregister',function (req,res) {
