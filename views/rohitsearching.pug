@@ -3,14 +3,14 @@ html
     head
     body
         h1 Enter medicine details
-        form(action='/formolecule', method='POST')
+        form(action='/searchspecific', method='POST')
             | Search molecule :
-            input(type='text', name='molecule')
+            input(type='text', name='search')
             br
             | number of skips :
             input(type='text', name='nskip')
             br
-            | number of info :
+            | number of page :
             input(type='text', name='page')
             br
             input(type='submit', name='submit')
