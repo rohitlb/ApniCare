@@ -1,14 +1,22 @@
 {
-  "name": "apnicare",
-  "version": "1.0.0",
+  "name": "apni-care",
+  "version": "1.0.2",
   "description": "1 login-reg\r 2 profile\r 3 regex for number and password\r 4 session\r 5 thread-sleep\r 6 500 & 404 error handling",
-  "main": "app.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "GPL-3.0",
   "dependencies": {
     "async": "^2.6.0",
     "bcryptjs": "^2.4.3",
     "bluebird": "^3.5.1",
     "body-parser": "^1.18.2",
     "connect-mongodb-session": "^1.4.0",
+    "cloudinary": "^1.0.9",
+    "express3-handlebars": "^0.5.0",
+    "connect-multiparty": "^1.0.3",
     "cookie-parser": "^1.4.3",
     "express": "^4.16.2",
     "express-session": "^1.15.6",
@@ -21,18 +29,13 @@
     "serve-favicon": "^2.4.5",
     "thread-sleep": "^2.0.0"
   },
-  "devDependencies": {},
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/rohitlb/ApniCare.git"
   },
-  "author": "",
-  "license": "ISC",
   "bugs": {
     "url": "https://github.com/rohitlb/ApniCare/issues"
   },
-  "homepage": "https://github.com/rohitlb/ApniCare#readme"
+  "homepage": "https://github.com/rohitlb/ApniCare#readme",
+  "devDependencies": {}
 }
