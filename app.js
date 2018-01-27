@@ -9,6 +9,8 @@ var multer = require('multer');
 var promise = require('bluebird');
 var sleep = require('thread-sleep');
 var session = require('express-session');
+var fileParser = require('connect-multiparty')();
+var cloudinary = require('cloudinary');
 var expressValidator = require('express-validator');
 var cookieParser = require('cookie-parser');
 var bcrypt = require('bcryptjs');
@@ -77,8 +79,6 @@ app.use(expressValidator());
 app.use(express.static(path.join(__dirname,'public')));
 app.use(cookieParser());
 
-// for imagefile in model
-app.use(routes);
 // if saveUninitialized : false than it will store session till the instance is in existence
 // secret is hashing secret
 // secret should be that much complex that one couldnt guess it easily
@@ -89,6 +89,19 @@ app.use(session({
     resave : false,
     saveUninitialized : true
 }));
+
+
+
+
+cloudinary.config({
+    cloud_name: 'dgxhqin7e',
+    api_key:    '825578459372821',
+    api_secret: 'wk9ez8EkyiKVeGzGWD0rlUS1l0U'
+});
+
+
+
+
 
 app.get('/admin',function (req,res) {
     var page = 'home';
@@ -299,13 +312,13 @@ app.post('/VerifyOTP',function (req, res) {
         if (error) throw new Error(error);
         var temp = JSON.parse(body);
         res.send({message: temp.Status })
-        });
+    });
 });
 
 app.get('/home',function (req,res) {
     //if (req.session.userID) {
-        res.render('index');
-        res.end();
+    res.render('index');
+    res.end();
     //}
 });
 
@@ -506,7 +519,7 @@ app.get('/ApniCare/information',function (req,res) {
         page = req.query.page;
         Brand.find({},'-_id brand_name categories types primarily_used_for').populate(
             {path : 'dosage_id', select : '-_id dosage_form',populate :
-                {path : 'strength_id', select : '-_id strength packaging prescription dose_taken warnings price dose_timing potent_substance.name'}
+                    {path : 'strength_id', select : '-_id strength packaging prescription dose_taken warnings price dose_timing potent_substance.name'}
             }).populate(
             {path : 'company_id', select: '-_id company_name'}).sort({brand_name : 1}).exec(function (err,brand) {
             if (err) {
@@ -565,23 +578,23 @@ app.get('/ApniCare/information/Diseases',function (req,res) {
 
 app.get('/ApniCare/information/Drug',function (req,res) {
     var brand = req.query.brand;
-     Brand.find({brand_name : brand},'-_id brand_name categories types primarily_used_for').populate(
-            {path : 'dosage_id', select : '-_id dosage_form',populate :
+    Brand.find({brand_name : brand},'-_id brand_name categories types primarily_used_for').populate(
+        {path : 'dosage_id', select : '-_id dosage_form',populate :
                 {path : 'strength_id', select : '-_id strength packaging prescription dose_taken warnings price dose_timing potent_substance.name'}
-            }).populate(
-            {path : 'company_id', select: '-_id company_name'}).exec(function (err,brand) {
-            if (err) {
-                console.log(err);
-            }
-            else {
-                res.render('index',
-                    {
-                        page: 'drug_data_view',
-                        data: brand
-                    });
-            }
+        }).populate(
+        {path : 'company_id', select: '-_id company_name'}).exec(function (err,brand) {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            res.render('index',
+                {
+                    page: 'drug_data_view',
+                    data: brand
+                });
+        }
 
-        });
+    });
 });
 
 //*****************************************search Middleware*******************************************************************
@@ -601,7 +614,7 @@ app.post('/searchspecific',function(req,res){
         Brands : function(callback){
             Brand.find({brand_name : value},'-_id brand_name categories types primarily_used_for').populate(
                 {path : 'dosage_id', select : '-_id dosage_form',populate :
-                    {path : 'strength_id', select : '-_id strength strengths packaging prescription dose_taken warnings price dose_timing potent_substance.name potent_substance.molecule_strength'}
+                        {path : 'strength_id', select : '-_id strength strengths packaging prescription dose_taken warnings price dose_timing potent_substance.name potent_substance.molecule_strength'}
                 }).populate(
                 {path : 'company_id', select: '-_id company_name'}).exec(function (err,result) {
                 if (err) {
@@ -1440,7 +1453,7 @@ app.post('/updatepassword',function (req,res) {
                                 res.send({status: "failure", message: "Both password not match"});
                             }
                         }
-                    else{
+                        else{
                             res.send({status: "failure", message: "Wrong credentials"});
                         }
                     }
@@ -2658,8 +2671,10 @@ app.get('/search_molecule',function (req,res) {
     });
 });
 
-//======================= save profile pic ====================
-
+//======================= save profile pic ====================================
+app.get('/upload', function(res,res){
+    res.render('rohitimage') ;
+});
 
 app.post('/upload', fileParser, function(req, res){
     console.log("app");
@@ -2681,53 +2696,6 @@ app.post('/upload', fileParser, function(req, res){
     });
 });
 
-
-
-var storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, 'uploads/')
-    },
-    filename: function (req, file, cb) {
-        // image name is set as number+orignal image name
-        cb(null, req.session.dpname + file.originalname);
-        //req.session.dpindbname = req.session.dpname + file.originalname;
-    }
-});
-
-var upload = multer({
-    storage: storage
-});
-
-app.get('/uploadimage', function (req,res) {
-    res.render('rohitimage');
-});
-
-app.post('/uploadimage', upload.any(), function(req, res) {
-    var path = req.files[0].path;
-    //var imageName = req.session.dpindbname ;
-    console.log(req.session.userID);
-    User.update({_id : req.session.userID},{
-        $set : {
-            path : path
-        }
-    },function (err,result) {
-        if(err){
-            console.log(err);
-        }
-        else{
-            console.log(result);
-            //res.redirect('/health_care_provider?page=image');
-            res.send({status: "success", message: "Image successfully registered"});
-        }
-    });
-    routes.addImage(User, function(err) {
-    });
-});
-
-
-//app.get('/health_care_provider?page=profile_doctor',function(req,res){
-
-//});
 
 //////////////////// try for free /////////////////////////////////////////
 app.get('/userregister',function (req,res) {
@@ -2803,7 +2771,7 @@ app.get('/findbrands',function (req,res) {
     var brand = req.query.brand;
     Brand.find({},'-_id brand_name types categories').populate(
         {path : 'dosage_id', select : '-_id dosage_form',populate :
-            {path : 'strength_id', select : '-_id strength packaging potent_substance.name'}
+                {path : 'strength_id', select : '-_id strength packaging potent_substance.name'}
         }).populate({path : 'company_id', select: '-_id company_name'}).sort({brand_name : 1}).exec(function (err,brand) {
         if (err) {
             console.log(err);
@@ -3064,7 +3032,7 @@ app.get('/health_care_provider',function(req,res) {
 
         Brand.find({brand_name : brand},'-_id brand_name categories types primarily_used_for').populate(
             {path : 'dosage_id', select : '-_id dosage_form',populate :
-                {path : 'strength_id', select : '-_id strength strengths packaging prescription dose_taken warnings price dose_timing potent_substance.name potent_substance.molecule_strength'}
+                    {path : 'strength_id', select : '-_id strength strengths packaging prescription dose_taken warnings price dose_timing potent_substance.name potent_substance.molecule_strength'}
             }).populate(
             {path : 'company_id', select: '-_id company_name'}).sort({brand_name : 1}).exec(function (err,brand) {
             if (err) {
@@ -3154,7 +3122,7 @@ app.get('/health_care_provider',function(req,res) {
 
         Brand.find({},'-_id brand_name types categories').populate(
             {path : 'dosage_id', select : '-_id dosage_form',populate :
-                {path : 'strength_id', select : '-_id strength strengths packaging potent_substance.name potent_substance.molecule_strength'}
+                    {path : 'strength_id', select : '-_id strength strengths packaging potent_substance.name potent_substance.molecule_strength'}
             }).populate({path : 'company_id', select: '-_id company_name'}).sort({brand_name : 1}).exec(function (err,brand) {
             if (err) {
                 console.log(err);
@@ -3254,7 +3222,7 @@ app.get('/health_care_provider',function(req,res) {
     if(req.query.page == 'molecule_data') {
 
         Molecule.find({},'-_id -__v').populate({path : 'dosage_id', select : '-_id -__v',populate : {
-            path : 'strength_id', select : '-_id -__v'}}).populate({path : 'company_id'}
+                path : 'strength_id', select : '-_id -__v'}}).populate({path : 'company_id'}
         ).sort({molecule_name:1}).exec(function (err,molecule) {
             if (err) {
                 console.log(err);
@@ -3546,7 +3514,7 @@ app.post('/health_care_provider',function(req,res) {
 
         Brand.find({brand_name : brand},'-_id brand_name categories types primarily_used_for').populate(
             {path : 'dosage_id', select : '-_id dosage_form',populate :
-                {path : 'strength_id', select : '-_id strength strengths packaging prescription dose_taken warnings price dose_timing potent_substance.name potent_substance.molecule_strength'}
+                    {path : 'strength_id', select : '-_id strength strengths packaging prescription dose_taken warnings price dose_timing potent_substance.name potent_substance.molecule_strength'}
             }).populate(
             {path : 'company_id', select: '-_id company_name'}).sort({brand_name : 1}).exec(function (err,brand) {
             if (err) {
@@ -3636,7 +3604,7 @@ app.post('/health_care_provider',function(req,res) {
 
         Brand.find({},'-_id brand_name types categories').populate(
             {path : 'dosage_id', select : '-_id dosage_form',populate :
-                {path : 'strength_id', select : '-_id strength strengths packaging potent_substance.name potent_substance.molecule_strength'}
+                    {path : 'strength_id', select : '-_id strength strengths packaging potent_substance.name potent_substance.molecule_strength'}
             }).populate({path : 'company_id', select: '-_id company_name'}).sort({brand_name : 1}).exec(function (err,brand) {
             if (err) {
                 console.log(err);
@@ -3736,7 +3704,7 @@ app.post('/health_care_provider',function(req,res) {
     if(req.query.page == 'molecule_data') {
 
         Molecule.find({},'-_id -__v').populate({path : 'dosage_id', select : '-_id -__v',populate : {
-            path : 'strength_id', select : '-_id -__v'}}).populate({path : 'company_id'}
+                path : 'strength_id', select : '-_id -__v'}}).populate({path : 'company_id'}
         ).sort({molecule_name:1}).exec(function (err,molecule) {
             if (err) {
                 console.log(err);
@@ -4037,20 +4005,20 @@ app.post('/doctorlogedin',function (req,res) {
 });
 
 app.post('/profession',function (req,res) {
-   var profession = req.body.profession;
-           Doctor.update({_id : req.session.doctorID},{
-               $set : {
-                   occupation: profession
-               }
-           },function (err,result) {
-               if(err)
-               {
-                   console.log(err);
-               }
-               else {
-                   res.send({details : "success", message : "Profession added"});
-           }
-       });
+    var profession = req.body.profession;
+    Doctor.update({_id : req.session.doctorID},{
+        $set : {
+            occupation: profession
+        }
+    },function (err,result) {
+        if(err)
+        {
+            console.log(err);
+        }
+        else {
+            res.send({details : "success", message : "Profession added"});
+        }
+    });
 });
 
 app.post('/basic',function (req,res) {
@@ -4419,46 +4387,46 @@ app.post('/healthcarelogin',function(req,res) {
     var password = req.body.password;
 
     async.parallel({
-        doctor: function (callback) {
-            Doctor.find({number: number, password: password}, function (err, result) {
-                if (err) {
-                    console.log(err);
-                }
-                else {
-                    callback(null, result);
-                }
-            })
+            doctor: function (callback) {
+                Doctor.find({number: number, password: password}, function (err, result) {
+                    if (err) {
+                        console.log(err);
+                    }
+                    else {
+                        callback(null, result);
+                    }
+                })
+            },
+            pharma: function (callback) {
+                Pharma.find({number: number, password: password}, function (err, result) {
+                    if (err) {
+                        console.log(err);
+                    }
+                    else {
+                        callback(null, result);
+                    }
+                })
+            }
         },
-        pharma: function (callback) {
-            Pharma.find({number: number, password: password}, function (err, result) {
-                if (err) {
-                    console.log(err);
-                }
-                else {
-                    callback(null, result);
-                }
-            })
-        }
-    },
         function (err,result) {
             if(err){
                 console.log(err);
-        }
-        else{
+            }
+            else{
                 if(result.doctor== "" && result.pharma =="") {
                     res.send({status : "failure", message : "enter correct details"});
                 }
-                    else{
-                        if(result.doctor != ""){
-                            req.session.doctorID = result.doctor[0]._id;
-                            res.redirect('/health_care_provider');
-                        }
-                        if(result.pharma != "") {
-                            req.session.pharmaID = result.pharma[0]._id;
-                            res.redirect('/health_care_provider');
-                        }
-                    };
-                }
+                else{
+                    if(result.doctor != ""){
+                        req.session.doctorID = result.doctor[0]._id;
+                        res.redirect('/health_care_provider');
+                    }
+                    if(result.pharma != "") {
+                        req.session.pharmaID = result.pharma[0]._id;
+                        res.redirect('/health_care_provider');
+                    }
+                };
+            }
         })
 });
 
