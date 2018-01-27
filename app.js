@@ -44,7 +44,6 @@ var Disease = require('./model/disease');
 var Molecule = require('./model/molecule');
 var Search = require('./model/search');
 // to save profile pic of user
-var routes = require('./model/imagefile');
 
 //declare the app
 var app = express();
