@@ -2087,7 +2087,7 @@ app.post('/medicines',function(req,res) {
     var brand_name = req.body.brand_name;
     var company_name = req.body.company_name;
     var categories = req.body.categories;
-    var strengths = req.body.strength1;
+    var strengTHS = req.body.strength1;
     //var strength_unit = req.body.strength2;
     var potent_name=  req.body.subhead111;
     var potent_strength = req.body.subhead222;
@@ -2102,6 +2102,9 @@ app.post('/medicines',function(req,res) {
     var warnings = req.body.warnings;
     var companyresult = null;
     var brandresult = null;
+    console.log(price);
+    console.log('reached');
+
 
     async.waterfall([
             function (callback) {
@@ -2139,9 +2142,9 @@ app.post('/medicines',function(req,res) {
                                 res.send("other company cannot have same brand");
                             }
                             else {
+                                console.log('reaches here');
                                 var STRength = new Strength({
-                                    strength: strengths,
-                                    //strength_unit : strength_unit,
+                                    strength: strengTHS,
                                     potent_substance: {
                                         name: potent_name,
                                         molecule_strength: potent_strength
@@ -2243,8 +2246,7 @@ app.post('/medicines',function(req,res) {
                 }
                 else {
                     var strength = new Strength({
-                        strengths: strengths,
-                        //strength_unit : strength_unit,
+                        strength: strengTHS,
                         potent_substance: {
                             name: potent_name,
                             molecule_strength: potent_strength
@@ -2336,8 +2338,7 @@ app.post('/medicines',function(req,res) {
                 }
                 else {
                     var sTrength = new Strength({
-                        strengths: strengths,
-                        //strength_unit : strength_unit,
+                        strength: strengTHS,
                         potent_substance: {
                             name: potent_name,
                             molecule_strength: potent_strength
@@ -2388,8 +2389,8 @@ app.post('/medicines',function(req,res) {
                 }
                 else {
                     var strength = new Strength({
-                        strengths: strengths,
-                        //strength_unit : strength_unit,
+                        strength: strengTHS,
+
                         potent_substance: {
                             name: potent_name,
                             molecule_strength: potent_strength
@@ -3136,6 +3137,15 @@ app.get('/health_care_provider',function(req,res) {
                     if (req.query.page == 'home' || req.query.page == 'profile_doctor' || req.query.page == 'profile_student_pharmacist' || req.query.page == 'profile_student_doctor' || req.query.page == 'profile_student_pharmacist' || req.query.page == 'profile' || req.query.page == 'profile_pharmacist' || req.query.page == 'drug_data' || req.query.page == 'molecule_data' || req.query.page == 'disease_data' || req.query.page == 'drug_data_form' || req.query.page == 'molecule_data_form' || req.query.page == 'disease_data_form' || req.query.page == 'feedback_contributions' || req.query.page == 'feedback_profile' || req.query.page == 'notifications' || req.query.page == 'need_help') {
                         page = req.query.page;
                     }
+                    // console.log(brand[0].dosage_id);
+                    // for(var i = 0; i < brand[0].dosage_id ;i++){
+                    //     if(brand[0].dosage_id[i].dosage_form == '') {
+                    //
+                    //     }
+                    // }
+                    // async.each(brand[0].dosage_id,function(particular_brand,callback){
+                    //     console.log(particular_brand.dosage_form);
+                    // });
                     res.render('home_profile_doctor',
                         {
                             page: 'drug_data_view',
