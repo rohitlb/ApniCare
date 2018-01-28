@@ -49,7 +49,7 @@ var Search = require('./model/search');
 var app = express();
 
 var store = new mongoDBStore({
-    uri : 'mongodb://localhost/Apni',
+    uri : 'mongodb://localhost/Care',
     collection : 'mySessions'
 });
 
@@ -4536,7 +4536,7 @@ app.post('/healthcarelogin',function(req,res) {
 //==========================Database connection===========================
 
 //data base connection and opening port
-var db = 'mongodb://localhost/Apni';
+var db = 'mongodb://localhost/Care';
 mongoose.connect(db, {useMongoClient: true});
 
 
