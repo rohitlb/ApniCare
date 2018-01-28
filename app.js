@@ -49,7 +49,7 @@ var Search = require('./model/search');
 var app = express();
 
 var store = new mongoDBStore({
-    uri : 'mongodb://localhost/Care',
+    uri : 'mongodb://localhost/Apni',
     collection : 'mySessions'
 });
 
@@ -114,6 +114,28 @@ app.get('/test',function (req,res) {
     res.end();
 
 });
+
+//*************************************Rohit's Testing section*******************************************************************
+
+app.post('/count', function(req,res){
+    Brand.count({brand_name : "brand_name"},function(result) {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            res.send(result);
+        }
+    });
+    // Brand.count().exec(function(err, result) {
+    //     if (err) {
+    //         console.log(err);
+    //     }
+    //     else {
+    //         res.send(result);
+    //     }
+    // });
+});
+
 //*************************************Feedback and needhelp*******************************************************************
 
 app.post('/feedback' , function (req,res) {
@@ -1105,10 +1127,10 @@ app.post('/brandinfo', function(req,res){
 // takes raw name of disease organ symptoms , and gives list for it
 app.post('/search_dos',function (req,res) {
     console.log("search_dos");
-
     var raw = req.body.search;
     var skip = parseInt(req.body.nskip);
     console.log(raw);
+    console.log(typeof raw);
     var spaceRemoved = raw.replace(/\s/g, '');
     var search = new RegExp('^'+spaceRemoved,'i' );
     async.parallel({
@@ -1152,6 +1174,42 @@ app.post('/search_dos',function (req,res) {
             console.log({"search_dos" : results});
         }
     });
+});
+
+// takes name of disease organ symptoms , and gives info about it
+app.post('/dos_info',function (req,res) {
+    console.log("dos_info");
+    var search = req.body.search;
+    if(req.body.page == 'disease'){ // gives disease_name sorted list
+        Disease.find({disease_name: search}).exec(function (err, result) {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                res.send({ message : "read more for disease" , data :result });
+            }
+        });
+    }
+    if(req.body.page == 'organ'){ // gives organs sorted list
+        Disease.find({organs: {$elemMatch: {subhead: search}}}).exec(function (err, result) {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                res.send({ message : "read more for organ" , data :result });
+            }
+        });
+    }
+    if(req.body.page == 'symptom'){ // gives symptoms sorted list
+        Disease.find({symptoms: search}).exec(function (err, result) {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                res.send({ message : "read more for symptom" , data :result });
+            }
+        });
+    }
 });
 
 // takes filter[molecule_name,categories,brand_name,disease_name,organs,symptoms] name and search for them
@@ -4465,12 +4523,10 @@ app.post('/healthcarelogin',function(req,res) {
         })
 });
 
-
-
 //==========================Database connection===========================
 
 //data base connection and opening port
-var db = 'mongodb://localhost/ApniCare';
+var db = 'mongodb://localhost/Apni';
 mongoose.connect(db, {useMongoClient: true});
 
 
