@@ -622,7 +622,7 @@ app.post('/searchspecific',function(req,res){
         Brands : function(callback){
             Brand.find({brand_name : value},'-_id brand_name categories types primarily_used_for').populate(
                 {path : 'dosage_id', select : '-_id dosage_form',populate :
-                        {path : 'strength_id', select : '-_id strength strengths packaging prescription dose_taken warnings price dose_timing potent_substance.name potent_substance.molecule_strength'}
+                        {path : 'strength_id', select : '-_id strength packaging prescription dose_taken warnings price dose_timing potent_substance.name potent_substance.molecule_strength'}
                 }).populate(
                 {path : 'company_id', select: '-_id company_name'}).exec(function (err,result) {
                 if (err) {
