@@ -1180,7 +1180,6 @@ app.post('/search_dos',function (req,res) {
 app.post('/dos_info',function (req,res) {
     console.log("dos_info");
     var search = req.body.search;
-    if(req.body.page == 'disease'){ // gives disease_name sorted list
         Disease.find({disease_name: search}).exec(function (err, result) {
             if (err) {
                 console.log(err);
@@ -1189,27 +1188,6 @@ app.post('/dos_info',function (req,res) {
                 res.send({ message : "read more for disease" , data :result });
             }
         });
-    }
-    if(req.body.page == 'organ'){ // gives organs sorted list
-        Disease.find({organs: {$elemMatch: {subhead: search}}}).exec(function (err, result) {
-            if (err) {
-                console.log(err);
-            }
-            else {
-                res.send({ message : "read more for organ" , data :result });
-            }
-        });
-    }
-    if(req.body.page == 'symptom'){ // gives symptoms sorted list
-        Disease.find({symptoms: search}).exec(function (err, result) {
-            if (err) {
-                console.log(err);
-            }
-            else {
-                res.send({ message : "read more for symptom" , data :result });
-            }
-        });
-    }
 });
 
 // takes filter[molecule_name,categories,brand_name,disease_name,organs,symptoms] name and search for them
