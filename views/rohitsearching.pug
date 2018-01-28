@@ -3,12 +3,12 @@ html
     head
     body
         h1 Enter medicine details
-        form(action='/searchspecific', method='POST')
-            | Search molecule :
-            input(type='text', name='search')
+        form(action='/readmore', method='POST')
+            | Search brand :
+            input(type='text', name='brand')
             br
-            | number of skips :
-            input(type='text', name='nskip')
+            | number of strength :
+            input(type='text', name='strength')
             br
             | number of page :
             input(type='text', name='page')

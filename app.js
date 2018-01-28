@@ -918,9 +918,12 @@ app.post('/formolecule',function (req,res) {
 app.post('/similarbrands',function(req,res){
     var molecule = req.body.molecule;
     var strength = req.body.strength;
-    Strength.find({potent_substance : {$elemMatch : {name : molecule, molecule_strength : strength}}},'-_id -__v -potent_substance._id'
+    console.log(molecule);
+    console.log(strength);
+    var skip = req.body.nskip;
+    Strength.find({'potent_substance.name' : molecule , 'potent_substance.molecule_strength' : strength},'-_id -__v -potent_substance._id '
     ).populate({path: 'brands_id', select : '-_id', populate: {path: 'dosage_id', select : '-_id -__v'}}).populate(
-        {path : 'brands_id' , select : '-_id -__v',populate : {path : 'company_id', select : '-_id  -__v '}}).sort({brand_name: 1}).skip(skip).limit(10).exec(function (err,brands) {
+        {path : 'brands_id' , select : '-_id  -__v ',populate : {path : 'company_id', select : '-_id  -__v '}}).sort({brand_name: 1}).skip(skip).limit(10).exec(function (err,brands) {
         if (err) {
             console.log(err);
         }
@@ -928,7 +931,7 @@ app.post('/similarbrands',function(req,res){
             var brand = {};
             brand['data'] = [];
             async.each(brands, function (result, callback) {
-                if (result.potent_substance.length === 1) {
+                if (result.potent_substance.molecule_strength.length === 1) {
                     brand['data'].push({
                         results: result
                     });
@@ -942,8 +945,7 @@ app.post('/similarbrands',function(req,res){
                     console.log(err);
                 }
                 else {
-                    //res.send(brand);
-                    res.send({message : 'molecule brand', data: brand.data});
+                    res.send({message : 'similar brands', data: brand.data});
                 }
             });
         }
@@ -1208,6 +1210,22 @@ app.post('/filtersearch', function (req,res) {
             break;
         default : res.send({result : "don't even dare to mess up with my code"});
     }
+});
+
+app.post('/readmore', function(req,res){
+    var brand = req.body.brand;
+    Brand.find({brand_name : brand},'-_id brand_name categories types primarily_used_for').populate(
+        {path : 'dosage_id', select : '-_id dosage_form',populate :
+                {path : 'strength_id', select : '-_id strength strengths packaging prescription dose_taken warnings price dose_timing potent_substance.name potent_substance.molecule_strength'}
+        }).populate(
+        {path : 'company_id', select: '-_id company_name'}).sort({brand_name : 1}).exec(function (err,brand) {
+        if (err) {
+            console.log(err);
+        }
+        else{
+            res.send({ message : "read more" , data :brand });
+        }
+    });
 });
 
 //*****************************************USER LOGIN*******************************************************************
