@@ -560,6 +560,7 @@ $(function () {
 
     //- ................... DISEASE DATA FORM SUBMIT ....................
     $('#disease_data_button').click(function () {
+        alert('done');
         var disease_name = $('#disease_name').val();
         var symptoms = $('#symptoms').val();
         var risk_factor = $('#risk_factors').val();
