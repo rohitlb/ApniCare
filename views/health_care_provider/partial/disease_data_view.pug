@@ -89,31 +89,41 @@ div.row
                         li.section.scrollspy#diagnosis
                             span.bold  How is #{val.disease_name.toUpperCase()} Diagnosed?
                             br
-                            each other in val.diagnosis
-                                - var array1 = other.subhead;
-                                - var array2 = other.info;
-                                -for(var l = 0;l< array1.length ; l++)
-                                    if(array1[l])
-                                        li.next_line
-                                            h5.bold= array1[l]
-                                    if(array2[l])
-                                        span.next_line.small_font= array2[l]
-                                    br
+                            each other,index in val.diagnosis.subhead
+                                //each sub, index in other.subhead
+                                h5.bold= other
+                                    span.small_font.left ►
+                                span.next_line.small_font= val.diagnosis.info[index]
+
+                            //each other in val.diagnosis
+                            //    - var array1 = other.subhead;
+                            //    - var array2 = other.info;
+                            //    -for(var l = 0;l< array1.length ; l++)
+                            //        if(array1[l])
+                            //            li.next_line
+                            //                h5.bold= array1[l]
+                            //        if(array2[l])
+                            //            span.next_line.small_font= array2[l]
+                            //        br
 
                     if(val.organs)
                         li.section.scrollspy#organs
                             span.bold  Which Organs are affected by #{val.disease_name.toUpperCase()}?
                             br
-                            each other in val.organs
-                                - var array71 = other.subhead;
-                                - var array72 = other.info;
-                                -for(var l = 0;l< array71.length ; l++)
-                                    if(array71[l])
-                                        li.next_line
-                                            h5.bold= array71[l]
-                                    if(array72[l])
-                                        span.next_line.small_font= array72[l]
-                                    br
+                            each other,index in val.organs.subhead
+                                    //each sub, index in other.subhead
+                                    h5.bold= other
+                                        span.small_font.left ►
+                                    span.next_line.small_font= val.organs.info[index]
+                                    //- var array71 = other.subhead;
+                                    //- var array72 = other.info;
+                                    //-for(var l = 0;l< array71.length ; l++)
+                                    //    if(array71[l])
+                                    //        li.next_line
+                                    //            h5.bold= array71[l]
+                                    //    if(array72[l])
+                                    //        span.next_line.small_font= array72[l]
+                                    //    br
 
                     if(val.treatment)
                         li.section.scrollspy#treatment
@@ -131,6 +141,7 @@ div.row
                             br
                             span.next_line.flow-text #{val.prevention}
                     h5.section.scrollspy#source Source:&nbsp
+                        br
                         span.next_line #{val.source}
 
             div.col.l3.m4.hide-on-small-only

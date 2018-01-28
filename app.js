@@ -44,7 +44,6 @@ var Disease = require('./model/disease');
 var Molecule = require('./model/molecule');
 var Search = require('./model/search');
 // to save profile pic of user
-var routes = require('./model/imagefile');
 
 //declare the app
 var app = express();
@@ -585,7 +584,7 @@ app.get('/ApniCare/information/Drug',function (req,res) {
 });
 
 //*****************************************search Middleware*******************************************************************
-
+// search get middleware for rohit
 app.get('/rohitsearching',function (req,res) {
     res.render('rohitsearching');
 });
@@ -594,7 +593,7 @@ app.get('/searching',function (req,res) {
     res.render('searching');
 });
 
-// it takes name and give all info or list
+// it takes name and give all info or list in array like disease ,brands , molecule etc
 app.post('/searchspecific',function(req,res){
     var value = req.body.search;
     async.parallel({
@@ -916,12 +915,16 @@ app.post('/formolecule',function (req,res) {
     }
 });
 
+// same molecule same strength => output is list of brands
 app.post('/similarbrands',function(req,res){
     var molecule = req.body.molecule;
     var strength = req.body.strength;
-    Strength.find({potent_substance : {$elemMatch : {name : molecule, molecule_strength : strength}}},'-_id -__v -potent_substance._id'
+    console.log(molecule);
+    console.log(strength);
+    var skip = req.body.nskip;
+    Strength.find({'potent_substance.name' : molecule , 'potent_substance.molecule_strength' : strength},'-_id -__v -potent_substance._id '
     ).populate({path: 'brands_id', select : '-_id', populate: {path: 'dosage_id', select : '-_id -__v'}}).populate(
-        {path : 'brands_id' , select : '-_id -__v',populate : {path : 'company_id', select : '-_id  -__v '}}).sort({brand_name: 1}).skip(skip).limit(10).exec(function (err,brands) {
+        {path : 'brands_id' , select : '-_id  -__v ',populate : {path : 'company_id', select : '-_id  -__v '}}).sort({brand_name: 1}).skip(skip).limit(10).exec(function (err,brands) {
         if (err) {
             console.log(err);
         }
@@ -929,7 +932,7 @@ app.post('/similarbrands',function(req,res){
             var brand = {};
             brand['data'] = [];
             async.each(brands, function (result, callback) {
-                if (result.potent_substance.length === 1) {
+                if (result.potent_substance.molecule_strength.length === 1) {
                     brand['data'].push({
                         results: result
                     });
@@ -943,19 +946,19 @@ app.post('/similarbrands',function(req,res){
                     console.log(err);
                 }
                 else {
-                    //res.send(brand);
-                    res.send({message : 'molecule brand', data: brand.data});
+                    res.send({message : 'similar brands', data: brand.data});
                 }
             });
         }
     });
 });
 
+// have regex , search for molecule_name,categories,brand_name,disease_name,organs,symptoms
 app.post('/searchall',function (req,res) {
     var raw = req.body.search;
+    console.log(raw);
     var spaceRemoved = raw.replace(/\s/g, '');
     var skip = parseInt(req.body.nskip);
-
     var search = new RegExp('^' + spaceRemoved, 'i');
     async.parallel({
         molecules: function (callback) { // gives molecule_name sorted list
@@ -1032,9 +1035,9 @@ app.post('/searchall',function (req,res) {
     });
 });
 
+// search molecule , brand, category and takes raw name for it
 app.post('/search_mbc',function (req,res) {
     console.log("search_mbc");
-
     var raw = req.body.search;
     var skip = parseInt(req.body.nskip);
     var spaceRemoved = raw.replace(/\s/g, '');
@@ -1082,6 +1085,24 @@ app.post('/search_mbc',function (req,res) {
     });
 });
 
+// take brand name and gives all information of any brand
+app.post('/brandinfo', function(req,res){
+    var brand = req.body.brand;
+    Brand.find({brand_name : brand},'-_id brand_name categories types primarily_used_for').populate(
+        {path : 'dosage_id', select : '-_id dosage_form',populate :
+                {path : 'strength_id', select : '-_id strength strengths packaging prescription dose_taken warnings price dose_timing potent_substance.name potent_substance.molecule_strength'}
+        }).populate(
+        {path : 'company_id', select: '-_id company_name'}).exec(function (err,result) {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            res.send({ message : "brandinfo" , data :result });
+        }
+    });
+});
+
+// takes raw name of disease organ symptoms , and gives list for it
 app.post('/search_dos',function (req,res) {
     console.log("search_dos");
 
@@ -1133,6 +1154,7 @@ app.post('/search_dos',function (req,res) {
     });
 });
 
+// takes filter[molecule_name,categories,brand_name,disease_name,organs,symptoms] name and search for them
 app.post('/filtersearch', function (req,res) {
     console.log("filter");
 
@@ -1209,6 +1231,23 @@ app.post('/filtersearch', function (req,res) {
             break;
         default : res.send({result : "don't even dare to mess up with my code"});
     }
+});
+
+// takes brand name and give info of it
+app.post('/readmore', function(req,res){
+    var brand = req.body.brand;
+    Brand.find({brand_name : brand},'-_id brand_name categories types primarily_used_for').populate(
+        {path : 'dosage_id', select : '-_id dosage_form',populate :
+                {path : 'strength_id', select : '-_id strength strengths packaging prescription dose_taken warnings price dose_timing potent_substance.name potent_substance.molecule_strength'}
+        }).populate(
+        {path : 'company_id', select: '-_id company_name'}).sort({brand_name : 1}).exec(function (err,brand) {
+        if (err) {
+            console.log(err);
+        }
+        else{
+            res.send({ message : "read more" , data :brand });
+        }
+    });
 });
 
 //*****************************************USER LOGIN*******************************************************************
@@ -1990,7 +2029,7 @@ app.post('/medicines',function(req,res) {
     var brand_name = req.body.brand_name;
     var company_name = req.body.company_name;
     var categories = req.body.categories;
-    var strengths = req.body.strength1;
+    var strengTHS = req.body.strength1;
     //var strength_unit = req.body.strength2;
     var potent_name=  req.body.subhead111;
     var potent_strength = req.body.subhead222;
@@ -2005,6 +2044,9 @@ app.post('/medicines',function(req,res) {
     var warnings = req.body.warnings;
     var companyresult = null;
     var brandresult = null;
+    console.log(price);
+    console.log('reached');
+
 
     async.waterfall([
             function (callback) {
@@ -2042,9 +2084,9 @@ app.post('/medicines',function(req,res) {
                                 res.send("other company cannot have same brand");
                             }
                             else {
+                                console.log('reaches here');
                                 var STRength = new Strength({
-                                    strength: strengths,
-                                    //strength_unit : strength_unit,
+                                    strength: strengTHS,
                                     potent_substance: {
                                         name: potent_name,
                                         molecule_strength: potent_strength
@@ -2146,8 +2188,7 @@ app.post('/medicines',function(req,res) {
                 }
                 else {
                     var strength = new Strength({
-                        strengths: strengths,
-                        //strength_unit : strength_unit,
+                        strength: strengTHS,
                         potent_substance: {
                             name: potent_name,
                             molecule_strength: potent_strength
@@ -2239,8 +2280,7 @@ app.post('/medicines',function(req,res) {
                 }
                 else {
                     var sTrength = new Strength({
-                        strengths: strengths,
-                        //strength_unit : strength_unit,
+                        strength: strengTHS,
                         potent_substance: {
                             name: potent_name,
                             molecule_strength: potent_strength
@@ -2291,8 +2331,8 @@ app.post('/medicines',function(req,res) {
                 }
                 else {
                     var strength = new Strength({
-                        strengths: strengths,
-                        //strength_unit : strength_unit,
+                        strength: strengTHS,
+
                         potent_substance: {
                             name: potent_name,
                             molecule_strength: potent_strength
@@ -3039,6 +3079,15 @@ app.get('/health_care_provider',function(req,res) {
                     if (req.query.page == 'home' || req.query.page == 'profile_doctor' || req.query.page == 'profile_student_pharmacist' || req.query.page == 'profile_student_doctor' || req.query.page == 'profile_student_pharmacist' || req.query.page == 'profile' || req.query.page == 'profile_pharmacist' || req.query.page == 'drug_data' || req.query.page == 'molecule_data' || req.query.page == 'disease_data' || req.query.page == 'drug_data_form' || req.query.page == 'molecule_data_form' || req.query.page == 'disease_data_form' || req.query.page == 'feedback_contributions' || req.query.page == 'feedback_profile' || req.query.page == 'notifications' || req.query.page == 'need_help') {
                         page = req.query.page;
                     }
+                    // console.log(brand[0].dosage_id);
+                    // for(var i = 0; i < brand[0].dosage_id ;i++){
+                    //     if(brand[0].dosage_id[i].dosage_form == '') {
+                    //
+                    //     }
+                    // }
+                    // async.each(brand[0].dosage_id,function(particular_brand,callback){
+                    //     console.log(particular_brand.dosage_form);
+                    // });
                     res.render('home_profile_doctor',
                         {
                             page: 'drug_data_view',
@@ -4426,10 +4475,12 @@ app.post('/healthcarelogin',function(req,res) {
         })
 });
 
+
+
 //==========================Database connection===========================
 
 //data base connection and opening port
-var db = 'mongodb://localhost/Care';
+var db = 'mongodb://localhost/ApniCare';
 mongoose.connect(db, {useMongoClient: true});
 
 

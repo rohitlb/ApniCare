@@ -557,9 +557,12 @@ $(function () {
     // });
     // $textarea.val($textarea.val().replace(/\n/g,"\n\u2022").replace(/\r/g,"\r\u2022"));
 
+    //$('.next_line').add("<span>-&nbsp</span>").appendTo(document.body);
+
 
     //- ................... DISEASE DATA FORM SUBMIT ....................
     $('#disease_data_button').click(function () {
+        alert('done');
         var disease_name = $('#disease_name').val();
         var symptoms = $('#symptoms').val();
         var risk_factor = $('#risk_factors').val();
@@ -643,7 +646,7 @@ $(function () {
         var primarily_used_for = $('#primarily_used_for').val();
         var warnings = $('#warnings').val();
 
-        // alert(brand_name);
+        alert(price);
         // alert(categories);
         // alert(strength);
         // alert(dosage_form);
@@ -1035,24 +1038,176 @@ $(function () {
 
     $("ul.tabs").tabs('select_tab','tab1');
 
-    $('#form_education_specialization').hide();
-    $('#register_doc').hide();
-    // $("#tab2").click(function () {
-    //     //$('#tab2').focus().active();
-    //     $("#edu_special").show();
+    // $('#form_education_specialization').hide();
+    // $('#register_doc').hide();
+    // // $("#tab2").click(function () {
+    // //     //$('#tab2').focus().active();
+    // //     $("#edu_special").show();
+    // //     $('#basic_detail').hide();
+    // // });
+    // //
+    // // $("#tab3").click(function () {
+    // //     $('#tab3').focus().active();
+    // //     $("#register_doc").show();
+    // //     $('#basic_detail').hide();
+    // // });
+    //
+    // $('#edu_special').hide();
+    // $('#basic_details').click(function () {
+    //     var title = $('#title').val();
+    //     var name = $('#name').val();
+    //     var email = $('#email').val();
+    //     var gender = $("input[type='radio'][name='gender']:checked").val();
+    //     var city = $('#city').val();
+    //     var experience = $('#year_of_experience').val();
+    //     var about = $('#about_you').val();
+    //     var data = {
+    //         title: title,
+    //         name: name,
+    //         email: email,
+    //         gender: gender,
+    //         city: city,
+    //         experience: experience,
+    //         about: about
+    //     };
+    //     $.ajax({
+    //         url: '/basic',
+    //         type: 'POST',
+    //         data: JSON.stringify(data),
+    //         contentType: 'application/json',
+    //         success: function (result) {
+    //             if (result.success === 'success') {
+    //                 Materialize.toast(result.message, 1000);
+    //             }
+    //             else {
+    //                 Materialize.toast(result.message, 1000);
+    //             }
+    //         }
+    //
+    //     });
+    //     $('#tab2').focus();
     //     $('#basic_detail').hide();
+    //     $('#edu_special').show();
+    //
     // });
     //
-    // $("#tab3").click(function () {
-    //     $('#tab3').focus().active();
-    //     $("#register_doc").show();
-    //     $('#basic_detail').hide();
+    // $('#basic_details_pharma').click(function () {
+    //     var title = $('#title').val();
+    //     var name = $('#name').val();
+    //     var email = $('#email').val();
+    //     var gender = $("input[type='radio'][name='gender']:checked").val();
+    //     var city = $('#city').val();
+    //     var experience = $('#year_of_experience').val();
+    //     var about = $('#about_you').val();
+    //     var data = {
+    //         title: title,
+    //         name: name,
+    //         email : email,
+    //         gender: gender,
+    //         city: city,
+    //         experience: experience,
+    //         about: about
+    //     };
+    //     $.ajax({
+    //         url: '/pharma_basic',
+    //         type: 'POST',
+    //         data: JSON.stringify(data),
+    //         contentType: 'application/json',
+    //         success: function (result) {
+    //             if (result.success === 'success') {
+    //                 Materialize.toast(result.message, 1000);
+    //             }
+    //             else {
+    //                 Materialize.toast(result.message, 1000);
+    //             }
+    //         }
+    //         //window.location = '/health_care_provider?page=profile_pharmacist';
+    //         // $('#profile3').hide();
+    //         // $('#main_profile_pharmacist').show();
+    //     });
+    //     //$('#tab2').focus();
+    //     //$('#main_profile_doctor ul.tabs li.tab a').hover(function() {
+    //     // $('#tab2').focus();
+    //     // $('#basic_detail_pharma').hide();
+    //     // $('#edu_special').show();
+    // });
+    //
+    // $('#education').click(function () {
+    //     var qualification = $('#qualification').val();
+    //     var college = $('#college').val();
+    //     var completion_year = $('#completion_year').val();
+    //     var batch_from = $('#batch_from').val();
+    //     var batch_to = $('#batch_to').val();
+    //     var specialization = $('#specialization').val();
+    //     var data = {
+    //         qualification: qualification,
+    //         college: college,
+    //         completion: completion_year,
+    //         batch_from :batch_from,
+    //         batch_to : batch_to,
+    //         specialization: specialization
+    //     };
+    //     $.ajax({
+    //         url: '/education',
+    //         type: 'POST',
+    //         data: JSON.stringify(data),
+    //         contentType: 'application/json',
+    //         success: function (result) {
+    //             if (result.success === 'success') {
+    //                 Materialize.toast(result.message, 1000);
+    //             }
+    //             else {
+    //                 Materialize.toast(result.message, 1000);
+    //             }
+    //         }
+    //     });
+    //     $('#tab3').focus();
+    //     // $('#main_profile_doctor ul.tabs li.tab a').hover(function() {
+    //     //     $('#tab3').addClass('active').find('li.tab').show().css({'background-color':'lavender'});
+    //     // });
+    //
+    //     //$('#edu_special').hide();
+    //     $('#register_doc').show();
+    // });
+    //
+    // $('#education_pharma').click(function () {
+    //     var qualification = $('#qualification').val();
+    //     var college = $('#college').val();
+    //
+    //     var completion_year = $('#completion_year').val();
+    //     var batch_from = $('#batch_from').val();
+    //     var batch_to = $('#batch_to').val();
+    //     var specialization = $('#specialization').val();
+    //     var data = {
+    //         qualification: qualification,
+    //         college: college,
+    //         completion: completion_year,
+    //         batch_from :batch_from,
+    //         batch_to : batch_to,
+    //         specialization: specialization
+    //     };
+    //     $.ajax({
+    //         url: '/pharma_education',
+    //         type: 'POST',
+    //         data: JSON.stringify(data),
+    //         contentType: 'application/json',
+    //         success: function (result) {
+    //             if (result.success === 'success') {
+    //                 Materialize.toast(result.message, 1000);
+    //             }
+    //             else {
+    //                 Materialize.toast(result.message, 1000);
+    //             }
+    //         }
+    //     });
+    //     $('#edu_special').hide();
+    //     $('#register_doc').show();
     // });
 
+    $('#edu_special').hide();
     $('#basic_details').click(function () {
         var title = $('#title').val();
         var name = $('#name').val();
-        var email = $('#email').val();
         var gender = $("input[type='radio'][name='gender']:checked").val();
         var city = $('#city').val();
         var experience = $('#year_of_experience').val();
@@ -1060,7 +1215,6 @@ $(function () {
         var data = {
             title: title,
             name: name,
-            email: email,
             gender: gender,
             city: city,
             experience: experience,
@@ -1079,14 +1233,21 @@ $(function () {
                     Materialize.toast(result.message, 1000);
                 }
             }
-
+            //window.location = '/health_care_provider?page=profile_pharmacist';
+            // $('#profile3').hide();
+            // $('#main_profile_pharmacist').show();
         });
+        //$('#tab2').focus();
+        //$('#main_profile_doctor ul.tabs li.tab a').hover(function() {
+        $('#tab2').focus();
+        $('#basic_detail').hide();
+        $('#edu_special').show();
     });
 
+    //$('#edu_special').hide();
     $('#basic_details_pharma').click(function () {
         var title = $('#title').val();
         var name = $('#name').val();
-        var email = $('#email').val();
         var gender = $("input[type='radio'][name='gender']:checked").val();
         var city = $('#city').val();
         var experience = $('#year_of_experience').val();
@@ -1094,7 +1255,6 @@ $(function () {
         var data = {
             title: title,
             name: name,
-            email : email,
             gender: gender,
             city: city,
             experience: experience,
@@ -1119,14 +1279,15 @@ $(function () {
         });
         //$('#tab2').focus();
         //$('#main_profile_doctor ul.tabs li.tab a').hover(function() {
-        // $('#tab2').focus();
-        // $('#basic_detail_pharma').hide();
-        // $('#edu_special').show();
+        $('#tab2').focus();
+        $('#basic_detail_pharma').hide();
+        $('#edu_special').show();
     });
 
     $('#education').click(function () {
         var qualification = $('#qualification').val();
         var college = $('#college').val();
+
         var completion_year = $('#completion_year').val();
         var batch_from = $('#batch_from').val();
         var batch_to = $('#batch_to').val();
@@ -1192,12 +1353,13 @@ $(function () {
                 }
             }
         });
-        //$('#tab3').focus();
+        $('#tab3').focus();
         // $('#main_profile_doctor ul.tabs li.tab a').hover(function() {
         //     $('#tab3').addClass('active').find('li.tab').show().css({'background-color':'lavender'});
         // });
-        //$('#edu_special').hide();
-        //$('#register_doc').show();
+
+        $('#edu_special').hide();
+        $('#register_doc').show();
     });
 
     $('.upload_image1').submit(function () {
