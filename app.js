@@ -584,7 +584,7 @@ app.get('/ApniCare/information/Drug',function (req,res) {
 });
 
 //*****************************************search Middleware*******************************************************************
-
+// search get middleware for rohit
 app.get('/rohitsearching',function (req,res) {
     res.render('rohitsearching');
 });
@@ -593,7 +593,7 @@ app.get('/searching',function (req,res) {
     res.render('searching');
 });
 
-// it takes name and give all info or list
+// it takes name and give all info or list in array like disease ,brands , molecule etc
 app.post('/searchspecific',function(req,res){
     var value = req.body.search;
     async.parallel({
@@ -915,6 +915,7 @@ app.post('/formolecule',function (req,res) {
     }
 });
 
+// same molecule same strength => output is list of brands
 app.post('/similarbrands',function(req,res){
     var molecule = req.body.molecule;
     var strength = req.body.strength;
@@ -952,11 +953,12 @@ app.post('/similarbrands',function(req,res){
     });
 });
 
+// have regex , search for molecule_name,categories,brand_name,disease_name,organs,symptoms
 app.post('/searchall',function (req,res) {
     var raw = req.body.search;
+    console.log(raw);
     var spaceRemoved = raw.replace(/\s/g, '');
     var skip = parseInt(req.body.nskip);
-
     var search = new RegExp('^' + spaceRemoved, 'i');
     async.parallel({
         molecules: function (callback) { // gives molecule_name sorted list
@@ -1033,9 +1035,9 @@ app.post('/searchall',function (req,res) {
     });
 });
 
+// search molecule , brand, category and takes raw name for it
 app.post('/search_mbc',function (req,res) {
     console.log("search_mbc");
-
     var raw = req.body.search;
     var skip = parseInt(req.body.nskip);
     var spaceRemoved = raw.replace(/\s/g, '');
@@ -1083,6 +1085,24 @@ app.post('/search_mbc',function (req,res) {
     });
 });
 
+// take brand name and gives all information of any brand
+app.post('/brandinfo', function(req,res){
+    var brand = req.body.brand;
+    Brand.find({brand_name : brand},'-_id brand_name categories types primarily_used_for').populate(
+        {path : 'dosage_id', select : '-_id dosage_form',populate :
+                {path : 'strength_id', select : '-_id strength strengths packaging prescription dose_taken warnings price dose_timing potent_substance.name potent_substance.molecule_strength'}
+        }).populate(
+        {path : 'company_id', select: '-_id company_name'}).exec(function (err,result) {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            res.send({ message : "brandinfo" , data :result });
+        }
+    });
+});
+
+// takes raw name of disease organ symptoms , and gives list for it
 app.post('/search_dos',function (req,res) {
     console.log("search_dos");
 
@@ -1134,6 +1154,7 @@ app.post('/search_dos',function (req,res) {
     });
 });
 
+// takes filter[molecule_name,categories,brand_name,disease_name,organs,symptoms] name and search for them
 app.post('/filtersearch', function (req,res) {
     console.log("filter");
 
@@ -1212,6 +1233,7 @@ app.post('/filtersearch', function (req,res) {
     }
 });
 
+// takes brand name and give info of it
 app.post('/readmore', function(req,res){
     var brand = req.body.brand;
     Brand.find({brand_name : brand},'-_id brand_name categories types primarily_used_for').populate(
