@@ -650,7 +650,7 @@ $(function () {
         var primarily_used_for = $('#primarily_used_for').val();
         var warnings = $('#warnings').val();
 
-        alert(price);
+        //alert(price);
         // alert(categories);
         // alert(strength);
         // alert(dosage_form);
