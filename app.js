@@ -2347,7 +2347,7 @@ app.post('/medicines',function(req,res) {
             },
             function (result, callback) {
                 if (result) {
-                    Strength.findOne({strength: strengths}, function (err, result1) {
+                    Strength.findOne({strength: strengTHS}, function (err, result1) {
                         if (err) {
                             console.log(err);
                             throw new Error(err);
@@ -4559,6 +4559,7 @@ app.post('/healthcarelogin',function(req,res) {
 //data base connection and opening port
 
 var db = 'mongodb://localhost/ApniCare';
+//var db = 'mongodb://localhost/Apni';
 mongoose.connect(db, {useMongoClient: true});
 
 

@@ -67,7 +67,6 @@ div.row
                                     a.btn2.all.hoverable(href='/health_care_provider?page=drug_data' type='other') Other
 
         div.col.s12.m12.l12
-
             div.col.grey.lighten-3.s12.m8.l9
                 each vas in data
                     h3.section.scrollspy#data_name #{vas.brand_name.toUpperCase()}
@@ -76,9 +75,11 @@ div.row
                             span <strong>manufactured by #{company.company_name.toUpperCase()}</strong>
                         each dosages in vas.dosage_id
                             each doses in dosages.strength_id
-                                if(doses.prescription=== 'Needed')
-                                    span.right(style='border: groove; background-color:red; border-radius: 20px')= "Rx: "+ doses.prescription
-                                if(doses.prescription=== 'Not Needed')
+                                //if(doses.prescription!='')
+                                //    span.right(style='border: groove; border-radius: 20px')= "Rx: " + doses.prescription
+                                if(doses.prescription === 'Needed')
+                                    span.right(style='border: groove; background-color:red; border-radius: 20px')= "Rx: "+ doses.prescription[0]
+                                if(doses.prescription === 'Not Needed')
                                     span.right(style='border: groove; background-color:green; border-radius: 20px')= "Rx: "+ doses.prescription
 
                         if(vas.categories != '')
@@ -109,8 +110,10 @@ div.row
 
                                     div.collapsible-body
                                         span
-                                            //each pots,index in doses.potent_substance.name
-                                            //    span.next_line= '\n'+pots +" " +doses.potent_substance.molecule_strength[index]
+                                            span.section.scrollspy#potent <strong>▪ Involves Potent Substances: </strong>
+                                            each j, index in doses.potent_substance.name
+                                                h5.bold.small_font &nbsp #{j} &nbsp
+                                                    span.next_line= doses.potent_substance.molecule_strength[index]
 
 
                                             if(doses.dose_taken != '')
