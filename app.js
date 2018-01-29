@@ -4557,11 +4557,8 @@ app.post('/healthcarelogin',function(req,res) {
 //==========================Database connection===========================
 
 //data base connection and opening port
-<<<<<<< HEAD
+
 var db = 'mongodb://localhost/ApniCare';
-=======
-var db = 'mongodb://localhost/Apni';
->>>>>>> fe6101ecfedf618909c9e0b4420b924830dee47a
 mongoose.connect(db, {useMongoClient: true});
 
 
