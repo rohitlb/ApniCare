@@ -135,7 +135,32 @@ div.row
 
 
             div.col.m4.l3.hide-on-small-only
->>>>>>> 4e92ffa3564e93566698cd0d8660e4131b5535a6
+                ul.section.table-of-contents(style='position:fixed;z-index:2;padding-bottom:10px;')
+                    li
+                        a(href='#data_name') Brand
+                        each vas in data
+                            if(vas.types != '')
+                                span -#{vas.types}
+                    li
+                        a(href='#prescription') Prescription
+                    li
+                        a(href='#potent') Potent Substances
+                    li &nbsp&nbsp&nbsp&nbsp&nbspDosage Form
+                        each vas in data
+                            each dosage in vas.dosage_id
+                                    //each dose in dosage.strength_id
+                                    ul
+                                        li
+                                            a(href='#dosage_form') &nbsp&nbsp&nbsp&nbsp#{dosage.dosage_form}
+                                        li
+                                            a(href='#dose_taken') &nbsp&nbsp&nbsp&nbspDose Taken for #{dosage.dosage_form}
+                                        li
+                                            a(href='#timing') &nbsp&nbsp&nbsp&nbspDose Timing for #{dosage.dosage_form}
+                                        li
+                                            a(href='#primarily') &nbsp&nbsp&nbsp&nbspPrimarily Used For for #{dosage.dosage_form}
+                                        li
+                                            a(href='#warnings') &nbsp&nbsp&nbsp&nbspWarnings for #{dosage.dosage_form}
+
 
 
             div
