@@ -1223,7 +1223,7 @@ app.post('/search_dos',function (req,res) {
 app.post('/dos_info',function (req,res){
     console.log("dos_info");
     var search = req.body.search;
-    Disease.find({disease_name: search}, '-_id disease_name').exec(function (err, result) {
+    Disease.find({disease_name: search}).exec(function (err, result) {
         if (err) {
             console.log(err);
         }
@@ -4558,8 +4558,8 @@ app.post('/healthcarelogin',function(req,res) {
 
 //data base connection and opening port
 
-var db = 'mongodb://localhost/ApniCare';
-//var db = 'mongodb://localhost/Apni';
+//var db = 'mongodb://localhost/ApniCare';
+var db = 'mongodb://localhost/Apni';
 mongoose.connect(db, {useMongoClient: true});
 
 
