@@ -66,6 +66,7 @@ div.row
                                 li
                                     a.btn2.all.hoverable(href='/health_care_provider?page=drug_data' type='other') Other
 
+
         div.col.s12.m12.l12
             div.col.grey.lighten-3.s12.m8.l9
                 each vas in data
@@ -73,14 +74,12 @@ div.row
                         span <em>&nbsp - &nbsp</em>
                         each company in vas.company_id
                             span <strong>manufactured by #{company.company_name.toUpperCase()}</strong>
-                        each dosages in vas.dosage_id
-                            each doses in dosages.strength_id
-                                //if(doses.prescription!='')
-                                //    span.right(style='border: groove; border-radius: 20px')= "Rx: " + doses.prescription
-                                if(doses.prescription === 'Needed')
-                                    span.right(style='border: groove; background-color:red; border-radius: 20px')= "Rx: "+ doses.prescription[0]
-                                if(doses.prescription === 'Not Needed')
-                                    span.right(style='border: groove; background-color:green; border-radius: 20px')= "Rx: "+ doses.prescription
+                        //each dosages in vas.dosage_id
+                        if(vas.dosage_id[0].strength_id[0].prescription != '')
+                            if(vas.dosage_id[0].strength_id[0].prescription === 'Needed')
+                                span.right(style='border: groove; background-color:red; border-radius: 15px')= "Rx: "+ vas.dosage_id[0].strength_id[0].prescription
+                            if(vas.dosage_id[0].strength_id[0].prescription === 'Not Needed')
+                                span.right(style='border: groove; background-color:green; border-radius: 15px')= "Rx: "+ vas.dosage_id[0].strength_id[0].prescription
 
                         if(vas.categories != '')
                             h5  [#{vas.categories}]
@@ -90,7 +89,7 @@ div.row
                             each doses in dosages.strength_id
                                 li
                                     div.collapsible-header
-                                        table
+                                        table.responsive-table.hide-on-down-only
                                             thead(style="background-color:lavender;")
                                                 tr
                                                     th.section.scrollspy#dosage_form Dosage Form
