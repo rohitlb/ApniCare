@@ -91,24 +91,30 @@ html(lang='en')
                                     data: JSON.stringify(datas),
                                     contentType: 'application/json',
                                     success: function (result) {
+                                        alert(result.data.Organs[0].disease_name)
                                         if (result.status == 'success') {
                                             if(result.data.Brands != ""){
-                                                window.location = '/searchbrands?brands='+result.data.Brands;
+                                                window.location = '/searchbrands?brands='+result.data.Brands[0];
                                             }
                                             if(result.data.Diseases != ""){
-                                                window.location = '/searchdiseases?diseases='+result.data.Diseases;
+                                                window.location = '/searchdiseases?diseases='+result.data.Diseases[0];
 
                                             }
                                             if(result.data.Symptoms != ""){
                                                 window.location = '/searchsymptons?symptoms='+result.data.Symptoms;
                                             }
                                             if(result.data.Molecules != ""){
-                                                window.location = '/searchmolecules?molecules='+result.data.Molecules;
+                                                window.location = '/searchmolecules?molecules='+result.data.Molecules[0];
                                             }
                                             if(result.data.Organs != ""){
-                                                window.location = '/searchorgans?organs='+result.data.Organs;
+                                                var value = [];
+                                                for (var i = 0; i < result.data.Organs.length; i++) {
+                                                    value.push(result.data.Organs[i])
+                                                    alert(value[i]);
+                                                }
+                                                window.location = '/searchorgans?organs='+value;
                                             }
-                                            if(result.data.Categories){
+                                            if(result.data.Categories != ""){
                                                 window.location = '/searchcategories?categories=' + result.data.Categories;
                                             }
                                         }

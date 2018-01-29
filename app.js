@@ -695,7 +695,6 @@ app.post('/searchspecific',function(req,res){
 });
 
 //===================================for WEB============================
-
 app.post('/searchweb', function(req, res) {
     var raw = req.body.term;
     var spaceRemoved = raw.replace(/\s/g, '');
@@ -766,8 +765,10 @@ app.post('/searchweb', function(req, res) {
 
 app.get('/searchbrands',function(req,res){
     var value = req.query.brands;
+    console.log(value);
     res.render('send',{data : value});
 });
+
 
 app.get('/searchdiseases',function(req,res){
     var value = req.query.diseases;
@@ -809,7 +810,6 @@ app.get('/searchorgans',function(req,res){
 
 app.get('/searchcategories',function(req,res){
     var value = req.query.categories;
-
     console.log(typeof value);
     console.log(value[0]);
     res.send(value);
@@ -2668,11 +2668,18 @@ app.post('/diseases',function (req,res) {
                     }
                     else {
                         async.each(result1.organs.subhead,function(organ,callback){
-                            var search = new Search({
-                                name : organ
-                            });
-                            search.save(function(errs){
-                                callback()
+                            Search.find({name : organ},function(error,search) {
+                                if(search == ""){
+                                    var search = new Search({
+                                        name : organ
+                                    });
+                                    search.save(function(errs){
+                                        callback();
+                                    });
+                                }
+                                else{
+                                    callback();
+                                }
                             });
                         },function(errs,update){
                             res.send({message : "Disease saved successfully"});
@@ -4559,7 +4566,7 @@ app.post('/healthcarelogin',function(req,res) {
 //data base connection and opening port
 
 //var db = 'mongodb://localhost/ApniCare';
-var db = 'mongodb://localhost/Apni';
+var db = 'mongodb://localhost/ApniCare';
 mongoose.connect(db, {useMongoClient: true});
 
 
