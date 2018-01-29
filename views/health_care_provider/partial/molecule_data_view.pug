@@ -106,21 +106,21 @@ div.row
                             h5.bold.section.scrollspy#drug_int <strong>OTHER DRUG INTERACTION</strong>
                             each j,index in val.other_drug_interaction.subhead
                                 h5.bold= j
-                                span.small_font.left ►
+                                    span.small_font.left ►
                                 span.next_line.small_font= val.other_drug_interaction.info[index]
 
                         if(val.other_interaction)
                             h5.bold.section.scrollspy#other <strong>OTHER INTERACTION</strong>
                             each other,index in val.other_interaction.subhead
                                 h5.bold= other
-                                span.small_font.left ►
+                                    span.small_font.left ►
                                 span.next_line.small_font= val.other_interaction.info[index]
 
                         if(val.dosage)
                             h5.bold.section.scrollspy#dosage <strong>DOSAGE</strong>
                             each dose,index in val.dosage.subhead
                                 h5.bold= dose
-                                span.small_font.left ►
+                                    span.small_font.left ►
                                 span.next_line.small_font= val.dosage.info[index]
 
                         if(val.food)
@@ -130,7 +130,7 @@ div.row
                             h5.bold.section.scrollspy#contraindications <strong>LIST OF CONTRAINDICATIONS</strong>
                             each cont,index in val.contraindications.subhead
                                 h5.bold= cont
-                                span.small_font.left ►
+                                    span.small_font.left ►
                                 span.next_line.small_font= val.contraindications.info[index]
 
                             //- var array21 = cont.subhead;
