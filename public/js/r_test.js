@@ -9,8 +9,12 @@ $(function () {
         endingTop: '11%'
     });
 
-    $('#text1').val();
-    $('#text1').trigger('autoresize');
+
+    // ---------------- COLLAPSIBLE IN DRUG DATA VIEW -------------------------
+    $('.collapsible').collapsible();
+
+    // $('#text1').val();
+    // $('#text1').trigger('autoresize');
 
     $(':reset');
 

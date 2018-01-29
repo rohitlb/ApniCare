@@ -67,161 +67,100 @@ div.row
                                     a.btn2.all.hoverable(href='/health_care_provider?page=drug_data' type='other') Other
 
         div.col.s12.m12.l12
-            //div.col.grey.lighten-3.s12.m8.l9
-            //    each val in data
-            //        h3.section.scrollspy#data_name #{val.brand_name.toUpperCase()}
-            //            span <em>&nbsp - &nbsp</em>
-            //            each company in val.company_id
-            //                span <strong>manufactured by #{company.company_name.toUpperCase()}</strong>
-            //            if(val.categories != '')
-            //                h5  [#{val.categories}]
-            //
-            //        li.section.scrollspy#prescription Prescription:
-            //        each dosages in val.dosage_id
-            //                each doses in dosages.strength_id
-            //                    if (doses.prescription != '')
-            //                        span &nbsp<strong>#{doses.prescription}</strong>
-            //    li.section.scrollspy#potent Involves Potent Substances: &nbsp
-            //        each vas in data
-            //            each dosages in vas.dosage_id
-            //                each doses in dosages.strength_id
-            //                    each pots,index in doses.potent_substance.name
-            //                        span.next_line= '\n'+pots +" " +doses.potent_substance.molecule_strength[index]
-            //
-            //
-            //
-            //
-            //    each vas in data
-            //        each dosage in vas.dosage_id
-            //            each dose in dosage.strength_id
-            //                table.responsive-table.responsive-on-down-only
-            //                    thead
-            //                        tr
-            //                            th.section.scrollspy#dosage_form Dosage Form
-            //                            if(dose.strength != '')
-            //                                th Strength
-            //                            if(dose.packaging != '')
-            //                                th Packaging
-            //                            th Price
-            //                    tbody
-            //                        tr
-            //                            td <strong>#{dosage.dosage_form.toUpperCase()}</strong> &nbsp &nbsp
-            //                            if(dose.strength != '')
-            //                                td <strong>#{dose.strength}</strong> &nbsp &nbsp
-            //                            if(dose.packaging != '')
-            //                                td <strong>#{dose.packaging}</strong> &nbsp &nbsp
-            //                            td <strong>#{dose.price}</strong>
-            //                        br
-            //
-            //                if(dose.dose_taken != '')
-            //                    li.section.scrollspy#dose_taken Dose Taken As:&nbsp
-            //                        span <strong>#{dose.dose_taken}</strong>
-            //                br
-            //
-            //                if(dose.dose_timing != '')
-            //                    li.section.scrollspy#timing Dose Timings:&nbsp
-            //                        span <strong>#{dose.dose_timing}</strong>
-            //                br
-            //                if(vas.primarily_used_for != '')
-            //                    li.next_line.section.scrollspy#primarily The Drug <strong>#{vas.brand_name.toUpperCase()}</strong> is primarily used for
-            //                    span.next_line <strong>#{vas.primarily_used_for}</strong>
-            //                br
-            //                if(dose.warnings != '')
-            //                    i.material-icons.left warning
-            //                    span.section.scrollspy#warnings.red-text Warnings
-            //                    br
-            //                    span.next_line <strong>#{dose.warnings}</strong>
-            //                    br
-            //
-            //div.col.m4.l3.hide-on-small-only
-            //
-            //    ul.section.table-of-contents(style='position:fixed;z-index:2;padding-bottom:10px;')
-            //        li
-            //            a(href='#data_name') Brand
-            //            each vas in data
-            //                if(vas.types!= '')
-            //                    span -#{vas.types}
-            //        li
-            //            a(href='#prescription') Prescription
-            //        li
-            //            a(href='#potent') Potent Substances
-            //        li &nbsp&nbsp&nbsp&nbsp&nbspDosage Form
-            //            each vas in data
-            //                each dosage in vas.dosage_id
-            //                    each dose in dosage.strength_id
-            //                        ul
-            //                            li
-            //                                a(href='#dosage_form') &nbsp&nbsp&nbsp&nbsp#{dosage.dosage_form}
-            //                            li
-            //                                a(href='#dose_taken') &nbsp&nbsp&nbsp&nbspDose Taken for #{dosage.dosage_form}
-            //                            li
-            //                                a(href='#timing') &nbsp&nbsp&nbsp&nbspDose Timing for #{dosage.dosage_form}
-            //                            li
-            //                                a(href='#primarily') &nbsp&nbsp&nbsp&nbspPrimarily Used For for #{dosage.dosage_form}
-            //                            li
-            //                                a(href='#warnings') &nbsp&nbsp&nbsp&nbspWarnings for #{dosage.dosage_form}
-
 
             div.col.grey.lighten-3.s12.m8.l9
-                each val in data
-                    h3.section.scrollspy#data_name #{val.brand_name.toUpperCase()}
-                        span <em>&nbsp - &nbsp</em>
-                        each company in val.company_id
-                            span <strong>manufactured by #{company.company_name.toUpperCase()}</strong>
-                        each dosages in val.dosage_id
-                            each doses in dosages.strength_id
-                                if (doses.prescription != '')
-                                    div.row
-                                        span.right(style='border: groove; border-radius: 10px') Prescription: #{doses.prescription}
-
-                        if(val.categories != '')
-                            h5  [#{val.categories}]
-
                 each vas in data
-                            each dosage in vas.dosage_id
-                                each dose in dosage.strength_id
+                    h3.section.scrollspy#data_name #{vas.brand_name.toUpperCase()}
+                        span <em>&nbsp - &nbsp</em>
+                        each company in vas.company_id
+                            span <strong>manufactured by #{company.company_name.toUpperCase()}</strong>
+                        each dosages in vas.dosage_id
+                            each doses in dosages.strength_id
+                                if(doses.prescription=== 'Needed')
+                                    span.right(style='border: groove; background-color:red; border-radius: 20px')= "Rx: "+ doses.prescription
+                                if(doses.prescription=== 'Not Needed')
+                                    span.right(style='border: groove; background-color:green; border-radius: 20px')= "Rx: "+ doses.prescription
 
+                        if(vas.categories != '')
+                            h5  [#{vas.categories}]
+
+                    ul.collapsible(data-collapsible="expandable")
+                        each dosages in vas.dosage_id
+                            each doses in dosages.strength_id
+                                li
+                                    div.collapsible-header
                                         table
-                                            //.responsive-table.responsive-on-down-only
-                                            thead
+                                            thead(style="background-color:lavender;")
                                                 tr
                                                     th.section.scrollspy#dosage_form Dosage Form
-                                                    if(dose.strength != '')
+                                                    if(doses.strength != '')
                                                         th Strength
-                                                    if(dose.packaging != '')
+                                                    if(doses.packaging != '')
                                                         th Packaging
                                                     th Price
                                             tbody
                                                 tr
-                                                    td <strong>#{dosage.dosage_form.toUpperCase()}</strong> &nbsp &nbsp
-                                                    if(dose.strength != '')
-                                                        td <strong>#{dose.strength} #{dose.strengths}</strong> &nbsp &nbsp
-                                                    if(dose.packaging != '')
-                                                        td <strong>#{dose.packaging}</strong> &nbsp &nbsp
-                                                    td <strong>₹ #{dose.price}</strong>
-                                                br
-                                        each pots in dose.potent_substance
-                                                    if(dose.dose_taken != '')
-                                                        li.section.scrollspy#dose_taken Dose Taken As:&nbsp
-                                                            span <strong>#{dose.dose_taken}</strong>
-                                                    br
+                                                    td <strong>#{dosages.dosage_form.toUpperCase()}</strong> &nbsp &nbsp
+                                                    if(doses.strength != '')
+                                                        td <strong>#{doses.strength}</strong> &nbsp &nbsp
+                                                    if(doses.packaging != '')
+                                                        td <strong>#{doses.packaging}</strong> &nbsp &nbsp
+                                                    td <strong>₹ #{doses.price}</strong>
 
-                                                    if(dose.dose_timing != '')
-                                                        li.section.scrollspy#timing Dose Timings:&nbsp
-                                                            span <strong>#{dose.dose_timing}</strong>
+                                    div.collapsible-body
+                                        span
+                                            //each pots,index in doses.potent_substance.name
+                                            //    span.next_line= '\n'+pots +" " +doses.potent_substance.molecule_strength[index]
+
+
+                                            if(doses.dose_taken != '')
+                                                span.section.scrollspy#dose_taken <strong>▪ Dose Taken As:&nbsp</strong>
+                                                    span.small_font #{doses.dose_taken}
+                                            br
+                                            if(doses.dose_timing != '')
+                                                span.section.scrollspy#timing <strong>▪ Dose Timings:&nbsp</strong>
+                                                    span.small_font #{doses.dose_timing}
+                                            br
+                                            if(vas.primarily_used_for != '')
+                                                span.next_line.section.scrollspy#primarily <strong>▪ The Drug <strong>#{vas.brand_name.toUpperCase()}</strong> is primarily used for</strong>
                                                     br
-                                                    if(vas.primarily_used_for != '')
-                                                        li.next_line.section.scrollspy#primarily The Drug <strong>#{vas.brand_name.toUpperCase()}</strong> is primarily used for
-                                                        span.next_line <strong>#{vas.primarily_used_for}</strong>
-                                                    br
-                                                    if(dose.warnings != '')
-                                                        i.material-icons.left warning
-                                                        span.section.scrollspy#warnings.red-text Warnings
-                                                        br
-                                                        span <strong>#{dose.warnings}</strong>
-                                                        br
-                                                        br
-                                                        br
+                                                    span.next_line.small_font #{vas.primarily_used_for}
+                                            br
+                                            if(doses.warnings != '')
+                                                i.material-icons.left warning
+                                                span.section.scrollspy#warnings.red-text <strong>Warnings</strong>
+                                                br
+                                                span.next_line <strong>#{doses.warnings}</strong>
+
+
+
+            div.col.m4.l3.hide-on-small-only
+                ul.section.table-of-contents(style='position:fixed;z-index:2;padding-bottom:10px;')
+                    li
+                        a(href='#data_name') Brand
+                        each vas in data
+                            if(vas.types != '')
+                                span -#{vas.types}
+                    li
+                        a(href='#prescription') Prescription
+                    li
+                        a(href='#potent') Potent Substances
+                    li &nbsp&nbsp&nbsp&nbsp&nbspDosage Form
+                        each vas in data
+                            each dosage in vas.dosage_id
+                                    //each dose in dosage.strength_id
+                                    ul
+                                        li
+                                            a(href='#dosage_form') &nbsp&nbsp&nbsp&nbsp#{dosage.dosage_form}
+                                        li
+                                            a(href='#dose_taken') &nbsp&nbsp&nbsp&nbspDose Taken for #{dosage.dosage_form}
+                                        li
+                                            a(href='#timing') &nbsp&nbsp&nbsp&nbspDose Timing for #{dosage.dosage_form}
+                                        li
+                                            a(href='#primarily') &nbsp&nbsp&nbsp&nbspPrimarily Used For for #{dosage.dosage_form}
+                                        li
+                                            a(href='#warnings') &nbsp&nbsp&nbsp&nbspWarnings for #{dosage.dosage_form}
+
 
 
             div

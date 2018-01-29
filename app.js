@@ -49,7 +49,7 @@ var Search = require('./model/search');
 var app = express();
 
 var store = new mongoDBStore({
-    uri : 'mongodb://localhost/Care',
+    uri : 'mongodb://localhost/Apni',
     collection : 'mySessions'
 });
 
@@ -936,6 +936,49 @@ app.post('/formolecule',function (req,res) {
         });
     }
 });
+
+
+// similar disease + organ + symptom FILTERED + TAKES RAW
+app.post('/DOSlist',function (req,res) {
+    console.log("search_dos");
+    var raw = req.body.search;
+    var skip = parseInt(req.body.nskip);
+    console.log(raw);
+    console.log(typeof raw);
+    var spaceRemoved = raw.replace(/\s/g, '');
+    var search = new RegExp('^'+spaceRemoved,'i' );
+    if(req.body.page == 'disease'){ // gives disease_name sorted list
+        Disease.find({disease_name: search}, '-_id disease_name').sort({disease_name: 1}).skip(skip).limit(10).exec(function (err, result) {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                callback(null, result);
+            }
+        });
+    }
+    if(req.body.page == 'organ'){ // gives organs sorted list
+        Disease.find({organs: {$elemMatch: {subhead: search}}}, '-_id organs').sort({organs: 1}).skip(skip).limit(10).exec(function (err, result) {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                callback(null, result);
+            }
+        });
+    }
+    if(req.body.page == 'symptom'){ // gives symptoms sorted list
+        Disease.find({symptoms: search}, '-_id symptoms').sort({symptoms: 1}).skip(skip).limit(10).exec(function (err, result) {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                callback(null, result);
+            }
+        });
+    }
+});
+
 
 // same molecule same strength => output is list of brands
 app.post('/similarbrands',function(req,res){
@@ -4514,7 +4557,11 @@ app.post('/healthcarelogin',function(req,res) {
 //==========================Database connection===========================
 
 //data base connection and opening port
+<<<<<<< HEAD
 var db = 'mongodb://localhost/ApniCare';
+=======
+var db = 'mongodb://localhost/Apni';
+>>>>>>> fe6101ecfedf618909c9e0b4420b924830dee47a
 mongoose.connect(db, {useMongoClient: true});
 
 
