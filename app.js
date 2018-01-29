@@ -1220,17 +1220,17 @@ app.post('/search_dos',function (req,res) {
 });
 
 // takes name of disease organ symptoms , and gives info about it
-app.post('/dos_info',function (req,res) {
+app.post('/dos_info',function (req,res){
     console.log("dos_info");
     var search = req.body.search;
-        Disease.find({disease_name: search}).exec(function (err, result) {
-            if (err) {
-                console.log(err);
-            }
-            else {
-                res.send({ message : "read more for disease" , data :result });
-            }
-        });
+    Disease.find({disease_name: search}).exec(function (err, result) {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            res.send(result);
+        }
+    });
 });
 
 // takes filter[molecule_name,categories,brand_name,disease_name,organs,symptoms] name and search for them
