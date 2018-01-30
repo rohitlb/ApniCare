@@ -107,12 +107,7 @@ html(lang='en')
                                                 window.location = '/searchmolecules?molecules='+result.data.Molecules[0];
                                             }
                                             if(result.data.Organs != ""){
-                                                var value = [];
-                                                for (var i = 0; i < result.data.Organs.length; i++) {
-                                                    value.push(result.data.Organs[i])
-                                                    alert(value[i]);
-                                                }
-                                                window.location = '/searchorgans?organs='+value;
+                                                window.location = '/searchorgans';
                                             }
                                             if(result.data.Categories != ""){
                                                 window.location = '/searchcategories?categories=' + result.data.Categories;

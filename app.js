@@ -688,7 +688,8 @@ app.post('/searchspecific',function(req,res){
             console.log(err);
         }
         else{
-            console.log(result);
+            //console.log(result);
+            req.session.search = result;
             res.send({status : 'success' , data : result});
         }
     });
@@ -769,7 +770,6 @@ app.get('/searchbrands',function(req,res){
     res.render('send',{data : value});
 });
 
-
 app.get('/searchdiseases',function(req,res){
     var value = req.query.diseases;
     console.log(value);
@@ -797,15 +797,8 @@ app.get('/searchsymptons',function(req,res){
 
 app.get('/searchorgans',function(req,res){
     var value = req.query.organs;
-    console.log(value);
-    Disease.find({'organs.subhead' : value},'-_id disease_name',function(err,disease) {
-        if (err) {
-            console.log(err);
-        }
-        else {
-            res.render('send', {data: disease});
-        }
-    });
+    console.log(req.session.search.Organs[0].disease_name);
+    res.render('send',{data : req.session.search.Organs});
 });
 
 app.get('/searchcategories',function(req,res){
