@@ -688,14 +688,14 @@ app.post('/searchspecific',function(req,res){
             console.log(err);
         }
         else{
-            console.log(result);
+            //console.log(result);
+            req.session.search = result;
             res.send({status : 'success' , data : result});
         }
     });
 });
 
 //===================================for WEB============================
-
 app.post('/searchweb', function(req, res) {
     var raw = req.body.term;
     var spaceRemoved = raw.replace(/\s/g, '');
@@ -766,6 +766,7 @@ app.post('/searchweb', function(req, res) {
 
 app.get('/searchbrands',function(req,res){
     var value = req.query.brands;
+    console.log(value);
     res.render('send',{data : value});
 });
 
@@ -796,20 +797,12 @@ app.get('/searchsymptons',function(req,res){
 
 app.get('/searchorgans',function(req,res){
     var value = req.query.organs;
-    console.log(value);
-    Disease.find({'organs.subhead' : value},'-_id disease_name',function(err,disease) {
-        if (err) {
-            console.log(err);
-        }
-        else {
-            res.render('send', {data: disease});
-        }
-    });
+    console.log(req.session.search.Organs[0].disease_name);
+    res.render('send',{data : req.session.search.Organs});
 });
 
 app.get('/searchcategories',function(req,res){
     var value = req.query.categories;
-
     console.log(typeof value);
     console.log(value[0]);
     res.send(value);
@@ -1220,17 +1213,17 @@ app.post('/search_dos',function (req,res) {
 });
 
 // takes name of disease organ symptoms , and gives info about it
-app.post('/dos_info',function (req,res) {
+app.post('/dos_info',function (req,res){
     console.log("dos_info");
     var search = req.body.search;
-        Disease.find({disease_name: search}).exec(function (err, result) {
-            if (err) {
-                console.log(err);
-            }
-            else {
-                res.send({ message : "read more for disease" , data :result });
-            }
-        });
+    Disease.find({disease_name: search}).exec(function (err, result) {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            res.send(result);
+        }
+    });
 });
 
 // takes filter[molecule_name,categories,brand_name,disease_name,organs,symptoms] name and search for them
@@ -2668,11 +2661,18 @@ app.post('/diseases',function (req,res) {
                     }
                     else {
                         async.each(result1.organs.subhead,function(organ,callback){
-                            var search = new Search({
-                                name : organ
-                            });
-                            search.save(function(errs){
-                                callback()
+                            Search.find({name : organ},function(error,search) {
+                                if(search == ""){
+                                    var search = new Search({
+                                        name : organ
+                                    });
+                                    search.save(function(errs){
+                                        callback();
+                                    });
+                                }
+                                else{
+                                    callback();
+                                }
                             });
                         },function(errs,update){
                             res.send({message : "Disease details saved successfully"});
@@ -4558,8 +4558,8 @@ app.post('/healthcarelogin',function(req,res) {
 
 //data base connection and opening port
 
+//var db = 'mongodb://localhost/ApniCare';
 var db = 'mongodb://localhost/ApniCare';
-//var db = 'mongodb://localhost/Apni';
 mongoose.connect(db, {useMongoClient: true});
 
 
