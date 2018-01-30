@@ -1566,7 +1566,7 @@ app.post('/login',function (req,res) {
 
     async.parallel({
         User : function(callback){
-            User.({number: req.body.number}).exec(function (err,result) {
+            User.find({number: req.body.number}).exec(function (err,result) {
                 if(err){
                     console.log(err);
                     res.send({status: "failure", message : "Some error occurred"});
