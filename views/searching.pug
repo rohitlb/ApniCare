@@ -91,7 +91,6 @@ html(lang='en')
                                     data: JSON.stringify(datas),
                                     contentType: 'application/json',
                                     success: function (result) {
-                                        alert(result.data.Organs[0].disease_name)
                                         if (result.status == 'success') {
                                             if(result.data.Brands != ""){
                                                 window.location = '/searchbrands?brands='+result.data.Brands[0];
@@ -110,7 +109,7 @@ html(lang='en')
                                                 window.location = '/searchorgans';
                                             }
                                             if(result.data.Categories != ""){
-                                                window.location = '/searchcategories?categories=' + result.data.Categories;
+                                                window.location = '/searchcategories?categories=' + JSON.stringify(result.data.Categories);
                                             }
                                         }
                                         else {

@@ -634,7 +634,7 @@ app.post('/searchspecific',function(req,res){
             });
         },
         Diseases : function(callback){
-            Disease.find({disease_name : value},'-_id ',function(err,result){
+            Disease.find({disease_name : value},'-_id __v',function(err,result){
                 if(err){
                     console.log(err);
                 }
@@ -689,7 +689,6 @@ app.post('/searchspecific',function(req,res){
         }
         else{
             console.log(result);
-            req.session.search = result;
             res.send({status : 'success' , data : result});
         }
     });
@@ -770,6 +769,7 @@ app.get('/searchbrands',function(req,res){
     res.render('send',{data : value});
 });
 
+
 app.get('/searchdiseases',function(req,res){
     var value = req.query.diseases;
     console.log(value);
@@ -797,8 +797,15 @@ app.get('/searchsymptons',function(req,res){
 
 app.get('/searchorgans',function(req,res){
     var value = req.query.organs;
-    console.log(req.session.search.Organs[0].disease_name);
-    res.render('send',{data : req.session.search.Organs});
+    console.log(value);
+    Disease.find({'organs.subhead' : value},'-_id disease_name',function(err,disease) {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            res.render('send', {data: disease});
+        }
+    });
 });
 
 app.get('/searchcategories',function(req,res){
@@ -874,7 +881,7 @@ app.post('/formolecule',function (req,res) {
     var molecule = req.body.molecule;
     var skip = parseInt(req.body.nskip);
     if(req.body.page == 'info'){
-        Molecule.find({molecule_name: molecule},'-_id', function (err, info) {
+        Molecule.find({molecule_name: molecule},'-_id -__v', function (err, info) {
             if (err) {
                 console.log(err);
             }
