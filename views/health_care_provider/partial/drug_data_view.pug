@@ -73,16 +73,19 @@ div.row
                     h3.section.scrollspy#data_name #{vas.brand_name.toUpperCase()}
                         span <em>&nbsp - &nbsp</em>
                         each company in vas.company_id
-                            span <strong>manufactured by #{company.company_name.toUpperCase()}</strong>
+                            span.next_line <strong>manufactured by #{company.company_name.toUpperCase()}</strong>
                         //each dosages in vas.dosage_id
                         if(vas.dosage_id[0].strength_id[0].prescription != '')
                             if(vas.dosage_id[0].strength_id[0].prescription === 'Needed')
                                 span.right(style='border: groove; background-color:red; border-radius: 15px')= "Rx: "+ vas.dosage_id[0].strength_id[0].prescription
-                            if(vas.dosage_id[0].strength_id[0].prescription === 'Not Needed')
+                            else if(vas.dosage_id[0].strength_id[0].prescription === 'Not Needed')
                                 span.right(style='border: groove; background-color:green; border-radius: 15px')= "Rx: "+ vas.dosage_id[0].strength_id[0].prescription
+                            else
+                                span.right(style='border: groove; border-radius: 15px')= "Rx: "+ vas.dosage_id[0].strength_id[0].prescription
+
 
                         if(vas.categories != '')
-                            h5  [#{vas.categories}]
+                            h5.to_capital  [#{vas.categories}]
 
                     ul.collapsible(data-collapsible="expandable")
                         each dosages in vas.dosage_id
@@ -93,46 +96,52 @@ div.row
                                             thead(style="background-color:lavender;")
                                                 tr
                                                     th.section.scrollspy#dosage_form Dosage Form
-                                                    if(doses.strength != '')
-                                                        th Strength
-                                                    if(doses.packaging != '')
-                                                        th Packaging
+                                                    //if(doses.strength != '')
+                                                    th Strength
+                                                    //if(doses.packaging != '')
+                                                    th Packaging
                                                     th Price
                                             tbody
                                                 tr
                                                     td <strong>#{dosages.dosage_form.toUpperCase()}</strong> &nbsp &nbsp
-                                                    if(doses.strength != '')
-                                                        td <strong>#{doses.strength}</strong> &nbsp &nbsp
-                                                    if(doses.packaging != '')
-                                                        td <strong>#{doses.packaging}</strong> &nbsp &nbsp
+                                                    //if(doses.strength != '')
+                                                    td.to_capital <strong>#{doses.strength}</strong> &nbsp &nbsp
+                                                    //if(doses.packaging != '')
+                                                    td.to_capital <strong>#{doses.packaging}</strong> &nbsp &nbsp
                                                     td <strong>₹ #{doses.price}</strong>
+                                                tr#read_more
+                                                    td
+                                                    //if(doses.strength != '')
+                                                    td
+                                                    //if(doses.packaging != '')
+                                                    td
+                                                    td.blue-text Read More.....
 
                                     div.collapsible-body
                                         span
                                             span.section.scrollspy#potent <strong>▪ Involves Potent Substances: </strong>
                                             each j, index in doses.potent_substance.name
-                                                h5.bold.small_font &nbsp #{j} &nbsp
-                                                    span.next_line= doses.potent_substance.molecule_strength[index]
-
-
+                                                span.to_capital &nbsp #{j} &nbsp
+                                                    span.small_font.next_line= doses.potent_substance.molecule_strength[index]
+                                                br
                                             if(doses.dose_taken != '')
                                                 span.section.scrollspy#dose_taken <strong>▪ Dose Taken As:&nbsp</strong>
-                                                    span.small_font #{doses.dose_taken}
-                                            br
+                                                    span.small_font.to_capital #{doses.dose_taken}
+                                                br
                                             if(doses.dose_timing != '')
                                                 span.section.scrollspy#timing <strong>▪ Dose Timings:&nbsp</strong>
-                                                    span.small_font #{doses.dose_timing}
-                                            br
+                                                    span.small_font.to_capital #{doses.dose_timing}
+                                                br
                                             if(vas.primarily_used_for != '')
-                                                span.next_line.section.scrollspy#primarily <strong>▪ The Drug <strong>#{vas.brand_name.toUpperCase()}</strong> is primarily used for</strong>
+                                                span.next_line.section.scrollspy#primarily <strong>▪ The Drug <strong>#{vas.brand_name.toUpperCase()}</strong> is primarily used for: </strong>
                                                     br
-                                                    span.next_line.small_font #{vas.primarily_used_for}
-                                            br
+                                                    span.next_line.small_font.to_capital #{vas.primarily_used_for}
+                                                br
                                             if(doses.warnings != '')
                                                 i.material-icons.left warning
                                                 span.section.scrollspy#warnings.red-text <strong>Warnings</strong>
                                                 br
-                                                span.next_line <strong>#{doses.warnings}</strong>
+                                                span.next_line.to_capital <strong>#{doses.warnings}</strong>
 
 
 
@@ -142,7 +151,7 @@ div.row
                         a(href='#data_name') Brand
                         each vas in data
                             if(vas.types != '')
-                                span -#{vas.types}
+                                span.to_capital -#{vas.types}
                     li
                         a(href='#prescription') Prescription
                     li
@@ -153,15 +162,15 @@ div.row
                                     //each dose in dosage.strength_id
                                     ul
                                         li
-                                            a(href='#dosage_form') &nbsp&nbsp&nbsp&nbsp#{dosage.dosage_form}
+                                            a.to_capital(href='#dosage_form') &nbsp&nbsp&nbsp&nbsp#{dosage.dosage_form}
                                         li
-                                            a(href='#dose_taken') &nbsp&nbsp&nbsp&nbspDose Taken for #{dosage.dosage_form}
+                                            a.to_capital(href='#dose_taken') &nbsp&nbsp&nbsp&nbspDose Taken for #{dosage.dosage_form}
                                         li
-                                            a(href='#timing') &nbsp&nbsp&nbsp&nbspDose Timing for #{dosage.dosage_form}
+                                            a.to_capital(href='#timing') &nbsp&nbsp&nbsp&nbspDose Timing for #{dosage.dosage_form}
                                         li
-                                            a(href='#primarily') &nbsp&nbsp&nbsp&nbspPrimarily Used For for #{dosage.dosage_form}
+                                            a.to_capital(href='#primarily') &nbsp&nbsp&nbsp&nbspPrimarily Used For for #{dosage.dosage_form}
                                         li
-                                            a(href='#warnings') &nbsp&nbsp&nbsp&nbspWarnings for #{dosage.dosage_form}
+                                            a.to_capital(href='#warnings') &nbsp&nbsp&nbsp&nbspWarnings for #{dosage.dosage_form}
 
 
 
@@ -176,6 +185,8 @@ div.row
                     h4.center.teal-text.darken-2 Your Feedback is valuable...
                     form.col.l10.m10.s10#form_feedback(method='POST')
                         div
+                            each val in data
+                                input#about(type="hidden" value='Drug Data-'+(val.brand_name.toUpperCase()))
                             span How useful is the data that we provide?
                             br
                             br
@@ -193,7 +204,7 @@ div.row
                         br
                         div.input-field
                             span Suggest changes in data
-                            textarea#suggestion(style='height:90px;' required)
+                            textarea#suggestion.to_capital(style='height:90px;' required)
                             label(for='suggestion')
                         br
 
