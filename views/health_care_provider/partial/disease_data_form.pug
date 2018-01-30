@@ -15,26 +15,26 @@ div.row
                         div.col.s12.m12.l12
                             span.target1 Disease Name
                             span.red-text &nbsp*
-                            input.validate(type='text', id='disease_name', style='color:black;font-size: 15px;font-weight: 400;' required)
+                            input.validate(type='text', id='disease_name' class="r003" style='text-transform:uppercase;' required)
 
                         div.col.s12.m12.l12
                             span.target2 What are its Symptoms?
                             span.red-text &nbsp*
-                            textarea.materialize-textarea.text_areas1.tobig#symptoms
-                            label(for='symptoms', style='color:black;font-size: 15px;font-weight: 400;' required)
+                            textarea.materialize-textarea.text_areas1.tobig#symptoms(class="r003" required)
+                            label(for='symptoms')
                             //input.val11(style='color:black;font-size: 15px;font-weight: 400;')
                         div.col.s12.m12.l12
                             span.target3 What are its possible Risk Factors?
                             span.red-text &nbsp*
-                            textarea.materialize-textarea.tobig.text_areas2#risk_factors
-                            label(for='risk_factors', style='color:black;font-size: 15px;font-weight: 400;' required)
+                            textarea.materialize-textarea.tobig.text_areas2#risk_factors(class="r003" required)
+                            label(for='risk_factors')
                             //input.val12(type='text', style='color:black;font-size: 15px;font-weight: 400;')
 
                         div.col.s12.m12.l12
                             span.target4 What are its Causes?
                             span.red-text &nbsp*
-                            textarea.materialize-textarea.tobig.text_areas3#causes
-                            label(for='causes', style='color:black;font-size: 15px;font-weight: 400;' required)
+                            textarea.materialize-textarea.tobig.text_areas3#causes(class="r003" required)
+                            label(for='causes')
                             //input.val13(type='text', style='color:black;font-size: 15px;font-weight: 400;')
                             br
                         div.col.s12.m12.l12
@@ -44,11 +44,11 @@ div.row
                         div.col.s12.m12.l12
                             div.repeater1
                                 div
-                                    input.browser-default.repeat_subhead1#subhead1(type='text', placeholder='Enter a subheading' required)
+                                    input.browser-default.repeat_subhead1.r003#subhead1(type='text', placeholder='Enter a subheading' required)
                                     button.remove x
-                                    textarea.materialize-textarea.tobig.text_areas4.text_subhead1#subhead_text1
-                                    label(for='subhead1', style='color:black;font-size: 15px;font-weight: 400;' required)
-                                    label(for='subhead_text1', style='color:black;font-size: 15px;font-weight: 400;' required)
+                                    textarea.materialize-textarea.tobig.text_areas4.r003.text_subhead1#subhead_text1
+                                    label(for='subhead1')
+                                    label(for='subhead_text1')
                             button.repeat1 Add A Subheading
                             br
                             br
@@ -62,8 +62,8 @@ div.row
                                     input.browser-default.repeat_subhead7#subheading7(type='text', placeholder='Enter a subheading' required)
                                     button.remove x
                                     textarea.materialize-textarea.tobig.text_areas7.text_subhead7#subhead_text7
-                                    label(for='subheading7', style='color:black;font-size: 15px;font-weight: 400;' required)
-                                    label(for='subhead_text7', style='color:black;font-size: 15px;font-weight: 400;' required)
+                                    label(for='subheading7', class="r003" required)
+                                    label(for='subhead_text7', class="r003" required)
                             button.repeat7 Add A Subheading
                             br
                             br
@@ -71,27 +71,27 @@ div.row
                             span.target6 How is it Treated?
                             span.red-text &nbsp*
                             textarea.tobig.materialize-textarea.text_areas5#treatment
-                            label(for='treatment', style='color:black;font-size: 15px;font-weight: 400;' required)
+                            label(for='treatment', class="r003" required)
                             //input.val15(type='text', style='color:black;font-size: 15px;font-weight: 400;')
                         br
                         div.col.s12.m12.l12
                             span.target7 What is the Outlook for it?
                             span.red-text &nbsp*
                             textarea.materialize-textarea.tobig.text_areas6#outlook
-                            label(for='outlook', style='color:black;font-size: 15px;font-weight: 400;' required)
+                            label(for='outlook', class="r003" required)
                             //input.val16(type='text', style='color:black;font-size: 15px;font-weight: 400;')
                         br
                         div.col.s12.m12.l12
                             span.target8 How can it be Prevented?
                             span.red-text &nbsp*
                             textarea.materialize-textarea.tobig.text_areas7#prevention
-                            label(for='prevention', style='color:black;font-size: 15px;font-weight: 400;' required)
+                            label(for='prevention', class="r003" required)
                             //input.val17(type='text', style='color:black;font-size: 15px;font-weight: 400;')
                         div.col.s12.m12.l12
                             span.target8 Source of Information
                             span.red-text &nbsp*
                             textarea.materialize-textarea.tobig.text_areas8#source
-                            label(for='source', style='color:black;font-size: 15px;font-weight: 400;' required)
+                            label(for='source', class="r003" required)
 
                         br
                         div.row

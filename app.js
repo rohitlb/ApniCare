@@ -170,13 +170,13 @@ app.post('/feedback' , function (req,res) {
             console.log(err);
             res.send({status: "failure", message: "some error"});
         } else {
-            res.send({status: "success", message: "thnx for feedback"});
+            res.send({status: "success", message: "Thanks for feedback"});
         }
     });
 });
 
 app.post('/needhelp' , function (req,res) {
-    console.log("pranjal");
+    //console.log("pranjal");
     var subject = req.body.subject;
     var contact_message = req.body.contact_message;
     console.log(subject);
@@ -193,9 +193,9 @@ app.post('/needhelp' , function (req,res) {
     needhelp.save(function (err, result) {
         if (err) {
             console.log(err);
-            res.send({status: "failure", message: "some error"});
+            res.send({status: "failure", message: "Some error occured"});
         } else {
-            res.send({status: "success", message: "We will Contact you soon"});
+            res.send({status: "success", message: "We will Contact You soon"});
         }
     });
 });
@@ -2123,8 +2123,8 @@ app.post('/medicines',function(req,res) {
     var warnings = req.body.warnings;
     var companyresult = null;
     var brandresult = null;
-    console.log(price);
-    console.log('reached');
+    // console.log(price);
+    // console.log('reached');
 
 
     async.waterfall([
@@ -2160,10 +2160,10 @@ app.post('/medicines',function(req,res) {
                         }
                         else {
                             if (result1) {
-                                res.send("other company cannot have same brand");
+                                res.send("Other Company cannot have Same Brand");
                             }
                             else {
-                                console.log('reaches here');
+                                // console.log('reaches here');
                                 var STRength = new Strength({
                                     strength: strengTHS,
                                     potent_substance: {
@@ -2330,7 +2330,7 @@ app.post('/medicines',function(req,res) {
                                                                     console.log(err);
                                                                 }
                                                                 else {
-                                                                    res.send("Brand added successfully  with dosage and strength");
+                                                                    res.send("Brand added successfully with dosage and strength");
                                                                 }
                                                             });
                                                         }
@@ -2436,7 +2436,7 @@ app.post('/medicines',function(req,res) {
                                     console.log(err2);
                                 }
                                 else {
-                                    res.send("strength added successfully");
+                                    res.send("Strength added successfully");
                                 }
                             });
                         }
@@ -2449,7 +2449,7 @@ app.post('/medicines',function(req,res) {
                 console.log(err);
             }
             else {
-                res.send("done");
+                res.send("Done");
             }
         });
 });
@@ -2682,7 +2682,7 @@ app.post('/diseases',function (req,res) {
                                 }
                             });
                         },function(errs,update){
-                            res.send({message : "Disease saved successfully"});
+                            res.send({message : "Disease details saved successfully"});
                         });
                     }
                 });
@@ -2726,7 +2726,7 @@ app.post('/molecules',function (req,res) {
         }
         else{
             if(results != ""){
-                res.send({message : 'molecule already exist'});
+                res.send({message : 'Molecule already exist'});
             }
             else{
                 var molecule = new Molecule({
@@ -2763,7 +2763,7 @@ app.post('/molecules',function (req,res) {
                         console.log(err);
                     }
                     else {
-                        res.send("Molecules details added");
+                        res.send("Molecule details added");
                     }
                 });
             }

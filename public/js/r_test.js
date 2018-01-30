@@ -11,7 +11,15 @@ $(function () {
 
 
     // ---------------- COLLAPSIBLE IN DRUG DATA VIEW -------------------------
-    $('.collapsible').collapsible();
+    $('.collapsible').collapsible({
+        accordion: false,
+        onOpen: function () {
+            $('#read_more').hide();
+        },
+        onClose : function () {
+            $('#read_more').show();
+        }
+    });
 
     // $('#text1').val();
     // $('#text1').trigger('autoresize');
@@ -296,6 +304,10 @@ $(function () {
                 $(this).hide();
             }
         });
+        // $( "p" ).first().html( "<span>" + text + "</span>" );
+        $( '#clicked_letter' ).on( "click", function() {
+            $( this ).css( "background-color", "grey" );
+        });
     });
 
     // $('#drug_dataa').click(function () {
@@ -327,6 +339,20 @@ $(function () {
     // $('#cl').click(function () {
     //     $('#new_field').hide();
     // });
+
+    //-------------------------- Drug Data view READ MORE On Clicking ------------//
+    // $('#read_more').toggle(function () {
+    //     $('#read_more').toggle();
+    //     // var i = 0;
+    //     // if(i%2 == 0) {
+    //     //     $('#read_more').show();
+    //     // }
+    //     // else {
+    //     //     $('#read_more').hide();
+    //     // }
+    //     // i=i+1;
+    // });
+
 
     $('.dropdown-button').dropdown({
         inDuration: 300,
@@ -629,7 +655,6 @@ $(function () {
         var company_name = $('#company_name').val();
         var categories = $('#categories').val();
         var strength = $("#strength").val();
-        //var strength2 = $("#strengths").val();
         //------ for potent substances ---------
         var subhead1 = [];
         $('.repeat_subhead6').each(function(){
@@ -639,7 +664,6 @@ $(function () {
         $('.text_subhead6').each(function () {
             subhead2.push($(this).val());
         });
-        //var potent_substance = $('#potent_substance').val();
         var dosage_form = $('#dosage_form').val();
         var packaging = $('#packaging').val();
         var price = $('#price').val();
@@ -650,22 +674,11 @@ $(function () {
         var primarily_used_for = $('#primarily_used_for').val();
         var warnings = $('#warnings').val();
 
-        //alert(price);
-        // alert(categories);
-        // alert(strength);
-        // alert(dosage_form);
-        // alert(dose_timing);
-        // alert(types);
-        // alert(primarily_used_for);
-        // alert(subhead2);
-        // alert(subhead1);
-
         var data = {
             brand_name: brand_name,
             company_name: company_name,
             categories: categories,
             strength1: strength,
-            //strength2: strength2,
             subhead111: subhead1,
             subhead222: subhead2,
             dosage_form: dosage_form,
@@ -685,7 +698,7 @@ $(function () {
             data: JSON.stringify(data),
             contentType: 'application/json',
             success: function (result) {
-                if (result.success === 'success') {
+                if(result.success === 'success') {
                     Materialize.toast(result.message, 1000);
                     window.location = '/health_care_provider?page=drug_data_form';
                 }
@@ -709,7 +722,7 @@ $(function () {
         var food = $('#food_taken').val();
         var source = $('#source').val();
 
-        //other drug interactions
+        //..................... other drug interactions.........
         var subhead51 = [];
         $('.repeat_subhead5').each(function(){
             subhead51.push($(this).val()); //output <-- ['a','b','c']
@@ -719,12 +732,8 @@ $(function () {
         $('.text_subhead5').each(function () {
             subhead52.push($(this).val());
         });
-        //var drug_interaction = $('#other_drug_interaction').val();
-        //var food_interaction = $('#other_interactions').val();
-        //var oral = $('#oral').val();
-        //var intravenous = $('#intravenous').val();
 
-        // other interactions
+        //................... other interactions........
         var subhead41 = [];
         $('.repeat_subhead4').each(function(){
             subhead41.push($(this).val()); //output <-- ['a','b','c']
@@ -734,7 +743,7 @@ $(function () {
             subhead42.push($(this).val());
         });
 
-        // ........dosage field in molecule form............
+        // .................. dosage field in molecule form............
         var subhead31 = [];
         $('.repeat_subhead3').each(function(){
             subhead31.push($(this).val()); //output <-- ['a','b','c']
@@ -744,7 +753,7 @@ $(function () {
             subhead32.push($(this).val());
         });
 
-        // List of contraindications
+        // ..................... List of contraindications .................
         var subhead21 = [];
         $('.repeat_subhead2').each(function(){
             subhead21.push($(this).val()); //output <-- ['a','b','c']
@@ -782,7 +791,7 @@ $(function () {
             data: JSON.stringify(data),
             contentType: 'application/json',
             success: function (result) {
-                if (result.success === 'success') {
+                if(result.success === 'success') {
                     Materialize.toast(result.message, 1000);
                     window.location = '/health_care_provider?page=molecule_data_form';
                 }
@@ -844,7 +853,7 @@ $(function () {
     $('#submit_feedback').click(function () {
         var usefulness = $("input[type='radio'][name='radio1_feedback']:checked").val();
         var suggestion = $('#suggestion').val();
-        var about = $('.about').text();
+        var about = $('#about').val();
         alert(suggestion);
         var d = new Date();
         var month = d.getMonth()+1;
@@ -897,14 +906,11 @@ $(function () {
             data: JSON.stringify(data),
             contentType: 'application/json',
             success: function (result) {
-                if (result.message === 'success') {
-                    Materialize.toast(result.message, 1000);
-                    // $('#queries').hide();
-                    // alert("We will Contact You soon! :)");
-                    //window.location = '/health_care_provider?page=need_help';
+                if(result.message === 'success') {
+                    Materialize.toast(result.message , 5000);
                 }
                 else {
-                    Materialize.toast(result.message, 1000);
+                    Materialize.toast(result.message, 5000);
                 }
             }
         });

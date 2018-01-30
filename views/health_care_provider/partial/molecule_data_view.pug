@@ -71,80 +71,70 @@ div.row
                 ul
                     each val in data
                         h4.about.bold.section.scrollspy#mol_name.next_line.text_upper_case <strong>#{val.molecule_name}</strong>
-                        h5.bold.section.scrollspy#drug_cat.small_font.next_line [#{val.drug_categories}]
+                        h5.bold.section.scrollspy#drug_cat.small_font.next_line.to_capital [#{val.drug_categories}]
                         h5
-                            span.section.scrollspy#short.next_line #{val.description}
+                            span.section.scrollspy#short.next_line.to_capital #{val.description}
                         if(val.absorption!= '' || val.distribution!= '' || val.metabolism!=''  || val.excretion!='')
                             h5 <strong>PHARMACOKINETICS</strong>
                             if(val.absorption)
 
                                 h5.section.scrollspy#absorption Absorption
                                     span.small_font.left ►
-                                span.small_font.next_line #{val.absorption}
+                                span.small_font.next_line.to_capital #{val.absorption}
                             if(val.distribution)
 
                                 h5.bold.section.scrollspy#distribution Distribution
                                     span.small_font.left ►
-                                span.small_font.next_line #{val.distribution}
+                                span.small_font.next_line.to_capital #{val.distribution}
                             if(val.metabolism)
 
                                 h5.bold.section.scrollspy#metabolism Metabolism
                                     span.small_font.left ►
-                                span.small_font.next_line #{val.metabolism}
+                                span.small_font.next_line.to_capital #{val.metabolism}
                             if(val.excretion)
 
                                 h5.bold.section.scrollspy#excretion Excretion
                                     span.small_font.left ►
-                                span.small_font.next_line #{val.excretion}
+                                span.small_font.next_line.to_capital #{val.excretion}
                         if(val.side_effect)
                             h5.bold.section.scrollspy#adverse <strong>ADVERSE REACTION</strong>
-                            span.small_font.next_line #{val.side_effect}
+                            span.small_font.next_line.to_capital #{val.side_effect}
                         if(val.precaution)
                             h5.bold.section.scrollspy#precaution <strong>SPECIAL PRECAUTIONS</strong>
-                            span.small_font.next_line #{val.precaution}
+                            span.small_font.next_line.to_capital #{val.precaution}
                         if(val.other_drug_interaction)
                             h5.bold.section.scrollspy#drug_int <strong>OTHER DRUG INTERACTION</strong>
                             each j,index in val.other_drug_interaction.subhead
-                                h5.bold= j
+                                h5.bold.to_capital= j
                                     span.small_font.left ►
-                                span.next_line.small_font= val.other_drug_interaction.info[index]
+                                span.next_line.small_font.to_capital= val.other_drug_interaction.info[index]
 
                         if(val.other_interaction)
                             h5.bold.section.scrollspy#other <strong>OTHER INTERACTION</strong>
                             each other,index in val.other_interaction.subhead
-                                h5.bold= other
+                                h5.bold.to_capital= other
                                     span.small_font.left ►
-                                span.next_line.small_font= val.other_interaction.info[index]
+                                span.next_line.small_font.to_capital= val.other_interaction.info[index]
 
                         if(val.dosage)
                             h5.bold.section.scrollspy#dosage <strong>DOSAGE</strong>
                             each dose,index in val.dosage.subhead
-                                h5.bold= dose
+                                h5.bold.to_capital= dose
                                     span.small_font.left ►
-                                span.next_line.small_font= val.dosage.info[index]
+                                span.next_line.small_font.to_capital= val.dosage.info[index]
 
                         if(val.food)
                             h5.bold.section.scrollspy#food <strong>TAKEN (BEFORE/AFTER) FOOD</strong>
-                            span.small_font.next_line #{val.food}
+                            span.small_font.next_line.to_capital #{val.food}
                         if(val.contraindications)
                             h5.bold.section.scrollspy#contraindications <strong>LIST OF CONTRAINDICATIONS</strong>
                             each cont,index in val.contraindications.subhead
-                                h5.bold= cont
+                                h5.bold.to_capital= cont
                                     span.small_font.left ►
-                                span.next_line.small_font= val.contraindications.info[index]
-
-                            //- var array21 = cont.subhead;
-                                //- var array22 = cont.info;
-                                //-for(var l = 0;l< array21.length ; l++)
-                                //    if(array21[l])
-                                //        li.next_line
-                                //            h5.bold= array21[l]
-                                //    if(array22[l])
-                                //        span.next_line.small_font= array22[l]
-                                //    br
+                                span.next_line.small_font.to_capital= val.contraindications.info[index]
                         if(val.source)
                             h5.bold.section.scrollspy#source <strong>SOURCE OF INFORMATION</strong>
-                            span.small_font.next_line #{val.source}
+                            span.small_font.next_line.to_capital #{val.source}
 
             div.col.m4.l3.hide-on-small-only
                 each val in data
@@ -191,10 +181,6 @@ div.row
                         if(val.source)
                             li
                                 a(href='#source') Source of Information
-                    //li
-                    //    a(href='') Molecule Name
-                    //li
-                    //    a(href='') Molecule Name
 
         div
             br
@@ -207,6 +193,8 @@ div.row
                 h4.center.teal-text.darken-2 Your Feedback is valuable...
                 form.col.l10.m10.s10#form_feedback(method='POST')
                     div
+                        each val in data
+                            input#about(type="hidden" value='Molecule Data-' + (val.molecule_name.toUpperCase()))
                         span How useful is the data that we provide?
                         br
                         br
@@ -224,7 +212,7 @@ div.row
                     br
                     div.input-field
                         span Suggest changes in data
-                        textarea#suggestion(style='height:90px;' required)
+                        textarea.to_capital#suggestion(style='height:90px;' required)
                         label(for='suggestion')
                     br
 

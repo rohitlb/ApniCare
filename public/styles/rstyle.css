@@ -237,7 +237,7 @@ a#enter_more_data
     }
 }
 
-.text_upper_case {
+.text_upper_case{
     text-transform: uppercase;
 }
 
@@ -268,4 +268,13 @@ span.next_line, ul li.next_line, .next_line:before {
     padding-bottom: 0;
 }
 
+.to_capital {
+    text-transform: capitalize;
+}
 
+.r003 {
+    text-transform:capitalize;
+    color:black;
+    font-size: 15px;
+    font-weight: 400;
+}
