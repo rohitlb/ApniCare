@@ -56,7 +56,7 @@ var Licence = require('./model/open_source_licence');
 var app = express();
 
 var store = new mongoDBStore({
-    uri : 'mongodb://localhost/ApniCare',
+    uri : 'mongodb://localhost/Care',
     collection : 'mySessions'
 });
 
@@ -124,23 +124,15 @@ app.get('/test',function (req,res) {
 
 //*************************************Rohit's Testing section*******************************************************************
 
+// help to count documents in any collection
 app.post('/count', function(req,res){
-    Brand.count({brand_name : "brand_name"},function(result) {
+    Company.count({}, function (err, result) {
         if (err) {
-            console.log(err);
-        }
-        else {
-            res.send(result);
+            next(err);
+        } else {
+            res.json(result);
         }
     });
-    // Brand.count().exec(function(err, result) {
-    //     if (err) {
-    //         console.log(err);
-    //     }
-    //     else {
-    //         res.send(result);
-    //     }
-    // });
 });
 
 //*************************************Feedback and needhelp*******************************************************************
@@ -4909,7 +4901,7 @@ app.post('/licence',function(req,res){
 //data base connection and opening port
 
 //var db = 'mongodb://localhost/ApniCare';
-var db = 'mongodb://localhost/ApniCare';
+var db = 'mongodb://localhost/Care';
 mongoose.connect(db, {useMongoClient: true});
 
 
