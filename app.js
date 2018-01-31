@@ -44,12 +44,19 @@ var Disease = require('./model/disease');
 var Molecule = require('./model/molecule');
 var Search = require('./model/search');
 // to save profile pic of user
+///Some Policies///
+var Terms = require('./model/terms');
+var FAQ = require('./model/faq');
+var Policy = require('./model/policy');
+var Licence = require('./model/open_source_licence');
+
+
 
 //declare the app
 var app = express();
 
 var store = new mongoDBStore({
-    uri : 'mongodb://localhost/Apni',
+    uri : 'mongodb://localhost/ApniCare',
     collection : 'mySessions'
 });
 
@@ -4844,6 +4851,58 @@ app.post('/healthcarelogin',function(req,res) {
             }
         })
 });
+
+
+//=========================TERM AND CONDITION ,,FAQ ,,PRIVACY POLICY ,, OPEN SOURCE LICENCE ============================
+
+app.post('/terms',function(req,res){
+    var terms = req.body.terms;
+    Terms.find({terms : terms},function(err,result){
+        if(err){
+            console.log(err);
+        }
+        else{
+            res.send({status : 'success' , data : result});
+        }
+    })
+});
+
+app.post('/faqs',function(req,res){
+    var faqs = req.body.faqs;
+    FAQ.find({faqs : faqs},function(err,result){
+        if(err){
+            console.log(err);
+        }
+        else{
+            res.send({status : 'success' , data : result});
+        }
+    })
+});
+
+app.post('/policy',function(req,res){
+    var policy = req.body.policy;
+    Policy.find({policy : policy},function(err,result){
+        if(err){
+            console.log(err);
+        }
+        else{
+            res.send({status : 'success' , data : result});
+        }
+    })
+});
+
+app.post('/licence',function(req,res){
+    var licence = req.body.licence;
+    Licence.find({licence : licence},function(err,result){
+        if(err){
+            console.log(err);
+        }
+        else{
+            res.send({status : 'success' , data : result});
+        }
+    })
+});
+
 
 //==========================Database connection===========================
 
