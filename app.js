@@ -56,7 +56,7 @@ var Licence = require('./model/open_source_licence');
 var app = express();
 
 var store = new mongoDBStore({
-    uri : 'mongodb://localhost/Apni',
+    uri : 'mongodb://localhost/ApniCare',
     collection : 'mySessions'
 });
 
@@ -4211,182 +4211,11 @@ app.post('/health_care_provider',function(req,res) {
 
 //////////////////// DRUG DATA VIEW//////////////////////////////
 
-// app.get('/drug_data_view',function (req,res) {
-//    var brand = req.query.brand;
-//
-//     Brand.find({brand_name : brand},'-_id brand_name categories').populate(
-//         {path : 'dosage_id', select : '-_id dosage_form',populate :
-//             {path : 'strength_id', select : '-_id strength packaging potent_substance.name'}
-//         }).populate(
-//         {path : 'company_id', select: '-_id company_name'}).sort({brand_name : 1}).exec(function (err,brand) {
-//         if (err) {
-//             console.log(err);
-//         }
-//         else {
-//             if(brand != "") {
-//                 if (req.query.page == 'home' || req.query.page == 'profile_doctor' || req.query.page == 'profile_student_pharmacist' || req.query.page == 'profile_student_doctor' || req.query.page == 'profile_student_pharmacist' || req.query.page == 'profile' || req.query.page == 'profile_pharmacist' || req.query.page == 'drug_data' || req.query.page == 'molecule_data' || req.query.page == 'disease_data' || req.query.page == 'drug_data_form' || req.query.page == 'molecule_data_form' || req.query.page == 'disease_data_form' || req.query.page == 'feedback_contributions' || req.query.page == 'feedback_profile' || req.query.page == 'notifications' || req.query.page == 'need_help') {
-//                     page = req.query.page;
-//                 }
-//                 res.render('drug_data_view',{});
-//             }
-//             else{
-//                 res.send({details : "failure", message : "No brand exist"});
-//             }
-//         }
-//     });
-//
-// });
-
-app.get('/testing',function(req,res) {
-    res.render('imgtesting');
-    res.end();
-});
 
 //////////////////////////////////////Doctor  Profile Insert ///////////////////////////////////////////////////////////
-app.post('/professionals',function (req,res) {
-    var name = req.body.name;
-    var email = req.body.email;
-    var number = req.body.number;
-    var password = req.body.password;
-    User.find({number : number},function (err,result) {
-        if(err){
-            console.log(err);
-        }
-        else{
-            if(result != ""){
-                res.send({status : "failure", message : "User already exist"});
-            }
-            else{
-                Doctor.find({number : number},function (err1,result1) {
-                    if(err){
-                        console.log(err);
-                    }
-                    else{
-                        if(result1 != ""){
-                            res.send({status : "failure", message : "Doctor already exist"});
-                        }
-                        else{
-                            Pharma.find({number : number},function (err2,result2) {
-                                if(err2){
-                                    console.log(err2);
-                                }
-                                else{
-                                    if(result2 != ""){
-                                        res.send({status : "failure", message : "Doctor already exist"});
-                                    }
-                                    else{
-                                        var professional = new Professional({
-                                            name : name,
-                                            email : email,
-                                            number : number,
-                                            password : password
-                                        });
-                                        professional.save(function (err3,result3) {
-                                            if(err3){
-                                                console.log(err3);
-                                            }
-                                            else{
-                                                req.session.proID = result3._id;
-                                                res.send({status : "success", message : "health_care registered"});
-                                            }
-                                        });
-                                    }
-                                }
-                            });
-                        }
-                    }
-                });
-            }
-        }
-    });
-});
 
 app.get('/doctor',function (req,res) {
     res.redirect('/health_care_provider?page=profile_doctor');
-});
-
-app.post('/doctor',function (req,res) {
-    Professional.find({_id : req.session.proID}).exec(function (err,result) {
-        if(err){
-            console.log(err);
-        }
-        else {
-            if(result != "") {
-                Doctor.find({number: result[0].number}, function (errs, results) {
-                    if (errs) {
-                        console.log(errs);
-                    }
-                    else {
-                        if (results != "") {
-                            res.redirect('/health_care_provider?page=profile_doctor');
-                        }
-                        else {
-                            var doctor = new Doctor({
-                                name: result[0].name,
-                                email: result[0].email,
-                                number: result[0].number,
-                                password: result[0].password
-                            });
-                            doctor.save(function (err, results) {
-                                if (err) {
-                                    console.log(err);
-                                }
-                                else {
-                                    req.session.doctorID = results._id;
-                                    res.redirect('/health_care_provider?page=profile_doctor');
-                                }
-                            });
-                        }
-                    }
-                });
-            }
-            else{
-                res.send({details : "failure", message : "You already registered as Pharmacist"});
-            }
-        }
-    });
-});
-
-app.post('/pharma',function (req,res) {
-    Professional.find({_id : req.session.proID}).exec(function (err,result) {
-        if(err){
-            console.log(err);
-        }
-        else {
-            if(result != "") {
-                Pharma.find({number: result[0].number}, function (errs, results) {
-                    if (errs) {
-                        console.log(errs);
-                    }
-                    else {
-                        if (results != "") {
-                            res.redirect('/health_care_provider?page=profile_pharmacist');
-                        }
-                        else {
-                            var pharma = new Pharma({
-                                name: result[0].name,
-                                email: result[0].email,
-                                number: result[0].number,
-                                password: result[0].password
-                            });
-                            pharma.save(function (err, results) {
-                                if (err) {
-                                    console.log(err);
-                                }
-                                else {
-                                    req.session.pharmaID = results._id;
-                                    res.redirect('/health_care_provider?page=profile_pharmacist');
-                                }
-                            });
-                        }
-                    }
-                });
-            }
-            else {
-                res.send({details : "failure" , message : "You already registered as Doctor"});
-            }
-        }
-    });
 });
 
 app.get('/doctorlogedin',function (req,res) {
@@ -4759,7 +4588,7 @@ app.post('/doctorregistration',function(req,res){
         name : name,
         number : number,
         email: email,
-        password : password
+        password : password,
     });
     doctor.save(function(err,result){
         if(err){
@@ -4901,7 +4730,7 @@ app.post('/licence',function(req,res){
 //data base connection and opening port
 
 //var db = 'mongodb://localhost/ApniCare';
-var db = 'mongodb://localhost/Apni';
+var db = 'mongodb://localhost/ApniCare';
 mongoose.connect(db, {useMongoClient: true});
 
 
