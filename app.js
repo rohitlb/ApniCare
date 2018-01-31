@@ -4485,13 +4485,13 @@ app.post('/licence',function(req,res){
 
 //data base connection and opening port
 
-<<<<<<< HEAD
+
 var db = 'mongodb://localhost/ApniCare';
 //var db = 'mongodb://localhost/Care';
-=======
+
 //var db = 'mongodb://localhost/ApniCare';
 var db = 'mongodb://localhost/ApniCare';
->>>>>>> 61769a6c02004ed38bb9de67140428584c5f7905
+
 mongoose.connect(db, {useMongoClient: true});
 
 
