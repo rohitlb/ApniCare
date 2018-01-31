@@ -9,6 +9,10 @@ $(function () {
         endingTop: '11%'
     });
 
+    // --------------------- TABS USED IN PROFILE STEP 3 ---------------------------
+
+    $("ul.tabs").tabs('select_tab','tab1');
+
 
     // ---------------- COLLAPSIBLE IN DRUG DATA VIEW -------------------------
     $('.collapsible').collapsible({
@@ -1042,11 +1046,6 @@ $(function () {
             }
         });
     });
-
-    // --------------------- TABS USED IN PROFILE STEP 3 ---------------------------
-    //$('ul.tabs').tabs('select_tab', 'tab1');
-
-    $("ul.tabs").tabs('select_tab','tab1');
 
     // $('#form_education_specialization').hide();
     // $('#register_doc').hide();

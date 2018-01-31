@@ -278,3 +278,17 @@ span.next_line, ul li.next_line, .next_line:before {
     font-size: 15px;
     font-weight: 400;
 }
+
+.image-upload > input
+{
+    display: none;
+}
+
+.pic_Selector {
+    bottom: 21px;
+    left:20px;
+    overflow: hidden;
+    text-align: center;
+    top:auto;
+    width: 150px;
+}
