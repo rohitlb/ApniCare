@@ -21,11 +21,12 @@
 		}
 	},
 	"__v": 0
-} {
+}
+{
 	"_id": {
 		"$oid": "5a644a38324f572d8c470ecd"
 	},
-	"strength": "10% ",
+	"strength": "10%",
 	"strength_unit": "",
 	"packaging": "bottle",
 	"price": "139.92",
@@ -44,7 +45,8 @@
 		}
 	},
 	"__v": 0
-} {
+}
+{
 	"_id": {
 		"$oid": "5a644ad0e1609631e8fdf4c5"
 	},
@@ -67,7 +69,8 @@
 		}
 	},
 	"__v": 0
-} {
+}
+{
 	"_id": {
 		"$oid": "5a644b43e1609631e8fdf4cd"
 	},
@@ -90,7 +93,8 @@
 		}
 	},
 	"__v": 0
-} {
+}
+{
 	"_id": {
 		"$oid": "5a644ba4e1609631e8fdf4d2"
 	},
@@ -113,7 +117,8 @@
 		}
 	},
 	"__v": 0
-} {
+}
+{
 	"_id": {
 		"$oid": "5a644bf8e1609631e8fdf4d7"
 	},
@@ -136,7 +141,8 @@
 		}
 	},
 	"__v": 0
-} {
+}
+{
 	"_id": {
 		"$oid": "5a644c9ee1609631e8fdf4dc"
 	},
@@ -159,7 +165,8 @@
 		}
 	},
 	"__v": 0
-} {
+}
+{
 	"_id": {
 		"$oid": "5a644d1ae1609631e8fdf4e6"
 	},
@@ -182,7 +189,8 @@
 		}
 	},
 	"__v": 0
-} {
+}
+{
 	"_id": {
 		"$oid": "5a644d5ee1609631e8fdf4eb"
 	},
@@ -227,7 +235,9 @@
 		}
 	},
 	"__v": 0
-} {
+}
+{
+
 	"_id": {
 		"$oid": "5a644e3ce1609631e8fdf4f4"
 	},
@@ -727,53 +737,8 @@
 		}
 	},
 	"__v": 0
-} {
-	"_id": {
-		"$oid": "5a6457d5e1609631e8fdf563"
-	},
-	"strength": "30",
-	"strength_unit": "mg",
-	"packaging": "1ml",
-	"price": "4.64",
-	"dose_taken": "",
-	"dose_timing": "",
-	"warnings": "",
-	"prescription": "",
-	"brands_id": [{
-		"$oid": "5a6457d5e1609631e8fdf568"
-	}],
-	"potent_substance": {
-		"name": ["Pentazocine"],
-		"molecule_strength": ["-"],
-		"_id": {
-			"$oid": "5a6457d5e1609631e8fdf564"
-		}
-	},
-	"__v": 0
-} {
-	"_id": {
-		"$oid": "5a6457e3e1609631e8fdf56b"
-	},
-	"strength": "5",
-	"strength_unit": "ml",
-	"packaging": "1",
-	"price": "71.50",
-	"dose_taken": "After food",
-	"dose_timing": "SOS",
-	"warnings": "Donec quis nisl non mauris imperdiet consequat.",
-	"prescription": "Needed",
-	"brands_id": [{
-		"$oid": "5a6457e3e1609631e8fdf56e"
-	}],
-	"potent_substance": {
-		"name": ["Flurbiprofen,Gatifloxacin"],
-		"molecule_strength": ["0.3 mg,3 mg"],
-		"_id": {
-			"$oid": "5a6457e3e1609631e8fdf56c"
-		}
-	},
-	"__v": 0
-} {
+}
+ {
 	"_id": {
 		"$oid": "5a645826e1609631e8fdf570"
 	},
