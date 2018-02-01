@@ -5,7 +5,6 @@ var path = require('path');
 var favicon = require('serve-favicon');
 var request = require('request');
 var mongoose = require('mongoose');
-var multer = require('multer');
 var promise = require('bluebird');
 var sleep = require('thread-sleep');
 var session = require('express-session');
@@ -19,9 +18,7 @@ mongoose.Promise = promise;
 var async = require('async');
 var keys = require('./private/keys');
 
-
 // req models
-
 
 // req model for feedback and need help
 var Feedback = require('./model/adminfeedback');
@@ -4387,6 +4384,7 @@ app.post('/profession',function (req,res) {
             console.log(err);
         }
         else {
+            console.log(result);
             res.send({details : "success", message : "Profession added"});
         }
     });
