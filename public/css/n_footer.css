@@ -65,17 +65,18 @@ background-color: #0d0d0d;
     font-family: OpenSans-Regular, sans-serif;
 }
 #fdropdown{
-    border: inset;
-    border-color: lightgrey;
+    border: solid;
+    border-color: gray;
     height:50px ;
 }
 #textarea1{
-    border: outset;
+    border: solid;
     height: 70px;
 }
 #n_emailof,#numberof,#nameof{
     background-color: white;
-    border: outset;
+    border: solid;
+    border-color: gray;
     height: 50px;
 }
 #submitbutt{

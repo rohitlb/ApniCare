@@ -1,6 +1,6 @@
 div#Mdiv1
     div.row#irow11
-        div.col.l4
+        div.col.s3.m4.l4
             br
             br
             span#logo1 ApniCare
@@ -10,16 +10,25 @@ div#Mdiv1
             //a(href='/profile/userprofile?page=profilePage')
                 img#logoimg(src="/images/az.png" height="80px" width="150px")
 
-        div.col.l6
+        div.col.s6.m6.l6
             a(href="#")
             br
             br
             .input-field#input1
-                input#search(type='search', required='',placeholder="search here")
-                label.label-icon(for='search')
+                input#search-query(type='search', required='',placeholder="search here")
+                label.label-icon(for='search-query')
                 //.material-icons#searchbutton search
-        div.col.l2.black-text
-            //include ../login-signup/main
+        div.col.s3.m2.l2
+            br
+            br
+
+            include ../login-signup/main
+            if(page == 'profile')
+                a.dropdown-button.btn-flat.center.right.black-text#user(data-activates='dropdown1') #{number}
+                    i.material-icons.black-text.large person
+                    span hi user
+            i.material-icons.black-text.right notifications
+
 div
     div.row#moleculeInformation1
         div.col.s12.m12.l12#mcol2
@@ -39,61 +48,61 @@ div
                                 span.center
                                     ul
                                         li.active
-                                            a.btn2.all.hoverable(href='#' type='all') All
+                                            a.btn2.all.hoverable(href='/ApniCare/information?page=Molecule_Information' type='all') All
                                         li
-                                            a.btn2.hoverable(href='#') A
+                                            a.btn2.hoverable(href='/ApniCare/information?page=Molecule_Information') A
                                         li
-                                            a.btn2.hoverable(href='#') B
+                                            a.btn2.hoverable(href='/ApniCare/information?page=Molecule_Information') B
                                         li
-                                            a.btn2.hoverable(href='#') C
+                                            a.btn2.hoverable(href='/ApniCare/information?page=Molecule_Information') C
                                         li
-                                            a.btn2.hoverable(href='#') D
+                                            a.btn2.hoverable(href='/ApniCare/information?page=Molecule_Information') D
                                         li
-                                            a.btn2.hoverable(href='#') E
+                                            a.btn2.hoverable(href='/ApniCare/information?page=Molecule_Information') E
                                         li
-                                            a.btn2.hoverable(href='#') F
+                                            a.btn2.hoverable(href='/ApniCare/information?page=Molecule_Information') F
                                         li
-                                            a.btn2.hoverable(href='#') G
+                                            a.btn2.hoverable(href='/ApniCare/information?page=Molecule_Information') G
                                         li
-                                            a.btn2.hoverable(href='#') H
+                                            a.btn2.hoverable(href='/ApniCare/information?page=Molecule_Information') H
                                         li
-                                            a.btn2.hoverable(href='#') I
+                                            a.btn2.hoverable(href='/ApniCare/information?page=Molecule_Information') I
                                         li
-                                            a.btn2.hoverable(href='#') J
+                                            a.btn2.hoverable(href='/ApniCare/information?page=Molecule_Information') J
                                         li
-                                            a.btn2.hoverable(href='#') K
+                                            a.btn2.hoverable(href='/ApniCare/information?page=Molecule_Information') K
                                         li
-                                            a.btn2.hoverable(href='#') L
+                                            a.btn2.hoverable(href='/ApniCare/information?page=Molecule_Information') L
                                         li
-                                            a.btn2.hoverable(href='#') M
+                                            a.btn2.hoverable(href='/ApniCare/information?page=Molecule_Information') M
                                         li
-                                            a.btn2.hoverable(href='#') N
+                                            a.btn2.hoverable(href='/ApniCare/information?page=Molecule_Information') N
                                         li
-                                            a.btn2.hoverable(href='#') O
+                                            a.btn2.hoverable(href='/ApniCare/information?page=Molecule_Information') O
                                         li
-                                            a.btn2.hoverable(href='#') P
+                                            a.btn2.hoverable(href='/ApniCare/information?page=Molecule_Information') P
                                         li
-                                            a.btn2.hoverable(href='#') Q
+                                            a.btn2.hoverable(href='/ApniCare/information?page=Molecule_Information') Q
                                         li
-                                            a.btn2.hoverable(href='#') R
+                                            a.btn2.hoverable(href='/ApniCare/information?page=Molecule_Information') R
                                         li
-                                            a.btn2.hoverable(href='#') S
+                                            a.btn2.hoverable(href='/ApniCare/information?page=Molecule_Information') S
                                         li
-                                            a.btn2.hoverable(href='#') T
+                                            a.btn2.hoverable(href='/ApniCare/information?page=Molecule_Information') T
                                         li
-                                            a.btn2.hoverable(href='#') U
+                                            a.btn2.hoverable(href='/ApniCare/information?page=Molecule_Information') U
                                         li
-                                            a.btn2.hoverable(href='#') V
+                                            a.btn2.hoverable(href='/ApniCare/information?page=Molecule_Information') V
                                         li
-                                            a.btn2.hoverable(href='#') W
+                                            a.btn2.hoverable(href='/ApniCare/information?page=Molecule_Information') W
                                         li
-                                            a.btn2.hoverable(href='#') X
+                                            a.btn2.hoverable(href='/ApniCare/information?page=Molecule_Information') X
                                         li
-                                            a.btn2.hoverable(href='#') Y
+                                            a.btn2.hoverable(href='/ApniCare/information?page=Molecule_Information') Y
                                         li
-                                            a.btn2.hoverable(href='#') Z
+                                            a.btn2.hoverable(href='/ApniCare/information?page=Molecule_Information') Z
                                         li
-                                            a.btn2.all.hoverable(href='#' type='other') Other
+                                            a.btn2.all.hoverable(href='/ApniCare/information?page=Molecule_Information' type='other') Other
                         div.row.m_p_info
                             if(val.description !='')
                                 //h4.center #{val.molecule_name}
@@ -108,16 +117,16 @@ div
 
                                             ul.m_p_info
                                                 if(val.absorption != '')
-                                                    p.m_p &nbsp &nbsp - Absorption:
+                                                    p.m_p1 &nbsp &nbsp - Absorption:
                                                     li #{val.absorption}
                                                 if(val.distribution != '')
-                                                    p.m_p &nbsp &nbsp - Distribution:
+                                                    p.m_p1 &nbsp &nbsp - Distribution:
                                                     li #{val.distribution}
                                                 if(val.metabolism != '')
-                                                    p.m_p &nbsp &nbsp - Metabolism:
+                                                    p.m_p1 &nbsp &nbsp - Metabolism:
                                                     li #{val.metabolism}
                                                 if(val.excretion != '')
-                                                    p.m_p &nbsp &nbsp - Excretion:
+                                                    p.m_p1 &nbsp &nbsp - Excretion:
                                                     li #{val.excretion}
                         div.row
                             if(val.side_effect != '')
@@ -194,61 +203,61 @@ div
             //        span.center
             //            ul
             //                li.active
-            //                    a.btn2.all.hoverable(href='#' type='all') All
+            //                    a.btn2.all.hoverable(href='/ApniCare/information?page=Molecule_Information' type='all') All
             //                li
-            //                    a.btn2.hoverable(href='#') A
+            //                    a.btn2.hoverable(href='/ApniCare/information?page=Molecule_Information') A
             //                li
-            //                    a.btn2.hoverable(href='#') B
+            //                    a.btn2.hoverable(href='/ApniCare/information?page=Molecule_Information') B
             //                li
-            //                    a.btn2.hoverable(href='#') C
+            //                    a.btn2.hoverable(href='/ApniCare/information?page=Molecule_Information') C
             //                li
-            //                    a.btn2.hoverable(href='#') D
+            //                    a.btn2.hoverable(href='/ApniCare/information?page=Molecule_Information') D
             //                li
-            //                    a.btn2.hoverable(href='#') E
+            //                    a.btn2.hoverable(href='/ApniCare/information?page=Molecule_Information') E
             //                li
-            //                    a.btn2.hoverable(href='#') F
+            //                    a.btn2.hoverable(href='/ApniCare/information?page=Molecule_Information') F
             //                li
-            //                    a.btn2.hoverable(href='#') G
+            //                    a.btn2.hoverable(href='/ApniCare/information?page=Molecule_Information') G
             //                li
-            //                    a.btn2.hoverable(href='#') H
+            //                    a.btn2.hoverable(href='/ApniCare/information?page=Molecule_Information') H
             //                li
-            //                    a.btn2.hoverable(href='#') I
+            //                    a.btn2.hoverable(href='/ApniCare/information?page=Molecule_Information') I
             //                li
-            //                    a.btn2.hoverable(href='#') J
+            //                    a.btn2.hoverable(href='/ApniCare/information?page=Molecule_Information') J
             //                li
-            //                    a.btn2.hoverable(href='#') K
+            //                    a.btn2.hoverable(href='/ApniCare/information?page=Molecule_Information') K
             //                li
-            //                    a.btn2.hoverable(href='#') L
+            //                    a.btn2.hoverable(href='/ApniCare/information?page=Molecule_Information') L
             //                li
-            //                    a.btn2.hoverable(href='#') M
+            //                    a.btn2.hoverable(href='/ApniCare/information?page=Molecule_Information') M
             //                li
-            //                    a.btn2.hoverable(href='#') N
+            //                    a.btn2.hoverable(href='/ApniCare/information?page=Molecule_Information') N
             //                li
-            //                    a.btn2.hoverable(href='#') O
+            //                    a.btn2.hoverable(href='/ApniCare/information?page=Molecule_Information') O
             //                li
-            //                    a.btn2.hoverable(href='#') P
+            //                    a.btn2.hoverable(href='/ApniCare/information?page=Molecule_Information') P
             //                li
-            //                    a.btn2.hoverable(href='#') Q
+            //                    a.btn2.hoverable(href='/ApniCare/information?page=Molecule_Information') Q
             //                li
-            //                    a.btn2.hoverable(href='#') R
+            //                    a.btn2.hoverable(href='/ApniCare/information?page=Molecule_Information') R
             //                li
-            //                    a.btn2.hoverable(href='#') S
+            //                    a.btn2.hoverable(href='/ApniCare/information?page=Molecule_Information') S
             //                li
-            //                    a.btn2.hoverable(href='#') T
+            //                    a.btn2.hoverable(href='/ApniCare/information?page=Molecule_Information') T
             //                li
-            //                    a.btn2.hoverable(href='#') U
+            //                    a.btn2.hoverable(href='/ApniCare/information?page=Molecule_Information') U
             //                li
-            //                    a.btn2.hoverable(href='#') V
+            //                    a.btn2.hoverable(href='/ApniCare/information?page=Molecule_Information') V
             //                li
-            //                    a.btn2.hoverable(href='#') W
+            //                    a.btn2.hoverable(href='/ApniCare/information?page=Molecule_Information') W
             //                li
-            //                    a.btn2.hoverable(href='#') X
+            //                    a.btn2.hoverable(href='/ApniCare/information?page=Molecule_Information') X
             //                li
-            //                    a.btn2.hoverable(href='#') Y
+            //                    a.btn2.hoverable(href='/ApniCare/information?page=Molecule_Information') Y
             //                li
-            //                    a.btn2.hoverable(href='#') Z
+            //                    a.btn2.hoverable(href='/ApniCare/information?page=Molecule_Information') Z
             //                li
-            //                    a.btn2.all.hoverable(href='#' type='other') Other
+            //                    a.btn2.all.hoverable(href='/ApniCare/information?page=Molecule_Information' type='other') Other
             //div.row.center
                 //h6 Search Generic / Brand name
                 //.input-field#input3

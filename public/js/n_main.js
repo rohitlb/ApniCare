@@ -1,22 +1,20 @@
 $(document).ready(function() {
-    $('.modal').modal({
-        dismissible:false,
-        opacity: 0.01,
+    /*$('.modal').modal({
+        dismissible:true,
+        opacity: .15,
         inDuration: 300,
         outDuration: 200,
         padding: '0px'
+    });*/
+//for more than 1 dosage form
+    $('.description').hide();
+    $(".dosage_form").click(function () {
+        var dose = $('.dosage_form').text();
+        alert(dose);
+        $('.description').show();
     });
-    //***************************************
-
-$('.initial').click(function () {
-   $('.initial').focus()
-});
-
-    $('ul.tabs').tabs('select_tab', '#test-swipe-1');
-    $('select').material_select();
-//***********************
 //for arranging alphabets-------------------------------
-    $(".drug_alphabets a").on("click", function() {
+    $(".drug_alphabets a").on("click", function () {
         var type = $(this).attr("type");
         if (type) {
             if (type == 'all') {
@@ -24,7 +22,7 @@ $('.initial').click(function () {
 
             } else if (type == 'other') {
                 $(".brands a").hide();//hide all
-                $(".brands a").each(function() {
+                $(".brands a").each(function () {
                     var brandName = $(this).attr("name");
                     if (!brandName.toLowerCase()[0].match(/[a-z]/i))//if name not starts with letter
                         $(this).show();
@@ -43,8 +41,37 @@ $('.initial').click(function () {
         });
     });
 
+//for scrollspy------------------------------------
+    $('.scrollspy').scrollSpy();
 
-//*************************************8
+//modal-----------------------
+    $('.modal').modal({
+        dismissible: true, // Modal can be dismissed by clicking outside of the modal
+        opacity: 0.7, // Opacity of modal background
+        inDuration: 300, // Transition in duration
+        outDuration: 200, // Transition out duration
+        startingTop: '20%', // Starting top style attribute
+        endingTop: '10%' // Ending top style attribute
+        //maxHeight:'90%',
+
+    });
+
+    $('#loginbut').click(function (a) {
+        $("input").val('');
+    });
+    $('#signupbut').click(function (a) {
+        $("input").val('');
+    });
+//***************************************
+
+    $('.initial').click(function () {
+        $('.initial').focus();
+    });
+//for needhelp, contact us and feedback---------------------
+    $('ul.tabs').tabs('select_tab', '#test-swipe-1');
+    $('select').material_select();
+
+//***************************************************
     /*var $fixed_element = $("#mol_row1_subrow4")
     if($fixed_element.length){
         var $offset = $(".footer123").position().top,
@@ -53,46 +80,8 @@ $('.initial').click(function () {
             $scrolled = $(window).scrollTop();
         $fixed_element.css("bottom", Math.max(0, $scrolled-$diff));
     }*/
-    //$(window).scroll(function(){
-        //$("#mol_row1_subrow4").css("margin-bottom",Math.max(700,500-$(this).scrollPaddingBottom()));
-    //});
-    $('#submitbutt').click(function () {
-        var issue = $('#fdropdown').val();
-        var email = $('#n_emailof').val();
-        var name = $('#nameof').val();
-        var number = $('#numberof').val();
-        var description = $('#textarea1').val();
-        var data = {
-            subject: issue,
-            name: name,
-            number: number,
-            email: email,
-            contact_message: description
-        };
-
-        $.ajax(
-            {url: '/needhelpWL',
-                method: 'POST',
-                data: JSON.stringify(data),
-                contentType: 'application/json',
-                success: function (result) {
-
-                    if (result.status === "success") {
-                        Materialize.toast(result.message, 2000);
-                    }
-                    else {
-                        Materialize.toast(result.message, 2000);
-                    }
-
-                },
-                error: function (err) {
-
-                    console.log(err);
-                }
-            }
-
-        )
-
+    $(window).scroll(function () {
+        $("#mol_row1_subrow4").css("margin-bottom", Math.max(700, 500 - $(this).scrollPaddingBottom()));
     });
 
 
@@ -163,4 +152,5 @@ $('.initial').click(function () {
         e.stopPropagation();
         $('.carousel.xyz').carousel('next')
     });
+
 });
