@@ -26,7 +26,15 @@ $(document).ready(function() {
                 success: function (result) {
 
                     if (result.status === "success") {
-                        window.location = '/profile';
+                        if(result.value === 'user'){
+                            window.location = '/profile';
+                        }
+                        if(result.value === 'doctor'){
+                            window.location = '/health_care_provider'
+                        }
+                        if(result.value === 'pharma'){
+                            window.location = '/health_care_provider';
+                        }
 
                     }
                     else {
@@ -168,7 +176,7 @@ $(document).ready(function() {
 
             $.ajax(
                 {
-                    url: "/UsersendOTP",
+                    url: "/sendOTP",
                     method: 'POST',
                     data: JSON.stringify(data),
                     contentType: 'application/json',
@@ -286,7 +294,7 @@ $(document).ready(function() {
 
             $.ajax(
                 {
-                    url: "/DoctorsendOTP",
+                    url: "/sendOTP",
                     method: 'POST',
                     data: JSON.stringify(data),
                     contentType: 'application/json',
@@ -304,9 +312,6 @@ $(document).ready(function() {
                             $('#number').attr('disabled', 'disabled');
                             $('#password1').attr('disabled', 'disabled');
                             $('.doc').show();
-
-
-                            //testing
 
                         }
                         else {
@@ -350,8 +355,7 @@ $(document).ready(function() {
                     success: function (result) {
 
                         if (result.status === "success") {
-                            window.location = '/health_care_provider/occupation';
-
+                            window.location = '/health_care_provider?page=doctor_registered'
                         }
                         else {
                             Materialize.toast(result.message, 2000);
@@ -379,7 +383,7 @@ $(document).ready(function() {
 
             $.ajax(
                 {
-                    url: "/PharmasendOTP",
+                    url: "/sendOTP",
                     method: 'POST',
                     data: JSON.stringify(data),
                     contentType: 'application/json',
@@ -435,14 +439,15 @@ $(document).ready(function() {
 
             $.ajax(
                 {
-                    url: "/pharma",
+                    url: "/pharmaregister",
                     method: 'POST',
                     data: JSON.stringify(data),
                     contentType: 'application/json',
                     success: function (result) {
 
                         if (result.status === "success") {
-                            window.location = 'health_care_provider/occupation';
+                            Materialize.toast(result.message, 2000);
+                            window.location = '/health_care_provider?page=pharma_registered';
 
                         }
                         else {

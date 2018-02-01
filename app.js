@@ -239,7 +239,7 @@ app.post('/needhelpWL' , function (req,res) {
 //*************************************OTP*******************************************************************
 
 //user
-app.post('/UsersendOTP',function (req, res) {
+app.post('/sendOTP',function (req, res) {
     var number = req.body.number;
     //regex for checking whether entered number is indian or not
     var num = /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[789]\d{9}|(\d[ -]?){10}\d$/.test(number);
@@ -248,144 +248,6 @@ app.post('/UsersendOTP',function (req, res) {
         return;
     }
     async.series({
-        Doctors: function (callback) {
-            Doctor.find({number: number}, function (err, result) {
-                if (err) {
-                    console.log(err);
-                }
-                else {
-                    callback(null, result);
-                }
-            });
-        },
-        Pharmas : function(callback){
-            Pharma.find({number : number},function(err,result){
-                if(err){
-                    console.log(err);
-                }
-                else{
-                    callback(null,result);
-                }
-            });
-        },
-        Users : function(callback){
-            User.find({number : number},function(err,result){
-                if(err){
-                    console.log(err);
-                }
-                else{
-                    callback(null,result);
-                }
-            });
-        }
-    },function(err,result){
-        if(err){
-            console.log(err);
-        }
-        else{
-            if(((result.Doctors.length === 0)&&(result.Pharmas.length === 0))&&(result.Users.length === 0)){
-                var options = { method: 'GET',
-                    url: 'http://2factor.in/API/V1/'+keys.api_key()+'/SMS/'+number+'/AUTOGEN',
-                    headers: { 'content-type': 'application/x-www-form-urlencoded' },
-                    form: {} };
-
-                request(options, function (error, response, body) {
-                    if (error) {
-                        throw new Error(error);
-                    }
-                    else {
-                        var temp = JSON.parse(body);
-                        req.session.sid = temp.Details;
-                        res.send({status: "success", message: "OTP sent to your number"});
-                    }
-                });
-            }
-            else{
-                res.send({status: "failure", message: "number Already Exists"});
-            }
-        }
-    });
-});
-
-//doctor
-app.post('/DoctorsendOTP',function (req, res) {
-    var number = req.body.number;
-    //regex for checking whether entered number is indian or not
-    var num = /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[789]\d{9}|(\d[ -]?){10}\d$/.test(number);
-    if(num === false){
-        res.send({status: "failure", message: "wrong number ! please try again "});
-        return;
-    }
-    async.parallel({
-        Doctors: function (callback) {
-            Doctor.find({number: number}, function (err, result) {
-                if (err) {
-                    console.log(err);
-                }
-                else {
-                    callback(null, result);
-                }
-            });
-        },
-        Pharmas : function(callback){
-            Pharma.find({number : number},function(err,result){
-                if(err){
-                    console.log(err);
-                }
-                else{
-                    callback(null,result);
-                }
-            });
-        },
-        Users : function(callback){
-            User.find({number : number},function(err,result){
-                if(err){
-                    console.log(err);
-                }
-                else{
-                    callback(null,result);
-                }
-            });
-        }
-    },function(err,result){
-        if(err){
-            console.log(err);
-        }
-        else{
-            if(((result.Doctors.length === 0)&&(result.Pharmas.length === 0))&&(result.Users.length === 0)){
-                var options = { method: 'GET',
-                    url: 'http://2factor.in/API/V1/'+keys.api_key()+'/SMS/'+number+'/AUTOGEN',
-                    headers: { 'content-type': 'application/x-www-form-urlencoded' },
-                    form: {} };
-
-                request(options, function (error, response, body) {
-                    if (error) {
-                        throw new Error(error);
-                    }
-                    else {
-                        var temp = JSON.parse(body);
-                        req.session.sid = temp.Details;
-                        res.send({status: "success", message: "OTP sent to your number"});
-                    }
-                });
-            }
-            else{
-                res.send({status: "failure", message: "number Already Exists"});
-            }
-        }
-    });
-});
-
-//Pharma
-app.post('/PharmasendOTP',function (req, res) {
-    var number = req.body.number;
-    //regex for checking whether entered number is indian or not
-    var num = /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[789]\d{9}|(\d[ -]?){10}\d$/.test(number);
-    if(num === false){
-        res.send({status: "failure", message: "wrong number ! please try again "});
-        return;
-    }
-    async.parallel({
         Doctors: function (callback) {
             Doctor.find({number: number}, function (err, result) {
                 if (err) {
@@ -464,6 +326,7 @@ app.post('/VerifyOTP',function (req, res) {
     //     var temp = JSON.parse(body);
     //     res.send({status : 'success' , message: temp.Status })
     // });
+    req.session.sid = null;
 });
 
 app.get('/home',function (req,res) {
@@ -614,6 +477,7 @@ app.post('/doctorregister', function (req, res) {
 });
 
 app.post('/pharmaregister', function (req, res) {
+    console.log('reaches');
     //regex for checking whether entered number is indian or not
     var num = /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[789]\d{9}|(\d[ -]?){10}\d$/.test(req.body.number);
     if (num === false) {
@@ -1644,7 +1508,9 @@ app.post('/readmore', function(req,res){
 //login with filter and session
 
 app.post('/login',function (req,res) {
-
+    var user = null;
+    var doctor = null;
+    var pharma = null;
     async.parallel({
         User : function(callback){
             User.find({number: req.body.number}).exec(function (err,result) {
@@ -1652,8 +1518,9 @@ app.post('/login',function (req,res) {
                     console.log(err);
                     res.send({status: "failure", message : "Some error occurred"});
                 } else {
+                    user = result;
                     if(result != "") {
-                        bcrypt.compare(req.body.password,result.password,function(err, results) {
+                        bcrypt.compare(req.body.password,result[0].password,function(err, results) {
                             if (err) {
                                 console.log(err);
                             }
@@ -1677,10 +1544,10 @@ app.post('/login',function (req,res) {
             Doctor.find({number: req.body.number}).exec(function (err,result) {
                 if(err){
                     console.log(err);
-                    res.send({status: "failure", message : "Some error occurred"});
                 } else {
+                    doctor = result;
                     if(result != "") {
-                        bcrypt.compare(req.body.password,result.password,function(err, results) {
+                        bcrypt.compare(req.body.password,result[0].password,function(err, results) {
                             if (err) {
                                 console.log(err);
                             }
@@ -1701,13 +1568,13 @@ app.post('/login',function (req,res) {
             });
         },
         Pharma : function(callback){
-            Doctor.find({number: req.body.number}).exec(function (err,result) {
+            Pharma.find({number: req.body.number}).exec(function (err,result) {
                 if(err){
                     console.log(err);
-                    res.send({status: "failure", message : "Some error occurred"});
                 } else {
+                    pharma = result;
                     if(result != "") {
-                        bcrypt.compare(req.body.password,result.password,function(err, results) {
+                        bcrypt.compare(req.body.password,result[0].password,function(err, results) {
                             if (err) {
                                 console.log(err);
                             }
@@ -1732,7 +1599,21 @@ app.post('/login',function (req,res) {
             console.log(err);
         }
         else{
-            res.send({status : 'success' , data : result});
+            if(result.User == true){
+                req.session.userID = user[0]._id;
+                res.send({status : 'success' , value : 'user'});
+            }
+            if(result.Doctor == true){
+                req.session.doctorID = doctor[0]._id;
+                res.send({status : 'success' , value : 'doctor'});
+            }
+            if(result.Pharma == true){
+                req.session.pharmaID = pharma[0]._id;
+                res.send({status : 'success' , value : 'pharma'});
+            }
+            if((result.User != true)&&(result.Doctor != true)&&(result.Pharma != true)){
+                res.send({status : 'failure' , message : 'Wrong Credential'});
+            }
         }
     });
 });
@@ -3148,70 +3029,6 @@ app.post('/upload', fileParser, function(req, res){
 
 
 //////////////////// try for free /////////////////////////////////////////
-app.get('/userregister',function (req,res) {
-    res.render('userregister');
-});
-
-app.post('/userregister', function (req, res) {
-    var dob = req.body.dob;
-    var gender = req.body.gender;
-    var blood_group = req.body.blood_group;
-    var marital_status = req.body.marital_status;
-    var height = req.body.height;
-    var weight = req.body.height;
-    var addresses = req.body.address;
-    var landmark = req.body.landmarks;
-    var pincode = req.body.pincode;
-    var city = req.body.city;
-    var state = req.body.state;
-    var aadhaar_number = req.body.aadhaar_number;
-    var income = req.body.income;
-    var rel_name = req.body.relative_name;
-    var rel_contact = req.body.relative_contact;
-    var relation = req.body.relation;
-    bcrypt.genSalt(10, function (err, salt) {
-        bcrypt.hash(req.body.password, salt, function (err, hash) {
-            if (err) {
-                console.log(err);
-            }
-            else {
-                var user = new User({
-                    name: req.body.name,
-                    email: req.body.email,
-                    number: req.body.number,
-                    password: hash,
-                    dob: dob,
-                    gender: gender,
-                    blood_group: blood_group,
-                    marital_status: marital_status,
-                    height: height,
-                    weight: weight,
-                    address: {
-                        address: addresses,
-                        landmarks: landmark,
-                        pin_code: pincode,
-                        city: city,
-                        state: state
-                    },
-                    aadhaar_number: aadhaar_number,
-                    income: income,
-                    relative_name: rel_name,
-                    relative_contact: rel_contact,
-                    relation: relation
-                });
-                user.save(function (err, results) {
-                    if (err) {
-                        console.log(err);
-                        res.end();
-                    } else {
-                        res.send({status: "success", message: "successfully registered"});
-                        res.end();
-                    }
-                });
-            }
-        });
-    });
-});
 
 /////////////////////////medicine shows ////////////////////////////////////////////////////////////////////////////////
 
@@ -5276,22 +5093,23 @@ app.get('/doctorlogedin',function (req,res) {
 
 app.post('/profession',function (req,res) {
     var profession = req.body.profession;
+    console.log(profession);
+    console.log(req.session.doctorID);
     Doctor.update({_id : req.session.doctorID},{
         $set : {
-            occupation: profession
+            occupation : profession
         }
-    },function (err) {
+    },function (err,result) {
         if(err)
         {
             console.log(err);
         }
         else {
-            //console.log(result);
+            console.log(result);
             res.send({details : "success", message : "Profession added"});
         }
     });
 });
-
 
 app.post('/basic',function(req,res) {
     var gender = req.body.gender;
@@ -5374,51 +5192,28 @@ app.post('/pharma_profession',function (req,res) {
     });
 });
 
-app.post('/doctorregistration',function(req,res){
-    var name= req.body.name;
-    var number = req.body.number;
-    var email = req.body.email;
-    var password = req.body.password;
-    var doctor = new Doctor({
-        name : name,
-        number : number,
-        email: email,
-        password : password
-    });
-    doctor.save(function(err,result){
-        if(err){
-            console.log(err);
-        }
-        else {
-            req.session.doctorID = result._id;
-            //res.send({status : 'success', message : 'successfully registered'});
-            res.redirect('/health_care_provider?page=doctor_registered');
-        }
-    })
-});
-
-app.post('/pharmaregistration',function(req,res){
-    var name= req.body.name;
-    var number = req.body.number;
-    var email = req.body.email;
-    var password = req.body.password;
-    var pharma = new Pharma({
-        name : name,
-        number : number,
-        email: email,
-        password : password
-    });
-    pharma.save(function(err,result){
-        if(err){
-            console.log(err);
-        }
-        else {
-            req.session.pharmaID = result._id;
-            //res.send({status : 'success', message : 'successfully registered'});
-            res.redirect('/health_care_provider?page=pharma_registered');
-        }
-    })
-});
+// app.post('/pharmaregistration',function(req,res){
+//     var name= req.body.name;
+//     var number = req.body.number;
+//     var email = req.body.email;
+//     var password = req.body.password;
+//     var pharma = new Pharma({
+//         name : name,
+//         number : number,
+//         email: email,
+//         password : password
+//     });
+//     pharma.save(function(err,result){
+//         if(err){
+//             console.log(err);
+//         }
+//         else {
+//             req.session.pharmaID = result._id;
+//             //res.send({status : 'success', message : 'successfully registered'});
+//             res.redirect('/health_care_provider?page=pharma_registered');
+//         }
+//     })
+// });
 
 app.post('/healthcarelogin',function(req,res) {
     var number = req.body.number;
