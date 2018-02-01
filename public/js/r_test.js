@@ -921,48 +921,51 @@ $(function () {
     });
 
     // ............................. DOCTOR PROFILE ...........................//
-    $('#doctor').click(function () {
-        var profession = 'doctor';
-        var data= {
-            profession : profession
-        };
-        $.ajax({
-            url : '/doctor',
-            type: 'POST',
-            data : JSON.stringify(data),
-            contentType:'application/json',
-            success: function (result) {
-                if (result.success === 'success') {
-                    Materialize.toast(result.message, 1000);
-                }
-                else {
-                    Materialize.toast(result.message, 1000);
-                }
-            }
-        });
-    });
 
-    $('#pharmacist').click(function () {
-        var profession = 'pharmacist';
-        var data= {
-            profession : profession
-        };
-        $.ajax({
-            url : '/pharma',
-            type: 'POST',
-            data : JSON.stringify(data),
-            contentType:'application/json',
-            success: function (result) {
-                if (result.success === 'success') {
-                    Materialize.toast(result.message, 1000);
-                }
-                else {
-                    Materialize.toast(result.message, 1000);
-                }
-            }
-        });
-    });
+    // $('#doctor').click(function () {
+    //     var profession = 'doctor';
+    //     var data= {
+    //         profession : profession
+    //     };
+    //     $.ajax({
+    //         url : '/doctor',
+    //         type: 'POST',
+    //         data : JSON.stringify(data),
+    //         contentType:'application/json',
+    //         success: function (result) {
+    //             if (result.success === 'success') {
+    //                 Materialize.toast(result.message, 1000);
+    //             }
+    //             else {
+    //                 Materialize.toast(result.message, 1000);
+    //             }
+    //         }
+    //     });
+    // });
+    //
+    // $('#pharmacist').click(function () {
+    //     var profession = 'pharmacist';
+    //     var data= {
+    //         profession : profession
+    //     };
+    //     $.ajax({
+    //         url : '/pharma',
+    //         type: 'POST',
+    //         data : JSON.stringify(data),
+    //         contentType:'application/json',
+    //         success: function (result) {
+    //             if (result.success === 'success') {
+    //                 Materialize.toast(result.message, 1000);
+    //             }
+    //             else {
+    //                 Materialize.toast(result.message, 1000);
+    //             }
+    //         }
+    //     });
+    // });
 
+    // -------------------------- DOCTOR PROFILE SECTION WHERE USER CHOOSES BETWEEN STUDENT AND PROFESSIONAL ----
+    //========================================= CHOOSES STUDENT
     $('#doctor_student').click(function () {
         var profession = 'student';
         var data = {
@@ -983,7 +986,7 @@ $(function () {
             }
         });
     });
-
+    //========================================= CHOOSES PROFESSIONAL
     $('#doctor_professional').click(function () {
         var profession = 'doctor';
         var data = {
@@ -1005,6 +1008,9 @@ $(function () {
         });
     });
 
+
+    // -------------------------- PHARMACIST PROFILE SECTION WHERE USER CHOOSES BETWEEN STUDENT AND PROFESSIONAL ----
+    //========================================= CHOOSES STUDENT
     $('#pharma_student').click(function () {
         var profession = 'student';
         var data = {
@@ -1025,7 +1031,7 @@ $(function () {
             }
         });
     });
-
+    //========================================= CHOOSES PROFESSIONAL
     $('#pharma_professional').click(function () {
         var profession = 'pharmacist';
         var data = {
