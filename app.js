@@ -4385,6 +4385,7 @@ app.post('/profession',function (req,res) {
             console.log(err);
         }
         else {
+            console.log(result);
             res.send({details : "success", message : "Profession added"});
         }
     });
