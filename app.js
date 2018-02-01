@@ -463,17 +463,9 @@ app.post('/VerifyOTP',function (req, res) {
 
 app.get('/home',function (req,res) {
     //if (req.session.userID) {
-<<<<<<< HEAD
-    var page="index";
-    res.render('index',{
-        page : page
-    });
-        res.end();
-=======
+
     res.render('index');
     res.end();
->>>>>>> 03597ab6cd7ea8012c08c847b6ac904293245015
-    //}
 });
 
 app.get('/', function (req, res) {
@@ -541,7 +533,6 @@ app.post('/userregister', function (req, res) {
     });
 });
 
-<<<<<<< HEAD
 //render profile page of user
 app.get('/profile', function (req, res) {
     //if (req.session.userID) {
@@ -550,8 +541,8 @@ app.get('/profile', function (req, res) {
         page : page
     });
     res.end();
-    //}
-=======
+    });
+
 app.post('/doctorregister', function (req, res) {
     //regex for checking whether entered number is indian or not
     var num = /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[789]\d{9}|(\d[ -]?){10}\d$/.test(req.body.number);
@@ -602,7 +593,6 @@ app.post('/doctorregister', function (req, res) {
             }
         }
     });
->>>>>>> 03597ab6cd7ea8012c08c847b6ac904293245015
 });
 
 app.post('/pharmaregister', function (req, res) {
@@ -853,7 +843,6 @@ app.get('/ApniCare/information/Diseases',function (req,res) {
 
 app.get('/ApniCare/information/Drug',function (req,res) {
     var brand = req.query.brand;
-<<<<<<< HEAD
     var dosage = req.query.dosage;
     console.log(brand);
     console.log(dosage);
@@ -872,24 +861,6 @@ app.get('/ApniCare/information/Drug',function (req,res) {
                         data: brand
                     });
             }
-=======
-    Brand.find({brand_name : brand},'-_id brand_name categories types primarily_used_for').populate(
-        {path : 'dosage_id', select : '-_id dosage_form',populate :
-                {path : 'strength_id', select : '-_id strength packaging prescription dose_taken warnings price dose_timing potent_substance.name'}
-        }).populate(
-        {path : 'company_id', select: '-_id company_name'}).exec(function (err,brand) {
-        if (err) {
-            console.log(err);
-        }
-        else {
-            res.render('index',
-                {
-                    page: 'drug_data_view',
-                    data: brand
-                });
-        }
->>>>>>> 03597ab6cd7ea8012c08c847b6ac904293245015
-
     });
 });
 
@@ -984,7 +955,6 @@ app.post('/searchspecific',function(req,res){
 });
 
 //===================================for WEB============================
-<<<<<<< HEAD
 
 app.post('/searchspecificweb',function(req,res){
     var value = req.body.search;
@@ -1071,9 +1041,6 @@ app.post('/searchspecificweb',function(req,res){
         }
     });
 });
-
-=======
->>>>>>> 03597ab6cd7ea8012c08c847b6ac904293245015
 app.post('/searchweb', function(req, res) {
     var raw = req.body.term;
     var spaceRemoved = raw.replace(/\s/g, '');
@@ -1151,16 +1118,15 @@ app.post('/searchweb', function(req, res) {
     });
 });
 
-<<<<<<< HEAD
 app.get('/searchsymptons',function(req,res) {
     var value = JSON.parse(req.query.symptoms);
-    if(req.session.userID){
+    if (req.session.userID) {
         res.render('profile', {page: 'Disease_Information', data: value});
     }
     else {
         res.render('index', {page: 'Disease_Information', data: value});
     }
-=======
+});
 app.get('/searchbrands',function(req,res){
     var value = req.query.brands;
     console.log(value);
@@ -1180,18 +1146,18 @@ app.get('/searchmolecules',function(req,res){
     res.render('send',{data : value});
 });
 
-app.get('/searchsymptons',function(req,res){
+app.get('/searchsymptons',function(req,res) {
     var value = req.query.symptoms;
     console.log(value);
-    Disease.find({symptoms : value},'-_id disease_name',function(err,symptom){
-        if(err){
+    Disease.find({symptoms: value}, '-_id disease_name', function (err, symptom) {
+        if (err) {
             console.log(err);
         }
-        else{
-            res.render('send',{data : symptom});
+        else {
+            res.render('send', {data: symptom});
         }
->>>>>>> 03597ab6cd7ea8012c08c847b6ac904293245015
     });
+});
 
 app.get('/searchorgans',function(req,res){
     var value = JSON.parse(req.query.organs);
@@ -1223,8 +1189,6 @@ app.get('/searchcategories',function(req,res){
     });
 });
 
-<<<<<<< HEAD
-=======
 app.get('/searchcategories',function(req,res){
     var value = req.query.categories;
     console.log(typeof value);
@@ -1232,7 +1196,6 @@ app.get('/searchcategories',function(req,res){
     res.send(value);
 });
 
->>>>>>> 03597ab6cd7ea8012c08c847b6ac904293245015
 ////////////For search during submitting//////////////
 
 app.get('/forbrands',function(req,res){
@@ -4657,10 +4620,6 @@ app.post('/licence',function(req,res){
 
 //data base connection and opening port
 var db = 'mongodb://localhost/ApniCare';
-<<<<<<< HEAD
-=======
-
->>>>>>> 03597ab6cd7ea8012c08c847b6ac904293245015
 mongoose.connect(db, {useMongoClient: true});
 
 
