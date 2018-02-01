@@ -5559,7 +5559,6 @@ app.post('/licence',function(req,res){
     })
 });
 
-
 //==========================Database connection===========================
 
 //data base connection and opening port
