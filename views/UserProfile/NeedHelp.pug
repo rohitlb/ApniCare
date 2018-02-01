@@ -22,16 +22,18 @@
                     option(value='disease') Disease related
                     option(value='molecule') Molecule related
                     option(value='issue') Other Issues
-            .input-field.col.s4.black-text
-                input(type="text")#name
-                label(for="name") Name
-            .input-field.col.s3.black-text
-                input(type="text")#number
-                label(for="number") Number
-            .input-field.col.s5.black-text
-                input(type="email")#n_email
-                label(for="n_email") Email
-
+            if(page=='index')
+                .input-field.col.s4.black-text
+                    input(type="text")#name
+                    label(for="name") Name
+            if(page=='index')
+                .input-field.col.s3.black-text
+                    input(type="text")#number
+                    label(for="number") Number
+            if(page=='index')
+                .input-field.col.s5.black-text
+                    input(type="email")#n_email
+                    label(for="n_email") Email
             label(for='textarea1') Description
             .input-field.col.s11#n_description
                 textarea#textarea1.materialize-textarea.black-text

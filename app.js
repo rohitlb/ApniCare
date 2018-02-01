@@ -224,6 +224,7 @@ app.post('/needhelpWL' , function (req,res) {
         subject : subject,
         contact_message : contact_message
     });
+    console.log("reached");
 
     needhelpWL.save(function (err, result) {
         if (err) {

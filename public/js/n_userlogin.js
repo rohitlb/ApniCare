@@ -1,127 +1,6 @@
 $(document).ready(function() {
-
-//for user Login----------------------------------
-    //for register or sign up
-    //for otp request
-    $('#send').click(function () {
-
-        var name = $('#name').val();
-        var number = $('#number').val();
-        var data = {
-            name: name,
-            number: number
-        };
-
-        $.ajax(
-            {
-                url: "/sendOTP",
-                method: 'POST',
-                data: JSON.stringify(data),
-                contentType: 'application/json',
-                success: function (result) {
-
-                    if (result.status === "success") {
-                        Materialize.toast(result.message, 2000);
-                        //testing
-                        $('.doc').hide();
-                        $('.phar').hide();
-                        $('.use').show();
-                        $('.basic').hide();
-                        $('#common').hide();
-                        $('#change').show();
-                        $('#pass').show();
-                        $('#number').attr('disabled', 'disabled');
-                        $('#password1').attr('disabled', 'disabled');
-                        $('#submitButton').show();
-                        //testing
-                    }
-                    else {
-                        Materialize.toast(result.message, 2000);
-                    }
-
-                },
-                error: function (err) {
-
-                }
-            }
-        )
-
-    });
-    //for verification of OTP
-    $('#verify').click(function () {
-        $('#password1').removeAttr('disabled');
-        var otp = $('#otp').val();
-        var data = {
-            number: otp
-        };
-
-        $.ajax(
-            {
-                url: "/VerifyOTP",
-                method: 'POST',
-                data: JSON.stringify(data),
-                contentType: 'application/json',
-                success: function (result) {
-
-                    if (result.status === "success") {
-                        Materialize.toast(result.message, 2000);
-                    }
-                    else {
-                        Materialize.toast(result.message, 2000);
-
-                    }
-
-                },
-                error: function (err) {
-
-                }
-            }
-        )
-
-    });
-    //for registering the data
-    $('#submitButton').click(function () {
-
-        var name = $('#name').val();
-        var email = $('#email').val();
-        var number = $('#number').val();
-        var password = $('#password1').val();
-
-        var data = {
-            name: name,
-            email: email,
-            number: number,
-            password: password
-        };
-
-        $.ajax(
-            {
-                url: "/register",
-                method: 'POST',
-                data: JSON.stringify(data),
-                contentType: 'application/json',
-                success: function (result) {
-
-                    if (result.status === "success") {
-                        window.location = '/profile';
-
-                    }
-                    else {
-                        Materialize.toast(result.message, 2000);
-                    }
-
-                },
-                error: function (err) {
-
-                    console.log(err);
-                }
-            }
-        )
-    });
-
-
+//-----------------------------login---------------------------
 //for user/doctor/pharmacist login -------------------------------
-
 
     $('#loginButton1').click(function () {
 
@@ -277,229 +156,363 @@ $(document).ready(function() {
                 }
             });
     });
-//for doctor-----------------------------------------------------
-    //for otp request
-    $('#Dsend').click(function () {
 
+//------------------register----------------
+    //for user Login----------------------------------
+        //for otp request
+        $('#send').click(function () {
 
-        var name = $('#name').val();
-        var number = $('#number').val();
+            var name = $('#name').val();
+            var number = $('#number').val();
+            var data = {
+                name: name,
+                number: number
+            };
 
-        var data = {
-            name: name,
-            number: number
-        };
+            $.ajax(
+                {
+                    url: "/sendOTP",
+                    method: 'POST',
+                    data: JSON.stringify(data),
+                    contentType: 'application/json',
+                    success: function (result) {
 
-        $.ajax(
-            {
-                url: "/DoctorsendOTP",
-                method: 'POST',
-                data: JSON.stringify(data),
-                contentType: 'application/json',
-                success: function (result) {
+                        if (result.status === "success") {
+                            Materialize.toast(result.message, 2000);
+                            //testing
+                            $('.doc').hide();
+                            $('.phar').hide();
+                            $('.use').show();
+                            $('.basic').hide();
+                            $('#common').hide();
+                            $('#change').show();
+                            $('#pass').show();
+                            $('#number').attr('disabled', 'disabled');
+                            $('#password1').attr('disabled', 'disabled');
+                            $('#submitButton').show();
+                            //testing
+                        }
+                        else {
+                            Materialize.toast(result.message, 2000);
+                        }
 
-                    if (result.status === "success") {
-                        Materialize.toast(result.message, 2000);
-                        //testing
-                        $('.use').hide();
-                        $('.phar').hide();
-                        $('.basic').hide();
-                        $('#common').hide();
-                        $('#change').show();
-                        $('#pass').show();
-                        $('#number').attr('disabled', 'disabled');
-                        $('#password1').attr('disabled', 'disabled');
-                        $('.doc').show();
-
-
-                        //testing
+                    },
+                    error: function (err) {
 
                     }
-                    else {
-                        Materialize.toast(result.message, 2000);
-
-                    }
-
-                },
-                error: function (err) {
-
                 }
-            }
+            )
 
-        )
+        });
+        //for verification of OTP
+        $('#verify').click(function () {
+            $('#password1').removeAttr('disabled');
+            var otp = $('#otp').val();
+            var data = {
+                number: otp
+            };
 
-    });
-    //verify OTP is same as user's
-    //register doctor--------------|
-    $('#DsubmitButton').click(function () {
+            $.ajax(
+                {
+                    url: "/VerifyOTP",
+                    method: 'POST',
+                    data: JSON.stringify(data),
+                    contentType: 'application/json',
+                    success: function (result) {
 
-        var name = $('#name').val();
-        var email = $('#email').val();
-        var number = $('#number').val();
-        var password = $('#password1').val();
-        //var otp = $('#otp').val();
+                        if (result.status === "success") {
+                            Materialize.toast(result.message, 2000);
+                        }
+                        else {
+                            Materialize.toast(result.message, 2000);
 
-        var data = {
-            name: name,
-            email: email,
-            number: number,
-            password: password
-            //  otp: otp
-        };
+                        }
 
-        $.ajax(
-            {
-                url: "/doctorregister",
-                method: 'POST',
-                data: JSON.stringify(data),
-                contentType: 'application/json',
-                success: function (result) {
-
-                    if (result.status === "success") {
-                        window.location = '/health_care_provider/occupation';
+                    },
+                    error: function (err) {
 
                     }
-                    else {
-                        Materialize.toast(result.message, 2000);
-                    }
-
-                },
-                error: function (err) {
-
-                    console.log(err);
                 }
-            }
-        )
-    });
+            )
 
+        });
+        //for registering the data
+        $('#submitButton').click(function () {
 
-//for Pharmacist------------------------------------------------
-    //for otp request
-    $('#Psend').click(function () {
+            var name = $('#name').val();
+            var email = $('#email').val();
+            var number = $('#number').val();
+            var password = $('#password1').val();
 
-        var name = $('#name').val();
-        var number = $('#number').val();
+            var data = {
+                name: name,
+                email: email,
+                number: number,
+                password: password
+            };
 
-        var data = {
-            name: name,
-            number: number
-        };
+            $.ajax(
+                {
+                    url: "/register",
+                    method: 'POST',
+                    data: JSON.stringify(data),
+                    contentType: 'application/json',
+                    success: function (result) {
 
-        $.ajax(
-            {
-                url: "/DoctorsendOTP",
-                method: 'POST',
-                data: JSON.stringify(data),
-                contentType: 'application/json',
-                success: function (result) {
+                        if (result.status === "success") {
+                            window.location = '/profile';
 
-                    if (result.status === "success") {
-                        Materialize.toast(result.message, 2000);
-                        //testing
-                        $('.use').hide();
-                        $('.doc').hide();
-                        $('.basic').hide();
-                        $('#common').hide();
-                        $('#change').show();
-                        $('#pass').show();
-                        $('#number').attr('disabled', 'disabled');
-                        $('#password1').attr('disabled', 'disabled');
-                        $('.phar').show();
+                        }
+                        else {
+                            Materialize.toast(result.message, 2000);
+                        }
 
+                    },
+                    error: function (err) {
 
-                        //testing
-
+                        console.log(err);
                     }
-                    else {
-                        Materialize.toast(result.message, 2000);
-
-                    }
-
-                },
-                error: function (err) {
-
                 }
-            }
-        )
+            )
+        });
 
-    });
-    //verify otp same as user's
-    //for pharmacist register------------|
-    $('#PsubmitButton').click(function () {
+    //for doctor-----------------------------------------------------
+        //for otp request
+        $('#Dsend').click(function () {
 
-        var name = $('#name').val();
-        var email = $('#email').val();
-        var number = $('#number').val();
-        var password = $('#password1').val();
-        //var otp = $('#otp').val();
 
-        var data = {
-            name: name,
-            email: email,
-            number: number,
-            password: password
-            //  otp: otp
-        };
+            var name = $('#name').val();
+            var number = $('#number').val();
 
-        $.ajax(
-            {
-                url: "/pharma",
-                method: 'POST',
-                data: JSON.stringify(data),
-                contentType: 'application/json',
-                success: function (result) {
+            var data = {
+                name: name,
+                number: number
+            };
 
-                    if (result.status === "success") {
-                        window.location = 'health_care_provider/occupation';
+            $.ajax(
+                {
+                    url: "/DoctorsendOTP",
+                    method: 'POST',
+                    data: JSON.stringify(data),
+                    contentType: 'application/json',
+                    success: function (result) {
+
+                        if (result.status === "success") {
+                            Materialize.toast(result.message, 2000);
+                            //testing
+                            $('.use').hide();
+                            $('.phar').hide();
+                            $('.basic').hide();
+                            $('#common').hide();
+                            $('#change').show();
+                            $('#pass').show();
+                            $('#number').attr('disabled', 'disabled');
+                            $('#password1').attr('disabled', 'disabled');
+                            $('.doc').show();
+
+
+                            //testing
+
+                        }
+                        else {
+                            Materialize.toast(result.message, 2000);
+
+                        }
+
+                    },
+                    error: function (err) {
 
                     }
-                    else {
-                        Materialize.toast(result.message, 2000);
-                    }
-
-                },
-                error: function (err) {
-
-                    console.log(err);
                 }
-            }
-        )
-    });
 
-    //needhelp without login
+            )
+
+        });
+        //verify OTP is same as user's
+        //register doctor--------------|
+        $('#DsubmitButton').click(function () {
+
+            var name = $('#name').val();
+            var email = $('#email').val();
+            var number = $('#number').val();
+            var password = $('#password1').val();
+            //var otp = $('#otp').val();
+
+            var data = {
+                name: name,
+                email: email,
+                number: number,
+                password: password
+                //  otp: otp
+            };
+
+            $.ajax(
+                {
+                    url: "/doctorregister",
+                    method: 'POST',
+                    data: JSON.stringify(data),
+                    contentType: 'application/json',
+                    success: function (result) {
+
+                        if (result.status === "success") {
+                            window.location = '/health_care_provider/occupation';
+
+                        }
+                        else {
+                            Materialize.toast(result.message, 2000);
+                        }
+
+                    },
+                    error: function (err) {
+
+                        console.log(err);
+                    }
+                }
+            )
+        });
+
+
+    //for Pharmacist------------------------------------------------
+        //for otp request
+        $('#Psend').click(function () {
+
+            var name = $('#name').val();
+            var number = $('#number').val();
+
+            var data = {
+                name: name,
+                number: number
+            };
+
+            $.ajax(
+                {
+                    url: "/DoctorsendOTP",
+                    method: 'POST',
+                    data: JSON.stringify(data),
+                    contentType: 'application/json',
+                    success: function (result) {
+
+                        if (result.status === "success") {
+                            Materialize.toast(result.message, 2000);
+                            //testing
+                            $('.use').hide();
+                            $('.doc').hide();
+                            $('.basic').hide();
+                            $('#common').hide();
+                            $('#change').show();
+                            $('#pass').show();
+                            $('#number').attr('disabled', 'disabled');
+                            $('#password1').attr('disabled', 'disabled');
+                            $('.phar').show();
+
+
+                            //testing
+
+                        }
+                        else {
+                            Materialize.toast(result.message, 2000);
+
+                        }
+
+                    },
+                    error: function (err) {
+
+                    }
+                }
+            )
+
+        });
+        //verify otp same as user's
+        //for pharmacist register------------|
+        $('#PsubmitButton').click(function () {
+
+            var name = $('#name').val();
+            var email = $('#email').val();
+            var number = $('#number').val();
+            var password = $('#password1').val();
+            //var otp = $('#otp').val();
+
+            var data = {
+                name: name,
+                email: email,
+                number: number,
+                password: password
+                //  otp: otp
+            };
+
+            $.ajax(
+                {
+                    url: "/pharma",
+                    method: 'POST',
+                    data: JSON.stringify(data),
+                    contentType: 'application/json',
+                    success: function (result) {
+
+                        if (result.status === "success") {
+                            window.location = 'health_care_provider/occupation';
+
+                        }
+                        else {
+                            Materialize.toast(result.message, 2000);
+                        }
+
+                    },
+                    error: function (err) {
+
+                        console.log(err);
+                    }
+                }
+            )
+        });
+
+//needhelp without login
     $('#submitbutt').click(function () {
         var issue = $('#fdropdown').val();
         var email = $('#n_email').val();
         var name = $('#name').val();
         var number = $('#number').val();
         var description = $('#n_description').val();
-        var data = {
+        var data_WL = {
             subject: issue,
             name: name,
             number: number,
             email: email,
             contact_message: description
         };
-        $.ajax({
-            url: "/needhelpWL",
-            method: 'POST',
-            data: JSON.stringify(data),
-            contentType: 'application/json',
-            success: function (result) {
+        var data_L = {
+            subject: issue,
+            contact_message: description
+        };
+        var url, data;
+        if(page=='index') {
+            data = data_WL;
+            url = "/needhelpWL";
+        }
+        if(page=='profile') {
+            data = data_L;
+            url = "/needhelp";
+        }
+            $.ajax({
+                url: url,
+                method: 'POST',
+                data: JSON.stringify(data),
+                contentType: 'application/json',
+                success: function (result) {
 
-                if (result.status === "success") {
-                    Materialize.toast(result.message, 2000);
+                    if (result.status === "success") {
+                        Materialize.toast(result.message, 2000);
+                    }
+                    else {
+                        Materialize.toast(result.message, 2000);
+                    }
+
+                },
+                error: function (err) {
+
+                    console.log(err);
                 }
-                else {
-                    Materialize.toast(result.message, 2000);
-                }
+            })
 
-            },
-            error: function (err) {
-
-                console.log(err);
-            }
-        })
     });
     //needhelp with login
     //feedback
