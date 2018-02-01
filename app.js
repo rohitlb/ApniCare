@@ -75,7 +75,7 @@ app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 
 //set all middleware
 app.use(bodyParser.json());
-//exteended false means it won't be accepting nested objects (accept only single)
+//extended false means it won't be accepting nested objects (accept only single)
 // here security for session to be added like.... session validate
 app.use(bodyParser.urlencoded({extended : false}));
 app.use(expressValidator());
@@ -5321,7 +5321,7 @@ app.post('/profession',function (req,res) {
         $set : {
             occupation: profession
         }
-    },function (err,result) {
+    },function (err) {
         if(err)
         {
             console.log(err);
@@ -5332,6 +5332,7 @@ app.post('/profession',function (req,res) {
         }
     });
 });
+
 
 app.post('/basic',function(req,res) {
     var gender = req.body.gender;
