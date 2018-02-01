@@ -161,17 +161,14 @@ $(document).ready(function() {
     //for user Login----------------------------------
         //for otp request
         $('#send').click(function () {
-
-            var name = $('#name').val();
             var number = $('#number').val();
             var data = {
-                name: name,
                 number: number
             };
 
             $.ajax(
                 {
-                    url: "/sendOTP",
+                    url: "/UsersendOTP",
                     method: 'POST',
                     data: JSON.stringify(data),
                     contentType: 'application/json',
@@ -253,13 +250,14 @@ $(document).ready(function() {
 
             $.ajax(
                 {
-                    url: "/register",
+                    url: "/userregister",
                     method: 'POST',
                     data: JSON.stringify(data),
                     contentType: 'application/json',
                     success: function (result) {
 
                         if (result.status === "success") {
+                            Materialize.toast(result.message, 2000);
                             window.location = '/profile';
 
                         }
@@ -280,12 +278,9 @@ $(document).ready(function() {
         //for otp request
         $('#Dsend').click(function () {
 
-
-            var name = $('#name').val();
             var number = $('#number').val();
 
             var data = {
-                name: name,
                 number: number
             };
 
@@ -376,17 +371,15 @@ $(document).ready(function() {
         //for otp request
         $('#Psend').click(function () {
 
-            var name = $('#name').val();
             var number = $('#number').val();
 
             var data = {
-                name: name,
                 number: number
             };
 
             $.ajax(
                 {
-                    url: "/DoctorsendOTP",
+                    url: "/PharmasendOTP",
                     method: 'POST',
                     data: JSON.stringify(data),
                     contentType: 'application/json',

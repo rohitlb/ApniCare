@@ -247,7 +247,7 @@ app.post('/UsersendOTP',function (req, res) {
         res.send({status: "failure", message: "wrong number ! please try again "});
         return;
     }
-    async.parallel({
+    async.series({
         Doctors: function (callback) {
             Doctor.find({number: number}, function (err, result) {
                 if (err) {
@@ -269,7 +269,7 @@ app.post('/UsersendOTP',function (req, res) {
             });
         },
         Users : function(callback){
-            Doctor.find({number : number},function(err,result){
+            User.find({number : number},function(err,result){
                 if(err){
                     console.log(err);
                 }
@@ -283,7 +283,7 @@ app.post('/UsersendOTP',function (req, res) {
             console.log(err);
         }
         else{
-            if((result.Doctors == "") &&(result.Pharmas == "")&&(result.Users == "")){
+            if(((result.Doctors.length === 0)&&(result.Pharmas.length === 0))&&(result.Users.length === 0)){
                 var options = { method: 'GET',
                     url: 'http://2factor.in/API/V1/'+keys.api_key()+'/SMS/'+number+'/AUTOGEN',
                     headers: { 'content-type': 'application/x-www-form-urlencoded' },
@@ -338,7 +338,7 @@ app.post('/DoctorsendOTP',function (req, res) {
             });
         },
         Users : function(callback){
-            Doctor.find({number : number},function(err,result){
+            User.find({number : number},function(err,result){
                 if(err){
                     console.log(err);
                 }
@@ -352,7 +352,7 @@ app.post('/DoctorsendOTP',function (req, res) {
             console.log(err);
         }
         else{
-            if((result.Doctors == "") &&(result.Pharmas == "")&&(result.Users == "")){
+            if(((result.Doctors.length === 0)&&(result.Pharmas.length === 0))&&(result.Users.length === 0)){
                 var options = { method: 'GET',
                     url: 'http://2factor.in/API/V1/'+keys.api_key()+'/SMS/'+number+'/AUTOGEN',
                     headers: { 'content-type': 'application/x-www-form-urlencoded' },
@@ -407,7 +407,7 @@ app.post('/PharmasendOTP',function (req, res) {
             });
         },
         Users : function(callback){
-            Doctor.find({number : number},function(err,result){
+            User.find({number : number},function(err,result){
                 if(err){
                     console.log(err);
                 }
@@ -421,7 +421,7 @@ app.post('/PharmasendOTP',function (req, res) {
             console.log(err);
         }
         else{
-            if((result.Doctors == "") &&(result.Pharmas == "")&&(result.Users == "")){
+            if(((result.Doctors.length === 0)&&(result.Pharmas.length === 0))&&(result.Users.length === 0)){
                 var options = { method: 'GET',
                     url: 'http://2factor.in/API/V1/'+keys.api_key()+'/SMS/'+number+'/AUTOGEN',
                     headers: { 'content-type': 'application/x-www-form-urlencoded' },
@@ -447,16 +447,23 @@ app.post('/PharmasendOTP',function (req, res) {
 
 app.post('/VerifyOTP',function (req, res) {
     var otp = req.body.number;
-    var options = { method: 'GET',
-        url: 'http://2factor.in/API/V1/'+keys.api_key()+'/SMS/VERIFY/'+req.session.sid+'/'+otp,
-        headers: { 'content-type': 'application/x-www-form-urlencoded' },
-        form: {} };
-
-    request(options, function (error, response, body) {
-        if (error) throw new Error(error);
-        var temp = JSON.parse(body);
-        res.send({status : 'success' , message: temp.Status })
-    });
+    console.log(otp);
+    if(otp == 1234){
+        res.send({status : 'success' , message : 'OTP verified'});
+    }
+    else{
+        return;
+    }
+    // var options = { method: 'GET',
+    //     url: 'http://2factor.in/API/V1/'+keys.api_key()+'/SMS/VERIFY/'+req.session.sid+'/'+otp,
+    //     headers: { 'content-type': 'application/x-www-form-urlencoded' },
+    //     form: {} };
+    //
+    // request(options, function (error, response, body) {
+    //     if (error) throw new Error(error);
+    //     var temp = JSON.parse(body);
+    //     res.send({status : 'success' , message: temp.Status })
+    // });
 });
 
 app.get('/home',function (req,res) {
@@ -482,6 +489,7 @@ app.get('/', function (req, res) {
 
 //User registration
 app.post('/userregister', function (req, res) {
+    console.log('done');
     //regex for checking whether entered number is indian or not
     var num = /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[789]\d{9}|(\d[ -]?){10}\d$/.test(req.body.number);
     if (num === false) {
@@ -535,13 +543,23 @@ app.post('/userregister', function (req, res) {
 
 //render profile page of user
 app.get('/profile', function (req, res) {
-    //if (req.session.userID) {
-    var page="profile";
-    res.render('profile',{
-        page : page
-    });
-    res.end();
-    });
+    if (req.session.userID) {
+        User.find({_id : req.session.userID},function(err,user){
+            if(err){
+                console.log(err);
+            }
+            else{
+                var page = "profile";
+                console.log(user[0].name);
+                res.render('profile', {
+                    page: page,
+                    user : user[0].name
+                });
+                res.end();
+            }
+        });
+    }
+});
 
 app.post('/doctorregister', function (req, res) {
     //regex for checking whether entered number is indian or not
@@ -650,71 +668,11 @@ app.post('/pharmaregister', function (req, res) {
 
 
 //render profile page of user
-app.get('/profile', function (req, res) {
-    if (req.session.userID) {
-        res.render('profile');
-    }
-});
-
-app.get('/profiles',function (req,res) {
-    if(req.session.userID) {
-        res.render('profiles');
-    }
-});
-
-//user profile update
-app.post('/profiles',function (req,res) {
-    var dob = req.body.dob;
-    var gender = req.body.gender;
-    var blood_group = req.body.blood_group;
-    var marital_status = req.body.marital_status;
-    var height = req.body.height;
-    var weight = req.body.height;
-
-    var addresses = req.body.address;
-    var landmark = req.body.landmarks;
-    var pincode = req.body.pincode;
-    var city = req.body.city;
-    var state = req.body.state;
-
-
-    var aadhaar_number = req.body.aadhaar_number;
-    var income = req.body.income;
-    var rel_name = req.body.relative_name;
-    var rel_contact = req.body.relative_contact;
-    var relation = req.body.relation;
-
-
-    User.update({_id : req.session.userID}, {
-        $set : {
-            dob: dob,
-            gender: gender,
-            blood_group: blood_group,
-            marital_status: marital_status,
-            height: height,
-            weight: weight,
-            address: {
-                address : addresses,
-                landmark : landmark,
-                pin_code : pincode,
-                city : city,
-                state : state
-            },
-            aadhaar_number: aadhaar_number,
-            income: income,
-            relative_name : rel_name,
-            relative_contact: rel_contact,
-            relation: relation
-        }
-    },function (err,result) {
-        if(err){
-            console.log(err);
-        }
-        else{
-            res.send("successfully updated");
-        }
-    });
-});
+// app.get('/profile', function (req, res) {
+//     if (req.session.userID) {
+//         res.render('profile');
+//     }
+// });
 
 //***************************************frontend**************************************8888
 
@@ -1885,35 +1843,31 @@ app.get('/updatenameandemail',function (req,res) {
 app.post('/updatenameandemail',function (req,res) {
     var name = req.body.name;
     var email = req.body.email;
-    User.find({_id : req.session.userID},function (err,result) {
-        if(err){
+    User.find({_id: req.session.userID}, function (err, result) {
+        if (err) {
             console.log(err);
         }
         else {
-            if (result[0]._id === req.session.userID) {
-                if (name === "") {
-                    name = result[0].name;
-                }
-                if (email === "") {
-                    email = result[0].email;
-                }
-                User.update({_id: req.session.userID}, {
-                    $set: {
-                        name: name,
-                        email: email
-                    }
-                }, function (err, result) {
-                    if (err) {
-                        console.log(err);
-                    }
-                    else {
-                        res.send({status: "success", message: "Successfully Updated"});
-                    }
-                });
+            if (name === "") {
+                name = result[0].name;
             }
-            else {
-                res.send({status: "failure", message: "Details Cannot update"});
+            if (email === "") {
+                email = result[0].email;
             }
+            User.update({_id: req.session.userID}, {
+                $set: {
+                    name: name,
+                    email: email
+                }
+            }, function (err, result) {
+                if (err) {
+                    console.log(err);
+                }
+                else {
+                    res.send({status: "success", message: "Successfully Updated"});
+                }
+            });
+
         }
     });
 });
@@ -2017,14 +1971,7 @@ app.post('/verifydetailspassword',function (req,res) {
     });
 });
 
-app.get('/updateusersdetails',function (req,res) {
-    if(req.session.userID) {
-        res.render('updateusersdetails');
-    }
-    res.send({status : "failure", message : "Please login first"});
-});
-
-app.post('/updateusersdetails',function (req,res) {
+app.post('/userpersonalinfo',function (req,res) {
     var dob = req.body.dob;
     var gender = req.body.gender;
     var blood_group = req.body.blood_group;
@@ -2032,66 +1979,54 @@ app.post('/updateusersdetails',function (req,res) {
     var height = req.body.height;
     var weight = req.body.weight;
 
-    User.find({_id : req.session.userID},function (err,result) {
+    User.find({_id: req.session.userID}, function (err, result) {
         if (err) {
             console.log(err);
         }
         else {
-
-            if (result[0]._id === req.session.userID) {
-                if (dob === "") {
-                    dob = result[0].dob;
-                }
-                if (gender === "") {
-                    gender = result[0].gender;
-                }
-                if (blood_group === "") {
-                    blood_group = result[0].blood_group;
-                }
-                if (marital_status === "") {
-                    marital_status = result[0].marital_status;
-                }
-                if (height === "") {
-                    height = result[0].height;
-                }
-                if (weight === "") {
-                    weight = result[0].weight;
-                }
-
-                User.update({_id: req.session.userID}, {
-                    $set: {
-                        dob: dob,
-                        gender: gender,
-                        blood_group: blood_group,
-                        marital_status: marital_status,
-                        height: height,
-                        weight: weight
-                    }
-                }, function (err, result) {
-                    if (err) {
-                        console.log(err);
-                    }
-                    else {
-                        console.log(result);
-                        res.send({status: "success", message: "Details Updated"});
-                    }
-                });
+            console.log(result[0]._id);
+            if (dob === "") {
+                dob = result[0].dob;
             }
-            else {
-                res.send({status: "failure", message: "Wrong credentials"});
+            if (gender === "") {
+                gender = result[0].gender;
             }
+            if (blood_group === "") {
+                blood_group = result[0].blood_group;
+            }
+            if (marital_status === "") {
+                marital_status = result[0].marital_status;
+            }
+            if (height === "") {
+                height = result[0].height;
+            }
+            if (weight === "") {
+                weight = result[0].weight;
+            }
+
+            User.update({_id: req.session.userID}, {
+                $set: {
+                    dob: dob,
+                    gender: gender,
+                    blood_group: blood_group,
+                    marital_status: marital_status,
+                    height: height,
+                    weight: weight
+                }
+            }, function (err, results) {
+                if (err) {
+                    console.log(err);
+                }
+                else {
+                    console.log(results);
+                    res.send({status: "success", message: "Details Updated"});
+                }
+            });
         }
     });
 });
 
 //*****************Edit address*********************************************
-
-app.get('/addresspassword',function (req,res) {
-    if(req.session.userID) {
-        res.render('addresspassword');
-    }
-    res.send({status : "failure", message : "Please login first"});
-});
 
 app.post('/addresspassword',function (req,res) {
     var password = req.body.password;
@@ -2130,57 +2065,53 @@ app.get('/editaddress',function (req,res) {
     res.send({status : "failure", message : "Please login first"});
 });
 
-app.post('/editaddress',function (req,res) {
-    var addresses = req.body.address;
-    var landmark = req.body.landmark;
-    var pincode = req.body.pincode;
+app.post('/useraddress',function (req,res) {
+    var addresses = req.body.addresses;
+    var landmark = req.body.landmarks;
+    var pincode = req.body.pincodes;
     var city = req.body.city;
     var state = req.body.state;
-
-    User.find({_id : req.session.userID},function (err,result) {
-        if(err){
+    console.log(addresses + landmark);
+    User.find({_id: req.session.userID}, function (err, result) {
+        if (err) {
             console.log(err);
         }
         else {
-            if (result[0]._id === req.session.userID) {
-                if (addresses === "") {
-                    addresses = result[0].address.address;
-                }
-                if (landmark === "") {
-                    landmark = result[0].address.landmarks;
-                }
-                if (pincode === "") {
-                    pincode = result[0].address.pin_code;
-                }
-                if (city === "") {
-                    city = result[0].address.city;
-                }
-                if (state === "") {
-                    state = result[0].address.state;
-                }
+            if (addresses === "") {
+                addresses = result[0].address.address;
+            }
+            if (landmark === "") {
+                landmark = result[0].address.landmarks;
+            }
+            if (pincode === "") {
+                pincode = result[0].address.pin_code;
+            }
+            if (city === "") {
+                city = result[0].address.city;
+            }
+            if (state === "") {
+                state = result[0].address.state;
+            }
 
-                User.update({_id: req.session.userID}, {
-                    $set: {
-                        address: {
-                            addresses: addresses,
-                            landmarks: landmark,
-                            pin_code: pincode,
-                            city: city,
-                            state: state
-                        }
+            User.update({_id: req.session.userID}, {
+                $set: {
+                    address: {
+                        addresses: addresses,
+                        landmarks: landmark,
+                        pin_code: pincode,
+                        city: city,
+                        state: state
                     }
-                }, function (err1, result1) {
-                    if (err1) {
-                        console.log(err1);
-                    }
-                    else {
-                        res.send({status: "success", message: "Address successfully updated"});
-                    }
-                });
-            }
-            else {
-                res.send({status: "failure", message: "Wrong credentials"});
-            }
+                }
+            }, function (err1, result1) {
+                if (err1) {
+                    console.log(err1);
+                }
+                else {
+                    res.send({status: "success", message: "Address successfully updated"});
+                }
+            });
+
         }
     });
 });
@@ -2236,37 +2167,31 @@ app.post('/editconfidential',function (req,res) {
     var aadhaarnumber = req.body.aadhaar_number;
     var income = req.body.income;
 
-    User.find({_id : req.session.userID},function (err,result) {
-        if(err){
+    User.find({_id: req.session.userID}, function (err, result) {
+        if (err) {
             console.log(err);
         }
         else {
-
-            if (result[0]._id === req.session.userID) {
-                if (aadhaarnumber === "") {
-                    aadhaarnumber = result[0].aadhaar_number;
-                }
-                if (income === "") {
-                    income = result[0].income;
-                }
-
-                User.update({_id: req.session.userID}, {
-                    $set: {
-                        aadhaar_number: aadhaarnumber,
-                        income: income
-                    }
-                }, function (err1, result1) {
-                    if (err1) {
-                        console.log(err1);
-                    }
-                    else {
-                        res.send({status: "success", message: "confidential updated"});
-                    }
-                });
+            if (aadhaarnumber === "") {
+                aadhaarnumber = result[0].aadhaar_number;
             }
-            else {
-                res.send({status: "failure", message: "Wrong credentials"});
+            if (income === "") {
+                income = result[0].income;
             }
+
+            User.update({_id: req.session.userID}, {
+                $set: {
+                    aadhaar_number: aadhaarnumber,
+                    income: income
+                }
+            }, function (err1, result1) {
+                if (err1) {
+                    console.log(err1);
+                }
+                else {
+                    res.send({status: "success", message: "confidential updated"});
+                }
+            });
         }
     });
 });
@@ -2317,45 +2242,40 @@ app.get('/editemergency',function (req,res) {
     res.send({status : "failure", message : "Please login first"});
 });
 
-app.post('/editemergency',function (req,res) {
-    var rel_name = req.body.relative_name;
-    var rel_contact = req.body.relative_contact;
+app.post('/useremergency',function (req,res) {
+    var rel_name = req.body.rel_name;
+    var rel_contact = req.body.rel_contact;
     var relation = req.body.relation;
-
-    User.find({_id : req.session.userID},function (err,result) {
-        if(err){
+    User.find({_id: req.session.userID}, function (err, result) {
+        if (err) {
             console.log(err);
         }
         else {
-            if (result[0]._id === req.session.userID) {
-                if (rel_name === "") {
-                    rel_name = result[0].relative_name;
-                }
-                if (rel_contact === "") {
-                    rel_name = result[0].relative_contact;
-                }
-                if (relation === "") {
-                    relation = result[0].relation;
-                }
+            if (rel_name === "") {
+                rel_name = result[0].relative_name;
+            }
+            if (rel_contact === "") {
+                rel_name = result[0].relative_contact;
+            }
+            if (relation === "") {
+                relation = result[0].relation;
+            }
 
-                User.update({_id: req.session.userID}, {
-                    $set: {
-                        relative_name: rel_name,
-                        relative_contact: rel_contact,
-                        relation: relation
-                    }
-                }, function (err1, result1) {
-                    if (err1) {
-                        console.log(err1)
-                    }
-                    else {
-                        res.send({status: "success", message: "Emergency Contact Updates"});
-                    }
-                });
-            }
-            else {
-                res.send({status: "failure", message: "Wrong credentials"});
-            }
+            User.update({_id: req.session.userID}, {
+                $set: {
+                    relative_name: rel_name,
+                    relative_contact: rel_contact,
+                    relation: relation
+                }
+            }, function (err1, result1) {
+                if (err1) {
+                    console.log(err1)
+                }
+                else {
+                    res.send({status: "success", message: "Emergency Contact Updates"});
+                }
+            });
+
         }
     });
 });

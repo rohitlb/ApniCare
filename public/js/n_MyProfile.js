@@ -80,7 +80,7 @@ $(document).ready(function() {
 
         $.ajax(
             {
-                url: "/personalinfo",
+                url: "/userpersonalinfo",
                 method: 'POST',
                 data: JSON.stringify(data),
                 contentType: 'application/json',
@@ -114,12 +114,11 @@ $(document).ready(function() {
         var email = $('#p_Pemail').val();
         var data = {
             name: name,
-            number: number,
             email: email
         };
         $.ajax(
             {
-                url: "/contactinfo",
+                url: "/updatenameandemail",
                 method: 'POST',
                 data: JSON.stringify(data),
                 contentType: 'application/json',
@@ -158,7 +157,7 @@ $(document).ready(function() {
 
         $.ajax(
             {
-                url: "/userconfidential",
+                url: "/editconfidential",
                 method: 'POST',
                 data: JSON.stringify(data),
                 contentType: 'application/json',
@@ -190,7 +189,6 @@ $(document).ready(function() {
         var names = $('#p_names').val();
         var relation = $('#p_relation').val();
         var phone = $('#p_Pphone').val();
-
         var data = {
             rel_name : names,
             relation : relation,
@@ -236,7 +234,7 @@ $(document).ready(function() {
 
         var data = {
             addresses : address,
-            pincode : pincode,
+            pincodes : pincode,
             landmarks : landmark,
             city : city,
             state : state
