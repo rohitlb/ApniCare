@@ -19,10 +19,9 @@ var Molecule = new Schema({
     // like food_interaction, etc : [{type : String}],
     dosage : {subhead : [{type : String}],info : [{type : String}]},
     // dosage can be oral,intravenous ,  liver disorder , hepatic , COPD
-
     food : {type : String},
     //list of contra indications
-    contradictions : {subhead : [{type : String}],info : [{type : String}]},
+    contraindications : {subhead : [{type : String}],info : [{type : String}]},
     source : {type : String},
     submitted_by : {type : String}
 

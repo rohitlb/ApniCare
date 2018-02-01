@@ -237,7 +237,7 @@ a#enter_more_data
     }
 }
 
-.text_upper_case {
+.text_upper_case{
     text-transform: uppercase;
 }
 
@@ -257,12 +257,38 @@ span.small_font {
     /*height: 100px;*/
 /*}*/
 
-span.next_line, ul li.next_line, .next_line {
+span.next_line, ul li.next_line, .next_line:before {
     white-space: pre-line;
+    /*content: " ";*/
     list-style-type: disc;
 }
 
 .section {
     padding-top: 0;
     padding-bottom: 0;
+}
+
+.to_capital {
+    text-transform: capitalize;
+}
+
+.r003 {
+    text-transform:capitalize;
+    color:black;
+    font-size: 15px;
+    font-weight: 400;
+}
+
+.image-upload > input
+{
+    display: none;
+}
+
+.pic_Selector {
+    bottom: 21px;
+    left:20px;
+    overflow: hidden;
+    text-align: center;
+    top:auto;
+    width: 150px;
 }

@@ -42,9 +42,7 @@ $('#Dsend').click(function () {
             error: function (err) {
 
             }
-        }
-
-    )
+        })
 
 });
 

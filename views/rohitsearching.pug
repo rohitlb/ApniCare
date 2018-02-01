@@ -3,14 +3,14 @@ html
     head
     body
         h1 Enter medicine details
-        form(action='/searchall', method='POST')
-            | Search brandname :
+        form(action='/count', method='POST')
+            | Search search :
             input(type='text', name='search')
             br
-            | number of skips :
-            input(type='text', name='nskip')
+            | number of strength :
+            input(type='text', name='strength')
             br
-            | number of info :
+            | number of page :
             input(type='text', name='page')
             br
             input(type='submit', name='submit')

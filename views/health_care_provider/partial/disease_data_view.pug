@@ -89,27 +89,21 @@ div.row
                         li.section.scrollspy#diagnosis
                             span.bold  How is #{val.disease_name.toUpperCase()} Diagnosed?
                             br
-                            each other in val.diagnosis
-                                - var array1 = other.subhead.split(",");
-                                - var array2 = other.info.split(",");
-                                -for(var l = 0;l< array1.length ; l++)
-                                    li.next_line
-                                        h5.bold= array1[l]
-                                    span.next_line.small_font= array2[l]
-                                    br
+                            each other,index in val.diagnosis.subhead
+                                //each sub, index in other.subhead
+                                h5.bold= other
+                                    span.small_font.left ►
+                                span.next_line.small_font= val.diagnosis.info[index]
 
                     if(val.organs)
                         li.section.scrollspy#organs
                             span.bold  Which Organs are affected by #{val.disease_name.toUpperCase()}?
                             br
-                            each other in val.organs
-                                - var array71 = other.subhead.split(",");
-                                - var array72 = other.info.split(",");
-                                -for(var l = 0;l< array71.length ; l++)
-                                    li.next_line
-                                        h5.bold= array71[l]
-                                    span.next_line.small_font= array72[l]
-                                    br
+                            each other,index in val.organs.subhead
+                                    //each sub, index in other.subhead
+                                    h5.bold= other
+                                        span.small_font.left ►
+                                    span.next_line.small_font= val.organs.info[index]
 
                     if(val.treatment)
                         li.section.scrollspy#treatment
@@ -127,6 +121,7 @@ div.row
                             br
                             span.next_line.flow-text #{val.prevention}
                     h5.section.scrollspy#source Source:&nbsp
+                        br
                         span.next_line #{val.source}
 
             div.col.l3.m4.hide-on-small-only
@@ -161,6 +156,8 @@ div.row
                 h4.center.teal-text.darken-2 Your Feedback is valuable...
                 form.col.l10.m10.s10#form_feedback(method='POST')
                     div
+                        each val in data
+                            input#about(type="hidden" value='Disease Data-' + (val.disease_name.toUpperCase()))
                         span How useful is the data that we provide?
                         br
                         br

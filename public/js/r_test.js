@@ -9,8 +9,24 @@ $(function () {
         endingTop: '11%'
     });
 
-    $('#text1').val();
-    $('#text1').trigger('autoresize');
+    // --------------------- TABS USED IN PROFILE STEP 3 ---------------------------
+
+    $("ul.tabs").tabs('select_tab','tab1');
+
+
+    // ---------------- COLLAPSIBLE IN DRUG DATA VIEW -------------------------
+    $('.collapsible').collapsible({
+        accordion: false,
+        onOpen: function () {
+            $('#read_more').hide();
+        },
+        onClose : function () {
+            $('#read_more').show();
+        }
+    });
+
+    // $('#text1').val();
+    // $('#text1').trigger('autoresize');
 
     $(':reset');
 
@@ -226,27 +242,27 @@ $(function () {
     //     }
     // });
 
-    $( "#progressbar" ).progressbar({
-        disabled: true,
-        value: 35,
-        max: 98,
-        min: 20,
-        classes: {
-            "ui-progressbar": "highlight"
-        }
-    });
-
-
-    //- .......... PROFILE OF DOCTOR AND PHARMACIST IF STUDENT ....................
-    // $('.card-s').select(function () {
-    //     // $('#tab1').active();
-    //     // $('#city').hide();
-    //     // $('#year_of_experience').hide();
-    //     // $('#about_you').hide();
-    //     // $('#qualification').hide();
-    //     // $('#tab3').hide();
-    //     // $('#register_doc').hide();
+    // $( "#progressbar" ).progressbar({
+    //     disabled: true,
+    //     value: 35,
+    //     max: 98,
+    //     min: 20,
+    //     classes: {
+    //         "ui-progressbar": "highlight"
+    //     }
     // });
+    //
+    //
+    // //- .......... PROFILE OF DOCTOR AND PHARMACIST IF STUDENT ....................
+    // // $('.card-s').select(function () {
+    // //     // $('#tab1').active();
+    // //     // $('#city').hide();
+    // //     // $('#year_of_experience').hide();
+    // //     // $('#about_you').hide();
+    // //     // $('#qualification').hide();
+    // //     // $('#tab3').hide();
+    // //     // $('#register_doc').hide();
+    // // });
 
     //$('#profile2').hide();
     //$('#profile3').hide();
@@ -292,6 +308,10 @@ $(function () {
                 $(this).hide();
             }
         });
+        // $( "p" ).first().html( "<span>" + text + "</span>" );
+        $( '#clicked_letter' ).on( "click", function() {
+            $( this ).css( "background-color", "grey" );
+        });
     });
 
     // $('#drug_dataa').click(function () {
@@ -323,6 +343,20 @@ $(function () {
     // $('#cl').click(function () {
     //     $('#new_field').hide();
     // });
+
+    //-------------------------- Drug Data view READ MORE On Clicking ------------//
+    // $('#read_more').toggle(function () {
+    //     $('#read_more').toggle();
+    //     // var i = 0;
+    //     // if(i%2 == 0) {
+    //     //     $('#read_more').show();
+    //     // }
+    //     // else {
+    //     //     $('#read_more').hide();
+    //     // }
+    //     // i=i+1;
+    // });
+
 
     $('.dropdown-button').dropdown({
         inDuration: 300,
@@ -387,7 +421,7 @@ $(function () {
             '<textarea class="text_subhead2 materialize-textarea" placeholder="Enter Text" id="subhead_text2" required></textarea><label for="subhead2" style="color:black;font-size: 15px;font-weight: 400;"></label>' +
             '<label for="subhead_text2" style="color:black;font-size: 15px;font-weight: 400;">' +
             '<datalist id="contra"> <option> In Lactation</option> <option>In Geriatric/Old Person</option><option>Other Contraindications</option>' +
-            ' <option> In Pregnancy </option>Lab Interference <option></option> <option> In Children </option><option>Storage</option>' +
+            ' <option> In Pregnancy </option>Lab  <option>Interference</option> <option> In Children </option><option>Storage</option>' +
             '</label></div></div>');
         return false; //prevent form submission
     });
@@ -437,42 +471,43 @@ $(function () {
         return false; //prevent form submission
     });
 
-    //............................... For
-    // $('.repeat1').on('click', function() {
-    //     $('.repeater').append('<div><input id="subhead2" type="text" list="contra" placeholder="Choose subheading" class="browser-default repeat_subhead" required/><button class="remove">x</button>' +
-    //         '<textarea class="text_subhead" id="subhead_text" required></textarea><label for="subhead2" style="color:black;font-size: 15px;font-weight: 400;"></label>' +
-    //         '<label for="subhead2" style="color:black;font-size: 15px;font-weight: 400;">' +
-    //         '<datalist id="contra"> <option> In Lactation</option> <option>In Geriatric/Old Person</option><option>Other Contraindications</option>' +
-    //         ' <option> In Pregnancy </option>Lab Interference <option></option> <option> In Children </option><option>Storage</option>' +
-    //         '</label></div></div>');
+    //............................... For DOSAGE FORM, STRENGTH, PACKAGING, ...............//
+    // $('.repeat8').on('click', function() {
+    //     $('.repeater8').append('<div><button class="right remove"> x</button>' +
+    //         '<div style="padding:0 20px 0 10px;" class="collection"><div class="col s12 m6 l6"><span>Dosage Form</span>' +
+    //         '<span class="red-text">&nbsp*</span><input list="dosages" id="dosage_form" placeholder="Choose" style="color:black;font-size: 18px;font-weight: 400;" required="required" class="validate"/>\n' +
+    //         '<datalist id="dosages"><option value="Tablet">Tablet</option><option value="Capsule">Capsule</option>\n' +
+    //         '<option value="Solution">Solution</option><option value="Gels">Gels</option><option value="Pill">Pill</option>\n' +
+    //         '<option value="Powder">Powder</option><option value="Talc">Talc</option><option value="Paste">Paste</option>\n' +
+    //         '<option value="Drops">Drops</option><option value="Ointment">Ointment</option><option value="Inhaler">Inhaler</option>\n' +
+    //         '<option value="Aerosol">Aerosol</option><option value="Injection">Injection</option><option value="Cream">Cream</option>\n' +
+    //         '<option value="Ear Drops">Ear Drops</option><option value="Patch">Patch</option><option value="Dermal Patch">Dermal Patch</option>\n' +
+    //         '<option value="Lotion">Lotion</option><option value="Balm">Balm</option><option value="Skin Patch">Skin Patch</option>\n' +
+    //         '<option value="Syrup">Syrup</option><option value="Infusion">Infusion</option><option value="Vial">Vial</option>\n' +
+    //         '<option value="Suppository">Suppository</option><option value="Gargle">Gargle</option><option value="Kit">Kit</option>\n' +
+    //         '<option value="Shampoo">Shampoo</option><option value="Mouth wash">Mouth wash</option><option value="Soft-gel">Soft-gel</option>\n' +
+    //         '</datalist></div><div class="col s12 m6 l6"><span>Strength</span><div class="row"><div class="col s12 m12 l12">' +
+    //         '<input type="text" id="strength" placeholder="eg.500 mg" style="color:black;font-size: 18px;font-weight: 400;"/>' +
+    //         '</div></div></div><div class="col s12 m6 l6"><span>Packaging</span>' +
+    //         '<input type="text" id="packaging" style="color:black;font-size: 18px;font-weight: 400;"/>\n' +
+    //         '</div><div class="col s12 m6 l6"><span>Price</span><span class="red-text">&nbsp*</span>\n' +
+    //         '<div class="row"><div class="col s2 m1 l1"><span>' +
+    //         '<i aria-hidden="true" style="padding-top:12px;" class="fa fa-inr left"></i></span></div><div class="col s8 m11 l11">\n' +
+    //         '<input type="text" style="color:black; font-size: 18px;font-weight: 400;" required="required" class="validate"/>\n' +
+    //         '</div></div></div></div></div></div></div></div>');
     //     return false; //prevent form submission
     // });
-    //
-    // $('.repeat1').on('click', function() {
-    //     $('.repeater').append('<div><input id="subhead2" type="text" list="contra" placeholder="Choose subheading" class="browser-default repeat_subhead" required/><button class="remove">x</button>' +
-    //         '<textarea class="text_subhead" id="subhead_text" required></textarea><label for="subhead2" style="color:black;font-size: 15px;font-weight: 400;"></label>' +
-    //         '<label for="subhead2" style="color:black;font-size: 15px;font-weight: 400;">' +
-    //         '<datalist id="contra"> <option> In Lactation</option> <option>In Geriatric/Old Person</option><option>Other Contraindications</option>' +
-    //         ' <option> In Pregnancy </option>Lab Interference <option></option> <option> In Children </option><option>Storage</option>' +
-    //         '</label></div></div>');
-    //     return false; //prevent form submission
-    // });
-    //
-    // $('.repeat1').on('click', function() {
-    //     $('.repeater').append('<div><input id="subhead2" type="text" list="contra" placeholder="Choose subheading" class="browser-default repeat_subhead" required/><button class="remove">x</button>' +
-    //         '<textarea class="text_subhead" id="subhead_text" required></textarea><label for="subhead2" style="color:black;font-size: 15px;font-weight: 400;"></label>' +
-    //         '<label for="subhead2" style="color:black;font-size: 15px;font-weight: 400;">' +
-    //         '<datalist id="contra"> <option> In Lactation</option> <option>In Geriatric/Old Person</option><option>Other Contraindications</option>' +
-    //         ' <option> In Pregnancy </option>Lab Interference <option></option> <option> In Children </option><option>Storage</option>' +
-    //         '</label></div></div>');
+    // $('.repeater8').on('click','.remove', function() {
+    //     $(this).parent().remove();
     //     return false; //prevent form submission
     // });
 
+
     //............................... For Potent Substances in Drug Data Form.............//
-    $('.repeat6').on('click', function() {
-        $('.repeater6').append('<div><button class="right remove">x</button><div class="collection" style="border-color:transparent;"><div class="col s12 m6 l6">' +
-            '<input id="subheading6" type="text" placeholder="Enter Name" required="required" class="repeat_subhead6"/></div>' +
-            '<div class="col s12 m6 l6"> <input id="subhead_text6" type="text" placeholder="Enter Molecule Strength" required="required" class="text_subhead6"/>' +
+    $('.repeat6').on('click', function(){
+        $('.repeater6').append('<div><button class="right remove">x</button><div class="collection" style="border-color:transparent;padding-right:18px;">' +
+            '<div class="col s12 m6 l6"><input id="subheading6" type="text" placeholder="Enter Name" required="required" class="repeat_subhead6" style="text-transform:capitalize;"></div>' +
+            '<div class="col s12 m6 l6"> <input id="subhead_text6" type="text" placeholder="Enter Molecule Strength" required="required" style="text-transform:capitalize;" class="text_subhead6"/>' +
             '</div> </div> </div>');
         return false; //prevent form submission
     });
@@ -480,6 +515,7 @@ $(function () {
         $(this).parent().remove();
         return false; //prevent form submission
     });
+
     $('#drug_form2').hide();
     $('#enter_more_data').click(function () {
         $('#enter_more_data').hide();
@@ -534,9 +570,7 @@ $(function () {
     //     $('.val1').hide();
     //     $('input#disease_name').toggle();
     // });
-
     //$('ul.tabs1').tabs();
-
     //$('.tabs1').hide();
     //$('#drug_data_form1').hide();
     $('#extra').hide();
@@ -557,9 +591,12 @@ $(function () {
     // });
     // $textarea.val($textarea.val().replace(/\n/g,"\n\u2022").replace(/\r/g,"\r\u2022"));
 
+    //$('.next_line').add("<span>-&nbsp</span>").appendTo(document.body);
+
 
     //- ................... DISEASE DATA FORM SUBMIT ....................
     $('#disease_data_button').click(function () {
+        alert('done');
         var disease_name = $('#disease_name').val();
         var symptoms = $('#symptoms').val();
         var risk_factor = $('#risk_factors').val();
@@ -621,8 +658,8 @@ $(function () {
         var brand_name = $('#brand_name').val();
         var company_name = $('#company_name').val();
         var categories = $('#categories').val();
-        var strength1 = $("#strength").val();
-        var strength2 = $("#strengths").val();
+        var strength = $("#strength").val();
+        //------ for potent substances ---------
         var subhead1 = [];
         $('.repeat_subhead6').each(function(){
             subhead1.push($(this).val()); //output <-- ['a','b','c']
@@ -631,7 +668,6 @@ $(function () {
         $('.text_subhead6').each(function () {
             subhead2.push($(this).val());
         });
-        //var potent_substance = $('#potent_substance').val();
         var dosage_form = $('#dosage_form').val();
         var packaging = $('#packaging').val();
         var price = $('#price').val();
@@ -646,8 +682,7 @@ $(function () {
             brand_name: brand_name,
             company_name: company_name,
             categories: categories,
-            strength1: strength1,
-            strength2: strength2,
+            strength1: strength,
             subhead111: subhead1,
             subhead222: subhead2,
             dosage_form: dosage_form,
@@ -667,7 +702,7 @@ $(function () {
             data: JSON.stringify(data),
             contentType: 'application/json',
             success: function (result) {
-                if (result.success === 'success') {
+                if(result.success === 'success') {
                     Materialize.toast(result.message, 1000);
                     window.location = '/health_care_provider?page=drug_data_form';
                 }
@@ -691,7 +726,7 @@ $(function () {
         var food = $('#food_taken').val();
         var source = $('#source').val();
 
-        //other drug interactions
+        //..................... other drug interactions.........
         var subhead51 = [];
         $('.repeat_subhead5').each(function(){
             subhead51.push($(this).val()); //output <-- ['a','b','c']
@@ -701,12 +736,8 @@ $(function () {
         $('.text_subhead5').each(function () {
             subhead52.push($(this).val());
         });
-        //var drug_interaction = $('#other_drug_interaction').val();
-        //var food_interaction = $('#other_interactions').val();
-        //var oral = $('#oral').val();
-        //var intravenous = $('#intravenous').val();
 
-        // other interactions
+        //................... other interactions........
         var subhead41 = [];
         $('.repeat_subhead4').each(function(){
             subhead41.push($(this).val()); //output <-- ['a','b','c']
@@ -716,7 +747,7 @@ $(function () {
             subhead42.push($(this).val());
         });
 
-        // ........dosage field in molecule form............
+        // .................. dosage field in molecule form............
         var subhead31 = [];
         $('.repeat_subhead3').each(function(){
             subhead31.push($(this).val()); //output <-- ['a','b','c']
@@ -726,7 +757,7 @@ $(function () {
             subhead32.push($(this).val());
         });
 
-        // List of contraindications
+        // ..................... List of contraindications .................
         var subhead21 = [];
         $('.repeat_subhead2').each(function(){
             subhead21.push($(this).val()); //output <-- ['a','b','c']
@@ -764,7 +795,7 @@ $(function () {
             data: JSON.stringify(data),
             contentType: 'application/json',
             success: function (result) {
-                if (result.success === 'success') {
+                if(result.success === 'success') {
                     Materialize.toast(result.message, 1000);
                     window.location = '/health_care_provider?page=molecule_data_form';
                 }
@@ -826,7 +857,7 @@ $(function () {
     $('#submit_feedback').click(function () {
         var usefulness = $("input[type='radio'][name='radio1_feedback']:checked").val();
         var suggestion = $('#suggestion').val();
-        var about = $('.about').text();
+        var about = $('#about').val();
         alert(suggestion);
         var d = new Date();
         var month = d.getMonth()+1;
@@ -879,14 +910,11 @@ $(function () {
             data: JSON.stringify(data),
             contentType: 'application/json',
             success: function (result) {
-                if (result.message === 'success') {
-                    Materialize.toast(result.message, 1000);
-                    // $('#queries').hide();
-                    // alert("We will Contact You soon! :)");
-                    //window.location = '/health_care_provider?page=need_help';
+                if(result.message === 'success') {
+                    Materialize.toast(result.message , 5000);
                 }
                 else {
-                    Materialize.toast(result.message, 1000);
+                    Materialize.toast(result.message, 5000);
                 }
             }
         });
@@ -1019,27 +1047,176 @@ $(function () {
         });
     });
 
-    // --------------------- TABS USED IN PROFILE STEP 3 ---------------------------
-    $('ul.tabs').tabs('select_tab', '#tab1');
-
-    // $('#edu_special').hide();
+    // $('#form_education_specialization').hide();
     // $('#register_doc').hide();
-    // $("#tab2").click(function () {
-    //     //$('#tab2').focus().active();
-    //     $("#edu_special").show();
+    // // $("#tab2").click(function () {
+    // //     //$('#tab2').focus().active();
+    // //     $("#edu_special").show();
+    // //     $('#basic_detail').hide();
+    // // });
+    // //
+    // // $("#tab3").click(function () {
+    // //     $('#tab3').focus().active();
+    // //     $("#register_doc").show();
+    // //     $('#basic_detail').hide();
+    // // });
+    //
+    // $('#edu_special').hide();
+    // $('#basic_details').click(function () {
+    //     var title = $('#title').val();
+    //     var name = $('#name').val();
+    //     var email = $('#email').val();
+    //     var gender = $("input[type='radio'][name='gender']:checked").val();
+    //     var city = $('#city').val();
+    //     var experience = $('#year_of_experience').val();
+    //     var about = $('#about_you').val();
+    //     var data = {
+    //         title: title,
+    //         name: name,
+    //         email: email,
+    //         gender: gender,
+    //         city: city,
+    //         experience: experience,
+    //         about: about
+    //     };
+    //     $.ajax({
+    //         url: '/basic',
+    //         type: 'POST',
+    //         data: JSON.stringify(data),
+    //         contentType: 'application/json',
+    //         success: function (result) {
+    //             if (result.success === 'success') {
+    //                 Materialize.toast(result.message, 1000);
+    //             }
+    //             else {
+    //                 Materialize.toast(result.message, 1000);
+    //             }
+    //         }
+    //
+    //     });
+    //     $('#tab2').focus();
     //     $('#basic_detail').hide();
+    //     $('#edu_special').show();
+    //
     // });
     //
-    // $("#tab3").click(function () {
-    //     $('#tab3').focus().active();
-    //     $("#register_doc").show();
-    //     $('#basic_detail').hide();
+    // $('#basic_details_pharma').click(function () {
+    //     var title = $('#title').val();
+    //     var name = $('#name').val();
+    //     var email = $('#email').val();
+    //     var gender = $("input[type='radio'][name='gender']:checked").val();
+    //     var city = $('#city').val();
+    //     var experience = $('#year_of_experience').val();
+    //     var about = $('#about_you').val();
+    //     var data = {
+    //         title: title,
+    //         name: name,
+    //         email : email,
+    //         gender: gender,
+    //         city: city,
+    //         experience: experience,
+    //         about: about
+    //     };
+    //     $.ajax({
+    //         url: '/pharma_basic',
+    //         type: 'POST',
+    //         data: JSON.stringify(data),
+    //         contentType: 'application/json',
+    //         success: function (result) {
+    //             if (result.success === 'success') {
+    //                 Materialize.toast(result.message, 1000);
+    //             }
+    //             else {
+    //                 Materialize.toast(result.message, 1000);
+    //             }
+    //         }
+    //         //window.location = '/health_care_provider?page=profile_pharmacist';
+    //         // $('#profile3').hide();
+    //         // $('#main_profile_pharmacist').show();
+    //     });
+    //     //$('#tab2').focus();
+    //     //$('#main_profile_doctor ul.tabs li.tab a').hover(function() {
+    //     // $('#tab2').focus();
+    //     // $('#basic_detail_pharma').hide();
+    //     // $('#edu_special').show();
+    // });
+    //
+    // $('#education').click(function () {
+    //     var qualification = $('#qualification').val();
+    //     var college = $('#college').val();
+    //     var completion_year = $('#completion_year').val();
+    //     var batch_from = $('#batch_from').val();
+    //     var batch_to = $('#batch_to').val();
+    //     var specialization = $('#specialization').val();
+    //     var data = {
+    //         qualification: qualification,
+    //         college: college,
+    //         completion: completion_year,
+    //         batch_from :batch_from,
+    //         batch_to : batch_to,
+    //         specialization: specialization
+    //     };
+    //     $.ajax({
+    //         url: '/education',
+    //         type: 'POST',
+    //         data: JSON.stringify(data),
+    //         contentType: 'application/json',
+    //         success: function (result) {
+    //             if (result.success === 'success') {
+    //                 Materialize.toast(result.message, 1000);
+    //             }
+    //             else {
+    //                 Materialize.toast(result.message, 1000);
+    //             }
+    //         }
+    //     });
+    //     $('#tab3').focus();
+    //     // $('#main_profile_doctor ul.tabs li.tab a').hover(function() {
+    //     //     $('#tab3').addClass('active').find('li.tab').show().css({'background-color':'lavender'});
+    //     // });
+    //
+    //     //$('#edu_special').hide();
+    //     $('#register_doc').show();
+    // });
+    //
+    // $('#education_pharma').click(function () {
+    //     var qualification = $('#qualification').val();
+    //     var college = $('#college').val();
+    //
+    //     var completion_year = $('#completion_year').val();
+    //     var batch_from = $('#batch_from').val();
+    //     var batch_to = $('#batch_to').val();
+    //     var specialization = $('#specialization').val();
+    //     var data = {
+    //         qualification: qualification,
+    //         college: college,
+    //         completion: completion_year,
+    //         batch_from :batch_from,
+    //         batch_to : batch_to,
+    //         specialization: specialization
+    //     };
+    //     $.ajax({
+    //         url: '/pharma_education',
+    //         type: 'POST',
+    //         data: JSON.stringify(data),
+    //         contentType: 'application/json',
+    //         success: function (result) {
+    //             if (result.success === 'success') {
+    //                 Materialize.toast(result.message, 1000);
+    //             }
+    //             else {
+    //                 Materialize.toast(result.message, 1000);
+    //             }
+    //         }
+    //     });
+    //     $('#edu_special').hide();
+    //     $('#register_doc').show();
     // });
 
+    $('#edu_special').hide();
     $('#basic_details').click(function () {
         var title = $('#title').val();
         var name = $('#name').val();
-        var email = $('#email').val();
         var gender = $("input[type='radio'][name='gender']:checked").val();
         var city = $('#city').val();
         var experience = $('#year_of_experience').val();
@@ -1047,7 +1224,6 @@ $(function () {
         var data = {
             title: title,
             name: name,
-            email: email,
             gender: gender,
             city: city,
             experience: experience,
@@ -1066,14 +1242,21 @@ $(function () {
                     Materialize.toast(result.message, 1000);
                 }
             }
-
+            //window.location = '/health_care_provider?page=profile_pharmacist';
+            // $('#profile3').hide();
+            // $('#main_profile_pharmacist').show();
         });
+        //$('#tab2').focus();
+        //$('#main_profile_doctor ul.tabs li.tab a').hover(function() {
+        $('#tab2').focus();
+        $('#basic_detail').hide();
+        $('#edu_special').show();
     });
 
+    //$('#edu_special').hide();
     $('#basic_details_pharma').click(function () {
         var title = $('#title').val();
         var name = $('#name').val();
-        var email = $('#email').val();
         var gender = $("input[type='radio'][name='gender']:checked").val();
         var city = $('#city').val();
         var experience = $('#year_of_experience').val();
@@ -1081,7 +1264,6 @@ $(function () {
         var data = {
             title: title,
             name: name,
-            email : email,
             gender: gender,
             city: city,
             experience: experience,
@@ -1106,14 +1288,15 @@ $(function () {
         });
         //$('#tab2').focus();
         //$('#main_profile_doctor ul.tabs li.tab a').hover(function() {
-        // $('#tab2').focus();
-        // $('#basic_detail_pharma').hide();
-        // $('#edu_special').show();
+        $('#tab2').focus();
+        $('#basic_detail_pharma').hide();
+        $('#edu_special').show();
     });
 
     $('#education').click(function () {
         var qualification = $('#qualification').val();
         var college = $('#college').val();
+
         var completion_year = $('#completion_year').val();
         var batch_from = $('#batch_from').val();
         var batch_to = $('#batch_to').val();
@@ -1179,12 +1362,13 @@ $(function () {
                 }
             }
         });
-        //$('#tab3').focus();
+        $('#tab3').focus();
         // $('#main_profile_doctor ul.tabs li.tab a').hover(function() {
         //     $('#tab3').addClass('active').find('li.tab').show().css({'background-color':'lavender'});
         // });
-        //$('#edu_special').hide();
-        //$('#register_doc').show();
+
+        $('#edu_special').hide();
+        $('#register_doc').show();
     });
 
     $('.upload_image1').submit(function () {
@@ -1320,9 +1504,7 @@ $(function () {
     //     var disease_name = $('#disease_name').val();
     //     $().load()
     // });
-
     // ...................FORM VALIDATION.......................
-
     // $('form[name="drug_form1"]').validate({
     //     //Materialize.toast('this is a test', 2000);
     //
@@ -1383,7 +1565,6 @@ function filePreview(input) {
 //         reader.readAsDataURL(input.files[0]);
 //     }
 // }
-
 // function validateForm() {
 //     var brand_name = document.forms["drug_form1"]["brand_name"].value;
 //     if (x == "") {
@@ -1446,7 +1627,6 @@ function filePreview(input) {
 //     });
 //     return true;
 // }
-
 // function openNav() {
 //     document.getElementById("mySidenav").style.width = "230px";
 //     document.getElementById("main").style.marginLeft = "230px";

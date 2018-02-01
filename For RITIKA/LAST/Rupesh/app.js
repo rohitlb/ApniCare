@@ -2731,10 +2731,7 @@ app.post('/health_care_provider',function(req,res){
                         });
                 }
                 else{
-                    res.render('home_profile_doctor',
-                        {
-                            page: 'profile'
-                        });
+                    res.render('home');
                 }
             }
         }
@@ -3194,7 +3191,7 @@ app.post('/healthcarelogin',function (req,res) {
 //==========================Database connection===========================
 
 //data base connection and opening port
-var db = 'mongodb://localhost/ApniCare';
+var db = 'mongodb://localhost/Care';
 mongoose.connect(db, {useMongoClient: true});
 
 

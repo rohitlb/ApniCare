@@ -22,95 +22,88 @@ div.row
                                 //    each lis in data
                                 //        //h4 #{lis.brand_name}
                                 //        option #{lis.brand_name}
-                            input.validate(type='text', id='brand_name', style='color:black;font-size: 18px;font-weight: 400;' required)
+                            input.validate(type='text', id='brand_name', style='text-transform:uppercase; color:black;font-size: 18px;font-weight: 400;' required)
                         div.col.s12.m6.l6
                             span Company Name
                             //each lis in data
                             //    h4 #{lis.brand_name}
                             span.red-text &nbsp*
-                            input.validate(type='text', id='company_name', style='color:black;font-size: 18px;font-weight: 400;' required)
+                            input.validate(type='text', id='company_name', style='color:black;text-transform:capitalize;font-size: 18px;font-weight: 400;' required)
                         div.col.s12.m6.l6
                             span Category
                             //span.red-text &nbsp*
-                            input(type='text', id='categories', style='color:black;font-size: 18px;font-weight: 400;')
-                        div.col.s12.m6.l6
-                            span Strength
-                            //span.red-text &nbsp*
-                            div.row
-                                div.col.s6.l8.m8
-                                    input(type='text', id='strength', placeholder='eg.500' style='color:black;font-size: 18px;font-weight: 400;' required)
-                                div.col.s6.l4.m4
-                                    input(list='str' id='strengths', style='color:black;font-size: 18px;font-weight: 400;' required)
-                                    datalist#str
-                                        option(value='mg') mg
-                                        option(value='ml') ml
-                            //input.button(type='submit')
+                            input(type='text', id='categories', style='color:black;text-transform:capitalize;font-size: 18px;font-weight: 400;')
                         div.col.s12.m12.l12
                             span Potent Substances
                             span.red-text &nbsp*
-                            //input.validate(type='text', id='potent_substance', style='color:black;font-size: 18px;font-weight: 400;' required)
                             div.col.s12.m12.l12
-                                div.repeater6
-                                    div
-                                        div.collection(style='border-color:transparent;')
-                                            div.col.s12.m6.l6
-                                                input.validate.repeat_subhead6#subheading6(type='text', placeholder='Enter Name' required)
-                                                //label(for='subheading', style='color:black;font-size: 15px;font-weight: 400;' required)
-                                            div.col.s12.m6.l6
-                                                input.validate.text_subhead6#subhead_text6(type='text', placeholder='Enter Molecule Strength' required)
-                                                //label(for='subheading', style='color:black;font-size: 15px;font-weight: 400;' required)
-                                button.repeat6 Add Another
-                                br
-                            //input.button(type='submit')
-                        div.col.s12.m6.l6
-                            span Dosage Form
-                            span.red-text &nbsp*
-                            input.validate(list='dosages', id='dosage_form', style='color:black;font-size: 18px;font-weight: 400;' required)
-                            datalist#dosages
-                                option(value='Tablet') Tablet
-                                option(value='Capsule') Capsule
-                                option(value='Solution') Solution
-                                option(value='Gels') Gels
-                                option(value='Pill') Pill
-                                option(value='Powder') Powder
-                                option(value='Talc') Talc
-                                option(value='Paste') Paste
-                                option(value='Drops') Drops
-                                option(value='Ointment') Ointment
-                                option(value='Inhaler') Inhaler
-                                option(value='Aerosol') Aerosol
-                                option(value='Injection') Injection
-                                option(value='Cream') Cream
-                                option(value='Ear Drops') Ear Drops
-                                option(value='Patch') Patch
-                                option(value='Dermal Patch') Dermal Patch
-                                option(value='Lotion') Lotion
-                                option(value='Balm') Balm
-                                option(value='Skin Patch') Skin Patch
-                                option(value='Syrup') Syrup
-                                option(value='Infusion') Infusion
-                                option(value='Vial') Vial
-                                option(value='Suppository') Suppository
-                                option(value='Gargle') Gargle
-                                option(value='Kit') Kit
-                                option(value='Shampoo') Shampoo
-                                option(value='Mouth wash') Mouth wash
-                                option(value='Soft-gel') Soft-gel
-
-                            //input.button(type='submit')
-                        div.col.s12.m6.l6
-                            span Packaging
-                            //span.red-text &nbsp*
-                            input(type='text', id='packaging', style='color:black;font-size: 18px;font-weight: 400;' required)
-
-                        div.col.s12.m6.l6
-                            span Price
-                            span.red-text &nbsp*
+                                div.row
+                                    div.repeater6
+                                        div
+                                            div.collection(style='border-color:transparent;padding-right:43px;')
+                                                div.col.s12.m6.l6
+                                                    input.validate.repeat_subhead6#subheading6(type='text', placeholder='Enter Name', style='text-transform:capitalize;' required)
+                                                div.col.s12.m6.l6
+                                                    input.validate.text_subhead6#subhead_text6(type='text', style='text-transform:capitalize;', placeholder='Enter Molecule Strength')
+                                    button.repeat6 Add Another
+                                    br
+                        div.col.s12.m12.l12
                             div.row
-                                div.col.s2.l2.m2
-                                    input(type='text', value='₹' placeholder='₹' style='color:black;font-size: 18px;font-weight: 400;' readonly)
-                                div.col.s10.l10.m10
-                                    input.validate(type='text', id='price', style='color:black;font-size: 18px;font-weight: 400;' required)
+                                div.col.s12.m6.l6
+                                    span Dosage Form
+                                    span.red-text &nbsp*
+                                    input.validate(list='dosages', id='dosage_form', style='text-transform:capitalize;color:black;font-size: 18px;font-weight: 400;' required)
+                                    datalist#dosages
+                                        option(value='Tablet') Tablet
+                                        option(value='Capsule') Capsule
+                                        option(value='Solution') Solution
+                                        option(value='Gels') Gels
+                                        option(value='Pill') Pill
+                                        option(value='Powder') Powder
+                                        option(value='Talc') Talc
+                                        option(value='Paste') Paste
+                                        option(value='Drops') Drops
+                                        option(value='Ointment') Ointment
+                                        option(value='Inhaler') Inhaler
+                                        option(value='Aerosol') Aerosol
+                                        option(value='Injection') Injection
+                                        option(value='Cream') Cream
+                                        option(value='Eye & Ear Drops') Eye & Ear Drops
+                                        option(value='Ear Drops') Ear Drops
+                                        option(value='Patch') Patch
+                                        option(value='Dermal Patch') Dermal Patch
+                                        option(value='Lotion') Lotion
+                                        option(value='Balm') Balm
+                                        option(value='Skin Patch') Skin Patch
+                                        option(value='Syrup') Syrup
+                                        option(value='Infusion') Infusion
+                                        option(value='Vial') Vial
+                                        option(value='Suppository') Suppository
+                                        option(value='Gargle') Gargle
+                                        option(value='Kit') Kit
+                                        option(value='Shampoo') Shampoo
+                                        option(value='Mouth wash') Mouth wash
+                                        option(value='Soft-gel') Soft-gel
+
+                                div.col.s12.m6.l6
+                                    span Strength
+                                    div.row
+                                        div.col.s12.m12.l12
+                                            input(type='text', id='strength', placeholder='eg.500 mg' style='text-transform:capitalize;color:black;font-size: 18px;font-weight: 400;')
+
+                                div.col.s12.m6.l6
+                                    span Packaging
+                                    input(type='text', id='packaging', style='color:black;text-transform:capitalize;font-size: 18px;font-weight: 400;')
+
+                                div.col.s12.m6.l6
+                                    span Price
+                                    span.red-text &nbsp*
+                                    div.row
+                                        div.col.s2.m1.l1
+                                            span(style='display:flex;flex-direction:row; flex-grow:2;border:none;')
+                                                i.fa.fa-inr.left(aria-hidden='true' style='padding-top:12px;')
+                                        div.col.s8.m11.l11
+                                            input.validate#price(type='text', style='color:black; text-transform:capitalize; font-size: 18px;font-weight: 400;' required='required')
 
                         div.row
                             div.col.s12.m12.l12
@@ -127,7 +120,7 @@ div.row
                         div#drug_form2
                             div.col.s12.m6.l6
                                 span Prescription
-                                    input(list='pres', id='prescription', style='color:black;font-size: 18px;font-weight: 400;')
+                                    input(list='pres', id='prescription', style='text-transform:capitalize;color:black;font-size: 18px;font-weight: 400;')
                                     datalist#pres
                                         option Needed
                                         option Not Needed
@@ -135,25 +128,25 @@ div.row
 
                             div.col.s12.m6.l6
                                 span Dose Taken
-                                input.validate(type='text', id='dose_taken', style='color:black;font-size: 18px;font-weight: 400;')
+                                input.validate(type='text', id='dose_taken', style='color:black;text-transform:capitalize;font-size: 18px;font-weight: 400;')
                             div.col.s12.m6.l6
                                 span Dose Timings
-                                input.validate(type='text', id='dose_timing', style='color:black;font-size: 18px;font-weight: 400;')
+                                input.validate(type='text', id='dose_timing', style='color:black;font-size: 18px;text-transform:capitalize;font-weight: 400;')
                                 //input.button(type='submit')
                             div.col.s12.m6.l6
                                 span Type
-                                    input(list='types', id='type', style='color:black;font-size: 18px;font-weight: 400;')
+                                    input(list='types', id='type', style='color:black;font-size: 18px;text-transform:capitalize;font-weight: 400;')
                                     datalist#types
                                         option Branded
                                         option Generic
 
                             div.col.s12.m12.l12
                                 span Primarily Used For
-                                textarea.materialize-textarea.validate(id='primarily_used_for', style='color:black;font-size: 18px;font-weight: 400;')
+                                textarea.materialize-textarea.validate(id='primarily_used_for', style='text-transform:capitalize;color:black;font-size: 18px;font-weight: 400;')
 
                             div.col.s12.m12.l12
                                 span Warnings
-                                input.validate(type='text', id='warnings', style='color:black;font-size: 18px;font-weight: 400;')
+                                textarea.materialize-textarea(id='warnings', style='text-transform:capitalize;color:black;font-size: 18px;font-weight: 400;')
 
                             div.row
                                 div.col.s12.l12.m12
