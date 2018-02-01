@@ -3389,6 +3389,7 @@ app.get('/pharmaasuser',function (req,res) {
 
 app.get('/health_care_provider',function(req,res) {
     var page = 'home';
+    //console.log(req.query.page);
     var brand = req.query.brand;
     var disease = req.query.disease;
     var molecule = req.query.molecule;
@@ -3573,6 +3574,24 @@ app.get('/health_care_provider',function(req,res) {
             }
             else {
                 if (req.query.page == 'pharma_registered')
+                    page = req.query.page;
+                res.render('home_profile_doctor',
+                    {
+                        page: page,
+                        data: result
+
+                    });
+            }
+        });
+    }
+
+    if(req.query.page == 'doctor_registered') {
+        Doctor.findOne({_id: req.session.doctorID}, function (err, result) {
+            if (err) {
+                console.log(err)
+            }
+            else {
+                if (req.query.page == 'doctor_registered')
                     page = req.query.page;
                 res.render('home_profile_doctor',
                     {
@@ -3875,6 +3894,7 @@ app.get('/health_care_provider',function(req,res) {
 
 app.post('/health_care_provider',function(req,res) {
     var page = 'home';
+    //console.log(req.query.page);
     var brand = req.query.brand;
     var disease = req.query.disease;
     var molecule = req.query.molecule;
@@ -4059,6 +4079,24 @@ app.post('/health_care_provider',function(req,res) {
             }
             else {
                 if (req.query.page == 'pharma_registered')
+                    page = req.query.page;
+                res.render('home_profile_doctor',
+                    {
+                        page: page,
+                        data: result
+
+                    });
+            }
+        });
+    }
+
+    if(req.query.page == 'doctor_registered') {
+        Doctor.findOne({_id: req.session.doctorID}, function (err, result) {
+            if (err) {
+                console.log(err)
+            }
+            else {
+                if (req.query.page == 'doctor_registered')
                     page = req.query.page;
                 res.render('home_profile_doctor',
                     {
@@ -5356,7 +5394,7 @@ app.post('/profession',function (req,res) {
             console.log(err);
         }
         else {
-            console.log(result);
+            //console.log(result);
             res.send({details : "success", message : "Profession added"});
         }
     });
@@ -5462,7 +5500,7 @@ app.post('/doctorregistration',function(req,res){
         else {
             req.session.doctorID = result._id;
             //res.send({status : 'success', message : 'successfully registered'});
-            res.redirect('/health_care_provider?page=profile');
+            res.redirect('/health_care_provider?page=doctor_registered');
         }
     })
 });
