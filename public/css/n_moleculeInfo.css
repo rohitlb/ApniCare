@@ -178,6 +178,12 @@ li {
     margin-left: 15%;
     color:#2d2d2d;
 }
+.m_p1{
+    font-size: 18px;
+    font-weight: 600;
+    margin-left: -8%;
+    color:#2d2d2d;
+}
 #mol_row1_subrow4{
     z-index: 2;
     position: fixed;
@@ -187,4 +193,12 @@ li {
     border-radius: 15px;
     margin-top: 100px;
     background-color: transparent;
+}
+.company_name{
+    font-size: 18px;
+    font-weight: 400;
+}
+span.next_line, ul li.next_line, .next_line {
+    white-space: pre-line;
+    list-style-type: disc;
 }

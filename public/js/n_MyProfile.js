@@ -24,51 +24,51 @@ $(document).ready(function() {
         closeOnSelect: true // Close upon selecting a date,
     });
 //**************************disabling personal information***************************************************
-    $('#UPcancel').hide();
-    $('#EmergencyContactSubmit').hide();
-    $('#ContactUsSubmit').hide();
-    $('#PersonalDetailsSubmit').hide();
-    $('#ConfidentialInfoSubmit').hide();
-    $('#AddressSubmit').hide();
-    $('#InfoForm :input').prop('disabled',true);
+    $('#p_UPcancel').hide();
+    $('#p_EmergencyContactSubmit').hide();
+    $('#p_ContactUsSubmit').hide();
+    $('#p_PersonalDetailsSubmit').hide();
+    $('#p_ConfidentialInfoSubmit').hide();
+    $('#p_AddressSubmit').hide();
+    $('#p_InfoForm :input').prop('disabled',true);
 
     //*****************************on click on EDIT....enabling the fields******************************************
-    $('#UPedit').click(function () {
+    $('#p_UPedit').click(function () {
         //enabling the functions
-        $('#UPcancel').show();
-        $('#UPedit').hide();
-        $('#EmergencyContactSubmit').show();
-        $('#ContactUsSubmit').show();
-        $('#ConfidentialInfoSubmit').show();
-        $('#PersonalDetailsSubmit').show();
-        $('#AddressSubmit').show();
-        $('#InfoForm :input').prop('disabled',false);
+        $('#p_UPcancel').show();
+        $('#p_UPedit').hide();
+        $('#p_EmergencyContactSubmit').show();
+        $('#p_ContactUsSubmit').show();
+        $('#p_ConfidentialInfoSubmit').show();
+        $('#p_PersonalDetailsSubmit').show();
+        $('#p_AddressSubmit').show();
+        $('#p_InfoForm :input').prop('disabled',false);
     });
     //***************************on click on cancel*****************************************
-    $('#UPcancel').click(function () {
-        $('#UPedit').show();
-        $('#UPcancel').hide();
-        $('#EmergencyContactSubmit').hide();
-        $('#ContactUsSubmit').hide();
-        $('#PersonalDetailsSubmit').hide();
-        $('#ConfidentialInfoSubmit').hide();
-        $('#AddressSubmit').hide();
-        $('#InfoForm :input').prop('disabled',true);
+    $('#p_UPcancel').click(function () {
+        $('#p_UPedit').show();
+        $('#p_UPcancel').hide();
+        $('#p_EmergencyContactSubmit').hide();
+        $('#p_ContactUsSubmit').hide();
+        $('#p_PersonalDetailsSubmit').hide();
+        $('#p_ConfidentialInfoSubmit').hide();
+        $('#p_AddressSubmit').hide();
+        $('#p_InfoForm :input').prop('disabled',true);
 
     });
 
 
 //******************************showing the submitbutton and sending details to server***********************************
-    $('#PersonalDetailsSubmit').click(function(){
-        $('#UPedit').show();
-        $('#UPcancel').hide();
-        $('#InfoForm :input').prop('disabled',true);
-        var dob = $('#datepicker').val();
+    $('#p_PersonalDetailsSubmit').click(function(){
+        $('#p_UPedit').show();
+        $('#p_UPcancel').hide();
+        $('#p_InfoForm :input').prop('disabled',true);
+        var dob = $('#p_datepicker').val();
         var gender = $("input[type='radio'][name='gender']:checked").val();
-        var bloodgroup = $('#Pbox').val();
+        var bloodgroup = $('#p_Pbox').val();
         var maritalstatus = $("input[type='radio'][name='marital']:checked").val();
-        var height = $('#Pheight').val();
-        var weight = $('#Pweight').val();
+        var height = $('#p_Pheight').val();
+        var weight = $('#p_Pweight').val();
         var data = {
             dob: dob,
             gender: gender,
@@ -88,7 +88,7 @@ $(document).ready(function() {
 
                     if (result.status === "success") {
                         Materialize.toast(result.message, 2000);
-                        //$('#change').show();
+                        //$('#p_change').show();
                     }
                     else {
                         Materialize.toast(result.message, 2000);
@@ -105,13 +105,13 @@ $(document).ready(function() {
 
     });
 //============================for contact details=========================================
-    $('#ContactUsSubmit').click(function(){
-        $('#UPedit').show();
-        $('#UPcancel').hide();
-        $('#InfoForm :input').prop('disabled',true);
-        var name = $('#Pfirstname').val();
-        var number = $('#Pphone').val();
-        var email = $('#Pemail').val();
+    $('#p_ContactUsSubmit').click(function(){
+        $('#p_UPedit').show();
+        $('#p_UPcancel').hide();
+        $('#p_InfoForm :input').prop('disabled',true);
+        var name = $('#p_Pfirstname').val();
+        var number = $('#p_Pphone').val();
+        var email = $('#p_Pemail').val();
         var data = {
             name: name,
             number: number,
@@ -127,7 +127,7 @@ $(document).ready(function() {
 
                     if (result.status === "success") {
                         Materialize.toast(result.message, 2000);
-                        //$('#change').show();
+                        //$('#p_change').show();
                     }
                     else {
                         Materialize.toast(result.message, 2000);
@@ -145,12 +145,12 @@ $(document).ready(function() {
     });
 
 //========================================confidentialInformation====================================
-    $('#ConfidentialInfoSubmit').click(function(){
-        $('#UPedit').show();
-        $('#UPcancel').hide();
-        $('#InfoForm :input').prop('disabled',true);
-        var Aadhar = $('#Aadhar').val();
-        var income = $('#Pbox').val();
+    $('#p_ConfidentialInfoSubmit').click(function(){
+        $('#p_UPedit').show();
+        $('#p_UPcancel').hide();
+        $('#p_InfoForm :input').prop('disabled',true);
+        var Aadhar = $('#p_Aadhar').val();
+        var income = $('#p_Pbox').val();
         var data = {
             aadhaar_number: Aadhar,
             income: income
@@ -166,7 +166,7 @@ $(document).ready(function() {
 
                     if (result.status === "success") {
                         Materialize.toast(result.message, 2000);
-                        //$('#change').show();
+                        //$('#p_change').show();
                     }
                     else {
                         Materialize.toast(result.message, 2000);
@@ -183,13 +183,13 @@ $(document).ready(function() {
 
     });
 //============================================EmergencyContactDetails===========================================
-    $('#EmergencyContactSubmit').click(function(){
-        $('#UPedit').show();
-        $('#UPcancel').hide();
-        $('#InfoForm :input').prop('disabled',true);
-        var names = $('#names').val();
-        var relation = $('#relation').val();
-        var phone = $('#Pphone').val();
+    $('#p_EmergencyContactSubmit').click(function(){
+        $('#p_UPedit').show();
+        $('#p_UPcancel').hide();
+        $('#p_InfoForm :input').prop('disabled',true);
+        var names = $('#p_names').val();
+        var relation = $('#p_relation').val();
+        var phone = $('#p_Pphone').val();
 
         var data = {
             rel_name : names,
@@ -207,7 +207,7 @@ $(document).ready(function() {
 
                     if (result.status === "success") {
                         Materialize.toast(result.message, 2000);
-                        //$('#change').show();
+                        //$('#p_change').show();
                     }
                     else {
                         Materialize.toast(result.message, 2000);
@@ -224,15 +224,15 @@ $(document).ready(function() {
 
 //******************************************************Address********************************************************************
 
-    $('#AddressSubmit').click(function(){
-        $('#UPedit').show();
-        $('#UPcancel').hide();
-        $('#InfoForm :input').prop('disabled',true);
-        var address = $('#address').val();
-        var pincode = $('#pincode').val();
-        var landmark = $('#landmark').val();
-        var city = $('#city').val();
-        var state = $('#state').val();
+    $('#p_AddressSubmit').click(function(){
+        $('#p_UPedit').show();
+        $('#p_UPcancel').hide();
+        $('#p_InfoForm :input').prop('disabled',true);
+        var address = $('#p_address').val();
+        var pincode = $('#p_pincode').val();
+        var landmark = $('#p_landmark').val();
+        var city = $('#p_city').val();
+        var state = $('#p_state').val();
 
         var data = {
             addresses : address,
@@ -271,8 +271,8 @@ $(document).ready(function() {
 
 //**********************************************************************8
 
-    $('#upload').click(function () {
-        var upload=$('#images').val();
+    $('#p_upload').click(function () {
+        var upload=$('#p_images').val();
         var data={
             upload1 :upload
         };
@@ -295,19 +295,20 @@ $(document).ready(function() {
     })
 
 //***********************************for uploading images********************************************************
-    $('#file').change(function () {
+    $('#p_file').change(function () {
         filePreview(this);
     });
+    function filePreview(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#p_uploadImage + img').remove();
+                $('#p_uploadImage').after('<img src="' + e.target.result + '" width="150" height="150"/>');
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
 });
 
 
-function filePreview(input) {
-    if (input.files && input.files[0]) {
-        var reader = new FileReader();
-        reader.onload = function (e) {
-            $('#uploadImage + img').remove();
-            $('#uploadImage').after('<img src="' + e.target.result + '" width="150" height="150"/>');
-        }
-        reader.readAsDataURL(input.files[0]);
-    }
-}

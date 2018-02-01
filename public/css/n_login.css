@@ -1,6 +1,7 @@
 .initial{
     width: 90px;
 }
+
 a{
     cursor: pointer;
 }
@@ -8,29 +9,55 @@ a{
 {
     background-color: mediumpurple;
 }
+.modal-content{
+    margin-bottom: 5%;
+}
+#exa{
+    display: block;
+    margin-bottom:-30px;
+}
+#form{
+    margin-bottom: 10%;
+}
+#modal1{
+    width:50%;
+    max-height:95%;
+    margin-top: -4%;
+    /*height:95%;*/
+
+}
 #div1
 {
-    max-height: 90%;
+    display: block;
+    height: 95%;
     padding: 0px;
     border: 0px;
     margin: 0px;
     background-color: mediumpurple;
+    margin-bottom: -2.5%;
 }
 #div2
 {
-    max-height:90%;
+    display: block;
+    height:95%;
     padding: 0px;
     border: 0px;
     margin: 0px;
     background-color: rebeccapurple;
+    margin-bottom: -2.5%;
 }
 .image1
 {
-    height:410px;
-    width:100%;
+    height:230px;
+    width:150%;
     padding:0px;
-    margin:0px;
+    margin-left: -35%;
     border: 0px;
+    background-image: url("../images/aaa.png");
+}
+.extra{
+    height: 117px;
+    border-color: rebeccapurple;
 }
 .image2
 {
@@ -72,15 +99,6 @@ form
     padding: 0px;
     border: 0px;
 }
-.modal
-{   border-color: purple;
-    width: 45%;
-    max-height:90%;
-    top: 6%;
-    padding: 0px;
-    border: 1px;
-
-}
 /*.row*/
 /*{*/
     /*padding:0px;*/
@@ -99,15 +117,17 @@ form
 {
     background-color: mediumpurple;
     width: 70%;
+    height:40%;
 }
 #providers
 {
     color: teal;
 }
-#loginButton12,#NewtoApnicare,#D_loginButton,#P_loginButton
+#loginButton12,#NewtoApniCare,#D_loginButton,#P_loginButton
 {
     color: purple;
     background-color: whitesmoke;
+    width: 70%;
 }
 .p2
 {

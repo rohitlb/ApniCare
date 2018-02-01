@@ -1,53 +1,59 @@
 //#modalbackground(style=' position: absolute; height:100%; widh:100%; display:none; z-index:10001; background-color: #7F7F7F; opacity: 0.3;')
 div#idiv1
-    div.row
-        br
-        //if(page == 'index')
-        include ../login-signup/main
-        //else if(page == 'profile')
-        a.dropdown-button.btn-flat.black-text#user(data-activates='dropdown1') #{number}
-            i.material-icons.black-text.large person
-        i.material-icons.black-text.right notifications
-        .input-field#input2
-            input#search(type='search', required='',placeholder="search here")
-            label.black-text.label-icon(for='search')
     div.row#irow1
-        div.col.l4
+        div.col.s2.m3.l3.hide-on-small-only
+            br
             span#logo1 ApniCare
             br
-            span.span3.lavender-text - "It's All About Health!!"
+            span.span3.lavender-text - " Healthy You & Yours "
+        div.col.s6.m6.l6
+            .bs-example
+                label.black-text.label-icon(for='search-query')
+                input#search-query(type='text',placeholder="search here")
 
-    div.row#irow4
+        div.col.s4.m3.l3
+            br
+            if(page == 'index')
+                include ../login-signup/main
+            if(page == 'profile')
+                a.dropdown-button.btn-flat.center.right.black-text#user(data-activates='dropdown1') #{number}
+                    i.material-icons.black-text.large person
+                    span hi user
+            i.material-icons.black-text.right notifications
+
+
+    //div.row#irow4
     div.row#irow3.center
-        div.col#col1
+        div.col.s4.m4.l3#col1
 
             br
             a(href='/ApniCare/information?page=Drug_Information')
                 span.white-text Drug Information
             div.headerdivider
-        div.col#col2
+        div.col.s4.m4.l3#col2
 
             br
             a(href='/ApniCare/information?page=Disease_Information')
                 span.white-text Disease Information
             div.headerdivider1
-        div.col#col3
+        div.col.s4.m4.l3#col3
 
             br
             a(href='/ApniCare/information?page=Molecule_Information')
                 span.white-text Molecule Information
             div.headerdivider2
-        div.col#col4
+        div.col.l3#col5
+
+            br
+            a(href='#modal1')
+                span.white-text For HealthCare Providers
+
+        //div.col.s4.m4.l1#col4
 
             br
             a(href='/ApniCare/information?page=Find_a_Right_Doctor')
                 span.white-text Find A Right Doctor
             div.headerdivider3
-        div.col#col5
-
-            br
-            a(href='#modal1')
-                span.white-text For HealthCare Providers
 
 
 div#idiv2
