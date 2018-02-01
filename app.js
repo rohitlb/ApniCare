@@ -955,7 +955,6 @@ app.post('/searchspecific',function(req,res){
 });
 
 //===================================for WEB============================
-
 app.post('/searchspecificweb',function(req,res){
     var value = req.body.search;
     async.parallel({
@@ -1007,7 +1006,12 @@ app.post('/searchspecificweb',function(req,res){
                     console.log(err);
                 }
                 else {
-                    callback(null, result);
+                    if(result != ""){
+                        callback(null,value);
+                    }
+                    else{
+                        callback(null, result);
+                    }
                 }
             });
         },
@@ -1017,7 +1021,12 @@ app.post('/searchspecificweb',function(req,res){
                     console.log(err);
                 }
                 else{
-                    callback(null,result);
+                    if(result != ""){
+                        callback(null,value);
+                    }
+                    else{
+                        callback(null,result);
+                    }
                 }
             });
         },
@@ -1036,7 +1045,6 @@ app.post('/searchspecificweb',function(req,res){
             console.log(err);
         }
         else{
-            console.log(result);
             res.send({status : 'success' , data : result});
         }
     });
@@ -1112,6 +1120,7 @@ app.post('/searchweb', function(req, res) {
             console.log(err);
         }
         else{
+            console.log(result);
             res.send(result, {
                 'Content-Type': 'application/json'
             }, 200);
@@ -1119,55 +1128,28 @@ app.post('/searchweb', function(req, res) {
     });
 });
 
-app.get('/searchsymptons',function(req,res) {
+app.get('/searchsymptons',function(req,res){
     var value = JSON.parse(req.query.symptoms);
-    if (req.session.userID) {
-        res.render('profile', {page: 'Disease_Information', data: value});
-    }
-    else {
-        res.render('index', {page: 'Disease_Information', data: value});
-    }
-});
-
-app.get('/searchbrands',function(req,res){
-    var value = req.query.brands;
-    console.log(value);
-    res.render('send',{data : value});
-});
-
-app.get('/searchdiseases',function(req,res){
-    var value = req.query.diseases;
-    console.log(value);
-    res.render('send',{data : value});
-});
-
-app.get('/searchmolecules',function(req,res){
-    var value = req.query.molecules;
-    console.log(value);
-    res.render('send',{data : value});
-});
-
-app.get('/searchsymptons',function(req,res) {
-    var value = req.query.symptoms;
-    console.log(value);
-    Disease.find({symptoms: value}, '-_id disease_name', function (err, symptom) {
-        if (err) {
+    Disease.find({symptoms : value},'-_id disease_name').sort({"disease_name": 1}).exec(function(err,result){
+        if(err){
             console.log(err);
         }
-        else {
-            res.render('send', {data: symptom});
+        else{
+            res.render('index',{page : 'Disease_Information' , data : result});
         }
     });
 });
 
 app.get('/searchorgans',function(req,res){
     var value = JSON.parse(req.query.organs);
-    if(req.session.userID){
-        res.render('profile', {page: 'Disease_Information', data: value});
-    }
-    else {
-        res.render('index', {page: 'Disease_Information', data: value});
-    }
+    Disease.find({'organs.subhead' : value}, '-_id disease_name').sort({"disease_name": 1}).exec(function (err, result) {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            res.render('index', {page: 'Disease_Information', data: result});
+        }
+    });
 });
 
 app.get('/searchcategories',function(req,res){
@@ -1180,21 +1162,10 @@ app.get('/searchcategories',function(req,res){
             console.log(err);
         }
         else {
-            if(req.session.userID){
-                res.render('profile', {page: 'Drug_Information', data: value});
-            }
-            else{
             res.render('index',{page : 'Drug_Information' , data : brand});
         }
-        }
     });
-});
-
-app.get('/searchcategories',function(req,res){
-    var value = req.query.categories;
-    console.log(typeof value);
-    console.log(value[0]);
-    res.send(value);
+    //res.render('index',{page : 'Drug_Information' , data : value});
 });
 
 ////////////For search during submitting//////////////
