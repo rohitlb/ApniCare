@@ -4345,7 +4345,7 @@ app.post('/doctorregistration',function(req,res){
         name : name,
         number : number,
         email: email,
-        password : password,
+        password : password
     });
     doctor.save(function(err,result){
         if(err){
