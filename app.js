@@ -1040,6 +1040,7 @@ app.post('/searchspecificweb',function(req,res){
         }
     });
 });
+
 app.post('/searchweb', function(req, res) {
     var raw = req.body.term;
     var spaceRemoved = raw.replace(/\s/g, '');
@@ -1126,12 +1127,12 @@ app.get('/searchsymptons',function(req,res) {
         res.render('index', {page: 'Disease_Information', data: value});
     }
 });
+
 app.get('/searchbrands',function(req,res){
     var value = req.query.brands;
     console.log(value);
     res.render('send',{data : value});
 });
-
 
 app.get('/searchdiseases',function(req,res){
     var value = req.query.diseases;
@@ -3386,7 +3387,6 @@ app.get('/pharmaasuser',function (req,res) {
 
 ///////////////////////////////////////Doctor  Profile Insert //////////////////////////////////////////////////////////
 
-
 app.get('/health_care_provider',function(req,res) {
     var page = 'home';
     var brand = req.query.brand;
@@ -3588,7 +3588,7 @@ app.get('/health_care_provider',function(req,res) {
 
         Brand.find({brand_name : brand},'-_id brand_name categories types primarily_used_for').populate(
             {path : 'dosage_id', select : '-_id dosage_form',populate :
-                    {path : 'strength_id', select : '-_id strength strengths packaging prescription dose_taken warnings price dose_timing potent_substance.name potent_substance.molecule_strength'}
+                {path : 'strength_id', select : '-_id strength strengths packaging prescription dose_taken warnings price dose_timing potent_substance.name potent_substance.molecule_strength'}
             }).populate(
             {path : 'company_id', select: '-_id company_name'}).sort({brand_name : 1}).exec(function (err,brand) {
             if (err) {
@@ -3599,15 +3599,6 @@ app.get('/health_care_provider',function(req,res) {
                     if (req.query.page == 'home' || req.query.page == 'profile_doctor' || req.query.page == 'profile_student_pharmacist' || req.query.page == 'profile_student_doctor' || req.query.page == 'profile_student_pharmacist' || req.query.page == 'profile' || req.query.page == 'profile_pharmacist' || req.query.page == 'drug_data' || req.query.page == 'molecule_data' || req.query.page == 'disease_data' || req.query.page == 'drug_data_form' || req.query.page == 'molecule_data_form' || req.query.page == 'disease_data_form' || req.query.page == 'feedback_contributions' || req.query.page == 'feedback_profile' || req.query.page == 'notifications' || req.query.page == 'need_help') {
                         page = req.query.page;
                     }
-                    // console.log(brand[0].dosage_id);
-                    // for(var i = 0; i < brand[0].dosage_id ;i++){
-                    //     if(brand[0].dosage_id[i].dosage_form == '') {
-                    //
-                    //     }
-                    // }
-                    // async.each(brand[0].dosage_id,function(particular_brand,callback){
-                    //     console.log(particular_brand.dosage_form);
-                    // });
                     res.render('home_profile_doctor',
                         {
                             page: 'drug_data_view',
@@ -3644,6 +3635,7 @@ app.get('/health_care_provider',function(req,res) {
     if(req.query.molecule) {
 
         Molecule.find({molecule_name : molecule}).sort({molecule_name:1}).exec(function (err,result) {
+            //console.log(result);
             if (err) {
                 console.log(err);
             }
@@ -3687,7 +3679,7 @@ app.get('/health_care_provider',function(req,res) {
 
         Brand.find({},'-_id brand_name types categories').populate(
             {path : 'dosage_id', select : '-_id dosage_form',populate :
-                    {path : 'strength_id', select : '-_id strength strengths packaging potent_substance.name potent_substance.molecule_strength'}
+                {path : 'strength_id', select : '-_id strength strengths packaging potent_substance.name potent_substance.molecule_strength'}
             }).populate({path : 'company_id', select: '-_id company_name'}).sort({brand_name : 1}).exec(function (err,brand) {
             if (err) {
                 console.log(err);
@@ -3712,6 +3704,7 @@ app.get('/health_care_provider',function(req,res) {
 
     if(req.query.page == 'disease_data') {
 
+        //console.log('Hey there');
         Disease.find().sort({disease_name : 1}).exec(function (err,disease) {
             if (err) {
                 console.log(err);
@@ -3730,6 +3723,7 @@ app.get('/health_care_provider',function(req,res) {
     if(req.query.page == 'drug_data_form') {
 
         var brand = req.body.brand;
+        console.log(brand);
         Brand.find({brand_name: brand}, function (err, brand) {
             if (err) {
                 console.log(err);
@@ -3749,6 +3743,7 @@ app.get('/health_care_provider',function(req,res) {
 
     if(req.query.page == 'disease_data_form') {
         var disease = req.body.disease;
+        console.log(disease);
         Disease.find({disease_name: disease}, function (err, disease) {
             if (err) {
                 console.log(err);
@@ -3787,7 +3782,7 @@ app.get('/health_care_provider',function(req,res) {
     if(req.query.page == 'molecule_data') {
 
         Molecule.find({},'-_id -__v').populate({path : 'dosage_id', select : '-_id -__v',populate : {
-                path : 'strength_id', select : '-_id -__v'}}).populate({path : 'company_id'}
+            path : 'strength_id', select : '-_id -__v'}}).populate({path : 'company_id'}
         ).sort({molecule_name:1}).exec(function (err,molecule) {
             if (err) {
                 console.log(err);
@@ -4079,7 +4074,7 @@ app.post('/health_care_provider',function(req,res) {
 
         Brand.find({brand_name : brand},'-_id brand_name categories types primarily_used_for').populate(
             {path : 'dosage_id', select : '-_id dosage_form',populate :
-                    {path : 'strength_id', select : '-_id strength strengths packaging prescription dose_taken warnings price dose_timing potent_substance.name potent_substance.molecule_strength'}
+                {path : 'strength_id', select : '-_id strength strengths packaging prescription dose_taken warnings price dose_timing potent_substance.name potent_substance.molecule_strength'}
             }).populate(
             {path : 'company_id', select: '-_id company_name'}).sort({brand_name : 1}).exec(function (err,brand) {
             if (err) {
@@ -4126,6 +4121,7 @@ app.post('/health_care_provider',function(req,res) {
     if(req.query.molecule) {
 
         Molecule.find({molecule_name : molecule}).sort({molecule_name:1}).exec(function (err,result) {
+            //console.log(result);
             if (err) {
                 console.log(err);
             }
@@ -4169,7 +4165,7 @@ app.post('/health_care_provider',function(req,res) {
 
         Brand.find({},'-_id brand_name types categories').populate(
             {path : 'dosage_id', select : '-_id dosage_form',populate :
-                    {path : 'strength_id', select : '-_id strength strengths packaging potent_substance.name potent_substance.molecule_strength'}
+                {path : 'strength_id', select : '-_id strength strengths packaging potent_substance.name potent_substance.molecule_strength'}
             }).populate({path : 'company_id', select: '-_id company_name'}).sort({brand_name : 1}).exec(function (err,brand) {
             if (err) {
                 console.log(err);
@@ -4194,6 +4190,7 @@ app.post('/health_care_provider',function(req,res) {
 
     if(req.query.page == 'disease_data') {
 
+        //console.log('Hey there');
         Disease.find().sort({disease_name : 1}).exec(function (err,disease) {
             if (err) {
                 console.log(err);
@@ -4212,6 +4209,7 @@ app.post('/health_care_provider',function(req,res) {
     if(req.query.page == 'drug_data_form') {
 
         var brand = req.body.brand;
+        console.log(brand);
         Brand.find({brand_name: brand}, function (err, brand) {
             if (err) {
                 console.log(err);
@@ -4231,6 +4229,7 @@ app.post('/health_care_provider',function(req,res) {
 
     if(req.query.page == 'disease_data_form') {
         var disease = req.body.disease;
+        console.log(disease);
         Disease.find({disease_name: disease}, function (err, disease) {
             if (err) {
                 console.log(err);
@@ -4269,7 +4268,7 @@ app.post('/health_care_provider',function(req,res) {
     if(req.query.page == 'molecule_data') {
 
         Molecule.find({},'-_id -__v').populate({path : 'dosage_id', select : '-_id -__v',populate : {
-                path : 'strength_id', select : '-_id -__v'}}).populate({path : 'company_id'}
+            path : 'strength_id', select : '-_id -__v'}}).populate({path : 'company_id'}
         ).sort({molecule_name:1}).exec(function (err,molecule) {
             if (err) {
                 console.log(err);
@@ -4359,6 +4358,979 @@ app.post('/health_care_provider',function(req,res) {
         });
     }
 });
+
+// app.get('/health_care_provider',function(req,res) {
+//     var page = 'home';
+//     var brand = req.query.brand;
+//     var disease = req.query.disease;
+//     var molecule = req.query.molecule;
+//     console.log(req.query.page);
+//     if(req.query.page == 'profile') {
+//         Doctor.find({_id : req.session.doctorID},function (err,result) {
+//             if(err){
+//                 console.log(err);
+//             }
+//             else{
+//                 if(result != ""){
+//                     if(result[0].occupation == 'student') {
+//                         page = 'profile_student_doctor';
+//                         res.render('home_profile_doctor',
+//                             {
+//                                 page: page,
+//                                 data: result
+//                             });
+//                     }
+//                     else{
+//                         page = 'profile_doctor';
+//                         res.render('home_profile_doctor',
+//                             {
+//                                 page: page,
+//                                 data: result
+//                             });
+//                     }
+//                 }
+//                 else{
+//                     Pharma.find({_id : req.session.pharmaID},function (errs,results) {
+//                         if(errs){
+//                             console.log(errs);
+//                         }
+//                         else{
+//                             if(results != ""){
+//                                 if(results[0].occupation == 'student'){
+//                                     page = 'profile_student_pharmacist';
+//                                     res.render('home_profile_doctor',
+//                                         {
+//                                             page: page,
+//                                             data: results
+//
+//                                         });
+//                                 }
+//                                 else{
+//                                     page = 'profile_pharmacist';
+//                                     res.render('home_profile_doctor',
+//                                         {
+//                                             page: page,
+//                                             data: results
+//
+//                                         });
+//                                 }
+//                             }
+//                             else {
+//                                 page = 'profile';
+//                                 if(req.session.doctorID) {
+//                                     res.render('home_profile_doctor',
+//                                         {
+//                                             page: page,
+//                                             data: result
+//
+//                                         });
+//                                 }
+//                                 else{
+//                                     res.render('home_profile_doctor',
+//                                         {
+//                                             page: page,
+//                                             data: results
+//
+//                                         });
+//                                 }
+//                             }
+//                         }
+//                     });
+//                 }
+//             }
+//         });
+//     }
+//
+//     if(req.query.page == 'profile_student_doctor') {
+//         Doctor.find({_id : req.session.doctorID},function (err,result) {
+//             if(err){
+//                 console.log(err);
+//             }
+//             else{
+//                 res.render('home_profile_doctor',
+//                     {
+//                         page: 'profile_student_doctor',
+//                         data: result
+//                     });
+//             }
+//         });
+//     }
+//
+//     if(req.query.page == 'profile_student_pharmacist') {
+//         Pharma.find({_id : req.session.pharmaID},function (err,result) {
+//             if(err){
+//                 console.log(err);
+//             }
+//             else{
+//                 res.render('home_profile_doctor',
+//                     {
+//                         page: 'profile_student_pharmacist',
+//                         data: result
+//                     });
+//             }
+//         });
+//     }
+//
+//     if(req.query.page == 'home') {
+//         Doctor.findOne({_id: req.session.doctorID}, function (err, result) {
+//             if (err) {
+//                 console.log(err)
+//             }
+//             else {
+//                 if(result != "") {
+//                     res.render('home_profile_doctor',
+//                         {
+//                             page: 'home',
+//                             data: result
+//                         });
+//                 }
+//                 else{
+//                     Pharma.findOne({_id: req.session.pharmaID}, function (err, results) {
+//                         if (err) {
+//                             console.log(err);
+//                         }
+//                         else {
+//                             if(results != "") {
+//                                 res.render('home_profile_doctor',
+//                                     {
+//                                         page: 'home',
+//                                         data: results
+//                                     });
+//                             }
+//                             else{
+//                                 res.send({status : "failure", message : "please fill your details first"});
+//                             }
+//                         }
+//                     });
+//                 }
+//             }
+//         });
+//     }
+//
+//     if(req.query.page == 'profile_doctor') {
+//
+//         Doctor.find({_id : req.session.doctorID},function (err,result) {
+//             if(err){
+//                 console.log(err);
+//             }
+//             else{
+//                 res.render('home_profile_doctor',
+//                     {
+//                         page: 'profile_doctor',
+//                         data: result
+//                     });
+//             }
+//         });
+//     }
+//
+//     if(req.query.page == 'profile_pharmacist') {
+//         Pharma.find({_id: req.session.pharmaID}, function (err, result) {
+//             if (err) {
+//                 console.log(err);
+//             }
+//             else {
+//                 res.render('home_profile_doctor',
+//                     {
+//                         page: 'profile_pharmacist',
+//                         data: result
+//                     });
+//             }
+//         });
+//     }
+//
+//     if(req.query.page == 'pharma_registered') {
+//         Pharma.findOne({_id: req.session.pharmaID}, function (err, result) {
+//             if (err) {
+//                 console.log(err)
+//             }
+//             else {
+//                 if (req.query.page == 'pharma_registered')
+//                     page = req.query.page;
+//                 res.render('home_profile_doctor',
+//                     {
+//                         page: page,
+//                         data: result
+//
+//                     });
+//             }
+//         });
+//     }
+//
+//     if(req.query.brand) {
+//
+//         Brand.find({brand_name : brand},'-_id brand_name categories types primarily_used_for').populate(
+//             {path : 'dosage_id', select : '-_id dosage_form',populate :
+//                     {path : 'strength_id', select : '-_id strength strengths packaging prescription dose_taken warnings price dose_timing potent_substance.name potent_substance.molecule_strength'}
+//             }).populate(
+//             {path : 'company_id', select: '-_id company_name'}).sort({brand_name : 1}).exec(function (err,brand) {
+//             if (err) {
+//                 console.log(err);
+//             }
+//             else {
+//                 if(brand != "") {
+//                     if (req.query.page == 'home' || req.query.page == 'profile_doctor' || req.query.page == 'profile_student_pharmacist' || req.query.page == 'profile_student_doctor' || req.query.page == 'profile_student_pharmacist' || req.query.page == 'profile' || req.query.page == 'profile_pharmacist' || req.query.page == 'drug_data' || req.query.page == 'molecule_data' || req.query.page == 'disease_data' || req.query.page == 'drug_data_form' || req.query.page == 'molecule_data_form' || req.query.page == 'disease_data_form' || req.query.page == 'feedback_contributions' || req.query.page == 'feedback_profile' || req.query.page == 'notifications' || req.query.page == 'need_help') {
+//                         page = req.query.page;
+//                     }
+//                     // console.log(brand[0].dosage_id);
+//                     // for(var i = 0; i < brand[0].dosage_id ;i++){
+//                     //     if(brand[0].dosage_id[i].dosage_form == '') {
+//                     //
+//                     //     }
+//                     // }
+//                     // async.each(brand[0].dosage_id,function(particular_brand,callback){
+//                     //     console.log(particular_brand.dosage_form);
+//                     // });
+//                     res.render('home_profile_doctor',
+//                         {
+//                             page: 'drug_data_view',
+//                             data: brand
+//                         });
+//                 }
+//                 else{
+//                     res.send({details : "failure", message : "No brand exist"});
+//                 }
+//             }
+//         });
+//     }
+//
+//     if(req.query.page == 'drug_data_view'){
+//         if (req.query.page == 'home' || req.query.page == 'profile_doctor' || req.query.page == 'drug_data_view' || req.query.page == 'profile_student_pharmacist' || req.query.page == 'profile_student_doctor' || req.query.page == 'profile_student_pharmacist' || req.query.page == 'profile' || req.query.page == 'profile_pharmacist' || req.query.page == 'drug_data' || req.query.page == 'molecule_data' || req.query.page == 'disease_data' || req.query.page == 'drug_data_form' || req.query.page == 'molecule_data_form' || req.query.page == 'disease_data_form' || req.query.page == 'feedback_contributions' || req.query.page == 'feedback_profile' || req.query.page == 'notifications' || req.query.page == 'need_help') {
+//             page = req.query.page;
+//         }
+//         res.render('home_profile_doctor',
+//             {
+//                 page: page,
+//                 data: brand
+//             });
+//     }
+//
+//     if(req.query.page == 'disease_data_view'){
+//         page = req.query.page;
+//         res.render('home_profile_doctor',
+//             {
+//                 page: page,
+//                 data: disease
+//             });
+//     }
+//
+//     if(req.query.molecule) {
+//
+//         Molecule.find({molecule_name : molecule}).sort({molecule_name:1}).exec(function (err,result) {
+//             if (err) {
+//                 console.log(err);
+//             }
+//             else {
+//                 if(molecule != "") {
+//                     res.render('home_profile_doctor',
+//                         {
+//                             page: 'molecule_data_view',
+//                             data: result
+//                         });
+//                 }
+//                 else{
+//                     res.send({details : "failure", message : "No such molecule exist"});
+//                 }
+//             }
+//         })
+//     }
+//
+//     if(req.query.disease) {
+//
+//         Disease.find({disease_name : disease}).sort({disease_name:1}).exec(function (err,disease) {
+//             if (err) {
+//                 console.log(err);
+//             }
+//             else {
+//                 if(disease != "") {
+//                     res.render('home_profile_doctor',
+//                         {
+//                             page: 'disease_data_view',
+//                             data: disease
+//                         });
+//                 }
+//                 else{
+//                     res.send({details : "failure", message : "No such disease exist"});
+//                 }
+//             }
+//         });
+//     }
+//
+//     if(req.query.page == 'drug_data') {
+//
+//         Brand.find({},'-_id brand_name types categories').populate(
+//             {path : 'dosage_id', select : '-_id dosage_form',populate :
+//                     {path : 'strength_id', select : '-_id strength strengths packaging potent_substance.name potent_substance.molecule_strength'}
+//             }).populate({path : 'company_id', select: '-_id company_name'}).sort({brand_name : 1}).exec(function (err,brand) {
+//             if (err) {
+//                 console.log(err);
+//             }
+//             else {
+//                 if(brand != "") {
+//                     if (req.query.page == 'home' || req.query.page == 'profile_doctor' || req.query.page == 'profile_student_pharmacist' || req.query.page == 'profile_student_doctor' || req.query.page == 'profile_student_pharmacist' || req.query.page == 'profile' || req.query.page == 'profile_pharmacist' || req.query.page == 'drug_data' || req.query.page == 'molecule_data' || req.query.page == 'disease_data' || req.query.page == 'drug_data_form' || req.query.page == 'molecule_data_form' || req.query.page == 'disease_data_form' || req.query.page == 'feedback_contributions' || req.query.page == 'feedback_profile' || req.query.page == 'notifications' || req.query.page == 'need_help') {
+//                         page = req.query.page;
+//                     }
+//                     res.render('home_profile_doctor',
+//                         {
+//                             page: page,
+//                             data: brand
+//                         });
+//                 }
+//                 else{
+//                     res.send({details : "failure", message : "No brand exist"});
+//                 }
+//             }
+//         });
+//     }
+//
+//     if(req.query.page == 'disease_data') {
+//
+//         Disease.find().sort({disease_name : 1}).exec(function (err,disease) {
+//             if (err) {
+//                 console.log(err);
+//             }
+//             else {
+//                 res.render('home_profile_doctor',
+//                     {
+//                         page: "disease_data",
+//                         data: disease
+//
+//                     });
+//             }
+//         });
+//     }
+//
+//     if(req.query.page == 'drug_data_form') {
+//
+//         var brand = req.body.brand;
+//         Brand.find({brand_name: brand}, function (err, brand) {
+//             if (err) {
+//                 console.log(err);
+//             }
+//             else {
+//                 if (req.query.page == 'home' || req.query.page == 'profile_doctor' || req.query.page == 'profile_student_pharmacist' || req.query.page == 'profile_student_doctor' || req.query.page == 'profile' || req.query.page == 'profile_pharmacist' || req.query.page == 'drug_data' || req.query.page == 'molecule_data' || req.query.page == 'disease_data' || req.query.page == 'drug_data_form' || req.query.page == 'molecule_data_form' || req.query.page == 'disease_data_form' || req.query.page == 'feedback_contributions' || req.query.page == 'feedback_profile' || req.query.page == 'notifications' || req.query.page == 'need_help')
+//                     page = req.query.page;
+//                 res.render('home_profile_doctor',
+//                     {
+//                         page: page,
+//                         data: brand
+//
+//                     });
+//             }
+//         });
+//     }
+//
+//     if(req.query.page == 'disease_data_form') {
+//         var disease = req.body.disease;
+//         Disease.find({disease_name: disease}, function (err, disease) {
+//             if (err) {
+//                 console.log(err);
+//             }
+//             else {
+//                 page = req.query.page;
+//                 res.render('home_profile_doctor',
+//                     {
+//                         page: page,
+//                         data: disease
+//                     });
+//             }
+//         });
+//     }
+//
+//     if(req.query.page == 'molecule_data_form') {
+//
+//         Brand.find().populate({path : 'dosage_id',populate : {path : 'strength_id'}}).populate({path : 'company_id'}).exec(function (err,brand) {
+//             if (err) {
+//                 console.log(err);
+//             }
+//             else {
+//                 if (req.query.page == 'home' || req.query.page == 'profile_doctor' || req.query.page == 'profile_student_pharmacist' ||  req.query.page == 'profile_student_doctor' || req.query.page == 'profile' || req.query.page == 'profile_pharmacist' || req.query.page == 'drug_data' || req.query.page == 'molecule_data' || req.query.page == 'disease_data' || req.query.page == 'drug_data_form' || req.query.page == 'molecule_data_form' || req.query.page == 'disease_data_form' || req.query.page == 'feedback_contributions' || req.query.page == 'feedback_profile' || req.query.page == 'notifications' || req.query.page == 'need_help') {
+//                     page = req.query.page;
+//                 }
+//                 res.render('home_profile_doctor',
+//                     {
+//                         page: page,
+//                         data: brand
+//
+//                     });
+//             }
+//         });
+//     }
+//
+//     if(req.query.page == 'molecule_data') {
+//
+//         Molecule.find({},'-_id -__v').populate({path : 'dosage_id', select : '-_id -__v',populate : {
+//                 path : 'strength_id', select : '-_id -__v'}}).populate({path : 'company_id'}
+//         ).sort({molecule_name:1}).exec(function (err,molecule) {
+//             if (err) {
+//                 console.log(err);
+//             }
+//             else {
+//                 page = req.query.page;
+//                 res.render('home_profile_doctor',
+//                     {
+//                         page: page,
+//                         data: molecule
+//
+//                     });
+//             }
+//         });
+//     }
+//
+//     if(req.query.page == 'notifications') {
+//         Doctor.findOne({_id: req.session.doctorID}, function (err, result) {
+//             if (err) {
+//                 console.log(err)
+//             }
+//             else {
+//                 if (req.query.page == 'home' || req.query.page == 'notifications' || req.query.page == 'profile_doctor' || req.query.page == 'profile_student_doctor' || req.query.page == 'profile_student_pharmacist' || req.query.page == 'profile' || req.query.page == 'profile_pharmacist' || req.query.page == 'drug_data' || req.query.page == 'molecule_data' || req.query.page == 'disease_data' || req.query.page == 'drug_data_form' || req.query.page == 'molecule_data_form' || req.query.page == 'disease_data_form' || req.query.page == 'feedback_contributions' || req.query.page == 'feedback_profile' || req.query.page == 'notifications' || req.query.page == 'need_help')
+//                     page = req.query.page;
+//                 res.render('home_profile_doctor',
+//                     {
+//                         page: page,
+//                         data: result
+//                     });
+//             }
+//         });
+//     }
+//
+//     if(req.query.page == 'need_help') {
+//         Doctor.findOne({_id: req.session.doctorID}, function (err, result) {
+//             if (err) {
+//                 console.log(err)
+//             }
+//             else {
+//                 if (req.query.page == 'home' || req.query.page == 'profile_doctor' ||  req.query.page == 'profile_student_doctor'  || req.query.page == 'profile_student_pharmacist' || req.query.page == 'profile' || req.query.page == 'profile_pharmacist' || req.query.page == 'drug_data' || req.query.page == 'molecule_data' || req.query.page == 'disease_data' || req.query.page == 'drug_data_form' || req.query.page == 'molecule_data_form' || req.query.page == 'disease_data_form' || req.query.page == 'feedback_contributions' || req.query.page == 'feedback_profile' || req.query.page == 'notifications' || req.query.page == 'need_help')
+//                     page = req.query.page;
+//                 res.render('home_profile_doctor',
+//                     {
+//                         page: page,
+//                         data: result
+//
+//                     });
+//             }
+//         });
+//     }
+//
+//     if(req.query.page == 'image') {
+//         Doctor.findOne({_id: req.session.doctorID}, function (err, result) {
+//             if (err) {
+//                 console.log(err)
+//             }
+//             else {
+//                 if (req.query.page == 'home' || req.query.page == 'image' ||  req.query.page == 'profile_student_doctor' || req.query.page == 'profile_student_pharmacist'  || req.query.page == 'profile_doctor' || req.query.page == 'profile' || req.query.page == 'profile_pharmacist' || req.query.page == 'drug_data' || req.query.page == 'molecule_data' || req.query.page == 'disease_data' || req.query.page == 'drug_data_form' || req.query.page == 'molecule_data_form' || req.query.page == 'disease_data_form' || req.query.page == 'feedback_contributions' || req.query.page == 'feedback_profile' || req.query.page == 'notifications' || req.query.page == 'need_help')
+//                     page = req.query.page;
+//                 res.render('home_profile_doctor',
+//                     {
+//                         page: page,
+//                         data: result
+//
+//                     });
+//             }
+//         });
+//     }
+//
+//     if((!req.query.page) && (!req.query.brand) && (!req.query.molecule) && (!req.query.disease)) {
+//
+//         Doctor.findOne({_id: req.session.doctorID}, function (err, result) {
+//             if (err) {
+//                 console.log(err)
+//             }
+//             else {
+//                 if (req.query.page == 'home' || req.query.page == 'profile_doctor' || req.query.page == 'profile_student_doctor' || req.query.page == 'profile_student_pharmacist' || req.query.page == 'profile' || req.query.page == 'profile_pharmacist' || req.query.page == 'drug_data' || req.query.page == 'molecule_data' || req.query.page == 'disease_data' || req.query.page == 'drug_data_form' || req.query.page == 'molecule_data_form' || req.query.page == 'disease_data_form' || req.query.page == 'feedback_contributions' || req.query.page == 'feedback_profile' || req.query.page == 'notifications' || req.query.page == 'need_help') {
+//                     page = req.query.page;
+//                 }
+//                 res.render('home_profile_doctor',
+//                     {
+//                         page: page,
+//                         data: result
+//
+//                     });
+//             }
+//         });
+//     }
+// });
+
+// app.post('/health_care_provider',function(req,res) {
+//     var page = 'home';
+//     var brand = req.query.brand;
+//     var disease = req.query.disease;
+//     var molecule = req.query.molecule;
+//
+//     if(req.query.page == 'profile') {
+//         Doctor.find({_id : req.session.doctorID},function (err,result) {
+//             if(err){
+//                 console.log(err);
+//             }
+//             else{
+//                 if(result != ""){
+//                     if(result[0].occupation == 'student') {
+//                         page = 'profile_student_doctor';
+//                         res.render('home_profile_doctor',
+//                             {
+//                                 page: page,
+//                                 data: result
+//                             });
+//                     }
+//                     else{
+//                         page = 'profile_doctor';
+//                         res.render('home_profile_doctor',
+//                             {
+//                                 page: page,
+//                                 data: result
+//                             });
+//                     }
+//                 }
+//                 else{
+//                     Pharma.find({_id : req.session.pharmaID},function (errs,results) {
+//                         if(errs){
+//                             console.log(errs);
+//                         }
+//                         else{
+//                             if(results != ""){
+//                                 if(results[0].occupation == 'student'){
+//                                     page = 'profile_student_pharmacist';
+//                                     res.render('home_profile_doctor',
+//                                         {
+//                                             page: page,
+//                                             data: results
+//
+//                                         });
+//                                 }
+//                                 else{
+//                                     page = 'profile_pharmacist';
+//                                     res.render('home_profile_doctor',
+//                                         {
+//                                             page: page,
+//                                             data: results
+//
+//                                         });
+//                                 }
+//                             }
+//                             else {
+//                                 page = 'profile';
+//                                 if(req.session.doctorID) {
+//                                     res.render('home_profile_doctor',
+//                                         {
+//                                             page: page,
+//                                             data: result
+//
+//                                         });
+//                                 }
+//                                 else{
+//                                     res.render('home_profile_doctor',
+//                                         {
+//                                             page: page,
+//                                             data: results
+//
+//                                         });
+//                                 }
+//                             }
+//                         }
+//                     });
+//                 }
+//             }
+//         });
+//     }
+//
+//     if(req.query.page == 'profile_student_doctor') {
+//         Doctor.find({_id : req.session.doctorID},function (err,result) {
+//             if(err){
+//                 console.log(err);
+//             }
+//             else{
+//                 res.render('home_profile_doctor',
+//                     {
+//                         page: 'profile_student_doctor',
+//                         data: result
+//                     });
+//             }
+//         });
+//     }
+//
+//     if(req.query.page == 'profile_student_pharmacist') {
+//         Pharma.find({_id : req.session.pharmaID},function (err,result) {
+//             if(err){
+//                 console.log(err);
+//             }
+//             else{
+//                 res.render('home_profile_doctor',
+//                     {
+//                         page: 'profile_student_pharmacist',
+//                         data: result
+//                     });
+//             }
+//         });
+//     }
+//
+//     if(req.query.page == 'home') {
+//         Doctor.findOne({_id: req.session.doctorID}, function (err, result) {
+//             if (err) {
+//                 console.log(err)
+//             }
+//             else {
+//                 if(result != "") {
+//                     res.render('home_profile_doctor',
+//                         {
+//                             page: 'home',
+//                             data: result
+//                         });
+//                 }
+//                 else{
+//                     Pharma.findOne({_id: req.session.pharmaID}, function (err, results) {
+//                         if (err) {
+//                             console.log(err);
+//                         }
+//                         else {
+//                             if(results != "") {
+//                                 res.render('home_profile_doctor',
+//                                     {
+//                                         page: 'home',
+//                                         data: results
+//                                     });
+//                             }
+//                             else{
+//                                 res.send({status : "failure", message : "please fill your details first"});
+//                             }
+//                         }
+//                     });
+//                 }
+//             }
+//         });
+//     }
+//
+//     if(req.query.page == 'profile_doctor') {
+//
+//         Doctor.find({_id : req.session.doctorID},function (err,result) {
+//             if(err){
+//                 console.log(err);
+//             }
+//             else{
+//                 res.render('home_profile_doctor',
+//                     {
+//                         page: 'profile_doctor',
+//                         data: result
+//                     });
+//             }
+//         });
+//     }
+//
+//     if(req.query.page == 'profile_pharmacist') {
+//         Pharma.find({_id: req.session.pharmaID}, function (err, result) {
+//             if (err) {
+//                 console.log(err);
+//             }
+//             else {
+//                 res.render('home_profile_doctor',
+//                     {
+//                         page: 'profile_pharmacist',
+//                         data: result
+//                     });
+//             }
+//         });
+//     }
+//
+//     if(req.query.page == 'pharma_registered') {
+//         Pharma.findOne({_id: req.session.pharmaID}, function (err, result) {
+//             if (err) {
+//                 console.log(err)
+//             }
+//             else {
+//                 if (req.query.page == 'pharma_registered')
+//                     page = req.query.page;
+//                 res.render('home_profile_doctor',
+//                     {
+//                         page: page,
+//                         data: result
+//
+//                     });
+//             }
+//         });
+//     }
+//
+//     if(req.query.brand) {
+//
+//         Brand.find({brand_name : brand},'-_id brand_name categories types primarily_used_for').populate(
+//             {path : 'dosage_id', select : '-_id dosage_form',populate :
+//                     {path : 'strength_id', select : '-_id strength strengths packaging prescription dose_taken warnings price dose_timing potent_substance.name potent_substance.molecule_strength'}
+//             }).populate(
+//             {path : 'company_id', select: '-_id company_name'}).sort({brand_name : 1}).exec(function (err,brand) {
+//             if (err) {
+//                 console.log(err);
+//             }
+//             else {
+//                 if(brand != "") {
+//                     if (req.query.page == 'home' || req.query.page == 'profile_doctor' || req.query.page == 'profile_student_pharmacist' || req.query.page == 'profile_student_doctor' || req.query.page == 'profile_student_pharmacist' || req.query.page == 'profile' || req.query.page == 'profile_pharmacist' || req.query.page == 'drug_data' || req.query.page == 'molecule_data' || req.query.page == 'disease_data' || req.query.page == 'drug_data_form' || req.query.page == 'molecule_data_form' || req.query.page == 'disease_data_form' || req.query.page == 'feedback_contributions' || req.query.page == 'feedback_profile' || req.query.page == 'notifications' || req.query.page == 'need_help') {
+//                         page = req.query.page;
+//                     }
+//                     res.render('home_profile_doctor',
+//                         {
+//                             page: 'drug_data_view',
+//                             data: brand
+//                         });
+//                 }
+//                 else{
+//                     res.send({details : "failure", message : "No brand exist"});
+//                 }
+//             }
+//         });
+//     }
+//
+//     if(req.query.page == 'drug_data_view'){
+//         if (req.query.page == 'home' || req.query.page == 'profile_doctor' || req.query.page == 'drug_data_view' || req.query.page == 'profile_student_pharmacist' || req.query.page == 'profile_student_doctor' || req.query.page == 'profile_student_pharmacist' || req.query.page == 'profile' || req.query.page == 'profile_pharmacist' || req.query.page == 'drug_data' || req.query.page == 'molecule_data' || req.query.page == 'disease_data' || req.query.page == 'drug_data_form' || req.query.page == 'molecule_data_form' || req.query.page == 'disease_data_form' || req.query.page == 'feedback_contributions' || req.query.page == 'feedback_profile' || req.query.page == 'notifications' || req.query.page == 'need_help') {
+//             page = req.query.page;
+//         }
+//         res.render('home_profile_doctor',
+//             {
+//                 page: page,
+//                 data: brand
+//             });
+//     }
+//
+//     if(req.query.page == 'disease_data_view'){
+//         page = req.query.page;
+//         res.render('home_profile_doctor',
+//             {
+//                 page: page,
+//                 data: disease
+//             });
+//     }
+//
+//     if(req.query.molecule) {
+//
+//         Molecule.find({molecule_name : molecule}).sort({molecule_name:1}).exec(function (err,result) {
+//             if (err) {
+//                 console.log(err);
+//             }
+//             else {
+//                 if(molecule != "") {
+//                     res.render('home_profile_doctor',
+//                         {
+//                             page: 'molecule_data_view',
+//                             data: result
+//                         });
+//                 }
+//                 else{
+//                     res.send({details : "failure", message : "No such molecule exist"});
+//                 }
+//             }
+//         })
+//     }
+//
+//     if(req.query.disease) {
+//
+//         Disease.find({disease_name : disease}).sort({disease_name:1}).exec(function (err,disease) {
+//             if (err) {
+//                 console.log(err);
+//             }
+//             else {
+//                 if(disease != "") {
+//                     res.render('home_profile_doctor',
+//                         {
+//                             page: 'disease_data_view',
+//                             data: disease
+//                         });
+//                 }
+//                 else{
+//                     res.send({details : "failure", message : "No such disease exist"});
+//                 }
+//             }
+//         });
+//     }
+//
+//     if(req.query.page == 'drug_data') {
+//
+//         Brand.find({},'-_id brand_name types categories').populate(
+//             {path : 'dosage_id', select : '-_id dosage_form',populate :
+//                     {path : 'strength_id', select : '-_id strength strengths packaging potent_substance.name potent_substance.molecule_strength'}
+//             }).populate({path : 'company_id', select: '-_id company_name'}).sort({brand_name : 1}).exec(function (err,brand) {
+//             if (err) {
+//                 console.log(err);
+//             }
+//             else {
+//                 if(brand != "") {
+//                     if (req.query.page == 'home' || req.query.page == 'profile_doctor' || req.query.page == 'profile_student_pharmacist' || req.query.page == 'profile_student_doctor' || req.query.page == 'profile_student_pharmacist' || req.query.page == 'profile' || req.query.page == 'profile_pharmacist' || req.query.page == 'drug_data' || req.query.page == 'molecule_data' || req.query.page == 'disease_data' || req.query.page == 'drug_data_form' || req.query.page == 'molecule_data_form' || req.query.page == 'disease_data_form' || req.query.page == 'feedback_contributions' || req.query.page == 'feedback_profile' || req.query.page == 'notifications' || req.query.page == 'need_help') {
+//                         page = req.query.page;
+//                     }
+//                     res.render('home_profile_doctor',
+//                         {
+//                             page: page,
+//                             data: brand
+//                         });
+//                 }
+//                 else{
+//                     res.send({details : "failure", message : "No brand exist"});
+//                 }
+//             }
+//         });
+//     }
+//
+//     if(req.query.page == 'disease_data') {
+//
+//         Disease.find().sort({disease_name : 1}).exec(function (err,disease) {
+//             if (err) {
+//                 console.log(err);
+//             }
+//             else {
+//                 res.render('home_profile_doctor',
+//                     {
+//                         page: "disease_data",
+//                         data: disease
+//
+//                     });
+//             }
+//         });
+//     }
+//
+//     if(req.query.page == 'drug_data_form') {
+//
+//         var brand = req.body.brand;
+//         Brand.find({brand_name: brand}, function (err, brand) {
+//             if (err) {
+//                 console.log(err);
+//             }
+//             else {
+//                 if (req.query.page == 'home' || req.query.page == 'profile_doctor' || req.query.page == 'profile_student_pharmacist' || req.query.page == 'profile_student_doctor' || req.query.page == 'profile' || req.query.page == 'profile_pharmacist' || req.query.page == 'drug_data' || req.query.page == 'molecule_data' || req.query.page == 'disease_data' || req.query.page == 'drug_data_form' || req.query.page == 'molecule_data_form' || req.query.page == 'disease_data_form' || req.query.page == 'feedback_contributions' || req.query.page == 'feedback_profile' || req.query.page == 'notifications' || req.query.page == 'need_help')
+//                     page = req.query.page;
+//                 res.render('home_profile_doctor',
+//                     {
+//                         page: page,
+//                         data: brand
+//
+//                     });
+//             }
+//         });
+//     }
+//
+//     if(req.query.page == 'disease_data_form') {
+//         var disease = req.body.disease;
+//         Disease.find({disease_name: disease}, function (err, disease) {
+//             if (err) {
+//                 console.log(err);
+//             }
+//             else {
+//                 page = req.query.page;
+//                 res.render('home_profile_doctor',
+//                     {
+//                         page: page,
+//                         data: disease
+//                     });
+//             }
+//         });
+//     }
+//
+//     if(req.query.page == 'molecule_data_form') {
+//
+//         Brand.find().populate({path : 'dosage_id',populate : {path : 'strength_id'}}).populate({path : 'company_id'}).exec(function (err,brand) {
+//             if (err) {
+//                 console.log(err);
+//             }
+//             else {
+//                 if (req.query.page == 'home' || req.query.page == 'profile_doctor' || req.query.page == 'profile_student_pharmacist' ||  req.query.page == 'profile_student_doctor' || req.query.page == 'profile' || req.query.page == 'profile_pharmacist' || req.query.page == 'drug_data' || req.query.page == 'molecule_data' || req.query.page == 'disease_data' || req.query.page == 'drug_data_form' || req.query.page == 'molecule_data_form' || req.query.page == 'disease_data_form' || req.query.page == 'feedback_contributions' || req.query.page == 'feedback_profile' || req.query.page == 'notifications' || req.query.page == 'need_help') {
+//                     page = req.query.page;
+//                 }
+//                 res.render('home_profile_doctor',
+//                     {
+//                         page: page,
+//                         data: brand
+//
+//                     });
+//             }
+//         });
+//     }
+//
+//     if(req.query.page == 'molecule_data') {
+//
+//         Molecule.find({},'-_id -__v').populate({path : 'dosage_id', select : '-_id -__v',populate : {
+//                 path : 'strength_id', select : '-_id -__v'}}).populate({path : 'company_id'}
+//         ).sort({molecule_name:1}).exec(function (err,molecule) {
+//             if (err) {
+//                 console.log(err);
+//             }
+//             else {
+//                 page = req.query.page;
+//                 res.render('home_profile_doctor',
+//                     {
+//                         page: page,
+//                         data: molecule
+//
+//                     });
+//             }
+//         });
+//     }
+//
+//     if(req.query.page == 'notifications') {
+//         Doctor.findOne({_id: req.session.doctorID}, function (err, result) {
+//             if (err) {
+//                 console.log(err)
+//             }
+//             else {
+//                 if (req.query.page == 'home' || req.query.page == 'notifications' || req.query.page == 'profile_doctor' || req.query.page == 'profile_student_doctor' || req.query.page == 'profile_student_pharmacist' || req.query.page == 'profile' || req.query.page == 'profile_pharmacist' || req.query.page == 'drug_data' || req.query.page == 'molecule_data' || req.query.page == 'disease_data' || req.query.page == 'drug_data_form' || req.query.page == 'molecule_data_form' || req.query.page == 'disease_data_form' || req.query.page == 'feedback_contributions' || req.query.page == 'feedback_profile' || req.query.page == 'notifications' || req.query.page == 'need_help')
+//                     page = req.query.page;
+//                 res.render('home_profile_doctor',
+//                     {
+//                         page: page,
+//                         data: result
+//                     });
+//             }
+//         });
+//     }
+//
+//     if(req.query.page == 'need_help') {
+//         Doctor.findOne({_id: req.session.doctorID}, function (err, result) {
+//             if (err) {
+//                 console.log(err)
+//             }
+//             else {
+//                 if (req.query.page == 'home' || req.query.page == 'profile_doctor' ||  req.query.page == 'profile_student_doctor'  || req.query.page == 'profile_student_pharmacist' || req.query.page == 'profile' || req.query.page == 'profile_pharmacist' || req.query.page == 'drug_data' || req.query.page == 'molecule_data' || req.query.page == 'disease_data' || req.query.page == 'drug_data_form' || req.query.page == 'molecule_data_form' || req.query.page == 'disease_data_form' || req.query.page == 'feedback_contributions' || req.query.page == 'feedback_profile' || req.query.page == 'notifications' || req.query.page == 'need_help')
+//                     page = req.query.page;
+//                 res.render('home_profile_doctor',
+//                     {
+//                         page: page,
+//                         data: result
+//
+//                     });
+//             }
+//         });
+//     }
+//
+//     if(req.query.page == 'image') {
+//         Doctor.findOne({_id: req.session.doctorID}, function (err, result) {
+//             if (err) {
+//                 console.log(err)
+//             }
+//             else {
+//                 if (req.query.page == 'home' || req.query.page == 'image' ||  req.query.page == 'profile_student_doctor' || req.query.page == 'profile_student_pharmacist'  || req.query.page == 'profile_doctor' || req.query.page == 'profile' || req.query.page == 'profile_pharmacist' || req.query.page == 'drug_data' || req.query.page == 'molecule_data' || req.query.page == 'disease_data' || req.query.page == 'drug_data_form' || req.query.page == 'molecule_data_form' || req.query.page == 'disease_data_form' || req.query.page == 'feedback_contributions' || req.query.page == 'feedback_profile' || req.query.page == 'notifications' || req.query.page == 'need_help')
+//                     page = req.query.page;
+//                 res.render('home_profile_doctor',
+//                     {
+//                         page: page,
+//                         data: result
+//
+//                     });
+//             }
+//         });
+//     }
+//
+//     if((!req.query.page) && (!req.query.brand) && (!req.query.molecule) && (!req.query.disease)) {
+//
+//         Doctor.findOne({_id: req.session.doctorID}, function (err, result) {
+//             if (err) {
+//                 console.log(err)
+//             }
+//             else {
+//                 if (req.query.page == 'home' || req.query.page == 'profile_doctor' || req.query.page == 'profile_student_doctor' || req.query.page == 'profile_student_pharmacist' || req.query.page == 'profile' || req.query.page == 'profile_pharmacist' || req.query.page == 'drug_data' || req.query.page == 'molecule_data' || req.query.page == 'disease_data' || req.query.page == 'drug_data_form' || req.query.page == 'molecule_data_form' || req.query.page == 'disease_data_form' || req.query.page == 'feedback_contributions' || req.query.page == 'feedback_profile' || req.query.page == 'notifications' || req.query.page == 'need_help') {
+//                     page = req.query.page;
+//                 }
+//                 res.render('home_profile_doctor',
+//                     {
+//                         page: page,
+//                         data: result
+//
+//                     });
+//             }
+//         });
+//     }
+// });
 
 //////////////////// DRUG DATA VIEW//////////////////////////////
 
