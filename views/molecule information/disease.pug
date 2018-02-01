@@ -1,125 +1,143 @@
 - val = data[0]
-- subhead = data[0]
-div.col.l11.s11.m11#mol_col1
+- sub = data[0]
+div.col.l10.s10.m10#mol_col1
     div.row.center#mol_row1_subrow2
         h4   #{val.disease_name}
-div.row.m_p_info
-    div.col.lighten-3.s12.m8.l11
-        each val in data
-            //h3 #{val.disease_name.toUpperCase()}
-            if(val.symptoms)
-                li.section.scrollspy#symptoms
-                    span.bold What are the Symptoms of #{val.disease_name.toUpperCase()}?
-                    br
-                    span.next_line.flow-text #{val.symptoms}
-            if(val.risk_factor)
-                li.section.scrollspy#risk
-                    span.bold Who is at Risk for #{val.disease_name.toUpperCase()}?
-                    br
-                    span.next_line.flow-text #{val.risk_factor}
-            if(val.cause)
-                li.section.scrollspy#cause
-                    span.bold What Causes #{val.disease_name.toUpperCase()}?
-                    br
-                    span.next_line.flow-text #{val.cause}
-            if(val.diagnosis)
-                li.section.scrollspy#diagnosis
-                    span.bold  How is #{val.disease_name.toUpperCase()} Diagnosed?
-                    br
-                    each subhead in val.diagnosis
-                        span.next_line.text_upper_case #{subhead.subhead1}:
-                        span.next_line.flow-text #{subhead.subhead2}
-            if(val.treatment)
-                li.section.scrollspy#treatment
-                    span.bold How is #{val.disease_name.toUpperCase()} Treated?
-                    br
-                    span.next_line.flow-text #{val.treatment}
-            if(val.outlook)
-                li.section.scrollspy#outlook
-                    span.bold What is the Outlook for #{val.disease_name.toUpperCase()}?
-                    br
-                    span.next_line.flow-text #{val.outlook}
-            if(val.prevention)
-                li.section.scrollspy#prevention
-                    span.bold How can #{val.disease_name.toUpperCase()} be Prevented?
-                    br
-                    span.next_line.flow-text #{val.prevention}
-            h5.section.scrollspy#source Source:&nbsp
-                span.next_line #{val.source}
-
-        div.col.l3.m4.hide-on-small-only
-            ul.section.table-of-contents(style='position:fixed;padding-bottom:10px;')
-                li
-                    a(href='#symptoms') Symptoms
-                li
-                    a(href='#risk') Risk Factors
-                li
-                    a(href='#cause') Causes
-                li
-                    a(href='#diagnosis') Diagnosis
-                li
-                    a(href='#treatment') Treatment
-                li
-                    a(href='#outlook') Outlook
-                li
-                    a(href='#prevention') Prevention
-                li
-                    a(href='#source') Source
-
-            //each val in data
+    div.row.center#mol_row1_subrow3
+        div.drug_alphabets.pull-left
+            span.center
+                ul
+                    li.active
+                        a.btn2.all.hoverable(href='/ApniCare/information?page=Disease_Information' type='all') All
+                    li
+                        a.btn2.hoverable(href='/ApniCare/information?page=Disease_Information') A
+                    li
+                        a.btn2.hoverable(href='/ApniCare/information?page=Disease_Information') B
+                    li
+                        a.btn2.hoverable(href='/ApniCare/information?page=Disease_Information') C
+                    li
+                        a.btn2.hoverable(href='/ApniCare/information?page=Disease_Information') D
+                    li
+                        a.btn2.hoverable(href='/ApniCare/information?page=Disease_Information') E
+                    li
+                        a.btn2.hoverable(href='/ApniCare/information?page=Disease_Information') F
+                    li
+                        a.btn2.hoverable(href='/ApniCare/information?page=Disease_Information') G
+                    li
+                        a.btn2.hoverable(href='/ApniCare/information?page=Disease_Information') H
+                    li
+                        a.btn2.hoverable(href='/ApniCare/information?page=Disease_Information') I
+                    li
+                        a.btn2.hoverable(href='/ApniCare/information?page=Disease_Information') J
+                    li
+                        a.btn2.hoverable(href='/ApniCare/information?page=Disease_Information') K
+                    li
+                        a.btn2.hoverable(href='/ApniCare/information?page=Disease_Information') L
+                    li
+                        a.btn2.hoverable(href='/ApniCare/information?page=Disease_Information') M
+                    li
+                        a.btn2.hoverable(href='/ApniCare/information?page=Disease_Information') N
+                    li
+                        a.btn2.hoverable(href='/ApniCare/information?page=Disease_Information') O
+                    li
+                        a.btn2.hoverable(href='/ApniCare/information?page=Disease_Information') P
+                    li
+                        a.btn2.hoverable(href='/ApniCare/information?page=Disease_Information') Q
+                    li
+                        a.btn2.hoverable(href='/ApniCare/information?page=Disease_Information') R
+                    li
+                        a.btn2.hoverable(href='/ApniCare/information?page=Disease_Information') S
+                    li
+                        a.btn2.hoverable(href='/ApniCare/information?page=Disease_Information') T
+                    li
+                        a.btn2.hoverable(href='/ApniCare/information?page=Disease_Information') U
+                    li
+                        a.btn2.hoverable(href='/ApniCare/information?page=Disease_Information') V
+                    li
+                        a.btn2.hoverable(href='/ApniCare/information?page=Disease_Information') W
+                    li
+                        a.btn2.hoverable(href='/ApniCare/information?page=Disease_Information') X
+                    li
+                        a.btn2.hoverable(href='/ApniCare/information?page=Disease_Information') Y
+                    li
+                        a.btn2.hoverable(href='/ApniCare/information?page=Disease_Information') Z
+                    li
+                        a.btn2.all.hoverable(href='/ApniCare/information?page=Disease_Information' type='other') Other
+    div.row.m_p_info
+        div.col.lighten-3.s12.m8.l11
+            each val in data
+                //h3 #{val.disease_name.toUpperCase()}
                 if(val.symptoms!='')
-                    li#symptoms
-                        span.bold What are the Symptoms of #{val.disease_name}?
+                    li.section.scrollspy#symptoms
+                        span.bold What are the Symptoms of #{val.disease_name.toUpperCase()}?
                         br
                         span.next_line.flow-text #{val.symptoms}
-                if(val.risk_factor!='')
+                        br
+                if(val.risk_factor !='')
                     li.section.scrollspy#risk
-                        span.bold Who is at Risk for #{val.disease_name}?
+                        span.bold Who is at Risk for #{val.disease_name.toUpperCase()}?
                         br
                         span.next_line.flow-text #{val.risk_factor}
-                if(val.cause!='')
+                        br
+                if(val.cause !='')
                     li.section.scrollspy#cause
-                        span.bold What Causes #{val.disease_name}?
+                        span.bold What Causes #{val.disease_name.toUpperCase()}?
                         br
                         span.next_line.flow-text #{val.cause}
-                if(val.diagnosis!='')
-                    li.section.scrollspy#diagnosis
-                        span.bold  How is #{val.disease_name} Diagnosed?
                         br
-                        each subhead in val.diagnosis
-                            span.next_line.text_upper_case #{subhead.subhead1}:
-                            span.next_line.flow-text #{subhead.subhead2}
-                if(val.treatment!='')
+                if(val.diagnosis !='')
+                    li.section.scrollspy#diagnosis
+                        span.bold  How is #{val.disease_name.toUpperCase()} Diagnosed?
+                        br
+                        //p #{val}
+                        each sub in val.diagnosis
+                            //p #{sub}
+                            if(sub.info !='')
+                                span.next_line.text_upper_case #{sub.info}:
+                            if(sub.subhead !='')
+                                span.next_line.flow-text #{sub.subhead}
+                if(val.treatment !='')
                     li.section.scrollspy#treatment
-                        span.bold How is #{val.disease_name} Treated?
+                        span.bold How is #{val.disease_name.toUpperCase()} Treated?
                         br
                         span.next_line.flow-text #{val.treatment}
-                if(val.outlook!='')
+                if(val.outlook !='')
                     li.section.scrollspy#outlook
-                        span.bold What is the Outlook for #{val.disease_name}?
+                        span.bold What is the Outlook for #{val.disease_name.toUpperCase()}?
                         br
                         span.next_line.flow-text #{val.outlook}
-                if(val.prevention!='')
+                if(val.prevention !='')
                     li.section.scrollspy#prevention
-                        span.bold How can #{val.disease_name} be Prevented?
+                        span.bold How can #{val.disease_name.toUpperCase()} be Prevented?
                         br
                         span.next_line.flow-text #{val.prevention}
-                h5.section.scrollspy#source Source:&nbsp
-                    span.next_line #{val.source}
-//div.col#mol_row1_subrow4
+                if(val.source !='')
+                    h5.section.scrollspy#source Source:&nbsp
+                        span.next_line #{val.source}
+
+div.col#mol_row1_subrow4
     h5 Page Contents
-    a(href="#Pharma") symptoms
-    br
-    a(href="#SideEffects") risk
-    br
-    a(href="#Precautions") cause
-    br
-    a(href="#Dosage") diagnosis
-    br
-    a(href="#interactions") treatment
-    br
-    a(href="#Contradictions") outlook
-    br
-    a(href="#Contradictions") prevention
-    br
-    a(href="#Contradictions") source
+    if(val.absorption != '' || val.distribution != '' || val.metabolism != '' || val.excretion != '')
+        a(href='#symptoms') Symptoms
+        br
+    if(val.side_effect != '')
+        a(href='#risk') Risk Factors
+        br
+    if(val.precaution != '')
+        a(href='#cause') Causes
+        br
+    if(val.drug_interaction != '')
+        a(href='#diagnosis') Diagnosis
+        br
+    if(val.treatment !='')
+        a(href='#treatment') Treatment
+        br
+    if(val.dosage != '')
+        a(href='#outlook') Outlook
+        br
+    if(val.food != '')
+        a(href='#prevention') Prevention
+        br
+    if(val.source !='')
+        a(href='#source') Source
+        br

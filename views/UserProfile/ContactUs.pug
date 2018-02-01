@@ -1,31 +1,31 @@
-div#Pcard3
+div#p_Pcard3
     div
-        div.row.Pheadings1
+        div.row.p_Pheadings1
             a(href="#") Contact Information
-            a.btn-flat.small.right#UPedit Edit
-            a.btn-flat.small.right#UPcancel Cancel
+            a.btn-flat.small.right#p_UPedit Edit
+            a.btn-flat.small.right#p_UPcancel Cancel
             br
             br
-        form#InfoForm
-            div.row.Pformfordetail
+        form#p_InfoForm
+            div.row.p_Pformfordetail
                 div.row
                     .input-field.col.s6
-                        i.material-icons.prefix account_circle
-                        input.validate.black-text#Pfirstname(type="text", value=data.name.toUpperCase())
-                        label(for="Pfirstname") First Name
-                        br
-                        br
-                div.row
-                    .input-field.col.s6
-                        i.material-icons.prefix phone
-                        input.validate.black-text#Pphone(type="tel" value=data.number)
-                        label(for="Pphone") Mobile Number
+                        i.p_i.material-icons.prefix account_circle
+                        input.p_input.validate.black-text#p_Pfirstname(type="text", value=data.name.toUpperCase())
+                        label.p_label(for="p_Pfirstname") First Name
                         br
                         br
                 div.row
                     .input-field.col.s6
-                        i.material-icons.prefix mail
-                        input.validate.black-text#Pemail(type="email", value=data.email.toLocaleLowerCase())
-                        label(for="Pemail", data-error="wrong", data-success="right") Email
+                        i.p_i.material-icons.prefix phone
+                        input.p_input.validate.black-text#p_Pphone(type="tel" value=data.number)
+                        label.p_label(for="p_Pphone") Mobile Number
+                        br
+                        br
                 div.row
-                    a.btn.right#ContactUsSubmit Submit
+                    .input-field.col.s6
+                        i.p_i.material-icons.prefix mail
+                        input.p_input.validate.black-text#p_Pemail(type="email", value=data.email.toLocaleLowerCase())
+                        label.p_label(for="p_Pemail", data-error="wrong", data-success="right") Email
+                div.row
+                    a.btn.right#p_ContactUsSubmit Submit
