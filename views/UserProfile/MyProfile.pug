@@ -21,7 +21,7 @@ div#p_Mdiv1
                 br
                 br
                 br
-                a.dropdown-button.btn-flat.right#p_profileperson(data-activates='dropdown1') hi User
+                a.dropdown-button.btn-flat.right#p_profileperson(data-activates='dropdown1') #{data.name}
                     i.material-icons person
 
 ul.p_ul#p_dropdownforupdate.dropdown-content
@@ -54,10 +54,9 @@ div
                             //i.material-icons.medium image
                             a.dropdown-button.btn-flat.white-text(data-activates='dropdownforupdate')
                                 img#p_apnilogo.circle.center(src="/images/moleculeData.jpg", height="73px" width="100px")
-
                         div.col.s7.m6.l4#p_Pname
                             p.p_P4.black-text.center Hello,
-                            p.p_P.black-text.center user
+                            p.p_P.black-text.center #{data.name}
                             //#p_{data.name}
                 div#p_Pcard2
                     .divider
