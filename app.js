@@ -1083,7 +1083,6 @@ app.post('/diseaseslist',function(req,res){
 
 
 
-
 //===================================for APP============================
 
 // similar barnds + info + combination
@@ -2200,48 +2199,6 @@ app.post('/useremergency',function (req,res) {
 //////////////////////////////////////////Not Now///////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////Insert Doctor///////////////////////////////////////////////////////////////////
 
-//Doctor registration
-app.post('/doctorregister', function (req, res) {
-    //regex for checking whether entered number is indian or not
-    var num = /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[789]\d{9}|(\d[ -]?){10}\d$/.test(req.body.number);
-    if (num === false) {
-        res.send({status: "failure", message: "wrong number ! please try again "});
-        return;
-    }
-    // regex for checking whether password is numeric or not (pass iff pwd is numeric)
-    var a = /[0-9]{4}/.test(req.body.password);
-    if (a === false) {
-        res.send({status: "failure", message: "please enter a numeric password and try again"});
-        return;
-    }
-    Doctor.findOne({number: req.body.number}).exec(function (err, result) {
-        if (err) {
-            console.log(err);
-            res.end();
-        } else {
-            if (result) {
-                res.send({status: "failure", message: "user Already Exists"});
-                res.end();
-
-            } else {
-                var doctor = new Doctor({
-                    name: req.body.name,
-                    number: req.body.number,
-                    password: req.body.password
-                });
-                doctor.save(function (err, results) {
-                    if (err) {
-                        console.log(err);
-                        res.end();
-                    } else {
-                        res.send({status: "success", message: "successfully registered"});
-                        res.end();
-                    }
-                });
-            }
-        }
-    });
-});
 
 //forgot password
 app.post('/checkforgotpassword',function (req,res) {
@@ -5228,28 +5185,6 @@ app.post('/pharma_profession',function (req,res) {
     });
 });
 
-// app.post('/pharmaregistration',function(req,res){
-//     var name= req.body.name;
-//     var number = req.body.number;
-//     var email = req.body.email;
-//     var password = req.body.password;
-//     var pharma = new Pharma({
-//         name : name,
-//         number : number,
-//         email: email,
-//         password : password
-//     });
-//     pharma.save(function(err,result){
-//         if(err){
-//             console.log(err);
-//         }
-//         else {
-//             req.session.pharmaID = result._id;
-//             //res.send({status : 'success', message : 'successfully registered'});
-//             res.redirect('/health_care_provider?page=pharma_registered');
-//         }
-//     })
-// });
 
 app.post('/healthcarelogin',function(req,res) {
     var number = req.body.number;
