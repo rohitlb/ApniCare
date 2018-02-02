@@ -344,7 +344,7 @@ app.get('/', function (req, res) {
     res.render('index',{
         page : page
     });
-        res.end();
+    res.end();
     //}
 });
 
@@ -668,21 +668,21 @@ app.get('/ApniCare/information/Drug',function (req,res) {
     var dosage = req.query.dosage;
     console.log(brand);
     console.log(dosage);
-     Brand.find({brand_name : brand},'-_id brand_name categories types primarily_used_for').populate(
-            {path : 'dosage_id', select : '-_id dosage_form',populate :
+    Brand.find({brand_name : brand},'-_id brand_name categories types primarily_used_for').populate(
+        {path : 'dosage_id', select : '-_id dosage_form',populate :
                 {path : 'strength_id', select : '-_id strength packaging prescription dose_taken warnings price dose_timing potent_substance.name potent_substance.molecule_strength'}
-            }).populate(
-            {path : 'company_id', select: '-_id company_name'}).exec(function (err,brand) {
-            if (err) {
-                console.log(err);
-            }
-            else {
-                res.render('index',
-                    {
-                        page: 'drug_data_view',
-                        data: brand
-                    });
-            }
+        }).populate(
+        {path : 'company_id', select: '-_id company_name'}).exec(function (err,brand) {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            res.render('index',
+                {
+                    page: 'drug_data_view',
+                    data: brand
+                });
+        }
     });
 });
 
@@ -783,7 +783,7 @@ app.post('/searchspecificweb',function(req,res){
         Brands : function(callback){
             Brand.find({brand_name : value},'-_id brand_name categories types primarily_used_for').populate(
                 {path : 'dosage_id', select : '-_id dosage_form',populate :
-                    {path : 'strength_id', select : '-_id strength strengths packaging prescription dose_taken warnings price dose_timing potent_substance.name potent_substance.molecule_strength'}
+                        {path : 'strength_id', select : '-_id strength strengths packaging prescription dose_taken warnings price dose_timing potent_substance.name potent_substance.molecule_strength'}
                 }).populate(
                 {path : 'company_id', select: '-_id company_name'}).exec(function (err,result) {
                 if (err) {
@@ -807,7 +807,7 @@ app.post('/searchspecificweb',function(req,res){
         Categories : function(callback){
             Brand.find({categories : value},'-_id brand_name').populate(
                 {path : 'dosage_id', select : '-_id dosage_form',populate :
-                    {path : 'strength_id', select : '-_id strength packaging'}
+                        {path : 'strength_id', select : '-_id strength packaging'}
                 }).sort({brand_name : 1}).exec(function (err,brand) {
                 if (err) {
                     console.log(err);
@@ -978,7 +978,7 @@ app.get('/searchcategories',function(req,res){
     var value = JSON.parse(req.query.categories);
     Brand.find({categories : value},'-_id brand_name').populate(
         {path : 'dosage_id', select : '-_id dosage_form',populate :
-            {path : 'strength_id', select : '-_id strength packaging'}
+                {path : 'strength_id', select : '-_id strength packaging'}
         }).sort({brand_name : 1}).exec(function (err,brand) {
         if (err) {
             console.log(err);
@@ -1557,7 +1557,7 @@ app.post('/login',function (req,res) {
                             }
                             else {
                                 if(results) {
-                                   callback(null,results);
+                                    callback(null,results);
                                 }
                                 else{
                                     callback();
@@ -3305,7 +3305,7 @@ app.get('/health_care_provider',function(req,res) {
 
         Brand.find({brand_name : brand},'-_id brand_name categories types primarily_used_for').populate(
             {path : 'dosage_id', select : '-_id dosage_form',populate :
-                {path : 'strength_id', select : '-_id strength strengths packaging prescription dose_taken warnings price dose_timing potent_substance.name potent_substance.molecule_strength'}
+                    {path : 'strength_id', select : '-_id strength strengths packaging prescription dose_taken warnings price dose_timing potent_substance.name potent_substance.molecule_strength'}
             }).populate(
             {path : 'company_id', select: '-_id company_name'}).sort({brand_name : 1}).exec(function (err,brand) {
             if (err) {
@@ -3396,7 +3396,7 @@ app.get('/health_care_provider',function(req,res) {
 
         Brand.find({},'-_id brand_name types categories').populate(
             {path : 'dosage_id', select : '-_id dosage_form',populate :
-                {path : 'strength_id', select : '-_id strength strengths packaging potent_substance.name potent_substance.molecule_strength'}
+                    {path : 'strength_id', select : '-_id strength strengths packaging potent_substance.name potent_substance.molecule_strength'}
             }).populate({path : 'company_id', select: '-_id company_name'}).sort({brand_name : 1}).exec(function (err,brand) {
             if (err) {
                 console.log(err);
@@ -3499,7 +3499,7 @@ app.get('/health_care_provider',function(req,res) {
     if(req.query.page == 'molecule_data') {
 
         Molecule.find({},'-_id -__v').populate({path : 'dosage_id', select : '-_id -__v',populate : {
-            path : 'strength_id', select : '-_id -__v'}}).populate({path : 'company_id'}
+                path : 'strength_id', select : '-_id -__v'}}).populate({path : 'company_id'}
         ).sort({molecule_name:1}).exec(function (err,molecule) {
             if (err) {
                 console.log(err);
@@ -3810,7 +3810,7 @@ app.post('/health_care_provider',function(req,res) {
 
         Brand.find({brand_name : brand},'-_id brand_name categories types primarily_used_for').populate(
             {path : 'dosage_id', select : '-_id dosage_form',populate :
-                {path : 'strength_id', select : '-_id strength strengths packaging prescription dose_taken warnings price dose_timing potent_substance.name potent_substance.molecule_strength'}
+                    {path : 'strength_id', select : '-_id strength strengths packaging prescription dose_taken warnings price dose_timing potent_substance.name potent_substance.molecule_strength'}
             }).populate(
             {path : 'company_id', select: '-_id company_name'}).sort({brand_name : 1}).exec(function (err,brand) {
             if (err) {
@@ -3901,7 +3901,7 @@ app.post('/health_care_provider',function(req,res) {
 
         Brand.find({},'-_id brand_name types categories').populate(
             {path : 'dosage_id', select : '-_id dosage_form',populate :
-                {path : 'strength_id', select : '-_id strength strengths packaging potent_substance.name potent_substance.molecule_strength'}
+                    {path : 'strength_id', select : '-_id strength strengths packaging potent_substance.name potent_substance.molecule_strength'}
             }).populate({path : 'company_id', select: '-_id company_name'}).sort({brand_name : 1}).exec(function (err,brand) {
             if (err) {
                 console.log(err);
@@ -4004,7 +4004,7 @@ app.post('/health_care_provider',function(req,res) {
     if(req.query.page == 'molecule_data') {
 
         Molecule.find({},'-_id -__v').populate({path : 'dosage_id', select : '-_id -__v',populate : {
-            path : 'strength_id', select : '-_id -__v'}}).populate({path : 'company_id'}
+                path : 'strength_id', select : '-_id -__v'}}).populate({path : 'company_id'}
         ).sort({molecule_name:1}).exec(function (err,molecule) {
             if (err) {
                 console.log(err);
