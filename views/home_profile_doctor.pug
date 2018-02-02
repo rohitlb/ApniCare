@@ -13,7 +13,7 @@ html
                                 a.button-collapse#menubar.top-nav.hide-on-large-only(data-activates='side_navbar')
                                     i.fa.fa-bars.fa-2x
 
-                                a.brand-logo.center-on-small-only.hide-on-large-only(href='/health_care_provider?page=home') ApniCare
+                                a.brand-logo.center-on-small-only.hide-on-large-only(href='/health_care_provider') ApniCare
 
                                 ul.right.hide-on-med-and-down
                                     li
@@ -21,7 +21,7 @@ html
                                         a.btn.btn-flat.white-text(href='/health_care_provider?page=notifications' data-balloon-pos="down" data-balloon="Notifications" data-delay="50" style="background-color: #660099")
                                             i.material-icons.large(style="font-size: 35px") notifications
                                     li
-                                        a.btn.btn-flat.white-text.dropdown-button(href='/health_care_provider?page=profile' data-activates='profile_drop' data-beloworigin='true' style="background-color: #660099")
+                                        a.btn.btn-flat.white-text.dropdown-button(href='#' data-activates='profile_drop' data-beloworigin='true' style="background-color: #660099")
                                             i.material-icons.large(style="font-size: 35px") person
 
                 ul.dropdown-content#profile_drop
@@ -30,17 +30,17 @@ html
                     li
                         a(href='#') My Activity
                     li
-                        a(href='#') Edit Profile
-                    li
                         a(href="/logout") Logout
 
         div.col.s12.m12.l8.offset-s4.offset-m4.offset-l4
                 if(page == 'home')
                     include ./home_sideNav
-                else if(page == 'profile')
-                    include ./health_care_provider/partial/profile1
+                    //else if(page == 'profile')
+                    //    include ./health_care_provider/partial/profile1
                 else if(page == 'pharma_registered')
                     include ./health_care_provider/partial/profile1_pharma
+                else if(page == 'doctor_registered')
+                    include ./health_care_provider/partial/profile1
                 else if(page == 'profile_doctor')
                     include ./health_care_provider/partial/profile2_doc
                 else if(page == 'profile_pharmacist')
