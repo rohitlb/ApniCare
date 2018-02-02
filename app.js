@@ -1061,7 +1061,7 @@ app.post('/brandslist',function(req,res){
         }
         else {
             if(brand != "") {
-                res.send({status : 'success' , data : brand});
+                res.send({status : 'brands list' , data : brand});
             }
             else{
                 res.send({details : "failure", message : "No brand exist"});
@@ -1071,7 +1071,7 @@ app.post('/brandslist',function(req,res){
 });
 
 app.post('/diseaseslist',function(req,res){
-    Disease.find({},'_id disease_name',function(err,disease){
+    Disease.find({},'-_id disease_name',function(err,disease){
         if(err){
             console.log(err);
         }
