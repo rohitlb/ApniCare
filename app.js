@@ -1056,20 +1056,6 @@ app.get('/categoriesdata',function(req,res){
     });
 });
 
-app.get('/companiesdata',function(req,res){
-    var value = req.query.term;
-    Company.find({company_name : value},'-_id company_name',function(err,result){
-        if(err){
-            console.log(err);
-        }
-        else{
-            res.send(result, {
-                'Content-Type': 'application/json'
-            }, 200);
-        }
-    });
-});
-
 app.get('/diseasesdata',function(req,res){
     var disease = req.query.term;
     Disease.find({disease_name : disease},function(err,result){
