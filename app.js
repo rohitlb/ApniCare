@@ -1034,9 +1034,9 @@ app.get('/forcompanies',function(req,res){
     });
 });
 
-app.get('/formolecules',function(req,res){
-    var value = req.query.term;
-    Molecule.find({molecule_name : value},'-_id molecule_name',function(err,result){
+app.post('/moleculeslist',function(req,res){
+    //var value = req.body.term;
+    Molecule.find({},'-_id molecule_name',function(err,result){
         if(err){
             console.log(err);
         }
@@ -1047,6 +1047,28 @@ app.get('/formolecules',function(req,res){
         }
     });
 });
+
+app.post('/brandslist',function(req,res){
+    Brand.find({},'-_id brand_name').populate(
+        {path : 'dosage_id', select : '-_id dosage_form',populate :
+            {path : 'strength_id', select : '-_id strength packaging  price'}
+        }).populate(
+        {path : 'company_id', select: '-_id company_name'}).sort({brand_name : 1}).exec(function (err,brand) {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            if(brand != "") {
+                res.send({status : 'success' , data : brand});
+            }
+            else{
+                res.send({details : "failure", message : "No brand exist"});
+            }
+        }
+    });
+});
+
+
 
 //===================================for APP============================
 
