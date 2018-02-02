@@ -1072,7 +1072,6 @@ app.get('/diseasesdata',function(req,res){
 //===================================for APP============================
 
 app.post('/moleculeslist',function(req,res){
-    //var value = req.body.term;
     Molecule.find({},'-_id molecule_name',function(err,result){
         if(err){
             console.log(err);
@@ -1110,7 +1109,7 @@ app.post('/diseaseslist',function(req,res){
 });
 
 app.post('/organslist',function(req,res){
-    Disease.find({}, '-_id organs').exec(function (err, result) {
+    Disease.find({}, '-_id organs.subhead').exec(function (err, result) {
         if (err) {
             console.log(err);
         }
