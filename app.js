@@ -187,7 +187,7 @@ app.post('/your_feedback',function(req,res){
 });
 
 app.post('/needhelp' , function (req,res) {
-    //console.log("pranjal");
+    console.log("pranjal");
     var subject = req.body.subject;
     var contact_message = req.body.contact_message;
     console.log(subject);

@@ -34,12 +34,15 @@
                 .input-field.col.s5.black-text
                     input(type="email")#n_email
                     label(for="n_email") Email
-            label(for='textarea1') Description
+            h7.black-text &nbsp &nbsp Description
             .input-field.col.s11#n_description
                 textarea#textarea1.materialize-textarea.black-text
             br
             br
-            button.hoverable.btn(title="submit your suggestions" style={width: "40%"} type="submit")#submitbutt Submit
+            if(page=='index')
+                button.hoverable.btn(title="submit your suggestions" style={width: "40%"} type="submit")#submitbutt Submit
+            if(page == 'profile')
+                button.hoverable.center.btn(title="submit your suggestions" style={width: "40%"} type="submit")#submitbutt1 Submit
 
         #test-swipe-2.col.s12.black-text
             br

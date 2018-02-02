@@ -3,7 +3,7 @@ $(document).ready(function() {
 //for user/doctor/pharmacist login -------------------------------
 
     $('#loginButton1').click(function () {
-
+        alert("otp has been sent");
         // $('#preloader').show();
 
         var number = $('#number2').val();
@@ -55,6 +55,7 @@ $(document).ready(function() {
     //for forgot password
     //otp sent
     $('#OTPforForgot').click(function () {
+        alert("otp for forgot password has been sent");
         var number = $('#registeredMOB').val();
 
 
@@ -93,6 +94,7 @@ $(document).ready(function() {
     });
     //for verification
     $('#verify1').click(function () {
+        alert("verify password");
         var otp = $('#otp1').val();
         $('#password3').removeAttr('disabled');
 
@@ -129,7 +131,7 @@ $(document).ready(function() {
 
 
     $('#againLogin').click(function () {
-
+        alert("update password ");
         //$('#preloader').show();
 
         //var number = $('#registeredMOB').val();
@@ -169,6 +171,11 @@ $(document).ready(function() {
     //for user Login----------------------------------
         //for otp request
         $('#send').click(function () {
+<<<<<<< HEAD
+            alert("otp for user has been sent");
+            var name = $('#name').val();
+=======
+>>>>>>> 93e4985dc96e7dab83f23df96db7528d39d1f39f
             var number = $('#number').val();
             var data = {
                 number: number
@@ -211,6 +218,7 @@ $(document).ready(function() {
         });
         //for verification of OTP
         $('#verify').click(function () {
+            alert("verify otp");
             $('#password1').removeAttr('disabled');
             var otp = $('#otp').val();
             var data = {
@@ -243,7 +251,7 @@ $(document).ready(function() {
         });
         //for registering the data
         $('#submitButton').click(function () {
-
+            alert("user-sign-up");
             var name = $('#name').val();
             var email = $('#email').val();
             var number = $('#number').val();
@@ -464,34 +472,22 @@ $(document).ready(function() {
         });
 
 //needhelp without login
+
     $('#submitbutt').click(function () {
         var issue = $('#fdropdown').val();
         var email = $('#n_email').val();
         var name = $('#name').val();
         var number = $('#number').val();
         var description = $('#n_description').val();
-        var data_WL = {
+        var data = {
             subject: issue,
             name: name,
             number: number,
             email: email,
             contact_message: description
         };
-        var data_L = {
-            subject: issue,
-            contact_message: description
-        };
-        var url, data;
-        if(page=='index') {
-            data = data_WL;
-            url = "/needhelpWL";
-        }
-        if(page=='profile') {
-            data = data_L;
-            url = "/needhelp";
-        }
             $.ajax({
-                url: url,
+                url: "/needhelpWL" ,
                 method: 'POST',
                 data: JSON.stringify(data),
                 contentType: 'application/json',
@@ -513,5 +509,38 @@ $(document).ready(function() {
 
     });
     //needhelp with login
+    $('#submitbutt1').click(function () {
+        alert("nidhi");
+        var issue = $('#fdropdown').val();
+        var description = $('#n_description').val();
+
+        var data = {
+            subject: issue,
+            contact_message: description
+        };
+
+
+        $.ajax({
+            url: "/needhelp",
+            method: 'POST',
+            data: JSON.stringify(data),
+            contentType: 'application/json',
+            success: function (result) {
+
+                if (result.status === "success") {
+                    Materialize.toast(result.message, 2000);
+                }
+                else {
+                    Materialize.toast(result.message, 2000);
+                }
+
+            },
+            error: function (err) {
+
+                console.log(err);
+            }
+        })
+
+    });
     //feedback
 });
