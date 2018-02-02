@@ -135,6 +135,7 @@ app.post('/count', function(req,res){
 //*************************************Feedback and needhelp*******************************************************************
 
 app.post('/feedback' , function (req,res) {
+    var name;
     var usefulness = req.body.usefulness;
     var suggestion = req.body.suggestion;
     var feedbackFrom = req.body.about;
