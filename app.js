@@ -1068,6 +1068,20 @@ app.post('/brandslist',function(req,res){
     });
 });
 
+app.post('/diseaseslist',function(req,res){
+    Disease.find({},'_id disease_name',function(err,disease){
+        if(err){
+            console.log(err);
+        }
+        else{
+            res.send({status : 'success' , data : disease});
+        }
+    });
+});
+
+
+
+
 
 
 //===================================for APP============================
