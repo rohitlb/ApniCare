@@ -295,8 +295,9 @@ app.post('/sendOTP',function (req, res) {
                         throw new Error(error);
                     }
                     else {
-                        var temp = JSON.parse(body);
-                        req.session.sid = temp.Details;
+                        //var temp = JSON.parse(body);
+                        //console.log(temp);
+                        //req.session.sid = temp.Details;
                         res.send({status: "success", message: "OTP sent to your number"});
                     }
                 });
