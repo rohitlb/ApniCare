@@ -365,6 +365,11 @@ app.post('/userregister', function (req, res) {
         res.send({status: "failure", message: "please enter a numeric password and try again"});
         return;
     }
+    var email = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(req.body.email);
+    if(email === false ){
+        res.send({status: "failure", message: "please enter a valid email and try again"});
+        return;
+    }
     User.findOne({number: req.body.number}).exec(function (err, result) {
         if (err) {
             console.log(err);
@@ -382,7 +387,7 @@ app.post('/userregister', function (req, res) {
                         else {
                             var user = new User({
                                 name: req.body.name,
-                                email: req.body.email,
+                                email: email,
                                 number: req.body.number,
                                 password: hash
                             });
@@ -437,6 +442,11 @@ app.post('/doctorregister', function (req, res) {
         res.send({status: "failure", message: "please enter a numeric password and try again"});
         return;
     }
+    var email = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(req.body.email);
+    if(email === false ){
+        res.send({status: "failure", message: "please enter a valid email and try again"});
+        return;
+    }
     Doctor.findOne({number: req.body.number}).exec(function (err, result) {
         if (err) {
             console.log(err);
@@ -454,7 +464,7 @@ app.post('/doctorregister', function (req, res) {
                         else {
                             var doctor = new Doctor({
                                 name: req.body.name,
-                                email: req.body.email,
+                                email: email,
                                 number: req.body.number,
                                 password: hash
                             });
@@ -490,6 +500,11 @@ app.post('/pharmaregister', function (req, res) {
         res.send({status: "failure", message: "please enter a numeric password and try again"});
         return;
     }
+    var email = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(req.body.email);
+    if(email === false ){
+        res.send({status: "failure", message: "please enter a valid email and try again"});
+        return;
+    }
     Pharma.findOne({number: req.body.number}).exec(function (err, result) {
         if (err) {
             console.log(err);
@@ -507,7 +522,7 @@ app.post('/pharmaregister', function (req, res) {
                         else {
                             var pharma = new Pharma({
                                 name: req.body.name,
-                                email: req.body.email,
+                                email: email,
                                 number: req.body.number,
                                 password: hash
                             });
@@ -529,14 +544,6 @@ app.post('/pharmaregister', function (req, res) {
     });
 });
 
-
-
-//render profile page of user
-// app.get('/profile', function (req, res) {
-//     if (req.session.userID) {
-//         res.render('profile');
-//     }
-// });
 
 //***************************************frontend**************************************8888
 
