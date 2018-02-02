@@ -1000,7 +1000,7 @@ app.get('/searchcategories',function(req,res){
 
 ////////////For search during submitting//////////////
 
-app.get('/forbrands',function(req,res){
+app.get('/brandsdata',function(req,res){
     var value = req.query.term;
     Brand.find({brand_name : value},'-_id brand_name',function(err,result) {
         if (err) {
@@ -1014,7 +1014,35 @@ app.get('/forbrands',function(req,res){
     });
 });
 
-app.get('/forcategories',function(req,res){
+app.get('/companiesdata',function(req,res){
+    var company = req.query.term;
+    Company.find({company_name : company},function(err,result){
+        if(err){
+            console.log(err);
+        }
+        else{
+            res.send(result, {
+                'Content-Type': 'application/json'
+            }, 200);
+        }
+    });
+});
+
+app.get('/moleculesdata',function(req,res){
+    var molecule = req.query.terms;
+    Molecule.find({molecule_name : molecule},function(err,result){
+        if(err){
+            console.log(err);
+        }
+        else{
+            res.send(result, {
+                'Content-Type': 'application/json'
+            }, 200);
+        }
+    })
+});
+
+app.get('/categoriesdata',function(req,res){
     var value = req.query.term;
     Brand.find({categories : value},'-_id categories',function(err,result){
         if(err){
@@ -1028,7 +1056,7 @@ app.get('/forcategories',function(req,res){
     });
 });
 
-app.get('/forcompanies',function(req,res){
+app.get('/companiesdata',function(req,res){
     var value = req.query.term;
     Company.find({company_name : value},'-_id company_name',function(err,result){
         if(err){
@@ -1042,6 +1070,19 @@ app.get('/forcompanies',function(req,res){
     });
 });
 
+app.get('/diseasesdata',function(req,res){
+    var disease = req.query.term;
+    Disease.find({disease_name : disease},function(err,result){
+        if(err){
+            console.log(err);
+        }
+        else{
+            res.send(result, {
+                'Content-Type': 'application/json'
+            }, 200);
+        }
+    })
+});
 //===================================for APP============================
 
 app.post('/moleculeslist',function(req,res){
