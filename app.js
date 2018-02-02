@@ -1051,8 +1051,6 @@ app.post('/moleculeslist',function(req,res){
         }
         else{
             res.send({ message : "molecules list" , data :result });
-
-
         }
     });
 });
@@ -1066,13 +1064,8 @@ app.post('/brandslist',function(req,res){
         if (err) {
             console.log(err);
         }
-        else {
-            if(brand != "") {
-                res.send({status : 'brands list' , data : brand});
-            }
-            else{
-                res.send({details : "failure", message : "No brand exist"});
-            }
+        else{
+            res.send({status : 'brands list' , data : brand});
         }
     });
 });
@@ -1084,6 +1077,28 @@ app.post('/diseaseslist',function(req,res){
         }
         else{
             res.send({status : 'diseases list' , data : disease});
+        }
+    });
+});
+
+app.post('/organslist',function(req,res){
+    Disease.find({}, '-_id organs').exec(function (err, result) {
+        if (err) {
+            console.log(err);
+        }
+        else{
+            res.send({ message : "organs list" , data :result });
+        }
+    });
+});
+
+app.post('/symptomslist',function(req,res){
+    Disease.find({},'-_id symptoms',function(err,result){
+        if(err){
+            console.log(err);
+        }
+        else{
+            res.send({ message : "symptoms list" , data :result });
         }
     });
 });
