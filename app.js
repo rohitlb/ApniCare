@@ -187,7 +187,7 @@ app.post('/your_feedback',function(req,res){
 });
 
 app.post('/needhelp' , function (req,res) {
-    console.log("pranjal");
+    //console.log("pranjal");
     var subject = req.body.subject;
     var contact_message = req.body.contact_message;
     console.log(subject);
@@ -1034,8 +1034,6 @@ app.get('/forcompanies',function(req,res){
     });
 });
 
-//===================================for APP============================
-
 app.post('/moleculeslist',function(req,res){
     //var value = req.body.term;
     Molecule.find({},'-_id molecule_name',function(err,result){
@@ -1043,9 +1041,9 @@ app.post('/moleculeslist',function(req,res){
             console.log(err);
         }
         else{
-            res.send({ message : "molecules list" , data :result });
-
-
+            res.send(result, {
+                'Content-Type': 'application/json'
+            }, 200);
         }
     });
 });
@@ -1053,7 +1051,7 @@ app.post('/moleculeslist',function(req,res){
 app.post('/brandslist',function(req,res){
     Brand.find({},'-_id brand_name').populate(
         {path : 'dosage_id', select : '-_id dosage_form',populate :
-                {path : 'strength_id', select : '-_id strength packaging  price'}
+            {path : 'strength_id', select : '-_id strength packaging  price'}
         }).populate(
         {path : 'company_id', select: '-_id company_name'}).sort({brand_name : 1}).exec(function (err,brand) {
         if (err) {
@@ -1076,10 +1074,16 @@ app.post('/diseaseslist',function(req,res){
             console.log(err);
         }
         else{
-            res.send({status : 'diseases list' , data : disease});
+            res.send({status : 'success' , data : disease});
         }
     });
 });
+
+
+
+
+
+//===================================for APP============================
 
 // similar barnds + info + combination
 app.post('/formolecule',function (req,res) {
