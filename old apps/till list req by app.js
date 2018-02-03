@@ -295,8 +295,9 @@ app.post('/sendOTP',function (req, res) {
                         throw new Error(error);
                     }
                     else {
-                        var temp = JSON.parse(body);
-                        req.session.sid = temp.Details;
+                        //var temp = JSON.parse(body);
+                        //console.log(temp);
+                        //req.session.sid = temp.Details;
                         res.send({status: "success", message: "OTP sent to your number"});
                     }
                 });
@@ -366,6 +367,11 @@ app.post('/userregister', function (req, res) {
         res.send({status: "failure", message: "please enter a numeric password and try again"});
         return;
     }
+    var email = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(req.body.email);
+    if(email === false ){
+        res.send({status: "failure", message: "please enter a valid email and try again"});
+        return;
+    }
     User.findOne({number: req.body.number}).exec(function (err, result) {
         if (err) {
             console.log(err);
@@ -383,7 +389,7 @@ app.post('/userregister', function (req, res) {
                         else {
                             var user = new User({
                                 name: req.body.name,
-                                email: req.body.email,
+                                email: email,
                                 number: req.body.number,
                                 password: hash
                             });
@@ -438,6 +444,11 @@ app.post('/doctorregister', function (req, res) {
         res.send({status: "failure", message: "please enter a numeric password and try again"});
         return;
     }
+    var email = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(req.body.email);
+    if(email === false ){
+        res.send({status: "failure", message: "please enter a valid email and try again"});
+        return;
+    }
     Doctor.findOne({number: req.body.number}).exec(function (err, result) {
         if (err) {
             console.log(err);
@@ -455,7 +466,7 @@ app.post('/doctorregister', function (req, res) {
                         else {
                             var doctor = new Doctor({
                                 name: req.body.name,
-                                email: req.body.email,
+                                email: email,
                                 number: req.body.number,
                                 password: hash
                             });
@@ -491,6 +502,11 @@ app.post('/pharmaregister', function (req, res) {
         res.send({status: "failure", message: "please enter a numeric password and try again"});
         return;
     }
+    var email = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(req.body.email);
+    if(email === false ){
+        res.send({status: "failure", message: "please enter a valid email and try again"});
+        return;
+    }
     Pharma.findOne({number: req.body.number}).exec(function (err, result) {
         if (err) {
             console.log(err);
@@ -508,7 +524,7 @@ app.post('/pharmaregister', function (req, res) {
                         else {
                             var pharma = new Pharma({
                                 name: req.body.name,
-                                email: req.body.email,
+                                email: email,
                                 number: req.body.number,
                                 password: hash
                             });
@@ -530,14 +546,6 @@ app.post('/pharmaregister', function (req, res) {
     });
 });
 
-
-
-//render profile page of user
-// app.get('/profile', function (req, res) {
-//     if (req.session.userID) {
-//         res.render('profile');
-//     }
-// });
 
 //***************************************frontend**************************************8888
 
@@ -993,13 +1001,17 @@ app.get('/searchcategories',function(req,res){
 
 ////////////For search during submitting//////////////
 
-app.get('/forbrands',function(req,res){
-    var value = req.query.term;
-    Brand.find({brand_name : value},'-_id brand_name',function(err,result) {
+app.post('/brandsdata',function(req,res){
+    var value = req.body.term;
+    var spaceRemoved = value.replace(/\s/g, '');
+    var search = new RegExp('^'+spaceRemoved,'i' );
+    console.log("hello:"+value);
+    Brand.find({brand_name : search},'-_id brand_name',function(err,result) {
         if (err) {
             console.log(err);
         }
         else {
+            console.log(result);
             res.send(result, {
                 'Content-Type': 'application/json'
             }, 200);
@@ -1007,7 +1019,35 @@ app.get('/forbrands',function(req,res){
     });
 });
 
-app.get('/forcategories',function(req,res){
+app.get('/companiesdata',function(req,res){
+    var company = req.query.term;
+    Company.find({company_name : company},function(err,result){
+        if(err){
+            console.log(err);
+        }
+        else{
+            res.send(result, {
+                'Content-Type': 'application/json'
+            }, 200);
+        }
+    });
+});
+
+app.get('/moleculesdata',function(req,res){
+    var molecule = req.query.terms;
+    Molecule.find({molecule_name : molecule},function(err,result){
+        if(err){
+            console.log(err);
+        }
+        else{
+            res.send(result, {
+                'Content-Type': 'application/json'
+            }, 200);
+        }
+    })
+});
+
+app.get('/categoriesdata',function(req,res){
     var value = req.query.term;
     Brand.find({categories : value},'-_id categories',function(err,result){
         if(err){
@@ -1021,9 +1061,9 @@ app.get('/forcategories',function(req,res){
     });
 });
 
-app.get('/forcompanies',function(req,res){
-    var value = req.query.term;
-    Company.find({company_name : value},'-_id company_name',function(err,result){
+app.get('/diseasesdata',function(req,res){
+    var disease = req.query.term;
+    Disease.find({disease_name : disease},function(err,result){
         if(err){
             console.log(err);
         }
@@ -1032,46 +1072,52 @@ app.get('/forcompanies',function(req,res){
                 'Content-Type': 'application/json'
             }, 200);
         }
-    });
+    })
 });
-
 //===================================for APP============================
 
 app.post('/moleculeslist',function(req,res){
-    //var value = req.body.term;
+    console.log("moleculeslist");
     Molecule.find({},'-_id molecule_name',function(err,result){
         if(err){
             console.log(err);
         }
         else{
             res.send({ message : "molecules list" , data :result });
-
-
         }
     });
 });
 
 app.post('/brandslist',function(req,res){
+    console.log("brandlist");
     Brand.find({},'-_id brand_name').populate(
         {path : 'dosage_id', select : '-_id dosage_form',populate :
-                {path : 'strength_id', select : '-_id strength packaging  price'}
+                {path : 'strength_id', select : '-_id strength packaging potent_substance.name price'}
         }).populate(
         {path : 'company_id', select: '-_id company_name'}).sort({brand_name : 1}).exec(function (err,brand) {
         if (err) {
             console.log(err);
         }
-        else {
-            if(brand != "") {
-                res.send({status : 'brands list' , data : brand});
-            }
-            else{
-                res.send({details : "failure", message : "No brand exist"});
-            }
+        else{
+            res.send({status : 'brands list' , data : brand});
+        }
+    });
+});
+
+app.post('/categorieslist',function(req,res){
+    console.log("categorieslist");
+    Brand.find({}, '-_id categories').exec(function (err, result) {
+        if(err){
+            console.log(err);
+        }
+        else{
+            res.send({ message : "categories list" , data :result });
         }
     });
 });
 
 app.post('/diseaseslist',function(req,res){
+    console.log("diseaseslist");
     Disease.find({},'-_id disease_name',function(err,disease){
         if(err){
             console.log(err);
@@ -1082,9 +1128,33 @@ app.post('/diseaseslist',function(req,res){
     });
 });
 
+app.post('/organslist',function(req,res){
+    console.log("organslist");
+    Disease.find({}, '-_id organs.subhead').exec(function (err, result) {
+        if (err) {
+            console.log(err);
+        }
+        else{
+            res.send({ message : "organs list" , data :result });
+        }
+    });
+});
+
+app.post('/symptomslist',function(req,res){
+    console.log("symptomslist");
+    Disease.find({},'-_id symptoms',function(err,result){
+        if(err){
+            console.log(err);
+        }
+        else{
+            res.send({ message : "symptoms list" , data :result });
+        }
+    });
+});
+
 // similar barnds + info + combination
 app.post('/formolecule',function (req,res) {
-    console.log("app");
+    console.log("formolecule");
     var molecule = req.body.molecule;
     var skip = parseInt(req.body.nskip);
     if(req.body.page == 'info'){
@@ -1186,9 +1256,9 @@ app.post('/DOSlist',function (req,res) {
     }
 });
 
-
 // same molecule same strength => output is list of brands
 app.post('/similarbrands',function(req,res){
+    console.log("similarbrands");
     var molecule = req.body.molecule;
     var strength = req.body.strength;
     console.log(molecule);
@@ -1227,6 +1297,7 @@ app.post('/similarbrands',function(req,res){
 
 // have regex , search for molecule_name,categories,brand_name,disease_name,organs,symptoms
 app.post('/searchall',function (req,res) {
+    console.log("searchall");
     var raw = req.body.search;
     console.log(raw);
     var spaceRemoved = raw.replace(/\s/g, '');
@@ -1264,7 +1335,7 @@ app.post('/searchall',function (req,res) {
             });
         },
         diseases: function (callback) { // gives disease_name sorted list
-            Disease.find({disease_name: search}, 'disease_name').sort({disease_name: 1}).skip(skip).limit(10).exec(function (err, result) {
+            Disease.find({disease_name: search}, ' -_id disease_name').sort({disease_name: 1}).skip(skip).limit(10).exec(function (err, result) {
                 if (err) {
                     console.log(err);
                 }
@@ -1273,8 +1344,8 @@ app.post('/searchall',function (req,res) {
                 }
             });
         },
-        organs: function (callback) {  // gives organs sorted list
-            Disease.find({'organs.subhead': search}, '-_id organs.subhead').sort({organs: 1}).skip(skip).limit(10).exec(function (err, result) {
+        organs: function (callback) {  // gives organs sorted list// , '-_id organs.subhead'
+            Search.find({'name': search},'-_id name').sort({name: 1}).skip(skip).limit(10).exec(function (err, result) {
                 if (err) {
                     console.log(err);
                 }
@@ -1300,9 +1371,7 @@ app.post('/searchall',function (req,res) {
         }
         else {
             console.log(result);
-            res.send(result, {
-                'Content-Type': 'application/json'
-            }, 200);
+            res.send({ message : "search all" , data :result });
         }
     });
 });

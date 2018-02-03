@@ -779,7 +779,7 @@ app.post('/searchspecific',function(req,res){
         else{
             req.session.search = result;
             console.log(result);
-            res.send({status : 'success' , data : result});
+            res.send({status : 'searchspecific' , data : result});
         }
     });
 });
@@ -1076,6 +1076,7 @@ app.get('/diseasesdata',function(req,res){
 //===================================for APP============================
 
 app.post('/moleculeslist',function(req,res){
+    console.log("moleculeslist");
     Molecule.find({},'-_id molecule_name',function(err,result){
         if(err){
             console.log(err);
@@ -1087,6 +1088,7 @@ app.post('/moleculeslist',function(req,res){
 });
 
 app.post('/brandslist',function(req,res){
+    console.log("brandlist");
     Brand.find({},'-_id brand_name').populate(
         {path : 'dosage_id', select : '-_id dosage_form',populate :
                 {path : 'strength_id', select : '-_id strength packaging potent_substance.name price'}
@@ -1101,7 +1103,23 @@ app.post('/brandslist',function(req,res){
     });
 });
 
+<<<<<<< HEAD
+=======
+app.post('/categorieslist',function(req,res){
+    console.log("categorieslist");
+    Brand.find({}, '-_id categories').exec(function (err, result) {
+        if(err){
+            console.log(err);
+        }
+        else{
+            res.send({ message : "categories list" , data :result });
+        }
+    });
+});
+
+>>>>>>> a6ff0ad87d9528255e71f857d11105db5c265cad
 app.post('/diseaseslist',function(req,res){
+    console.log("diseaseslist");
     Disease.find({},'-_id disease_name',function(err,disease){
         if(err){
             console.log(err);
@@ -1113,6 +1131,7 @@ app.post('/diseaseslist',function(req,res){
 });
 
 app.post('/organslist',function(req,res){
+    console.log("organslist");
     Disease.find({}, '-_id organs.subhead').exec(function (err, result) {
         if (err) {
             console.log(err);
@@ -1124,6 +1143,7 @@ app.post('/organslist',function(req,res){
 });
 
 app.post('/symptomslist',function(req,res){
+    console.log("symptomslist");
     Disease.find({},'-_id symptoms',function(err,result){
         if(err){
             console.log(err);
@@ -1136,7 +1156,7 @@ app.post('/symptomslist',function(req,res){
 
 // similar barnds + info + combination
 app.post('/formolecule',function (req,res) {
-    console.log("app");
+    console.log("formolecule");
     var molecule = req.body.molecule;
     var skip = parseInt(req.body.nskip);
     if(req.body.page == 'info'){
@@ -1212,7 +1232,7 @@ app.post('/DOSlist',function (req,res) {
                 console.log(err);
             }
             else {
-                callback(null, result);
+                res.send({ message : "search disease" , data :result });
             }
         });
     }
@@ -1222,7 +1242,7 @@ app.post('/DOSlist',function (req,res) {
                 console.log(err);
             }
             else {
-                callback(null, result);
+                res.send({ message : "search organ" , data :result });
             }
         });
     }
@@ -1232,15 +1252,15 @@ app.post('/DOSlist',function (req,res) {
                 console.log(err);
             }
             else {
-                callback(null, result);
+                res.send({ message : "search symptom" , data :result });
             }
         });
     }
 });
 
-
 // same molecule same strength => output is list of brands
 app.post('/similarbrands',function(req,res){
+    console.log("similarbrands");
     var molecule = req.body.molecule;
     var strength = req.body.strength;
     console.log(molecule);
@@ -1352,9 +1372,7 @@ app.post('/searchall',function (req,res) {
         }
         else {
             console.log(result);
-            res.send(result, {
-                'Content-Type': 'application/json'
-            }, 200);
+            res.send({ message : "search all" , data :result });
         }
     });
 });
