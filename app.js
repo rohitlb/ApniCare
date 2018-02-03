@@ -1000,13 +1000,17 @@ app.get('/searchcategories',function(req,res){
 
 ////////////For search during submitting//////////////
 
-app.get('/brandsdata',function(req,res){
-    var value = req.query.term;
-    Brand.find({brand_name : value},'-_id brand_name',function(err,result) {
+app.post('/brandsdata',function(req,res){
+    var value = req.body.term;
+    var spaceRemoved = value.replace(/\s/g, '');
+    var search = new RegExp('^'+spaceRemoved,'i' );
+    console.log("hello:"+value);
+    Brand.find({brand_name : search},'-_id brand_name',function(err,result) {
         if (err) {
             console.log(err);
         }
         else {
+            console.log(result);
             res.send(result, {
                 'Content-Type': 'application/json'
             }, 200);
