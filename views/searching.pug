@@ -8,70 +8,33 @@ html(lang='en')
         link(rel='stylesheet', href='/resources/demos/style.css')
         script(src='https://code.jquery.com/jquery-1.12.4.js')
         script(src='https://code.jquery.com/ui/1.12.1/jquery-ui.js')
-<<<<<<< HEAD
-        script(src="/js/search.js")
-=======
         script.
             $(function () {
+
                 $("#search-query").autocomplete({
                     source: function (request, response) {
                         $.ajax({
-                            url: "/searchweb",
+                            url: "/brandsdata",
                             type: "POST",
                             data: request,  // request is the value of search input
                             success: function (data) {
-                                // Map response values to field label and value
-                                if (data.Symptoms != "") {
-                                    response($.map(data.Symptoms, function (el) {
-                                        return {
-                                            label: el.symptoms
-                                        };
-                                    }));
-                                }
-                                if (data.Brands != "") {
-                                    response($.map(data.Brands, function (el) {
-                                        return {
-                                            label: el.brand_name
-                                        };
-                                    }));
-                                }
-                                if (data.Molecules != "") {
-                                    response($.map(data.Molecules, function (el) {
-                                        return {
-                                            label: el.molecule_name
-                                        };
-                                    }));
-                                }
-                                if (data.Categories != "") {
-                                    response($.map(data.Categories, function (el) {
-                                        return {
-                                            label: el.categories
-                                        };
-                                    }));
-                                }
-                                if (data.Organs != "") {
-                                    response($.map(data.Organs, function (el) {
-                                        return {
-                                            label: el.name
-                                        };
-                                    }));
-                                }
-                                if (data.Diseases != "") {
-                                    response($.map(data.Diseases, function (el) {
-                                        return {
-                                            label: el.disease_name
-                                        };
-                                    }));
-                                }
+                                //alert(data);
+                                // Map response values to fiedl label and value
+                                response($.map(data, function (el) {
+                                    return {
+                                        label: el.brand_name
+                                    };
+                                }));
                             }
                         });
                     },
+
                     // The minimum number of characters a user must type before a search is performed.
                     minLength: 1,
+
                     // set an onFocus event to show the result on input field when result is focused
                     focus: function (event, ui) {
                         this.value = ui.item.label;
-
                         // Prevent other event from not being execute
                         event.preventDefault();
                     },
@@ -83,49 +46,11 @@ html(lang='en')
                         // Prevent other event from not being execute
                         event.preventDefault();
                         // optionnal: submit the form after field has been filled up
-                        $('#search-query').keypress(function(e){
-                            if(e.which == '13') {
-                                var datas = {
-                                    search : ui.item.label
-                                };
-                                $.ajax({
-                                    url: '/searchspecific',
-                                    type: 'POST',
-                                    data: JSON.stringify(datas),
-                                    contentType: 'application/json',
-                                    success: function (result) {
-                                        if (result.status == 'success') {
-                                            if(result.data.Brands != ""){
-                                                window.location = '/searchbrands?brands='+result.data.Brands[0];
-                                            }
-                                            if(result.data.Diseases != ""){
-                                                window.location = '/searchdiseases?diseases='+result.data.Diseases[0];
-
-                                            }
-                                            if(result.data.Symptoms != ""){
-                                                window.location = '/searchsymptons?symptoms='+result.data.Symptoms;
-                                            }
-                                            if(result.data.Molecules != ""){
-                                                window.location = '/searchmolecules?molecules='+result.data.Molecules[0];
-                                            }
-                                            if(result.data.Organs != ""){
-                                                window.location = '/searchorgans';
-                                            }
-                                            if(result.data.Categories != ""){
-                                                window.location = '/searchcategories?categories=' + JSON.stringify(result.data.Categories);
-                                            }
-                                        }
-                                        else {
-                                            Materialize.toast(result.message, 1000);
-                                        }
-                                    }
-                                })
-                            }
-                        });
+                        $('#quicksearch').submit();
                     }
                 });
+
             });
->>>>>>> 03597ab6cd7ea8012c08c847b6ac904293245015
     body
         .bs-example
             label(for='search-query') Tags:
