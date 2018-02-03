@@ -780,7 +780,7 @@ app.post('/searchspecific',function(req,res){
         else{
             req.session.search = result;
             console.log(result);
-            res.send({status : 'success' , data : result});
+            res.send({status : 'searchspecific' , data : result});
         }
     });
 });
@@ -1230,7 +1230,7 @@ app.post('/DOSlist',function (req,res) {
                 console.log(err);
             }
             else {
-                callback(null, result);
+                res.send({ message : "search disease" , data :result });
             }
         });
     }
@@ -1240,7 +1240,7 @@ app.post('/DOSlist',function (req,res) {
                 console.log(err);
             }
             else {
-                callback(null, result);
+                res.send({ message : "search organ" , data :result });
             }
         });
     }
@@ -1250,7 +1250,7 @@ app.post('/DOSlist',function (req,res) {
                 console.log(err);
             }
             else {
-                callback(null, result);
+                res.send({ message : "search symptom" , data :result });
             }
         });
     }
