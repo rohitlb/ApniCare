@@ -6080,10 +6080,15 @@ app.post('/adminFeedbackEnterResponse',adminrequiresLogin,function(req,res){
 
 //////////////////PAGE NOT FOUND///////////////////////////////////////////////
 
-app.use(function (err, req, res, next) {
-    console.error(err.stack);
-    res.status(404).render('not_found')
-});
+// app.use(function (err, req, res, next) {
+//     console.error(err.stack);
+//     res.status(404).render('not_found')
+// });
+
+app.get('/*',function(req,res){
+    res.send("page not found");
+})
+
 
 //==========================Database connection===========================
 
