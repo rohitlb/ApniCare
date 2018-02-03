@@ -11,15 +11,15 @@ div.row
                         div.col.s12.m6.l6
                             span Molecule Name
                             span.red-text &nbsp*
-                            input.validate#molecule_name(type='text', name='t1', style='text-transform:uppercase;color:black;font-size: 18px;font-weight: 400;')
+                            input.validate#molecule_name(type='text', name='t1', style='text-transform:uppercase;color:black;font-size: 18px;font-weight: 400; ' required)
                         div.col.s12.m6.l6
                             span Category
                             span.red-text &nbsp*
-                            input.validate#drug_category(type='text', name='t2', style='text-transform:capitalize;color:black;font-size: 18px;font-weight: 400;')
+                            input.validate#drug_category(type='text', name='t2', style='text-transform:capitalize;color:black;font-size: 18px;font-weight: 400;' required)
                         div.col.s12.m12.l12
                             span Short Description
                             span.red-text &nbsp*
-                            textarea.tobig.text_areas.materialize-textarea.validate#short_description(name='t3', style='text-transform:capitalize;color:black;font-size: 18px;font-weight: 400;')
+                            textarea.tobig.text_areas.materialize-textarea.validate#short_description(name='t3', style='text-transform:capitalize;color:black;font-size: 18px;font-weight: 400;' required)
                         div.col.s12.m12.l12
                             span Pharmacokinetics
                             span.red-text &nbsp*
@@ -27,29 +27,29 @@ div.row
                             div.col.s12.m12.l12
                                 span.flow-text Absorption
                                     br
-                                    textarea.materialize-textarea#absorption(name='t4', style='text-transform:capitalize;color:black;font-size: 18px;font-weight: 400;')
+                                    textarea.materialize-textarea#absorption(name='t4', style='text-transform:capitalize;color:black;font-size: 18px;font-weight: 400;' required)
                             div.col.s12.m12.l12
                                 span.flow-text Distribution
                                     br
-                                    textarea.materialize-textarea#distribution(name='t4', style='text-transform:capitalize;color:black;font-size: 18px;font-weight: 400;')
+                                    textarea.materialize-textarea#distribution(name='t4', style='text-transform:capitalize;color:black;font-size: 18px;font-weight: 400;' required)
                             div.col.s12.m12.l12
                                 span.flow-text Metabolism
                                     br
-                                    textarea.materialize-textarea#metabolism(name='t4', style='text-transform:capitalize;color:black;font-size: 18px;font-weight: 400;')
+                                    textarea.materialize-textarea#metabolism(name='t4', style='text-transform:capitalize;color:black;font-size: 18px;font-weight: 400;' required)
                             div.col.s12.m12.l12
                                 span.flow-text Excretion
                                     br
-                                    textarea.materialize-textarea#excretion(name='t4', style='text-transform:capitalize;color:black;font-size: 18px;font-weight: 400;')
+                                    textarea.materialize-textarea#excretion(name='t4', style='text-transform:capitalize;color:black;font-size: 18px;font-weight: 400;' required)
 
                         div.col.s12.m12.l12
                             span Side Effects
                             span.red-text &nbsp*
-                            textarea.materialize-textarea.tobig.text_areas.validate#side_effect(name='t5', style='text-transform:capitalize;color:black;font-size: 18px;font-weight: 400;')
+                            textarea.materialize-textarea.tobig.text_areas.validate#side_effect(name='t5', style='text-transform:capitalize;color:black;font-size: 18px;font-weight: 400;' required)
                             //input.button(type='submit')
                         div.col.s12.m12.l12
                             span Special Precautions
                             span.red-text &nbsp*
-                            textarea.materialize-textarea.tobig.text_areas.validate#precaution(name='t6', style='text-transform:capitalize;color:black;font-size: 18px;font-weight: 400;')
+                            textarea.materialize-textarea.tobig.text_areas.validate#precaution(name='t6', style='text-transform:capitalize;color:black;font-size: 18px;font-weight: 400;' required)
                             //input.button(type='submit')
                         div.col.s12.m12.l12
                             span Other Drug Interactions

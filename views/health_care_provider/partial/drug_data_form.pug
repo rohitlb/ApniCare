@@ -33,7 +33,7 @@ div.row
                         div.col.s12.m6.l6
                             span Category
                             //span.red-text &nbsp*
-                            input(type='text', id='categories', style='color:black;text-transform:capitalize;font-size: 18px;font-weight: 400;')
+                            input(type='text', id='categories', style='color:black;text-transform:capitalize;font-size: 18px;font-weight: 400;' required)
                         div.col.s12.m12.l12
                             span Potent Substances
                             span.red-text &nbsp*
@@ -45,7 +45,7 @@ div.row
                                                 div.col.s12.m6.l6
                                                     input.validate.repeat_subhead6#subheading6(type='text', placeholder='Enter Name', style='text-transform:capitalize;' required)
                                                 div.col.s12.m6.l6
-                                                    input.validate.text_subhead6#subhead_text6(type='text', style='text-transform:capitalize;', placeholder='Enter Molecule Strength')
+                                                    input.validate.text_subhead6#subhead_text6(type='text', style='text-transform:capitalize;', placeholder='Enter Molecule Strength' required)
                                     button.repeat6 Add Another
                                     br
                         div.col.s12.m12.l12
@@ -90,7 +90,7 @@ div.row
                                     span Strength
                                     div.row
                                         div.col.s12.m12.l12
-                                            input(type='text', id='strength', placeholder='eg.500 mg' style='text-transform:capitalize;color:black;font-size: 18px;font-weight: 400;')
+                                            input(type='text', id='strength', placeholder='eg.500 mg' style='text-transform:capitalize;color:black;font-size: 18px;font-weight: 400;' required)
 
                                 div.col.s12.m6.l6
                                     span Packaging

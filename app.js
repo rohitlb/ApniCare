@@ -4847,7 +4847,6 @@ app.get('/adminDrugDataMakeLive',adminrequiresLogin,function(req,res,next){
             var primarily_used_for = result[0].primarily_used_for;
             var company_name = result[0].company_name;
             var strengtH = result[0].strength;
-            var strength_unit = result[0].strength_unit;
             var types = result[0].types;
             var potent_name = result[0].potent_substance.name;
             var potent_strength = result[0].potent_substance.molecule_strength;
@@ -4904,7 +4903,6 @@ app.get('/adminDrugDataMakeLive',adminrequiresLogin,function(req,res,next){
                                 else {
                                     var STRength = new Strength({
                                         strength: strengtH,
-                                        strength_unit : strength_unit,
                                         potent_substance : {
                                             name: potent_name,
                                             molecule_strength: potent_strength
@@ -5033,7 +5031,6 @@ app.get('/adminDrugDataMakeLive',adminrequiresLogin,function(req,res,next) {
             else {
                 var strength = new Strength({
                     strength: value1[0].strength,
-                    strength_unit : value1[0].strength_unit,
                     potent_substance: {
                         name: value1[0].potent_substance.name,
                         molecule_strength: value1[0].potent_substance.molecule_strength
@@ -5149,7 +5146,6 @@ app.get('/adminDrugDataMakeLive',adminrequiresLogin,function(req,res,next){
             else {
                 var sTrength = new Strength({
                     strength: value1[0].strength,
-                    strength_unit : value1[0].strength_unit,
                     potent_substance: {
                         name: value1[0].potent_substance.name,
                         molecule_strength: value1[0].potent_substance.molecule_strength
@@ -5215,7 +5211,6 @@ app.get('/adminDrugDataMakeLive',adminrequiresLogin,function(req,res) {
     else {
         var strength = new Strength({
             strength: value1[0].strength,
-            strength_unit : value1[0].strength_unit,
             potent_substance: {
                 name: value1[0].potent_substance.name,
                 molecule_strength: value1[0].potent_substance.molecule_strength
