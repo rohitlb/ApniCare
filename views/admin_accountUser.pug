@@ -1,0 +1,46 @@
+doctype html
+html
+    head
+        script.
+            function validate()
+            {
+                if(document.getElementById('check').checked)
+                {
+                    var values = document.getElementById('check').value;
+                    window.alert(values);
+                    window.location.href='/blockUser?number='+values;
+                }
+                else
+                {
+                    var values = document.getElementById('check').value;
+                    window.alert(values);
+                    window.location.href = '/unblockUser?number=' + values;
+                }
+            }
+
+    body
+        h3 Admin/Account/User
+        br
+        br
+
+        h4 Total User Account - #{result.TotalUser}
+        h4 New User Accounts - #{result.NewUser}
+        br
+
+        table
+            h3 Name &nbsp&nbsp&nbsp&nbsp&nbsp Number &nbsp&nbsp&nbsp&nbsp&nbsp Profile &nbsp&nbsp&nbsp&nbsp&nbsp Block
+
+            each data in result.UserData
+                p
+                    span #{data.name} &nbsp&nbsp
+                    span #{data.number} &nbsp&nbsp&nbsp&nbsp
+                    span
+                    a(href="/adminprofilePage?number=" + data.number) Show Profile
+
+                    span &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    if(data.status == 'blocked')
+                        p #{data.status}
+                        input(id="check" onclick="validate()" type="checkbox" value=data.number checked)
+                    else
+                        p #{data.status}
+                        input(id="check" onclick="validate()" type="checkbox" value=data.number)

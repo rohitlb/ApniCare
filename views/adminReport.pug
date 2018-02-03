@@ -1,0 +1,25 @@
+doctype html
+html
+    head
+    body
+        h3 Admin/Report
+        br
+        br
+
+
+        table
+            h3 Name &nbsp&nbsp&nbsp&nbsp&nbsp Number &nbsp&nbsp&nbsp&nbsp&nbsp
+               span Session by Device &nbsp&nbsp&nbsp&nbsp&nbsp Seesion In &nbsp&nbsp&nbsp&nbsp&nbsp
+               span Session Out &nbsp&nbsp&nbsp&nbsp&nbsp Date
+            each data in result.User
+                p
+                    span #{data.name} &nbsp&nbsp
+                    span #{data.number} &nbsp&nbsp&nbsp&nbsp
+                    //span
+                    //    a(href="/adminloginpage") Show Profile
+                    //
+                    //span &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    //if(data.status == 'blocked')
+                    //    input(id="check" onclick="validate()" type = "checkbox" name=data.number checked)
+                    //else
+                    //    input(id="check" onclick="validate()" type = "checkbox" name=data.number)

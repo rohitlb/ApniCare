@@ -44,7 +44,11 @@ var Terms = require('./model/terms');
 var FAQ = require('./model/faq');
 var Policy = require('./model/policy');
 var Licence = require('./model/open_source_licence');
-
+//AdminPanel
+var DrugData = require('./model/drugdatalive');
+var DiseaseData = require('./model/diseasedatalive');
+var MoleculeData = require('./model/moleculedatalive');
+var CategoryData = require('./model/categorydatalive');
 
 
 //declare the app
@@ -293,8 +297,8 @@ app.post('/sendOTP',function (req, res) {
                         throw new Error(error);
                     }
                     else {
-                        var temp = JSON.parse(body);
-                        req.session.sid = temp.Details;
+                        //var temp = JSON.parse(body);
+                        //req.session.sid = temp.Details;
                         res.send({status: "success", message: "OTP sent to your number"});
                     }
                 });
@@ -328,14 +332,6 @@ app.post('/VerifyOTP',function (req, res) {
     req.session.sid = null;
 });
 
-app.get('/home',function (req,res) {
-    //if (req.session.userID) {
-    var page="index";
-    res.render('index',{
-        page:page
-    });
-    res.end();
-});
 
 app.get('/', function (req, res) {
     //if (req.session.userID) {
@@ -2363,359 +2359,6 @@ app.post('/doctorupdatepassword',function (req,res) {
 
 //////////////////////////////////Drug index start from here////////////////////////////////////////////////////////////
 
-app.get('/medicine',function (req,res) {
-    res.render('medicine');
-});
-
-app.post('/medicines',function(req,res) {
-    var brand_name = req.body.brand_name;
-    var company_name = req.body.company_name;
-    var categories = req.body.categories;
-    var strengTHS = req.body.strength1;
-    //var strength_unit = req.body.strength2;
-    var potent_name=  req.body.subhead111;
-    var potent_strength = req.body.subhead222;
-    var dosage_form = req.body.dosage_form;
-    var packaging = req.body.packaging;
-    var price = req.body.price;
-    var prescription = req.body.prescription;
-    var dose_taken = req.body.dose_taken;
-    var dose_timing = req.body.dose_timing;
-    var types = req.body.types;
-    var primarily_used_for = req.body.primarily_used_for;
-    var warnings = req.body.warnings;
-    var companyresult = null;
-    var brandresult = null;
-    // console.log(price);
-    // console.log('reached');
-
-
-    async.waterfall([
-            function (callback) {
-                Company.findOne({company_name: company_name}, function (err, result) {
-                    if (err) {
-                        console.log(err);
-                        throw new Error(err);
-                    }
-                    else {
-                        callback(null, result);
-                    }
-                });
-            },
-            function (result, callback) {
-                if (result) {
-                    companyresult = result._id;
-                    Brand.findOne({brand_name: brand_name}, function (err, result1) {
-                        if (err) {
-                            console.log(err);
-                            throw new Error(err);
-                        }
-                        else {
-                            callback(null, result1);
-                        }
-                    });
-                }
-                else {
-                    Brand.findOne({brand_name: brand_name}, function (err1, result1) {
-                        if (err1) {
-                            console.log(err1);
-                            throw new Error(err1);
-                        }
-                        else {
-                            if (result1) {
-                                res.send("Other Company cannot have Same Brand");
-                            }
-                            else {
-                                // console.log('reaches here');
-                                var STRength = new Strength({
-                                    strength: strengTHS,
-                                    potent_substance: {
-                                        name: potent_name,
-                                        molecule_strength: potent_strength
-                                    },
-                                    packaging: packaging,
-                                    price: price,
-                                    dose_taken: dose_taken,
-                                    dose_timing: dose_timing,
-                                    warnings: warnings,
-                                    prescription: prescription
-                                });
-                                STRength.save(function (err2, result2) {
-                                    if (err2) {
-                                        console.log(err2);
-                                        throw new Error(err2);
-                                    }
-                                    else {
-                                        var dosage = new Dosage({
-                                            dosage_form: dosage_form,
-                                            strength_id: result2._id
-                                        });
-                                        dosage.save(function (err3, result3) {
-                                            if (err3) {
-                                                console.log(err3);
-                                                throw new Error(err3);
-                                            }
-                                            else {
-                                                var brand = new Brand({
-                                                    brand_name: brand_name,
-                                                    categories: categories,
-                                                    types: types,
-                                                    primarily_used_for: primarily_used_for,
-                                                    dosage_id: result3._id
-                                                });
-                                                brand.save(function (err4, result4) {
-                                                    if (err4) {
-                                                        console.log(err4);
-                                                        throw new Error(err4);
-                                                    }
-                                                    else {
-                                                        var company = new Company({
-                                                            company_name: company_name,
-                                                            brand_id: result4._id
-                                                        });
-                                                        company.save(function (err5, result5) {
-                                                            if (err5) {
-                                                                console.log(err5);
-                                                                throw new Error(err5);
-                                                            }
-                                                            else {
-                                                                Brand.update({brand_name: brand_name}, {
-                                                                    $set: {
-                                                                        company_id: result5._id
-                                                                    }
-                                                                }, function (err6) {
-                                                                    if (err6) {
-                                                                        console.log(err6);
-                                                                    }
-                                                                    else {
-                                                                        Strength.update({_id: result2._id}, {
-                                                                            $push: {
-                                                                                brands_id: result4._id
-                                                                            }
-                                                                        }, function (err7, result7) {
-                                                                            if (err7) {
-                                                                                console.log(err7);
-                                                                            }
-                                                                            else {
-                                                                                res.send("New medicine added");
-                                                                            }
-                                                                        });
-                                                                    }
-                                                                });
-                                                            }
-                                                        });
-                                                    }
-                                                })
-                                            }
-                                        });
-                                    }
-                                });
-                            }
-                        }
-                    });
-                }
-            },
-            function (result, callback) {
-                if (result) {
-                    brandresult = result._id;
-                    Dosage.findOne({dosage_form: dosage_form}, function (err, result1) {
-                        if (err) {
-                            console.log(err);
-                            throw new Error(err);
-                        }
-                        else {
-                            callback(null, result1);
-                        }
-                    });
-                }
-                else {
-                    var strength = new Strength({
-                        strength: strengTHS,
-                        potent_substance: {
-                            name: potent_name,
-                            molecule_strength: potent_strength
-                        },
-                        packaging: packaging,
-                        price: price,
-                        dose_taken: dose_taken,
-                        dose_timing: dose_timing,
-                        warnings: warnings,
-                        prescription: prescription
-                    });
-                    strength.save(function (err, result) {
-                        if (err) {
-                            console.log(err);
-                        }
-                        else {
-                            var dosage = new Dosage({
-                                dosage_form: dosage_form,
-                                strength_id: result._id
-                            });
-                            dosage.save(function (err1, result1) {
-                                if (err1) {
-                                    console.log(err1);
-                                }
-                                else {
-                                    var brand = new Brand({
-                                        brand_name: brand_name,
-                                        categories: categories,
-                                        types: types,
-                                        primarily_used_for: primarily_used_for,
-                                        dosage_id: result1._id
-                                    });
-                                    brand.save(function (err2, result2) {
-                                        if (err2) {
-                                            console.log(err2);
-                                        }
-                                        else {
-                                            Company.update({company_name: company_name}, {
-                                                $push: {brand_id: result2._id}
-                                            }).exec(function (err3) {
-                                                if (err3) {
-                                                    console.log(err3);
-                                                }
-                                                else {
-                                                    Brand.update({brand_name: brand_name}, {
-                                                        $push: {
-                                                            company_id: companyresult
-                                                        }
-                                                    }, function (err6) {
-                                                        if (err6) {
-                                                            console.log(err6);
-                                                        }
-                                                        else {
-                                                            Strength.update({_id: result._id}, {
-                                                                $push: {
-                                                                    brands_id: result2._id
-                                                                }
-                                                            }, function (err7) {
-                                                                if (err7) {
-                                                                    console.log(err);
-                                                                }
-                                                                else {
-                                                                    res.send("Brand added successfully with dosage and strength");
-                                                                }
-                                                            });
-                                                        }
-                                                    });
-                                                }
-                                            });
-                                        }
-                                    });
-                                }
-                            });
-                        }
-                    });
-                }
-            },
-            function (result, callback) {
-                if (result) {
-                    Strength.findOne({strength: strengTHS}, function (err, result1) {
-                        if (err) {
-                            console.log(err);
-                            throw new Error(err);
-                        }
-                        else {
-                            callback(null, result1);
-                        }
-                    });
-                }
-                else {
-                    var sTrength = new Strength({
-                        strength: strengTHS,
-                        potent_substance: {
-                            name: potent_name,
-                            molecule_strength: potent_strength
-                        },
-                        brands_id: brandresult,
-                        packaging: packaging,
-                        price: price,
-                        dose_taken: dose_taken,
-                        dose_timing: dose_timing,
-                        warnings: warnings,
-                        prescription: prescription
-                    });
-                    sTrength.save(function (err, result1) {
-                        if (err) {
-                            console.log(err);
-                        }
-                        else {
-                            var dosage = new Dosage({
-                                dosage_form: dosage_form,
-                                strength_id: result1._id
-                            });
-                            dosage.save(function (err1, result2) {
-                                if (err1) {
-                                    console.log(err1);
-                                }
-                                else {
-                                    Brand.update({brand_name: brand_name}, {
-                                        $push: {
-                                            dosage_id: result2._id
-                                        }
-                                    }).exec(function (err2) {
-                                        if (err2) {
-                                            console.log(err2);
-                                        }
-                                        else {
-                                            res.send("Dosage added successfully with strength");
-                                        }
-                                    });
-                                }
-                            });
-                        }
-                    });
-                }
-            },
-            function (result1) {
-                if (result1) {
-                    res.send("Medicines already exists");
-                }
-                else {
-                    var strength = new Strength({
-                        strength: strengTHS,
-
-                        potent_substance: {
-                            name: potent_name,
-                            molecule_strength: potent_strength
-                        },
-                        brands_id: brandresult,
-                        packaging: packaging,
-                        price: price,
-                        dose_taken: dose_taken,
-                        dose_timing: dose_timing,
-                        warnings: warnings,
-                        prescription: prescription
-                    });
-                    strength.save(function (err, result1) {
-                        if (err) {
-                            console.log(err);
-                        }
-                        else {
-                            Dosage.update({dosage_form: dosage_form}, {
-                                $push: {strength_id: result1._id}
-                            }).exec(function (err2) {
-                                if (err2) {
-                                    console.log(err2);
-                                }
-                                else {
-                                    res.send("Strength added successfully");
-                                }
-                            });
-                        }
-                    });
-                }
-            }
-        ],
-        function (err) {
-            if (err) {
-                console.log(err);
-            }
-            else {
-                res.send("Done");
-            }
-        });
-});
 
 app.get('/findcompany',function (req,res) {
     Company.find().exec(function (err,result) {
@@ -2878,161 +2521,10 @@ app.get('/findingredients',function (req,res) {
     });
 });
 
-app.get('/disease',function (req,res) {
-    res.render('disease');
-});
 
-app.post('/diseases',function (req,res) {
-    var disease_name = req.body.disease_name;
-    var symptoms = req.body.symptoms;
-    var risk_factor = req.body.risk_factor;
-    var cause = req.body.cause;
-    //for diagnosis
-    var diagnosis_subhead = req.body.subhead1; // heading
-    var diagnosis_info = req.body.subhead2; // information about heading
-    // for organs
-    var organ_subhead = req.body.subhead;
-    var organ_info = req.body.info;
-    var treatment = req.body.treatment;
-    var outlook = req.body.outlook;
-    var prevention = req.body.prevention;
-    var source = req.body.source;
-
-    Disease.find({disease_name : disease_name},function (err,result) {
-        if (err) {
-            console.log(err);
-        }
-        else {
-            if (result != "") {
-                res.send({message : "Disease already exists"});
-            }
-            else {
-                var disease = new Disease({
-                    disease_name: disease_name,
-                    symptoms: symptoms,
-                    risk_factor: risk_factor,
-                    cause: cause,
-                    diagnosis: {
-                        subhead : diagnosis_subhead,
-                        info : diagnosis_info
-                    },
-                    organs: {
-                        subhead : organ_subhead,
-                        info : organ_info
-                    },
-                    treatment: treatment,
-                    outlook: outlook,
-                    prevention: prevention,
-                    source : source
-                });
-                disease.save(function (err,result1) {
-                    if (err) {
-                        console.log(err);
-                    }
-                    else {
-                        async.each(result1.organs.subhead,function(organ,callback){
-                            Search.find({name : organ},function(error,search) {
-                                if(search == ""){
-                                    var search = new Search({
-                                        name : organ
-                                    });
-                                    search.save(function(errs){
-                                        callback();
-                                    });
-                                }
-                                else{
-                                    callback();
-                                }
-                            });
-                        },function(errs,update){
-                            res.send({message : "Disease details saved successfully"});
-                        });
-                    }
-                });
-            }
-        }
-    });
-});
 
 // ************************************About Molecule ***************************************************
 
-
-// molecule details
-app.get('/molecule',function (req,res) {
-    res.render('molecule');
-});
-
-app.post('/molecules',function (req,res) {
-    var molecule_name = req.body.molecule_name;
-    var drug_categories = req.body.drug_categories;
-    var description = req.body.description;
-    var absorption = req.body.absorption;
-    var distribution = req.body.distribution;
-    var metabolism = req.body.metabolism;
-    var excretion = req.body.excretion;
-    var side_effect = req.body.side_effect;
-    var precaution = req.body.precaution;
-    var food = req.body.food;
-    var drug_subhead = req.body.subhead5;
-    var drug_info = req.body.info5;
-    var other_subhead = req.body.subhead4;
-    var other_info = req.body.info4;
-    var dosage_subhead = req.body.subhead3;
-    var dosage_info = req.body.info3;
-    var contraindication_subhead = req.body.subhead2_dosage;
-    var contraindication_info = req.body.info2;
-    var source = req.body.source;
-
-    Molecule.find({molecule_name : molecule_name},function(error,results){
-        if(error){
-            console.log(error);
-        }
-        else{
-            if(results != ""){
-                res.send({message : 'Molecule already exist'});
-            }
-            else{
-                var molecule = new Molecule({
-                    molecule_name: molecule_name,
-                    drug_categories: drug_categories,
-                    description: description,
-                    absorption: absorption,
-                    distribution: distribution,
-                    metabolism: metabolism,
-                    excretion: excretion,
-                    side_effect: side_effect,
-                    precaution: precaution,
-                    food: food,
-                    other_drug_interaction: {
-                        subhead: drug_subhead,
-                        info: drug_info
-                    },
-                    other_interaction: {
-                        subhead: other_subhead,
-                        info: other_info
-                    },
-                    dosage: {
-                        subhead: dosage_subhead,
-                        info: dosage_info
-                    },
-                    contraindications: {
-                        subhead: contraindication_subhead,
-                        info: contraindication_info
-                    },
-                    source: source
-                });
-                molecule.save(function (err, result) {
-                    if (err) {
-                        console.log(err);
-                    }
-                    else {
-                        res.send("Molecule details added");
-                    }
-                });
-            }
-        }
-    });
-});
 
 // search molecule
 app.get('/search_molecule',function (req,res) {
@@ -5345,6 +4837,2159 @@ app.post('/licence',function(req,res){
         }
     })
 });
+
+
+//=========================Admin Panel==================================================================================
+
+/////////insertData from User to make it live/////////////////////////
+
+app.post('/drugData',function(req,res){
+    var company_name = req.body.company_name;
+    var brand_name = req.body.brand_name;
+    var categories = req.body.categories;
+    var primarily_used_for = req.body.primarily_used_for;
+    var types = req.body.types;
+    var dosage_form = req.body.dosage_form;
+    var strength = req.body.strength1;
+    var potent_name = req.body.subhead111;
+    var potent_strength = req.body.subhead222;
+    var packaging = req.body.packaging;
+    var price = req.body.price;
+    var prescription = req.body.prescription;
+    var dose_taken = req.body.dose_taken;
+    var dose_timing = req.body.dose_timing;
+    var warnings = req.body.warnings;
+    var ticket = req.body.ticket;
+    if((brand_name != null)&&(company_name != null)&&(potent_name != null)&&(dosage_form != null)) {
+        if (req.session.doctorID) {
+            var name = req.session.doctorID;
+        }
+        if (req.session.pharmaID) {
+            var name = req.session.pharmaID;
+        }
+        DrugData.find({company_name : company_name , brand_name : brand_name , dosage_form : dosage_form , strength : strength},function(errs,results){
+            if(results != ""){
+                res.send({status : 'failure' , message : 'Drug Already Exist'});
+            }
+            else{
+                Company.find({company_name : company_name},function(err,result){
+                    if(result != ""){
+                        Brand.find({_id : result[0].brand_id , brand_name : brand_name},function(err1,result1){
+                            if(result1 != ""){
+                                Dosage.find({_id : result1[0].dosage_id , dosage_form : dosage_form},function(err2,result2){
+                                    if(result2 != ""){
+                                        Strength.find({_id : result2[0].strength_id , strength : strength},function(err3,result3){
+                                            if(result3 != ""){
+                                                res.send({status : 'failure' , message : 'Drug Already Exist'});
+                                            }
+                                            else{
+                                                var drugData = new DrugData({
+                                                    company_name: company_name,
+                                                    brand_name: brand_name,
+                                                    categories: categories,
+                                                    primarily_used_for: primarily_used_for,
+                                                    types: types,
+                                                    dosage_form: dosage_form,
+                                                    strength: strength,
+                                                    potent_substance: {
+                                                        name: potent_name,
+                                                        molecule_strength: potent_strength
+                                                    },
+                                                    packaging: packaging,
+                                                    price: price,
+                                                    prescription: prescription,
+                                                    prescription: prescription,
+                                                    dose_taken: dose_taken,
+                                                    dose_timing: dose_timing,
+                                                    warnings: warnings,
+                                                    submitted_by: name,
+                                                    ticket: ticket
+                                                });
+                                                drugData.save(function (err) {
+                                                    if (err) {
+                                                        console.log(err);
+                                                    }
+                                                    else {
+                                                        res.send({status:'success', message:'New medicine added'});
+                                                    }
+                                                });
+                                            }
+                                        });
+                                    }
+                                    else{
+                                        var drugData = new DrugData({
+                                            company_name: company_name,
+                                            brand_name: brand_name,
+                                            categories: categories,
+                                            primarily_used_for: primarily_used_for,
+                                            types: types,
+                                            dosage_form: dosage_form,
+                                            strength: strength,
+                                            potent_substance: {
+                                                name: potent_name,
+                                                molecule_strength: potent_strength
+                                            },
+                                            packaging: packaging,
+                                            price: price,
+                                            prescription: prescription,
+                                            prescription: prescription,
+                                            dose_taken: dose_taken,
+                                            dose_timing: dose_timing,
+                                            warnings: warnings,
+                                            submitted_by: name,
+                                            ticket: ticket
+                                        });
+                                        drugData.save(function (err) {
+                                            if (err) {
+                                                console.log(err);
+                                            }
+                                            else {
+                                                res.send({status:'success', message:'New medicine added'});
+                                            }
+                                        });
+                                    }
+                                });
+                            }
+                            else{
+                                var drugData = new DrugData({
+                                    company_name: company_name,
+                                    brand_name: brand_name,
+                                    categories: categories,
+                                    primarily_used_for: primarily_used_for,
+                                    types: types,
+                                    dosage_form: dosage_form,
+                                    strength: strength,
+                                    potent_substance: {
+                                        name: potent_name,
+                                        molecule_strength: potent_strength
+                                    },
+                                    packaging: packaging,
+                                    price: price,
+                                    prescription: prescription,
+                                    prescription: prescription,
+                                    dose_taken: dose_taken,
+                                    dose_timing: dose_timing,
+                                    warnings: warnings,
+                                    submitted_by: name,
+                                    ticket: ticket
+                                });
+                                drugData.save(function (err) {
+                                    if (err) {
+                                        console.log(err);
+                                    }
+                                    else {
+                                        res.send({status:'success', message:'New medicine added'});
+                                    }
+                                });
+                            }
+                        });
+                    }
+                    else{
+                        var drugData = new DrugData({
+                            company_name: company_name,
+                            brand_name: brand_name,
+                            categories: categories,
+                            primarily_used_for: primarily_used_for,
+                            types: types,
+                            dosage_form: dosage_form,
+                            strength: strength,
+                            potent_substance: {
+                                name: potent_name,
+                                molecule_strength: potent_strength
+                            },
+                            packaging: packaging,
+                            price: price,
+                            prescription: prescription,
+                            prescription: prescription,
+                            dose_taken: dose_taken,
+                            dose_timing: dose_timing,
+                            warnings: warnings,
+                            submitted_by: name,
+                            ticket: ticket
+                        });
+                        drugData.save(function (err) {
+                            if (err) {
+                                console.log(err);
+                            }
+                            else {
+                                res.send({status:'success', message:'New medicine added'});
+                            }
+                        });
+                    }
+                });
+            }
+        });
+    }
+    else{
+        res.send({status : 'failure' , message : 'Field Can\'t be empty'})
+    }
+});
+
+app.post('/diseaseData',function(req,res) {
+    var disease_name = req.body.disease_name;
+    var symptoms = req.body.symptoms;
+    var risk_factor = req.body.risk_factor;
+    var cause = req.body.cause;
+    //for diagnosis
+    var diagnosis_subhead = req.body.subhead1; // heading
+    console.log(diagnosis_subhead);
+    var diagnosis_info = req.body.subhead2; // information about heading
+    // for organs
+    var organ_subhead = req.body.subhead;
+    var organ_info = req.body.info;
+    var treatment = req.body.treatment;
+    var outlook = req.body.outlook;
+    var prevention = req.body.prevention;
+    var source = req.body.source;
+    if (req.session.doctorID) {
+        var name = req.session.doctorID;
+    }
+    if (req.session.pharmaID) {
+        var name = req.session.pharmaID;
+    }
+
+    async.series({
+        diseasedatas :  function (callback) {
+            DiseaseData.find({disease_name: disease_name}, function (err, result) {
+                if (err) {
+                    console.log(err);
+                }
+                else {
+                    callback(null, result);
+                }
+            });
+        },
+        diseases :  function (callback) {
+            Disease.find({disease_name: disease_name}, function (err, result) {
+                if (err) {
+                    console.log(err);
+                }
+                else {
+                    callback(null, result);
+                }
+            });
+        }
+    }, function (err, results) {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            if ((results.diseasedatas != "")||(results.diseases != "")) {
+                res.send({status: 'failure', message: 'Disease already exist'});
+            }
+            else {
+                var diseaseData = new DiseaseData({
+                    disease_name: disease_name,
+                    symptoms: symptoms,
+                    risk_factor: risk_factor,
+                    cause: cause,
+                    diagnosis: {
+                        subhead: diagnosis_subhead,
+                        info: diagnosis_info
+                    },
+                    organs: {
+                        subhead: organ_subhead,
+                        info: organ_info
+                    },
+                    treatment: treatment,
+                    outlook: outlook,
+                    prevention: prevention,
+                    source: source,
+                    submitted_by: name
+                });
+                diseaseData.save(function (errs, resul) {
+                    if (errs) {
+                        console.log(errs);
+                    }
+                    else {
+                        res.send({status: 'success', message: 'Disease save successfully'});
+                    }
+                });
+            }
+        }
+    });
+});
+
+app.post('/moleculeData',function(req,res) {
+    var molecule_name = req.body.molecule_name;
+    var drug_categories = req.body.drug_categories;
+    var description = req.body.description;
+    var absorption = req.body.absorption;
+    var distribution = req.body.distribution;
+    var metabolism = req.body.metabolism;
+    var excretion = req.body.excretion;
+    var side_effect = req.body.side_effect;
+    var precaution = req.body.precaution;
+    var food = req.body.food;
+    var drug_subhead = req.body.subhead5;
+    var drug_info = req.body.info5;
+    var other_subhead = req.body.subhead4;
+    var other_info = req.body.info4;
+    var dosage_subhead = req.body.subhead3;
+    var dosage_info = req.body.info3;
+    var contraindications_subhead = req.body.subhead2_dosage;
+    var contraindications_info = req.body.info2;
+    var source = req.body.source;
+    if(req.session.doctorID){
+        var name = req.session.doctorID;
+    }
+    if(req.session.pharmaID){
+        var name = req.session.pharmaID;
+    }
+
+    async.series({
+        moleculedatas :  function (callback) {
+            MoleculeData.find({molecule_name: molecule_name}, function (err, result) {
+                if (err) {
+                    console.log(err);
+                }
+                else {
+                    callback(null, result);
+                }
+            });
+        },
+        molecules :  function (callback) {
+            Molecule.find({molecule_name: molecule_name}, function (err, result) {
+                if (err) {
+                    console.log(err);
+                }
+                else {
+                    callback(null, result);
+                }
+            });
+        }
+    }, function (err, result) {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            if((result.moleculedatas != "")||(result.molecules != "")){
+                res.send({status : 'failure' , message: 'Molecule already exist'});
+            }
+            else {
+                var moleculeData = new MoleculeData({
+                    molecule_name: molecule_name,
+                    drug_categories: drug_categories,
+                    description: description,
+                    absorption: absorption,
+                    distribution: distribution,
+                    metabolism: metabolism,
+                    excretion: excretion,
+                    side_effect: side_effect,
+                    precaution: precaution,
+                    food: food,
+                    other_drug_interaction: {
+                        subhead: drug_subhead,
+                        info: drug_info
+                    },
+                    other_interaction: {
+                        subhead: other_subhead,
+                        info: other_info
+                    },
+                    dosage: {
+                        subhead: dosage_subhead,
+                        info: dosage_info
+                    },
+                    contraindications: {
+                        subhead: contraindications_subhead,
+                        info: contraindications_info
+                    },
+                    source: source,
+                    submitted_by : name
+                });
+                moleculeData.save(function(errs) {
+                    if (errs) {
+                        console.log(errs);
+                    }
+                    else {
+                        res.send({status : 'success' , message: 'Molecule save successfully'});
+                    }
+                });
+            }
+        }
+    });
+});
+
+//////admin Panel/////////////
+app.get('/adminpanellink',function (req,res) {
+    res.render('adminpanellink');
+});
+
+app.get('/adminloginpage',function(req,res){
+    res.render('adminloginpage');
+});
+
+app.post('/adminLogin',function (req,res) {
+    var username = req.body.username;
+    var password = req.body.password;
+
+    if((username == '8477922297') && (password == '8477922297' )){
+        req.session.admin = 'Admin';
+        res.render('adminPanel');
+    }
+    else{
+        res.send({status : 'failure' , message : "Wrong credential"});
+    }
+});
+
+app.get('/admin_home',function(req,res){
+    async.parallel({
+        user: function (callback) {
+            User.find().count().exec(function (err, result) {
+                if (err) {
+                    console.log(err);
+                }
+                else {
+                    callback(null, result);
+                }
+            });
+        },
+        doctor: function (callback) {
+            Doctor.find().count().exec(function (err, result) {
+                if (err) {
+                    console.log(err);
+                }
+                else {
+                    callback(null, result);
+                }
+            });
+        },
+        pharma: function (callback) {
+            Pharma.find().count().exec(function (err, result) {
+                if (err) {
+                    console.log(err);
+                }
+                else {
+                    callback(null, result);
+                }
+            });
+        }
+    },function (err,result) {
+        if(err){
+            console.log(err);
+        }
+        else{
+            res.render('adminHome',{result : result});
+        }
+    });
+});
+
+app.get('/admin_report',function(req,res){
+    async.parallel({
+        User : function (callback) {
+            User.find({},'-_id name number session_device.platform session_device.ach session_in session_out').exec(
+                function(err,result){
+                    if(err){
+                        console.log(err);
+                    }
+                    else{
+                        callback(null,result);
+                    }
+                });
+        },
+        Doctor : function(callback){
+            Doctor.find({},'-_id name number').exec(function(err,result){
+                if(err){
+                    console.log(err);
+                }
+                else{
+                    callback(null,result);
+                }
+            });
+        },
+        Pharma : function (callback) {
+            Pharma.find({},'-_id name number').exec(function(err,result){
+                if(err){
+                    console.log(err);
+                }
+                else{
+                    callback(null,result);
+                }
+            });
+        }
+    },function(err,result){
+        if(err){
+            console.log(err);
+        }
+        else{
+            res.render('adminReport',{result : result});
+        }
+    });
+});
+
+////////////////////////////////////////Admin Account///////////////////////////////////////////////////////////////////
+app.get('/admin_account',function(req,res){
+    res.render('adminAccount');
+});
+
+app.get('/admin_accountUser',function(req,res){
+    async.parallel({
+        TotalUser : function (callback) {
+            User.find().count().exec(function(err,result){
+                if(err){
+                    console.log(err);
+                }
+                else{
+                    callback(null,result);
+                }
+            });
+        },
+        NewUser : function(callback){
+            var now = new Date();
+            var  today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+            User.find({registered_at: {$gte: today}}).count().exec(function(err,result){
+                if(err){
+                    console.log(err);
+                }
+                else{
+                    callback(null,result);
+                }
+            });
+        },
+        UserData : function (callback) {
+            User.find({},'-_id name number status').exec(function(err,result){
+                if(err){
+                    console.log(err);
+                }
+                else{
+                    callback(null,result);
+                }
+            });
+        }
+    },function(err,result){
+        if(err){
+            console.log(err);
+        }
+        else{
+            res.render('admin_accountUser',{result : result});
+        }
+    });
+});
+
+app.get('/blockUser',function(req,res){
+    var number = req.query.number;
+    console.log("here blocking"+number);
+    User.update({number : number},{
+        $set : {status : 'blocked'}
+    },function (err) {
+        if(err){
+            console.log(err)
+        }
+        else{
+            res.redirect('/admin_accountUser');
+        }
+    });
+});
+
+app.get('/unblockUser',function(req,res){
+    var number = req.query.number;
+    console.log(number);
+    User.update({number : number},{
+        $set : {status : 'unblocked'}
+    },function (err) {
+        if(err){
+            console.log(err)
+        }
+        else{
+            res.redirect('/admin_accountUser');
+        }
+    })
+});
+
+app.get('/admin_accountDoctor',function(req,res){
+    async.parallel({
+        TotalDoctor : function (callback) {
+            Doctor.find().count().exec(function(err,result){
+                if(err){
+                    console.log(err);
+                }
+                else{
+                    callback(null,result);
+                }
+            });
+        },
+        DoctorData : function (callback) {
+            Doctor.find({},'-_id name number status').exec(function(err,result){
+                if(err){
+                    console.log(err);
+                }
+                else{
+                    callback(null,result);
+                }
+            });
+        }
+    },function(err,result){
+        if(err){
+            console.log(err);
+        }
+        else{
+            res.render('admin_accountDoctor',{result : result});
+        }
+    });
+});
+
+app.get('/blockDoctor',function(req,res){
+    var number = req.query.number;
+    Doctor.update({number : number},{
+        $set : {status : 'blocked'}
+    },function (err) {
+        if(err){
+            console.log(err)
+        }
+        else{
+            res.redirect('/admin_accountDoctor');
+        }
+    });
+});
+
+app.get('/unblockDoctor',function(req,res){
+    var number = req.query.number;
+    Doctor.update({number : number},{
+        $set : {status : 'unblocked'}
+    },function (err) {
+        if(err){
+            console.log(err)
+        }
+        else{
+            res.redirect('/admin_accountDoctor');
+        }
+    })
+});
+
+app.get('/admin_accountPharma',function(req,res){
+    async.parallel({
+        TotalPharma : function (callback) {
+            Pharma.find().count().exec(function(err,result){
+                if(err){
+                    console.log(err);
+                }
+                else{
+                    callback(null,result);
+                }
+            });
+        },
+        PharmaData : function (callback) {
+            Pharma.find({},'-_id name number status').exec(function(err,result){
+                if(err){
+                    console.log(err);
+                }
+                else{
+                    callback(null,result);
+                }
+            });
+        }
+    },function(err,result){
+        if(err){
+            console.log(err);
+        }
+        else{
+            res.render('admin_accountPharma',{result : result});
+        }
+    });
+});
+
+app.get('/blockPharma',function(req,res){
+    var number = req.query.number;
+    Pharma.update({number : number},{
+        $set : {status : 'blocked'}
+    },function (err) {
+        if(err){
+            console.log(err)
+        }
+        else{
+            res.redirect('/admin_accountPharma');
+        }
+    });
+});
+
+app.get('/unblockPharma',function(req,res){
+    var number = req.query.number;
+    Pharma.update({number : number},{
+        $set : {status : 'unblocked'}
+    },function (err) {
+        if(err){
+            console.log(err)
+        }
+        else{
+            res.redirect('/admin_accountPharma');
+        }
+    })
+});
+
+app.get('/admin_accountBlocked',function(req,res){
+    res.render('admin_accountBlocked');
+});
+
+app.get('/admin_accountBlockedAccountUser',function(req,res){
+    User.find({status : 'blocked'},function(err,result){
+        if(err){
+            console.log(err);
+        }
+        else{
+            res.render('admin_accountBlockedAccountUser',{data : result});
+        }
+    });
+});
+
+app.get('/admin_accountBlockedAccountHealthCare',function(req,res) {
+    async.parallel({
+        Doctor: function (callback) {
+            Doctor.find({status: 'blocked'}, function (err, result) {
+                if (err) {
+                    console.log(err);
+                }
+                else {
+                    callback(null, result);
+                }
+            });
+        },
+        Pharma: function (callback) {
+            Pharma.find({status: 'blocked'}, function (err, result) {
+                if (err) {
+                    console.log(err);
+                }
+                else {
+                    callback(null, result);
+                }
+            });
+        }
+    }, function (err, result) {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            res.render('admin_accountBlockedAccountHealthCare', {data: result});
+        }
+    });
+});
+
+/////////////////////////// Admin Add new contact/////////////
+
+app.get('/admin_accountNewContact',function(req,res){
+    res.render('admin_accountNewContact');
+});
+
+/////////////////////////////////////////////////Admin / Data Center ///////////////////////////////////////////////////
+
+////////Drug Index/////////////////////////////
+app.get('/admin_dataCenter',function(req,res){
+    res.render('admin_dataCenter');
+});
+
+app.get('/admin_dataCenterDrug',function(req,res){
+    Brand.find({},'-_id brand_name',function(err,brands){
+        if(err){
+            console.log(err);
+        }
+        else{
+            res.render('admin_dataCenterDrug',{brands : brands});
+        }
+    });
+});
+
+app.get('/admin_dataCenterParticularDrug',function(req,res){
+    var brand = req.query.brand;
+    Brand.find({brand_name : brand},'-_id brand_name categories types primarily_used_for').populate(
+        {path : 'dosage_id',select : '-_id dosage_form',populate :
+            {path : 'strength_id', select : '-_id strength strengths packaging prescription dose_taken warnings price dose_timing potent_substance.name potent_substance.molecule_strength'}
+        }).populate(
+        {path : 'company_id', select: '-_id company_name'}).sort({brand_name : 1}).exec(function (err,brand) {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            res.render('admin_dataCenterParticularDrug',{brand : brand});
+        }
+    });
+
+});
+
+////////Disease Index///////////////////////
+app.get('/admin_dataCenterDisease',function(req,res){
+    Disease.find({},'-_id',function(err,diseases){
+        if(err){
+            console.log(err);
+        }
+        else{
+            res.render('admin_dataCenterDisease',{diseases : diseases});
+        }
+    });
+});
+
+app.get('/admin_dataCenterParticularDisease',function(req,res){
+    var disease = req.query.disease;
+    Disease.find({disease_name : disease},'-_id -diagnosis._id',function(err,diseases){
+        if(err){
+            console.log(err);
+        }
+        else{
+            res.render('admin_dataCenterParticularDisease',{diseases : diseases});
+        }
+    });
+});
+
+//////////////Molecule Index/////////////
+
+app.get('/admin_dataCenterMolecule',function(req,res){
+    Molecule.find({},'-_id',function(err,molecules){
+        if(err){
+            console.log(err);
+        }
+        else{
+            res.render('admin_dataCenterMolecule',{molecules : molecules});
+        }
+    });
+});
+
+app.get('/admin_dataCenterParticularMolecule',function(req,res){
+    var molecule = req.query.molecule;
+    Molecule.find({molecule_name : molecule},'-_id',function(err,molecules){
+        if(err){
+            console.log(err);
+        }
+        else{
+            res.render('admin_dataCenterParticularMolecule',{molecules : molecules});
+        }
+    });
+});
+
+////////////////////////////////// Admin / Activity Queue //////////////////////////////////////////////////////////////
+
+app.get('/admin_activityQueue',function(req,res){
+    res.render('adminActivity');
+});
+
+////////////////////////Drug Data Live Process/////////
+
+app.get('/admin_activityDrug',function(req,res){
+    DrugData.find({},function(err,strengths){
+        if(err){
+            console.log(err);
+        }
+        else{
+            if(strengths){
+                var data = {};
+                data['submitted'] = [];
+                async.each(strengths,function (result,callback) {
+                    async.parallel({
+                        Doctor : function (callback) {
+                            Doctor.find({_id : result.submitted_by},'-_id name number').exec(function(err,results){
+                                if(err){
+                                    console.log(err);
+                                }
+                                else{
+                                    if(results != '') {
+                                        if (!data['submitted']) { data['submitted'] = [];}
+                                        data['submitted'].push({
+                                            name: results[0].name,
+                                            number: results[0].number,
+                                            str_ticket : result.ticket
+                                        });
+                                        callback(null, data);
+                                    }
+                                    else{
+                                        callback();
+                                    }
+                                }
+                            });
+                        },
+                        Pharma : function (callback) {
+                            Pharma.find({_id : result.submitted_by},'-_id name number').exec(function(err,results){
+                                if(err){
+                                    console.log(err);
+                                }
+                                else{
+                                    if(results != '') {
+                                        if (!data['submitted']) {
+                                            data['submitted'] = [];
+                                        } // to check if it is the first time you are inserting inside data['brand'], in which case it needs to be initialized.
+                                        data['submitted'].push({
+                                            name: results[0].name,
+                                            number: results[0].number,
+                                            str_ticket : result.ticket
+                                        });
+                                        callback(null, data);
+                                    }
+                                    else{
+                                        callback();
+                                    }
+                                }
+                            });
+                        }
+                    },function(err,results){
+                        callback();
+                    });
+                },function (err,results) {
+                    if(err){
+                        console.log(err);
+                    }
+                    res.render('admin_activityDrug', {result : data});
+                });
+            }
+        }
+    });
+});
+
+app.get('/adminDrugDataInfo',function(req,res) {
+    var ticket = req.query.str_ticket;
+    DrugData.find({ticket : ticket}, function (err, strengths) {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            //console.log(strengths);
+            res.render('adminDrugDataInfo',{result : strengths});
+        }
+    });
+});
+
+app.get('/adminDrugDataMakeLive',function(req,res,next){
+    var str_ticket = req.query.str_ticket;
+    DrugData.find({ticket : str_ticket},function(err,result) {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            res.locals.value1 = result;
+            var dosage_form = result[0].dosage_form;
+            var brand_name = result[0].brand_name;
+            var categories = result[0].categories;
+            var primarily_used_for = result[0].primarily_used_for;
+            var company_name = result[0].company_name;
+            var strengtH = result[0].strength;
+            var strength_unit = result[0].strength_unit;
+            var types = result[0].types;
+            var potent_name = result[0].potent_substance.name;
+            var potent_strength = result[0].potent_substance.molecule_strength;
+            var packaging = result[0].packaging;
+            var price = result[0].price;
+            var dose_taken = result[0].dose_taken;
+            var dose_timing = result[0].dose_timing;
+            var warnings = result[0].warnings;
+            var prescription = result[0].prescription;
+            var name = result[0].submitted_by;
+            var ticket = result[0].ticket;
+            var companyResult = null;
+
+            async.waterfall([
+                function (callback) {
+                    Company.findOne({company_name: company_name}, function (err, result) {
+                        if (err) {
+                            console.log(err);
+                            throw new Error(err);
+                        }
+                        else {
+                            callback(null, result);
+                        }
+                    });
+                },
+                function (result, callback) {
+                    if (result != null) {
+                        res.locals.brandResult = result._id;
+                        companyResult = result._id;
+                        res.locals.companyResult = companyResult;
+                        console.log(brand_name);
+                        Brand.findOne({brand_name: brand_name}, function (err, result1) {
+                            if (err) {
+                                console.log(err);
+                                throw new Error(err);
+                            }
+                            else {
+                                console.log(result1);
+                                res.locals.value2 = result1;
+                                next();
+                            }
+                        });
+                    }
+                    else {
+                        Brand.findOne({brand_name: brand_name}, function (err1, result1) {
+                            if (err1) {
+                                console.log(err1);
+                                throw new Error(err1);
+                            }
+                            else {
+                                if (result1) {
+                                    res.send({message : "other company cannot have same brand"});
+                                }
+                                else {
+                                    var STRength = new Strength({
+                                        strength: strengtH,
+                                        strength_unit : strength_unit,
+                                        potent_substance : {
+                                            name: potent_name,
+                                            molecule_strength: potent_strength
+                                        },
+                                        packaging: packaging,
+                                        price: price,
+                                        dose_taken: dose_taken,
+                                        dose_timing: dose_timing,
+                                        warnings: warnings,
+                                        prescription: prescription,
+                                        ticket : ticket
+                                    });
+                                    STRength.save(function (err2, result2) {
+                                        if (err2) {
+                                            console.log(err2);
+                                            throw new Error(err2);
+                                        }
+                                        else {
+                                            var dosage = new Dosage({
+                                                dosage_form: dosage_form,
+                                                strength_id: result2._id
+                                            });
+                                            dosage.save(function (err3, result3) {
+                                                if (err3) {
+                                                    console.log(err3);
+                                                    throw new Error(err3);
+                                                }
+                                                else {
+                                                    var brand = new Brand({
+                                                        brand_name: brand_name,
+                                                        categories: categories,
+                                                        types: types,
+                                                        primarily_used_for: primarily_used_for,
+                                                        dosage_id: result3._id
+                                                    });
+                                                    brand.save(function (err4, result4) {
+                                                        if (err4) {
+                                                            console.log(err4);
+                                                            throw new Error(err4);
+                                                        }
+                                                        else {
+                                                            var company = new Company({
+                                                                company_name: company_name,
+                                                                brand_id: result4._id
+                                                            });
+                                                            company.save(function (err5, result5) {
+                                                                if (err5) {
+                                                                    console.log(err5);
+                                                                    throw new Error(err5);
+                                                                }
+                                                                else {
+                                                                    Brand.update({brand_name: brand_name}, {
+                                                                        $set: {
+                                                                            company_id: result5._id
+                                                                        }
+                                                                    }, function (err6) {
+                                                                        if (err6) {
+                                                                            console.log(err6);
+                                                                        }
+                                                                        else {
+                                                                            Strength.update({_id: result2._id}, {
+                                                                                $push: {
+                                                                                    brands_id: result4._id
+                                                                                }
+                                                                            }, function (err7, result7) {
+                                                                                if (err7) {
+                                                                                    console.log(err);
+                                                                                }
+                                                                                else {
+                                                                                    Strength.update({_id: result2._id}, {
+                                                                                        $set: {submitted_by: name}
+                                                                                    }, function (err8) {
+                                                                                        callback();
+                                                                                    });
+                                                                                }
+                                                                            });
+                                                                        }
+                                                                    });
+                                                                }
+                                                            });
+                                                        }
+                                                    })
+                                                }
+                                            });
+                                        }
+                                    });
+                                }
+                            }
+                        });
+                    }
+                }
+            ],function(err,result){
+                DrugData.remove({ticket : str_ticket},function(err,result){
+                    res.send({status : 'success' , message : 'Drug added successfully'});
+                });
+            });
+        }
+    });
+});
+
+app.get('/adminDrugDataMakeLive',function(req,res,next) {
+    var value1 = res.locals.value1;
+    var value2 = res.locals.value2;
+    var brandResult = res.locals.brandResult;
+    var companyResult = res.locals.companyResult;
+    if (value2 != '') {
+        Dosage.find({dosage_form : value1[0].dosage_form},function(err,result){
+            if(err){
+                console.log(err);
+            }
+            else{
+                res.locals.value1 = value1;
+                res.locals.value2 = result;
+                res.locals.brandResult = brandResult;
+                res.locals.companyResult = companyResult;
+                next();
+            }
+        });
+    }
+    else {
+        Dosage.findOne({dosage_form: value1[0].dosage_form}, function (err, result1) {
+            if (err) {
+                console.log(err);
+                throw new Error(err);
+            }
+            else {
+                var strength = new Strength({
+                    strength: value1[0].strength,
+                    strength_unit : value1[0].strength_unit,
+                    potent_substance: {
+                        name: value1[0].potent_substance.name,
+                        molecule_strength: value1[0].potent_substance.molecule_strength
+                    },
+                    packaging: value1[0].packaging,
+                    price: value1[0].price,
+                    dose_taken: value1[0].dose_taken,
+                    dose_timing: value1[0].dose_timing,
+                    warnings: value1[0].warnings,
+                    prescription: value1[0].prescription,
+                    ticket : value1[0].ticket
+                });
+                strength.save(function (err, result) {
+                    if (err) {
+                        console.log(err);
+                    }
+                    else {
+                        var dosage = new Dosage({
+                            dosage_form: value1[0].dosage_form,
+                            strength_id: result._id
+                        });
+                        dosage.save(function (err1, result1) {
+                            if (err1) {
+                                console.log(err1);
+                            }
+                            else {
+                                var brand = new Brand({
+                                    brand_name: value1[0].brand_name,
+                                    categories: value1[0].categories,
+                                    types: value1[0].types,
+                                    primarily_used_for: value1[0].primarily_used_for,
+                                    dosage_id: result1._id
+                                });
+                                brand.save(function (err2, result2) {
+                                    if (err2) {
+                                        console.log(err2);
+                                    }
+                                    else {
+                                        Company.update({company_name: value1[0].company_name}, {
+                                            $push: {brand_id: result2._id}
+                                        }).exec(function (err3) {
+                                            if (err3) {
+                                                console.log(err3);
+                                            }
+                                            else {
+                                                Brand.update({brand_name: value1[0].brand_name}, {
+                                                    $push: {
+                                                        company_id: companyResult
+                                                    }
+                                                }, function (err6) {
+                                                    if (err6) {
+                                                        console.log(err6);
+                                                    }
+                                                    else {
+                                                        Strength.update({_id: result._id}, {
+                                                            $push: {
+                                                                brands_id: result2._id
+                                                            }
+                                                        }, function (err7) {
+                                                            if (err7) {
+                                                                console.log(err);
+                                                            }
+                                                            else {
+                                                                Strength.update({_id: result._id}, {
+                                                                    $set: {submitted_by: name}
+                                                                }, function (err8, result8) {
+                                                                    DrugData.remove({_id: value1[0]._id}, function (err, result) {
+                                                                        res.send({message : 'Drug added successfully'});
+                                                                    });
+                                                                });
+                                                            }
+                                                        });
+                                                    }
+                                                });
+                                            }
+                                        });
+                                    }
+                                });
+                            }
+                        });
+                    }
+                });
+            }
+        });
+    }
+});
+
+app.get('/adminDrugDataMakeLive',function(req,res,next){
+    var value1 = res.locals.value1;
+    var value2 = res.locals.value2;
+    var brandResult = res.locals.brandResult;
+    var companyResult = res.locals.companyResult;
+    if(value2 != ''){
+        Strength.find({strength : value1[0].strength},function(err,result){
+            if(err){
+                console.log(err);
+            }
+            else{
+                res.locals.value1 = value1;
+                res.locals.value2 = result;
+                res.locals.brandResult = brandResult;
+                res.locals.companyResult = companyResult;
+                next();
+            }
+        });
+    }
+    else {
+        Strength.findOne({strength: value1[0].strength}, function (err, result1) {
+            if (err) {
+                console.log(err);
+                throw new Error(err);
+            }
+            else {
+                var sTrength = new Strength({
+                    strength: value1[0].strength,
+                    strength_unit : value1[0].strength_unit,
+                    potent_substance: {
+                        name: value1[0].potent_substance.name,
+                        molecule_strength: value1[0].potent_substance.molecule_strength
+                    },
+                    brands_id: brandResult,
+                    packaging: value1[0].packaging,
+                    price: value1[0].price,
+                    dose_taken: value1[0].dose_taken,
+                    dose_timing: value1[0].dose_timing,
+                    warnings: value1[0].warnings,
+                    prescription: value1[0].prescription,
+                    ticket : value1[0].ticket
+                });
+                sTrength.save(function (err, result1) {
+                    if (err) {
+                        console.log(err);
+                    }
+                    else {
+                        var dosage = new Dosage({
+                            dosage_form: value1[0].dosage_form,
+                            strength_id: result1._id
+                        });
+                        dosage.save(function (err1, result2) {
+                            if (err1) {
+                                console.log(err1);
+                            }
+                            else {
+                                Brand.update({brand_name: value1[0].brand_name}, {
+                                    $push: {
+                                        dosage_id: result2._id
+                                    }
+                                }).exec(function (err2) {
+                                    if (err2) {
+                                        console.log(err2);
+                                    }
+                                    else {
+                                        Strength.update({_id: result1._id}, {
+                                            $set: {submitted_by: value1[0].submitted_by}
+                                        }, function (err8, result8) {
+                                            DrugData.remove({_id: value1[0]._id}, function (err, result) {
+                                                res.send({message : 'Drug added successfully'});
+                                            });
+                                        });
+                                    }
+                                });
+                            }
+                        });
+                    }
+                });
+            }
+        });
+    }
+});
+
+app.get('/adminDrugDataMakeLive',function(req,res) {
+    var value1 = res.locals.value1;
+    var value2 = res.locals.value2;
+    var brandResult = res.locals.brandResult;
+
+    if (value2 != "") {
+        res.send({message: 'Medicine Already exist'});
+    }
+    else {
+        var strength = new Strength({
+            strength: value1[0].strength,
+            strength_unit : value1[0].strength_unit,
+            potent_substance: {
+                name: value1[0].potent_substance.name,
+                molecule_strength: value1[0].potent_substance.molecule_strength
+            },
+            brands_id: brandResult,
+            packaging: value1[0].packaging,
+            price: value1[0].price,
+            dose_taken: value1[0].dose_taken,
+            dose_timing: value1[0].dose_timing,
+            warnings: value1[0].warnings,
+            prescription: value1[0].prescription,
+            ticket : value1[0].ticket
+        });
+        strength.save(function (err, result1) {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                Dosage.update({dosage_form: value1[0].dosage_form}, {
+                    $push: {strength_id: result1._id}
+                }).exec(function (err2) {
+                    if (err2) {
+                        console.log(err2);
+                    }
+                    else {
+                        Strength.update({_id: result1._id}, {
+                            $set: {submitted_by: value1[0].submitted_by}
+                        }, function (err8, result8) {
+                            DrugData.remove({_id: value1[0]._id}, function (err, result) {
+                                res.send({message : 'Drug added successfully'});
+                            });
+                        });
+                    }
+                });
+            }
+        });
+    }
+});
+
+///////////////////////////Disease Data Live Process
+
+app.get('/admin_activityDisease',function(req,res){
+    DiseaseData.find({},function(err,diseases){
+        if(err){
+            console.log(err);
+        }
+        else{
+            var data = {};
+            data['submitted'] = [];
+            async.each(diseases,function (result,callback) {
+                async.parallel({
+                    Doctor : function (callback) {
+                        Doctor.find({_id : result.submitted_by},'-_id name number').exec(function(err,results){
+                            if(err){
+                                console.log(err);
+                            }
+                            else{
+                                if(results != '') {
+                                    if (!data['submitted']) { data['submitted'] = [];}
+                                    data['submitted'].push({
+                                        name: results[0].name,
+                                        number: results[0].number,
+                                        disease : result.disease_name
+                                    });
+                                    callback(null, data);
+                                }
+                                else{
+                                    callback(null,null);
+                                }
+                            }
+                        });
+                    },
+                    Pharma : function (callback) {
+                        Pharma.find({_id : result.submitted_by},'-_id name number').exec(function(err,results){
+                            if(err){
+                                console.log(err);
+                            }
+                            else{
+                                if(results != '') {
+                                    if (!data['submitted']) {
+                                        data['submitted'] = [];
+                                    } // to check if it is the first time you are inserting inside data['brand'], in which case it needs to be initialized.
+                                    data['submitted'].push({
+                                        name: results[0].name,
+                                        number: results[0].number,
+                                        disease : result.disease_name
+                                    });
+                                    callback(null, data);
+                                }
+                                else{
+                                    callback();
+                                }
+                            }
+                        });
+                    }
+                },function(err){
+                    callback();
+                });
+            },function (err) {
+                if(err){
+                    console.log(err);
+                }
+                res.render('admin_activityDisease', {result : data});
+            });
+        }
+    });
+});
+
+app.get('/adminDiseaseDataInfo',function(req,res){
+    var disease = req.query.disease;
+    DiseaseData.find({disease_name : disease},function(err,diseases){
+        if(err){
+            console.log(err);
+        }
+        else{
+            res.render('adminDiseaseDataInfo',{result : diseases});
+        }
+    });
+});
+
+app.get('/adminDiseaseDataMakeLive',function(req,res){
+    var disease = req.query.disease;
+    DiseaseData.find({disease_name : disease},function(err,result){
+        if(err){
+            console.log(err);
+        }
+        else{
+            var diseases = new Disease({
+                disease_name: result[0].disease_name,
+                symptoms: result[0].symptoms,
+                risk_factor: result[0].risk_factor,
+                cause: result[0].cause,
+                diagnosis: {
+                    subhead : result[0].diagnosis.subhead,
+                    info : result[0].diagnosis.info
+                },
+                organs: {
+                    subhead : result[0].organs.subhead,
+                    info : result[0].organs.info
+                },
+                treatment: result[0].treatment,
+                outlook: result[0].outlook,
+                prevention: result[0].prevention,
+                source : result[0].source
+            });
+            diseases.save(function(errs){
+                if(errs){
+                    console.log(errs);
+                }
+                else{
+                    DiseaseData.remove({disease_name : disease},function(errors){
+                        res.send({message : 'Disease successfully Added'});
+                    });
+                }
+            });
+        }
+    });
+});
+
+/////////////////////////////Molecule data Live////////////////////////
+
+app.get('/admin_activityMolecule',function(req,res){
+    MoleculeData.find({},function(err,molecules){
+        if(err){
+            console.log(err);
+        }
+        else{
+            var data = {};
+            data['submitted'] = [];
+            async.each(molecules,function (result,callback) {
+                async.parallel({
+                    Doctor : function (callback) {
+                        Doctor.find({_id : result.submitted_by},'-_id name number').exec(function(err,results){
+                            if(err){
+                                console.log(err);
+                            }
+                            else{
+                                if(results != '') {
+                                    if (!data['submitted']) { data['submitted'] = [];}
+                                    data['submitted'].push({
+                                        name: results[0].name,
+                                        number: results[0].number,
+                                        molecule : molecules[0].molecule_name
+                                    });
+                                    callback(null, data);
+                                }
+                                else{
+                                    callback();
+                                }
+                            }
+                        });
+                    },
+                    Pharma : function (callback) {
+                        Pharma.find({_id : result.submitted_by},'-_id name number').exec(function(err,results){
+                            if(err){
+                                console.log(err);
+                            }
+                            else{
+                                if(results != '') {
+                                    if (!data['submitted']) {
+                                        data['submitted'] = [];
+                                    } // to check if it is the first time you are inserting inside data['brand'], in which case it needs to be initialized.
+                                    data['submitted'].push({
+                                        name: results[0].name,
+                                        number: results[0].number,
+                                        molecule : molecules[0].molecule_name
+                                    });
+                                    callback(null, data);
+                                }
+                                else{
+                                    callback();
+                                }
+                            }
+                        });
+                    }
+                },function(err){
+                    callback();
+                });
+            },function (err,result) {
+                if(err){
+                    console.log(err);
+                }
+                console.log(result);
+                res.render('admin_activityMolecule', {result : data});
+            });
+        }
+    });
+});
+
+app.get('/adminMoleculeDataInfo',function(req,res){
+    var molecule = req.query.molecule;
+    MoleculeData.find({molecule_name : molecule},function(err,molecules){
+        if(err){
+            console.log(err);
+        }
+        else{
+            res.render('adminMoleculeDataInfo',{result : molecules});
+        }
+    });
+});
+
+app.get('/adminMoleculeDataMakeLive',function(req,res){
+    var molecule = req.query.molecule;
+    MoleculeData.find({molecule_name : molecule},function(err,result){
+        if(err){
+            console.log(err);
+        }
+        else{
+            var molecules = new Molecule({
+                molecule_name: result[0].molecule_name,
+                drug_categories: result[0].drug_categories,
+                description: result[0].description,
+                absorption: result[0].absorption,
+                distribution: result[0].distribution,
+                metabolism: result[0].metabolism,
+                excretion: result[0].excretion,
+                side_effect: result[0].side_effect,
+                precaution: result[0].precaution,
+                food: result[0].food,
+                other_drug_interaction: {
+                    subhead: result[0].other_drug_interaction.subhead,
+                    info: result[0].other_drug_interaction.info
+                },
+                other_interaction: {
+                    subhead: result[0].other_interaction.subhead,
+                    info: result[0].other_interaction.info
+                },
+                dosage: {
+                    subhead: result[0].dosage.subhead,
+                    info: result[0].dosage.info
+                },
+                contraindications: {
+                    subhead: result[0].contraindications.subhead,
+                    info: result[0].contraindications.info
+                },
+                source: result[0].source,
+                submitted_by : result[0].submitted_by
+            });
+            molecules.save(function(errs){
+                if(errs){
+                    console.log(errs);
+                }
+                else{
+                    MoleculeData.remove({molecule_name : molecule},function(errors){
+                        res.send({message : 'Molecule successfully Added'});
+                    });
+                }
+            });
+        }
+    });
+});
+
+//////////////////////////Drug data Having Issue////////////
+
+app.get('/adminDrugDataIssue',function(req,res){
+    var ticket = req.query.str_ticket;
+    req.session.adminIssue = ticket;
+    res.render('adminDrugDataIssue');
+});
+
+app.post('/adminDrugDataIssueSend',function(req,res){
+    var issue = req.body.drugIssue;
+    var ticket = req.session.adminIssue;
+    DrugData.find({ticket : ticket},function(err,name){
+        if(err){
+            console.log(err);
+        }
+        else{
+            async.parallel({
+                Doctor : function(callback){
+                    Doctor.find({_id : name[0].submitted_by},function(errs,result){
+                        if(errs){
+                            console.log(errs);
+                        }
+                        else{
+                            callback(null,result);
+                        }
+                    });
+                },
+                Pharma : function(callback){
+                    Pharma.find({_id : name[0].submitted_by},function(errs,result){
+                        if(errs){
+                            console.log(errs);
+                        }
+                        else{
+                            callback(null,result);
+                        }
+                    });
+                }
+            },function(errs,result){
+                if(errs){
+                    console.log(errs);
+                }
+                else{
+                    if(result.Pharma != ""){
+                        Pharma.update({_id : name[0].submitted_by},{
+                            $push : {
+                                issue : {
+                                    issueType : 'Drug Index',
+                                    issueIn : ticket,
+                                    issueFrom : req.session.admin,
+                                    issueInfo : issue
+                                }
+                            }
+                        },function(uperr){
+                            if(uperr){
+                                console.log(uperr);
+                            }
+                            else{
+                                res.send({message : 'Issue send to Pharma'});
+                            }
+                        });
+                    }
+                    if(result.Doctor != ""){
+                        Doctor.update({_id : name[0].submitted_by},{
+                            $push : {
+                                issues : {
+                                    issueType : 'Drug Index',
+                                    issueIn : ticket,
+                                    issueFrom : req.session.admin,
+                                    issueInfo : issue
+                                }
+                            }
+                        },function(uperr){
+                            if(uperr){
+                                console.log(uperr);
+                            }
+                            else{
+                                res.send({message : 'Issue send to Doctor'});
+                            }
+                        });
+                    }
+                }
+            });
+        }
+    });
+});
+
+app.get('/adminDiseaseDataIssue',function(req,res){
+    var disease = req.query.disease;
+    req.session.adminIssue = disease;
+    res.render('adminDiseaseDataIssue');
+});
+
+app.post('/adminDiseaseDataIssueSend',function(req,res){
+    var issue = req.body.diseaseIssue;
+    var disease = req.session.adminIssue;
+    DiseaseData.find({disease_name : disease},function(err,name){
+        if(err){
+            console.log(err);
+        }
+        else{
+            async.parallel({
+                Doctor : function(callback){
+                    Doctor.find({_id : name[0].submitted_by},function(errs,result){
+                        if(errs){
+                            console.log(errs);
+                        }
+                        else{
+                            callback(null,result);
+                        }
+                    });
+                },
+                Pharma : function(callback){
+                    Pharma.find({_id : name[0].submitted_by},function(errs,result){
+                        if(errs){
+                            console.log(errs);
+                        }
+                        else{
+                            callback(null,result);
+                        }
+                    });
+                }
+            },function(errs,result) {
+                if (errs) {
+                    console.log(errs);
+                }
+                else {
+                    if (result.Pharma != "") {
+                        Pharma.update({_id: name[0].submitted_by}, {
+                            $push: {
+                                issues: {
+                                    issueType: 'Disease Index',
+                                    issueIn: disease,
+                                    issueFrom: req.session.admin,
+                                    issueInfo: issue
+                                }
+                            }
+                        }, function (uperr) {
+                            if (uperr) {
+                                console.log(uperr);
+                            }
+                            else {
+                                res.send({message: 'Issue send to Pharma'});
+                            }
+                        });
+                    }
+                    if (result.Doctor != "") {
+                        Doctor.update({_id: name[0].submitted_by}, {
+                            $push: {
+                                issues: {
+                                    issueType: 'Disease Index',
+                                    issueIn: disease,
+                                    issueFrom: req.session.admin,
+                                    issueInfo: issue
+                                }
+                            }
+                        }, function (uperr) {
+                            if (uperr) {
+                                console.log(uperr);
+                            }
+                            else {
+                                res.send({message: 'Issue send to Doctor'});
+                            }
+                        });
+                    }
+                }
+            });
+        }
+    });
+});
+
+app.get('/adminMoleculeDataIssue',function(req,res){
+    var molecule = req.query.molecule;
+    req.session.adminIssue = molecule;
+    res.render('adminMoleculeDataIssue');
+});
+
+app.post('/adminMoleculeDataIssueSend',function(req,res){
+    var issue = req.body.moleculeIssue;
+    var molecule = req.session.adminIssue;
+    MoleculeData.find({molecule_name : molecule},function(err,name){
+        if(err){
+            console.log(err);
+        }
+        else{
+            async.parallel({
+                Doctor : function(callback){
+                    Doctor.find({_id : name[0].submitted_by},function(errs,result){
+                        if(errs){
+                            console.log(errs);
+                        }
+                        else{
+                            callback(null,result);
+                        }
+                    });
+                },
+                Pharma : function(callback){
+                    Pharma.find({_id : name[0].submitted_by},function(errs,result){
+                        if(errs){
+                            console.log(errs);
+                        }
+                        else{
+                            callback(null,result);
+                        }
+                    });
+                }
+            },function(errs,result){
+                if(errs){
+                    console.log(errs);
+                }
+                else {
+                    if (result.Pharma != "") {
+                        Pharma.update({_id: name[0].submitted_by}, {
+                            $push: {
+                                issues: {
+                                    issueType: 'Molecule Index',
+                                    issueIn: molecule,
+                                    issueFrom: req.session.admin,
+                                    issueInfo: issue
+                                }
+                            }
+                        }, function (uperr) {
+                            if (uperr) {
+                                console.log(uperr);
+                            }
+                            else {
+                                res.send({message: 'Issue send to Pharma'});
+                            }
+                        });
+                    }
+                    if (result.Doctor != "") {
+                        Doctor.update({_id: name[0].submitted_by}, {
+                            $push: {
+                                issues: {
+                                    issueType: 'Molecule Index',
+                                    issueIn: molecule,
+                                    issueFrom: req.session.admin,
+                                    issueInfo: issue
+                                }
+                            }
+                        }, function (uperr) {
+                            if (uperr) {
+                                console.log(uperr);
+                            }
+                            else {
+                                res.send({message: 'Issue send to Doctor'});
+                            }
+                        });
+                    }
+                }
+            });
+        }
+    });
+});
+
+app.get('/adminDataIssueInfo',function(req,res){
+    var info = req.query.info;
+    res.render('adminDataIssueInfo',{info : info});
+});
+
+////////////////////////// Admin / Activity/ Data Issue///////////
+
+app.get('/admin_activityDataIssue',function(req,res){
+    async.parallel({
+        Doctor : function(callback){
+            Doctor.find({},'-_id  name number issues.issueInfo issues.issueFrom issues.issueType',function(err,result){
+                if(err){
+                    console.log(err);
+                }
+                else{
+                    callback(null,result);
+                }
+            });
+        },
+        Pharma : function(callback){
+            Pharma.find({},'-_id name number issues.issueInfo issues.issueFrom issues.issueType',function(err,result){
+                if(err){
+                    console.log(err);
+                }
+                else{
+                    callback(null,result);
+                }
+            });
+        }
+    },function(err,result){
+        if(err){
+            console.log(err);
+        }
+        else{
+            res.render('admin_activityDataIssue',{data : result});
+        }
+    });
+});
+
+///////////////////////////Admin / Feedback ///////////////////////////////////////////////////////////////////////////
+
+app.get('/admin_feedback',function(req,res){
+    res.render('admin_feedback');
+});
+
+/////// User Feedback/////////////
+app.get('/admin_feedbackUser',function(req,res){
+    Feedback.find({},'-_id',function(err,feedbacks){
+        if(err){
+            console.log(err);
+        }
+        else {
+            var data = {};
+            data['feedbacks'] = [];
+            async.each(feedbacks, function (feedback,callback) {
+                User.find({_id: feedback.feedbackFrom}, '-_id name number', function (errs, user) {
+                    if (errs) {
+                        console.log(errs);
+                    }
+                    else {
+                        if(user != ""){
+                            data['feedbacks'].push({
+                                User_name: user[0].name,
+                                User_number: user[0].number,
+                                Categories: feedback.feedbackCategory,
+                                Info: feedback.feedbackInfo,
+                                Response: feedback.feedbackResponse,
+                                Ticket: feedback.feedbackTicket
+                            });
+                            callback();
+                        }
+                        else{
+                            callback();
+                        }
+                    }
+                });
+            },function(errs){
+                if(err){
+                    console.log(errs);
+                }
+                else{
+                    res.render('admin_feedbackUser', {data: data});
+                }
+            });
+        }
+    });
+});
+
+app.get('/adminFeedbackInfoUser',function(req,res){
+    var ticket = req.query.ticket;
+    Feedback.find({feedbackTicket : ticket},function(err,info){
+        if(err){
+            console.log(err);
+        }
+        else {
+            User.find({_id: info[0].feedbackFrom}, function (err, result) {
+                if (err) {
+                    console.log(err);
+                }
+                else {
+                    var data = {};
+                    data['feedbacks'] = [];
+                    data['feedbacks'].push({
+                        Name: result[0].name,
+                        Number: result[0].number,
+                        Categories: info[0].feedbackCategory,
+                        Info: info[0].feedbackInfo,
+                        Ticket: info[0].feedbackTicket
+                    });
+                    res.render('adminFeedbackInfoUser', {data: data});
+                }
+            });
+        }
+    });
+});
+
+
+//////// Health Care feedback////////
+
+app.get('/admin_feedbackHealthCare',function(req,res){
+    Feedback.find({},'-_id',function(err,feedbacks){
+        if(err){
+            console.log(err);
+        }
+        else {
+            var data = {};
+            data['feedbacks'] = [];
+            async.each(feedbacks,function(feedback,callback) {
+                async.parallel({
+                    Doctor: function (callback) {
+                        Doctor.find({_id: feedback.feedbackFrom}, '-_id name number', function (errs, doctor) {
+                            if (errs) {
+                                console.log(errs);
+                            }
+                            else {
+                                callback(null, doctor);
+                            }
+                        });
+                    },
+                    Pharma: function (callback) {
+                        Pharma.find({_id: feedback.feedbackFrom}, '-_id name number', function (errs, pharma) {
+                            if (errs) {
+                                console.log(errs);
+                            }
+                            else {
+                                callback(null, pharma);
+                            }
+                        });
+                    },
+                    User : function(callback){
+                        User.find({_id : feedback.feedbackFrom},function(err,user){
+                            callback(null,user);
+                        });
+                    }
+                }, function (errs, result) {
+                    if (errs) {
+                        console.log(errs);
+                    }
+                    else {
+                        if (result.Doctor != "") {
+                            data['feedbacks'].push({
+                                Status: 'Dr',
+                                Name: result.Doctor[0].name,
+                                Number: result.Doctor[0].number,
+                                Categories: feedback.feedbackCategory,
+                                Info: feedback.feedbackInfo,
+                                Ticket: feedback.feedbackTicket,
+                                Response: feedback.feedbackResponse
+                            });
+                            callback();
+                        }
+                        if (result.Pharma != "") {
+                            data['feedbacks'].push({
+                                Status: 'DRx',
+                                Name: result.Pharma[0].name,
+                                Number: result.Pharma[0].number,
+                                Categories: feedback.feedbackCategory,
+                                Info: feedback.feedbackInfo,
+                                Ticket: feedback.feedbackTicket,
+                                Response: feedback.feedbackResponse
+                            });
+                            callback();
+                        }
+                        if(result.User != ""){
+                            callback();
+                        }
+                        if ((result.Doctor != "") && (result.Pharma != "")) {
+                            res.send({message: 'There is no feedback'});
+                        }
+                    }
+                });
+            },function(eacherror,eachresult){
+                if(eacherror){
+                    console.log(eacherror);
+                }
+                else{
+                    res.render('admin_feedbackHealthCare', {data: data});
+                }
+            });
+        }
+    });
+});
+
+app.get('/adminFeedbackInfo',function(req,res){
+    var ticket = req.query.ticket;
+    Feedback.find({feedbackTicket : ticket},'-_id -__v',function(err,info){
+        if(err){
+            console.log(err);
+        }
+        else{
+            async.parallel({
+                Doctor : function(callback){
+                    Doctor.find({_id : info[0].feedbackFrom},function(err,result){
+                        if(err){
+                            console.log(err);
+                        }
+                        else{
+                            callback(null,result);
+                        }
+                    });
+                },
+                Pharma : function(callback){
+                    Pharma.find({_id : info[0].feedbackFrom},function(err,result){
+                        if(err){
+                            console.log(err);
+                        }
+                        else{
+                            callback(null,result);
+                        }
+                    });
+                }
+            },function(err,result){
+                if(err){
+                    console.log(err);
+                }
+                else{
+                    var data = {};
+                    data['feedbacks'] =[];
+                    if(result.Doctor != ""){
+                        data['feedbacks'].push({
+                            Name : result.Doctor[0].name,
+                            Number : result.Doctor[0].number,
+                            Categories : info[0].feedbackCategory,
+                            Info : info[0].feedbackInfo,
+                            Ticket : info[0].feedbackTicket
+                        });
+                        res.render('adminFeedbackInfo',{data : data});
+                    }
+                    if(result.Pharma != ""){
+                        data['feedbacks'].push({
+                            Name : result.Doctor[0].name,
+                            Number : result.Doctor[0].number,
+                            Categories : info[0].feedbackCategory,
+                            Info : info[0].feedbackInfo,
+                            Ticket : info[0].feedbackTicket
+                        });
+                        res.render('adminFeedbackInfo',{data : data});
+                    }
+                }
+            });
+        }
+    });
+});
+
+app.get('/adminFeedbackResponse',function(req,res){
+    var ticket = req.query.ticket;
+    Feedback.find({feedbackTicket : ticket},'-_id feedbackTicket feedbackResponse',function(err,response){
+        if(err){
+            console.log(err);
+        }
+        else{
+            res.render('adminFeedbackResponse',{data : response});
+        }
+    });
+});
+
+app.get('/adminFeedbackAddResponse',function(req,res){
+    res.render('adminFeedbackAddResponse',{Ticket : req.query.ticket});
+});
+
+app.post('/adminFeedbackEnterResponse',function(req,res){
+    var ticket = req.query.ticket;
+    var response = req.body.response;
+    console.log(ticket);
+    console.log(response);
+    Feedback.update({feedbackTicket : ticket},{
+        $push : {
+            feedbackResponse : response
+        }
+    },function(err,result){
+        if(err){
+            console.log(err);
+        }
+        else{
+            res.redirect('/admin_feedback');
+        }
+    });
+});
+
+app.post('/adminFeedbackEnterResponse',function(req,res){
+    var ticket = req.query.ticket;
+    var response = req.body.response;
+    console.log(ticket);
+    console.log(response);
+    Feedback.update({feedbackTicket : ticket},{
+        $push : {
+            feedbackResponse : response
+        }
+    },function(err,result){
+        if(err){
+            console.log(err);
+        }
+        else{
+            res.redirect('/admin_feedback');
+        }
+    });
+});
+
 
 
 //==========================Database connection===========================

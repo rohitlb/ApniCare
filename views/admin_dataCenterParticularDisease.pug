@@ -1,0 +1,27 @@
+doctype html
+html
+    head
+    body
+        h3 Disease Info
+        br
+        br
+        each disease in diseases
+            p Disease Name - #{disease.disease_name}
+            p Sympton - #{disease.symptoms}
+            p Risk Factor - #{disease.risk_factor}
+            p Cause - #{disease.cause}
+            p Treatment - #{disease.treatment}
+            p Outlook - #{disease.outlook}
+            p Prevention - #{disease.prevention}
+            p Source - #{disease.source}
+            h5 Organs
+            -for(var i = 0;i< disease.organs.info.length ; i++)
+                h5
+                    li #{disease.organs.subhead[i]}
+                p #{disease.organs.info[i]}
+            h5 Diagnosis
+            -for(var j = 0;j< disease.diagnosis.info.length ; j++)
+                h5
+                    li #{disease.diagnosis.subhead[j]}
+                p #{disease.diagnosis.info[j]}
+

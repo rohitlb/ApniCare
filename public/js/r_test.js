@@ -596,13 +596,12 @@ $(function () {
 
     //- ................... DISEASE DATA FORM SUBMIT ....................
     $('#disease_data_button').click(function () {
-        alert('done');
         var disease_name = $('#disease_name').val();
         var symptoms = $('#symptoms').val();
         var risk_factor = $('#risk_factors').val();
         var cause = $('#causes').val();
         var subhead1 = [];
-        $('.repeat_subhead1').each(function(){
+        $('.repeat_subhead1').each(function () {
             subhead1.push($(this).val()); //output <-- ['a','b','c']
         });
         var subhead2 = [];
@@ -610,7 +609,7 @@ $(function () {
             subhead2.push($(this).val());
         });
         var subhead71 = [];
-        $('.repeat_subhead7').each(function(){
+        $('.repeat_subhead7').each(function () {
             subhead71.push($(this).val()); //output <-- ['a','b','c']
         });
         var subhead72 = [];
@@ -627,39 +626,45 @@ $(function () {
             symptoms: symptoms,
             risk_factor: risk_factor,
             cause: cause,
-            subhead1 : subhead1,
-            subhead2 : subhead2,
-            subhead : subhead71,
-            info : subhead72,
+            subhead1: subhead1,
+            subhead2: subhead2,
+            subhead: subhead71,
+            info: subhead72,
             treatment: treatment,
             outlook: outlook,
             prevention: prevention,
             source: source
         };
-
-        $.ajax({
-            url: '/diseases',
-            type: 'POST',
-            data: JSON.stringify(data),
-            contentType: 'application/json',
-            success: function (result) {
-                if (result.success === 'success') {
-                    Materialize.toast(result.message, 1000);
-                    window.location = '/health_care_provider?page=disease_data';
+        event.preventDefault();
+        event.stopPropagation();
+        if (confirm('Confirm to submit')) {
+            $.ajax({
+                url: '/diseaseData',
+                type: 'POST',
+                data: JSON.stringify(data),
+                contentType: 'application/json',
+                success: function (result) {
+                    if (result.status === 'success') {
+                        Materialize.toast(result.message, 1000);
+                        window.location = '/health_care_provider?page=disease_data_form';
+                    }
+                    else {
+                        Materialize.toast(result.message, 1000);
+                        $('#disease_name').focus();
+                    }
                 }
-                else {
-                    Materialize.toast(result.message, 1000);
-                }
-            }
-        });
+            });
+        }
+        else{
+            return false;
+        }
     });
 
     $('.btn-drugs').click(function () {
         var brand_name = $('#brand_name').val();
         var company_name = $('#company_name').val();
         var categories = $('#categories').val();
-        var strength = $("#strength").val();
-        //------ for potent substances ---------
+        var strength1 = $("#strength").val();
         var subhead1 = [];
         $('.repeat_subhead6').each(function(){
             subhead1.push($(this).val()); //output <-- ['a','b','c']
@@ -668,6 +673,7 @@ $(function () {
         $('.text_subhead6').each(function () {
             subhead2.push($(this).val());
         });
+        //var potent_substance = $('#potent_substance').val();
         var dosage_form = $('#dosage_form').val();
         var packaging = $('#packaging').val();
         var price = $('#price').val();
@@ -677,12 +683,27 @@ $(function () {
         var types = $('#type').val();
         var primarily_used_for = $('#primarily_used_for').val();
         var warnings = $('#warnings').val();
+        var d = new Date();
+        var month = d.getMonth()+1;
+        var day = d.getDate();
+        var output = d.getFullYear() + '' +
+            ((''+month).length<2 ? '0' : '') + month + '' +
+            ((''+day).length<2 ? '0' : '') + day;
+
+        var minNumber = 0000;
+        var maxNumber = 9999;
+        var randomNumber = randomNumberFromRange(minNumber, maxNumber);
+        var token = output+""+randomNumber;
+        function randomNumberFromRange(min,max)
+        {
+            return Math.floor(Math.random()*(max-min+1)+min);
+        }
 
         var data = {
             brand_name: brand_name,
             company_name: company_name,
             categories: categories,
-            strength1: strength,
+            strength1: strength1,
             subhead111: subhead1,
             subhead222: subhead2,
             dosage_form: dosage_form,
@@ -693,24 +714,33 @@ $(function () {
             dose_timing :dose_timing,
             types : types,
             primarily_used_for : primarily_used_for,
-            warnings : warnings
+            warnings : warnings,
+            ticket : token
         };
-
-        $.ajax({
-            url: '/medicines',
-            type: 'POST',
-            data: JSON.stringify(data),
-            contentType: 'application/json',
-            success: function (result) {
-                if(result.success === 'success') {
-                    Materialize.toast(result.message, 1000);
-                    window.location = '/health_care_provider?page=drug_data_form';
+        event.preventDefault();
+        event.stopPropagation();
+        if(confirm('Confirm to submit')){
+            $.ajax({
+                url: '/drugData',
+                type: 'POST',
+                data: JSON.stringify(data),
+                contentType: 'application/json',
+                success: function (result) {
+                    if (result.status === "success") {
+                        Materialize.toast(result.message, 1000);
+                        window.location = '/health_care_provider?page=drug_data_form';
+                    }
+                    else {
+                        Materialize.toast(result.message , 1000);
+                        $('#brand_name').focus();
+                        return false;
+                    }
                 }
-                else {
-                    Materialize.toast(result.message, 1000);
-                }
-            }
-        });
+            });
+        }
+        else{
+            return false;
+        }
     });
 
     $('#molecule_data_form').click(function () {
@@ -726,7 +756,7 @@ $(function () {
         var food = $('#food_taken').val();
         var source = $('#source').val();
 
-        //..................... other drug interactions.........
+        //other drug interactions
         var subhead51 = [];
         $('.repeat_subhead5').each(function(){
             subhead51.push($(this).val()); //output <-- ['a','b','c']
@@ -736,8 +766,12 @@ $(function () {
         $('.text_subhead5').each(function () {
             subhead52.push($(this).val());
         });
+        //var drug_interaction = $('#other_drug_interaction').val();
+        //var food_interaction = $('#other_interactions').val();
+        //var oral = $('#oral').val();
+        //var intravenous = $('#intravenous').val();
 
-        //................... other interactions........
+        // other interactions
         var subhead41 = [];
         $('.repeat_subhead4').each(function(){
             subhead41.push($(this).val()); //output <-- ['a','b','c']
@@ -747,7 +781,7 @@ $(function () {
             subhead42.push($(this).val());
         });
 
-        // .................. dosage field in molecule form............
+        // ........dosage field in molecule form............
         var subhead31 = [];
         $('.repeat_subhead3').each(function(){
             subhead31.push($(this).val()); //output <-- ['a','b','c']
@@ -757,7 +791,7 @@ $(function () {
             subhead32.push($(this).val());
         });
 
-        // ..................... List of contraindications .................
+        // List of contraindications
         var subhead21 = [];
         $('.repeat_subhead2').each(function(){
             subhead21.push($(this).val()); //output <-- ['a','b','c']
@@ -788,22 +822,29 @@ $(function () {
             info2: subhead22,
             source :source
         };
-
-        $.ajax({
-            url: '/molecules',
-            type: 'POST',
-            data: JSON.stringify(data),
-            contentType: 'application/json',
-            success: function (result) {
-                if(result.success === 'success') {
-                    Materialize.toast(result.message, 1000);
-                    window.location = '/health_care_provider?page=molecule_data_form';
+        event.preventDefault();
+        event.stopPropagation();
+        if(confirm('Confirm to submit')) {
+            $.ajax({
+                url: '/moleculeData',
+                type: 'POST',
+                data: JSON.stringify(data),
+                contentType: 'application/json',
+                success: function (result) {
+                    if (result.status === 'success') {
+                        Materialize.toast(result.message, 1000);
+                        window.location = '/health_care_provider?page=molecule_data_form';
+                    }
+                    else {
+                        Materialize.toast(result.message, 1000);
+                        $('#molecule_name').focus();
+                    }
                 }
-                else {
-                    Materialize.toast(result.message, 1000);
-                }
-            }
-        });
+            });
+        }
+        else{
+            return false;
+        }
     });
 
     // var slider = document.getElementById('test-slider');
@@ -1334,7 +1375,7 @@ $(function () {
         //     $('#tab3').addClass('active').find('li.tab').show().css({'background-color':'lavender'});
         // });
 
-        //$('#edu_special').hide();
+        $('#edu_special').hide();
         $('#register_doc').show();
     });
 
@@ -1453,9 +1494,7 @@ $(function () {
     //
     // });
 
-
     // ................FOR PROFILE OF PHARMACISTS ...................
-
 
     // $('.file_upload').change(function(input) {
     //     if(input.files && input.files[0])
