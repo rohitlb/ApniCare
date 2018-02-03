@@ -18,8 +18,6 @@ mongoose.Promise = promise;
 var async = require('async');
 var keys = require('./private/keys');
 
-// req models
-
 // req model for feedback and need help
 var Feedback = require('./model/adminfeedback');
 var Needhelp = require('./model/needhelp');
