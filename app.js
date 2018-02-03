@@ -1073,6 +1073,7 @@ app.get('/diseasesdata',function(req,res){
 //===================================for APP============================
 
 app.post('/moleculeslist',function(req,res){
+    console.log("moleculeslist");
     Molecule.find({},'-_id molecule_name',function(err,result){
         if(err){
             console.log(err);
@@ -1084,6 +1085,7 @@ app.post('/moleculeslist',function(req,res){
 });
 
 app.post('/brandslist',function(req,res){
+    console.log("brandlist");
     Brand.find({},'-_id brand_name').populate(
         {path : 'dosage_id', select : '-_id dosage_form',populate :
                 {path : 'strength_id', select : '-_id strength packaging potent_substance.name price'}
@@ -1099,6 +1101,7 @@ app.post('/brandslist',function(req,res){
 });
 
 app.post('/categorieslist',function(req,res){
+    console.log("categorieslist");
     Brand.find({}, '-_id categories').exec(function (err, result) {
         if(err){
             console.log(err);
@@ -1110,6 +1113,7 @@ app.post('/categorieslist',function(req,res){
 });
 
 app.post('/diseaseslist',function(req,res){
+    console.log("diseaseslist");
     Disease.find({},'-_id disease_name',function(err,disease){
         if(err){
             console.log(err);
@@ -1121,6 +1125,7 @@ app.post('/diseaseslist',function(req,res){
 });
 
 app.post('/organslist',function(req,res){
+    console.log("organslist");
     Disease.find({}, '-_id organs.subhead').exec(function (err, result) {
         if (err) {
             console.log(err);
@@ -1132,6 +1137,7 @@ app.post('/organslist',function(req,res){
 });
 
 app.post('/symptomslist',function(req,res){
+    console.log("symptomslist");
     Disease.find({},'-_id symptoms',function(err,result){
         if(err){
             console.log(err);
@@ -1144,7 +1150,7 @@ app.post('/symptomslist',function(req,res){
 
 // similar barnds + info + combination
 app.post('/formolecule',function (req,res) {
-    console.log("app");
+    console.log("formolecule");
     var molecule = req.body.molecule;
     var skip = parseInt(req.body.nskip);
     if(req.body.page == 'info'){
@@ -1246,9 +1252,9 @@ app.post('/DOSlist',function (req,res) {
     }
 });
 
-
 // same molecule same strength => output is list of brands
 app.post('/similarbrands',function(req,res){
+    console.log("similarbrands");
     var molecule = req.body.molecule;
     var strength = req.body.strength;
     console.log(molecule);
@@ -1361,9 +1367,7 @@ app.post('/searchall',function (req,res) {
         }
         else {
             console.log(result);
-            res.send(result, {
-                'Content-Type': 'application/json'
-            }, 200);
+            res.send({ message : "search all" , data :result });
         }
     });
 });
