@@ -4634,7 +4634,6 @@ app.get('/doctor',function (req,res) {
     res.redirect('/health_care_provider?page=profile_doctor');
 });
 
-
 app.post('/profession',function (req,res) {
     var profession = req.body.profession;
     console.log(profession);
@@ -4801,12 +4800,6 @@ app.post('/pharma_education',function(req,res){
     var batch_from =  req.body.batch_from;
     var batch_to =  req.body.batch_to;
     var specialization = req.body.specialization;
-    console.log(qualification);
-    console.log(college);
-    console.log(completion);
-    console.log(batch_from);
-    console.log(batch_to);
-    console.log(specialization);
 
     Pharma.update({_id : req.session.pharmaID},{
         $set : {
