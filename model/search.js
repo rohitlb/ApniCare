@@ -3,7 +3,7 @@ var Schema = mongoose.Schema;
 
 
 var Search = new Schema({
-        name: {type: String}
+        name: {type: String, trim:true}
 });
 
 module.exports = mongoose.model('search',Search);

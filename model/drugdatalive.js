@@ -2,26 +2,26 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var AdminDrugData = new Schema({
-    company_name : {type : String},
-    brand_name : {type: String},
-    categories : { type : String },
-    primarily_used_for : [{type : String}],
-    types : {type : String},
-    dosage_form : {type : String},
-    strength : {type : String},
-    strength_unit : {type : String},
+    company_name : {type : String, trim:true},
+    brand_name : {type: String, trim:true},
+    categories : { type : String, trim:true },
+    primarily_used_for : [{type : String, trim:true}],
+    types : {type : String, trim:true},
+    dosage_form : {type : String, trim:true},
+    strength : {type : String, trim:true},
+    strength_unit : {type : String, trim:true},
     potent_substance : {
-        name : [{type : String}],
-        molecule_strength : [{type : String}]
+        name : [{type : String, trim:true}],
+        molecule_strength : [{type : String, trim:true}]
     },
-    packaging : {type : String},
-    price : {type : String},
-    prescription : {type : String},
-    ticket : {type : String},
-    dose_taken : {type : String},
-    dose_timing : {type : String},
-    warnings : {type : String},
-    submitted_by : {type : String}
+    packaging : {type : String, trim:true},
+    price : {type : String, trim:true},
+    prescription : {type : String, trim:true},
+    ticket : {type : String, trim:true},
+    dose_taken : {type : String, trim:true},
+    dose_timing : {type : String, trim:true},
+    warnings : {type : String, trim:true},
+    submitted_by : {type : String, trim:true}
 });
 
 module.exports = mongoose.model('drugdata',AdminDrugData);

@@ -3,7 +3,7 @@ var Schema = mongoose.Schema;
 
 
 var FAQ = new Schema({
-    faqs: {type: String}
+    faqs: {type: String, trim:true}
 });
 
 module.exports = mongoose.model('faq',FAQ);

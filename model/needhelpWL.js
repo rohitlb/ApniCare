@@ -2,11 +2,11 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var NeedhelpWL = new Schema({
-    name : {type : String},
-    email : {type : String},
-    number : {type : String},
-    subject : {type : String},
-    contact_message : {type : String}
+    name : {type : String, trim:true},
+    email : {type : String, trim:true},
+    number : {type : String, trim:true},
+    subject : {type : String, trim:true},
+    contact_message : {type : String, trim:true}
 
 });
 

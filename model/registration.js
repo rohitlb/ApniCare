@@ -3,41 +3,40 @@ var mongoose = require('mongoose');
 
 var User = new mongoose.Schema({
     //general information
-    name : {type:String, trim:true , required : true},
-    email : {type : String},
-    number : {type : String},
-    password : {type:String},
+    name : {type:String, trim:true },
+    email : {type:String, trim:true },
+    number : {type:String, trim:true },
+    password : {type:String, trim:true },
     //featured information
     // image : {
     //     path: {
     //         type: String,
-    //         required: true,
+    //
     //         trim: true
     //     },
     //     originalname: {
     //         type: String,
-    //         required: true
-    //     }
+    //           //     }
     // },
-    path: { type: String},
-    dob : {type:String},
-    gender : {type : String},
-    blood_group : {type:String},
-    marital_status : {type : String},
-    height : {type : String},
-    weight : {type : String},
+    path: {type:String, trim:true },
+    dob : {type:String, trim:true },
+    gender : {type:String, trim:true },
+    blood_group : {type:String, trim:true },
+    marital_status : {type:String, trim:true },
+    height : {type:String, trim:true },
+    weight : {type:String, trim:true },
     address : {
-        addresses : {type : String},
-        landmarks : {type : String},
-        pin_code : {type : String},
-        city : {type : String },
-        state : {type : String}
+        addresses : {type:String, trim:true },
+        landmarks : {type:String, trim:true },
+        pin_code : {type:String, trim:true },
+        city : {type:String, trim:true },
+        state : {type:String, trim:true }
     },
-    aadhaar_number : {type : String},
-    income : {type : String},
-    relative_name : {type : String },
-    relative_contact : {type : String},
-    relation : {type : String}
+    aadhaar_number : {type:String, trim:true },
+    income : {type:String, trim:true },
+    relative_name : {type:String, trim:true },
+    relative_contact : {type:String, trim:true },
+    relation : {type:String, trim:true }
 });
 
 module.exports = mongoose.model('user',User);
