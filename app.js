@@ -1334,8 +1334,8 @@ app.post('/searchall',function (req,res) {
                 }
             });
         },
-        organs: function (callback) {  // gives organs sorted list
-            Disease.find({'organs.subhead': search}, '-_id organs.subhead').sort({organs: 1}).skip(skip).limit(10).exec(function (err, result) {
+        organs: function (callback) {  // gives organs sorted list// , '-_id organs.subhead'
+            Search.find({'name': search},'-_id name').sort({name: 1}).skip(skip).limit(10).exec(function (err, result) {
                 if (err) {
                     console.log(err);
                 }
