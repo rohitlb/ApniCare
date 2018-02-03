@@ -1101,8 +1101,6 @@ app.post('/brandslist',function(req,res){
     });
 });
 
-<<<<<<< HEAD
-=======
 app.post('/categorieslist',function(req,res){
     console.log("categorieslist");
     Brand.find({}, '-_id categories').exec(function (err, result) {
@@ -1115,7 +1113,6 @@ app.post('/categorieslist',function(req,res){
     });
 });
 
->>>>>>> a6ff0ad87d9528255e71f857d11105db5c265cad
 app.post('/diseaseslist',function(req,res){
     console.log("diseaseslist");
     Disease.find({},'-_id disease_name',function(err,disease){
