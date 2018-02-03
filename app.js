@@ -82,6 +82,15 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended : false}));
 app.use(expressValidator());
 app.use(express.static(path.join(__dirname,'public')));
+// Handle 404
+app.use(function(req, res) {
+    res.status(404).send("Page not found");
+});
+
+// Handle 500
+app.use(function(error, req, res, next) {
+    res.status(500).send("Internal server error");
+});
 app.use(cookieParser());
 
 // if saveUninitialized : false than it will store session till the instance is in existence
@@ -6080,15 +6089,27 @@ app.post('/adminFeedbackEnterResponse',adminrequiresLogin,function(req,res){
 
 //////////////////PAGE NOT FOUND///////////////////////////////////////////////
 
-// app.use(function (err, req, res, next) {
-//     console.error(err.stack);
-//     res.status(404).render('not_found')
-// });
+app.use(function(req, res) {
+    res.status(404).send("Page not found");
+});
 
-app.get('/*',function(req,res){
-    res.send("page not found");
-})
+// Handle 500
+app.use(function(error, req, res, next) {
+    res.status(500).send("Internal server error");
+});
 
+
+// Handle 404
+app.use(function(err,req, res , next) {
+    console.error(err.stack);
+    res.status(404).render('not_found')
+});
+
+// Handle 500
+app.use(function(err, req, res, next) {
+    console.error(err.stack);
+    res.status(500).render('not_found')
+});
 
 //==========================Database connection===========================
 

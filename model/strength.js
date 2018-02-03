@@ -2,11 +2,11 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var Strength = new Schema({
-    strength : {type : String, trim:true},
+    strength : {type : String,trim:true , required : true},
     //strength_unit : {type : String, trim:true},
     potent_substance : {
-        name : [{type : String, trim:true}],
-        molecule_strength : [{type : String, trim:true}]
+        name : [{type : String, trim:true ,required : true }],
+        molecule_strength : [{type : String, trim:true,required : true}]
     },
     packaging : {type : String, trim:true},
     price : {type : String, trim:true},
