@@ -19,7 +19,7 @@ html(lang='en')
                             data: request,  // request is the value of search input
                             success: function (data) {
                                 //alert(data);
-                                // Map response values to fiedl label and value
+                                // Map response values to field label and value
                                 response($.map(data, function (el) {
                                     return {
                                         label: el.brand_name
