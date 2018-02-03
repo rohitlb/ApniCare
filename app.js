@@ -27,7 +27,6 @@ var NeedhelpWL = require('./model/needhelpWL');
 var User  = require('./model/registration');
 var Doctor = require('./model/doctorregistration');
 var Pharma = require('./model/pharma');
-var Professional = require('./model/professional');
 //require for medicine index
 var Company = require('./model/company');
 var Brand = require('./model/brand');
@@ -83,14 +82,7 @@ app.use(bodyParser.urlencoded({extended : false}));
 app.use(expressValidator());
 app.use(express.static(path.join(__dirname,'public')));
 // Handle 404
-app.use(function(req, res) {
-    res.status(404).send("Page not found");
-});
 
-// Handle 500
-app.use(function(error, req, res, next) {
-    res.status(500).send("Internal server error");
-});
 app.use(cookieParser());
 
 // if saveUninitialized : false than it will store session till the instance is in existence
@@ -6090,7 +6082,7 @@ app.post('/adminFeedbackEnterResponse',adminrequiresLogin,function(req,res){
 //////////////////PAGE NOT FOUND///////////////////////////////////////////////
 
 app.use(function(req, res) {
-    res.status(404).send("Page not found");
+    res.status(404).render('not_found');
 });
 
 // Handle 500
@@ -6099,17 +6091,6 @@ app.use(function(error, req, res, next) {
 });
 
 
-// Handle 404
-app.use(function(err,req, res , next) {
-    console.error(err.stack);
-    res.status(404).render('not_found')
-});
-
-// Handle 500
-app.use(function(err, req, res, next) {
-    console.error(err.stack);
-    res.status(500).render('not_found')
-});
 
 //==========================Database connection===========================
 
