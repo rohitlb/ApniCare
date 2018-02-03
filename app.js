@@ -382,7 +382,7 @@ app.post('/userregister', function (req, res) {
                         else {
                             var user = new User({
                                 name: req.body.name,
-                                email: email,
+                                email: req.body.email,
                                 number: req.body.number,
                                 password: hash
                             });
@@ -459,7 +459,7 @@ app.post('/doctorregister', function (req, res) {
                         else {
                             var doctor = new Doctor({
                                 name: req.body.name,
-                                email: email,
+                                email: req.body.email,
                                 number: req.body.number,
                                 password: hash
                             });
@@ -517,7 +517,7 @@ app.post('/pharmaregister', function (req, res) {
                         else {
                             var pharma = new Pharma({
                                 name: req.body.name,
-                                email: email,
+                                email: req.body.email,
                                 number: req.body.number,
                                 password: hash
                             });
@@ -4634,9 +4634,6 @@ app.get('/doctor',function (req,res) {
     res.redirect('/health_care_provider?page=profile_doctor');
 });
 
-app.get('/doctorlogedin',function (req,res) {
-    res.render('doctorlogedin');
-});
 
 app.post('/profession',function (req,res) {
     var profession = req.body.profession;
@@ -4659,12 +4656,23 @@ app.post('/profession',function (req,res) {
 });
 
 app.post('/basic',function(req,res) {
+    var name = req.body.name;
+    var title = req.body.title;
     var gender = req.body.gender;
     var city = req.body.city;
     var experience = req.body.experience;
     var about = req.body.about;
+    console.log(name);
+    console.log(title);
+    console.log(gender);
+    console.log(city);
+    console.log(experience);
+    console.log(about);
+
     Doctor.update({_id: req.session.doctorID}, {
         $set: {
+            name : name,
+            title : title,
             gender: gender,
             city: city,
             year_of_experience: experience,
@@ -4684,11 +4692,25 @@ app.post('/education',function(req,res){
     var qualification = req.body.qualification;
     var college = req.body.college;
     var completion = req.body.completion;
+    var batch_from =  req.body.batch_from;
+    var batch_to =  req.body.batch_to;
+    var specialization = req.body.specialization;
+    console.log(qualification);
+    console.log(college);
+    console.log(completion);
+    console.log(batch_from);
+    console.log(batch_to);
+    console.log(specialization);
+
     Doctor.update({_id : req.session.doctorID},{
         $set : {
             qualification : qualification,
             college : college,
-            completion_year : completion
+            completion_year : completion,
+            batch_to : batch_to,
+            batch_from : batch_from,
+            specialization : specialization
+
         }
     },function(err){
         if(err){
@@ -4739,6 +4761,92 @@ app.post('/pharma_profession',function (req,res) {
     });
 });
 
+app.post('/pharma_basic',function(req,res) {
+    var name = req.body.name;
+    var title = req.body.title;
+    var gender = req.body.gender;
+    var city = req.body.city;
+    var experience = req.body.experience;
+    var about = req.body.about;
+    console.log(name);
+    console.log(title);
+    console.log(gender);
+    console.log(city);
+    console.log(experience);
+    console.log(about);
+
+    Pharma.update({_id: req.session.pharmaID}, {
+        $set: {
+            name : name,
+            title : title,
+            gender: gender,
+            city: city,
+            year_of_experience: experience,
+            About_you : about
+        }
+    }, function (err) {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            res.send({status: 'success', message: 'Basic detailsa added'});
+        }
+    });
+});
+
+app.post('/pharma_education',function(req,res){
+    var qualification = req.body.qualification;
+    var college = req.body.college;
+    var completion = req.body.completion;
+    var batch_from =  req.body.batch_from;
+    var batch_to =  req.body.batch_to;
+    var specialization = req.body.specialization;
+    console.log(qualification);
+    console.log(college);
+    console.log(completion);
+    console.log(batch_from);
+    console.log(batch_to);
+    console.log(specialization);
+
+    Pharma.update({_id : req.session.pharmaID},{
+        $set : {
+            qualification : qualification,
+            college : college,
+            completion_year : completion,
+            batch_to : batch_to,
+            batch_from : batch_from,
+            specialization : specialization
+
+        }
+    },function(err){
+        if(err){
+            console.log(err);
+        }
+        else{
+            res.send({status : 'success' , message : 'Education details added'});
+        }
+    });
+});
+
+app.post('/pharma_certificate',function(req,res) {
+    var council_number = req.body.council_number;
+    var council_name = req.body.council_name;
+    var council_year = req.body.council_year;
+    Pharma.update({_id: req.session.pharmaID}, {
+        $set: {
+            council_registration_number : council_number,
+            council_name : council_name,
+            council_registration_year : council_year
+        }
+    },function(err,result){
+        if(err){
+            console.log(err);
+        }
+        else{
+            res.send({status : 'success' , message : 'Certification added'});
+        }
+    });
+});
 
 app.post('/healthcarelogin',function(req,res) {
     var number = req.body.number;

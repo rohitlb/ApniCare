@@ -65,12 +65,27 @@ div.collection#main_profile_doctor
                         span Gender:
                             br
                             div#gender
-                                input.with-gap#g1(name="gender" type="radio" value="male" checked)
-                                label(for='g1') Male&nbsp
-                                input.with-gap#g2(name="gender" type="radio" value='female')
-                                label(for='g2') Female&nbsp
-                                input.with-gap#g3(name="gender" type="radio" value="other" )
-                                label(for="g3") Other
+                                if((data[0].gender == null) || (data[0].gender == "male"))
+                                    input.with-gap#g1(name="gender" type="radio" value="male" checked)
+                                    label(for='g1') Male&nbsp
+                                    input.with-gap#g2(name="gender" type="radio" value='female')
+                                    label(for='g2') Female&nbsp
+                                    input.with-gap#g3(name="gender" type="radio" value="other" )
+                                    label(for="g3") Other
+                                if(data[0].gender == "female")
+                                    input.with-gap#g1(name="gender" type="radio" value="male" )
+                                    label(for='g1') Male&nbsp
+                                    input.with-gap#g2(name="gender" type="radio" value='female' checked)
+                                    label(for='g2') Female&nbsp
+                                    input.with-gap#g3(name="gender" type="radio" value="other" )
+                                    label(for="g3") Other
+                                if(data[0].gender == "other")
+                                    input.with-gap#g1(name="gender" type="radio" value="male" )
+                                    label(for='g1') Male&nbsp
+                                    input.with-gap#g2(name="gender" type="radio" value='female')
+                                    label(for='g2') Female&nbsp
+                                    input.with-gap#g3(name="gender" type="radio" value="other" checked)
+                                    label(for="g3") Other
                                 br
                                 br
                     div.input-field.col.s12.m4.l4
@@ -80,11 +95,11 @@ div.collection#main_profile_doctor
                     div.input-field.col.s12.m4.l4
                         span
                             | Years of Experience
-                            input#year_of_experience(type='number' placeholder='years' value="data[0].year_of_experience" required)
+                            input#year_of_experience(type='number' placeholder='years' value=data[0].year_of_experience required)
                     div.col.s12.m12.l12
                         span
                             | About You
-                            textarea.materialize-textarea#about_you(value=data[0].About_you  required)
+                            textarea.materialize-textarea#about_you(placeholder="about you"  required) #{data[0].About_you}
                             label(for='about_you')
                     br
                     div.row
@@ -101,7 +116,7 @@ div.collection#main_profile_doctor
                                 div.input-field.col.s12.m6.l6
                                     span
                                         | Email ID  &nbsp
-                                        span#f2(style='color:#660099;') Not Verified
+                                        span#f2(style='color:#660099;')
                                             i.material-icons.left(style='color:#660099;') close
                                         input#email(type='email', value=data[0].email)
                     div.row
@@ -119,15 +134,15 @@ div.collection#main_profile_doctor
                     div.input-field.col.s12.m6.l6
                         span
                             | Qualification
-                            input#qualification(type='text' , required)
+                            input#qualification(type='text', value=data[0].qualification required)
                     div.input-field.col.s12.m6.l6
                         span
                             | College Name
-                            input#college(type='text' , required)
+                            input#college(type='text', value=data[0].college required)
                     div.input-field.col.s12.m6.l6
                         span
                             | Completion Year
-                            input#completion_year(type='text' placeholder='yyyy eg. 1962' , required)
+                            input#completion_year(type='text' placeholder='yyyy eg. 1962' , value=data[0].completion_year required)
                     div.input-field.col.s12.m6.l6
                         span
                             | Specialization
@@ -148,15 +163,15 @@ div.collection#main_profile_doctor
                     div.input-field.col.s12.m4.l4
                         span
                             | Council Reg. No.
-                            input#council_reg_no(type='text')
+                            input#council_reg_no(type='text' value=data[0].council_registration_number)
                     div.input-field.col.s12.m4.l4
                         span
                             | Council Name
-                            input#council_name(type='text')
+                            input#council_name(type='text' value=data[0].council_name)
                     div.input-field.col.s12.m4.l4
                         span
                             | Council Year
-                            input#council_year(type='number' placeholder='yyyy eg.1920')
+                            input#council_year(type='number' placeholder='yyyy eg.1920' value=data[0].council_registration_year)
                     div.col.s6.m4.l3.offset-l3.offset-m2
                         input.reset(type='reset')
                     div.col.s6.m4.l3

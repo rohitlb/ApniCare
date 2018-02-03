@@ -1276,6 +1276,8 @@ $(function () {
             experience: experience,
             about: about
         };
+        event.preventDefault();
+        event.stopPropagation();
         $.ajax({
             url: '/basic',
             type: 'POST',
@@ -1336,7 +1338,7 @@ $(function () {
         //$('#tab2').focus();
         //$('#main_profile_doctor ul.tabs li.tab a').hover(function() {
         $('#tab2').focus();
-        $('#basic_detail_pharma').hide();
+        $('#basic_detail').hide();
         $('#edu_special').show();
     });
 
@@ -1356,6 +1358,8 @@ $(function () {
             batch_to : batch_to,
             specialization: specialization
         };
+        event.preventDefault();
+        event.stopPropagation();
         $.ajax({
             url: '/education',
             type: 'POST',
@@ -1395,6 +1399,8 @@ $(function () {
             batch_to : batch_to,
             specialization: specialization
         };
+        event.preventDefault();
+        event.stopPropagation();
         $.ajax({
             url: '/pharma_education',
             type: 'POST',
@@ -1406,6 +1412,7 @@ $(function () {
                 }
                 else {
                     Materialize.toast(result.message, 1000);
+                    return false;
                 }
             }
         });

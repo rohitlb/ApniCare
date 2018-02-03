@@ -73,27 +73,41 @@ div.collection#main_profile_doctor
                         span Gender:
                             br
                             div#gender
-                                input.with-gap#g1(name="gender" type="radio" value="Male" checked)
-                                label(for='g1') Male&nbsp
-                                input.with-gap#g2(name="gender" type="radio" value='Female')
-                                label(for='g2') Female&nbsp
-                                input.with-gap#g3(name="gender" type="radio" value="Other" )
-                                label(for="g3") Other
+                                if((data[0].gender == null)||(data[0].gender == "Male"))
+                                    input.with-gap#g1(name="gender" type="radio" value="Male" checked)
+                                    label(for='g1') Male&nbsp
+                                    input.with-gap#g2(name="gender" type="radio" value='Female')
+                                    label(for='g2') Female&nbsp
+                                    input.with-gap#g3(name="gender" type="radio" value="Other" )
+                                    label(for="g3") Other
+                                if(data[0].gender == "Female")
+                                    input.with-gap#g1(name="gender" type="radio" value="Male" )
+                                    label(for='g1') Male&nbsp
+                                    input.with-gap#g2(name="gender" type="radio" value='Female' checked)
+                                    label(for='g2') Female&nbsp
+                                    input.with-gap#g3(name="gender" type="radio" value="Other" )
+                                    label(for="g3") Other
+                                if(data[0].gender == "Other")
+                                    input.with-gap#g1(name="gender" type="radio" value="Male" )
+                                    label(for='g1') Male&nbsp
+                                    input.with-gap#g2(name="gender" type="radio" value='Female')
+                                    label(for='g2') Female&nbsp
+                                    input.with-gap#g3(name="gender" type="radio" value="Other" checked)
+                                    label(for="g3") Other
                                 br
                                 br
                     div.input-field.col.s12.m4.l4
                         span
                             | City
-                            input#city.to_capital(type='text' placeholder='City')
+                            input#city.to_capital(type='text' value=data[0].city placeholder='City')
                     div.input-field.col.s12.m4.l4
                         span
                             | Years of Experience
-                            input#year_of_experience(type='number' placeholder='Years of Experience' , required)
+                            input#year_of_experience(type='number' value=data[0].year_of_experience placeholder='Years of Experience' , required)
                     div.col.s12.m12.l12
                         span
                             | About You
-                            textarea.materialize-textarea#about_you.to_capital(placeholder='Tell Us More About You' required)
-                            label(for='about_you')
+                            textarea.materialize-textarea#about_you.to_capital(placeholder='Tell Us More About You' required) #{data[0].About_you}
                     br
                     div.row
                         div.col.s12.m12.l12
@@ -109,7 +123,7 @@ div.collection#main_profile_doctor
                                 div.input-field.col.s12.m6.l6
                                     span
                                         | Email ID  &nbsp
-                                        span#f2(style='color:#660099;') Not Verified
+                                        span#f2(style='color:#660099;')
                                             i.material-icons.left(style='color:#660099;') close
                                         input#email(type='email', value=data[0].email)
                     div.row
@@ -128,15 +142,15 @@ div.collection#main_profile_doctor
                         div.input-field.col.s12.m6.l6
                             span
                                 | Qualification
-                                input#qualification.to_capital(type='text' , required)
+                                input#qualification.to_capital(type='text' , value=data[0].qualification required)
                         div.input-field.col.s12.m6.l6
                             span
                                 | College Name
-                                input#college.to_capital(type='text' required)
+                                input#college.to_capital(type='text' value=data[0].college required)
                         div.input-field.col.s12.m6.l6
                             span
                                 | Completion Year
-                                input#completion_year(type='text' placeholder='yyyy eg. 1962' , required)
+                                input#completion_year(type='text' placeholder='yyyy eg. 1962' , value=data[0].completion_year required)
                         div.input-field.col.s12.m6.l6
                             span
                                 | Specialization
@@ -160,15 +174,15 @@ div.collection#main_profile_doctor
                         div.input-field.col.s12.m4.l4
                             span
                                 | Council Reg. No.
-                                input#council_reg_no.to_capital(type='text')
+                                input#council_reg_no.to_capital(type='text' value=data[0].council_registration_number)
                         div.input-field.col.s12.m4.l4
                             span
                                 | Council Name
-                                input#council_name.to_capital(type='text')
+                                input#council_name.to_capital(type='text' value=data[0].council_name)
                         div.input-field.col.s12.m4.l4
                             span
                                 | Council Year
-                                input#council_year(type='number' placeholder='yyyy eg.1920')
+                                input#council_year(type='number' placeholder='yyyy eg.1920' value=data[0].council_registration_year)
                         div.col.s6.m4.l3.offset-l3.offset-m2
                             input.reset(type='reset')
                         div.col.s6.m4.l3

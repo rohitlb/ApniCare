@@ -66,12 +66,27 @@ div.collection#main_profile_student
                         span Gender:
                             br
                             div#gender
-                                input.with-gap#g1(name="gender" type="radio" value="male" checked)
-                                label(for='g1') Male&nbsp
-                                input.with-gap#g2(name="gender" type="radio" value='female')
-                                label(for='g2') Female&nbsp
-                                input.with-gap#g3(name="gender" type="radio" value="other" )
-                                label(for="g3") Other
+                                if((data[0].gender == null) || (data[0].gender == "Male"))
+                                    input.with-gap#g1(name="gender" type="radio" value="Male" checked)
+                                    label(for='g1') Male&nbsp
+                                    input.with-gap#g2(name="gender" type="radio" value='Female')
+                                    label(for='g2') Female&nbsp
+                                    input.with-gap#g3(name="gender" type="radio" value="Other" )
+                                    label(for="g3") Other
+                                if(data[0].gender == "Female")
+                                    input.with-gap#g1(name="gender" type="radio" value="Male" )
+                                    label(for='g1') Male&nbsp
+                                    input.with-gap#g2(name="gender" type="radio" value='Female' checked)
+                                    label(for='g2') Female&nbsp
+                                    input.with-gap#g3(name="gender" type="radio" value="Other" )
+                                    label(for="g3") Other
+                                if(data[0].gender == "Other")
+                                    input.with-gap#g1(name="gender" type="radio" value="Male" )
+                                    label(for='g1') Male&nbsp
+                                    input.with-gap#g2(name="gender" type="radio" value='Female')
+                                    label(for='g2') Female&nbsp
+                                    input.with-gap#g3(name="gender" type="radio" value="Other" checked)
+                                    label(for="g3") Other
                                 br
                                 br
 
@@ -90,7 +105,7 @@ div.collection#main_profile_student
                                 div.input-field.col.s12.m6.l6
                                     span
                                         | Email ID  &nbsp
-                                        span#f2(style='color:#660099;') Not Verified
+                                        span#f2(style='color:#660099;')
                                             i.material-icons.left(style='color:#660099;') close
                                         input#email(type='email', value=data[0].email)
                     div.row
@@ -108,11 +123,11 @@ div.collection#main_profile_student
                     div.input-field.col.s12.m6.l6
                         span
                             | Qualification
-                            input#qualification(type='text' , required)
+                            input#qualification(type='text' , value=data[0].qualification required)
                     div.input-field.col.s12.m6.l6
                         span
                             | College Name
-                            input#college(type='text' , required)
+                            input#college(type='text' , value=data[0].college required)
                     div.row
                         div.col.s12.m12.l12
 
@@ -120,10 +135,10 @@ div.collection#main_profile_student
                                 | Batch
                             div.input-field.col.s6.m6.l6
                                 h6 From
-                                    input#batch_from(type='text' placeholder='yyyy eg. 2010' , required)
+                                    input#batch_from(type='text' placeholder='yyyy eg. 2010' , value=data[0].batch_from required)
                             div.input-field.col.s6.m6.l6
                                 h6 To
-                                    input#batch_to(type='text' placeholder='yyyy eg. 2014' , required)
+                                    input#batch_to(type='text' placeholder='yyyy eg. 2014' , value=data[0].batch_to required)
                     div.row
                         div.col.s12.m12.l12
                             div.input-field.col.s12.m6.l6
