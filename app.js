@@ -254,7 +254,7 @@ app.post('/needhelpWL' , function (req,res) {
 app.post('/sendOTP',function (req, res) {
     var number = req.body.number;
     //regex for checking whether entered number is indian or not
-    var num = /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[789]\d{9}|(\d[ -]?){10}\d$/.test(number);
+    var num = /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[6789]\d{9}|(\d[ -]?){10}\d$/.test(number);
     if(num === false){
         res.send({status: "failure", message: "wrong number ! please try again "});
         return;
@@ -361,7 +361,7 @@ app.get('/', function (req, res) {
 app.post('/userregister', function (req, res) {
     console.log('done');
     //regex for checking whether entered number is indian or not
-    var num = /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[789]\d{9}|(\d[ -]?){10}\d$/.test(req.body.number);
+    var num = /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[6789]\d{9}|(\d[ -]?){10}\d$/.test(req.body.number);
     if (num === false) {
         res.send({status: "failure", message: "wrong number ! please try again "});
         return;
@@ -438,7 +438,7 @@ app.get('/profile',userrequiresLogin, function (req, res) {
 
 app.post('/doctorregister', function (req, res) {
     //regex for checking whether entered number is indian or not
-    var num = /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[789]\d{9}|(\d[ -]?){10}\d$/.test(req.body.number);
+    var num = /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[6789]\d{9}|(\d[ -]?){10}\d$/.test(req.body.number);
     if (num === false) {
         res.send({status: "failure", message: "wrong number ! please try again "});
         return;
@@ -496,7 +496,7 @@ app.post('/doctorregister', function (req, res) {
 app.post('/pharmaregister', function (req, res) {
     console.log('reaches');
     //regex for checking whether entered number is indian or not
-    var num = /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[789]\d{9}|(\d[ -]?){10}\d$/.test(req.body.number);
+    var num = /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[6789]\d{9}|(\d[ -]?){10}\d$/.test(req.body.number);
     if (num === false) {
         res.send({status: "failure", message: "wrong number ! please try again "});
         return;
@@ -2274,7 +2274,7 @@ app.post('/useremergency',userrequiresLogin,function (req,res) {
 app.post('/checkforgotpassword',function (req,res) {
     var number = req.body.number;
     //regex for checking whether entered number is indian
-    var num = /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[789]\d{9}|(\d[ -]?){10}\d$/.test(number);
+    var num = /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[6789]\d{9}|(\d[ -]?){10}\d$/.test(number);
     if (num === false) {
         res.send({status: "failure", message: "wrong number ! please try again "});
         return;
@@ -2440,7 +2440,7 @@ app.post('/updateforgotpassword',function(req,res){
 app.post('/doctorcheckforgotpassword',function (req,res) {
     var number = req.body.number;
     //regex for checking whether entered number is indian
-    var num = /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[789]\d{9}|(\d[ -]?){10}\d$/.test(number);
+    var num = /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[6789]\d{9}|(\d[ -]?){10}\d$/.test(number);
     if(num === false){
         res.send({status: "failure", message: "wrong number ! please try again "});
         return;
