@@ -9,23 +9,20 @@ div#Mdiv1
                     br
                     span.span3 - it's all about Health!!
 
-            //a(href='/profile/userprofile?page=profilePage')
-                img#logoimg(src="/images/az.png" height="80px" width="150px")
-
         div.col.s6.m6.l6
             a(href="#")
             br
             br
             .input-field#input1
                 label.label-icon(for='search-query')
-                input#search-query(type='search', required='',placeholder="search here")
+                input#search-query(type='search', required='',placeholder="Search here")
 
                 //.material-icons#searchbutton search
         div.col.s3.m2.l2
             br
             br
-            //if(page == 'index')
-            include ../login-signup/main
+            if(page == 'index')
+                include ../login-signup/main
             if(page == 'profile')
                 a.dropdown-button.btn-flat.center.right.black-text#user(data-activates='dropdown1') #{number}
                     i.material-icons.black-text.large person
