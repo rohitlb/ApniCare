@@ -115,7 +115,7 @@ function userrequiresLogin(req, res, next) {
 }
 
 function healthrequiresLogin(req, res, next) {
-    if (req.session && ((req.session.userID) ||(req.session.doctorID) || (req.session.pharmaID))) {
+    if (req.session && ((req.session.doctorID) || (req.session.pharmaID))) {
         return next();
     } else {
         //var err = new Error('You must be logged in to view this page.');
@@ -124,7 +124,7 @@ function healthrequiresLogin(req, res, next) {
 }
 
 function adminrequiresLogin(req, res, next) {
-    if (req.session && ((req.session.userID) ||(req.session.doctorID) || (req.session.pharmaID))) {
+    if (req.session && req.session.admin) {
         return next();
     } else {
         //var err = new Error('You must be logged in to view this page.');
@@ -254,7 +254,7 @@ app.post('/needhelpWL' , function (req,res) {
 app.post('/sendOTP',function (req, res) {
     var number = req.body.number;
     //regex for checking whether entered number is indian or not
-    var num = /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[789]\d{9}|(\d[ -]?){10}\d$/.test(number);
+    var num = /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[6789]\d{9}|(\d[ -]?){10}\d$/.test(number);
     if(num === false){
         res.send({status: "failure", message: "wrong number ! please try again "});
         return;
@@ -342,6 +342,94 @@ app.post('/VerifyOTP',function (req, res) {
 });
 
 
+// with real 2factor OTP service
+//
+// app.post('/sendOTP',function (req, res) {
+//     var number = req.body.number;
+//     //regex for checking whether entered number is indian or not
+//     var num = /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[6789]\d{9}|(\d[ -]?){10}\d$/.test(number);
+//     if(num === false){
+//         res.send({status: "failure", message: "wrong number ! please try again "});
+//         return;
+//     }
+//     async.series({
+//         Doctors: function (callback) {
+//             Doctor.find({number: number}, function (err, result) {
+//                 if (err) {
+//                     console.log(err);
+//                 }
+//                 else {
+//                     callback(null, result);
+//                 }
+//             });
+//         },
+//         Pharmas : function(callback){
+//             Pharma.find({number : number},function(err,result){
+//                 if(err){
+//                     console.log(err);
+//                 }
+//                 else{
+//                     callback(null,result);
+//                 }
+//             });
+//         },
+//         Users : function(callback){
+//             User.find({number : number},function(err,result){
+//                 if(err){
+//                     console.log(err);
+//                 }
+//                 else{
+//                     callback(null,result);
+//                 }
+//             });
+//         }
+//     },function(err,result){
+//         if(err){
+//             console.log(err);
+//         }
+//         else{
+//             if(((result.Doctors.length === 0)&&(result.Pharmas.length === 0))&&(result.Users.length === 0)){
+//                 var options = { method: 'GET',
+//                     url: 'http://2factor.in/API/V1/'+keys.api_key()+'/SMS/'+number+'/AUTOGEN',
+//                     headers: { 'content-type': 'application/x-www-form-urlencoded' },
+//                     form: {} };
+//
+//                 request(options, function (error, response, body) {
+//                     if (error) {
+//                         throw new Error(error);
+//                     }
+//                     else {
+//                         var temp = JSON.parse(body);
+//                         req.session.sid = temp.Details;
+//                         res.send({status: "success", message: "OTP sent to your number"});
+//                     }
+//                 });
+//             }
+//             else{
+//                 res.send({status: "failure", message: "number Already Exists"});
+//             }
+//         }
+//     });
+// });
+//
+// app.post('/VerifyOTP',function (req, res) {
+//     var otp = req.body.number;
+//
+//     var options = { method: 'GET',
+//         url: 'http://2factor.in/API/V1/'+keys.api_key()+'/SMS/VERIFY/'+req.session.sid+'/'+otp,
+//         headers: { 'content-type': 'application/x-www-form-urlencoded' },
+//         form: {} };
+//
+//     request(options, function (error, response, body) {
+//         if (error) throw new Error(error);
+//         console.log(body);
+//         var temp = JSON.parse(body);
+//         res.send({status : 'success' , message: temp.Status });
+//         req.session.sid = null;
+//     });
+// });
+
+
 app.get('/', function (req, res) {
     if (req.session.userID) {
        res.redirect('/profile');
@@ -361,7 +449,7 @@ app.get('/', function (req, res) {
 app.post('/userregister', function (req, res) {
     console.log('done');
     //regex for checking whether entered number is indian or not
-    var num = /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[789]\d{9}|(\d[ -]?){10}\d$/.test(req.body.number);
+    var num = /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[6789]\d{9}|(\d[ -]?){10}\d$/.test(req.body.number);
     if (num === false) {
         res.send({status: "failure", message: "wrong number ! please try again "});
         return;
@@ -438,7 +526,7 @@ app.get('/profile',userrequiresLogin, function (req, res) {
 
 app.post('/doctorregister', function (req, res) {
     //regex for checking whether entered number is indian or not
-    var num = /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[789]\d{9}|(\d[ -]?){10}\d$/.test(req.body.number);
+    var num = /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[6789]\d{9}|(\d[ -]?){10}\d$/.test(req.body.number);
     if (num === false) {
         res.send({status: "failure", message: "wrong number ! please try again "});
         return;
@@ -496,7 +584,7 @@ app.post('/doctorregister', function (req, res) {
 app.post('/pharmaregister', function (req, res) {
     console.log('reaches');
     //regex for checking whether entered number is indian or not
-    var num = /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[789]\d{9}|(\d[ -]?){10}\d$/.test(req.body.number);
+    var num = /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[6789]\d{9}|(\d[ -]?){10}\d$/.test(req.body.number);
     if (num === false) {
         res.send({status: "failure", message: "wrong number ! please try again "});
         return;
@@ -2274,17 +2362,48 @@ app.post('/useremergency',userrequiresLogin,function (req,res) {
 app.post('/checkforgotpassword',function (req,res) {
     var number = req.body.number;
     //regex for checking whether entered number is indian
-    var num = /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[789]\d{9}|(\d[ -]?){10}\d$/.test(number);
-    if(num === false){
+    var num = /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[6789]\d{9}|(\d[ -]?){10}\d$/.test(number);
+    if (num === false) {
         res.send({status: "failure", message: "wrong number ! please try again "});
         return;
     }
-
-    User.findOne({number : number}, function (err,result) {
+    async.parallel({
+        User: function (callback) {
+            User.find({number: number}, function (err, result) {
+                if (err) {
+                    console.log(err);
+                }
+                else {
+                    callback(null, result);
+                }
+            });
+        },
+        Doctor: function (callback) {
+            Doctor.find({number: number}, function (err, result) {
+                if (err) {
+                    console.log(err);
+                }
+                else {
+                    callback(null, result);
+                }
+            });
+        },
+        Pharma: function (callback) {
+            Pharma.find({number: number}, function (err, result) {
+                if (err) {
+                    console.log(err);
+                }
+                else {
+                    callback(null, result);
+                }
+            });
+        }
+    }, function (err, result) {
         if (err) {
             console.log(err);
-        } else {
-            if (result) {
+        }
+        else {
+            if ((result.Doctor != "") || (result.User != "") || (result.Pharma)) {
                 var options = {
                     method: 'GET',
                     url: 'http://2factor.in/API/V1/' + keys.api_key() + '/SMS/' + number + '/AUTOGEN',
@@ -2299,14 +2418,107 @@ app.post('/checkforgotpassword',function (req,res) {
                     else {
                         var temp = JSON.parse(body);
                         req.session.sid = temp.Details;
+                        req.session.updatenumber = number;
                         res.send({status: "success", message: "OTP sent to your number"});
 
                     }
                 });
-
             }
             else {
-                res.send({status: "failure", message: "this number is not registered"});
+                res.send({status: 'success', message: 'Please check your number'});
+            }
+        }
+    });
+
+});
+
+app.post('/updateforgotpassword',function(req,res){
+    var number = req.session.updatenumber;
+    var password = req.body.password;
+    if(password == null){
+        res.send({status : 'success' , message : "Please enter some password"})
+        return;
+    }
+    async.parallel({
+        User: function (callback) {
+            User.find({number: number}, function (err, result) {
+                if (err) {
+                    console.log(err);
+                }
+                else {
+                    callback(null, result);
+                }
+            });
+        },
+        Doctor: function (callback) {
+            Doctor.find({number: number}, function (err, result) {
+                if (err) {
+                    console.log(err);
+                }
+                else {
+                    callback(null, result);
+                }
+            });
+        },
+        Pharma: function (callback) {
+            Pharma.find({number: number}, function (err, result) {
+                if (err) {
+                    console.log(err);
+                }
+                else {
+                    callback(null, result);
+                }
+            });
+        }
+    }, function (err, result) {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            if(result.User != ""){
+                User.update({number : number},{
+                    $set : {
+                        password : password
+                    }
+                },function(err){
+                    if(err){
+                        console.log(err);
+                    }
+                    else{
+                        req.session.userID = result.User[0]._id;
+                        res.send({status : 'success' , data : result});
+                    }
+                });
+            }
+            if(result.Doctor != ""){
+                Doctor.update({number : number},{
+                    $set : {
+                        password : password
+                    }
+                },function(err){
+                    if(err){
+                        console.log(err);
+                    }
+                    else{
+                        req.session.doctorID = result.Doctor[0]._id;
+                        res.send({status : 'success' , data : result});
+                    }
+                });
+            }
+            if(result.Pharma != ""){
+                Pharma.update({number : number},{
+                    $set : {
+                        password : password
+                    }
+                },function(err){
+                    if(err){
+                        console.log(err);
+                    }
+                    else{
+                        req.session.pharmaID = result.Pharma[0]._id;
+                        res.send({status : 'success' , data : result});
+                    }
+                });
             }
         }
     });
@@ -2316,7 +2528,7 @@ app.post('/checkforgotpassword',function (req,res) {
 app.post('/doctorcheckforgotpassword',function (req,res) {
     var number = req.body.number;
     //regex for checking whether entered number is indian
-    var num = /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[789]\d{9}|(\d[ -]?){10}\d$/.test(number);
+    var num = /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[6789]\d{9}|(\d[ -]?){10}\d$/.test(number);
     if(num === false){
         res.send({status: "failure", message: "wrong number ! please try again "});
         return;
@@ -2531,7 +2743,7 @@ app.post('/upload', fileParser, function(req, res){
     console.log("app");
 
     var imageFile = req.files.image;
-    
+
     cloudinary.uploader.upload(imageFile.path, function(result){
         if (result.url) {
 
