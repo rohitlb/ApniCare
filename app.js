@@ -67,7 +67,7 @@ store.on('error',function (error) {
 app.disable('x-powered-by');
 
 //configure the app
-app.set('port',1997);
+app.set('port',9000);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
@@ -343,13 +343,19 @@ app.post('/VerifyOTP',function (req, res) {
 
 
 app.get('/', function (req, res) {
-    //if (req.session.userID) {
-    var page="index";
-    res.render('index',{
-        page : page
-    });
-    res.end();
-    //}
+    if (req.session.userID) {
+        var page="index";
+        res.render('index',{
+            page : page
+        });
+        res.end();
+    }
+    else{
+        var page="index";
+        res.render('index',{
+            page : page
+        });
+    }
 });
 
 //////////////// Molecule data ///////////////////
@@ -591,6 +597,9 @@ app.get('/ApniCare/About',function (req,res) {
 //for basic info like disease,drug and molecule Information*******************************************************
 app.get('/ApniCare/information',function (req,res) {
     var page= 'ApniCare';
+    if(req.session.userId){
+        page= 'index';
+    }
     var brand = req.query.brand;
     if(req.query.page=='Molecule_Information') {
         page = req.query.page;
