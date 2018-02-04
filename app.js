@@ -207,8 +207,6 @@ app.post('/needhelp' , function (req,res) {
     console.log(subject);
     console.log(contact_message);
 
-
-
     var needhelp = new Needhelp({
         //here user ID should be adde/d
         subject : subject,
