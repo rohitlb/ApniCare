@@ -1,7 +1,9 @@
 //#modalbackground(style=' position: absolute; height:100%; widh:100%; display:none; z-index:10001; background-color: #7F7F7F; opacity: 0.3;')
 div#idiv1
     div.row#irow1
-        div.col.s2.m3.l3.hide-on-small-only
+        br
+
+        div.col.s12.m3.l3
             if(page == 'index')
                 a.black-text(href="/")
                     br
@@ -15,12 +17,12 @@ div#idiv1
                     br
                     span.span3.lavender-text - " Healthy You & Yours "
 
-        div.col.s6.m6.l6
+        div.col.s12.m6.l6
             .bs-example
                 label.black-text.label-icon(for='search-query')
                 input#search-query(type='text',placeholder="Search here")
 
-        div.col.s4.m3.l3
+        div.col.s12.m3.l3
             br
             if(page == 'index')
                 include ../login-signup/main
@@ -32,7 +34,7 @@ div#idiv1
 
 
     //div.row#irow4
-    div.row#irow3.center
+    div.row#irow3.center.hid-on-small-only
         div.col.s3.m3.l4
             div.col.s12.m10.l9#col1
                 br
@@ -74,7 +76,7 @@ div#idiv1
 div#idiv2
     div.row
         br
-        div.col.l4#idiv3
+        div.col.s12.m12.l4#idiv3
             div.row
                 a(href='/ApniCare/information?page=Drug_Information').content
                     span.btn-flat#drugInformation Drug Information
@@ -89,12 +91,12 @@ div#idiv2
                 a(href='/ApniCare/information?page=Molecule_Information').content
                     span.btn-flat#moleculeInformation Molecule Information
 
-            br
-            div.row#find_doctor
+            //br
+            //div.row#find_doctor
                 a(href='/ApniCare/information?page=Find_a_Right_Doctor').content
                     span.btn-flat#find_a_right_doctor Find a Right Doctor
 
-        div.col.l8#idiv4
+        div.col.l8.hide-on-med-and-down#idiv4
             div.row
                 br
                 span.white-text BE AWARE ABOUT
