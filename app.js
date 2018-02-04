@@ -344,14 +344,13 @@ app.post('/VerifyOTP',function (req, res) {
 
 app.get('/', function (req, res) {
     if (req.session.userID) {
+        res.redirect('/profile');
+    }
+    else{
         var page="index";
         res.render('index',{
             page : page
         });
-        res.end();
-    }
-    else{
-        res.redirect('/profile');
     }
 });
 
