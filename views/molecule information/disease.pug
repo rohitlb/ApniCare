@@ -71,25 +71,25 @@ div.col.l10.s10.m10#mol_col1
                 //h3 #{val.disease_name.toUpperCase()}
                 if(val.symptoms!='')
                     li.section.scrollspy#symptoms
-                        span.m_p.bold What are the Symptoms of #{val.disease_name.toUpperCase()}?
+                        span.bold What are the Symptoms of #{val.disease_name.toUpperCase()}?
                         br
                         span.next_line.flow-text #{val.symptoms}
                         br
                 if(val.risk_factor !='')
                     li.section.scrollspy#risk
-                        span.m_p.bold Who is at Risk for #{val.disease_name.toUpperCase()}?
+                        span.bold Who is at Risk for #{val.disease_name.toUpperCase()}?
                         br
                         span.next_line.flow-text #{val.risk_factor}
                         br
                 if(val.cause !='')
                     li.section.scrollspy#cause
-                        span.m_p.bold What Causes #{val.disease_name.toUpperCase()}?
+                        span.bold What Causes #{val.disease_name.toUpperCase()}?
                         br
                         span.next_line.flow-text #{val.cause}
                         br
                 if(val.diagnosis !='')
                     li.section.scrollspy#diagnosis
-                        span.m_p.bold  How is #{val.disease_name.toUpperCase()} Diagnosed?
+                        span.bold  How is #{val.disease_name.toUpperCase()} Diagnosed?
                         br
                         //p #{val}
                         each sub in val.diagnosis
@@ -100,7 +100,7 @@ div.col.l10.s10.m10#mol_col1
                                 span.next_line.flow-text #{sub.subhead}
                 if(val.organs !='')
                     li.section.scrollspy#organs
-                        span.m_p.bold  Which Organs are affected by #{val.disease_name.toUpperCase()}?
+                        span.bold  Which Organs are affected by #{val.disease_name.toUpperCase()}?
                         br
                         each other,index in val.organs.subhead
                             //each sub, index in other.subhead
@@ -109,12 +109,12 @@ div.col.l10.s10.m10#mol_col1
                             span.next_line.small_font= val.organs.info[index]
                 if(val.treatment !='')
                     li.section.scrollspy#treatment
-                        span.m_p.bold How is #{val.disease_name.toUpperCase()} Treated?
+                        span.bold How is #{val.disease_name.toUpperCase()} Treated?
                         br
                         span.next_line.flow-text #{val.treatment}
                 if(val.outlook !='')
                     li.section.scrollspy#outlook
-                        span.m_p.bold What is the Outlook for #{val.disease_name.toUpperCase()}?
+                        span.bold What is the Outlook for #{val.disease_name.toUpperCase()}?
                         br
                         span.next_line.flow-text #{val.outlook}
                 if(val.prevention !='')
@@ -123,7 +123,7 @@ div.col.l10.s10.m10#mol_col1
                         br
                         span.next_line.flow-text #{val.prevention}
                 if(val.source !='')
-                    h5.m_p.section.scrollspy#source Source:&nbsp
+                    h5.section.scrollspy#source Source:&nbsp
                         span.next_line #{val.source}
 
 div.col#mol_row1_subrow4

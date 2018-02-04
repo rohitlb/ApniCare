@@ -3,9 +3,10 @@ div#Mdiv1
         div.col.s3.m4.l4
             br
             br
-            span#logo1 ApniCare
-                br
-                span.span3 - " Health You and Yours "
+            a.black-text(href="/")
+                span#logo1 ApniCare
+                    br
+                    span.span3 - " Health You and Yours "
 
             //a(href='/profile/userprofile?page=profilePage')
                 img#logoimg(src="/images/az.png" height="80px" width="150px")
@@ -103,7 +104,6 @@ div
                                             a.btn2.hoverable(href='/ApniCare/information?page=Molecule_Information') Z
                                         li
                                             a.btn2.all.hoverable(href='/ApniCare/information?page=Molecule_Information' type='other') Other
-                        p #{val}
                         each val in data
                             div.row.m_p_info
                                 if(val.description !='')
@@ -204,10 +204,10 @@ div
 
                                 if(val.contraindications!='')
                                     li
-                                        a(href='#contraindications') List of contraindications
+                                        a(href='#contraindications') &nbsp List of contraindications
                                 if(val.source!='')
                                     li
-                                        a(href='#source') Source of Information
+                                        a(href='#source') &nbsp Source of Information
 
                                 //a(href="#Contradictions") List of Contraindications
 
