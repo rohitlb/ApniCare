@@ -351,7 +351,7 @@ app.get('/', function (req, res) {
         res.end();
     }
     else{
-        res.redirect(/profile);
+        res.redirect('/profile');
     }
 });
 
