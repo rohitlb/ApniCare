@@ -22,8 +22,8 @@ div#Mdiv1
         div.col.s3.m2.l2
             br
             br
-
-            include ../login-signup/main
+            if(page=='index')
+                include ../login-signup/main
             if(page == 'profile')
                 a.dropdown-button.btn-flat.center.right.black-text#user(data-activates='dropdown1') #{number}
                     i.material-icons.black-text.large person
