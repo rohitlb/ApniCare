@@ -351,10 +351,7 @@ app.get('/', function (req, res) {
         res.end();
     }
     else{
-        var page="index";
-        res.render('index',{
-            page : page
-        });
+        res.redirect(/profile);
     }
 });
 
