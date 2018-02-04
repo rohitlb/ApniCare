@@ -2531,7 +2531,7 @@ app.post('/upload', fileParser, function(req, res){
     console.log("app");
 
     var imageFile = req.files.image;
-
+    
     cloudinary.uploader.upload(imageFile.path, function(result){
         if (result.url) {
 
@@ -2539,7 +2539,6 @@ app.post('/upload', fileParser, function(req, res){
             console.log(result.url);
             res.send({image_src : result.url});
             //res.render('upload', {url: result.url});
-
         } else {
             //if error
             console.log('Error uploading to cloudinary: ',result);

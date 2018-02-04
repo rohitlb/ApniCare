@@ -2,12 +2,12 @@ var mongoose = require('mongoose');
 
 var Doctor = new mongoose.Schema({
     //general information
+    path : {type : String},
     doctor_image : {type : String, trim:true},
     name : {type:String, trim:true,required : true},
     email : {type : String, trim:true,required : true},
     number : {type : String, trim:true,required : true},
     password : {type:String, trim:true,required : true},
-
     //his/her occupation
     occupation : {type : String, trim:true},
     //personal details
