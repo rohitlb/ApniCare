@@ -39,7 +39,10 @@ html
     title HomePage
 
     body
-        if(page == 'similar_Drug' || page == 'Drug_Information'||page =='Disease_Information'||page == 'Molecule_Information')
+        if(page == 'AboutUs' || page == 'Contact' || page == 'NeedHelp' || page == 'FeedBack')
+            include UserProfile/AboutUS
+
+        else if(page == 'similar_Drug' || page == 'Drug_Information'||page =='Disease_Information'||page == 'Molecule_Information')
             include molecule information/browse_main
             //include n_partial/footer
         else if(page == 'molecule_name')

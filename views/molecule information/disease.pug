@@ -1,5 +1,7 @@
 - val = data[0]
 - sub = data[0]
+- other = data[0]
+- index = data[0]
 div.col.l10.s10.m10#mol_col1
     div.row.center#mol_row1_subrow2
         h4   #{val.disease_name}
@@ -96,6 +98,15 @@ div.col.l10.s10.m10#mol_col1
                                 span.next_line.text_upper_case #{sub.info}:
                             if(sub.subhead !='')
                                 span.next_line.flow-text #{sub.subhead}
+                if(val.organs !='')
+                    li.section.scrollspy#organs
+                        span.bold  Which Organs are affected by #{val.disease_name.toUpperCase()}?
+                        br
+                        each other,index in val.organs.subhead
+                            //each sub, index in other.subhead
+                            h5.bold= other
+                            span.small_font.left ►
+                            span.next_line.small_font= val.organs.info[index]
                 if(val.treatment !='')
                     li.section.scrollspy#treatment
                         span.bold How is #{val.disease_name.toUpperCase()} Treated?
@@ -108,7 +119,7 @@ div.col.l10.s10.m10#mol_col1
                         span.next_line.flow-text #{val.outlook}
                 if(val.prevention !='')
                     li.section.scrollspy#prevention
-                        span.bold How can #{val.disease_name.toUpperCase()} be Prevented?
+                        span.m_p.bold How can #{val.disease_name.toUpperCase()} be Prevented?
                         br
                         span.next_line.flow-text #{val.prevention}
                 if(val.source !='')
@@ -117,27 +128,31 @@ div.col.l10.s10.m10#mol_col1
 
 div.col#mol_row1_subrow4
     h5 Page Contents
-    if(val.absorption != '' || val.distribution != '' || val.metabolism != '' || val.excretion != '')
-        a(href='#symptoms') Symptoms
-        br
-    if(val.side_effect != '')
-        a(href='#risk') Risk Factors
-        br
-    if(val.precaution != '')
-        a(href='#cause') Causes
-        br
-    if(val.drug_interaction != '')
-        a(href='#diagnosis') Diagnosis
-        br
-    if(val.treatment !='')
-        a(href='#treatment') Treatment
-        br
-    if(val.dosage != '')
-        a(href='#outlook') Outlook
-        br
-    if(val.food != '')
-        a(href='#prevention') Prevention
-        br
-    if(val.source !='')
-        a(href='#source') Source
-        br
+    ul.section.table-of-contents(style='position:fixed;padding-bottom:10px;')
+        if(val.absorption != '' || val.distribution != '' || val.metabolism != '' || val.excretion != '')
+            li
+                a(href='#symptoms') Symptoms
+        if(val.side_effect != '')
+            li
+                a(href='#risk') Risk Factors
+        if(val.precaution != '')
+            li
+                a(href='#cause') Causes
+        if(val.drug_interaction != '')
+            li
+                a(href='#diagnosis') Diagnosis
+        if(val.organ!='')
+            li
+                a(href='#organs') Effect on Organs
+        if(val.treatment !='')
+            li
+                a(href='#treatment') Treatment
+        if(val.dosage != '')
+            li
+                a(href='#outlook') Outlook
+        if(val.food != '')
+            li
+                a(href='#prevention') Prevention
+        if(val.source !='')
+            li
+                a(href='#source') Source of Information

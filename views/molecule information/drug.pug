@@ -4,7 +4,6 @@
 - pots = data[0]
 - potse = data[0]
 - vas = data[0]
-- i = 0
 div.col.l10.m10.s10#mol_col1
     div.row.center#mol_row1_subrow2
         h4   #{val.brand_name}
@@ -147,25 +146,33 @@ div.col.l10.m10.s10#mol_col1
 
 div.col#mol_row1_subrow4
     h5 Page Contents
-    if(val.categories != '')
-        a(href="#brand") &nbsp &nbsp brand
-        br
-    if(doses.prescription != '')
-        a(href="#prescription") &nbsp &nbsp prescription
-        br
-    a(href="#potent") &nbsp &nbsp potent
-        br
-    if(dose.strength != '')
-        a(href="#dosage_form") &nbsp &nbsp dosage form
-        br
-    if(dose.dose_taken != '')
-        a(href="#dosage_taken") &nbsp &nbsp dosage taken
-        br
-    if(dose.dose_timing != '')
-        a(href="#timing") &nbsp &nbsp timing
-        br
-    if(vas.primarily_used_for != '')
-        a(href="#primarily") &nbsp &nbsp primarily
-        br
-    if(dose.warnings != '')
-        a(href="#warnings") &nbsp &nbsp warnings
+    ul.section.table-of-contents(style='position:fixed;z-index:2;padding-bottom:10px;')
+        each vas in data
+            each dosages in vas.dosage_id
+                each doses in dosages.strength_id
+                    if(val.categories != '')
+                        li
+                            a(href="#brand") &nbsp &nbsp Brand
+                            each vas in data
+                                if(vas.types != '')
+                                    span.to_capital -#{vas.types}
+                    if(doses.prescription != '')
+                        a(href="#prescription") &nbsp &nbsp Prescription
+                    li
+                        a(href="#potent") &nbsp &nbsp Potent
+                    if(dose.strength != '')
+                        li
+                            a(href="#dosage_form") &nbsp &nbsp Dosage form
+                    //
+                    //if(dose.dose_taken != '')
+                    //    li
+                    //        a(href="#dosage_taken") &nbsp &nbsp Dosage taken
+                    //if(dose.dose_timing != '')
+                    //    li
+                    //        a(href="#timing") &nbsp &nbsp Timing
+                    //if(vas.primarily_used_for != '')
+                    //    li
+                    //        a(href="#primarily") &nbsp &nbsp Primarily
+                    //if(dose.warnings != '')
+                    //    li
+                    //        a(href="#warnings") &nbsp &nbsp Warnings

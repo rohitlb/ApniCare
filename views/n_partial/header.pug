@@ -2,14 +2,23 @@
 div#idiv1
     div.row#irow1
         div.col.s2.m3.l3.hide-on-small-only
-            br
-            span#logo1 ApniCare
-            br
-            span.span3.lavender-text - " Healthy You & Yours "
+            if(page == 'index')
+                a.black-text(href="/")
+                    br
+                    span#logo1 ApniCare
+                    br
+                    span.span3.lavender-text - " Healthy You & Yours "
+        if(page == 'profile')
+            a.black-text(href="/profile")
+                br
+                span#logo1 ApniCare
+                br
+                span.span3.lavender-text - " Healthy You & Yours "
+
         div.col.s6.m6.l6
             .bs-example
                 label.black-text.label-icon(for='search-query')
-                input#search-query(type='text',placeholder="search here")
+                input#search-query(type='text',placeholder="Search here")
 
         div.col.s4.m3.l3
             br
@@ -24,29 +33,35 @@ div#idiv1
 
     //div.row#irow4
     div.row#irow3.center
-        div.col.s4.m4.l3#col1
+        div.col.s3.m3.l4
+            div.col.s12.m10.l9#col1
+                br
+                br
+                a(href='/ApniCare/information?page=Drug_Information')
+                    span.white-text Drug Information
+            div.col.l3.hide-on-med-and-down
+                .headerdivider
+        div.col.s3.m3.l4
+            div.col.s12.m10.l9#col2
+                br
+                br
+                a(href='/ApniCare/information?page=Disease_Information')
+                    span.white-text Disease Information
+            div.col.l3.hide-on-med-and-down
+                .headerdivider1
+        div.col.s3.m3.l4
+            div.col.s12.m10.l9#col3
+                br
+                br
+                a(href='/ApniCare/information?page=Molecule_Information')
+                    span.white-text Molecule Information
+            //div.headerdivider2
+        //div.col.l3#col5
 
             br
-            a(href='/ApniCare/information?page=Drug_Information')
-                span.white-text Drug Information
-            div.headerdivider
-        div.col.s4.m4.l3#col2
-
-            br
-            a(href='/ApniCare/information?page=Disease_Information')
-                span.white-text Disease Information
-            div.headerdivider1
-        div.col.s4.m4.l3#col3
-
-            br
-            a(href='/ApniCare/information?page=Molecule_Information')
-                span.white-text Molecule Information
-            div.headerdivider2
-        div.col.l3#col5
-
-            br
-            a(href='#modal1')
-                span.white-text For HealthCare Providers
+            a.waves-effect.waves-light.btn-flat.right.modal-trigger.initial(href='#modal1')#signupbut
+            span.white-text For HealthCare Providers
+                //include ../login-signup/main
 
         //div.col.s4.m4.l1#col4
 

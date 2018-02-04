@@ -77,34 +77,34 @@ body{
     background-color: #0a0a14;
 }
 
-#col2,#col3,#col4,#col5{
-    margin-left: -3%;
+#col2,#col3,#col4,#col5,#col1{
+    margin-top: -15px;
     cursor: pointer;
 }
-#col2,#col3,#col1,#col5{
-    margin-top: 1%;
-}
+/*#col2,#col3,#col1,#col5{*/
+    /*margin-top: 1%;*/
+/*}*/
 .headerdivider,.headerdivider1,.headerdivider2,.headerdivider3 {
     border-left: 1px solid #38546d;
     background: white;
     width: 1px;
-    height: 80px;
+    height: 60px;
     position: absolute;
-    top: 32%;
+    top: 34%;
 }
-.headerdivider {
-    width: 2px;
-    color: white;
-    left:22%;
-}
-.headerdivider1 {
-    color: white;
-    width: 2px;
-    left:45%;
-}
-.headerdivider2 {
-    left:69%;
-}
+/*.headerdivider {*/
+    /*width: 2px;*/
+    /*color: white;*/
+    /*left:30%;*/
+/*}*/
+/*.headerdivider1 {*/
+    /*color: white;*/
+    /*width: 2px;*/
+    /*left:57%;*/
+/*}*/
+/*.headerdivider2 {*/
+    /*left:69%;*/
+/*}*/
 /*.headerdivider3 {*/
     /*left:85%;*/
 /*}*/
@@ -216,7 +216,7 @@ body{
 
 #crousel2{
     border-radius: 15px;
-    background-image: url('../images/telemedycyna_background-1.jpg');
+    background-image: url('../images/az.png');
     height: 400px;
 }
 #crousel3{
@@ -224,9 +224,12 @@ body{
     height: 400px;
     background-image: url('../images/moleculeData.jpg');
 }
-#crousel4{
+#crousel4 {
     border-radius: 15px;
     height: 400px;
-    background-image: url('../images/doctor.jpg');
 }
-
+.im{
+    height:90px;
+    width:100%;
+    background-image: url("../images/contact-us.jpeg");
+}

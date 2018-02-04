@@ -205,3 +205,16 @@ span.next_line, ul li.next_line, .next_line {
 .to_capital {
     text-transform: capitalize;
 }
+.bold {
+
+    font-family: Verdana;
+    font-weight: 700;
+    display: block;
+    padding: 2px 5px;
+    color: #333;
+    font-size: 25px;
+    text-align: left;
+    text-decoration: none;
+    position: relative;
+    z-index: 1;
+}

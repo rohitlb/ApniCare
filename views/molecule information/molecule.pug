@@ -3,9 +3,10 @@ div#Mdiv1
         div.col.s3.m4.l4
             br
             br
-            span#logo1 ApniCare
-                br
-                span.span3 - " Health You and Yours "
+            a.black-text(href="/")
+                span#logo1 ApniCare
+                    br
+                    span.span3 - " Health You and Yours "
 
             //a(href='/profile/userprofile?page=profilePage')
                 img#logoimg(src="/images/az.png" height="80px" width="150px")
@@ -103,94 +104,112 @@ div
                                             a.btn2.hoverable(href='/ApniCare/information?page=Molecule_Information') Z
                                         li
                                             a.btn2.all.hoverable(href='/ApniCare/information?page=Molecule_Information' type='other') Other
-                        div.row.m_p_info
-                            if(val.description !='')
-                                //h4.center #{val.molecule_name}
-                                p.black-text.lighten-2 #{val.description}
-                                //li #{val.description}
-                                //li Drug Category #{val.drug_categories}
-                        div.row
+                        each val in data
+                            div.row.m_p_info
+                                if(val.description !='')
+                                    //h4.center #{val.molecule_name}
+                                    p.black-text.lighten-2 #{val.description}
+                                    //li #{val.description}
+                                    //li Drug Category #{val.drug_categories}
                             div.row
-                                if(val.absorption != '' || val.distribution != '' || val.metabolism != '' || val.excretion != '')
-                                    a(name="Pharma")
-                                        p.m_p Pharmacokinetics
+                                div.row
+                                    if(val.absorption != '' || val.distribution != '' || val.metabolism != '' || val.excretion != '')
+                                        a(name="Pharma")
+                                            p.m_p Pharmacokinetics
 
-                                            ul.m_p_info
-                                                if(val.absorption != '')
-                                                    p.m_p1 &nbsp &nbsp - Absorption:
-                                                    li #{val.absorption}
-                                                if(val.distribution != '')
-                                                    p.m_p1 &nbsp &nbsp - Distribution:
-                                                    li #{val.distribution}
-                                                if(val.metabolism != '')
-                                                    p.m_p1 &nbsp &nbsp - Metabolism:
-                                                    li #{val.metabolism}
-                                                if(val.excretion != '')
-                                                    p.m_p1 &nbsp &nbsp - Excretion:
-                                                    li #{val.excretion}
-                        div.row
-                            if(val.side_effect != '')
-                                a(name="SideEffects")
-                                    p.m_p Adverse Reactions /  Side Effects
-                                li.m_p_info #{val.side_effect}
-                            if(val.precaution != '')
-                                a(name="Precautions")
-                                    p.m_p Special Precautions
-                                li.m_p_info #{val.precaution}
-                            if(val.drug_interaction != '')
-                                a(name="interactions")
-                                    p.m_p Other Drug Interactions
-                                li.m_p_info #{val.drug_interaction}
-                            //a(name="interactions")
-                                p.m_p Other Interactions
-                                    ul.m_p_info
-                                        li - food Interaction
-                            if(val.dosage != '')
-                                p.m_p Dosage
-                                li.m_p_info #{val.dosage}
-                            //ul.m_p_info
-                                li - Oral
-                                li - Intravenous
-                                li - Liver Disorder
-                                li - Hepatic
-                                li - COPD
-                            if(val.food != '')
-                                p.m_p Food(before/after)
-                                li.m_p_info #{val.food}
-                            //a(name="Contradictions")
-                                p.m_p List Of Contraindications
-                                    ul.m_p_info
-                                        li - In Pregnancy
-                                        li - In Children
-                                        li - In Geriatic / Old person
-                                        li - In Lactation
-                                        li - Other Contraindications
-                                        li - Storage
-                                        li -Lab Interferance
+                                                ul.m_p_info
+                                                    if(val.absorption != '')
+                                                        p.m_p1 &nbsp &nbsp - Absorption:
+                                                        li #{val.absorption}
+                                                    if(val.distribution != '')
+                                                        p.m_p1 &nbsp &nbsp - Distribution:
+                                                        li #{val.distribution}
+                                                    if(val.metabolism != '')
+                                                        p.m_p1 &nbsp &nbsp - Metabolism:
+                                                        li #{val.metabolism}
+                                                    if(val.excretion != '')
+                                                        p.m_p1 &nbsp &nbsp - Excretion:
+                                                        li #{val.excretion}
+                            div.row
+                                if(val.side_effect != '')
+                                    a(name="SideEffects")
+                                        p.m_p Adverse Reactions /  Side Effects
+                                    li.m_p_info #{val.side_effect}
+                                if(val.precaution != '')
+                                    a(name="Precautions")
+                                        p.m_p Special Precautions
+                                    li.m_p_info #{val.precaution}
+                                if(val.drug_interaction != '')
+                                    a(name="interactions")
+                                        p.m_p Other Drug Interactions
+                                    //p #{val.other_interaction}
+                                    //each other,index in val.other_interaction.subhead
+                                        p #{other}
+                                        h5.bold.to_capital= other
+                                        span.small_font.left ►
+                                        span.next_line.small_font.to_capital= val.other_interaction.info[index]
+
+                                    //li.m_p_info #{val.drug_interaction}
+                                    a(name="interactions")
+                                        p.m_p Other Interactions
+                                    //each other,index in val.other_interaction.subhead
+                                        h5.bold.to_capital= other
+                                        span.small_font.left ►
+                                        span.next_line.small_font.to_capital= val.other_interaction.info[index]
+
+                                if(val.dosage != '')
+                                    p.m_p Dosage
+                                    //each dose,index in val.dosage.subhead
+                                        h5.bold.to_capital= dose
+                                        span.small_font.left ►
+                                        span.next_line.small_font.to_capital= val.dosage.info[index]
+
+                                if(val.food != '')
+                                    p.m_p Food(before/after)
+                                    li.m_p_info #{val.food}
+                                if(val.contraindications!='')
+                                    p.m_p.scrollspy#contraindications LIST OF CONTRAINDICATIONS
+                                    //each cont,index in val.contraindications.subhead
+                                        h5.bold.to_capital= cont
+                                        span.small_font.left ►
+                                        span.next_line.m_p_info= val.contraindications.info[index]
+                                if(val.source!='')
+                                    p.m_p.scrollspy#source SOURCE OF INFORMATION
+                                    span.next_line.m_p_info #{val.source}
+
 
 
 
                     div.col#mol_row1_subrow4
                         h5 Page Contents
-                        if(val.absorption !=''||val.distribution !=''||val.metabolism !=''||val.excretion !='')
-                            a(href="#Pharma") &nbsp Pharmacokinetics
-                            br
-                        if(val.side_effect !='')
-                            a(href="#SideEffects") &nbsp Adverse Reactions/Side Effects
-                            br
-                        if(val.precaution !='')
-                            a(href="#Precautions") &nbsp Special Precautions
-                            br
-                        if(val.drug_interaction !='')
-                            a(href="#interactions") &nbsp Other Drug Interactions
-                            br
-                        if(val.dosage != '')
-                            a(href="#Dosage") &nbsp Dosage
-                            br
-                        if(val.food != '')
-                            a(href="food") &nbsp Food (before/after)
+                        each val in data
+                            ul.section.table-of-contents
+                                if(val.absorption !=''||val.distribution !=''||val.metabolism !=''||val.excretion !='')
+                                    li
+                                        a(href="#Pharma") &nbsp Pharmacokinetics
+                                if(val.side_effect !='')
+                                    li
+                                        a(href="#SideEffects") &nbsp Side Effects
+                                if(val.precaution !='')
+                                    li
+                                        a(href="#Precautions") &nbsp Special Precautions
+                                if(val.drug_interaction !='')
+                                    li
+                                        a(href="#interactions") &nbsp Other Drug Interactions
+                                if(val.dosage != '')
+                                    li
+                                    a(href="#Dosage") &nbsp Dosage
+                                if(val.food != '')
+                                    a(href="food") &nbsp Food (before/after)
 
-                        //a(href="#Contradictions") List of Contraindications
+                                if(val.contraindications!='')
+                                    li
+                                        a(href='#contraindications') &nbsp List of contraindications
+                                if(val.source!='')
+                                    li
+                                        a(href='#source') &nbsp Source of Information
+
+                                //a(href="#Contradictions") List of Contraindications
 
 
 
