@@ -67,7 +67,7 @@ store.on('error',function (error) {
 app.disable('x-powered-by');
 
 //configure the app
-app.set('port',9000);
+app.set('port',1997);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
@@ -580,7 +580,16 @@ app.get('/profile/userprofile',function (req,res) {
         }
     });
 });
+app.get('/ApniCare/About',function (req,res) {
+    var page= 'AboutUs';
+    if(req.query.page=='AboutUs' || req.query.page=='Contact' || req.query.page=='NeedHelp' || req.query.page=='FeedBack')
+        page= req.query.page;
+                res.render('index',
+                    {
+                        page:page
+                    });
 
+});
 //for basic info like disease,drug and molecule Information*******************************************************
 app.get('/ApniCare/information',function (req,res) {
     var page= 'ApniCare';
