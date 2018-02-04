@@ -115,7 +115,7 @@ function userrequiresLogin(req, res, next) {
 }
 
 function healthrequiresLogin(req, res, next) {
-    if (req.session && ((req.session.userID) ||(req.session.doctorID) || (req.session.pharmaID))) {
+    if (req.session && ((req.session.doctorID) || (req.session.pharmaID))) {
         return next();
     } else {
         //var err = new Error('You must be logged in to view this page.');
@@ -2299,6 +2299,7 @@ app.post('/checkforgotpassword',function (req,res) {
                     else {
                         var temp = JSON.parse(body);
                         req.session.sid = temp.Details;
+                        req.session.updatenumber = number;
                         res.send({status: "success", message: "OTP sent to your number"});
 
                     }
@@ -2307,6 +2308,40 @@ app.post('/checkforgotpassword',function (req,res) {
             }
             else {
                 res.send({status: "failure", message: "this number is not registered"});
+            }
+        }
+    });
+});
+
+app.post('/updateforgotpassword',function(req,res){
+    var number = req.session.updatenumber;
+    var password = req.body.password;
+    if(password == null){
+        res.send({status : 'success' , message : "Please enter some password"})
+        return;
+    }
+    User.find({number : number},function(err,result){
+        if(err){
+            console.log(err);
+        }
+        else{
+            if(result[0] != ""){
+                User.update({number : number},{
+                    $set : {
+                        password : password
+                    }
+                },function(err){
+                    if(err){
+                        console.log(err);
+                    }
+                    else{
+                        req.session.userID = result[0]._id;
+                        res.send({status : 'success'});
+                    }
+                });
+            }
+            else{
+                res.send({status : 'success' , message : 'Number not found'});
             }
         }
     });

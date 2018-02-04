@@ -56,8 +56,6 @@ $(document).ready(function() {
     //otp sent
     $('#OTPforForgot').click(function () {
         var number = $('#registeredMOB').val();
-
-
         var data = {
             number: number
         };
@@ -127,7 +125,6 @@ $(document).ready(function() {
 
     });
 
-
     $('#againLogin').click(function () {
 
         //$('#preloader').show();
@@ -143,7 +140,7 @@ $(document).ready(function() {
 
         $.ajax(
             {
-                url: "/updatepassword",
+                url: "/updateforgotpassword",
                 method: 'POST',
                 data: JSON.stringify(data1),
                 contentType: 'application/json',
