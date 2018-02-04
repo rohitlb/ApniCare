@@ -147,8 +147,12 @@ $(document).ready(function() {
                 success: function (result) {
 
                     if (result.status === "success") {
-                        window.location = '/profile';
-
+                        if(result.data.User != ""){
+                            window.location = '/profile';
+                        }
+                        else{
+                            window.location = '/health_care_provider';
+                        }
                     }
                     else {
                         Materialize.toast(result.message, 2000);

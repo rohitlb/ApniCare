@@ -124,7 +124,7 @@ function healthrequiresLogin(req, res, next) {
 }
 
 function adminrequiresLogin(req, res, next) {
-    if (req.session && ((req.session.userID) ||(req.session.doctorID) || (req.session.pharmaID))) {
+    if (req.session && req.session.admin) {
         return next();
     } else {
         //var err = new Error('You must be logged in to view this page.');
@@ -2275,16 +2275,47 @@ app.post('/checkforgotpassword',function (req,res) {
     var number = req.body.number;
     //regex for checking whether entered number is indian
     var num = /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[789]\d{9}|(\d[ -]?){10}\d$/.test(number);
-    if(num === false){
+    if (num === false) {
         res.send({status: "failure", message: "wrong number ! please try again "});
         return;
     }
-
-    User.findOne({number : number}, function (err,result) {
+    async.parallel({
+        User: function (callback) {
+            User.find({number: number}, function (err, result) {
+                if (err) {
+                    console.log(err);
+                }
+                else {
+                    callback(null, result);
+                }
+            });
+        },
+        Doctor: function (callback) {
+            Doctor.find({number: number}, function (err, result) {
+                if (err) {
+                    console.log(err);
+                }
+                else {
+                    callback(null, result);
+                }
+            });
+        },
+        Pharma: function (callback) {
+            Pharma.find({number: number}, function (err, result) {
+                if (err) {
+                    console.log(err);
+                }
+                else {
+                    callback(null, result);
+                }
+            });
+        }
+    }, function (err, result) {
         if (err) {
             console.log(err);
-        } else {
-            if (result) {
+        }
+        else {
+            if ((result.Doctor != "") || (result.User != "") || (result.Pharma)) {
                 var options = {
                     method: 'GET',
                     url: 'http://2factor.in/API/V1/' + keys.api_key() + '/SMS/' + number + '/AUTOGEN',
@@ -2304,13 +2335,13 @@ app.post('/checkforgotpassword',function (req,res) {
 
                     }
                 });
-
             }
             else {
-                res.send({status: "failure", message: "this number is not registered"});
+                res.send({status: 'success', message: 'Please check your number'});
             }
         }
     });
+
 });
 
 app.post('/updateforgotpassword',function(req,res){
@@ -2320,12 +2351,43 @@ app.post('/updateforgotpassword',function(req,res){
         res.send({status : 'success' , message : "Please enter some password"})
         return;
     }
-    User.find({number : number},function(err,result){
-        if(err){
+    async.parallel({
+        User: function (callback) {
+            User.find({number: number}, function (err, result) {
+                if (err) {
+                    console.log(err);
+                }
+                else {
+                    callback(null, result);
+                }
+            });
+        },
+        Doctor: function (callback) {
+            Doctor.find({number: number}, function (err, result) {
+                if (err) {
+                    console.log(err);
+                }
+                else {
+                    callback(null, result);
+                }
+            });
+        },
+        Pharma: function (callback) {
+            Pharma.find({number: number}, function (err, result) {
+                if (err) {
+                    console.log(err);
+                }
+                else {
+                    callback(null, result);
+                }
+            });
+        }
+    }, function (err, result) {
+        if (err) {
             console.log(err);
         }
-        else{
-            if(result[0] != ""){
+        else {
+            if(result.User != ""){
                 User.update({number : number},{
                     $set : {
                         password : password
@@ -2335,13 +2397,40 @@ app.post('/updateforgotpassword',function(req,res){
                         console.log(err);
                     }
                     else{
-                        req.session.userID = result[0]._id;
-                        res.send({status : 'success'});
+                        req.session.userID = result.User[0]._id;
+                        res.send({status : 'success' , data : result});
                     }
                 });
             }
-            else{
-                res.send({status : 'success' , message : 'Number not found'});
+            if(result.Doctor != ""){
+                Doctor.update({number : number},{
+                    $set : {
+                        password : password
+                    }
+                },function(err){
+                    if(err){
+                        console.log(err);
+                    }
+                    else{
+                        req.session.doctorID = result.Doctor[0]._id;
+                        res.send({status : 'success' , data : result});
+                    }
+                });
+            }
+            if(result.Pharma != ""){
+                Pharma.update({number : number},{
+                    $set : {
+                        password : password
+                    }
+                },function(err){
+                    if(err){
+                        console.log(err);
+                    }
+                    else{
+                        req.session.pharmaID = result.Pharma[0]._id;
+                        res.send({status : 'success' , data : result});
+                    }
+                });
             }
         }
     });
