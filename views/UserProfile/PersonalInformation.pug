@@ -27,14 +27,14 @@ div#p_Pcard3
                              label.p_label(for="Ptest6") Female
                              input.p_input.with-gap(name="gender", type="radio", id="Ptest7", value="other")
                              label.p_label(for="Ptest7") Others
-                        if(data.gender == 'female')
+                        else if(data.gender == 'female')
                              input.p_input.with-gap(name="gender", type="radio", id="Ptest5", value='male')
                              label.p_label(for="Ptest5")  Male
                              input.p_input.with-gap(name="gender", type="radio", id="Ptest6", value="female" checked)
                              label.p_label(for="Ptest6") Female
                              input.p_input.with-gap(name="gender", type="radio", id="Ptest7", value="other")
                              label.p_label(for="Ptest7") Others
-                        if(data.gender == 'other')
+                        else if(data.gender == 'other')
                              input.p_input.with-gap(name="gender", type="radio", id="Ptest5", value='male')
                              label.p_label(for="Ptest5")  Male
                              input.p_input.with-gap(name="gender", type="radio", id="Ptest6", value="female")
@@ -92,15 +92,15 @@ div#p_Pcard3
                             option(value="AB-") AB-
                             option(value="O+") O+
                             option(value="O-") O-
-                    if(data.blood_group == 'AB-')
-                        option(value="A+" ) A+
-                            option(value="A-") A-
-                            option(value="B+") B+
-                            option(value="B-" ) B-
-                            option(value="AB+") AB+
-                            option(value="AB-" selected) AB-
-                            option(value="O+") O+
-                            option(value="O-") O-
+                        if(data.blood_group == 'AB-')
+                            option(value="A+" ) A+
+                                option(value="A-") A-
+                                option(value="B+") B+
+                                option(value="B-" ) B-
+                                option(value="AB+") AB+
+                                option(value="AB-" selected) AB-
+                                option(value="O+") O+
+                                option(value="O-") O-
                         if(data.blood_group == 'O+')
                             option(value="A+" ) A+
                             option(value="A-") A-
@@ -110,8 +110,8 @@ div#p_Pcard3
                             option(value="AB-") AB-
                             option(value="O+" selected) O+
                             option(value="O-") O-
-                    if(data.blood_group == 'O-')
-                        option(value="A+" ) A+
+                        if(data.blood_group == 'O-')
+                            option(value="A+" ) A+
                             option(value="A-") A-
                             option(value="B+") B+
                             option(value="B-" ) B-

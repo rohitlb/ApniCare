@@ -6,7 +6,7 @@ div#p_Mdiv1
         div.row#p_irow1
             div.col.s3.m2.l2
                 br
-                a(href="/profile")
+                a.black-text(href="/profile")
                     span.p_logo ApniCare
                     br
                     span &nbsp &nbsp " Healthy You and Yours "
@@ -90,7 +90,7 @@ div
                                     br
 
 
-                            ul.p_ul
+                            //ul.p_ul
                                 br
                                 .divider
                                 br
@@ -108,7 +108,7 @@ div
                                     a(href="#").p_Pspan1 &nbsp My Diseases
                                     br
 
-                            ul.p_ul
+                            //ul.p_ul
                                 br
                                 .divider
                                 br
@@ -120,7 +120,7 @@ div
                                 br
                                 li
                                     i.p_i.material-icons.small.prefix call
-                                    a(href='/profile/userprofile?page=Contact_Us').p_Pspan2 &nbsp Contact Us
+                                    a(href='/ApniCare/About?page=Contact').p_Pspan2 &nbsp Contact Us
                 br
                 //i.material-icons person
             div.col.s12.m7.l8
@@ -139,5 +139,5 @@ div
                 else if(page == 'Refer_Friends')
                     include ../UserProfile/ReferFriends
                 else if(page == 'Contact_Us')
-                    include ../UserProfile/ContactUs
+                    include ../UserProfile/AboutUS
 
