@@ -342,6 +342,94 @@ app.post('/VerifyOTP',function (req, res) {
 });
 
 
+// with real 2factor OTP service
+//
+// app.post('/sendOTP',function (req, res) {
+//     var number = req.body.number;
+//     //regex for checking whether entered number is indian or not
+//     var num = /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[6789]\d{9}|(\d[ -]?){10}\d$/.test(number);
+//     if(num === false){
+//         res.send({status: "failure", message: "wrong number ! please try again "});
+//         return;
+//     }
+//     async.series({
+//         Doctors: function (callback) {
+//             Doctor.find({number: number}, function (err, result) {
+//                 if (err) {
+//                     console.log(err);
+//                 }
+//                 else {
+//                     callback(null, result);
+//                 }
+//             });
+//         },
+//         Pharmas : function(callback){
+//             Pharma.find({number : number},function(err,result){
+//                 if(err){
+//                     console.log(err);
+//                 }
+//                 else{
+//                     callback(null,result);
+//                 }
+//             });
+//         },
+//         Users : function(callback){
+//             User.find({number : number},function(err,result){
+//                 if(err){
+//                     console.log(err);
+//                 }
+//                 else{
+//                     callback(null,result);
+//                 }
+//             });
+//         }
+//     },function(err,result){
+//         if(err){
+//             console.log(err);
+//         }
+//         else{
+//             if(((result.Doctors.length === 0)&&(result.Pharmas.length === 0))&&(result.Users.length === 0)){
+//                 var options = { method: 'GET',
+//                     url: 'http://2factor.in/API/V1/'+keys.api_key()+'/SMS/'+number+'/AUTOGEN',
+//                     headers: { 'content-type': 'application/x-www-form-urlencoded' },
+//                     form: {} };
+//
+//                 request(options, function (error, response, body) {
+//                     if (error) {
+//                         throw new Error(error);
+//                     }
+//                     else {
+//                         var temp = JSON.parse(body);
+//                         req.session.sid = temp.Details;
+//                         res.send({status: "success", message: "OTP sent to your number"});
+//                     }
+//                 });
+//             }
+//             else{
+//                 res.send({status: "failure", message: "number Already Exists"});
+//             }
+//         }
+//     });
+// });
+//
+// app.post('/VerifyOTP',function (req, res) {
+//     var otp = req.body.number;
+//
+//     var options = { method: 'GET',
+//         url: 'http://2factor.in/API/V1/'+keys.api_key()+'/SMS/VERIFY/'+req.session.sid+'/'+otp,
+//         headers: { 'content-type': 'application/x-www-form-urlencoded' },
+//         form: {} };
+//
+//     request(options, function (error, response, body) {
+//         if (error) throw new Error(error);
+//         console.log(body);
+//         var temp = JSON.parse(body);
+//         res.send({status : 'success' , message: temp.Status });
+//         req.session.sid = null;
+//     });
+// });
+
+
 app.get('/', function (req, res) {
     if (req.session.userID) {
        res.redirect('/profile');
