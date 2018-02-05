@@ -132,17 +132,17 @@ function adminrequiresLogin(req, res, next) {
     }
 }
 
-app.get('/admin',function (req,res) {
-    var page = 'home';
-    if(page == 'home')
-    {
-        res.render('./admin/home_admin',
-            {
-                page: page
-            });
-    }
-    //res.render('./admin/home_admin');
-});
+// app.get('/admin',function (req,res) {
+//     var page = 'home';
+//     if(page == 'home')
+//     {
+//         res.render('./admin/home_admin',
+//             {
+//                 page: page
+//             });
+//     }
+//     //res.render('./admin/home_admin');
+// });
 
 
 //*************************************Feedback and needhelp*******************************************************************
@@ -435,11 +435,16 @@ app.get('/', function (req, res) {
        res.redirect('/profile');
     }
     else{
-        var page="index";
-        res.render('index',{
-            page : page
-        });
-        res.end();
+        if(req.session.doctorID || req.session.pharmaID){
+            res.redirect('/health_care_provider');
+        }
+        else{
+            var page="index";
+            res.render('index',{
+                page : page
+            });
+            res.end();
+        }
     }
 });
 
@@ -6308,8 +6313,6 @@ app.use(function(req, res) {
 app.use(function(error, req, res, next) {
     res.status(500).send("Internal server error");
 });
-
-
 
 //==========================Database connection===========================
 
