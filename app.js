@@ -5107,13 +5107,12 @@ app.get('/adminDrugDataMakeLive',adminrequiresLogin,function(req,res,next){
                         companyResult = result._id;
                         res.locals.companyResult = companyResult;
                         console.log(brand_name);
-                        Brand.findOne({brand_name: brand_name}, function (err, result1) {
+                        Brand.findOne({_id : result.brand_id , brand_name: brand_name}, function (err, result1) {
                             if (err) {
                                 console.log(err);
                                 throw new Error(err);
                             }
                             else {
-                                console.log(result1);
                                 res.locals.value2 = result1;
                                 next();
                             }
@@ -5238,11 +5237,12 @@ app.get('/adminDrugDataMakeLive',adminrequiresLogin,function(req,res,next) {
     var brandResult = res.locals.brandResult;
     var companyResult = res.locals.companyResult;
     if (value2 != '') {
-        Dosage.find({dosage_form : value1[0].dosage_form},function(err,result){
+        Dosage.find({_id : value2.dosage_id , dosage_form : value1[0].dosage_form},function(err,result){
             if(err){
                 console.log(err);
             }
             else{
+                console.log("dosage is"+result);
                 res.locals.value1 = value1;
                 res.locals.value2 = result;
                 res.locals.brandResult = brandResult;
@@ -5353,7 +5353,7 @@ app.get('/adminDrugDataMakeLive',adminrequiresLogin,function(req,res,next){
     var brandResult = res.locals.brandResult;
     var companyResult = res.locals.companyResult;
     if(value2 != ''){
-        Strength.find({strength : value1[0].strength},function(err,result){
+        Strength.find({_id : value2.strength_id , strength : value1[0].strength},function(err,result){
             if(err){
                 console.log(err);
             }
@@ -5433,7 +5433,6 @@ app.get('/adminDrugDataMakeLive',adminrequiresLogin,function(req,res) {
     var value1 = res.locals.value1;
     var value2 = res.locals.value2;
     var brandResult = res.locals.brandResult;
-
     if (value2 != "") {
         res.send({message: 'Medicine Already exist'});
     }
