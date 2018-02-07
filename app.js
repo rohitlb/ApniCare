@@ -5087,13 +5087,12 @@ app.get('/adminDrugDataMakeLive',adminrequiresLogin,function(req,res,next){
             var name = result[0].submitted_by;
             var ticket = result[0].ticket;
             var companyResult = null;
-
             async.waterfall([
                 function (callback) {
-                    Company.findOne({company_name: company_name}, function (err, result) {
-                        if (err) {
-                            console.log(err);
-                            throw new Error(err);
+                    Company.findOne({company_name: company_name}, function (err1, result) {
+                        if (err1) {
+                            console.log(err1);
+                            throw new Error(err1);
                         }
                         else {
                             callback(null, result);
@@ -5102,14 +5101,13 @@ app.get('/adminDrugDataMakeLive',adminrequiresLogin,function(req,res,next){
                 },
                 function (result, callback) {
                     if (result != null) {
-                        res.locals.brandResult = result._id;
+                        res.locals.brandResult = result.brand_id;
                         companyResult = result._id;
                         res.locals.companyResult = companyResult;
-                        console.log(brand_name);
-                        Brand.findOne({_id : result.brand_id , brand_name: brand_name}, function (err, result1) {
-                            if (err) {
-                                console.log(err);
-                                throw new Error(err);
+                        Brand.findOne({_id : result.brand_id , brand_name: brand_name}, function (err2, result1) {
+                            if (err2) {
+                                console.log(err2);
+                                throw new Error(err2);
                             }
                             else {
                                 res.locals.value2 = result1;
@@ -5118,10 +5116,10 @@ app.get('/adminDrugDataMakeLive',adminrequiresLogin,function(req,res,next){
                         });
                     }
                     else {
-                        Brand.findOne({brand_name: brand_name}, function (err1, result1) {
-                            if (err1) {
-                                console.log(err1);
-                                throw new Error(err1);
+                        Brand.findOne({brand_name: brand_name}, function (err3, result1) {
+                            if (err3) {
+                                console.log(err3);
+                                throw new Error(err3);
                             }
                             else {
                                 if (result1) {
@@ -5142,20 +5140,20 @@ app.get('/adminDrugDataMakeLive',adminrequiresLogin,function(req,res,next){
                                         prescription: prescription,
                                         ticket : ticket
                                     });
-                                    STRength.save(function (err2, result2) {
-                                        if (err2) {
-                                            console.log(err2);
-                                            throw new Error(err2);
+                                    STRength.save(function (err4, result2) {
+                                        if (err4) {
+                                            console.log(err4);
+                                            throw new Error(err4);
                                         }
                                         else {
                                             var dosage = new Dosage({
                                                 dosage_form: dosage_form,
                                                 strength_id: result2._id
                                             });
-                                            dosage.save(function (err3, result3) {
-                                                if (err3) {
-                                                    console.log(err3);
-                                                    throw new Error(err3);
+                                            dosage.save(function (err5, result3) {
+                                                if (err5) {
+                                                    console.log(err5);
+                                                    throw new Error(err5);
                                                 }
                                                 else {
                                                     var brand = new Brand({
@@ -5165,43 +5163,43 @@ app.get('/adminDrugDataMakeLive',adminrequiresLogin,function(req,res,next){
                                                         primarily_used_for: primarily_used_for,
                                                         dosage_id: result3._id
                                                     });
-                                                    brand.save(function (err4, result4) {
-                                                        if (err4) {
-                                                            console.log(err4);
-                                                            throw new Error(err4);
+                                                    brand.save(function (err6, result4) {
+                                                        if (err6) {
+                                                            console.log(err6);
+                                                            throw new Error(err6);
                                                         }
                                                         else {
                                                             var company = new Company({
                                                                 company_name: company_name,
                                                                 brand_id: result4._id
                                                             });
-                                                            company.save(function (err5, result5) {
-                                                                if (err5) {
-                                                                    console.log(err5);
-                                                                    throw new Error(err5);
+                                                            company.save(function (err7, result5) {
+                                                                if (err7) {
+                                                                    console.log(err7);
+                                                                    throw new Error(err7);
                                                                 }
                                                                 else {
                                                                     Brand.update({brand_name: brand_name}, {
                                                                         $set: {
                                                                             company_id: result5._id
                                                                         }
-                                                                    }, function (err6) {
-                                                                        if (err6) {
-                                                                            console.log(err6);
+                                                                    }, function (err8) {
+                                                                        if (err8) {
+                                                                            console.log(err8);
                                                                         }
                                                                         else {
                                                                             Strength.update({_id: result2._id}, {
                                                                                 $push: {
                                                                                     brands_id: result4._id
                                                                                 }
-                                                                            }, function (err7, result7) {
-                                                                                if (err7) {
-                                                                                    console.log(err);
+                                                                            }, function (err9, result7) {
+                                                                                if (err9) {
+                                                                                    console.log(err9);
                                                                                 }
                                                                                 else {
                                                                                     Strength.update({_id: result2._id}, {
                                                                                         $set: {submitted_by: name}
-                                                                                    }, function (err8) {
+                                                                                    }, function (err10) {
                                                                                         callback();
                                                                                     });
                                                                                 }
@@ -5222,7 +5220,7 @@ app.get('/adminDrugDataMakeLive',adminrequiresLogin,function(req,res,next){
                     }
                 }
             ],function(err,result){
-                DrugData.remove({ticket : str_ticket},function(err,result){
+                DrugData.remove({ticket : str_ticket},function(err11,result){
                     res.send({status : 'success' , message : 'Drug added successfully'});
                 });
             });
@@ -5235,7 +5233,7 @@ app.get('/adminDrugDataMakeLive',adminrequiresLogin,function(req,res,next) {
     var value2 = res.locals.value2;
     var brandResult = res.locals.brandResult;
     var companyResult = res.locals.companyResult;
-    if (value2 != '') {
+    if (value2 != null) {
         Dosage.find({_id : value2.dosage_id , dosage_form : value1[0].dosage_form},function(err,result){
             if(err){
                 console.log(err);
@@ -5323,7 +5321,7 @@ app.get('/adminDrugDataMakeLive',adminrequiresLogin,function(req,res,next) {
                                                             }
                                                             else {
                                                                 Strength.update({_id: result._id}, {
-                                                                    $set: {submitted_by: name}
+                                                                    $set: {submitted_by: value1[0].name}
                                                                 }, function (err8, result8) {
                                                                     DrugData.remove({_id: value1[0]._id}, function (err, result) {
                                                                         res.send({message : 'Drug added successfully'});
@@ -5432,6 +5430,8 @@ app.get('/adminDrugDataMakeLive',adminrequiresLogin,function(req,res) {
     var value1 = res.locals.value1;
     var value2 = res.locals.value2;
     var brandResult = res.locals.brandResult;
+    console.log(value1);
+    console.log(value2);
     if (value2 != "") {
         res.send({message: 'Medicine Already exist'});
     }
@@ -6317,7 +6317,6 @@ app.use(function(error, req, res, next) {
 //data base connection and opening port
 var db = 'mongodb://localhost/ApniCare';
 mongoose.connect(db, {useMongoClient: true});
-
 
 //=============================Start server========================
 //connecting database and starting server

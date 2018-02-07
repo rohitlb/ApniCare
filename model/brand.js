@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var Brand = new Schema({
-    brand_name : {type: String , trim : true , required : true},
+    brand_name : {type: String , trim : true},
     categories : { type : String , trim : true},
     primarily_used_for : [{type : String , trim : true}],
     types : {type : String , trim : true},

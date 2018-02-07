@@ -2,13 +2,13 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var AdminDrugData = new Schema({
-    company_name : {type : String, trim:true,required : true},
-    brand_name : {type: String, trim:true,required : true},
+    company_name : {type : String, trim:true},
+    brand_name : {type: String, trim:true},
     categories : { type : String, trim:true },
     primarily_used_for : [{type : String, trim:true}],
     types : {type : String, trim:true},
-    dosage_form : {type : String, trim:true,required : true},
-    strength : {type : String, trim:true,required : true},
+    dosage_form : {type : String, trim:true},
+    strength : {type : String, trim:true},
     potent_substance : {
         name : [{type : String, trim:true}],
         molecule_strength : [{type : String, trim:true}]

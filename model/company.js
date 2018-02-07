@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var Company = new Schema({
-    company_name : {type : String , trim : true , required : true},
+    company_name : {type : String , trim : true},
     brand_id : [{type : Schema.Types.ObjectId , ref : 'brand'} ]
 });
 
