@@ -5581,7 +5581,8 @@ app.get('/adminDiseaseDataMakeLive',adminrequiresLogin,function(req,res){
                 treatment: result[0].treatment,
                 outlook: result[0].outlook,
                 prevention: result[0].prevention,
-                source : result[0].source
+                source : result[0].source,
+                submitted_by: result[0].submitted_by
             });
             diseases.save(function(errs){
                 if(errs){
