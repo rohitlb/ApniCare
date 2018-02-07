@@ -5321,7 +5321,7 @@ app.get('/adminDrugDataMakeLive',adminrequiresLogin,function(req,res,next) {
                                                             }
                                                             else {
                                                                 Strength.update({_id: result._id}, {
-                                                                    $set: {submitted_by: value1[0].name}
+                                                                    $set: {submitted_by: value1[0].submitted_by}
                                                                 }, function (err8, result8) {
                                                                     DrugData.remove({_id: value1[0]._id}, function (err, result) {
                                                                         res.send({message : 'Drug added successfully'});
