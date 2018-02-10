@@ -3,10 +3,10 @@ var mongoose = require('mongoose');
 var Pharma = new mongoose.Schema({
     //general information
     doctor_image : {type : String, trim : true},
-    name : {type:String, trim : true,required : true},
-    email : {type : String, trim : true,required : true},
-    number : {type : String, trim : true,required : true},
-    password : {type:String, trim : true,required : true},
+    name : {type:String, trim : true},
+    email : {type : String, trim : true},
+    number : {type : String, trim : true},
+    password : {type:String, trim : true},
 
     //his/her occupation
     occupation : {type : String, trim : true},
