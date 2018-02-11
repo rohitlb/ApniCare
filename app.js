@@ -54,7 +54,7 @@ var CategoryData = require('./model/categorydatalive');
 var app = express();
 
 var store = new mongoDBStore({
-    uri : 'mongodb://127.0.0.1/ApniCare',
+    uri : 'mongodb://127.0.0.1/ApniCaresite',
     collection : 'mySessions'
 });
 
@@ -986,7 +986,7 @@ app.post('/moleculeslist',healthrequiresLogin,function(req,res){
     });
 });
 
-app.post('/brandslist',healthrequiresLogin,function(req,res){
+app.post('/brandslist'/*,healthrequiresLogin*/,function(req,res){
     Brand.find({},'-_id brand_name').populate(
         {path : 'dosage_id', select : '-_id dosage_form',populate :
                 {path : 'strength_id', select : '-_id strength packaging potent_substance.name price'}
@@ -6430,7 +6430,7 @@ app.use(function(error, req, res, next) {
 //==========================Database connection===========================
 
 //data base connection and opening port
-var db = 'mongodb://127.0.0.1/ApniCare';
+var db = 'mongodb://127.0.0.1/ApniCaresite';
 mongoose.connect(db, {useMongoClient: true});
 
 //=============================Start server========================
