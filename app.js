@@ -810,7 +810,9 @@ app.get('/ApniCare/information/Drug',function (req,res) {
 
 // it takes name and give all info or list in array like disease ,brands , molecule etc
 app.post('/searchspecific',function(req,res){
+    console.log("searchspecific");
     var value = req.body.search;
+    console.log(value);
     async.parallel({
         Brands : function(callback){
             Brand.find({brand_name : value},'-_id brand_name categories types primarily_used_for').populate(
@@ -827,7 +829,7 @@ app.post('/searchspecific',function(req,res){
             });
         },
         Diseases : function(callback){
-            Disease.find({disease_name : value},'-_id __v',function(err,result){
+            Disease.find({disease_name : value},'-_id -__v',function(err,result){
                 if(err){
                     console.log(err);
                 }
