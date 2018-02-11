@@ -1504,7 +1504,7 @@ app.post('/searchall',function (req,res) {
             });
         },
         diseases: function (callback) { // gives disease_name sorted list
-            Disease.find({disease_name: search}, 'disease_name').sort({disease_name: 1}).skip(skip).limit(10).exec(function (err, result) {
+            Disease.find({disease_name: search}, '-_id disease_name').sort({disease_name: 1}).skip(skip).limit(10).exec(function (err, result) {
                 if (err) {
                     console.log(err);
                 }
