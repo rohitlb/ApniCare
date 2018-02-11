@@ -977,7 +977,8 @@ app.get('/rohitsearching', function(req,res){
 
 app.post('/moleculeslist'/*,healthrequiresLogin*/,function(req,res){
     console.log("moleculeslist");
-    Molecule.find({},'-_id molecule_name',function(err,result){
+    var skip = parseInt(req.body.nskip);
+    Molecule.find({},'-_id molecule_name').sort({molecule_name: 1}).skip(skip).limit(10).exec(function(err,result){
         if(err){
             console.log(err);
         }
@@ -989,11 +990,12 @@ app.post('/moleculeslist'/*,healthrequiresLogin*/,function(req,res){
 
 app.post('/brandslist'/*,healthrequiresLogin*/,function(req,res){
     console.log("brandslist");
+    var skip = parseInt(req.body.nskip);
     Brand.find({},'-_id brand_name').populate(
         {path : 'dosage_id', select : '-_id dosage_form',populate :
                 {path : 'strength_id', select : '-_id strength packaging potent_substance.name price'}
         }).populate(
-        {path : 'company_id', select: '-_id company_name'}).sort({brand_name : 1}).exec(function (err,brand) {
+        {path : 'company_id', select: '-_id company_name'}).sort({company_name : 1}).skip(skip).limit(10).exec(function (err,brand) {
         if (err) {
             console.log(err);
         }
@@ -1005,7 +1007,8 @@ app.post('/brandslist'/*,healthrequiresLogin*/,function(req,res){
 
 app.post('/categorieslist'/*,healthrequiresLogin*/,function(req,res){
     console.log("categorieslist");
-    Brand.find({}, '-_id categories').exec(function (err, result) {
+    var skip = parseInt(req.body.nskip);
+    Brand.find({}, '-_id categories').sort({categories : 1}).skip(skip).limit(10).exec(function (err, result) {
         if(err){
             console.log(err);
         }
@@ -1017,7 +1020,8 @@ app.post('/categorieslist'/*,healthrequiresLogin*/,function(req,res){
 
 app.post('/diseaseslist'/*,healthrequiresLogin*/,function(req,res){
     console.log("diseaseslist");
-    Disease.find({},'-_id disease_name',function(err,disease){
+    var skip = parseInt(req.body.nskip);
+    Disease.find({},'-_id disease_name').sort({disease_name : 1}).skip(skip).limit(10).exec(function(err,disease){
         if(err){
             console.log(err);
         }
@@ -1029,7 +1033,10 @@ app.post('/diseaseslist'/*,healthrequiresLogin*/,function(req,res){
 
 app.post('/organslist'/*,healthrequiresLogin*/,function(req,res){
     console.log("organslist");
-    Disease.find({}, '-_id organs.subhead').exec(function (err, result) {
+    var skip = parseInt(req.body.nskip);
+    //            Search.find({name : search}, '-_id name').sort({"updated_at":-1}).sort({"created_at":-1}).skip(skip).limit(10).exec(function (err, result) {
+
+    Search.find({name : search}, '-_id name').sort({"updated_at":-1}).sort({"created_at":-1}).skip(skip).limit(10).exec(function (err, result) {
         if (err) {
             console.log(err);
         }
@@ -1041,12 +1048,13 @@ app.post('/organslist'/*,healthrequiresLogin*/,function(req,res){
 
 app.post('/symptomslist'/*,healthrequiresLogin*/,function(req,res){
     console.log("symptomslist");
-    Disease.find({},'-_id symptoms',function(err,result){
-        if(err){
+    var skip = parseInt(req.body.nskip);
+    Disease.find({},'-_id symptoms').sort({symptoms : 1}).skip(skip).limit(10).exec(function(err,result) {
+        if (err) {
             console.log(err);
         }
-        else{
-            res.send({ message : "symptoms list" , data :result });
+        else {
+            res.send({message: "symptoms list", data: result});
         }
     });
 });
