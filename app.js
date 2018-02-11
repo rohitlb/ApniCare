@@ -975,7 +975,8 @@ app.get('/rohitsearching', function(req,res){
    res.end();
 });
 
-app.post('/moleculeslist',healthrequiresLogin,function(req,res){
+app.post('/moleculeslist'/*,healthrequiresLogin*/,function(req,res){
+    console.log("moleculeslist");
     Molecule.find({},'-_id molecule_name',function(err,result){
         if(err){
             console.log(err);
@@ -987,6 +988,7 @@ app.post('/moleculeslist',healthrequiresLogin,function(req,res){
 });
 
 app.post('/brandslist'/*,healthrequiresLogin*/,function(req,res){
+    console.log("brandslist");
     Brand.find({},'-_id brand_name').populate(
         {path : 'dosage_id', select : '-_id dosage_form',populate :
                 {path : 'strength_id', select : '-_id strength packaging potent_substance.name price'}
@@ -1001,7 +1003,7 @@ app.post('/brandslist'/*,healthrequiresLogin*/,function(req,res){
     });
 });
 
-app.post('/categorieslist',healthrequiresLogin,function(req,res){
+app.post('/categorieslist'/*,healthrequiresLogin*/,function(req,res){
     console.log("categorieslist");
     Brand.find({}, '-_id categories').exec(function (err, result) {
         if(err){
@@ -1013,7 +1015,7 @@ app.post('/categorieslist',healthrequiresLogin,function(req,res){
     });
 });
 
-app.post('/diseaseslist',healthrequiresLogin,function(req,res){
+app.post('/diseaseslist'/*,healthrequiresLogin*/,function(req,res){
     console.log("diseaseslist");
     Disease.find({},'-_id disease_name',function(err,disease){
         if(err){
@@ -1025,7 +1027,8 @@ app.post('/diseaseslist',healthrequiresLogin,function(req,res){
     });
 });
 
-app.post('/organslist',healthrequiresLogin,function(req,res){
+app.post('/organslist'/*,healthrequiresLogin*/,function(req,res){
+    console.log("organslist");
     Disease.find({}, '-_id organs.subhead').exec(function (err, result) {
         if (err) {
             console.log(err);
@@ -1036,7 +1039,7 @@ app.post('/organslist',healthrequiresLogin,function(req,res){
     });
 });
 
-app.post('/symptomslist',healthrequiresLogin,function(req,res){
+app.post('/symptomslist'/*,healthrequiresLogin*/,function(req,res){
     console.log("symptomslist");
     Disease.find({},'-_id symptoms',function(err,result){
         if(err){
