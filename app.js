@@ -1162,7 +1162,7 @@ app.post('/formolecule',function (req,res) {
     }
     if(req.body.page == 'combination'){
         Strength.find({'potent_substance.name' : molecule},'-_id -__v -potent_substance._id'
-        ).populate({path: 'brands_id', populate: {path: 'dosage_id', populate : {path : 'strength_id'}}
+        ).populate({path: 'brands_id',select : '-_id' , populate: {path: 'dosage_id', select : '-_id' , populate : {path : 'strength_id'}}
         }).populate({path : 'brands_id', select : '-_id -__v',populate : {path : 'company_id'}}).sort({brand_name: 1}).skip(skip).limit(10).exec(function (err,brands) {
             if (err) {
                 console.log(err);
