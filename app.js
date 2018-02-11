@@ -54,7 +54,7 @@ var CategoryData = require('./model/categorydatalive');
 var app = express();
 
 var store = new mongoDBStore({
-    uri : 'mongodb://127.0.0.1/ApniCaresite',
+    uri : 'mongodb://127.0.0.1/ApniCare',
     collection : 'mySessions'
 });
 
@@ -1875,6 +1875,7 @@ app.post('/login',function (req,res) {
             console.log(err);
         }
         else{
+            console.log();
             if(result.User == true){
                 req.session.userID = user[0]._id;
                 res.send({status : 'success' , value : 'user'});
@@ -2558,49 +2559,77 @@ app.post('/updateforgotpassword',function(req,res){
             console.log(err);
         }
         else {
-            if(result.User != ""){
-                User.update({number : number},{
-                    $set : {
-                        password : password
-                    }
-                },function(err){
-                    if(err){
-                        console.log(err);
-                    }
-                    else{
-                        req.session.userID = result.User[0]._id;
-                        res.send({status : 'success' , data : result});
-                    }
+
+            if(result.User != "") {
+                bcrypt.genSalt(10, function (err, salt) {
+                    bcrypt.hash(password, salt, function (err, hash) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        else {
+                            User.update({number: number}, {
+                                $set: {
+                                    password: hash
+                                }
+                            }, function (err) {
+                                if (err) {
+                                    console.log(err);
+                                }
+                                else {
+                                    req.session.userID = result.User[0]._id;
+                                    res.send({status: 'success', data: result});
+                                }
+                            });
+                        }
+                    });
                 });
             }
-            if(result.Doctor != ""){
-                Doctor.update({number : number},{
-                    $set : {
-                        password : password
-                    }
-                },function(err){
-                    if(err){
-                        console.log(err);
-                    }
-                    else{
-                        req.session.doctorID = result.Doctor[0]._id;
-                        res.send({status : 'success' , data : result});
-                    }
+            if(result.Doctor != "") {
+                bcrypt.genSalt(10, function (err, salt) {
+                    bcrypt.hash(password, salt, function (err, hash) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        else {
+                            Doctor.update({number: number}, {
+                                $set: {
+                                    password: hash
+                                }
+                            }, function (err) {
+                                if (err) {
+                                    console.log(err);
+                                }
+                                else {
+                                    req.session.doctorID = result.Doctor[0]._id;
+                                    res.send({status: 'success', data: result});
+                                }
+                            });
+                        }
+                    });
                 });
             }
             if(result.Pharma != ""){
-                Pharma.update({number : number},{
-                    $set : {
-                        password : password
-                    }
-                },function(err){
-                    if(err){
-                        console.log(err);
-                    }
-                    else{
-                        req.session.pharmaID = result.Pharma[0]._id;
-                        res.send({status : 'success' , data : result});
-                    }
+                bcrypt.genSalt(10, function (err, salt) {
+                    bcrypt.hash(password, salt, function (err, hash) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        else {
+                            Pharma.update({number: number}, {
+                                $set: {
+                                    password: hash
+                                }
+                            }, function (err) {
+                                if (err) {
+                                    console.log(err);
+                                }
+                                else {
+                                    req.session.pharmaID = result.Pharma[0]._id;
+                                    res.send({status: 'success', data: result});
+                                }
+                            });
+                        }
+                    });
                 });
             }
         }
@@ -2665,7 +2694,6 @@ app.post('/doctorupdatepassword',healthrequiresLogin,function (req,res) {
 });
 
 //////////////////////////////////Drug index start from here////////////////////////////////////////////////////////////
-
 
 app.get('/findcompany',function (req,res) {
     Company.find().exec(function (err,result) {
@@ -6414,7 +6442,7 @@ app.use(function(error, req, res, next) {
 //==========================Database connection===========================
 
 //data base connection and opening port
-var db = 'mongodb://127.0.0.1/ApniCaresite';
+var db = 'mongodb://127.0.0.1/ApniCare';
 mongoose.connect(db, {useMongoClient: true});
 
 //=============================Start server========================
