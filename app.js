@@ -54,7 +54,7 @@ var CategoryData = require('./model/categorydatalive');
 var app = express();
 
 var store = new mongoDBStore({
-    uri : 'mongodb://127.0.0.1/ApniCaresite',
+    uri : 'mongodb://127.0.0.1/ApniCare',
     collection : 'mySessions'
 });
 
@@ -254,14 +254,13 @@ app.post('/needhelpWL' , function (req,res) {
 //user
 app.post('/sendOTP',function (req, res) {
     var number = req.body.number;
-    var email = req.body.email;
     //regex for checking whether entered number is indian or not
     var num = /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[6789]\d{9}|(\d[ -]?){10}\d$/.test(number);
     if(num === false){
         res.send({status: "failure", message: "wrong number ! please try again "});
         return;
     }
-    var email = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(email);
+    var email = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(req.body.email);
     if(email === false ){
         res.send({status: "failure", message: "please enter a valid email and try again"});
         return;
@@ -1875,6 +1874,7 @@ app.post('/login',function (req,res) {
             console.log(err);
         }
         else{
+            console.log();
             if(result.User == true){
                 req.session.userID = user[0]._id;
                 res.send({status : 'success' , value : 'user'});
@@ -2558,49 +2558,77 @@ app.post('/updateforgotpassword',function(req,res){
             console.log(err);
         }
         else {
-            if(result.User != ""){
-                User.update({number : number},{
-                    $set : {
-                        password : password
-                    }
-                },function(err){
-                    if(err){
-                        console.log(err);
-                    }
-                    else{
-                        req.session.userID = result.User[0]._id;
-                        res.send({status : 'success' , data : result});
-                    }
+
+            if(result.User != "") {
+                bcrypt.genSalt(10, function (err, salt) {
+                    bcrypt.hash(password, salt, function (err, hash) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        else {
+                            User.update({number: number}, {
+                                $set: {
+                                    password: hash
+                                }
+                            }, function (err) {
+                                if (err) {
+                                    console.log(err);
+                                }
+                                else {
+                                    req.session.userID = result.User[0]._id;
+                                    res.send({status: 'success', data: result});
+                                }
+                            });
+                        }
+                    });
                 });
             }
-            if(result.Doctor != ""){
-                Doctor.update({number : number},{
-                    $set : {
-                        password : password
-                    }
-                },function(err){
-                    if(err){
-                        console.log(err);
-                    }
-                    else{
-                        req.session.doctorID = result.Doctor[0]._id;
-                        res.send({status : 'success' , data : result});
-                    }
+            if(result.Doctor != "") {
+                bcrypt.genSalt(10, function (err, salt) {
+                    bcrypt.hash(password, salt, function (err, hash) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        else {
+                            Doctor.update({number: number}, {
+                                $set: {
+                                    password: hash
+                                }
+                            }, function (err) {
+                                if (err) {
+                                    console.log(err);
+                                }
+                                else {
+                                    req.session.doctorID = result.Doctor[0]._id;
+                                    res.send({status: 'success', data: result});
+                                }
+                            });
+                        }
+                    });
                 });
             }
             if(result.Pharma != ""){
-                Pharma.update({number : number},{
-                    $set : {
-                        password : password
-                    }
-                },function(err){
-                    if(err){
-                        console.log(err);
-                    }
-                    else{
-                        req.session.pharmaID = result.Pharma[0]._id;
-                        res.send({status : 'success' , data : result});
-                    }
+                bcrypt.genSalt(10, function (err, salt) {
+                    bcrypt.hash(password, salt, function (err, hash) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        else {
+                            Pharma.update({number: number}, {
+                                $set: {
+                                    password: hash
+                                }
+                            }, function (err) {
+                                if (err) {
+                                    console.log(err);
+                                }
+                                else {
+                                    req.session.pharmaID = result.Pharma[0]._id;
+                                    res.send({status: 'success', data: result});
+                                }
+                            });
+                        }
+                    });
                 });
             }
         }
@@ -2665,7 +2693,6 @@ app.post('/doctorupdatepassword',healthrequiresLogin,function (req,res) {
 });
 
 //////////////////////////////////Drug index start from here////////////////////////////////////////////////////////////
-
 
 app.get('/findcompany',function (req,res) {
     Company.find().exec(function (err,result) {
@@ -3990,12 +4017,6 @@ app.post('/education',healthrequiresLogin,function(req,res){
     var batch_from =  req.body.batch_from;
     var batch_to =  req.body.batch_to;
     var specialization = req.body.specialization;
-    console.log(qualification);
-    console.log(college);
-    console.log(completion);
-    console.log(batch_from);
-    console.log(batch_to);
-    console.log(specialization);
 
     Doctor.update({_id : req.session.doctorID},{
         $set : {
@@ -4063,12 +4084,7 @@ app.post('/pharma_basic',healthrequiresLogin,function(req,res) {
     var city = req.body.city;
     var experience = req.body.experience;
     var about = req.body.about;
-    console.log(name);
-    console.log(title);
-    console.log(gender);
-    console.log(city);
-    console.log(experience);
-    console.log(about);
+
 
     Pharma.update({_id: req.session.pharmaID}, {
         $set: {
@@ -6414,7 +6430,7 @@ app.use(function(error, req, res, next) {
 //==========================Database connection===========================
 
 //data base connection and opening port
-var db = 'mongodb://127.0.0.1/ApniCaresite';
+var db = 'mongodb://127.0.0.1/ApniCare';
 mongoose.connect(db, {useMongoClient: true});
 
 //=============================Start server========================

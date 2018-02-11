@@ -290,9 +290,10 @@ $(document).ready(function() {
         $('#Dsend').click(function () {
 
             var number = $('#number').val();
-
+            var email = $('#email').val();
             var data = {
-                number: number
+                number: number,
+                email : email
             };
 
             $.ajax(
@@ -379,9 +380,10 @@ $(document).ready(function() {
         $('#Psend').click(function () {
 
             var number = $('#number').val();
-
+            var email = $('#email').val();
             var data = {
-                number: number
+                number: number,
+                email: email
             };
 
             $.ajax(

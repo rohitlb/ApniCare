@@ -1302,7 +1302,7 @@ $(function () {
         $('#edu_special').show();
     });
 
-    //$('#edu_special').hide();
+    $('#edu_special').hide();
     $('#basic_details_pharma').click(function () {
         var title = $('#title').val();
         var name = $('#name').val();
@@ -1345,7 +1345,6 @@ $(function () {
     $('#education').click(function () {
         var qualification = $('#qualification').val();
         var college = $('#college').val();
-
         var completion_year = $('#completion_year').val();
         var batch_from = $('#batch_from').val();
         var batch_to = $('#batch_to').val();
