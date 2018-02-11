@@ -1112,7 +1112,7 @@ app.post('/symptomslist',healthrequiresLogin,function(req,res){
 //     }
 // });
 
-app.post('/formolecule',function (req,res) {
+app.post('/formolecule',function (req,res){
     console.log("formolecule");
     console.log("page"+req.body.page );
     var molecule = req.body.molecule;
@@ -1161,9 +1161,9 @@ app.post('/formolecule',function (req,res) {
 
     }
     if(req.body.page == 'combination'){
-        Strength.find({'potent_substance.name' : molecule},'-_id -__v -potent_substance._id'
-        ).populate({path: 'brands_id',select : '-_id' , populate: {path: 'dosage_id', select : '-_id' , populate : {path : 'strength_id'}}
-        }).populate({path : 'brands_id', select : '-_id -__v',populate : {path : 'company_id'}}).sort({brand_name: 1}).skip(skip).limit(10).exec(function (err,brands) {
+        Strength.find({'potent_substance.name' : molecule},'-_id -__v -submitted_by -potent_substance._id '
+        ).populate({path: 'brands_id',select : '-_id' , populate: {path: 'dosage_id', select : '-_id -__v -strength_id ' , populate : {path : 'strength_id' , select :'-_id submitted_by'}}
+        }).populate({path : 'brands_id', select : '-_id -__v',populate : {path : 'company_id' , select : "-_id -__v -brand_id"}}).sort({brand_name: 1}).skip(skip).limit(10).exec(function (err,brands) {
             if (err) {
                 console.log(err);
             }
