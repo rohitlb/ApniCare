@@ -171,8 +171,10 @@ $(document).ready(function() {
         //for otp request
         $('#send').click(function () {
             var number = $('#number').val();
+            var email = $('#email').val();
             var data = {
-                number: number
+                number: number,
+                email: email
             };
 
             $.ajax(

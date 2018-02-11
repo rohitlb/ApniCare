@@ -254,10 +254,16 @@ app.post('/needhelpWL' , function (req,res) {
 //user
 app.post('/sendOTP',function (req, res) {
     var number = req.body.number;
+    var email = req.body.email;
     //regex for checking whether entered number is indian or not
     var num = /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[6789]\d{9}|(\d[ -]?){10}\d$/.test(number);
     if(num === false){
         res.send({status: "failure", message: "wrong number ! please try again "});
+        return;
+    }
+    var email = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(email);
+    if(email === false ){
+        res.send({status: "failure", message: "please enter a valid email and try again"});
         return;
     }
     async.series({
