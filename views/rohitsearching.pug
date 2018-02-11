@@ -3,9 +3,9 @@ html
     head
     body
         h1 Enter medicine details
-        form(action='/searchall', method='POST')
-            | Search search :
-            input(type='text', name='search')
+        form(action='/searchweb', method='POST')
+            | Search term :
+            input(type='text', name='term')
             br
             | number of strength :
             input(type='text', name='strength')
