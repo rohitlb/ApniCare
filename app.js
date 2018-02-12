@@ -4285,7 +4285,8 @@ app.post('/licence',function(req,res){
 
 app.post('/drugData',healthrequiresLogin,function(req,res){
     var company_name = req.body.company_name;
-    var brand_name = req.body.brand_name;
+    var brand_name = (req.body.brand_name).replace(/\b\w/g, function(l){ return l.toUpperCase() });
+    console.log(brand_name);
     var categories = req.body.categories;
     var primarily_used_for = req.body.primarily_used_for;
     var types = req.body.types;
