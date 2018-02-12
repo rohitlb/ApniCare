@@ -4320,8 +4320,8 @@ app.post('/drugData',healthrequiresLogin,function(req,res){
                                     if(result2 != ""){
                                         Strength.find({_id : result2[0].strength_id , strength : strength},function(err3,result3){
                                             console.log(strength);
-                                            var int = parseInt(result3.length);
-                                            if(0 === int){
+                                            console.log(result3[0]);
+                                            if(result3[0] === undefined){
                                                 var drugData = new DrugData({
                                                     company_name: company_name,
                                                     brand_name: brand_name,
@@ -4336,7 +4336,6 @@ app.post('/drugData',healthrequiresLogin,function(req,res){
                                                     },
                                                     packaging: packaging,
                                                     price: price,
-                                                    prescription: prescription,
                                                     prescription: prescription,
                                                     dose_taken: dose_taken,
                                                     dose_timing: dose_timing,
@@ -4374,7 +4373,6 @@ app.post('/drugData',healthrequiresLogin,function(req,res){
                                             packaging: packaging,
                                             price: price,
                                             prescription: prescription,
-                                            prescription: prescription,
                                             dose_taken: dose_taken,
                                             dose_timing: dose_timing,
                                             warnings: warnings,
@@ -4408,7 +4406,6 @@ app.post('/drugData',healthrequiresLogin,function(req,res){
                                     packaging: packaging,
                                     price: price,
                                     prescription: prescription,
-                                    prescription: prescription,
                                     dose_taken: dose_taken,
                                     dose_timing: dose_timing,
                                     warnings: warnings,
@@ -4441,7 +4438,6 @@ app.post('/drugData',healthrequiresLogin,function(req,res){
                             },
                             packaging: packaging,
                             price: price,
-                            prescription: prescription,
                             prescription: prescription,
                             dose_taken: dose_taken,
                             dose_timing: dose_timing,
@@ -5365,9 +5361,8 @@ app.get('/adminDrugDataMakeLive',adminrequiresLogin,function(req,res,next) {
                 console.log(err);
             }
             else{
-                console.log("dosage is"+result);
                 res.locals.value1 = value1;
-                res.locals.value2 = result;
+                res.locals.value3 = result;
                 res.locals.brandResult = brandResult;
                 res.locals.companyResult = companyResult;
                 next();
@@ -5472,11 +5467,9 @@ app.get('/adminDrugDataMakeLive',adminrequiresLogin,function(req,res,next) {
 
 app.get('/adminDrugDataMakeLive',adminrequiresLogin,function(req,res,next){
     var value1 = res.locals.value1;
-    var value2 = res.locals.value2;
+    var value2 = res.locals.value3;
     var brandResult = res.locals.brandResult;
     var companyResult = res.locals.companyResult;
-    console.log("dosval1"+value1);
-    console.log("dosval2"+value2);
     if(value2 != ''){
         Strength.find({_id : value2.strength_id , strength : value1[0].strength},function(err,result){
             if(err){
@@ -5484,7 +5477,8 @@ app.get('/adminDrugDataMakeLive',adminrequiresLogin,function(req,res,next){
             }
             else{
                 res.locals.value1 = value1;
-                res.locals.value2 = result;
+                res.locals.lastdosage = value2;
+                res.locals.value4 = result;
                 res.locals.brandResult = brandResult;
                 res.locals.companyResult = companyResult;
                 next();
@@ -5556,14 +5550,10 @@ app.get('/adminDrugDataMakeLive',adminrequiresLogin,function(req,res,next){
 
 app.get('/adminDrugDataMakeLive',adminrequiresLogin,function(req,res) {
     var value1 = res.locals.value1;
-    var value2 = res.locals.value2;
+    var value2 = res.locals.value4;
+    var lastdosages = res.locals.lastdosage;
     var brandResult = res.locals.brandResult;
-    console.log("streval1"+value1);
-    console.log("streval2"+value2);
-    if (value2 != "") {
-        res.send({message: 'Medicine Already exist'});
-    }
-    else {
+    if (value2[0] === undefined) {
         var strength = new Strength({
             strength: value1[0].strength,
             potent_substance: {
@@ -5584,7 +5574,7 @@ app.get('/adminDrugDataMakeLive',adminrequiresLogin,function(req,res) {
                 console.log(err);
             }
             else {
-                Dosage.update({dosage_form: value1[0].dosage_form}, {
+                Dosage.update({_id : lastdosages[0]._id}, {
                     $push: {strength_id: result1._id}
                 }).exec(function (err2) {
                     if (err2) {
@@ -5602,6 +5592,9 @@ app.get('/adminDrugDataMakeLive',adminrequiresLogin,function(req,res) {
                 });
             }
         });
+    }
+    else {
+        res.send({message: 'Medicine Already exist'});
     }
 });
 
