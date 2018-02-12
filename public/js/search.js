@@ -1,5 +1,8 @@
 $(function(){
     //testing
+    $('#search-query').click(function () {
+        $('#search-query').css('background-color','white');
+    });
     $("#search-query").autocomplete({
         source: function (request, response) {
             $.ajax({
@@ -66,60 +69,110 @@ $(function(){
             // Prevent value from being put in the input:
             this.value = ui.item.label;
             // Set the id to the next input hidden field
+            if(ui.item){
             $(this).next("input").val(ui.item.value);
             // Prevent other event from not being execute
             event.preventDefault();
             // optionnal: submit the form after field has been filled up
-            $('#search-query').keypress(function(e){
-                if(e.which == '13') {
-                    var datas = {
-                        search : ui.item.label
-                    };
-                    $.ajax({
-                        url: '/searchspecificweb',
-                        type: 'POST',
-                        data: JSON.stringify(datas),
-                        contentType: 'application/json',
-                        success: function (result) {
-                            if (result.status == 'success') {
-                                if(result.data.Brands != ""){
-                                    window.location = '/ApniCare/information/Drug?brand='+result.data.Brands[0].brand_name;
-                                }
-                                if(result.data.Diseases != ""){
-                                    window.location = '/ApniCare/information/Diseases?disease='+result.data.Diseases[0].disease_name;
-                                }
-                                if(result.data.Molecules != ""){
-                                    window.location = '/ApniCare/information/Molecules?molecule='+result.data.Molecules[0].molecule_name;
-                                }
-                                if(result.data.Symptoms != ""){
-                                    window.location = '/searchsymptons?symptoms=' + JSON.stringify(result.data.Symptoms);
-                                }
-                                if(result.data.Organs != ""){
-                                    window.location = '/searchorgans?organs='+JSON.stringify(result.data.Organs);
-                                }
-                                if(result.data.Categories != ""){
-                                    window.location = '/searchcategories?categories='+JSON.stringify(result.data.Categories);
-                                }
-                            }
-                            else {
-                                Materialize.toast(result.message, 1000);
-                            }
-                        }
-                    })
+            $('#search-query').submit();
+            }
+
+        }
+    });
+    $('#search-query').bind('autocompleteselect',function(event,ui){
+        var datas = {
+            search : ui.item.label
+        };
+        $.ajax({
+            url: '/searchspecificweb',
+            type: 'POST',
+            data: JSON.stringify(datas),
+            contentType: 'application/json',
+            success: function (result) {
+                if (result.status == 'success') {
+                    if(result.data.Brands != ""){
+                        window.location = '/ApniCare/information/Drug?brand='+result.data.Brands[0].brand_name;
+                    }
+                    if(result.data.Diseases != ""){
+                        window.location = '/ApniCare/information/Diseases?disease='+result.data.Diseases[0].disease_name;
+                    }
+                    if(result.data.Molecules != ""){
+                        window.location = '/ApniCare/information/Molecules?molecule='+result.data.Molecules[0].molecule_name;
+                    }
+                    if(result.data.Symptoms != ""){
+                        window.location = '/searchsymptons?symptoms=' + JSON.stringify(result.data.Symptoms);
+                    }
+                    if(result.data.Organs != ""){
+                        window.location = '/searchorgans?organs='+JSON.stringify(result.data.Organs);
+                    }
+                    if(result.data.Categories != ""){
+                        window.location = '/searchcategories?categories='+JSON.stringify(result.data.Categories);
+                    }
                 }
-            });
+                else {
+                    Materialize.toast(result.message, 1000);
+                }
+            }
+        })
+    });
+
+    // $('#search-query').keypress(function(e) {
+    //     if(e.which == '13') {
+    //         $('#search-query').click();
+    //     }
+    // });
+    // $('#search-query').focusout(function() {
+    //         $('#search-query').click();
+    // });
+    $('#search-query').keypress(function(e) {
+        if(e.which == '13') {
+            var data = $('input').val();
+            var datas = {
+                search: data
+            };
+            $.ajax({
+                url: '/searchspecificweb',
+                type: 'POST',
+                data: JSON.stringify(datas),
+                contentType: 'application/json',
+                success: function (result) {
+                    if (result.status == 'success') {
+                        if (result.data.Brands != "") {
+                            window.location = '/ApniCare/information/Drug?brand=' + result.data.Brands[0].brand_name;
+                        }
+                        if (result.data.Diseases != "") {
+                            window.location = '/ApniCare/information/Diseases?disease=' + result.data.Diseases[0].disease_name;
+                        }
+                        if (result.data.Molecules != "") {
+                            window.location = '/ApniCare/information/Molecules?molecule=' + result.data.Molecules[0].molecule_name;
+                        }
+                        if (result.data.Symptoms != "") {
+                            window.location = '/searchsymptons?symptoms=' + JSON.stringify(result.data.Symptoms);
+                        }
+                        if (result.data.Organs != "") {
+                            window.location = '/searchorgans?organs=' + JSON.stringify(result.data.Organs);
+                        }
+                        if (result.data.Categories != "") {
+                            window.location = '/searchcategories?categories=' + JSON.stringify(result.data.Categories);
+                        }
+                    }
+                    else {
+                        Materialize.toast(result.message, 1000);
+                    }
+                }
+            })
         }
     });
 
     //testing
-    var availableTags = ["ActionScript", "AppleScript", "Asp",
-        "BASIC", "C", "C++", "Clojure", "COBOL", "ColdFusion", "Erlang",
-        "Fortran", "Groovy", "Haskell", "Java", "JavaScript", "Lisp",
-        "Perl", "PHP", "Python", "Ruby", "Scala", "Scheme"
-    ];
-    $("#tags").autocomplete({
-        source: availableTags
-    });
+    // var availableTags = ["ActionScript", "AppleScript", "Asp",
+    //     "BASIC", "C", "C++", "Clojure", "COBOL", "ColdFusion", "Erlang",
+    //     "Fortran", "Groovy", "Haskell", "Java", "JavaScript", "Lisp",
+    //     "Perl", "PHP", "Python", "Ruby", "Scala", "Scheme"
+    // ];
+    // $("#tags").autocomplete({
+    //     source: availableTags
+    // });
     //
     //
     //    $("#search").autocomplete({
