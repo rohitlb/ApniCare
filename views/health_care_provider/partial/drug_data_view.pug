@@ -69,7 +69,8 @@ div.row
 
         div.col.s12.m12.l12
             div.col.grey.lighten-3.s12.m8.l9
-                //p=data.rating[0].rateper
+                p= data.rating[0]
+                - var tin = data.rating
                 - var vas = data.brands[0]
                 - var val = data.brands[0]
                     h3.section.scrollspy#data_name #{vas.brand_name.toUpperCase()}
@@ -103,6 +104,8 @@ div.row
                                                     //if(doses.packaging != '')
                                                     th Packaging
                                                     th Price
+                                                    if(dosages.dosage_form == 'Tablet')
+                                                        th Price/Unit
                                             tbody
                                                 tr
                                                     td <strong>#{dosages.dosage_form.toUpperCase()}</strong> &nbsp &nbsp
@@ -111,6 +114,11 @@ div.row
                                                     //if(doses.packaging != '')
                                                     td.to_capital <strong>#{doses.packaging}</strong> &nbsp &nbsp
                                                     td <strong>₹ #{doses.price}</strong>
+                                                    if(dosages.dosage_form == 'Tablet')
+                                                        td
+                                                            each rate in tin
+                                                                span= rate.rateper
+                                                                //<strong>#{}</strong>
                                                 tr#read_more
                                                     td
                                                     //if(doses.strength != '')

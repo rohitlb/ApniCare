@@ -272,7 +272,8 @@ span.next_line, ul li.next_line, .next_line:before {
     text-transform: capitalize;
 }
 
-.r003 {
+.r003:first-letter {
+    text-transform:capitalize;
     color:black;
     font-size: 15px;
     font-weight: 400;
