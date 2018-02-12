@@ -81,14 +81,14 @@ div.row
                                             each val in data
                                                 ul
                                                     li
-                                                        h5(name=val.brand_name, style="text-transform: capitalize; width: 228px;margin-top: 0px;") #{val.brand_name}
-                                                            a#drug_dataa(href='/health_care_provider?brand='+val.brand_name) &nbsp
-                                                                br
-                                                                each dosage in val.dosage_id
-                                                                    span.text_upper_case(style='text-transform: uppercase;')
-                                                                        | #{val.brand_name} #{dosage.dosage_form} &nbsp
-                                                                        each dose in dosage.strength_id
-                                                                            span #{dose.strength}#{dose.strengths} &nbsp
-                                                                            span #{dose.packaging}
-                                                                            br
+                                                        a#drug_dataa(href='/health_care_provider?brand=' + val.brand_name) &nbsp
+                                                            h5(name=val.brand_name, style="text-transform: capitalize; width: 228px;margin-top: 0px;") #{val.brand_name}
+                                                                //br
+                                                                //each dosage in val.dosage_id
+                                                                //    span.text_upper_case(style='text-transform: uppercase;')
+                                                                //        | #{val.brand_name} #{dosage.dosage_form} &nbsp
+                                                                //        each dose in dosage.strength_id
+                                                                //            span #{dose.strength}#{dose.strengths} &nbsp
+                                                                //            span #{dose.packaging}
+                                                                //            br
 
