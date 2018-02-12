@@ -6450,6 +6450,6 @@ var database = mongoose.connection;
 database.on('open', function () {
     console.log("database is connected");
     app.listen(app.get('port'), function () {
-        console.log('server connected to http:localhost:' + app.get('port'));
+        console.log('server connected to http://localhost:' + app.get('port'));
     });
 });
