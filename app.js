@@ -4319,10 +4319,9 @@ app.post('/drugData',healthrequiresLogin,function(req,res){
                                 Dosage.find({_id : result1[0].dosage_id , dosage_form : dosage_form},function(err2,result2){
                                     if(result2 != ""){
                                         Strength.find({_id : result2[0].strength_id , strength : strength},function(err3,result3){
-                                            if(result3 != ""){
-                                                res.send({status : 'failure' , message : 'Drug Already Exist'});
-                                            }
-                                            else{
+                                            console.log(strength);
+                                            var int = parseInt(result3.length);
+                                            if(0 === int){
                                                 var drugData = new DrugData({
                                                     company_name: company_name,
                                                     brand_name: brand_name,
@@ -4353,6 +4352,9 @@ app.post('/drugData',healthrequiresLogin,function(req,res){
                                                         res.send({status:'success', message:'New medicine added'});
                                                     }
                                                 });
+                                            }
+                                            else{
+                                                res.send({status : 'failure' , message : 'Drug Already Exist'});
                                             }
                                         });
                                     }
@@ -5473,6 +5475,8 @@ app.get('/adminDrugDataMakeLive',adminrequiresLogin,function(req,res,next){
     var value2 = res.locals.value2;
     var brandResult = res.locals.brandResult;
     var companyResult = res.locals.companyResult;
+    console.log("dosval1"+value1);
+    console.log("dosval2"+value2);
     if(value2 != ''){
         Strength.find({_id : value2.strength_id , strength : value1[0].strength},function(err,result){
             if(err){
@@ -5554,6 +5558,8 @@ app.get('/adminDrugDataMakeLive',adminrequiresLogin,function(req,res) {
     var value1 = res.locals.value1;
     var value2 = res.locals.value2;
     var brandResult = res.locals.brandResult;
+    console.log("streval1"+value1);
+    console.log("streval2"+value2);
     if (value2 != "") {
         res.send({message: 'Medicine Already exist'});
     }
