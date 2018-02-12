@@ -273,7 +273,6 @@ span.next_line, ul li.next_line, .next_line:before {
 }
 
 .r003 {
-    text-transform:capitalize;
     color:black;
     font-size: 15px;
     font-weight: 400;

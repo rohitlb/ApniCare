@@ -20,20 +20,20 @@ div.row
                         div.col.s12.m12.l12
                             span.target2 What are its Symptoms?
                             span.red-text &nbsp*
-                            textarea.materialize-textarea.text_areas1.tobig#symptoms(class="r003" required)
+                            textarea.materialize-textarea.text_areas1.tobig.validate#symptoms(class="r003" required)
                             label(for='symptoms')
                             //input.val11(style='color:black;font-size: 15px;font-weight: 400;')
                         div.col.s12.m12.l12
                             span.target3 What are its possible Risk Factors?
                             span.red-text &nbsp*
-                            textarea.materialize-textarea.tobig.text_areas2#risk_factors(class="r003" required)
+                            textarea.materialize-textarea.tobig.text_areas2.validate#risk_factors(class="r003" required)
                             label(for='risk_factors')
                             //input.val12(type='text', style='color:black;font-size: 15px;font-weight: 400;')
 
                         div.col.s12.m12.l12
                             span.target4 What are its Causes?
                             span.red-text &nbsp*
-                            textarea.materialize-textarea.tobig.text_areas3#causes(class="r003" required)
+                            textarea.materialize-textarea.tobig.text_areas3.validate#causes(class="r003" required)
                             label(for='causes')
                             //input.val13(type='text', style='color:black;font-size: 15px;font-weight: 400;')
                             br
@@ -44,9 +44,9 @@ div.row
                         div.col.s12.m12.l12
                             div.repeater1
                                 div
-                                    input.browser-default.repeat_subhead1.r003#subhead1(type='text', placeholder='Enter a subheading' required)
+                                    input.browser-default.repeat_subhead1.r003.validate#subhead1(type='text', placeholder='Enter a subheading' required)
                                     button.remove x
-                                    textarea.materialize-textarea.tobig.text_areas4.r003.text_subhead1#subhead_text1
+                                    textarea.materialize-textarea.tobig.text_areas4.text_subhead1.validate#subhead_text1(required)
                                     label(for='subhead1')
                                     label(for='subhead_text1')
                             button.repeat1 Add A Subheading
@@ -59,39 +59,39 @@ div.row
                         div.col.s12.m12.l12
                             div.repeater7
                                 div
-                                    input.browser-default.repeat_subhead7#subheading7(type='text', placeholder='Enter a subheading' required)
+                                    input.browser-default.repeat_subhead7.validate#subheading7(type='text', placeholder='Enter a subheading' required)
                                     button.remove x
-                                    textarea.materialize-textarea.tobig.text_areas7.text_subhead7#subhead_text7
-                                    label(for='subheading7', class="r003" required)
-                                    label(for='subhead_text7', class="r003" required)
+                                    textarea.materialize-textarea.tobig.text_areas7.text_subhead7.validate#subhead_text7(required)
+                                    label(for='subheading7', class="r003")
+                                    label(for='subhead_text7', class="r003")
                             button.repeat7 Add A Subheading
                             br
                             br
                         div.col.s12.m12.l12
                             span.target6 How is it Treated?
                             span.red-text &nbsp*
-                            textarea.tobig.materialize-textarea.text_areas5#treatment
-                            label(for='treatment', class="r003" required)
+                            textarea.tobig.materialize-textarea.text_areas5.validate#treatment(required)
+                            label(for='treatment', class="r003")
                             //input.val15(type='text', style='color:black;font-size: 15px;font-weight: 400;')
                         br
                         div.col.s12.m12.l12
                             span.target7 What is the Outlook for it?
                             span.red-text &nbsp*
-                            textarea.materialize-textarea.tobig.text_areas6#outlook
-                            label(for='outlook', class="r003" required)
+                            textarea.materialize-textarea.tobig.text_areas6#outlook(required)
+                            label.validate(for='outlook', class="r003")
                             //input.val16(type='text', style='color:black;font-size: 15px;font-weight: 400;')
                         br
                         div.col.s12.m12.l12
                             span.target8 How can it be Prevented?
                             span.red-text &nbsp*
-                            textarea.materialize-textarea.tobig.text_areas7#prevention
-                            label(for='prevention', class="r003" required)
+                            textarea.materialize-textarea.tobig.text_areas7.validate#prevention(required)
+                            label.validate(for='prevention', class="r003")
                             //input.val17(type='text', style='color:black;font-size: 15px;font-weight: 400;')
                         div.col.s12.m12.l12
                             span.target8 Source of Information
                             span.red-text &nbsp*
-                            textarea.materialize-textarea.tobig.text_areas8#source
-                            label(for='source', class="r003" required)
+                            textarea.materialize-textarea.tobig.text_areas8.validate#source(required)
+                            label(for='source', class="r003")
 
                         br
                         div.row
