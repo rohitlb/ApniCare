@@ -54,7 +54,7 @@ var CategoryData = require('./model/categorydatalive');
 var app = express();
 
 var store = new mongoDBStore({
-    uri : 'mongodb://127.0.0.1/ApniCaresite',
+    uri : 'mongodb://127.0.0.1/ApniCare',
     collection : 'mySessions'
 });
 
@@ -3257,19 +3257,14 @@ app.get('/health_care_provider',healthrequiresLogin,function(req,res) {
     }
 
     if(req.query.page == 'drug_data') {
-
-        Brand.find({},'-_id brand_name types categories').populate(
-            {path : 'dosage_id', select : '-_id dosage_form',populate :
-                    {path : 'strength_id', select : '-_id strength strengths packaging potent_substance.name potent_substance.molecule_strength'}
-            }).populate({path : 'company_id', select: '-_id company_name'}).sort({brand_name : 1}).exec(function (err,brand) {
+        Brand.find({},'-_id brand_name').exec(function (err,brand) {
             if (err) {
                 console.log(err);
             }
             else {
+                console.log(brand);
                 if(brand != "") {
-                    if (req.query.page == 'home' || req.query.page == 'profile_doctor' || req.query.page == 'profile_student_pharmacist' || req.query.page == 'profile_student_doctor' || req.query.page == 'profile_student_pharmacist' || req.query.page == 'profile' || req.query.page == 'profile_pharmacist' || req.query.page == 'drug_data' || req.query.page == 'molecule_data' || req.query.page == 'disease_data' || req.query.page == 'drug_data_form' || req.query.page == 'molecule_data_form' || req.query.page == 'disease_data_form' || req.query.page == 'feedback_contributions' || req.query.page == 'feedback_profile' || req.query.page == 'notifications' || req.query.page == 'need_help') {
-                        page = req.query.page;
-                    }
+                    page = req.query.page;
                     res.render('home_profile_doctor',
                         {
                             page: page,
@@ -3674,7 +3669,7 @@ app.post('/health_care_provider',healthrequiresLogin,function(req,res) {
 
         Brand.find({brand_name : brand},'-_id brand_name categories types primarily_used_for').populate(
             {path : 'dosage_id', select : '-_id dosage_form',populate :
-                    {path : 'strength_id', select : '-_id strength strengths packaging prescription dose_taken warnings price dose_timing potent_substance.name potent_substance.molecule_strength'}
+                {path : 'strength_id', select : '-_id strength strengths packaging prescription dose_taken warnings price dose_timing potent_substance.name potent_substance.molecule_strength'}
             }).populate(
             {path : 'company_id', select: '-_id company_name'}).sort({brand_name : 1}).exec(function (err,brand) {
             if (err) {
@@ -3762,19 +3757,14 @@ app.post('/health_care_provider',healthrequiresLogin,function(req,res) {
     }
 
     if(req.query.page == 'drug_data') {
-
-        Brand.find({},'-_id brand_name types categories').populate(
-            {path : 'dosage_id', select : '-_id dosage_form',populate :
-                    {path : 'strength_id', select : '-_id strength strengths packaging potent_substance.name potent_substance.molecule_strength'}
-            }).populate({path : 'company_id', select: '-_id company_name'}).sort({brand_name : 1}).exec(function (err,brand) {
+        Brand.find({},'-_id brand_name').exec(function (err,brand) {
             if (err) {
                 console.log(err);
             }
             else {
+                console.log(brand);
                 if(brand != "") {
-                    if (req.query.page == 'home' || req.query.page == 'profile_doctor' || req.query.page == 'profile_student_pharmacist' || req.query.page == 'profile_student_doctor' || req.query.page == 'profile_student_pharmacist' || req.query.page == 'profile' || req.query.page == 'profile_pharmacist' || req.query.page == 'drug_data' || req.query.page == 'molecule_data' || req.query.page == 'disease_data' || req.query.page == 'drug_data_form' || req.query.page == 'molecule_data_form' || req.query.page == 'disease_data_form' || req.query.page == 'feedback_contributions' || req.query.page == 'feedback_profile' || req.query.page == 'notifications' || req.query.page == 'need_help') {
-                        page = req.query.page;
-                    }
+                    page = req.query.page;
                     res.render('home_profile_doctor',
                         {
                             page: page,
@@ -3868,7 +3858,7 @@ app.post('/health_care_provider',healthrequiresLogin,function(req,res) {
     if(req.query.page == 'molecule_data') {
 
         Molecule.find({},'-_id -__v').populate({path : 'dosage_id', select : '-_id -__v',populate : {
-                path : 'strength_id', select : '-_id -__v'}}).populate({path : 'company_id'}
+            path : 'strength_id', select : '-_id -__v'}}).populate({path : 'company_id'}
         ).sort({molecule_name:1}).exec(function (err,molecule) {
             if (err) {
                 console.log(err);
@@ -4635,12 +4625,14 @@ app.post('/moleculeData',healthrequiresLogin,function(req,res) {
 });
 
 //////admin Panel/////////////
-app.get('/adminpanellink',function (req,res) {
-    res.render('adminpanellink');
-});
 
-app.get('/adminloginpage',function(req,res){
-    res.render('adminloginpage');
+app.get('/adminlogin',function(req,res){
+    if(req.session.admin){
+        res.render('adminPanel');
+    }
+    else{
+        res.render('adminloginpage');
+    }
 });
 
 app.post('/adminLogin',function (req,res) {
@@ -6441,7 +6433,7 @@ app.use(function(error, req, res, next) {
 //==========================Database connection===========================
 
 //data base connection and opening port
-var db = 'mongodb://127.0.0.1/ApniCaresite';
+var db = 'mongodb://127.0.0.1/ApniCare';
 mongoose.connect(db, {useMongoClient: true});
 
 //=============================Start server========================
