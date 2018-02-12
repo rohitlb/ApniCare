@@ -120,10 +120,11 @@ div.row
                                     div.collapsible-body
                                         span
                                             span.section.scrollspy#potent <strong>▪ Involves Potent Substances: </strong>
-                                            each j, index in doses.potent_substance.name
-                                                span.to_capital &nbsp #{j} &nbsp
-                                                    span.small_font.next_line= doses.potent_substance.molecule_strength[index]
-                                                br
+                                            div
+                                                each j, index in doses.potent_substance.name
+                                                    span.to_capital &nbsp #{j} &nbsp
+                                                        span.small_font.next_line= doses.potent_substance.molecule_strength[index]
+                                                    br
                                             if(doses.dose_taken != '')
                                                 span.section.scrollspy#dose_taken <strong>▪ Dose Taken As:&nbsp</strong>
                                                     span.small_font.to_capital #{doses.dose_taken}
@@ -141,7 +142,7 @@ div.row
                                                 i.material-icons.left warning
                                                 span.section.scrollspy#warnings.red-text <strong>Warnings</strong>
                                                 br
-                                                span.next_line.to_capital <strong>#{doses.warnings}</strong>
+                                                span.next_line.to_capital #{doses.warnings}
 
 
 
