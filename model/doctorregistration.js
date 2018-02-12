@@ -28,8 +28,12 @@ var Doctor = new mongoose.Schema({
     council_name : {type : String, trim:true},
     council_registration_year : {type : String, trim:true},
     document : [{name : {type : String, trim:true},path : {type : String, trim:true}}],
-    certificate : [{name : {type : String, trim:true},path : {type : String, trim:true}}]
+    certificate : [{name : {type : String, trim:true},path : {type : String, trim:true}}],
     //yet left
+    //yet left
+    registered_at : {type: Date, required: true, default: Date.now },
+    status : {type : String},
+    issues : [{issueIn : {type : String},issueType : {type : String},issueInfo : {type : String} ,issueFrom : {type : String}}]
 });
 
 module.exports = mongoose.model('Doctor',Doctor);

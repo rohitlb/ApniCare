@@ -28,8 +28,17 @@ var Pharma = new mongoose.Schema({
     council_name : {type : String, trim : true},
     council_registration_year : {type : String, trim : true},
     document : [{name : {type : String, trim : true},path : {type : String, trim : true}}],
-    certificate : [{name : {type : String, trim: true},path : {type : String, trim : true}}]
+    certificate : [{name : {type : String, trim: true},path : {type : String, trim : true}}],
     //yet left
+    //yet left
+    registered_at : {type: Date, required: true, default: Date.now },
+    status : {type : String , trim : true},
+    issues : [{
+        issueIn : {type : String, trim : true},
+        issueType : {type : String, trim : true},
+        issueInfo : {type : String, trim : true} ,
+        issueFrom : {type : String, trim : true}
+    }]
 });
 
 module.exports = mongoose.model('pharma',Pharma);

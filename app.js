@@ -3166,25 +3166,48 @@ app.get('/health_care_provider',healthrequiresLogin,function(req,res) {
     }
 
     if(req.query.brand) {
-
         Brand.find({brand_name : brand},'-_id brand_name categories types primarily_used_for').populate(
             {path : 'dosage_id', select : '-_id dosage_form',populate :
                     {path : 'strength_id', select : '-_id strength strengths packaging prescription dose_taken warnings price dose_timing potent_substance.name potent_substance.molecule_strength'}
             }).populate(
-            {path : 'company_id', select: '-_id company_name'}).sort({brand_name : 1}).exec(function (err,brand) {
+            {path : 'company_id', select: '-_id company_name'}).sort({brand_name : 1}).exec(function (err,brands) {
             if (err) {
                 console.log(err);
             }
             else {
-                if(brand != "") {
-                    if (req.query.page == 'home' || req.query.page == 'profile_doctor' || req.query.page == 'profile_student_pharmacist' || req.query.page == 'profile_student_doctor' || req.query.page == 'profile_student_pharmacist' || req.query.page == 'profile' || req.query.page == 'profile_pharmacist' || req.query.page == 'drug_data' || req.query.page == 'molecule_data' || req.query.page == 'disease_data' || req.query.page == 'drug_data_form' || req.query.page == 'molecule_data_form' || req.query.page == 'disease_data_form' || req.query.page == 'feedback_contributions' || req.query.page == 'feedback_profile' || req.query.page == 'notifications' || req.query.page == 'need_help') {
-                        page = req.query.page;
-                    }
+                if(brands != "") {
+                    var brand = {};
+                    brand['rates'] = [];
+                    async.each(brands,function(fortablet,callback){
+                        async.each(fortablet.dosage_id,function(tabletrate,callbacks){
+                            if(tabletrate.dosage_form == 'Tablet'){
+                                async.each(tabletrate.strength_id,function(strengths,callbackagain){
+                                    var x = strengths.price;
+                                    var y = strengths.packaging;
+                                    var rate = x/y;
+                                    brand['rates'].push({
+                                        rateper : rate
+                                    })
+                                });
+                            }
+                            else{
+                                callbacks();
+                            }
+                        });
+                    });
+                    var datas = {};
+                    datas['all'] = [];
+                    datas['all'].push({
+                        brands : brands,
+                        rating : brand.rates
+                    });
+                    page = req.query.page;
                     res.render('home_profile_doctor',
                         {
                             page: 'drug_data_view',
-                            data: brand
+                            data: datas.all[0]
                         });
+                    console.log(datas.all[0]);
                 }
                 else{
                     res.send({details : "failure", message : "No brand exist"});
@@ -3668,7 +3691,6 @@ app.post('/health_care_provider',healthrequiresLogin,function(req,res) {
     }
 
     if(req.query.brand) {
-
         Brand.find({brand_name : brand},'-_id brand_name categories types primarily_used_for').populate(
             {path : 'dosage_id', select : '-_id dosage_form',populate :
                 {path : 'strength_id', select : '-_id strength strengths packaging prescription dose_taken warnings price dose_timing potent_substance.name potent_substance.molecule_strength'}
@@ -5532,8 +5554,6 @@ app.get('/adminDrugDataMakeLive',adminrequiresLogin,function(req,res) {
     var value1 = res.locals.value1;
     var value2 = res.locals.value2;
     var brandResult = res.locals.brandResult;
-    console.log(value1);
-    console.log(value2);
     if (value2 != "") {
         res.send({message: 'Medicine Already exist'});
     }
@@ -6428,11 +6448,11 @@ app.post('/adminFeedbackEnterResponse',adminrequiresLogin,function(req,res){
 app.use(function(req, res) {
     res.status(404).render('not_found');
 });
-
-// Handle 500
-app.use(function(error, req, res, next) {
-    res.status(500).send("Internal server error");
-});
+//
+// // Handle 500
+// app.use(function(error, req, res, next) {
+//     res.status(500).send("Internal server error");
+// });
 
 //==========================Database connection===========================
 
