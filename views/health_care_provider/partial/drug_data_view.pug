@@ -117,7 +117,7 @@ div.row
                                                     if(dosages.dosage_form == 'Tablet')
                                                         td
                                                             each rate in tin
-                                                                span= rate.rateper
+                                                                span= Number(rate.rateper).toFixed(2)
                                                                 //<strong>#{}</strong>
                                                 tr#read_more
                                                     td
