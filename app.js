@@ -535,6 +535,25 @@ app.get('/profile',userrequiresLogin, function (req, res) {
     }
 });
 
+//user profile info for app
+app.get('/appprofile',userrequiresLogin, function (req, res) {
+    if (req.session.userID) {
+        User.find({_id : req.session.userID},function(err,user){
+            if(err){
+                console.log(err);
+            }
+            else{
+                var page = "profile";
+                console.log(user[0].name);
+                res.send({status: "logged in", profileinfo: user});
+                res.end();
+            }
+        });
+    }
+});
+
+
+
 app.post('/doctorregister', function (req, res) {
     //regex for checking whether entered number is indian or not
     var num = /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[6789]\d{9}|(\d[ -]?){10}\d$/.test(req.body.number);
