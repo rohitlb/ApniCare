@@ -1036,7 +1036,7 @@ app.post('/organslist'/*,healthrequiresLogin*/,function(req,res){
     var skip = parseInt(req.body.nskip);
     //            Search.find({name : search}, '-_id name').sort({"updated_at":-1}).sort({"created_at":-1}).skip(skip).limit(10).exec(function (err, result) {
 
-    Search.find({name : search}, '-_id name').sort({"updated_at":-1}).sort({"created_at":-1}).skip(skip).limit(10).exec(function (err, result) {
+    Search.find({}, '-_id name').sort({"updated_at":-1}).sort({"created_at":-1}).skip(skip).limit(10).exec(function (err, result) {
         if (err) {
             console.log(err);
         }
