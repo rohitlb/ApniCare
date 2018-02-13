@@ -572,7 +572,8 @@ app.post('/doctorregister', function (req, res) {
                                 name: req.body.name,
                                 email: req.body.email,
                                 number: req.body.number,
-                                password: hash
+                                password: hash,
+                                title : 'Dr.'
                             });
                             doctor.save(function (err, results) {
                                 if (err) {
@@ -630,7 +631,8 @@ app.post('/pharmaregister', function (req, res) {
                                 name: req.body.name,
                                 email: req.body.email,
                                 number: req.body.number,
-                                password: hash
+                                password: hash,
+                                title : 'DRx.'
                             });
                             pharma.save(function (err, results) {
                                 if (err) {
@@ -3238,13 +3240,60 @@ app.get('/health_care_provider',healthrequiresLogin,function(req,res) {
 
     if(req.query.molecule) {
 
-        Molecule.find({molecule_name : molecule}).sort({molecule_name:1}).exec(function (err,result) {
+        Molecule.find({molecule_name : molecule}).sort({molecule_name:1}).exec(function (err,molecule) {
             //console.log(result);
             if (err) {
                 console.log(err);
             }
             else {
                 if(molecule != "") {
+                    async.parallel({
+                        Doctor : function(callback){
+                            Doctor.find({_id : molecule[0].submitted_by},function(doc_err,doctor_result){
+                                if(doc_err){
+                                    console.og(doc_err);
+                                }
+                                else{
+                                    callback(null,doctor_result);
+                                }
+                            });
+                        },
+                        Pharma : function(callback){
+                            Pharma.find({_id : disease[0].submitted_by},function(pha_err,pharma_result){
+                                if(pha_err){
+                                    console.log(pha_err);
+                                }
+                                else{
+                                    callback(null,pharma_result);
+                                }
+                            });
+                        }
+                    },function(errs,results){
+                        if(errs){
+                            console.log(errs);
+                        }
+                        else {
+                            if (results.Doctor[0] !== undefined) {
+                                datas['output'].push({
+                                    disease: disease,
+                                    names: results.Doctor[0].name,
+                                    titles : results.Doctor[0].title
+                                });
+                            }
+                            if (results.Pharma !== undefined){
+                                datas['output'].push({
+                                    disease: disease,
+                                    names: results.Pharma[0].name,
+                                    titles : results.Pharma[0].title
+                                });
+                            }
+                            res.render('home_profile_doctor',
+                                {
+                                    page: 'disease_data_view',
+                                    data: datas.output[0]
+                                });
+                        }
+                    });
                     res.render('home_profile_doctor',
                         {
                             page: 'molecule_data_view',
@@ -3293,7 +3342,6 @@ app.get('/health_care_provider',healthrequiresLogin,function(req,res) {
                             console.log(errs);
                         }
                         else {
-                            console.log(results);
                             if (results.Doctor[0] !== undefined) {
                                 datas['output'].push({
                                     disease: disease,
@@ -3308,7 +3356,6 @@ app.get('/health_care_provider',healthrequiresLogin,function(req,res) {
                                     titles : results.Pharma[0].title
                                 });
                             }
-                            console.log(datas.output[0]);
                             res.render('home_profile_doctor',
                                 {
                                     page: 'disease_data_view',
