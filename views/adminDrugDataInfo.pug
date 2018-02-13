@@ -22,7 +22,8 @@ html
         p warnings--#{result[0].warnings},
         p primarily_used_for--#{result[0].primarily_used_for}
 
-        h3
-          a(href="/adminDrugDataMakeLive?str_ticket="+result[0].ticket) Make it live
-        h3
-          a(href="/adminDrugDataIssue?str_ticket="+result[0].ticket) Having issue
+        if(result[0].issue_status != 0)
+            h3
+              a(href="/adminDrugDataMakeLive?str_ticket="+result[0].ticket) Make it live
+            h3
+              a(href="/adminDrugDataIssue?str_ticket="+result[0].ticket) Having issue

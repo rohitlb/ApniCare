@@ -5119,7 +5119,7 @@ app.get('/admin_activityDrug',adminrequiresLogin,function(req,res){
                                     console.log(err);
                                 }
                                 else{
-                                    if(results != '') {
+                                    if((results != '')&&(result.issue_status != 0)) {
                                         if (!data['submitted']) { data['submitted'] = [];}
                                         data['submitted'].push({
                                             name: results[0].name,
@@ -5140,7 +5140,7 @@ app.get('/admin_activityDrug',adminrequiresLogin,function(req,res){
                                     console.log(err);
                                 }
                                 else{
-                                    if(results != '') {
+                                    if((results != '')&&(result.issue_status != 0)) {
                                         if (!data['submitted']) {
                                             data['submitted'] = [];
                                         } // to check if it is the first time you are inserting inside data['brand'], in which case it needs to be initialized.
@@ -5617,7 +5617,7 @@ app.get('/admin_activityDisease',adminrequiresLogin,function(req,res){
                                 console.log(err);
                             }
                             else{
-                                if(results != '') {
+                                if((results != '')&&(result.issue_status != 0)) {
                                     if (!data['submitted']) { data['submitted'] = [];}
                                     data['submitted'].push({
                                         name: results[0].name,
@@ -5638,7 +5638,7 @@ app.get('/admin_activityDisease',adminrequiresLogin,function(req,res){
                                 console.log(err);
                             }
                             else{
-                                if(results != '') {
+                                if((results != '')&&(result.issue_status != 0)) {
                                     if (!data['submitted']) {
                                         data['submitted'] = [];
                                     } // to check if it is the first time you are inserting inside data['brand'], in which case it needs to be initialized.
@@ -5757,8 +5757,7 @@ app.get('/admin_activityMolecule',adminrequiresLogin,function(req,res){
                                 console.log(err);
                             }
                             else{
-                                if(results != '') {
-                                    if (!data['submitted']) { data['submitted'] = [];}
+                                if((results != '')&&(result.issue_status != 0)) {                                    if (!data['submitted']) { data['submitted'] = [];}
                                     data['submitted'].push({
                                         name: results[0].name,
                                         number: results[0].number,
@@ -5778,8 +5777,7 @@ app.get('/admin_activityMolecule',adminrequiresLogin,function(req,res){
                                 console.log(err);
                             }
                             else{
-                                if(results != '') {
-                                    if (!data['submitted']) {
+                                if((results != '')&&(result.issue_status != 0)) {                                    if (!data['submitted']) {
                                         data['submitted'] = [];
                                     } // to check if it is the first time you are inserting inside data['brand'], in which case it needs to be initialized.
                                     data['submitted'].push({
@@ -5897,9 +5895,9 @@ app.post('/adminDrugDataIssueSend',adminrequiresLogin,function(req,res){
                     status : 0
                 }
             });
-            dataissues.save(function(data_err,result){
+            dataissues.save(function(data_err){
                 if(data_err){
-                    console.log(err);
+                    console.log(data_err);
                 }
                 else{
                     DrugData.update({ticket : ticket},{
@@ -5908,7 +5906,7 @@ app.post('/adminDrugDataIssueSend',adminrequiresLogin,function(req,res){
                         }
                     },function(issue_err){
                         if(issue_err){
-                            console.log(err);
+                            console.log(issue_err);
                         }
                         else{
                             res.send({message : 'Drug issue registered'});
@@ -5943,12 +5941,23 @@ app.post('/adminDiseaseDataIssueSend',adminrequiresLogin,function(req,res){
                     status : 0
                 }
             });
-            dataissues.save(function(err,result){
-                if(err){
-                    console.log(err);
+            dataissues.save(function(dis_err){
+                if(dis_err){
+                    console.log(dis_err);
                 }
                 else{
-                    res.send({message : 'Disease issue registered'});
+                    DiseaseData.update({disease_name : disease},{
+                        $set : {
+                            issue_status : 0
+                        }
+                    },function(issue_err){
+                        if(issue_err){
+                            console.log(issue_err);
+                        }
+                        else{
+                            res.send({message : 'Disease issue registered'});
+                        }
+                    });
                 }
             });
         }
@@ -5978,12 +5987,23 @@ app.post('/adminMoleculeDataIssueSend',adminrequiresLogin,function(req,res){
                     status : 0
                 }
             });
-            dataissues.save(function(err,result){
-                if(err){
-                    console.log(err);
+            dataissues.save(function(mol_err){
+                if(mol_err){
+                    console.log(mol_err);
                 }
                 else{
-                    res.send({message : 'Molecule issue registered'});
+                    MoleculeData.update({molecule_name : molecule},{
+                        $set : {
+                            issue_status : 0
+                        }
+                    },function(issue_err){
+                        if(issue_err){
+                            console.log(issue_err);
+                        }
+                        else{
+                            res.send({message : 'Molecule issue registered'});
+                        }
+                    });
                 }
             });
         }
@@ -5998,33 +6018,209 @@ app.get('/adminDataIssueInfo',adminrequiresLogin,function(req,res){
 ////////////////////////// Admin / Activity/ Data Issue///////////
 
 app.get('/admin_activityDataIssue',adminrequiresLogin,function(req,res){
-    async.parallel({
-        Doctor : function(callback){
-            Doctor.find({},'-_id  name number issues.issueInfo issues.issueFrom issues.issueType',function(err,result){
-                if(err){
-                    console.log(err);
-                }
-                else{
-                    callback(null,result);
-                }
-            });
-        },
-        Pharma : function(callback){
-            Pharma.find({},'-_id name number issues.issueInfo issues.issueFrom issues.issueType',function(err,result){
-                if(err){
-                    console.log(err);
-                }
-                else{
-                    callback(null,result);
-                }
-            });
-        }
-    },function(err,result){
+    res.render('admin_activityDataIssue');
+});
+
+app.get('/admin_activityDrugIssueList',adminrequiresLogin,function(req,res){
+    DrugData.find({},function(err,strengths){
         if(err){
             console.log(err);
         }
         else{
-            res.render('admin_activityDataIssue',{data : result});
+            if(strengths){
+                var data = {};
+                data['submitted'] = [];
+                async.each(strengths,function (result,callback) {
+                    async.parallel({
+                        Doctor : function (callback) {
+                            Doctor.find({_id : result.submitted_by},'-_id name number').exec(function(err,results){
+                                if(err){
+                                    console.log(err);
+                                }
+                                else{
+                                    if((results != '')&&(result.issue_status == 0)) {
+                                        if (!data['submitted']) { data['submitted'] = [];}
+                                        data['submitted'].push({
+                                            name: results[0].name,
+                                            number: results[0].number,
+                                            str_ticket : result.ticket
+                                        });
+                                        callback(null, data);
+                                    }
+                                    else{
+                                        callback();
+                                    }
+                                }
+                            });
+                        },
+                        Pharma : function (callback) {
+                            Pharma.find({_id : result.submitted_by},'-_id name number').exec(function(err,results){
+                                if(err){
+                                    console.log(err);
+                                }
+                                else{
+                                    if((results != '')&&(result.issue_status == 0)) {
+                                        if (!data['submitted']) {
+                                            data['submitted'] = [];
+                                        } // to check if it is the first time you are inserting inside data['brand'], in which case it needs to be initialized.
+                                        data['submitted'].push({
+                                            name: results[0].name,
+                                            number: results[0].number,
+                                            str_ticket : result.ticket
+                                        });
+                                        callback(null, data);
+                                    }
+                                    else{
+                                        callback();
+                                    }
+                                }
+                            });
+                        }
+                    },function(err,results){
+                        callback();
+                    });
+                },function (err,results) {
+                    if(err){
+                        console.log(err);
+                    }
+                    res.render('admin_activityDrug', {result : data});
+                });
+            }
+        }
+    });
+});
+
+app.get('/admin_activityDiseaseIssueList',adminrequiresLogin,function(req,res){
+    DiseaseData.find({},function(err,diseases){
+        if(err){
+            console.log(err);
+        }
+        else{
+            var data = {};
+            data['submitted'] = [];
+            async.each(diseases,function (result,callback) {
+                async.parallel({
+                    Doctor : function (callback) {
+                        Doctor.find({_id : result.submitted_by},'-_id name number').exec(function(err,results){
+                            if(err){
+                                console.log(err);
+                            }
+                            else{
+                                if((results != '')&&(result.issue_status == 0)) {
+                                    if (!data['submitted']) { data['submitted'] = [];}
+                                    data['submitted'].push({
+                                        name: results[0].name,
+                                        number: results[0].number,
+                                        disease : result.disease_name
+                                    });
+                                    callback(null, data);
+                                }
+                                else{
+                                    callback(null,null);
+                                }
+                            }
+                        });
+                    },
+                    Pharma : function (callback) {
+                        Pharma.find({_id : result.submitted_by},'-_id name number').exec(function(err,results){
+                            if(err){
+                                console.log(err);
+                            }
+                            else{
+                                if((results != '')&&(result.issue_status == 0)) {
+                                    if (!data['submitted']) {
+                                        data['submitted'] = [];
+                                    } // to check if it is the first time you are inserting inside data['brand'], in which case it needs to be initialized.
+                                    data['submitted'].push({
+                                        name: results[0].name,
+                                        number: results[0].number,
+                                        disease : result.disease_name
+                                    });
+                                    callback(null, data);
+                                }
+                                else{
+                                    callback();
+                                }
+                            }
+                        });
+                    }
+                },function(err){
+                    callback();
+                });
+            },function (err) {
+                if(err){
+                    console.log(err);
+                }
+                res.render('admin_activityDisease', {result : data});
+            });
+        }
+    });
+});
+
+app.get('/admin_activityMoleculeIssueList',adminrequiresLogin,function(req,res){
+    MoleculeData.find({},function(err,molecules){
+        if(err){
+            console.log(err);
+        }
+        else{
+            var data = {};
+            data['submitted'] = [];
+            async.each(molecules,function (result,callback) {
+                async.parallel({
+                    Doctor : function (callback) {
+                        Doctor.find({_id : result.submitted_by},'-_id name number').exec(function(err,results){
+                            if(err){
+                                console.log(err);
+                            }
+                            else{
+                                if((results != '')&&(result.issue_status == 0)) {
+                                    if (!data['submitted']) { data['submitted'] = [];}
+                                    data['submitted'].push({
+                                        name: results[0].name,
+                                        number: results[0].number,
+                                        molecule : molecules[0].molecule_name
+                                    });
+                                    callback(null, data);
+                                }
+                                else{
+                                    callback();
+                                }
+                            }
+                        });
+                    },
+                    Pharma : function (callback) {
+                        Pharma.find({_id : result.submitted_by},'-_id name number').exec(function(err,results){
+                            if(err){
+                                console.log(err);
+                            }
+                            else{
+                                if((results != '')&&(result.issue_status == 0)) {
+                                    if (!data['submitted']) {
+                                    data['submitted'] = [];
+                                } // to check if it is the first time you are inserting inside data['brand'], in which case it needs to be initialized.
+                                    data['submitted'].push({
+                                        name: results[0].name,
+                                        number: results[0].number,
+                                        molecule : molecules[0].molecule_name
+                                    });
+                                    callback(null, data);
+                                }
+                                else{
+                                    callback();
+                                }
+                            }
+                        });
+                    }
+                },function(err){
+                    callback();
+                });
+            },function (err,result) {
+                if(err){
+                    console.log(err);
+                }
+                console.log(result);
+                res.render('admin_activityMolecule', {result : data});
+            });
         }
     });
 });

@@ -36,7 +36,8 @@ html
             p #{result[0].other_drug_interaction.info[j]}
         p source : #{result[0].source}
 
-        h3
-            a(href="/adminMoleculeDataMakeLive?molecule="+result[0].molecule_name) Make it live
-        h3
-            a(href="/adminMoleculeDataIssue?molecule="+result[0].molecule_name) Having issue
+        if(result[0].issue_status != 0)
+            h3
+                a(href="/adminDrugDataMakeLive?str_ticket=" + result[0].ticket) Make it live
+            h3
+                a(href="/adminDrugDataIssue?str_ticket=" + result[0].ticket) Having issue
