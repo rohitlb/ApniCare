@@ -24,6 +24,6 @@ html
 
         if(result[0].issue_status != 0)
             h3
-                a(href="/adminDrugDataMakeLive?str_ticket=" + result[0].ticket) Make it live
+                a(href="/adminDiseaseDataMakeLive?disease=" + result[0].disease_name) Make it live
             h3
-                a(href="/adminDrugDataIssue?str_ticket=" + result[0].ticket) Having issue
+                a(href="/adminDiseaseDataIssue?disease=" + result[0].disease_name) Having issue
