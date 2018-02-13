@@ -3239,7 +3239,8 @@ app.get('/health_care_provider',healthrequiresLogin,function(req,res) {
     }
 
     if(req.query.molecule) {
-
+        var datas = {};
+        datas['output'] = [];
         Molecule.find({molecule_name : molecule}).sort({molecule_name:1}).exec(function (err,molecule) {
             //console.log(result);
             if (err) {
@@ -3251,7 +3252,7 @@ app.get('/health_care_provider',healthrequiresLogin,function(req,res) {
                         Doctor : function(callback){
                             Doctor.find({_id : molecule[0].submitted_by},function(doc_err,doctor_result){
                                 if(doc_err){
-                                    console.og(doc_err);
+                                    console.log(doc_err);
                                 }
                                 else{
                                     callback(null,doctor_result);
@@ -3259,7 +3260,7 @@ app.get('/health_care_provider',healthrequiresLogin,function(req,res) {
                             });
                         },
                         Pharma : function(callback){
-                            Pharma.find({_id : disease[0].submitted_by},function(pha_err,pharma_result){
+                            Pharma.find({_id : molecule[0].submitted_by},function(pha_err,pharma_result){
                                 if(pha_err){
                                     console.log(pha_err);
                                 }
@@ -3273,32 +3274,28 @@ app.get('/health_care_provider',healthrequiresLogin,function(req,res) {
                             console.log(errs);
                         }
                         else {
+                            console.log(results);
                             if (results.Doctor[0] !== undefined) {
                                 datas['output'].push({
-                                    disease: disease,
+                                    molecule: molecule,
                                     names: results.Doctor[0].name,
                                     titles : results.Doctor[0].title
                                 });
                             }
                             if (results.Pharma !== undefined){
                                 datas['output'].push({
-                                    disease: disease,
+                                    molecule: molecule,
                                     names: results.Pharma[0].name,
                                     titles : results.Pharma[0].title
                                 });
                             }
                             res.render('home_profile_doctor',
                                 {
-                                    page: 'disease_data_view',
-                                    data: datas.output[0]
+                                    page: 'molecule_data_view',
+                                    data: result
                                 });
                         }
                     });
-                    res.render('home_profile_doctor',
-                        {
-                            page: 'molecule_data_view',
-                            data: result
-                        });
                 }
                 else{
                     res.send({details : "failure", message : "No such molecule exist"});
@@ -3320,7 +3317,7 @@ app.get('/health_care_provider',healthrequiresLogin,function(req,res) {
                         Doctor : function(callback){
                             Doctor.find({_id : disease[0].submitted_by},function(doc_err,doctor_result){
                                 if(doc_err){
-                                    console.og(doc_err);
+                                    console.log(doc_err);
                                 }
                                 else{
                                     callback(null,doctor_result);
