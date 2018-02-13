@@ -1,7 +1,4 @@
-p {
-    font: italic bold 20px Verdana, serif;
-    color: inherit;
-}
+
 .button, .reset {
     background-color: #660099;
     border: 1px solid grey;

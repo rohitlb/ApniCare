@@ -70,59 +70,56 @@ div.row
             div.col.grey.lighten-3.s12.m8.l8.offset-l1
                 each val in data
                     h3.about#data_name #{val.disease_name.toUpperCase()}
+                    br
                     if(val.symptoms)
-                        li.section.scrollspy#symptoms
-                            span.bold What are the Symptoms of #{val.disease_name.toUpperCase()}?
-                            br
+                        .section.scrollspy#symptoms
+                            h5.bold What are the Symptoms of #{val.disease_name.toUpperCase()}?
                             span.next_line.flow-text #{val.symptoms}
                     if(val.risk_factor)
-                        li.section.scrollspy#risk
-                            span.bold Who is at Risk for #{val.disease_name.toUpperCase()}?
-                            br
+                        .section.scrollspy#risk
+                            h5.bold Who is at Risk for #{val.disease_name.toUpperCase()}?
                             span.next_line.flow-text #{val.risk_factor}
                     if(val.cause)
-                        li.section.scrollspy#cause
-                            span.bold What Causes #{val.disease_name.toUpperCase()}?
-                            br
+                        .section.scrollspy#cause
+                            h5.bold What Causes #{val.disease_name.toUpperCase()}?
                             span.next_line.flow-text #{val.cause}
                     if(val.diagnosis)
-                        li.section.scrollspy#diagnosis
-                            span.bold  How is #{val.disease_name.toUpperCase()} Diagnosed?
-                            br
+                        .section.scrollspy#diagnosis
+                            h5.bold  How is #{val.disease_name.toUpperCase()} Diagnosed?
                             each other,index in val.diagnosis.subhead
                                 //each sub, index in other.subhead
-                                h5.bold= other
+                                p
+                                    span.bold= other
                                     span.small_font.left ►
                                 span.next_line.small_font= val.diagnosis.info[index]
 
                     if(val.organs)
-                        li.section.scrollspy#organs
-                            span.bold  Which Organs are affected by #{val.disease_name.toUpperCase()}?
-                            br
+                        .section.scrollspy#organs
+                            h5.bold  Which Organs are affected by #{val.disease_name.toUpperCase()}?
                             each other,index in val.organs.subhead
                                     //each sub, index in other.subhead
-                                    h5.bold= other
+                                    p
+                                        span.bold= other
                                         span.small_font.left ►
                                     span.next_line.small_font= val.organs.info[index]
 
                     if(val.treatment)
-                        li.section.scrollspy#treatment
-                            span.bold How is #{val.disease_name.toUpperCase()} Treated?
-                            br
+                        .section.scrollspy#treatment
+                            h5.bold How is #{val.disease_name.toUpperCase()} Treated?
                             span.next_line.flow-text #{val.treatment}
                     if(val.outlook)
-                        li.section.scrollspy#outlook
-                            span.bold What is the Outlook for #{val.disease_name.toUpperCase()}?
-                            br
+                        .section.scrollspy#outlook
+                            h5.bold What is the Outlook for #{val.disease_name.toUpperCase()}?
                             span.next_line.flow-text #{val.outlook}
                     if(val.prevention)
-                        li.section.scrollspy#prevention
-                            span.bold How can #{val.disease_name.toUpperCase()} be Prevented?
-                            br
+                        .section.scrollspy#prevention
+                            h5.bold How can #{val.disease_name.toUpperCase()} be Prevented?
                             span.next_line.flow-text #{val.prevention}
                     h5.section.scrollspy#source Source:&nbsp
                         br
                         span.next_line #{val.source}
+                div.col.s12.m12.l12.grey.lighten-1
+                        span Information Submitted By:-
 
             div.col.l3.m4.hide-on-small-only
                 ul.section.table-of-contents(style='position:fixed;padding-bottom:10px;')
@@ -144,6 +141,10 @@ div.row
                         a(href='#prevention') Prevention
                     li
                         a(href='#source') Source of Information
+
+            //div
+            //    div.col.s12.l12.m12
+            //        span Information Submitted By:-
 
         div
             br
