@@ -54,7 +54,7 @@ var Issue = require('./model/issue');
 var app = express();
 
 var store = new mongoDBStore({
-    uri : 'mongodb://127.0.0.1/ApniCaresite',
+    uri : 'mongodb://127.0.0.1/ApniCare',
     collection : 'mySessions'
 });
 
@@ -6310,7 +6310,7 @@ app.use(function(req, res) {
 //==========================Database connection===========================
 
 //data base connection and opening port
-var db = 'mongodb://127.0.0.1/ApniCaresite';
+var db = 'mongodb://127.0.0.1/ApniCare';
 mongoose.connect(db, {useMongoClient: true});
 
 //=============================Start server========================
