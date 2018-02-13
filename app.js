@@ -5902,7 +5902,7 @@ app.post('/adminDrugDataIssueSend',adminrequiresLogin,function(req,res){
                     console.log(err);
                 }
                 else{
-                    res.send({message : 'Issue send'});
+                    res.send({message : 'Drug issue registered'});
                 }
             });
         }
@@ -5923,70 +5923,21 @@ app.post('/adminDiseaseDataIssueSend',adminrequiresLogin,function(req,res){
             console.log(err);
         }
         else{
-            async.parallel({
-                Doctor : function(callback){
-                    Doctor.find({_id : name[0].submitted_by},function(errs,result){
-                        if(errs){
-                            console.log(errs);
-                        }
-                        else{
-                            callback(null,result);
-                        }
-                    });
-                },
-                Pharma : function(callback){
-                    Pharma.find({_id : name[0].submitted_by},function(errs,result){
-                        if(errs){
-                            console.log(errs);
-                        }
-                        else{
-                            callback(null,result);
-                        }
-                    });
+            var dataissues = new Issue({
+                issues : {
+                    issueIn : disease,
+                    issueType : 'Disease Index',
+                    issueInfo : issue,
+                    issueFrom : req.session.admin,
+                    status : 0
                 }
-            },function(errs,result) {
-                if (errs) {
-                    console.log(errs);
+            });
+            dataissues.save(function(err,result){
+                if(err){
+                    console.log(err);
                 }
-                else {
-                    if (result.Pharma != "") {
-                        Pharma.update({_id: name[0].submitted_by}, {
-                            $push: {
-                                issues: {
-                                    issueType: 'Disease Index',
-                                    issueIn: disease,
-                                    issueFrom: req.session.admin,
-                                    issueInfo: issue
-                                }
-                            }
-                        }, function (uperr) {
-                            if (uperr) {
-                                console.log(uperr);
-                            }
-                            else {
-                                res.send({message: 'Issue send to Pharma'});
-                            }
-                        });
-                    }
-                    if (result.Doctor != "") {
-                        Doctor.update({_id: name[0].submitted_by}, {
-                            $push: {
-                                issues: {
-                                    issueType: 'Disease Index',
-                                    issueIn: disease,
-                                    issueFrom: req.session.admin,
-                                    issueInfo: issue
-                                }
-                            }
-                        }, function (uperr) {
-                            if (uperr) {
-                                console.log(uperr);
-                            }
-                            else {
-                                res.send({message: 'Issue send to Doctor'});
-                            }
-                        });
-                    }
+                else{
+                    res.send({message : 'Disease issue registered'});
                 }
             });
         }
@@ -6007,70 +5958,21 @@ app.post('/adminMoleculeDataIssueSend',adminrequiresLogin,function(req,res){
             console.log(err);
         }
         else{
-            async.parallel({
-                Doctor : function(callback){
-                    Doctor.find({_id : name[0].submitted_by},function(errs,result){
-                        if(errs){
-                            console.log(errs);
-                        }
-                        else{
-                            callback(null,result);
-                        }
-                    });
-                },
-                Pharma : function(callback){
-                    Pharma.find({_id : name[0].submitted_by},function(errs,result){
-                        if(errs){
-                            console.log(errs);
-                        }
-                        else{
-                            callback(null,result);
-                        }
-                    });
+            var dataissues = new Issue({
+                issues : {
+                    issueIn : molecule,
+                    issueType : 'Molecule Index',
+                    issueInfo : issue,
+                    issueFrom : req.session.admin,
+                    status : 0
                 }
-            },function(errs,result){
-                if(errs){
-                    console.log(errs);
+            });
+            dataissues.save(function(err,result){
+                if(err){
+                    console.log(err);
                 }
-                else {
-                    if (result.Pharma != "") {
-                        Pharma.update({_id: name[0].submitted_by}, {
-                            $push: {
-                                issues: {
-                                    issueType: 'Molecule Index',
-                                    issueIn: molecule,
-                                    issueFrom: req.session.admin,
-                                    issueInfo: issue
-                                }
-                            }
-                        }, function (uperr) {
-                            if (uperr) {
-                                console.log(uperr);
-                            }
-                            else {
-                                res.send({message: 'Issue send to Pharma'});
-                            }
-                        });
-                    }
-                    if (result.Doctor != "") {
-                        Doctor.update({_id: name[0].submitted_by}, {
-                            $push: {
-                                issues: {
-                                    issueType: 'Molecule Index',
-                                    issueIn: molecule,
-                                    issueFrom: req.session.admin,
-                                    issueInfo: issue
-                                }
-                            }
-                        }, function (uperr) {
-                            if (uperr) {
-                                console.log(uperr);
-                            }
-                            else {
-                                res.send({message: 'Issue send to Doctor'});
-                            }
-                        });
-                    }
+                else{
+                    res.send({message : 'Molecule issue registered'});
                 }
             });
         }
