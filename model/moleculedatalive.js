@@ -23,7 +23,8 @@ var AdminMoleculeData = new Schema({
     //list of contra indications
     contraindications : {subhead : [{type : String, trim:true}],info : [{type : String, trim:true}]},
     source : {type : String, trim:true},
-    submitted_by : {type : String, trim:true}
+    submitted_by : {type : String, trim:true},
+    issue_status : {type : String}
 });
 
 module.exports = mongoose.model('moleculedata',AdminMoleculeData);

@@ -5897,12 +5897,23 @@ app.post('/adminDrugDataIssueSend',adminrequiresLogin,function(req,res){
                     status : 0
                 }
             });
-            dataissues.save(function(err,result){
-                if(err){
+            dataissues.save(function(data_err,result){
+                if(data_err){
                     console.log(err);
                 }
                 else{
-                    res.send({message : 'Drug issue registered'});
+                    DrugData.update({ticket : ticket},{
+                        $set : {
+                            issue_status : 0
+                        }
+                    },function(issue_err){
+                        if(issue_err){
+                            console.log(err);
+                        }
+                        else{
+                            res.send({message : 'Drug issue registered'});
+                        }
+                    });
                 }
             });
         }

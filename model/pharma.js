@@ -32,13 +32,7 @@ var Pharma = new mongoose.Schema({
     //yet left
     //yet left
     registered_at : {type: Date, required: true, default: Date.now },
-    status : {type : String , trim : true},
-    issues : [{
-        issueIn : {type : String, trim : true},
-        issueType : {type : String, trim : true},
-        issueInfo : {type : String, trim : true} ,
-        issueFrom : {type : String, trim : true}
-    }]
+    status : {type : String , trim : true}
 });
 
 module.exports = mongoose.model('pharma',Pharma);

@@ -32,7 +32,7 @@ var Doctor = new mongoose.Schema({
     //yet left
     //yet left
     registered_at : {type: Date, required: true, default: Date.now },
-    status : {type : String},
+    status : {type : String}
 });
 
 module.exports = mongoose.model('Doctor',Doctor);

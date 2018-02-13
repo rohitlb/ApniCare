@@ -14,7 +14,8 @@ var AdminDiseaseData = new Schema({
     outlook : {type : String, trim:true},
     prevention : {type : String, trim:true},
     source : {type : String, trim:true},
-    submitted_by : {type : String, trim:true}
+    submitted_by : {type : String, trim:true},
+    issue_status : {type : String}
 });
 
 module.exports = mongoose.model('diseasedata',AdminDiseaseData);

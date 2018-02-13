@@ -20,7 +20,8 @@ var AdminDrugData = new Schema({
     dose_taken : {type : String, trim:true},
     dose_timing : {type : String, trim:true},
     warnings : {type : String, trim:true},
-    submitted_by : {type : String, trim:true}
+    submitted_by : {type : String, trim:true},
+    issue_status : {type : String}
 });
 
 module.exports = mongoose.model('drugdata',AdminDrugData);
