@@ -3259,18 +3259,62 @@ app.get('/health_care_provider',healthrequiresLogin,function(req,res) {
     }
 
     if(req.query.disease) {
-
+        var datas = {};
+        datas['output'] = [];
         Disease.find({disease_name : disease}).sort({disease_name:1}).exec(function (err,disease) {
             if (err) {
                 console.log(err);
             }
             else {
                 if(disease != "") {
-                    res.render('home_profile_doctor',
-                        {
-                            page: 'disease_data_view',
-                            data: disease
-                        });
+                    async.parallel({
+                        Doctor : function(callback){
+                            Doctor.find({_id : disease[0].submitted_by},function(doc_err,doctor_result){
+                                if(doc_err){
+                                    console.og(doc_err);
+                                }
+                                else{
+                                    callback(null,doctor_result);
+                                }
+                            });
+                        },
+                        Pharma : function(callback){
+                            Pharma.find({_id : disease[0].submitted_by},function(pha_err,pharma_result){
+                                if(pha_err){
+                                    console.log(pha_err);
+                                }
+                                else{
+                                    callback(null,pharma_result);
+                                }
+                            });
+                        }
+                    },function(errs,results){
+                        if(errs){
+                            console.log(errs);
+                        }
+                        else {
+                            if (results.Doctors != "") {
+                                datas['output'].push({
+                                    disease: disease,
+                                    names: results.Doctor[0].name,
+                                    titles : results.Doctor[0].title
+                                });
+                            }
+                            if (results.Pharma != "") {
+                                datas['output'].push({
+                                    disease: disease,
+                                    names: results.Pharma[0].name,
+                                    titles : results.Pharma[0].title
+                                });
+                            }
+                            console.log(datas.output[0]);
+                            res.render('home_profile_doctor',
+                                {
+                                    page: 'disease_data_view',
+                                    data: datas.output[0]
+                                });
+                        }
+                    });
                 }
                 else{
                     res.send({details : "failure", message : "No such disease exist"});

@@ -68,7 +68,8 @@ div.row
 
         div.col.s12.m12.l12
             div.col.grey.lighten-3.s12.m8.l8.offset-l1
-                each val in data
+                 //-var val = data.disease
+                 each val in data.disease
                     h3.about#data_name #{val.disease_name.toUpperCase()}
                     br
                     if(val.symptoms)
@@ -118,8 +119,8 @@ div.row
                     h5.section.scrollspy#source Source:&nbsp
                         br
                         span.next_line #{val.source}
-                div.col.s12.m12.l12.grey.lighten-1
-                        span Information Submitted By:-
+                    div.col.s12.m12.l12.grey.lighten-1
+                        span Information Submitted By:- #{data.titles} #{data.names}
 
             div.col.l3.m4.hide-on-small-only
                 ul.section.table-of-contents(style='position:fixed;padding-bottom:10px;')
@@ -157,7 +158,7 @@ div.row
                 h4.center.teal-text.darken-2 Your Feedback is valuable...
                 form.col.l10.m10.s10#form_feedback(method='POST')
                     div
-                        each val in data
+                        each val in data.disease
                             input#about(type="hidden" value='Disease Data-' + (val.disease_name.toUpperCase()))
                         span How useful is the data that we provide?
                         br
