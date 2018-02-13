@@ -69,155 +69,159 @@ div.row
         div.col.s12.m12.l12
             div.col.grey.lighten-3.s12.m8.l8.offset-l1
                 ul
-        //            each val in data
-        //                h3.center.about.bold.section.scrollspy#mol_name.next_line.text_upper_case <strong>#{val.molecule_name}</strong>
-        //                h5.bold.section.scrollspy#drug_cat.small_font.next_line.to_capital [#{val.drug_categories}]
-        //                h5
-        //                    span.section.scrollspy#short.next_line.to_capital #{val.description}
-        //                if(val.absorption!= '' || val.distribution!= '' || val.metabolism!=''  || val.excretion!='')
-        //                    h5 <strong>PHARMACOKINETICS</strong>
-        //                    if(val.absorption)
-        //
-        //                        h5.section.scrollspy#absorption Absorption
-        //                            span.small_font.left ►
-        //                        span.small_font.next_line.to_capital #{val.absorption}
-        //                    if(val.distribution)
-        //
-        //                        h5.bold.section.scrollspy#distribution Distribution
-        //                            span.small_font.left ►
-        //                        span.small_font.next_line.to_capital #{val.distribution}
-        //                    if(val.metabolism)
-        //
-        //                        h5.bold.section.scrollspy#metabolism Metabolism
-        //                            span.small_font.left ►
-        //                        span.small_font.next_line.to_capital #{val.metabolism}
-        //                    if(val.excretion)
-        //
-        //                        h5.bold.section.scrollspy#excretion Excretion
-        //                            span.small_font.left ►
-        //                        span.small_font.next_line.to_capital #{val.excretion}
-        //                if(val.side_effect)
-        //                    h5.bold.section.scrollspy#adverse <strong>ADVERSE REACTION</strong>
-        //                    span.small_font.next_line.to_capital #{val.side_effect}
-        //                if(val.precaution)
-        //                    h5.bold.section.scrollspy#precaution <strong>SPECIAL PRECAUTIONS</strong>
-        //                    span.small_font.next_line.to_capital #{val.precaution}
-        //                if(val.other_drug_interaction)
-        //                    h5.bold.section.scrollspy#drug_int <strong>OTHER DRUG INTERACTION</strong>
-        //                    each j,index in val.other_drug_interaction.subhead
-        //                        h5.bold.to_capital= j
-        //                            span.small_font.left ►
-        //                        span.next_line.small_font.to_capital= val.other_drug_interaction.info[index]
-        //
-        //                if(val.other_interaction)
-        //                    h5.bold.section.scrollspy#other <strong>OTHER INTERACTION</strong>
-        //                    each other,index in val.other_interaction.subhead
-        //                        h5.bold.to_capital= other
-        //                            span.small_font.left ►
-        //                        span.next_line.small_font.to_capital= val.other_interaction.info[index]
-        //
-        //                if(val.dosage)
-        //                    h5.bold.section.scrollspy#dosage <strong>DOSAGE</strong>
-        //                    each dose,index in val.dosage.subhead
-        //                        h5.bold.to_capital= dose
-        //                            span.small_font.left ►
-        //                        span.next_line.small_font.to_capital= val.dosage.info[index]
-        //
-        //                if(val.food)
-        //                    h5.bold.section.scrollspy#food <strong>TAKEN (BEFORE/AFTER) FOOD</strong>
-        //                    span.small_font.next_line.to_capital #{val.food}
-        //                if(val.contraindications)
-        //                    h5.bold.section.scrollspy#contraindications <strong>LIST OF CONTRAINDICATIONS</strong>
-        //                    each cont,index in val.contraindications.subhead
-        //                        h5.bold.to_capital= cont
-        //                            span.small_font.left ►
-        //                        span.next_line.small_font.to_capital= val.contraindications.info[index]
-        //                if(val.source)
-        //                    h5.bold.section.scrollspy#source <strong>SOURCE OF INFORMATION</strong>
-        //                    span.small_font.next_line.to_capital #{val.source}
-        //
-        //    div.col.m4.l3.hide-on-small-only
-        //        each val in data
-        //            ul.section.table-of-contents(style='position:fixed;padding-bottom:10px;')
-        //                li
-        //                    a(href='#mol_name') Molecule Name
-        //                li
-        //                    a(href='#drug_cat') Category
-        //                li
-        //                    a(href='#short') Short Description
-        //                if(val.absorption)
-        //                    li
-        //                        a(href='#absorption') Absorption
-        //                if(val.distribution)
-        //                    li
-        //                        a(href='#distribution') Distribution
-        //                if(val.metabolism)
-        //                    li
-        //                        a(href='#metabolism') Metabolism
-        //                if(val.excretion)
-        //                    li
-        //                        a(href='#excretion') Excretion
-        //                if(val.side_effect)
-        //                    li
-        //                        a(href='#adverse') Adverse Reaction
-        //                if(val.precaution)
-        //                    li
-        //                        a(href='#precautions') Precautions
-        //                if(val.other_drug_interaction)
-        //                    li
-        //                        a(href='#drug_int') Other Drug Interactions
-        //                if(val.other_interaction)
-        //                    li
-        //                        a(href='#other') Other Interactions
-        //                if(val.dosage)
-        //                    li
-        //                        a(href='#dosage') Dosage
-        //                if(val.food)
-        //                    li
-        //                        a(href='#food') Food Interactions
-        //                if(val.contraindications)
-        //                    li
-        //                        a(href='#contraindications') List of contraindications
-        //                if(val.source)
-        //                    li
-        //                        a(href='#source') Source of Information
-        //
-        //div
-        //    br
-        //    br
-        //    div.col.s12.l12.m12.grey.lighten-1(style='padding:5px;margin-top:20px;')
-        //        a.black-text.modal-trigger(href='#modal2') <strong>Give a Feedback on the above data</strong>
-        //            i.material-icons.left.black-text feedback
-        //div.modal#modal2
-        //    div.modal-content
-        //        h4.center.teal-text.darken-2 Your Feedback is valuable...
-        //        form.col.l10.m10.s10#form_feedback(method='POST')
-        //            div
-        //                each val in data
-        //                    input#about(type="hidden" value='Molecule Data-' + (val.molecule_name.toUpperCase()))
-        //                span How useful is the data that we provide?
-        //                br
-        //                br
-        //                input.with-gap#radio1(name='radio1_feedback' type='radio' value='Very Useful' checked)
-        //                label(for='radio1') Very Useful&nbsp
-        //                input.with-gap#radio2(name='radio1_feedback' type='radio' value='Useful')
-        //                label(for='radio2') Useful&nbsp
-        //                input.with-gap#radio3(name='radio1_feedback' type='radio' value='Average')
-        //                label(for='radio3') Average&nbsp
-        //                input.with-gap#radio4(name='radio1_feedback' type='radio' value='Not Useful')
-        //                label(for='radio4') Not Useful&nbsp
-        //                input.with-gap#radio5(name='radio1_feedback' type='radio' value='Not Useful At All')
-        //                label(for='radio5') Not Useful At All
-        //
-        //            br
-        //            div.input-field
-        //                span Suggest changes in data
-        //                textarea.to_capital#suggestion(style='height:90px;' required)
-        //                label(for='suggestion')
-        //            br
-        //
-        //            div.row
-        //                div.col.s6.l4.m4.offset-l1
-        //                    input.reset(type='reset')
-        //                div.col.s6.l4.m4.offset-l3
-        //                    input.button#submit_feedback(type='submit')
+                    each val in data.molecule
+                        h3.center.about.bold.section.scrollspy#mol_name.next_line.text_upper_case <strong>#{val.molecule_name}</strong>
+                        h5.bold.section.scrollspy#drug_cat.small_font.next_line.to_capital [#{val.drug_categories}]
+                        h5
+                            span.section.scrollspy#short.next_line.to_capital #{val.description}
+                        if(val.absorption!= '' || val.distribution!= '' || val.metabolism!=''  || val.excretion!='')
+                            h5 <strong>PHARMACOKINETICS</strong>
+                            if(val.absorption)
+
+                                h5.section.scrollspy#absorption Absorption
+                                    span.small_font.left ►
+                                span.small_font.next_line.to_capital #{val.absorption}
+                            if(val.distribution)
+
+                                h5.bold.section.scrollspy#distribution Distribution
+                                    span.small_font.left ►
+                                span.small_font.next_line.to_capital #{val.distribution}
+                            if(val.metabolism)
+
+                                h5.bold.section.scrollspy#metabolism Metabolism
+                                    span.small_font.left ►
+                                span.small_font.next_line.to_capital #{val.metabolism}
+                            if(val.excretion)
+
+                                h5.bold.section.scrollspy#excretion Excretion
+                                    span.small_font.left ►
+                                span.small_font.next_line.to_capital #{val.excretion}
+                        if(val.side_effect)
+                            h5.bold.section.scrollspy#adverse <strong>ADVERSE REACTION</strong>
+                            span.small_font.next_line.to_capital #{val.side_effect}
+                        if(val.precaution)
+                            h5.bold.section.scrollspy#precaution <strong>SPECIAL PRECAUTIONS</strong>
+                            span.small_font.next_line.to_capital #{val.precaution}
+                        if(val.other_drug_interaction)
+                            h5.bold.section.scrollspy#drug_int <strong>OTHER DRUG INTERACTION</strong>
+                            each j,index in val.other_drug_interaction.subhead
+                                h5.bold.to_capital= j
+                                    span.small_font.left ►
+                                span.next_line.small_font.to_capital= val.other_drug_interaction.info[index]
+
+                        if(val.other_interaction)
+                            h5.bold.section.scrollspy#other <strong>OTHER INTERACTION</strong>
+                            each other,index in val.other_interaction.subhead
+                                h5.bold.to_capital= other
+                                    span.small_font.left ►
+                                span.next_line.small_font.to_capital= val.other_interaction.info[index]
+
+                        if(val.dosage)
+                            h5.bold.section.scrollspy#dosage <strong>DOSAGE</strong>
+                            each dose,index in val.dosage.subhead
+                                h5.bold.to_capital= dose
+                                    span.small_font.left ►
+                                span.next_line.small_font.to_capital= val.dosage.info[index]
+
+                        if(val.food)
+                            h5.bold.section.scrollspy#food <strong>TAKEN (BEFORE/AFTER) FOOD</strong>
+                            span.small_font.next_line.to_capital #{val.food}
+                        if(val.contraindications)
+                            h5.bold.section.scrollspy#contraindications <strong>LIST OF CONTRAINDICATIONS</strong>
+                            each cont,index in val.contraindications.subhead
+                                h5.bold.to_capital= cont
+                                    span.small_font.left ►
+                                span.next_line.small_font.to_capital= val.contraindications.info[index]
+                        if(val.source)
+                            h5.bold.section.scrollspy#source <strong>SOURCE OF INFORMATION</strong>
+                            span.small_font.next_line.to_capital #{val.source}
+                        h5.right
+                            span.small_font Information Submitted By :-
+                            br
+                            span #{data.titles} #{data.names}
+
+            div.col.m4.l3.hide-on-small-only
+                each val in data.molecule
+                    ul.section.table-of-contents(style='position:fixed;padding-bottom:10px;')
+                        li
+                            a(href='#mol_name') Molecule Name
+                        li
+                            a(href='#drug_cat') Category
+                        li
+                            a(href='#short') Short Description
+                        if(val.absorption)
+                            li
+                                a(href='#absorption') Absorption
+                        if(val.distribution)
+                            li
+                                a(href='#distribution') Distribution
+                        if(val.metabolism)
+                            li
+                                a(href='#metabolism') Metabolism
+                        if(val.excretion)
+                            li
+                                a(href='#excretion') Excretion
+                        if(val.side_effect)
+                            li
+                                a(href='#adverse') Adverse Reaction
+                        if(val.precaution)
+                            li
+                                a(href='#precautions') Precautions
+                        if(val.other_drug_interaction)
+                            li
+                                a(href='#drug_int') Other Drug Interactions
+                        if(val.other_interaction)
+                            li
+                                a(href='#other') Other Interactions
+                        if(val.dosage)
+                            li
+                                a(href='#dosage') Dosage
+                        if(val.food)
+                            li
+                                a(href='#food') Food Interactions
+                        if(val.contraindications)
+                            li
+                                a(href='#contraindications') List of contraindications
+                        if(val.source)
+                            li
+                                a(href='#source') Source of Information
+
+        div
+            br
+            br
+            div.col.s12.l12.m12.grey.lighten-1(style='padding:5px;margin-top:20px;')
+                a.black-text.modal-trigger(href='#modal2') <strong>Give a Feedback on the above data</strong>
+                    i.material-icons.left.black-text feedback
+        div.modal#modal2
+            div.modal-content
+                h4.center.teal-text.darken-2 Your Feedback is valuable...
+                form.col.l10.m10.s10#form_feedback(method='POST')
+                    div
+                        each val in data
+                            input#about(type="hidden" value='Molecule Data-' + (val.molecule_name))
+                        span How useful is the data that we provide?
+                        br
+                        br
+                        input.with-gap#radio1(name='radio1_feedback' type='radio' value='Very Useful' checked)
+                        label(for='radio1') Very Useful&nbsp
+                        input.with-gap#radio2(name='radio1_feedback' type='radio' value='Useful')
+                        label(for='radio2') Useful&nbsp
+                        input.with-gap#radio3(name='radio1_feedback' type='radio' value='Average')
+                        label(for='radio3') Average&nbsp
+                        input.with-gap#radio4(name='radio1_feedback' type='radio' value='Not Useful')
+                        label(for='radio4') Not Useful&nbsp
+                        input.with-gap#radio5(name='radio1_feedback' type='radio' value='Not Useful At All')
+                        label(for='radio5') Not Useful At All
+
+                    br
+                    div.input-field
+                        span Suggest changes in data
+                        textarea.to_capital#suggestion(style='height:90px;' required)
+                        label(for='suggestion')
+                    br
+
+                    div.row
+                        div.col.s6.l4.m4.offset-l1
+                            input.reset(type='reset')
+                        div.col.s6.l4.m4.offset-l3
+                            input.button#submit_feedback(type='submit')

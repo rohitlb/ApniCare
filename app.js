@@ -3268,50 +3268,50 @@ app.get('/health_care_provider',healthrequiresLogin,function(req,res) {
             else {
                 if(molecule != "") {
                     async.parallel({
-                        Doctor : function(callback){
-                            Doctor.find({_id : molecule[0].submitted_by},function(doc_err,doctor_result){
-                                if(doc_err){
+                        Doctor: function (callback) {
+                            Doctor.find({_id: molecule[0].submitted_by}, function (doc_err, doctor_result) {
+                                if (doc_err) {
                                     console.log(doc_err);
                                 }
-                                else{
-                                    callback(null,doctor_result);
+                                else {
+                                    callback(null, doctor_result);
                                 }
                             });
                         },
-                        Pharma : function(callback){
-                            Pharma.find({_id : molecule[0].submitted_by},function(pha_err,pharma_result){
-                                if(pha_err){
+                        Pharma: function (callback) {
+                            Pharma.find({_id: molecule[0].submitted_by}, function (pha_err, pharma_result) {
+                                if (pha_err) {
                                     console.log(pha_err);
                                 }
-                                else{
-                                    callback(null,pharma_result);
+                                else {
+                                    callback(null, pharma_result);
                                 }
                             });
                         }
-                    },function(errs,results){
-                        if(errs){
+                    }, function (errs, results) {
+                        if (errs) {
                             console.log(errs);
                         }
                         else {
-                            console.log(results);
                             if (results.Doctor[0] !== undefined) {
                                 datas['output'].push({
                                     molecule: molecule,
                                     names: results.Doctor[0].name,
-                                    titles : results.Doctor[0].title
+                                    titles: results.Doctor[0].title
                                 });
                             }
-                            if (results.Pharma !== undefined){
+                            if (results.Pharma[0] !== undefined) {
                                 datas['output'].push({
                                     molecule: molecule,
                                     names: results.Pharma[0].name,
-                                    titles : results.Pharma[0].title
+                                    titles: results.Pharma[0].title
                                 });
                             }
+                            console.log(datas.output[0]);
                             res.render('home_profile_doctor',
                                 {
                                     page: 'molecule_data_view',
-                                    data: result
+                                    data: datas.output[0]
                                 });
                         }
                     });
@@ -5851,72 +5851,70 @@ app.get('/adminDiseaseDataMakeLive',adminrequiresLogin,function(req,res){
 
 /////////////////////////////Molecule data Live////////////////////////
 
-app.get('/admin_activityMolecule',adminrequiresLogin,function(req,res){
-    MoleculeData.find({},function(err,molecules){
-        if(err){
+app.get('/admin_activityMolecule',adminrequiresLogin,function(req,res) {
+    MoleculeData.find({}, function (err, molecule) {
+        if (err) {
             console.log(err);
         }
-        else{
+        else {
             var data = {};
             data['submitted'] = [];
-            async.each(molecules,function (result,callback) {
-                console.log(result);
+            async.each(molecule, function (result, callback) {
                 async.parallel({
-                    Doctor : function (callback) {
-                        Doctor.find({_id : result.submitted_by},'-_id name number').exec(function(err,results){
-                            if(err){
+                    Doctor: function (callback) {
+                        Doctor.find({_id: result.submitted_by}, '-_id name number').exec(function (err, results) {
+                            if (err) {
                                 console.log(err);
                             }
-                            else{
-                                console.log(result.issue_status);
-                                if((results != '')&&(result.issue_status != 0)) {
-                                    if (!data['submitted']) { data['submitted'] = [];}
+                            else {
+                                if ((results != '') && (result.issue_status != 0)) {
+                                    if (!data['submitted']) {
+                                        data['submitted'] = [];
+                                    }
                                     data['submitted'].push({
                                         name: results[0].name,
                                         number: results[0].number,
-                                        molecule : molecules[0].molecule_name
+                                        molecule: result.molecule_name
                                     });
                                     callback(null, data);
                                 }
-                                else{
-                                    callback();
+                                else {
+                                    callback(null, null);
                                 }
                             }
                         });
                     },
-                    Pharma : function (callback) {
-                        Pharma.find({_id : result.submitted_by},'-_id name number').exec(function(err,results){
-                            if(err){
+                    Pharma: function (callback) {
+                        Pharma.find({_id: result.submitted_by}, '-_id name number').exec(function (err, results) {
+                            if (err) {
                                 console.log(err);
                             }
-                            else{
-                                console.log(result.issue_status);
-                                if((results != '')&&(result.issue_status != 0)) {
+                            else {
+                                if ((results != '') && (result.issue_status != 0)) {
                                     if (!data['submitted']) {
                                         data['submitted'] = [];
                                     } // to check if it is the first time you are inserting inside data['brand'], in which case it needs to be initialized.
                                     data['submitted'].push({
                                         name: results[0].name,
                                         number: results[0].number,
-                                        molecule : molecules[0].molecule_name
+                                        disease: result.disease_name
                                     });
                                     callback(null, data);
                                 }
-                                else{
+                                else {
                                     callback();
                                 }
                             }
                         });
                     }
-                },function(err){
+                }, function (err) {
                     callback();
                 });
-            },function (err,result) {
-                if(err){
+            }, function (err) {
+                if (err) {
                     console.log(err);
                 }
-                console.log(result);
-                res.render('admin_activityMolecule', {result : data});
+                res.render('admin_activityMolecule', {result: data});
             });
         }
     });
