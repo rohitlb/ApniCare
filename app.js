@@ -3293,14 +3293,15 @@ app.get('/health_care_provider',healthrequiresLogin,function(req,res) {
                             console.log(errs);
                         }
                         else {
-                            if (results.Doctors != "") {
+                            console.log(results);
+                            if (results.Doctor[0] !== undefined) {
                                 datas['output'].push({
                                     disease: disease,
                                     names: results.Doctor[0].name,
                                     titles : results.Doctor[0].title
                                 });
                             }
-                            if (results.Pharma != "") {
+                            if (results.Pharma !== undefined){
                                 datas['output'].push({
                                     disease: disease,
                                     names: results.Pharma[0].name,
