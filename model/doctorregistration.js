@@ -33,7 +33,6 @@ var Doctor = new mongoose.Schema({
     //yet left
     registered_at : {type: Date, required: true, default: Date.now },
     status : {type : String},
-    issues : [{issueIn : {type : String},issueType : {type : String},issueInfo : {type : String} ,issueFrom : {type : String}}]
 });
 
 module.exports = mongoose.model('Doctor',Doctor);

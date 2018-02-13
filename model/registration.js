@@ -7,17 +7,6 @@ var User = new mongoose.Schema({
     email : {type:String, trim:true},
     number : {type:String, trim:true},
     password : {type:String, trim:true},
-    //featured information
-    // image : {
-    //     path: {
-    //         type: String,
-    //
-    //         trim: true
-    //     },
-    //     originalname: {
-    //         type: String,
-    //           //     }
-    // },
     path: {type:String, trim:true },
     dob : {type:String, trim:true },
     gender : {type:String, trim:true },
@@ -36,7 +25,9 @@ var User = new mongoose.Schema({
     income : {type:String, trim:true },
     relative_name : {type:String, trim:true },
     relative_contact : {type:String, trim:true },
-    relation : {type:String, trim:true }
+    relation : {type:String, trim:true },
+    registered_at    : { type: Date, required: true, default: Date.now },
+    status : {type : String}
 });
 
 module.exports = mongoose.model('user',User);

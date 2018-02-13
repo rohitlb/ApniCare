@@ -23,7 +23,6 @@ var Feedback = require('./model/adminfeedback');
 var Needhelp = require('./model/needhelp');
 var NeedhelpWL = require('./model/needhelpWL');
 
-
 var User  = require('./model/registration');
 var Doctor = require('./model/doctorregistration');
 var Pharma = require('./model/pharma');
@@ -48,7 +47,8 @@ var DrugData = require('./model/drugdatalive');
 var DiseaseData = require('./model/diseasedatalive');
 var MoleculeData = require('./model/moleculedatalive');
 var CategoryData = require('./model/categorydatalive');
-
+/////Data having Issue
+var Issue = require('./model/issue');
 
 //declare the app
 var app = express();
@@ -306,17 +306,17 @@ app.post('/sendOTP',function (req, res) {
                     url: 'http://2factor.in/API/V1/'+keys.api_key()+'/SMS/'+number+'/AUTOGEN',
                     headers: { 'content-type': 'application/x-www-form-urlencoded' },
                     form: {} };
-
-                request(options, function (error, response, body) {
-                    if (error) {
-                        throw new Error(error);
-                    }
-                    else {
-                        //var temp = JSON.parse(body);
-                        //req.session.sid = temp.Details;
-                        res.send({status: "success", message: "OTP sent to your number"});
-                    }
-                });
+                res.send({status: "success", message: "OTP sent to your number"});
+                // request(options, function (error, response, body) {
+                //     if (error) {
+                //         throw new Error(error);
+                //     }
+                //     else {
+                //         var temp = JSON.parse(body);
+                //         req.session.sid = temp.Details;
+                //         res.send({status: "success", message: "OTP sent to your number"});
+                //     }
+                // });
             }
             else{
                 res.send({status: "failure", message: "number Already Exists"});
@@ -5888,70 +5888,21 @@ app.post('/adminDrugDataIssueSend',adminrequiresLogin,function(req,res){
             console.log(err);
         }
         else{
-            async.parallel({
-                Doctor : function(callback){
-                    Doctor.find({_id : name[0].submitted_by},function(errs,result){
-                        if(errs){
-                            console.log(errs);
-                        }
-                        else{
-                            callback(null,result);
-                        }
-                    });
-                },
-                Pharma : function(callback){
-                    Pharma.find({_id : name[0].submitted_by},function(errs,result){
-                        if(errs){
-                            console.log(errs);
-                        }
-                        else{
-                            callback(null,result);
-                        }
-                    });
+            var dataissues = new Issue({
+                issues : {
+                    issueIn : ticket,
+                    issueType : 'Drug Index',
+                    issueInfo : issue,
+                    issueFrom : req.session.admin,
+                    status : 0
                 }
-            },function(errs,result){
-                if(errs){
-                    console.log(errs);
+            });
+            dataissues.save(function(err,result){
+                if(err){
+                    console.log(err);
                 }
                 else{
-                    if(result.Pharma != ""){
-                        Pharma.update({_id : name[0].submitted_by},{
-                            $push : {
-                                issue : {
-                                    issueType : 'Drug Index',
-                                    issueIn : ticket,
-                                    issueFrom : req.session.admin,
-                                    issueInfo : issue
-                                }
-                            }
-                        },function(uperr){
-                            if(uperr){
-                                console.log(uperr);
-                            }
-                            else{
-                                res.send({message : 'Issue send to Pharma'});
-                            }
-                        });
-                    }
-                    if(result.Doctor != ""){
-                        Doctor.update({_id : name[0].submitted_by},{
-                            $push : {
-                                issues : {
-                                    issueType : 'Drug Index',
-                                    issueIn : ticket,
-                                    issueFrom : req.session.admin,
-                                    issueInfo : issue
-                                }
-                            }
-                        },function(uperr){
-                            if(uperr){
-                                console.log(uperr);
-                            }
-                            else{
-                                res.send({message : 'Issue send to Doctor'});
-                            }
-                        });
-                    }
+                    res.send({message : 'Issue send'});
                 }
             });
         }

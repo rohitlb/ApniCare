@@ -26,21 +26,18 @@ html
         h4 Total User Account - #{result.TotalUser}
         h4 New User Accounts - #{result.NewUser}
         br
+        - var data = result.UserData;
+        -for(var i=0; i< data.length; i++)
+              table
+                  h3 Name &nbsp&nbsp&nbsp&nbsp&nbsp Number &nbsp&nbsp&nbsp&nbsp&nbsp Profile &nbsp&nbsp&nbsp&nbsp&nbsp Block
+                  p
+                      span #{data[i].name} &nbsp&nbsp
+                      span #{data[i].number} &nbsp&nbsp&nbsp&nbsp
+                      span
+                        a(href="/adminprofilePage?number=" + data[i].number) Show Profile
 
-        table
-            h3 Name &nbsp&nbsp&nbsp&nbsp&nbsp Number &nbsp&nbsp&nbsp&nbsp&nbsp Profile &nbsp&nbsp&nbsp&nbsp&nbsp Block
-
-            each data in result.UserData
-                p
-                    span #{data.name} &nbsp&nbsp
-                    span #{data.number} &nbsp&nbsp&nbsp&nbsp
-                    span
-                    a(href="/adminprofilePage?number=" + data.number) Show Profile
-
-                    span &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                    if(data.status == 'blocked')
-                        p #{data.status}
-                        input(id="check" onclick="validate()" type="checkbox" value=data.number checked)
-                    else
-                        p #{data.status}
-                        input(id="check" onclick="validate()" type="checkbox" value=data.number)
+                      span &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                        if(data[i].status == 'blocked')
+                            input(id="check" onclick="validate()" type="checkbox" value=data[i].number checked)
+                        else
+                            input(id="check" onclick="validate()" type="checkbox" value=data[i].number)
