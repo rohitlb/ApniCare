@@ -69,7 +69,10 @@ div.row
 
         div.col.s12.m12.l12
             div.col.grey.lighten-3.s12.m8.l9
-                each vas in data
+                - var i = 0;
+                - var tin = data.rating
+                - var vas = data.brands[0]
+                - var val = data.brands[0]
                     h3.section.scrollspy#data_name #{vas.brand_name.toUpperCase()}
                         span <em>&nbsp - &nbsp</em>
                         each company in vas.company_id
@@ -101,6 +104,8 @@ div.row
                                                     //if(doses.packaging != '')
                                                     th Packaging
                                                     th Price
+                                                    if(dosages.dosage_form == 'Tablet')
+                                                        th Price/Unit
                                             tbody
                                                 tr
                                                     td <strong>#{dosages.dosage_form.toUpperCase()}</strong> &nbsp &nbsp
@@ -109,6 +114,11 @@ div.row
                                                     //if(doses.packaging != '')
                                                     td.to_capital <strong>#{doses.packaging}</strong> &nbsp &nbsp
                                                     td <strong>₹ #{doses.price}</strong>
+                                                    if(dosages.dosage_form == 'Tablet')
+                                                        td
+                                                            span= Number(tin[i].rateper).toFixed(2)
+                                                                //<strong>#{}</strong>
+                                                        -i = i+1;
                                                 tr#read_more
                                                     td
                                                     //if(doses.strength != '')
@@ -120,10 +130,11 @@ div.row
                                     div.collapsible-body
                                         span
                                             span.section.scrollspy#potent <strong>▪ Involves Potent Substances: </strong>
-                                            each j, index in doses.potent_substance.name
-                                                span.to_capital &nbsp #{j} &nbsp
-                                                    span.small_font.next_line= doses.potent_substance.molecule_strength[index]
-                                                br
+                                            div
+                                                each j, index in doses.potent_substance.name
+                                                    span.to_capital &nbsp #{j} &nbsp
+                                                        span.small_font.next_line= doses.potent_substance.molecule_strength[index]
+                                                    br
                                             if(doses.dose_taken != '')
                                                 span.section.scrollspy#dose_taken <strong>▪ Dose Taken As:&nbsp</strong>
                                                     span.small_font.to_capital #{doses.dose_taken}
@@ -141,7 +152,7 @@ div.row
                                                 i.material-icons.left warning
                                                 span.section.scrollspy#warnings.red-text <strong>Warnings</strong>
                                                 br
-                                                span.next_line.to_capital <strong>#{doses.warnings}</strong>
+                                                span.next_line.to_capital #{doses.warnings}
 
 
 
@@ -149,7 +160,6 @@ div.row
                 ul.section.table-of-contents(style='position:fixed;z-index:2;padding-bottom:10px;')
                     li
                         a(href='#data_name') Brand
-                        each vas in data
                             if(vas.types != '')
                                 span.to_capital -#{vas.types}
                     li
@@ -157,7 +167,6 @@ div.row
                     li
                         a(href='#potent') Potent Substances
                     li &nbsp&nbsp&nbsp&nbsp&nbspDosage Form
-                        each vas in data
                             each dosage in vas.dosage_id
                                     //each dose in dosage.strength_id
                                     ul
@@ -173,7 +182,6 @@ div.row
                                             a.to_capital(href='#warnings') &nbsp&nbsp&nbsp&nbspWarnings for #{dosage.dosage_form}
 
 
-
             div
                 br
                 br
@@ -185,8 +193,7 @@ div.row
                     h4.center.teal-text.darken-2 Your Feedback is valuable...
                     form.col.l10.m10.s10#form_feedback(method='POST')
                         div
-                            each val in data
-                                input#about(type="hidden" value='Drug Data-'+(val.brand_name.toUpperCase()))
+                            input#about(type="hidden" value='Drug Data-'+(val.brand_name.toUpperCase()))
                             span How useful is the data that we provide?
                             br
                             br

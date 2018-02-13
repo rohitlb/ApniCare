@@ -3166,25 +3166,48 @@ app.get('/health_care_provider',healthrequiresLogin,function(req,res) {
     }
 
     if(req.query.brand) {
-
         Brand.find({brand_name : brand},'-_id brand_name categories types primarily_used_for').populate(
             {path : 'dosage_id', select : '-_id dosage_form',populate :
                     {path : 'strength_id', select : '-_id strength strengths packaging prescription dose_taken warnings price dose_timing potent_substance.name potent_substance.molecule_strength'}
             }).populate(
-            {path : 'company_id', select: '-_id company_name'}).sort({brand_name : 1}).exec(function (err,brand) {
+            {path : 'company_id', select: '-_id company_name'}).sort({brand_name : 1}).exec(function (err,brands) {
             if (err) {
                 console.log(err);
             }
             else {
-                if(brand != "") {
-                    if (req.query.page == 'home' || req.query.page == 'profile_doctor' || req.query.page == 'profile_student_pharmacist' || req.query.page == 'profile_student_doctor' || req.query.page == 'profile_student_pharmacist' || req.query.page == 'profile' || req.query.page == 'profile_pharmacist' || req.query.page == 'drug_data' || req.query.page == 'molecule_data' || req.query.page == 'disease_data' || req.query.page == 'drug_data_form' || req.query.page == 'molecule_data_form' || req.query.page == 'disease_data_form' || req.query.page == 'feedback_contributions' || req.query.page == 'feedback_profile' || req.query.page == 'notifications' || req.query.page == 'need_help') {
-                        page = req.query.page;
-                    }
+                if(brands != "") {
+                    var brand = {};
+                    brand['rates'] = [];
+                    async.each(brands,function(fortablet,callback){
+                        async.each(fortablet.dosage_id,function(tabletrate,callbacks){
+                            if(tabletrate.dosage_form == 'Tablet'){
+                                async.each(tabletrate.strength_id,function(strengths,callbackagain){
+                                    var x = strengths.price;
+                                    var y = strengths.packaging;
+                                    var rate = x/y;
+                                    brand['rates'].push({
+                                        rateper : rate
+                                    })
+                                });
+                            }
+                            else{
+                                callbacks();
+                            }
+                        });
+                    });
+                    var datas = {};
+                    datas['all'] = [];
+                    datas['all'].push({
+                        brands : brands,
+                        rating : brand.rates
+                    });
+                    page = req.query.page;
                     res.render('home_profile_doctor',
                         {
                             page: 'drug_data_view',
-                            data: brand
+                            data: datas.all[0]
                         });
+                    console.log(datas.all[0]);
                 }
                 else{
                     res.send({details : "failure", message : "No brand exist"});
@@ -3668,7 +3691,6 @@ app.post('/health_care_provider',healthrequiresLogin,function(req,res) {
     }
 
     if(req.query.brand) {
-
         Brand.find({brand_name : brand},'-_id brand_name categories types primarily_used_for').populate(
             {path : 'dosage_id', select : '-_id dosage_form',populate :
                 {path : 'strength_id', select : '-_id strength strengths packaging prescription dose_taken warnings price dose_timing potent_substance.name potent_substance.molecule_strength'}
@@ -4263,7 +4285,8 @@ app.post('/licence',function(req,res){
 
 app.post('/drugData',healthrequiresLogin,function(req,res){
     var company_name = req.body.company_name;
-    var brand_name = req.body.brand_name;
+    var brand_name = (req.body.brand_name).replace(/\b\w/g, function(l){ return l.toUpperCase() });
+    console.log(brand_name);
     var categories = req.body.categories;
     var primarily_used_for = req.body.primarily_used_for;
     var types = req.body.types;
@@ -4297,10 +4320,9 @@ app.post('/drugData',healthrequiresLogin,function(req,res){
                                 Dosage.find({_id : result1[0].dosage_id , dosage_form : dosage_form},function(err2,result2){
                                     if(result2 != ""){
                                         Strength.find({_id : result2[0].strength_id , strength : strength},function(err3,result3){
-                                            if(result3 != ""){
-                                                res.send({status : 'failure' , message : 'Drug Already Exist'});
-                                            }
-                                            else{
+                                            console.log(strength);
+                                            console.log(result3[0]);
+                                            if(result3[0] === undefined){
                                                 var drugData = new DrugData({
                                                     company_name: company_name,
                                                     brand_name: brand_name,
@@ -4316,7 +4338,6 @@ app.post('/drugData',healthrequiresLogin,function(req,res){
                                                     packaging: packaging,
                                                     price: price,
                                                     prescription: prescription,
-                                                    prescription: prescription,
                                                     dose_taken: dose_taken,
                                                     dose_timing: dose_timing,
                                                     warnings: warnings,
@@ -4331,6 +4352,9 @@ app.post('/drugData',healthrequiresLogin,function(req,res){
                                                         res.send({status:'success', message:'New medicine added'});
                                                     }
                                                 });
+                                            }
+                                            else{
+                                                res.send({status : 'failure' , message : 'Drug Already Exist'});
                                             }
                                         });
                                     }
@@ -4349,7 +4373,6 @@ app.post('/drugData',healthrequiresLogin,function(req,res){
                                             },
                                             packaging: packaging,
                                             price: price,
-                                            prescription: prescription,
                                             prescription: prescription,
                                             dose_taken: dose_taken,
                                             dose_timing: dose_timing,
@@ -4384,7 +4407,6 @@ app.post('/drugData',healthrequiresLogin,function(req,res){
                                     packaging: packaging,
                                     price: price,
                                     prescription: prescription,
-                                    prescription: prescription,
                                     dose_taken: dose_taken,
                                     dose_timing: dose_timing,
                                     warnings: warnings,
@@ -4417,7 +4439,6 @@ app.post('/drugData',healthrequiresLogin,function(req,res){
                             },
                             packaging: packaging,
                             price: price,
-                            prescription: prescription,
                             prescription: prescription,
                             dose_taken: dose_taken,
                             dose_timing: dose_timing,
@@ -5341,9 +5362,8 @@ app.get('/adminDrugDataMakeLive',adminrequiresLogin,function(req,res,next) {
                 console.log(err);
             }
             else{
-                console.log("dosage is"+result);
                 res.locals.value1 = value1;
-                res.locals.value2 = result;
+                res.locals.value3 = result;
                 res.locals.brandResult = brandResult;
                 res.locals.companyResult = companyResult;
                 next();
@@ -5448,7 +5468,7 @@ app.get('/adminDrugDataMakeLive',adminrequiresLogin,function(req,res,next) {
 
 app.get('/adminDrugDataMakeLive',adminrequiresLogin,function(req,res,next){
     var value1 = res.locals.value1;
-    var value2 = res.locals.value2;
+    var value2 = res.locals.value3;
     var brandResult = res.locals.brandResult;
     var companyResult = res.locals.companyResult;
     if(value2 != ''){
@@ -5458,7 +5478,8 @@ app.get('/adminDrugDataMakeLive',adminrequiresLogin,function(req,res,next){
             }
             else{
                 res.locals.value1 = value1;
-                res.locals.value2 = result;
+                res.locals.lastdosage = value2;
+                res.locals.value4 = result;
                 res.locals.brandResult = brandResult;
                 res.locals.companyResult = companyResult;
                 next();
@@ -5530,14 +5551,10 @@ app.get('/adminDrugDataMakeLive',adminrequiresLogin,function(req,res,next){
 
 app.get('/adminDrugDataMakeLive',adminrequiresLogin,function(req,res) {
     var value1 = res.locals.value1;
-    var value2 = res.locals.value2;
+    var value2 = res.locals.value4;
+    var lastdosages = res.locals.lastdosage;
     var brandResult = res.locals.brandResult;
-    console.log(value1);
-    console.log(value2);
-    if (value2 != "") {
-        res.send({message: 'Medicine Already exist'});
-    }
-    else {
+    if (value2[0] === undefined) {
         var strength = new Strength({
             strength: value1[0].strength,
             potent_substance: {
@@ -5558,7 +5575,7 @@ app.get('/adminDrugDataMakeLive',adminrequiresLogin,function(req,res) {
                 console.log(err);
             }
             else {
-                Dosage.update({dosage_form: value1[0].dosage_form}, {
+                Dosage.update({_id : lastdosages[0]._id}, {
                     $push: {strength_id: result1._id}
                 }).exec(function (err2) {
                     if (err2) {
@@ -5576,6 +5593,9 @@ app.get('/adminDrugDataMakeLive',adminrequiresLogin,function(req,res) {
                 });
             }
         });
+    }
+    else {
+        res.send({message: 'Medicine Already exist'});
     }
 });
 
@@ -6428,11 +6448,11 @@ app.post('/adminFeedbackEnterResponse',adminrequiresLogin,function(req,res){
 app.use(function(req, res) {
     res.status(404).render('not_found');
 });
-
-// Handle 500
-app.use(function(error, req, res, next) {
-    res.status(500).send("Internal server error");
-});
+//
+// // Handle 500
+// app.use(function(error, req, res, next) {
+//     res.status(500).send("Internal server error");
+// });
 
 //==========================Database connection===========================
 
