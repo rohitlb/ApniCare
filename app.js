@@ -54,7 +54,7 @@ var Issue = require('./model/issue');
 var app = express();
 
 var store = new mongoDBStore({
-    uri : 'mongodb://127.0.0.1/ApniCaresite',
+    uri : 'mongodb://127.0.0.1/ApniCare',
     collection : 'mySessions'
 });
 
@@ -5860,6 +5860,7 @@ app.get('/admin_activityMolecule',adminrequiresLogin,function(req,res){
             var data = {};
             data['submitted'] = [];
             async.each(molecules,function (result,callback) {
+                console.log(result);
                 async.parallel({
                     Doctor : function (callback) {
                         Doctor.find({_id : result.submitted_by},'-_id name number').exec(function(err,results){
@@ -5867,7 +5868,9 @@ app.get('/admin_activityMolecule',adminrequiresLogin,function(req,res){
                                 console.log(err);
                             }
                             else{
-                                if((results != '')&&(result.issue_status != 0)) {                                    if (!data['submitted']) { data['submitted'] = [];}
+                                console.log(result.issue_status);
+                                if((results != '')&&(result.issue_status != 0)) {
+                                    if (!data['submitted']) { data['submitted'] = [];}
                                     data['submitted'].push({
                                         name: results[0].name,
                                         number: results[0].number,
@@ -5887,7 +5890,9 @@ app.get('/admin_activityMolecule',adminrequiresLogin,function(req,res){
                                 console.log(err);
                             }
                             else{
-                                if((results != '')&&(result.issue_status != 0)) {                                    if (!data['submitted']) {
+                                console.log(result.issue_status);
+                                if((results != '')&&(result.issue_status != 0)) {
+                                    if (!data['submitted']) {
                                         data['submitted'] = [];
                                     } // to check if it is the first time you are inserting inside data['brand'], in which case it needs to be initialized.
                                     data['submitted'].push({
@@ -6629,7 +6634,7 @@ app.use(function(req, res) {
 //==========================Database connection===========================
 
 //data base connection and opening port
-var db = 'mongodb://127.0.0.1/ApniCaresite';
+var db = 'mongodb://127.0.0.1/ApniCare';
 mongoose.connect(db, {useMongoClient: true});
 
 //=============================Start server========================
