@@ -54,7 +54,7 @@ var CategoryData = require('./model/categorydatalive');
 var app = express();
 
 var store = new mongoDBStore({
-    uri : 'mongodb://127.0.0.1/ApniCare',
+    uri : 'mongodb://127.0.0.1/ApniCaresite',
     collection : 'mySessions'
 });
 
@@ -6437,7 +6437,7 @@ app.use(function(error, req, res, next) {
 //==========================Database connection===========================
 
 //data base connection and opening port
-var db = 'mongodb://127.0.0.1/ApniCare';
+var db = 'mongodb://127.0.0.1/ApniCaresite';
 mongoose.connect(db, {useMongoClient: true});
 
 //=============================Start server========================
