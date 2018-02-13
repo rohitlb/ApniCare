@@ -5124,7 +5124,8 @@ app.get('/admin_activityDrug',adminrequiresLogin,function(req,res){
                                         data['submitted'].push({
                                             name: results[0].name,
                                             number: results[0].number,
-                                            str_ticket : result.ticket
+                                            str_ticket : result.ticket,
+                                            drug_name : result.brand_name
                                         });
                                         callback(null, data);
                                     }
@@ -5147,7 +5148,8 @@ app.get('/admin_activityDrug',adminrequiresLogin,function(req,res){
                                         data['submitted'].push({
                                             name: results[0].name,
                                             number: results[0].number,
-                                            str_ticket : result.ticket
+                                            str_ticket : result.ticket,
+                                            drug_name : result.brand_name
                                         });
                                         callback(null, data);
                                     }
@@ -6043,7 +6045,8 @@ app.get('/admin_activityDrugIssueList',adminrequiresLogin,function(req,res){
                                         data['submitted'].push({
                                             name: results[0].name,
                                             number: results[0].number,
-                                            str_ticket : result.ticket
+                                            str_ticket : result.ticket,
+                                            drug_name : result.brand_name
                                         });
                                         callback(null, data);
                                     }
@@ -6066,7 +6069,8 @@ app.get('/admin_activityDrugIssueList',adminrequiresLogin,function(req,res){
                                         data['submitted'].push({
                                             name: results[0].name,
                                             number: results[0].number,
-                                            str_ticket : result.ticket
+                                            str_ticket : result.ticket,
+                                            drug_name : result.brand_name
                                         });
                                         callback(null, data);
                                     }
