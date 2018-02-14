@@ -192,9 +192,14 @@ app.get('/your_feedback',requiresLogin,function(req,res){
     if(req.session.pharmaID){
         var person_id = req.session.pharmaID;
     }
-    console.log(person_id);
-    Feedback.find({feedbackFrom : person_id},'',function(err,result){
-        console.log(result);
+    Feedback.find({feedbackFrom : person_id},'-_id -__v -feedbackFrom ',function(err,result){
+        if(err){
+            console.log(err);
+        }
+        else{
+            console.log(result);
+            res.send({status : 'success' , data : result});
+        }
     });
 });
 
