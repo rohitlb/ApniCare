@@ -172,7 +172,7 @@ app.post('/feedback' ,requiresLogin,  function (req,res) {
         feedbackTicket : ticket
     });
 
-    feedback.save(function (err, result) {
+    feedback.save(function (err) {
         if (err) {
             console.log(err);
             res.send({status: "failure", message: "some error"});
@@ -204,7 +204,7 @@ app.post('/needhelp' , function (req,res) {
 
 
     var needhelp = new Needhelp({
-        //here user ID should be adde/d
+        //here user ID should be added
         subject : subject,
         contact_message : contact_message
     });
