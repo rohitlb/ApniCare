@@ -345,7 +345,6 @@ app.post('/VerifyOTP',function (req, res) {
     req.session.sid = null;
 });
 
-
 // with real 2factor OTP service
 //
 // app.post('/sendOTP',function (req, res) {
@@ -432,7 +431,6 @@ app.post('/VerifyOTP',function (req, res) {
 //         req.session.sid = null;
 //     });
 // });
-
 
 app.get('/', function (req, res) {
     if (req.session.userID) {
