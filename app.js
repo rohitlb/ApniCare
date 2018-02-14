@@ -798,20 +798,69 @@ app.get('/ApniCare/information/Drug',function (req,res) {
     var brand = req.query.brand;
     Brand.find({brand_name : brand},'-_id brand_name categories types primarily_used_for').populate(
         {path : 'dosage_id', select : '-_id dosage_form',populate :
-                {path : 'strength_id', select : '-_id strength packaging prescription dose_taken warnings price dose_timing potent_substance.name potent_substance.molecule_strength'}
+            {path : 'strength_id', select : '-_id strength strengths packaging prescription dose_taken warnings price dose_timing potent_substance.name potent_substance.molecule_strength'}
         }).populate(
-        {path : 'company_id', select: '-_id company_name'}).exec(function (err,brand) {
+        {path : 'company_id', select: '-_id company_name'}).sort({brand_name : 1}).exec(function (err,brands) {
         if (err) {
             console.log(err);
         }
         else {
-            res.render('index',
-                {
-                    page: 'drug_data_view',
-                    data: brand
+            if(brands != "") {
+                var brand = {};
+                brand['rates'] = [];
+                async.each(brands,function(fortablet,callback){
+                    async.each(fortablet.dosage_id,function(tabletrate,callbacks){
+                        if(tabletrate.dosage_form == 'Tablet'){
+                            async.each(tabletrate.strength_id,function(strengths,callbackagain){
+                                var x = strengths.price;
+                                var y = strengths.packaging;
+                                var rate = x/y;
+                                brand['rates'].push({
+                                    rateper : rate
+                                })
+                            });
+                        }
+                        else{
+                            callbacks();
+                        }
+                    });
                 });
+                var datas = {};
+                datas['all'] = [];
+                datas['all'].push({
+                    brands : brands,
+                    rating : brand.rates
+                });
+                page = req.query.page;
+                res.render('index',
+                    {
+                        page: 'drug_data_view',
+                        data: datas.all[0]
+                    });
+                console.log(datas.all[0]);
+            }
+            else{
+                res.send({details : "failure", message : "No brand exist"});
+            }
         }
     });
+
+    // Brand.find({brand_name : brand},'-_id brand_name categories types primarily_used_for').populate(
+    //     {path : 'dosage_id', select : '-_id dosage_form',populate :
+    //             {path : 'strength_id', select : '-_id strength packaging prescription dose_taken warnings price dose_timing potent_substance.name potent_substance.molecule_strength'}
+    //     }).populate(
+    //     {path : 'company_id', select: '-_id company_name'}).exec(function (err,brand) {
+    //     if (err) {
+    //         console.log(err);
+    //     }
+    //     else {
+    //         res.render('index',
+    //             {
+    //                 page: 'drug_data_view',
+    //                 data: brand
+    //             });
+    //     }
+    // });
 });
 
 //*****************************************search Middleware*******************************************************************
@@ -6540,6 +6589,10 @@ app.post('/adminFeedbackEnterResponse',adminrequiresLogin,function(req,res){
 });
 
 //////////////////PAGE NOT FOUND///////////////////////////////////////////////
+
+app.post('/link',function(req,res){
+    
+});
 
 app.use(function(req, res) {
     res.status(404).render('not_found');

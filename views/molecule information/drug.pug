@@ -1,9 +1,10 @@
-- val = data[0]
 - doses = data[0]
-- dose = data[0]
 - pots = data[0]
 - potse = data[0]
-- vas = data[0]
+- var i = 0;
+- var tin = data.rating
+- var vas = data.brands[0]
+- var val = data.brands[0]
 div.col.l10.m10.s10#mol_col1
     div.row.center#mol_row1_subrow2
         h4   #{val.brand_name}
@@ -69,7 +70,6 @@ div.col.l10.m10.s10#mol_col1
                         a.btn2.all.hoverable(href='/ApniCare/information?page=Drug_Information' type='other') Other
     div.row.m_p_info
         div.col
-            each vas in data
                 h3.section.scrollspy#data_name #{vas.brand_name.toUpperCase()}
                     span <em>&nbsp - &nbsp</em>
                     each company in vas.company_id
@@ -147,23 +147,23 @@ div.col.l10.m10.s10#mol_col1
 div.col#mol_row1_subrow4
     h5 Page Contents
     ul.section.table-of-contents(style='position:fixed;z-index:2;padding-bottom:10px;')
-        each vas in data
             each dosages in vas.dosage_id
                 each doses in dosages.strength_id
+                    p doseaaspoijf #{dose}
                     if(val.categories != '')
                         li
                             a(href="#brand") &nbsp &nbsp Brand
                             each vas in data
                                 if(vas.types != '')
                                     span.to_capital -#{vas.types}
-                    if(doses.prescription != '')
+                    if(doses.prescription != "")
                         a(href="#prescription") &nbsp &nbsp Prescription
                     li
                         a(href="#potent") &nbsp &nbsp Potent
-                    if(dose.strength != '')
-                        li
-                            a(href="#dosage_form") &nbsp &nbsp Dosage form
-                    //
+                    //if(dose.strength != "")
+                    //    li
+                    //        a(href="#dosage_form") &nbsp &nbsp Dosage form
+
                     //if(dose.dose_taken != '')
                     //    li
                     //        a(href="#dosage_taken") &nbsp &nbsp Dosage taken
