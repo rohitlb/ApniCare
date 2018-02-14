@@ -72,7 +72,6 @@ div.row
                 - var i = 0;
                 - var tin = data.rating
                 - var vas = data.brands[0]
-                - var val = data.brands[0]
                     h3.section.scrollspy#data_name #{vas.brand_name.toUpperCase()}
                         span <em>&nbsp - &nbsp</em>
                         each company in vas.company_id
@@ -191,9 +190,9 @@ div.row
             div.modal#modal2
                 div.modal-content
                     h4.center.teal-text.darken-2 Your Feedback is valuable...
-                    form.col.l10.m10.s10#form_feedback(method='POST')
+                    form.col.l10.m10.s10#form_feedback(method='POST' action='/health_care_provider?page=drug_data')
                         div
-                            input#about(type="hidden" value='Drug Data-'+(val.brand_name.toUpperCase()))
+                            input#about(type="hidden" value='Drug Data-'+(vas.brand_name.toUpperCase()))
                             span How useful is the data that we provide?
                             br
                             br

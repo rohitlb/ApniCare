@@ -123,7 +123,7 @@ div.row
                     h5.right
                         span.small_font Information Submitted By :-
                         br
-                        span #{data.titles} #{data.names}
+                        span.to_capital #{data.titles} #{data.names}
 
             div.col.l3.m4.hide-on-small-only
                 ul.section.table-of-contents(style='position:fixed;padding-bottom:10px;')
@@ -159,7 +159,7 @@ div.row
         div.modal#modal2
             div.modal-content
                 h4.center.teal-text.darken-2 Your Feedback is valuable...
-                form.col.l10.m10.s10#form_feedback(method='POST')
+                form.col.l10.m10.s10#form_feedback(method='POST' action='/health_care_provider?page=disease_data')
                     div
                         each val in data.disease
                             input#about(type="hidden" value='Disease Data-' + (val.disease_name.toUpperCase()))

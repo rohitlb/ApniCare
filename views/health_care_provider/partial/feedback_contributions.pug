@@ -1,5 +1,37 @@
-//index
-//aim
-//system req
-//project req
-//fields-validation
+div.row
+    div.col.s12.m12.l9.offset-l3
+        h3.center Your Feedbacks
+        table.bordered.highlight
+
+            thead
+                    tr
+                        th(width="20%") CATEGORY
+                        th(width='10%') RATING
+                        th(width='35%') SUGGESTIONS
+                        //if(val.feedbackResponse)
+                        th(width='35%') RESPONSE
+            each val in data
+                tbody
+                    tr
+                        td= val.feedbackCategory
+                        td= val.feedbackUsefulness
+                        td.to_capital= val.feedbackInfo
+                        //if(val.feedbackResponse)
+                        td= val.feedbackResponse
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

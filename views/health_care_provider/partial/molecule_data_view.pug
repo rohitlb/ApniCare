@@ -195,7 +195,7 @@ div.row
         div.modal#modal2
             div.modal-content
                 h4.center.teal-text.darken-2 Your Feedback is valuable...
-                form.col.l10.m10.s10#form_feedback(method='POST')
+                form.col.l10.m10.s10#form_feedback(method='POST' action='/health_care_provider?page=molecule_data')
                     div
                         each val in data
                             input#about(type="hidden" value='Molecule Data-' + (val.molecule_name))

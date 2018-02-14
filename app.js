@@ -152,7 +152,7 @@ app.post('/feedback' ,requiresLogin,  function (req,res) {
     var name;
     var usefulness = req.body.usefulness;
     var suggestion = req.body.suggestion;
-    var feedbackFrom = req.body.about;
+    var feedbackCategory = req.body.about;
     var ticket = req.body.token;
 
     if(req.session.userID){
@@ -168,11 +168,11 @@ app.post('/feedback' ,requiresLogin,  function (req,res) {
         feedbackUsefulness : usefulness,
         feedbackInfo : suggestion,
         feedbackFrom : name,
-        feedbackCategory : feedbackFrom,
+        feedbackCategory : feedbackCategory,
         feedbackTicket : ticket
     });
 
-    feedback.save(function (err, result) {
+    feedback.save(function (err) {
         if (err) {
             console.log(err);
             res.send({status: "failure", message: "some error"});
@@ -182,7 +182,7 @@ app.post('/feedback' ,requiresLogin,  function (req,res) {
     });
 });
 
-app.post('/your_feedback',requiresLogin,function(req,res){
+app.get('/your_feedback',requiresLogin,function(req,res){
     if(req.session.userID){
         var person_id = req.session.userID;
     }
@@ -192,8 +192,14 @@ app.post('/your_feedback',requiresLogin,function(req,res){
     if(req.session.pharmaID){
         var person_id = req.session.pharmaID;
     }
-    Feedback.find({feedbackFrom : person_id},'',function(err,result){
-
+    Feedback.find({feedbackFrom : person_id},'-_id -__v -feedbackFrom ',function(err,result){
+        if(err){
+            console.log(err);
+        }
+        else{
+            console.log(result);
+            res.send({status : 'success' , data : result});
+        }
     });
 });
 
@@ -203,7 +209,7 @@ app.post('/needhelp' , function (req,res) {
 
 
     var needhelp = new Needhelp({
-        //here user ID should be adde/d
+        //here user ID should be added
         subject : subject,
         contact_message : contact_message
     });
@@ -339,7 +345,6 @@ app.post('/VerifyOTP',function (req, res) {
     req.session.sid = null;
 });
 
-
 // with real 2factor OTP service
 //
 // app.post('/sendOTP',function (req, res) {
@@ -426,7 +431,6 @@ app.post('/VerifyOTP',function (req, res) {
 //         req.session.sid = null;
 //     });
 // });
-
 
 app.get('/', function (req, res) {
     if (req.session.userID) {
@@ -3621,6 +3625,29 @@ app.get('/health_care_provider',healthrequiresLogin,function(req,res) {
         });
     }
 
+    if(req.query.page == 'feedback_contributions'){
+        page = req.query.page;
+        if(req.session.doctorID){
+            var person_id = req.session.doctorID;
+        }
+        if(req.session.pharmaID){
+            var person_id = req.session.pharmaID;
+        }
+        Feedback.find({feedbackFrom : person_id},'-_id -__v -feedbackFrom ',function(err,result){
+            if(err){
+                console.log(err);
+            }
+            else{
+                console.log(result);
+                res.render('home_profile_doctor',
+                    {
+                        page: page,
+                        data: result
+                    });
+            }
+        });
+    }
+
     if(req.query.page == 'notifications') {
         Doctor.findOne({_id: req.session.doctorID}, function (err, result) {
             if (err) {
@@ -3935,6 +3962,29 @@ app.post('/health_care_provider',healthrequiresLogin,function(req,res) {
                         page: page,
                         data: result
 
+                    });
+            }
+        });
+    }
+
+    if(req.query.page == 'feedback_contributions'){
+        page = req.query.page;
+        if(req.session.doctorID){
+            var person_id = req.session.doctorID;
+        }
+        if(req.session.pharmaID){
+            var person_id = req.session.pharmaID;
+        }
+        Feedback.find({feedbackFrom : person_id},'-_id -__v -feedbackFrom ',function(err,result){
+            if(err){
+                console.log(err);
+            }
+            else{
+                console.log(result);
+                res.render('home_profile_doctor',
+                    {
+                        page: page,
+                        data: result
                     });
             }
         });
@@ -5967,7 +6017,7 @@ app.get('/admin_activityMolecule',adminrequiresLogin,function(req,res) {
                                     data['submitted'].push({
                                         name: results[0].name,
                                         number: results[0].number,
-                                        disease: result.disease_name
+                                        molecule: result.molecule_name
                                     });
                                     callback(null, data);
                                 }
@@ -5984,6 +6034,7 @@ app.get('/admin_activityMolecule',adminrequiresLogin,function(req,res) {
                 if (err) {
                     console.log(err);
                 }
+                console.log(data);
                 res.render('admin_activityMolecule', {result: data});
             });
         }
@@ -6497,6 +6548,7 @@ app.get('/admin_feedbackHealthCare',adminrequiresLogin,function(req,res){
             var data = {};
             data['feedbacks'] = [];
             async.each(feedbacks,function(feedback,callback) {
+                console.log(feedback.feedbackFrom);
                 async.parallel({
                     Doctor: function (callback) {
                         Doctor.find({_id: feedback.feedbackFrom}, '-_id name number', function (errs, doctor) {
@@ -6541,6 +6593,8 @@ app.get('/admin_feedbackHealthCare',adminrequiresLogin,function(req,res){
                             callback();
                         }
                         if (result.Pharma != "") {
+                            console.log('pharma');
+                            console.log(result.Pharma);
                             data['feedbacks'].push({
                                 Status: 'DRx',
                                 Name: result.Pharma[0].name,
