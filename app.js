@@ -6549,6 +6549,7 @@ app.get('/admin_feedbackHealthCare',adminrequiresLogin,function(req,res){
             var data = {};
             data['feedbacks'] = [];
             async.each(feedbacks,function(feedback,callback) {
+                console.log(feedback.feedbackFrom);
                 async.parallel({
                     Doctor: function (callback) {
                         Doctor.find({_id: feedback.feedbackFrom}, '-_id name number', function (errs, doctor) {
@@ -6593,6 +6594,8 @@ app.get('/admin_feedbackHealthCare',adminrequiresLogin,function(req,res){
                             callback();
                         }
                         if (result.Pharma != "") {
+                            console.log('pharma');
+                            console.log(result.Pharma);
                             data['feedbacks'].push({
                                 Status: 'DRx',
                                 Name: result.Pharma[0].name,
