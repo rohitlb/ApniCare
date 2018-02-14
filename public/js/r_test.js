@@ -959,7 +959,6 @@ $(function () {
             success: function (result) {
                 if(result.message === 'success'){
                     Materialize.toast(result.message, 1000);
-                    window.location = '/health_care_provider?page=drug_data';
                 }
                 else{
                     Materialize.toast(result.message,1000);

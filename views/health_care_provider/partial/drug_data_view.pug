@@ -190,7 +190,7 @@ div.row
             div.modal#modal2
                 div.modal-content
                     h4.center.teal-text.darken-2 Your Feedback is valuable...
-                    form.col.l10.m10.s10#form_feedback(method='POST')
+                    form.col.l10.m10.s10#form_feedback(method='POST' action='/health_care_provider?page=drug_data')
                         div
                             input#about(type="hidden" value='Drug Data-'+(vas.brand_name.toUpperCase()))
                             span How useful is the data that we provide?

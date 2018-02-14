@@ -5967,7 +5967,7 @@ app.get('/admin_activityMolecule',adminrequiresLogin,function(req,res) {
                                     data['submitted'].push({
                                         name: results[0].name,
                                         number: results[0].number,
-                                        disease: result.disease_name
+                                        molecule: result.molecule_name
                                     });
                                     callback(null, data);
                                 }
@@ -5984,6 +5984,7 @@ app.get('/admin_activityMolecule',adminrequiresLogin,function(req,res) {
                 if (err) {
                     console.log(err);
                 }
+                console.log(data);
                 res.render('admin_activityMolecule', {result: data});
             });
         }
