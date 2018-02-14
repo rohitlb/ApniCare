@@ -95,9 +95,7 @@ div.col.l10.m10.s10#mol_col1
                                         thead(style="background-color:lavender;")
                                             tr
                                                 th.section.scrollspy#dosage_form Dosage Form
-                                                //if(doses.strength != '')
                                                 th Strength
-                                                //if(doses.packaging != '')
                                                 th Packaging
                                                 th Price
                                                 if(dosages.dosage_form == 'Tablet')
@@ -105,21 +103,17 @@ div.col.l10.m10.s10#mol_col1
                                         tbody
                                             tr
                                                 td <strong>#{dosages.dosage_form.toUpperCase()}</strong> &nbsp &nbsp
-                                                //if(doses.strength != '')
                                                 td.to_capital <strong>#{doses.strength}</strong> &nbsp &nbsp
-                                                //if(doses.packaging != '')
                                                 td.to_capital <strong>#{doses.packaging}</strong> &nbsp &nbsp
                                                 td <strong>₹ #{doses.price}</strong>
                                                 if(dosages.dosage_form == 'Tablet')
                                                     td
-                                                        span= Number(tin[i].rateper).toFixed(2)
-                                                        //<strong>#{}</strong>
+                                                        p &#x20b9;
+                                                            span= Number(tin[i].rateper).toFixed(2)
                                                     -i = i+1;
                                             tr#read_more
                                                 td
-                                                //if(doses.strength != '')
                                                 td
-                                                //if(doses.packaging != '')
                                                 td
                                                 td.blue-text Read More.....
 
