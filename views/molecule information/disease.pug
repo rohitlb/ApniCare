@@ -1,4 +1,4 @@
-- val = data[0]
+- val = data.disease[0]
 - sub = data[0]
 - other = data[0]
 - index = data[0]
@@ -67,11 +67,11 @@ div.col.l10.s10.m10#mol_col1
                         a.btn2.all.hoverable(href='/ApniCare/information?page=Disease_Information' type='other') Other
     div.row.m_p_info
         div.col.lighten-3.s12.m8.l11
-            each val in data
+
                 //h3 #{val.disease_name.toUpperCase()}
                 if(val.symptoms!='')
                     li.section.scrollspy#symptoms
-                        span.m_p What are the Symptoms of #{val.disease_name.toUpperCase()}?
+                        span.m_p What are the Symptoms of #{val.disease_name}?
                         br
                         span.next_line.m_p_info.flow-text #{val.symptoms}
                         br
@@ -123,6 +123,11 @@ div.col.l10.s10.m10#mol_col1
                 if(val.source !='')
                     h5.section.scrollspy#source Source:&nbsp
                         span.next_line.m_p_info #{val.source}
+                h5.right
+                    span.small_font Information Submitted By :-
+                    br
+                    span #{data.titles} #{data.names}
+
 
 div.col#mol_row1_subrow4
     h5 Page Contents

@@ -41,7 +41,7 @@ div
                     include ./disease
                 if (page == 'molecule_name')
                     div.col.l10.m10.s10#mol_col1
-                        - val = data[0]
+                        - val = data.molecule[0]
                         div.row.center#mol_row1_subrow2
                             h4   #{val.molecule_name}
                         div.row.center#mol_row1_subrow3
@@ -104,7 +104,7 @@ div
                                             a.btn2.hoverable(href='/ApniCare/information?page=Molecule_Information') Z
                                         li
                                             a.btn2.all.hoverable(href='/ApniCare/information?page=Molecule_Information' type='other') Other
-                        each val in data
+                        each val in data.molecule
                             div.row.m_p_info
                                 if(val.description !='')
                                     //h4.center #{val.molecule_name}
@@ -174,6 +174,10 @@ div
                                 if(val.source!='')
                                     p.m_p.scrollspy#source SOURCE OF INFORMATION
                                     span.next_line.m_p_info #{val.source}
+                                h5.right
+                                    span.small_font Information Submitted By :-
+                                    br
+                                    span #{data.titles} #{data.names}
 
 
 

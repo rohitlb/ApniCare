@@ -657,7 +657,7 @@ app.post('/pharmaregister', function (req, res) {
     });
 });
 
-//***************************************frontend**************************************8888
+//***************************************frontend*******************************************
 
 //*******************************frontend changes***********************************************
 app.get('/profile/userprofile',function (req,res) {
@@ -733,26 +733,22 @@ app.get('/ApniCare/information',function (req,res) {
             }
         });
     }
-    if (req.query.page=='Drug_Information'){
+    if (req.query.page=='Drug_Information') {
         page = req.query.page;
-        Brand.find({},'-_id brand_name categories types primarily_used_for').populate(
-            {path : 'dosage_id', select : '-_id dosage_form',populate :
-                    {path : 'strength_id', select : '-_id strength packaging prescription dose_taken warnings price dose_timing potent_substance.name'}
-            }).populate(
-            {path : 'company_id', select: '-_id company_name'}).sort({brand_name : 1}).exec(function (err,brand) {
+        Brand.find({}, '-_id brand_name').sort({brand_name: 1}).exec(function (err, brand) {
             if (err) {
                 console.log(err);
             }
             else {
-                if(brand != "") {
+                if (brand != "") {
                     res.render('index',
                         {
                             page: page,
                             data: brand
                         });
                 }
-                else{
-                    res.send({details : "failure", message : "No brand exist"});
+                else {
+                    res.send({details: "failure", message: "No brand exist"});
                 }
             }
         });
@@ -761,32 +757,132 @@ app.get('/ApniCare/information',function (req,res) {
 
 app.get('/ApniCare/information/Molecules',function (req,res) {
     var molecule = req.query.molecule;
-    Molecule.find({molecule_name : molecule},'-_id').exec(function (err, result) {
+    var datas = {};
+    datas['output'] = [];
+    Molecule.find({molecule_name: molecule}).sort({molecule_name: 1}).exec(function (err, molecule) {
         if (err) {
             console.log(err);
         }
         else {
-            res.render('index',
-                {
-                    page:'molecule_name',
-                    data : result
+            if (molecule != "") {
+                async.parallel({
+                    Doctor: function (callback) {
+                        Doctor.find({_id: molecule[0].submitted_by}, function (doc_err, doctor_result) {
+                            if (doc_err) {
+                                console.log(doc_err);
+                            }
+                            else {
+                                callback(null, doctor_result);
+                            }
+                        });
+                    },
+                    Pharma: function (callback) {
+                        Pharma.find({_id: molecule[0].submitted_by}, function (pha_err, pharma_result) {
+                            if (pha_err) {
+                                console.log(pha_err);
+                            }
+                            else {
+                                callback(null, pharma_result);
+                            }
+                        });
+                    }
+                }, function (errs, results) {
+                    if (errs) {
+                        console.log(errs);
+                    }
+                    else {
+                        if (results.Doctor[0] !== undefined) {
+                            datas['output'].push({
+                                molecule: molecule,
+                                names: results.Doctor[0].name,
+                                titles: results.Doctor[0].title
+                            });
+                        }
+                        if (results.Pharma[0] !== undefined) {
+                            datas['output'].push({
+                                molecule: molecule,
+                                names: results.Pharma[0].name,
+                                titles: results.Pharma[0].title
+                            });
+                        }
+                        console.log(datas.output[0]);
+                        res.render('index',
+                            {
+                                page: 'molecule_name',
+                                data: datas.output[0]
+                            });
+                    }
                 });
+            }
+            else {
+                res.send({details: "failure", message: "No such molecule exist"});
+            }
         }
     });
 });
 
 app.get('/ApniCare/information/Diseases',function (req,res) {
     var disease = req.query.disease;
-    Disease.find({disease_name : disease},'-_id').exec(function (err, result) {
+    var datas = {};
+    datas['output'] = [];
+    Disease.find({disease_name: disease}).sort({disease_name: 1}).exec(function (err, disease) {
         if (err) {
             console.log(err);
         }
         else {
-            res.render('index',
-                {
-                    page:'disease_name',
-                    data : result
+            if (disease != "") {
+                async.parallel({
+                    Doctor: function (callback) {
+                        Doctor.find({_id: disease[0].submitted_by}, function (doc_err, doctor_result) {
+                            if (doc_err) {
+                                console.log(doc_err);
+                            }
+                            else {
+                                callback(null, doctor_result);
+                            }
+                        });
+                    },
+                    Pharma: function (callback) {
+                        Pharma.find({_id: disease[0].submitted_by}, function (pha_err, pharma_result) {
+                            if (pha_err) {
+                                console.log(pha_err);
+                            }
+                            else {
+                                callback(null, pharma_result);
+                            }
+                        });
+                    }
+                }, function (errs, results) {
+                    if (errs) {
+                        console.log(errs);
+                    }
+                    else {
+                        if (results.Doctor[0] !== undefined) {
+                            datas['output'].push({
+                                disease: disease,
+                                names: results.Doctor[0].name,
+                                titles: results.Doctor[0].title
+                            });
+                        }
+                        if (results.Pharma[0] !== undefined) {
+                            datas['output'].push({
+                                disease: disease,
+                                names: results.Pharma[0].name,
+                                titles: results.Pharma[0].title
+                            });
+                        }
+                        console.log(datas.output[0]);
+                        res.render('index',
+                            {
+                                page: 'disease_name',
+                                data: datas.output[0]
+                            });
+                    }
                 });
+            }
+            else {
+                res.send({details: "failure", message: "No such disease exist"});
+            }
         }
     });
 });
@@ -3335,7 +3431,7 @@ app.get('/health_care_provider',healthrequiresLogin,function(req,res) {
                     res.send({details : "failure", message : "No such molecule exist"});
                 }
             }
-        })
+        });
     }
 
     if(req.query.disease) {
@@ -3624,6 +3720,7 @@ app.get('/health_care_provider',healthrequiresLogin,function(req,res) {
             }
         });
     }
+
 });
 
 app.post('/health_care_provider',healthrequiresLogin,function(req,res) {
