@@ -154,10 +154,6 @@ app.post('/feedback' ,requiresLogin,  function (req,res) {
     var suggestion = req.body.suggestion;
     var feedbackFrom = req.body.about;
     var ticket = req.body.token;
-    console.log(usefulness);
-    console.log(suggestion);
-    console.log(feedbackFrom);
-    console.log(ticket);
 
     if(req.session.userID){
         name = req.session.userID;
@@ -202,11 +198,9 @@ app.post('/your_feedback',requiresLogin,function(req,res){
 });
 
 app.post('/needhelp' , function (req,res) {
-    //console.log("pranjal");
     var subject = req.body.subject;
     var contact_message = req.body.contact_message;
-    console.log(subject);
-    console.log(contact_message);
+
 
     var needhelp = new Needhelp({
         //here user ID should be adde/d
@@ -237,7 +231,6 @@ app.post('/needhelpWL' , function (req,res) {
         subject : subject,
         contact_message : contact_message
     });
-    console.log("reached");
 
     needhelpWL.save(function (err, result) {
         if (err) {
@@ -327,7 +320,6 @@ app.post('/sendOTP',function (req, res) {
 
 app.post('/VerifyOTP',function (req, res) {
     var otp = req.body.number;
-    console.log(otp);
     if(otp == 1234){
         res.send({status : 'success' , message : 'OTP verified'});
     }
@@ -458,7 +450,6 @@ app.get('/', function (req, res) {
 
 //User registration
 app.post('/userregister', function (req, res) {
-    console.log('done');
     //regex for checking whether entered number is indian or not
     var num = /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[6789]\d{9}|(\d[ -]?){10}\d$/.test(req.body.number);
     if (num === false) {
@@ -524,7 +515,6 @@ app.get('/profile',userrequiresLogin, function (req, res) {
             }
             else{
                 var page = "profile";
-                console.log(user[0].name);
                 res.render('profile', {
                     page: page,
                     user : user[0].name
@@ -544,7 +534,6 @@ app.get('/appprofile',userrequiresLogin, function (req, res) {
             }
             else{
                 var page = "profile";
-                console.log(user[0].name);
                 res.send({status: "logged in", profileinfo: user});
                 res.end();
             }
@@ -613,7 +602,6 @@ app.post('/doctorregister', function (req, res) {
 });
 
 app.post('/pharmaregister', function (req, res) {
-    console.log('reaches');
     //regex for checking whether entered number is indian or not
     var num = /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[6789]\d{9}|(\d[ -]?){10}\d$/.test(req.body.number);
     if (num === false) {
@@ -687,7 +675,6 @@ app.get('/profile/userprofile',function (req,res) {
             console.log(err);
         }
         else{
-            console.log(result);
             if(result !== ""){
                 res.render('profile',
                     {
@@ -777,7 +764,6 @@ app.get('/ApniCare/information',function (req,res) {
 
 app.get('/ApniCare/information/Molecules',function (req,res) {
     var molecule = req.query.molecule;
-    console.log(molecule);
     Molecule.find({molecule_name : molecule},'-_id').exec(function (err, result) {
         if (err) {
             console.log(err);
@@ -794,7 +780,6 @@ app.get('/ApniCare/information/Molecules',function (req,res) {
 
 app.get('/ApniCare/information/Diseases',function (req,res) {
     var disease = req.query.disease;
-    console.log(disease);
     Disease.find({disease_name : disease},'-_id').exec(function (err, result) {
         if (err) {
             console.log(err);
@@ -811,9 +796,6 @@ app.get('/ApniCare/information/Diseases',function (req,res) {
 
 app.get('/ApniCare/information/Drug',function (req,res) {
     var brand = req.query.brand;
-    var dosage = req.query.dosage;
-    console.log(brand);
-    console.log(dosage);
     Brand.find({brand_name : brand},'-_id brand_name categories types primarily_used_for').populate(
         {path : 'dosage_id', select : '-_id dosage_form',populate :
                 {path : 'strength_id', select : '-_id strength packaging prescription dose_taken warnings price dose_timing potent_substance.name potent_substance.molecule_strength'}
@@ -836,9 +818,7 @@ app.get('/ApniCare/information/Drug',function (req,res) {
 
 // it takes name and give all info or list in array like disease ,brands , molecule etc
 app.post('/searchspecific',function(req,res){
-    console.log("searchspecific");
     var value = req.body.search;
-    console.log(value);
     async.parallel({
         Brands : function(callback){
             Brand.find({brand_name : value},'-_id brand_name categories types primarily_used_for').populate(
@@ -910,7 +890,6 @@ app.post('/searchspecific',function(req,res){
         }
         else{
             req.session.search = result;
-            console.log(result);
             res.send({status : 'searchspecific' , data : result});
         }
     });
@@ -922,7 +901,6 @@ app.post('/brandsdata',function(req,res){
     var value = req.body.term;
     var spaceRemoved = value.replace(/\s/g, '');
     var search = new RegExp('^'+spaceRemoved,'i' );
-    console.log("hey:"+value);
     Brand.find({brand_name : search},'-_id brand_name',function(err,result) {
         if (err) {
             console.log(err);
@@ -990,6 +968,7 @@ app.get('/diseasesdata',function(req,res){
         }
     })
 });
+
 //===================================for APP============================
 app.get('/rohitsearching', function(req,res){
    res.render('rohitsearching');
@@ -997,7 +976,6 @@ app.get('/rohitsearching', function(req,res){
 });
 
 app.post('/moleculeslist'/*,healthrequiresLogin*/,function(req,res){
-    console.log("moleculeslist");
     var skip = parseInt(req.body.nskip);
     Molecule.find({},'-_id molecule_name').sort({molecule_name: 1}).skip(skip).limit(10).exec(function(err,result){
         if(err){
@@ -1010,7 +988,6 @@ app.post('/moleculeslist'/*,healthrequiresLogin*/,function(req,res){
 });
 
 app.post('/brandslist'/*,healthrequiresLogin*/,function(req,res){
-    console.log("brandslist");
     var skip = parseInt(req.body.nskip);
     Brand.find({},'-_id brand_name').populate(
         {path : 'dosage_id', select : '-_id dosage_form',populate :
@@ -1027,7 +1004,6 @@ app.post('/brandslist'/*,healthrequiresLogin*/,function(req,res){
 });
 
 app.post('/categorieslist'/*,healthrequiresLogin*/,function(req,res){
-    console.log("categorieslist");
     var skip = parseInt(req.body.nskip);
     Brand.find({}, '-_id categories').sort({categories : 1}).skip(skip).limit(10).exec(function (err, result) {
         if(err){
@@ -1040,7 +1016,6 @@ app.post('/categorieslist'/*,healthrequiresLogin*/,function(req,res){
 });
 
 app.post('/diseaseslist'/*,healthrequiresLogin*/,function(req,res){
-    console.log("diseaseslist");
     var skip = parseInt(req.body.nskip);
     Disease.find({},'-_id disease_name').sort({disease_name : 1}).skip(skip).limit(10).exec(function(err,disease){
         if(err){
@@ -1053,10 +1028,7 @@ app.post('/diseaseslist'/*,healthrequiresLogin*/,function(req,res){
 });
 
 app.post('/organslist'/*,healthrequiresLogin*/,function(req,res){
-    console.log("organslist");
     var skip = parseInt(req.body.nskip);
-    //            Search.find({name : search}, '-_id name').sort({"updated_at":-1}).sort({"created_at":-1}).skip(skip).limit(10).exec(function (err, result) {
-
     Search.find({}, '-_id name').sort({"updated_at":-1}).sort({"created_at":-1}).skip(skip).limit(10).exec(function (err, result) {
         if (err) {
             console.log(err);
@@ -1068,7 +1040,6 @@ app.post('/organslist'/*,healthrequiresLogin*/,function(req,res){
 });
 
 app.post('/symptomslist'/*,healthrequiresLogin*/,function(req,res){
-    console.log("symptomslist");
     var skip = parseInt(req.body.nskip);
     Disease.find({},'-_id symptoms').sort({symptoms : 1}).skip(skip).limit(10).exec(function(err,result) {
         if (err) {
@@ -1082,7 +1053,6 @@ app.post('/symptomslist'/*,healthrequiresLogin*/,function(req,res){
 
 // similar barnds + info + combination
 // app.post('/formolecule',healthrequiresLogin,function (req,res) {
-//     console.log("formolecule");
 //     concole.log("page"+req.body.page );
 //     var molecule = req.body.molecule;
 //     var skip = parseInt(req.body.nskip);
@@ -1144,8 +1114,6 @@ app.post('/symptomslist'/*,healthrequiresLogin*/,function(req,res){
 // });
 
 app.post('/formolecule',function (req,res){
-    console.log("formolecule");
-    console.log("page"+req.body.page );
     var molecule = req.body.molecule;
     var skip = parseInt(req.body.nskip);
     if(req.body.page == 'info'){
@@ -1207,11 +1175,8 @@ app.post('/formolecule',function (req,res){
 
 // similar disease + organ + symptom FILTERED + TAKES RAW
 app.post('/DOSlist',healthrequiresLogin,function (req,res) {
-    console.log("search_dos");
     var raw = req.body.search;
     var skip = parseInt(req.body.nskip);
-    console.log(raw);
-    console.log(typeof raw);
     var spaceRemoved = raw.replace(/\s/g, '');
     var search = new RegExp('^'+spaceRemoved,'i' );
     if(req.body.page == 'disease'){ // gives disease_name sorted list
@@ -1248,11 +1213,8 @@ app.post('/DOSlist',healthrequiresLogin,function (req,res) {
 
 // same molecule same strength => output is list of brands
 app.post('/similarbrands',healthrequiresLogin,function(req,res){
-    console.log("similarbrands");
     var molecule = req.body.molecule;
     var strength = req.body.strength;
-    console.log(molecule);
-    console.log(strength);
     var skip = req.body.nskip;
     Strength.find({'potent_substance.name' : molecule , 'potent_substance.molecule_strength' : strength},'-_id -__v -potent_substance._id '
     ).populate({path: 'brands_id', select : '-_id', populate: {path: 'dosage_id', select : '-_id -__v'}}).populate(
@@ -1288,8 +1250,6 @@ app.post('/similarbrands',healthrequiresLogin,function(req,res){
 // have regex , search for molecule_name,categories,brand_name,disease_name,organs,symptoms
 app.post('/searchall',function (req,res) {
     var raw = req.body.search;
-    console.log("searchall");
-    console.log(raw);
     var spaceRemoved = raw.replace(/\s/g, '');
     var skip = parseInt(req.body.nskip);
     var search = new RegExp('^' + spaceRemoved, 'i');
@@ -1359,7 +1319,6 @@ app.post('/searchall',function (req,res) {
             console.log(err);
         }
         else {
-            console.log(result);
             res.send({ message : "search all" , data :result });
         }
     });
@@ -1578,7 +1537,6 @@ app.get('/searchcategories',function(req,res){
     });
     //res.render('index',{page : 'Drug_Information' , data : value});
 });
-
 
 // search molecule , brand, category and takes raw name for it
 app.post('/search_mbc',function (req,res) {
@@ -3369,6 +3327,7 @@ app.get('/health_care_provider',healthrequiresLogin,function(req,res) {
                             console.log(errs);
                         }
                         else {
+                            console.log(results);
                             if (results.Doctor[0] !== undefined) {
                                 datas['output'].push({
                                     disease: disease,
@@ -3376,7 +3335,7 @@ app.get('/health_care_provider',healthrequiresLogin,function(req,res) {
                                     titles : results.Doctor[0].title
                                 });
                             }
-                            if (results.Pharma !== undefined){
+                            if (results.Pharma[0] !== undefined){
                                 datas['output'].push({
                                     disease: disease,
                                     names: results.Pharma[0].name,
@@ -4361,7 +4320,6 @@ app.post('/licence',function(req,res){
     })
 });
 
-
 //=========================Admin Panel==================================================================================
 
 /////////insertData from User to make it live/////////////////////////
@@ -4369,7 +4327,6 @@ app.post('/licence',function(req,res){
 app.post('/drugData',healthrequiresLogin,function(req,res){
     var company_name = req.body.company_name;
     var brand_name = (req.body.brand_name).replace(/\b\w/g, function(l){ return l.toUpperCase() });
-    console.log(brand_name);
     var categories = req.body.categories;
     var primarily_used_for = req.body.primarily_used_for;
     var types = req.body.types;
@@ -4403,8 +4360,6 @@ app.post('/drugData',healthrequiresLogin,function(req,res){
                                 Dosage.find({_id : result1[0].dosage_id , dosage_form : dosage_form},function(err2,result2){
                                     if(result2 != ""){
                                         Strength.find({_id : result2[0].strength_id , strength : strength},function(err3,result3){
-                                            console.log(strength);
-                                            console.log(result3[0]);
                                             if(result3[0] === undefined){
                                                 var drugData = new DrugData({
                                                     company_name: company_name,
@@ -4554,7 +4509,6 @@ app.post('/diseaseData',healthrequiresLogin,function(req,res) {
     var cause = req.body.cause;
     //for diagnosis
     var diagnosis_subhead = req.body.subhead1; // heading
-    console.log(diagnosis_subhead);
     var diagnosis_info = req.body.subhead2; // information about heading
     // for organs
     var organ_subhead = req.body.subhead;
@@ -4892,7 +4846,6 @@ app.get('/admin_accountUser',adminrequiresLogin,function(req,res){
 
 app.get('/blockUser',adminrequiresLogin,function(req,res){
     var number = req.query.number;
-    console.log("here blocking"+number);
     User.update({number : number},{
         $set : {status : 'blocked'}
     },function (err) {
@@ -4907,7 +4860,6 @@ app.get('/blockUser',adminrequiresLogin,function(req,res){
 
 app.get('/unblockUser',adminrequiresLogin,function(req,res){
     var number = req.query.number;
-    console.log(number);
     User.update({number : number},{
         $set : {status : 'unblocked'}
     },function (err) {
@@ -5263,7 +5215,6 @@ app.get('/adminDrugDataInfo',adminrequiresLogin,function(req,res) {
             console.log(err);
         }
         else {
-            //console.log(strengths);
             res.render('adminDrugDataInfo',{result : strengths});
         }
     });
@@ -6308,7 +6259,6 @@ app.get('/admin_activityMoleculeIssueList',adminrequiresLogin,function(req,res){
                 if(err){
                     console.log(err);
                 }
-                console.log(result);
                 res.render('admin_activityMolecule', {result : data});
             });
         }
@@ -6558,8 +6508,6 @@ app.get('/adminFeedbackAddResponse',adminrequiresLogin,function(req,res){
 app.post('/adminFeedbackEnterResponse',adminrequiresLogin,function(req,res){
     var ticket = req.query.ticket;
     var response = req.body.response;
-    console.log(ticket);
-    console.log(response);
     Feedback.update({feedbackTicket : ticket},{
         $push : {
             feedbackResponse : response
@@ -6577,8 +6525,6 @@ app.post('/adminFeedbackEnterResponse',adminrequiresLogin,function(req,res){
 app.post('/adminFeedbackEnterResponse',adminrequiresLogin,function(req,res){
     var ticket = req.query.ticket;
     var response = req.body.response;
-    console.log(ticket);
-    console.log(response);
     Feedback.update({feedbackTicket : ticket},{
         $push : {
             feedbackResponse : response
@@ -6598,6 +6544,7 @@ app.post('/adminFeedbackEnterResponse',adminrequiresLogin,function(req,res){
 app.use(function(req, res) {
     res.status(404).render('not_found');
 });
+
 //
 // // Handle 500
 // app.use(function(error, req, res, next) {
