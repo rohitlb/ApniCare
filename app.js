@@ -182,7 +182,7 @@ app.post('/feedback' ,requiresLogin,  function (req,res) {
     });
 });
 
-app.post('/your_feedback',requiresLogin,function(req,res){
+app.get('/your_feedback',requiresLogin,function(req,res){
     if(req.session.userID){
         var person_id = req.session.userID;
     }
@@ -192,8 +192,9 @@ app.post('/your_feedback',requiresLogin,function(req,res){
     if(req.session.pharmaID){
         var person_id = req.session.pharmaID;
     }
+    console.log(person_id);
     Feedback.find({feedbackFrom : person_id},'',function(err,result){
-
+        console.log(result);
     });
 });
 
