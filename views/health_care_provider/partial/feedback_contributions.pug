@@ -1,16 +1,37 @@
 div.row
     div.col.s12.m12.l9.offset-l3
-        h5.center Your Feedback
-        table.bordered.highlight.centered
+        h3.center Your Feedbacks
+        table.bordered.highlight
+
             thead
-                tr
-                    th CATEGORY
-                    th RATING
-                    th SUGGESTIONS
-                    th RESPONSE
+                    tr
+                        th(width="20%") CATEGORY
+                        th(width='10%') RATING
+                        th(width='35%') SUGGESTIONS
+                        //if(val.feedbackResponse)
+                        th(width='35%') RESPONSE
+            each val in data
                 tbody
                     tr
-                        td Drug Data- qwe
-                        td Average
-                        td jhbabjfb
-                        td hshdbcbjhsd hhbsgfgf
+                        td= val.feedbackCategory
+                        td= val.feedbackUsefulness
+                        td.to_capital= val.feedbackInfo
+                        //if(val.feedbackResponse)
+                        td= val.feedbackResponse
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

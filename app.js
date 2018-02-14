@@ -3628,10 +3628,25 @@ app.get('/health_care_provider',healthrequiresLogin,function(req,res) {
 
     if(req.query.page == 'feedback_contributions'){
         page = req.query.page;
-        res.render('home_profile_doctor',
-            {
-                page: page
-            });
+        if(req.session.doctorID){
+            var person_id = req.session.doctorID;
+        }
+        if(req.session.pharmaID){
+            var person_id = req.session.pharmaID;
+        }
+        Feedback.find({feedbackFrom : person_id},'-_id -__v -feedbackFrom ',function(err,result){
+            if(err){
+                console.log(err);
+            }
+            else{
+                console.log(result);
+                res.render('home_profile_doctor',
+                    {
+                        page: page,
+                        data: result
+                    });
+            }
+        });
     }
 
     if(req.query.page == 'notifications') {
@@ -3955,10 +3970,25 @@ app.post('/health_care_provider',healthrequiresLogin,function(req,res) {
 
     if(req.query.page == 'feedback_contributions'){
         page = req.query.page;
-        res.render('home_profile_doctor',
-            {
-                page: page
-            });
+        if(req.session.doctorID){
+            var person_id = req.session.doctorID;
+        }
+        if(req.session.pharmaID){
+            var person_id = req.session.pharmaID;
+        }
+        Feedback.find({feedbackFrom : person_id},'-_id -__v -feedbackFrom ',function(err,result){
+            if(err){
+                console.log(err);
+            }
+            else{
+                console.log(result);
+                res.render('home_profile_doctor',
+                    {
+                        page: page,
+                        data: result
+                    });
+            }
+        });
     }
 
     if(req.query.brand) {
