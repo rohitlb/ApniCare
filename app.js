@@ -3621,6 +3621,14 @@ app.get('/health_care_provider',healthrequiresLogin,function(req,res) {
         });
     }
 
+    if(req.query.page == 'feedback_contributions'){
+        page = req.query.page;
+        res.render('home_profile_doctor',
+            {
+                page: page
+            });
+    }
+
     if(req.query.page == 'notifications') {
         Doctor.findOne({_id: req.session.doctorID}, function (err, result) {
             if (err) {
@@ -3938,6 +3946,14 @@ app.post('/health_care_provider',healthrequiresLogin,function(req,res) {
                     });
             }
         });
+    }
+
+    if(req.query.page == 'feedback_contributions'){
+        page = req.query.page;
+        res.render('home_profile_doctor',
+            {
+                page: page
+            });
     }
 
     if(req.query.brand) {
