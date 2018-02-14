@@ -757,7 +757,6 @@ app.get('/ApniCare/information',function (req,res) {
             }
         });
     }
-
 });
 
 app.get('/ApniCare/information/Molecules',function (req,res) {
