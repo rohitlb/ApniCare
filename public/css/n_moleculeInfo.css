@@ -208,7 +208,7 @@ span.next_line, ul li.next_line, .next_line {
 .bold {
 
     font-family: Verdana;
-    font-weight: 700;
+    font-weight: 500;
     display: block;
     padding: 2px 5px;
     color: #333;
@@ -217,4 +217,8 @@ span.next_line, ul li.next_line, .next_line {
     text-decoration: none;
     position: relative;
     z-index: 1;
+}
+
+.flowtext{
+
 }

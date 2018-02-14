@@ -541,8 +541,6 @@ app.get('/appprofile',userrequiresLogin, function (req, res) {
     }
 });
 
-
-
 app.post('/doctorregister', function (req, res) {
     //regex for checking whether entered number is indian or not
     var num = /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[6789]\d{9}|(\d[ -]?){10}\d$/.test(req.body.number);
@@ -659,7 +657,6 @@ app.post('/pharmaregister', function (req, res) {
     });
 });
 
-
 //***************************************frontend**************************************8888
 
 //*******************************frontend changes***********************************************
@@ -688,6 +685,7 @@ app.get('/profile/userprofile',function (req,res) {
         }
     });
 });
+
 app.get('/ApniCare/About',function (req,res) {
     var page= 'AboutUs';
     if(req.query.page=='AboutUs' || req.query.page=='Contact' || req.query.page=='NeedHelp' || req.query.page=='FeedBack')
