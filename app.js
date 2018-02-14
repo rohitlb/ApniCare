@@ -172,7 +172,7 @@ app.post('/feedback' ,requiresLogin,  function (req,res) {
         feedbackTicket : ticket
     });
 
-    feedback.save(function (err, result) {
+    feedback.save(function (err) {
         if (err) {
             console.log(err);
             res.send({status: "failure", message: "some error"});
@@ -192,9 +192,14 @@ app.get('/your_feedback',requiresLogin,function(req,res){
     if(req.session.pharmaID){
         var person_id = req.session.pharmaID;
     }
-    console.log(person_id);
-    Feedback.find({feedbackFrom : person_id},'',function(err,result){
-        console.log(result);
+    Feedback.find({feedbackFrom : person_id},'-_id -__v -feedbackFrom ',function(err,result){
+        if(err){
+            console.log(err);
+        }
+        else{
+            console.log(result);
+            res.send({status : 'success' , data : result});
+        }
     });
 });
 
@@ -204,7 +209,7 @@ app.post('/needhelp' , function (req,res) {
 
 
     var needhelp = new Needhelp({
-        //here user ID should be adde/d
+        //here user ID should be added
         subject : subject,
         contact_message : contact_message
     });
