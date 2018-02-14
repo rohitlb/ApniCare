@@ -899,7 +899,6 @@ $(function () {
         var usefulness = $("input[type='radio'][name='radio1_feedback']:checked").val();
         var suggestion = $('#suggestion').val();
         var about = $('#about').val();
-        alert(suggestion);
         var d = new Date();
         var month = d.getMonth()+1;
         var day = d.getDate();
@@ -929,6 +928,7 @@ $(function () {
             success: function (result) {
                 if(result.message === 'success'){
                     Materialize.toast(result.message, 1000);
+                    window.location = '/health_care_provider?page=drug_data';
                 }
                 else{
                     Materialize.toast(result.message,1000);
