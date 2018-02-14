@@ -123,17 +123,8 @@ div
 
                                         if(page == 'Drug_Information')
                                             //*********************drug front view*****************************
-                                            a#drug_data(title='drug name' href='/ApniCare/information/Drug?brand=' + val.brand_name) #{val.brand_name.toLocaleUpperCase()} &nbsp
-                                                br
-                                                each dosage in val.dosage_id
-                                                    each dose in dosage.strength_id
-                                                        a(href='/ApniCare/information/Drug?brand='+ val.brand_name +'&dosage='+ dosage.dosage_form )
-                                                            span(title='brand name and dosage form').black-text
-                                                                | #{val.brand_name} #{dosage.dosage_form} &nbsp
-                                                            //each dose in dosage.strength_id
-                                                            span(title='strength') #{dose.strength} &nbsp
-                                                            span(title='packaging') #{dose.packaging}
-                                                        br
+                                            a#drug_data(title='drug name' href='/ApniCare/information/Drug?brand=' + val.brand_name) #{val.brand_name.toLocaleUpperCase()}
+                                               
                                                 br
                                             //include ./drug
                                         if (page == 'Disease_Information')
