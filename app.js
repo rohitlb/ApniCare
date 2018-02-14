@@ -67,7 +67,7 @@ store.on('error',function (error) {
 app.disable('x-powered-by');
 
 //configure the app
-app.set('port',9000);
+app.set('port',8000);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
@@ -791,6 +791,7 @@ app.get('/ApniCare/information/Molecules',function (req,res) {
                         console.log(errs);
                     }
                     else {
+                        console.log(results);
                         if (results.Doctor[0] !== undefined) {
                             datas['output'].push({
                                 molecule: molecule,
