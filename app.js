@@ -152,7 +152,7 @@ app.post('/feedback' ,requiresLogin,  function (req,res) {
     var name;
     var usefulness = req.body.usefulness;
     var suggestion = req.body.suggestion;
-    var feedbackFrom = req.body.about;
+    var feedbackCategory = req.body.about;
     var ticket = req.body.token;
 
     if(req.session.userID){
@@ -168,7 +168,7 @@ app.post('/feedback' ,requiresLogin,  function (req,res) {
         feedbackUsefulness : usefulness,
         feedbackInfo : suggestion,
         feedbackFrom : name,
-        feedbackCategory : feedbackFrom,
+        feedbackCategory : feedbackCategory,
         feedbackTicket : ticket
     });
 
