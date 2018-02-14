@@ -6,7 +6,6 @@ var favicon = require('serve-favicon');
 var request = require('request');
 var mongoose = require('mongoose');
 var promise = require('bluebird');
-var sleep = require('thread-sleep');
 var session = require('express-session');
 var fileParser = require('connect-multiparty')();
 var cloudinary = require('cloudinary');
