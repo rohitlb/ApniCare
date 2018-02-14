@@ -280,6 +280,10 @@ $(function () {
     // });
 
 
+    // ------------------------- CAPITAL FIRST LETTER OF SENTENCES -----------------------//
+
+
+
 
     //- ..................... ALPHABETICAL DISPLAY OF DRUG AND DISEASE AND MOLECULE DATA..............
 
@@ -417,8 +421,8 @@ $(function () {
 
     //............................... For contraindications in molecule form ............//
     $('.repeat2').on('click', function() {
-        $('.repeater2').append('<div><input id="subhead2" type="text" list="contra" placeholder="Choose subheading" class="browser-default repeat_subhead2" required/><button class="remove">x</button>' +
-            '<textarea class="text_subhead2 materialize-textarea" placeholder="Enter Text" id="subhead_text2" required></textarea><label for="subhead2" style="color:black;font-size: 15px;font-weight: 400;"></label>' +
+        $('.repeater2').append('<div><input id="subhead2" type="text" list="contra" placeholder="Choose subheading" required="required" class="validate browser-default repeat_subhead2" required/><button class="remove">x</button>' +
+            '<textarea class="text_subhead2 materialize-textarea validate" placeholder="Enter Text" id="subhead_text2" required></textarea><label for="subhead2" style="color:black;font-size: 15px;font-weight: 400;"></label>' +
             '<label for="subhead_text2" style="color:black;font-size: 15px;font-weight: 400;">' +
             '<datalist id="contra"> <option> In Lactation</option> <option>In Geriatric/Old Person</option><option>Other Contraindications</option>' +
             ' <option> In Pregnancy </option>Lab  <option>Interference</option> <option> In Children </option><option>Storage</option>' +
@@ -432,8 +436,8 @@ $(function () {
 
     //............................... For Dosage in Molecule Form...............//
     $('.repeat3').on('click', function() {
-        $('.repeater3').append('<div><input id="subhead3" type="text" list="dosage" placeholder="Choose subheading" class="browser-default repeat_subhead3" required/><button class="remove">x</button>' +
-            '<textarea class="text_subhead3 materialize-textarea" placeholder="Enter Text" id="subhead_text3" required></textarea><label for="subhead3" style="color:black;font-size: 15px;font-weight: 400;"></label>' +
+        $('.repeater3').append('<div><input id="subhead3" type="text" list="dosage" placeholder="Choose subheading" required="required" class="validate browser-default repeat_subhead3" required/><button class="remove">x</button>' +
+            '<textarea class="validate text_subhead3 materialize-textarea" placeholder="Enter Text" id="subhead_text3" required></textarea><label for="subhead3" style="color:black;font-size: 15px;font-weight: 400;"></label>' +
             '<label for="subhead_text3" style="color:black;font-size: 15px;font-weight: 400;">' +
             '<datalist id="dosage"> <option> Oral</option> <option>Intravenous</option><option>Liver Disorder</option>' +
             ' <option> Hepatic </option> <option>COPD</option>' +
@@ -447,8 +451,8 @@ $(function () {
 
     //............................... For Other Interactions in Molecule Form .........//
     $('.repeat4').on('click', function() {
-        $('.repeater4').append('<div><input id="subhead4" type="text" placeholder="Enter subheading" class="browser-default repeat_subhead4" required/><button class="remove">x</button>' +
-            '<textarea class="text_subhead4 materialize-textarea" placeholder="Enter Text" id="subhead_text4" required></textarea><label for="subhead4" style="color:black;font-size: 15px;font-weight: 400;"></label>' +
+        $('.repeater4').append('<div><input id="subhead4" type="text" placeholder="Enter subheading" class="validate browser-default repeat_subhead4" required/><button class="remove">x</button>' +
+            '<textarea class="validate text_subhead4 materialize-textarea" placeholder="Enter Text" id="subhead_text4" required></textarea><label for="subhead4" style="color:black;font-size: 15px;font-weight: 400;"></label>' +
             '<label for="subhead_text4" style="color:black;font-size: 15px;font-weight: 400;">' +
             '</label></div></div>');
         return false; //prevent form submission
@@ -458,10 +462,37 @@ $(function () {
         return false; //prevent form submission
     });
 
+    var $form = $("#myid"),
+        $errorMsg = $("<span class='error'>This field is required..!!</span>");
+
+    $("#submit").on("click", function () {
+        // If any field is blank, we don't submit the form
+        var toReturn = true;
+        $("input", $form).each(function () {
+            // If our field is blank
+            if ($(this).val() == "") {
+                // Add an error message
+                if (!$(this).data("error")) {
+                    $(this).data("error", $errorMsg.clone().insertAfter($(this)));
+                }
+                toReturn = false;
+            }
+            // If the field is not blank
+            else {
+                // Remove the error message
+                if ($(this).data("error")) {
+                    $(this).data("error").remove();
+                    $(this).removeData("error");
+                }
+            }
+        });
+        return toReturn;
+    });
+
     //............................... For Other Drug Interactions In Molecule Form ...........//
     $('.repeat5').on('click', function() {
-        $('.repeater5').append('<div><input id="subhead5" type="text" placeholder="Enter subheading" class="browser-default repeat_subhead5" required/><button class="remove">x</button>' +
-            '<textarea class="text_subhead5 materialize-textarea" placeholder="Enter Text" id="subhead_text5" required></textarea><label for="subhead5" style="color:black;font-size: 15px;font-weight: 400;"></label>' +
+        $('.repeater5').append('<div><input id="subhead5" type="text" placeholder="Enter subheading" class="validate browser-default repeat_subhead5" required/><button class="remove">x</button>' +
+            '<textarea class="text_subhead5 materialize-textarea validate" placeholder="Enter Text" id="subhead_text5" required></textarea><label for="subhead5" style="color:black;font-size: 15px;font-weight: 400;"></label>' +
             '<label for="subhead_text5" style="color:black;font-size: 15px;font-weight: 400;">' +
             '</label></div></div>');
         return false; //prevent form submission
