@@ -519,4 +519,41 @@ $(document).ready(function() {
     });
     //needhelp with login
     //feedback
+    $('#pswd_info').hide();
+    $('#password1').keyup(function() {
+        // keyup code here
+    }).focus(function() {
+        $('#pswd_info').show();
+    }).blur(function() {
+        $('#pswd_info').hide();
+    });
+    //validate the length
+    var pswd = $('#password1').val();
+    if ( pswd.length < 4 ) {
+        $('#length').removeClass('valid').addClass('invalid');
+    } else {
+        $('#length').removeClass('invalid').addClass('valid');
+    }
+    //validate letter
+    if ( pswd.match(/[A-z]/) ) {
+        $('#letter').removeClass('valid').addClass('invalid');
+    } else {
+        $('#letter').removeClass('invalid').addClass('valid');
+
+    }
+
+//validate capital letter
+    if ( pswd.match(/[A-Z]/) ) {
+        $('#capital').removeClass('valid').addClass('invalid');
+
+    } else {
+        $('#capital').removeClass('invalid').addClass('valid');
+    }
+
+//validate number
+    if ( pswd.match(/\d/) ) {
+        $('#numbe').removeClass('invalid').addClass('valid');
+    } else {
+        $('#numbe').removeClass('valid').addClass('invalid');
+    }
 });
