@@ -6590,10 +6590,6 @@ app.post('/adminFeedbackEnterResponse',adminrequiresLogin,function(req,res){
 
 //////////////////PAGE NOT FOUND///////////////////////////////////////////////
 
-app.post('/link',function(req,res){
-    
-});
-
 app.use(function(req, res) {
     res.status(404).render('not_found');
 });

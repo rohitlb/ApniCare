@@ -1,4 +1,3 @@
-- doses = data[0]
 - pots = data[0]
 - potse = data[0]
 - var i = 0;
@@ -69,7 +68,7 @@ div.col.l10.m10.s10#mol_col1
                     li
                         a.btn2.all.hoverable(href='/ApniCare/information?page=Drug_Information' type='other') Other
     div.row.m_p_info
-        div.col
+        div.col.s12.n12.l11
                 h3.section.scrollspy#data_name #{vas.brand_name.toUpperCase()}
                     span <em>&nbsp - &nbsp</em>
                     each company in vas.company_id
@@ -101,6 +100,8 @@ div.col.l10.m10.s10#mol_col1
                                                 //if(doses.packaging != '')
                                                 th Packaging
                                                 th Price
+                                                if(dosages.dosage_form == 'Tablet')
+                                                    th Price/Unit
                                         tbody
                                             tr
                                                 td <strong>#{dosages.dosage_form.toUpperCase()}</strong> &nbsp &nbsp
@@ -109,6 +110,11 @@ div.col.l10.m10.s10#mol_col1
                                                 //if(doses.packaging != '')
                                                 td.to_capital <strong>#{doses.packaging}</strong> &nbsp &nbsp
                                                 td <strong>₹ #{doses.price}</strong>
+                                                if(dosages.dosage_form == 'Tablet')
+                                                    td
+                                                        span= Number(tin[i].rateper).toFixed(2)
+                                                        //<strong>#{}</strong>
+                                                    -i = i+1;
                                             tr#read_more
                                                 td
                                                 //if(doses.strength != '')
@@ -144,12 +150,11 @@ div.col.l10.m10.s10#mol_col1
                                             span.next_line.to_capital <strong>#{doses.warnings}</strong>
 
 
-div.col#mol_row1_subrow4
+//div.col#mol_row1_subrow4
     h5 Page Contents
     ul.section.table-of-contents(style='position:fixed;z-index:2;padding-bottom:10px;')
             each dosages in vas.dosage_id
                 each doses in dosages.strength_id
-                    p doseaaspoijf #{dose}
                     if(val.categories != '')
                         li
                             a(href="#brand") &nbsp &nbsp Brand
@@ -160,19 +165,6 @@ div.col#mol_row1_subrow4
                         a(href="#prescription") &nbsp &nbsp Prescription
                     li
                         a(href="#potent") &nbsp &nbsp Potent
-                    //if(dose.strength != "")
-                    //    li
-                    //        a(href="#dosage_form") &nbsp &nbsp Dosage form
-
-                    //if(dose.dose_taken != '')
-                    //    li
-                    //        a(href="#dosage_taken") &nbsp &nbsp Dosage taken
-                    //if(dose.dose_timing != '')
-                    //    li
-                    //        a(href="#timing") &nbsp &nbsp Timing
-                    //if(vas.primarily_used_for != '')
-                    //    li
-                    //        a(href="#primarily") &nbsp &nbsp Primarily
-                    //if(dose.warnings != '')
-                    //    li
-                    //        a(href="#warnings") &nbsp &nbsp Warnings
+                    if(doses.strength != "")
+                        li
+                            a(href="#dosage_form") &nbsp &nbsp Dosage form
