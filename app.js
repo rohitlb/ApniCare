@@ -419,7 +419,6 @@ app.post('/login',function (req,res) {
     });
 });
 
-
 //forgot password
 app.post('/checkforgotpassword',function (req,res) {
     var number = req.body.number;
@@ -705,7 +704,6 @@ app.post('/needhelpWL' , function (req,res) {
     });
 });
 
-
 //=========================TERM AND CONDITION ,,FAQ ,,PRIVACY POLICY ,, OPEN SOURCE LICENCE ============================
 
 app.post('/terms',function(req,res){
@@ -764,13 +762,11 @@ app.use(function(req, res) {
     res.status(404).render('not_found');
 });
 
-//
-// // Handle 500
-// app.use(function(error, req, res, next) {
-//     res.status(500).send("Internal server error");
-// });
 
-
+// Handle 500
+app.use(function(error, req, res, next) {
+    res.status(500).send("Internal server error");
+});
 
 module.exports = app;
 
