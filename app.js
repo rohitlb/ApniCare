@@ -4248,12 +4248,18 @@ app.post('/basic',healthrequiresLogin,function(req,res) {
     var city = req.body.city;
     var experience = req.body.experience;
     var about = req.body.about;
-    console.log(name);
-    console.log(title);
-    console.log(gender);
-    console.log(city);
-    console.log(experience);
-    console.log(about);
+    var email = req.body.email;
+    var email = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(req.body.email);
+    if(email === false ){
+        res.send({status: "failure", message: "please enter a valid email and try again"});
+        return;
+    }
+    // console.log(name);
+    // console.log(title);
+    // console.log(gender);
+    // console.log(city);
+    // console.log(experience);
+    // console.log(about);
 
     Doctor.update({_id: req.session.doctorID}, {
         $set: {
@@ -4262,7 +4268,8 @@ app.post('/basic',healthrequiresLogin,function(req,res) {
             gender: gender,
             city: city,
             year_of_experience: experience,
-            About_you : about
+            About_you : about,
+            email:req.body.email
         }
     }, function (err) {
         if (err) {
@@ -4348,7 +4355,14 @@ app.post('/pharma_basic',healthrequiresLogin,function(req,res) {
     var city = req.body.city;
     var experience = req.body.experience;
     var about = req.body.about;
+    var email = req.body.email;
+    var email = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(req.body.email);
+    if(email === false ){
+        res.send({status: "failure", message: "please enter a valid email and try again"});
+        return;
+    }
 
+    console.log("email="+email);
 
     Pharma.update({_id: req.session.pharmaID}, {
         $set: {
@@ -4357,7 +4371,8 @@ app.post('/pharma_basic',healthrequiresLogin,function(req,res) {
             gender: gender,
             city: city,
             year_of_experience: experience,
-            About_you : about
+            About_you : about,
+            email:req.body.email
         }
     }, function (err) {
         if (err) {

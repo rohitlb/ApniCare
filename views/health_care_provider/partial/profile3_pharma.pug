@@ -5,8 +5,8 @@ div.collection#main_profile_doctor
         div.row
             .col.s12.m12.l9.offset-l3
                 h5.bold(style='font-size: 25px') DRx. #{data[0].name}
-                br
-                span.flow-text Profile is not complete yet
+                //br
+                //span.flow-text Profile is not complete yet
     //div.collection-item.dismissable
     //    div.row
     //        div.col.s12.m12.l9.offset-l3
@@ -23,13 +23,13 @@ div.collection#main_profile_doctor
                 h5.center Complete Your Profile in 3 Easy steps
                 ul.tabs
                     li.tab.active.col.s4
-                        a.white-text.darken-5#tab1(href='#basic_detail') Basic Details
+                        a.white-text.darken-5#tab1(href='#basic_detail_pharma') Basic Details
                     li.tab.col.s4
-                        a.white-text.darken-5#tab2(href='#edu_special') Education & Specialization
+                        a.white-text.darken-5#tab22(href='#edu_special_pharma') Education & Specialization
                     li.tab.col.s4
-                        a.white-text.darken-5#tab3(href='#register_doc') Registration & Documents
+                        a.white-text.darken-5#tab3(href='#register_doc_pharma') Registration & Documents
 
-    div.row#basic_detail
+    div.row#basic_detail_pharma
         div.col.m12.l10.s12.offset-l2
             div.col.s12.m12.l10.offset-l2
                 div.input-field.col.s12.m8.l8
@@ -50,7 +50,7 @@ div.collection#main_profile_doctor
 
         div.col.m12.l10.s12.offset-l2
             div.col.s12.m12.l10.offset-l2
-                form(name='form_basic_details' id='basic_profile' enctype="multipart/form-data" method='POST' action='#tab2')
+                form(name='form_basic_details' id='basic_profile' enctype="multipart/form-data" method='POST')
                     div.input-field.col.s12.m4.l4
                         span
                             | Title
@@ -111,7 +111,7 @@ div.collection#main_profile_doctor
                                         | Mobile Number &nbsp
                                         span#f1(style='color:#660099;') Verified
                                             i.material-icons.left(style='color:#660099;') done
-                                        input#mobNo(type='text', value=data[0].number readonly)
+                                        input.grey.lighten-2#mobNo(type='text', value=data[0].number readonly)
                             div.row
                                 div.input-field.col.s12.m6.l6
                                     span
@@ -126,7 +126,7 @@ div.collection#main_profile_doctor
                             input.button#basic_details_pharma(type='submit' value='Submit' href='#edu_special')
 
 
-    div#edu_special
+    div#edu_special_pharma
         div.row
             div.col.s12.m12.l9.offset-l3
                 form(name='form_education_specialization' method='POST' action='#')
@@ -155,7 +155,7 @@ div.collection#main_profile_doctor
 
 
 
-    div#register_doc
+    div#register_doc_pharma
         div.row
             div.col.s12.m12.l9.offset-l3
                 form.upload_image1_pharma(action="#" , method='post' , enctype='multipart/form-data')

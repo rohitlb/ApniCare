@@ -6,8 +6,8 @@ div.collection#main_profile_student
             .col.s12.m12.l9.offset-l3
                 //h5.bold.title1(style='font-size: 25px') Dr. #{data.name}
                 h5.bold.to_capital(style='font-size: 25px') DRx. #{data[0].name}
-                br
-                span.flow-text Profile is not complete yet
+                //br
+                //span.flow-text Profile is not complete yet
     //div.collection-item.dismissable
     //    div.row
     //        div.col.s12.m12.l9.offset-l3
@@ -24,15 +24,16 @@ div.collection#main_profile_student
                 h5.center Complete Your Profile in 3 Easy steps
                 ul.tabs
                     li.tab.active.col.s4
-                        a.white-text.darken-5#tab1(href='#basic_detail') Basic Details
+                        a.white-text.darken-5#tab1(href='#basic_detail_pharma') Basic Details
                     li.tab.col.s4
-                        a.white-text.darken-5#tab2(href='#edu_special') Education & Specialization
+                        a.white-text.darken-5#tab2(href='#edu_special_pharma') Education & Specialization
                     li.tab.col.s4
-                        a.white-text.darken-5#tab3(href='#register_doc') Documents
+                        a.white-text.darken-5#tab3(href='#register_doc_pharma') Documents
 
-    div.row#basic_detail
-        div.col.m12.l10.s12.offset-l2
-            div.col.s12.m12.l10.offset-l2
+    div.row#basic_detail_pharma
+        div.row
+            div.col.m12.l9.s12.offset-l3
+                //div.col.s12.m12.l10.offset-l2
                 div.input-field.col.s12.m8.l8
                     h3 Personal Details
 
@@ -49,8 +50,8 @@ div.collection#main_profile_student
         br
         br
 
-        div.col.m12.l10.s12.offset-l2
-            div.col.s12.m12.l10.offset-l2
+        div.col.m12.l9.s12.offset-l3
+
                 form(name='form_basic_details' id='basic_profile' enctype="multipart/form-data" method='POST' action='#tab2')
                     div.input-field.col.s12.m4.l4
                         span
@@ -98,16 +99,16 @@ div.collection#main_profile_student
                                 div.input-field.col.s12.m6.l6
                                     span
                                         | Mobile Number &nbsp
-                                        span#f1(style='color:#660099;') Verified
-                                            i.material-icons.left(style='color:#660099;') done
-                                        input#mobNo(type='text', value=data[0].number readonly)
+                                        //span#f1(style='color:#660099;') Verified
+                                        //    i.material-icons.left(style='color:#660099;') done
+                                        input.grey.lighten-4#mobNo(type='text', value=data[0].number readonly)
                             div.row
                                 div.input-field.col.s12.m6.l6
                                     span
                                         | Email ID  &nbsp
-                                        span#f2(style='color:#660099;')
-                                            i.material-icons.left(style='color:#660099;') close
-                                        input#email(type='email', value=data[0].email)
+                                        //span#f2(style='color:#660099;')
+                                        //    i.material-icons.left(style='color:#660099;') close
+                                        input.validate#email(type='email', value=data[0].email)
                     div.row
                         div.col.s6.m4.l3.offset-l3.offset-m2
                             input.reset(type='reset')
@@ -115,11 +116,13 @@ div.collection#main_profile_student
                             input.button#basic_details_pharma(type='submit' value='Submit' href='#edu_special')
 
 
-    div#edu_special
+    div#edu_special_pharma
         div.row
             div.col.s12.m12.l9.offset-l3
                 form(name='form_education_specialization' method='POST' action='#')
-                    h3 Education & Specialization Details
+                    div.input-field.col.s12.m12.l12
+                        h3 Education & Specialization Details
+                        br
                     div.input-field.col.s12.m6.l6
                         span
                             | Qualification
@@ -155,11 +158,11 @@ div.collection#main_profile_student
 
 
 
-    div#register_doc
+    div#register_doc_pharma
         div.row
             div.col.s12.m12.l9.offset-l3
                 form.upload_image2_pharma(action="#" , method='post' , enctype='multipart/form-data')
-                    div.col.s12.m12.l12
+                    div.input-field.col.s12.m12.l12
                         h3 Documents
                         br
                         div.row
