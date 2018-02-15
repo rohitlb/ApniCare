@@ -6,7 +6,7 @@ $(function(){
     $("#search-query").autocomplete({
         source: function (request, response) {
             $.ajax({
-                url: "/searchweb",
+                url: "/users/searchweb",
                 type: "POST",
                 data: request,  // request is the value of search input
                 success: function (data) {
@@ -84,29 +84,29 @@ $(function(){
             search : ui.item.label
         };
         $.ajax({
-            url: '/searchspecificweb',
+            url: '/users/searchspecificweb',
             type: 'POST',
             data: JSON.stringify(datas),
             contentType: 'application/json',
             success: function (result) {
                 if (result.status == 'success') {
                     if(result.data.Brands != ""){
-                        window.location = '/ApniCare/information/Drug?brand='+result.data.Brands[0].brand_name;
+                        window.location = '/users/ApniCare/information/Drug?brand='+result.data.Brands[0].brand_name;
                     }
                     if(result.data.Diseases != ""){
-                        window.location = '/ApniCare/information/Diseases?disease='+result.data.Diseases[0].disease_name;
+                        window.location = '/users/ApniCare/information/Diseases?disease='+result.data.Diseases[0].disease_name;
                     }
                     if(result.data.Molecules != ""){
-                        window.location = '/ApniCare/information/Molecules?molecule='+result.data.Molecules[0].molecule_name;
+                        window.location = '/users/ApniCare/information/Molecules?molecule='+result.data.Molecules[0].molecule_name;
                     }
                     if(result.data.Symptoms != ""){
-                        window.location = '/searchsymptons?symptoms=' + JSON.stringify(result.data.Symptoms);
+                        window.location = '/users/searchsymptons?symptoms=' + JSON.stringify(result.data.Symptoms);
                     }
                     if(result.data.Organs != ""){
-                        window.location = '/searchorgans?organs='+JSON.stringify(result.data.Organs);
+                        window.location = '/users/searchorgans?organs='+JSON.stringify(result.data.Organs);
                     }
                     if(result.data.Categories != ""){
-                        window.location = '/searchcategories?categories='+JSON.stringify(result.data.Categories);
+                        window.location = '/users/searchcategories?categories='+JSON.stringify(result.data.Categories);
                     }
                 }
                 else {
@@ -131,29 +131,29 @@ $(function(){
                 search: data
             };
             $.ajax({
-                url: '/searchspecificweb',
+                url: '/users/searchspecificweb',
                 type: 'POST',
                 data: JSON.stringify(datas),
                 contentType: 'application/json',
                 success: function (result) {
                     if (result.status == 'success') {
                         if (result.data.Brands != "") {
-                            window.location = '/ApniCare/information/Drug?brand=' + result.data.Brands[0].brand_name;
+                            window.location = '/users/ApniCare/information/Drug?brand=' + result.data.Brands[0].brand_name;
                         }
                         if (result.data.Diseases != "") {
-                            window.location = '/ApniCare/information/Diseases?disease=' + result.data.Diseases[0].disease_name;
+                            window.location = '/users/ApniCare/information/Diseases?disease=' + result.data.Diseases[0].disease_name;
                         }
                         if (result.data.Molecules != "") {
-                            window.location = '/ApniCare/information/Molecules?molecule=' + result.data.Molecules[0].molecule_name;
+                            window.location = '/users/ApniCare/information/Molecules?molecule=' + result.data.Molecules[0].molecule_name;
                         }
                         if (result.data.Symptoms != "") {
-                            window.location = '/searchsymptons?symptoms=' + JSON.stringify(result.data.Symptoms);
+                            window.location = '/users/searchsymptons?symptoms=' + JSON.stringify(result.data.Symptoms);
                         }
                         if (result.data.Organs != "") {
-                            window.location = '/searchorgans?organs=' + JSON.stringify(result.data.Organs);
+                            window.location = '/users/searchorgans?organs=' + JSON.stringify(result.data.Organs);
                         }
                         if (result.data.Categories != "") {
-                            window.location = '/searchcategories?categories=' + JSON.stringify(result.data.Categories);
+                            window.location = '/users/searchcategories?categories=' + JSON.stringify(result.data.Categories);
                         }
                     }
                     else {

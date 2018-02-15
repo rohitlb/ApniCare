@@ -123,18 +123,18 @@ div
 
                                         if(page == 'Drug_Information')
                                             //*********************drug front view*****************************
-                                            a#drug_data(title='drug name' href='/ApniCare/information/Drug?brand=' + val.brand_name) #{val.brand_name.toLocaleUpperCase()}
+                                            a#drug_data(title='drug name' href='/users/ApniCare/information/Drug?brand=' + val.brand_name) #{val.brand_name.toLocaleUpperCase()}
                                                
                                                 br
                                             //include ./drug
                                         if (page == 'Disease_Information')
                                             //*******************disease front view*******************************
-                                            a(href='/ApniCare/information/Diseases?disease=' + val.disease_name) #{val.disease_name.toUpperCase()}
+                                            a(href='/users/ApniCare/information/Diseases?disease=' + val.disease_name) #{val.disease_name.toUpperCase()}
                                             br
                                             //include ./disease_front_view
 
                                         if (page == 'Molecule_Information')
                                             //*************************************molecule front viw*******************************************************
-                                            a(href='/ApniCare/information/Molecules?molecule=' + val.molecule_name) #{val.molecule_name.toUpperCase()}
+                                            a(href='/users/ApniCare/information/Molecules?molecule=' + val.molecule_name) #{val.molecule_name.toUpperCase()}
                                             br
 

@@ -7,12 +7,12 @@ html
                 if(document.getElementById('check').checked)
                 {
                     var values = document.getElementById('check').name;
-                    window.location.href='/blockPharma?number='+values;
+                    window.location.href='/admin/blockPharma?number='+values;
                 }
                 else
                 {
                     var values = document.getElementById('check').name;
-                    window.location.href = '/unblockPharma?number=' + values;
+                    window.location.href = '/admin/unblockPharma?number=' + values;
                 }
             }
 
@@ -32,7 +32,7 @@ html
                     span #{data.name} &nbsp&nbsp
                     span #{data.number} &nbsp&nbsp&nbsp&nbsp
                     span
-                        a(href="/adminloginpage") Show Profile
+                        a(href="/admin/adminloginpage") Show Profile
 
                     span &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
                     if(data.status == 'blocked')

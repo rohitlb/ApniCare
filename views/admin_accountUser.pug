@@ -8,13 +8,13 @@ html
                 {
                     var values = document.getElementById('check').value;
                     window.alert(values);
-                    window.location.href='/blockUser?number='+values;
+                    window.location.href='/admin/blockUser?number='+values;
                 }
                 else
                 {
                     var values = document.getElementById('check').value;
                     window.alert(values);
-                    window.location.href = '/unblockUser?number=' + values;
+                    window.location.href = '/admin/unblockUser?number=' + values;
                 }
             }
 
@@ -34,7 +34,7 @@ html
                       span #{data[i].name} &nbsp&nbsp
                       span #{data[i].number} &nbsp&nbsp&nbsp&nbsp
                       span
-                        a(href="/adminprofilePage?number=" + data[i].number) Show Profile
+                        a(href="/admin/adminprofilePage?number=" + data[i].number) Show Profile
 
                       span &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
                         if(data[i].status == 'blocked')

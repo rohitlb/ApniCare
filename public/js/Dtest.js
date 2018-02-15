@@ -150,7 +150,7 @@ $('#DloginButton1').click(function () {
             success: function (result) {
 
                 if (result.status === "success") {
-                    window.location = '/profiles';
+                    window.location = '/users/profiles';
 
                 }
                 else {
@@ -272,7 +272,7 @@ $('#DagainLogin').click(function () {
             success: function (result) {
 
                 if (result.status === "success") {
-                    window.location = '/profiles';
+                    window.location = '/users/profiles';
 
                 }
                 else {
@@ -287,6 +287,4 @@ $('#DagainLogin').click(function () {
         }
     )
 });
-
-
 });

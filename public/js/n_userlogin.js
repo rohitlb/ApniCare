@@ -27,7 +27,7 @@ $(document).ready(function() {
 
                     if (result.status === "success") {
                         if(result.value === 'user'){
-                            window.location = '/profile';
+                            window.location = '/users/profile';
                         }
                         if(result.value === 'doctor'){
                             window.location = '/health_care_provider'
@@ -148,7 +148,7 @@ $(document).ready(function() {
 
                     if (result.status === "success") {
                         if(result.data.User != ""){
-                            window.location = '/profile';
+                            window.location = '/users/profile';
                         }
                         else{
                             window.location = '/health_care_provider';
@@ -261,7 +261,7 @@ $(document).ready(function() {
 
             $.ajax(
                 {
-                    url: "/userregister",
+                    url: "/users/userregister",
                     method: 'POST',
                     data: JSON.stringify(data),
                     contentType: 'application/json',
@@ -269,7 +269,7 @@ $(document).ready(function() {
 
                         if (result.status === "success") {
                             Materialize.toast(result.message, 2000);
-                            window.location = '/profile';
+                            window.location = '/users/profile';
 
                         }
                         else {

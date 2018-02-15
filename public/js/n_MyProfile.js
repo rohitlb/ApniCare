@@ -80,7 +80,7 @@ $(document).ready(function() {
 
         $.ajax(
             {
-                url: "/userpersonalinfo",
+                url: "/users/userpersonalinfo",
                 method: 'POST',
                 data: JSON.stringify(data),
                 contentType: 'application/json',
@@ -118,7 +118,7 @@ $(document).ready(function() {
         };
         $.ajax(
             {
-                url: "/updatenameandemail",
+                url: "/users/updatenameandemail",
                 method: 'POST',
                 data: JSON.stringify(data),
                 contentType: 'application/json',
@@ -157,7 +157,7 @@ $(document).ready(function() {
 
         $.ajax(
             {
-                url: "/editconfidential",
+                url: "/users/editconfidential",
                 method: 'POST',
                 data: JSON.stringify(data),
                 contentType: 'application/json',
@@ -197,7 +197,7 @@ $(document).ready(function() {
 
         $.ajax(
             {
-                url: "/useremergency",
+                url: "/users/useremergency",
                 method: 'POST',
                 data: JSON.stringify(data),
                 contentType: 'application/json',
@@ -242,7 +242,7 @@ $(document).ready(function() {
 
         $.ajax(
             {
-                url: "/useraddress",
+                url: "/users/useraddress",
                 method: 'POST',
                 data: JSON.stringify(data),
                 contentType: 'application/json',
@@ -276,7 +276,7 @@ $(document).ready(function() {
         };
         $.ajax(
             {
-                url:"/upload",
+                url:"/users/upload",
                 method: 'POST',
                 data: JSON.stringify(data),
                 contentType:'application/json',

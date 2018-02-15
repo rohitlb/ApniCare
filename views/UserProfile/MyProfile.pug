@@ -6,7 +6,7 @@ div#p_Mdiv1
         div.row#p_irow1
             div.col.s3.m2.l2
                 br
-                a.black-text(href="/profile")
+                a.black-text(href="/users/profile")
                     span.p_logo ApniCare
                     br
                     span &nbsp &nbsp " Healthy You and Yours "
@@ -35,7 +35,7 @@ ul.p_ul#p_dropdownforupdate.dropdown-content
     .modal-content(style={padding: "0px", margin: "0px", border: "0"})
         a(href="/")
             i.modal-action.modal-close.material-icons.right close
-        form(method='POST' action='/uploadimage' enctype='multipart/form-data' id='uploadImage')
+        form(method='POST' action='/users/uploadimage' enctype='multipart/form-data' id='uploadImage')
             span Upload Your Profile Pic
             br
             input.white-text(type='file' name='file')#p_file
@@ -70,23 +70,23 @@ div
                                         a(href="#").p_Pspan2 My Profile
                                     br
                                 li.p_lispan
-                                    a(href='/profile/userprofile?page=My_Profile').p_Pspan1 &nbsp Personal Information
+                                    a(href='/users/profile/userprofile?page=My_Profile').p_Pspan1 &nbsp Personal Information
                                     br
                                     //.divider
                                 li.p_lispan
-                                    a(href='/profile/userprofile?page=Contact_Us').p_Pspan1 &nbsp Contact Information
+                                    a(href='/users/profile/userprofile?page=Contact_Us').p_Pspan1 &nbsp Contact Information
                                     br
                                     //.divider
                                 li.p_lispan
-                                    a(href='/profile/userprofile?page=Confidential_Information').p_Pspan1 &nbsp Confidential Information
+                                    a(href='/users/profile/userprofile?page=Confidential_Information').p_Pspan1 &nbsp Confidential Information
                                     br
                                     //.divider
                                 li.p_lispan
-                                    a(href='/profile/userprofile?page=Emergency_Contact_Details').p_Pspan1 &nbsp Emergency Contact Details
+                                    a(href='/users/profile/userprofile?page=Emergency_Contact_Details').p_Pspan1 &nbsp Emergency Contact Details
                                     br
                                     //.divider
                                 li.p_lispan
-                                    a(href='/profile/userprofile?page=Address').p_Pspan1 &nbsp Address
+                                    a(href='/users/profile/userprofile?page=Address').p_Pspan1 &nbsp Address
                                     br
 
 
@@ -120,7 +120,7 @@ div
                                 br
                                 li
                                     i.p_i.material-icons.small.prefix call
-                                    a(href='/ApniCare/About?page=Contact').p_Pspan2 &nbsp Contact Us
+                                    a(href='/users/ApniCare/About?page=Contact').p_Pspan2 &nbsp Contact Us
                 br
                 //i.material-icons person
             div.col.s12.m7.l8
