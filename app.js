@@ -778,7 +778,7 @@ module.exports = app;
 
 //data base connection and opening port
 var db = 'mongodb://127.0.0.1/ApniCare';
-mongoose.connect(db);
+mongoose.connect(db , { useMongoClient: true });
 
 //=============================Start server========================
 //connecting database and starting server

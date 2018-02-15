@@ -6,8 +6,7 @@ html
         br
         br
         each drug in brand
-            each company in drug.company_id[0].company_name
-                p Company Name - #{company}
+            p Company Name - #{drug.company_id[0].company_name}
             p Brand Name - #{drug.brand_name}
             p Categories - #{drug.categories}
             p Types - #{drug.types}
