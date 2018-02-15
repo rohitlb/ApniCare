@@ -711,15 +711,19 @@ app.get('/terms',function(req,res){
 });
 
 app.get('/faqs',function(req,res){
-    res.render('faq');
+    res.render('./staticpages/faq');
 });
 
 app.get('/policy',function(req,res){
-   res.render('policy');
+   res.render('./staticpages/policy');
 });
 
 app.get('/licence',function(req,res){
-    res.render('opensource');
+    res.render('./staticpages/opensource');
+});
+
+app.get('/appterms',function(req,res){
+    res.sendFile('views/staticpages/terms.pug', {root: __dirname })
 });
 
 //////////////////PAGE NOT FOUND///////////////////////////////////////////////
