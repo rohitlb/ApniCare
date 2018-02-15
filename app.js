@@ -6,7 +6,6 @@ var favicon = require('serve-favicon');
 var request = require('request');
 var mongoose = require('mongoose');
 var promise = require('bluebird');
-var sleep = require('thread-sleep');
 var session = require('express-session');
 var fileParser = require('connect-multiparty')();
 var cloudinary = require('cloudinary');
@@ -67,7 +66,7 @@ store.on('error',function (error) {
 app.disable('x-powered-by');
 
 //configure the app
-app.set('port',9000);
+app.set('port',8000);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
@@ -134,17 +133,6 @@ function adminrequiresLogin(req, res, next) {
     }
 }
 
-// app.get('/admin',function (req,res) {
-//     var page = 'home';
-//     if(page == 'home')
-//     {
-//         res.render('./admin/home_admin',
-//             {
-//                 page: page
-//             });
-//     }
-//     //res.render('./admin/home_admin');
-// });
 
 //*************************************Feedback and needhelp*******************************************************************
 
@@ -178,27 +166,6 @@ app.post('/feedback' ,requiresLogin,  function (req,res) {
             res.send({status: "failure", message: "some error"});
         } else {
             res.send({status: "success", message: "Thanks for feedback"});
-        }
-    });
-});
-
-app.get('/your_feedback',requiresLogin,function(req,res){
-    if(req.session.userID){
-        var person_id = req.session.userID;
-    }
-    if(req.session.doctorID){
-        var person_id = req.session.doctorID;
-    }
-    if(req.session.pharmaID){
-        var person_id = req.session.pharmaID;
-    }
-    Feedback.find({feedbackFrom : person_id},'-_id -__v -feedbackFrom ',function(err,result){
-        if(err){
-            console.log(err);
-        }
-        else{
-            console.log(result);
-            res.send({status : 'success' , data : result});
         }
     });
 });
@@ -345,7 +312,6 @@ app.post('/VerifyOTP',function (req, res) {
     req.session.sid = null;
 });
 
-
 // with real 2factor OTP service
 //
 // app.post('/sendOTP',function (req, res) {
@@ -432,7 +398,6 @@ app.post('/VerifyOTP',function (req, res) {
 //         req.session.sid = null;
 //     });
 // });
-
 
 app.get('/', function (req, res) {
     if (req.session.userID) {
@@ -797,6 +762,7 @@ app.get('/ApniCare/information/Molecules',function (req,res) {
                         console.log(errs);
                     }
                     else {
+                        console.log(results);
                         if (results.Doctor[0] !== undefined) {
                             datas['output'].push({
                                 molecule: molecule,
@@ -2032,48 +1998,6 @@ app.post('/login',function (req,res) {
     });
 });
 
-//Doctor login
-app.post('/doctorlogin',function (req,res) {
-    Doctor.findOne({number: req.body.number}).exec(function (err,result) {
-        if(err){
-            console.log(err);
-            res.send({status: "failure", message : "Some error occurred"});
-            res.end();
-        } else {
-            if(result) {
-
-                bcrypt.compare(req.body.password,result.password,function(err, results) {
-                    if (err) {
-                        console.log(err);
-                    }
-                    else {
-                        if(results) {
-                            req.session.doctorID = result._id;
-                            req.session.dpname = req.body.number;
-                            if (req.session.userID) {
-                                res.send({
-                                    status: "success",
-                                    message: "successfully login",
-                                    number: req.session.doctorID
-                                });
-                                res.end();
-                            }
-                        }
-                        else{
-                            res.send({status : "failure", message : "password incorrect"});
-                        }
-
-                    }
-                });
-            }
-            else {
-                res.send({status: "failure", message: "Can't login"});
-                res.end();
-            }
-        }
-    });
-});
-
 //logout the user
 app.get('/logout',requiresLogin, function (req, res) {
     req.session.destroy(function (err) {
@@ -2085,8 +2009,8 @@ app.get('/logout',requiresLogin, function (req, res) {
     });
 });
 
-//***************************************Edit User Profile*****************************************************************
 
+//***************************************Edit User Profile*****************************************************************
 //***************Edit Name and Email **********************************
 
 app.get('/verifypassword',userrequiresLogin,function (req,res) {
@@ -2578,7 +2502,6 @@ app.post('/useremergency',userrequiresLogin,function (req,res) {
 //////////////////////////////////////////Not Now///////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////Insert Doctor///////////////////////////////////////////////////////////////////
 
-
 //forgot password
 app.post('/checkforgotpassword',function (req,res) {
     var number = req.body.number;
@@ -2650,7 +2573,6 @@ app.post('/checkforgotpassword',function (req,res) {
             }
         }
     });
-
 });
 
 app.post('/updateforgotpassword',function(req,res){
@@ -2768,47 +2690,6 @@ app.post('/updateforgotpassword',function(req,res){
                         }
                     });
                 });
-            }
-        }
-    });
-});
-
-//forgot password for doctor
-app.post('/doctorcheckforgotpassword',function (req,res) {
-    var number = req.body.number;
-    //regex for checking whether entered number is indian
-    var num = /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[6789]\d{9}|(\d[ -]?){10}\d$/.test(number);
-    if(num === false){
-        res.send({status: "failure", message: "wrong number ! please try again "});
-        return;
-    }
-
-    Doctor.findOne({number : number}, function (err,result) {
-        if (err) {
-            console.log(err);
-        } else {
-
-            if (result) {
-                var options = {
-                    method: 'GET',
-                    url: 'http://2factor.in/API/V1/' + keys.api_key() + '/SMS/' + number + '/AUTOGEN',
-                    headers: {'content-type': 'application/x-www-form-urlencoded'},
-                    form: {}
-                };
-
-                request(options, function (error, response, body) {
-                    if (error) {
-                        throw new Error(error);
-                    }
-                    else {
-                        var temp = JSON.parse(body);
-                        req.session.sid = temp.Details;
-                        res.send({status: "success", message: "OTP sent to your number"});
-                    }
-                });
-            }
-            else {
-                res.send({status: "failure", message: "this number is not registered"});
             }
         }
     });
@@ -3064,15 +2945,6 @@ app.get('/searchmolecule',function (req,res) {
     });
 });
 
-////////////////////////////////////////// register as a doctor and user ///////////////////////////////////////////////
-
-app.get('/doctorasuser',function (req,res) {
-    res.render('doctoruser');
-});
-
-app.get('/pharmaasuser',function (req,res) {
-    res.render('pharmauser');
-});
 
 ///////////////////////////////////////Doctor  Profile Insert //////////////////////////////////////////////////////////
 
@@ -4479,6 +4351,7 @@ app.post('/healthcarelogin',healthrequiresLogin,function(req,res) {
             }
         })
 });
+
 
 //=========================TERM AND CONDITION ,,FAQ ,,PRIVACY POLICY ,, OPEN SOURCE LICENCE ============================
 
