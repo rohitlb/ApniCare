@@ -706,55 +706,21 @@ app.post('/needhelpWL' , function (req,res) {
 
 //=========================TERM AND CONDITION ,,FAQ ,,PRIVACY POLICY ,, OPEN SOURCE LICENCE ============================
 
-app.post('/terms',function(req,res){
-    var terms = req.body.terms;
-    Terms.find({terms : terms},function(err,result){
-        if(err){
-            console.log(err);
-        }
-        else{
-            res.send({status : 'success' , data : result});
-        }
-    })
+app.get('/terms',function(req,res){
+    res.render('./staticpages/terms');
 });
 
-app.post('/faqs',function(req,res){
-    var faqs = req.body.faqs;
-    FAQ.find({faqs : faqs},function(err,result){
-        if(err){
-            console.log(err);
-        }
-        else{
-            res.send({status : 'success' , data : result});
-        }
-    })
+app.get('/faqs',function(req,res){
+    res.render('faq');
 });
 
-app.post('/policy',function(req,res){
-    var policy = req.body.policy;
-    Policy.find({policy : policy},function(err,result){
-        if(err){
-            console.log(err);
-        }
-        else{
-            res.send({status : 'success' , data : result});
-        }
-    })
+app.get('/policy',function(req,res){
+   res.render('policy');
 });
 
-app.post('/licence',function(req,res){
-    var licence = req.body.licence;
-    Licence.find({licence : licence},function(err,result){
-        if(err){
-            console.log(err);
-        }
-        else{
-            res.send({status : 'success' , data : result});
-        }
-    })
+app.get('/licence',function(req,res){
+    res.render('opensource');
 });
-
-
 
 //////////////////PAGE NOT FOUND///////////////////////////////////////////////
 
