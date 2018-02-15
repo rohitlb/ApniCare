@@ -4126,12 +4126,7 @@ app.post('/basic',healthrequiresLogin,function(req,res) {
         res.send({status: "failure", message: "please enter a valid email and try again"});
         return;
     }
-    // console.log(name);
-    // console.log(title);
-    // console.log(gender);
-    // console.log(city);
-    // console.log(experience);
-    // console.log(about);
+
 
     Doctor.update({_id: req.session.doctorID}, {
         $set: {
