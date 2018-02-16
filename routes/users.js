@@ -453,6 +453,7 @@ router.get('/ApniCare/information/Drug',function (req,res) {
 
 //===================================for WEB============================
 router.post('/searchspecificweb',function(req,res){
+    console.log('reaches');
     var value = req.body.search;
     async.parallel({
         Brands : function(callback){
@@ -549,7 +550,7 @@ router.post('/searchspecificweb',function(req,res){
 
 router.post('/searchweb', function(req, res) {
     var raw = req.body.term;
-    var spaceRemoved = raw.replace(/\s/g, '');
+    var spaceRemoved = (!isNaN(raw)) ? raw.replace(/\s/g, '') : raw;
     var search = new RegExp('^'+spaceRemoved,'i' );
     async.parallel({
         Brands : function(callback){

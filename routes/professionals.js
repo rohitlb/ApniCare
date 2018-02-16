@@ -763,17 +763,19 @@ router.post('/similarbrands',healthrequiresLogin,function(req,res){
 
 // have regex , search for molecule_name,categories,brand_name,disease_name,organs,symptoms
 router.post('/searchall',function (req,res) {
+    console.log('reaches');
     var raw = req.body.search;
-    var spaceRemoved = raw.replace(/\s/g, '');
+    var spaceRemoved = (!isNaN(raw)) ? raw.replace(/\s/g, '') : raw;
     var skip = parseInt(req.body.nskip);
     var search = new RegExp('^' + spaceRemoved, 'i');
     async.parallel({
         molecules: function (callback) { // gives molecule_name sorted list
-            Molecule.find({molecule_name: search}, '-_id molecule_name').sort({molecule_name: 1}).skip(skip).limit(10).exec(function (err, result) {
+            Molecule.find({molecule_name: search}, '-_id molecule_name').sort({molecule_name: 1}).limit(10).exec(function (err, result) {
                 if (err) {
                     console.log(err);
                 }
                 else {
+                    console.log('1');
                     callback(null, result);
                 }
             });
@@ -833,12 +835,11 @@ router.post('/searchall',function (req,res) {
             console.log(err);
         }
         else {
+            console.log('reaches here');
             res.send({ message : "search all" , data :result });
         }
     });
 });
-
-
 
 //doc update password
 router.post('/doctorupdatepassword',healthrequiresLogin,function (req,res) {
