@@ -80,14 +80,6 @@ function adminrequiresLogin(req, res, next) {
 
 //////admin Panel/////////////
 
-router.get('/adminlogin',function(req,res){
-    if(req.session.admin){
-        res.render('adminPanel');
-    }
-    else{
-        res.render('adminloginpage');
-    }
-});
 
 router.post('/adminLogin',function (req,res) {
     var username = req.body.username;

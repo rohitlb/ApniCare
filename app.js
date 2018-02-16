@@ -27,10 +27,12 @@ var keys = require('./private/keys');
 var Feedback = require('./model/adminfeedback');
 var Needhelp = require('./model/needhelp');
 var NeedhelpWL = require('./model/needhelpWL');
+var CategoryData = require('./model/categorydatalive');
 
 var User  = require('./model/registration');
 var Doctor = require('./model/doctorregistration');
 var Pharma = require('./model/pharma');
+
 
 // to save profile pic of user
 ///Some Policies///
@@ -105,6 +107,15 @@ function requiresLogin(req, res, next) {
     }
 }
 
+function adminrequiresLogin(req, res, next) {
+    if (req.session && req.session.admin) {
+        return next();
+    } else {
+        //var err = new Error('You must be logged in to view this page.');
+        res.redirect('/');
+    }
+}
+
 app.get('/', function (req, res) {
     if (req.session.userID) {
         res.redirect('/users/profile');
@@ -123,6 +134,14 @@ app.get('/', function (req, res) {
     }
 });
 
+app.get('/adminlogin',function(req,res){
+    if(req.session.admin){
+        res.render('adminPanel');
+    }
+    else{
+        res.render('adminloginpage');
+    }
+});
 //*************************************OTP*******************************************************************
 
 //user
@@ -623,6 +642,16 @@ app.get('/logout',requiresLogin, function (req, res) {
     });
 });
 
+///Category data insert and update in database
+
+app.get('/categorydata',adminrequiresLogin,function(req,res){
+    res.render('admin_categorydata');
+});
+
+app.post('/categorydata',adminrequiresLogin,function(req,res){
+
+});
+
 //*************************************Feedback and needhelp*******************************************************************
 
 app.post('/feedback' ,requiresLogin,  function (req,res) {
@@ -729,11 +758,11 @@ app.use(function(req, res) {
     res.status(404).render('not_found');
 });
 
-//
-// // Handle 500
-// app.use(function(error, req, res, next) {
-//     res.status(500).send("Internal server error");
-// });
+
+// Handle 500
+app.use(function(error, req, res, next) {
+    res.status(500).send("Internal server error");
+});
 
 module.exports = app;
 

@@ -1,0 +1,13 @@
+doctype html
+html
+    body
+        h3 Enter Category Info
+        br
+        br
+        form(action='/categorydata' method= "POST")
+            |   Category Info :
+            br
+            input(type='text', name='info')
+            br
+            br
+            input(type='submit', value='Submit')
