@@ -722,9 +722,6 @@ app.get('/licence',function(req,res){
     res.render('./staticpages/opensource');
 });
 
-app.get('/appterms',function(req,res){
-    res.sendFile('views/staticpages/terms.pug', {root: __dirname })
-});
 
 //////////////////PAGE NOT FOUND///////////////////////////////////////////////
 
