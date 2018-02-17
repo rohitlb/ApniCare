@@ -397,8 +397,10 @@ $(function () {
 
     //............................... For Diagnosis in Disease form...............//
     $('.repeat1').on('click', function() {
-        $('.repeater1').append('<div><input id="subhead1" type="text"  placeholder="Enter a subheading" class="r003 browser-default repeat_subhead1" required/><button class="remove">x</button>' +
-            '<textarea class="text_subhead1 materialize-textarea tobig" id="subhead_text1" required></textarea><label for="subhead1" style="color:black;font-size: 15px;font-weight: 400;">' +
+        $('.repeater1').append('<div><input id="subhead1" type="text"  placeholder="Enter a subheading" ' +
+            'class="validate r003 browser-default repeat_subhead1" required/><button class="remove">x</button>' +
+            '<textarea class="validate text_subhead1 materialize-textarea tobig" id="subhead_text1" required>' +
+            '</textarea><label for="subhead1" style="color:black;font-size: 15px;font-weight: 400;">' +
             '</label><label for="subhead_text1",placeholder="Enter text", style="color:black;font-size: 15px;font-weight: 400;"></label></div></div>');
         return false; //prevent form submission
     });
@@ -409,8 +411,10 @@ $(function () {
 
     // .............................. For ORGANS in Disease Form ....................//
     $('.repeat7').on('click', function() {
-        $('.repeater7').append('<div><input id="subhead7" type="text"  placeholder="Enter a subheading" class="browser-default repeat_subhead7" required/><button class="remove">x</button>' +
-            '<textarea class="text_subhead7 materialize-textarea tobig" id="subhead_text7" required></textarea><label for="subhead7" style="color:black;font-size: 15px;font-weight: 400;">' +
+        $('.repeater7').append('<div><input id="subhead7" type="text"  placeholder="Enter a subheading" ' +
+            'class="browser-default repeat_subhead7" required/><button class="remove">x</button>' +
+            '<textarea class="validate text_subhead7 materialize-textarea tobig" id="subhead_text7" required>' +
+            '</textarea><label for="subhead7" style="color:black;font-size: 15px;font-weight: 400;">' +
             '</label><label for="subhead_text7",placeholder="Enter text", style="color:black;font-size: 15px;font-weight: 400;"></label></div></div>');
         return false; //prevent form submission
     });

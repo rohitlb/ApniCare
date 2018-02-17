@@ -3,7 +3,6 @@ div.row
         h3.center Your Feedbacks
         br
         table.bordered.highlight
-
             thead
                     tr
                         th(width="20%") CATEGORY
@@ -16,7 +15,7 @@ div.row
                     tr
                         td= val.feedbackCategory
                         td= val.feedbackUsefulness
-                        td.to_capital= val.feedbackInfo
+                        td= val.feedbackInfo
                         //if(val.feedbackResponse)
                         td= val.feedbackResponse
 

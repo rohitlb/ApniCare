@@ -29,11 +29,11 @@ div.row
                             //each lis in data
                             //    h4 #{lis.brand_name}
                             span.red-text &nbsp*
-                            input.validate(type='text', id='company_name', style='color:black;text-transform:capitalize;font-size: 18px;font-weight: 400;' required)
+                            input.validate(type='text', id='company_name', style='text-transform:capitalize;color:black;font-size: 18px;font-weight: 400;' required)
                         div.col.s12.m6.l6
                             span Category
                             //span.red-text &nbsp*
-                            input(type='text', id='categories', style='color:black;text-transform:capitalize;font-size: 18px;font-weight: 400;' required)
+                            input(type='text', id='categories', style='text-transform:capitalize;color:black;font-size: 18px;font-weight: 400;' required)
                         div.col.s12.m12.l12
                             span Potent Substances
                             span.red-text &nbsp*
@@ -43,9 +43,9 @@ div.row
                                         div
                                             div.collection(style='border-color:transparent;padding-right:43px;')
                                                 div.col.s12.m6.l6
-                                                    input.validate.repeat_subhead6#subheading6(type='text', placeholder='Enter Name', style='text-transform:capitalize;' required)
+                                                    input.validate.repeat_subhead6#subheading6(type='text', style="text-transform:capitalize;" placeholder='Enter Name' required)
                                                 div.col.s12.m6.l6
-                                                    input.validate.text_subhead6#subhead_text6(type='text', style='text-transform:capitalize;', placeholder='Enter Molecule Strength' required)
+                                                    input.validate.text_subhead6#subhead_text6(type='text', placeholder='Enter Molecule Strength' required)
                                     button.repeat6 Add Another
                                     br
                         div.col.s12.m12.l12
@@ -53,7 +53,7 @@ div.row
                                 div.col.s12.m6.l6
                                     span Dosage Form
                                     span.red-text &nbsp*
-                                    input.validate(list='dosages', id='dosage_form', style='text-transform:capitalize;color:black;font-size: 18px;font-weight: 400;' required)
+                                    input.validate(list='dosages', id='dosage_form', style='color:black;font-size: 18px;font-weight: 400;' required)
                                     datalist#dosages
                                         option(value='Tablet') Tablet
                                         option(value='Capsule') Capsule
@@ -90,11 +90,11 @@ div.row
                                     span Strength
                                     div.row
                                         div.col.s12.m12.l12
-                                            input(type='text', id='strength', placeholder='eg.500 mg' style='text-transform:capitalize;color:black;font-size: 18px;font-weight: 400;' required)
+                                            input(type='text', id='strength', placeholder='eg.500 mg' style='color:black;font-size: 18px;font-weight: 400;' required)
 
                                 div.col.s12.m6.l6
                                     span Packaging
-                                    input(type='text', id='packaging', style='color:black;text-transform:capitalize;font-size: 18px;font-weight: 400;')
+                                    input(type='text', id='packaging', style='color:black;font-size: 18px;font-weight: 400;')
 
                                 div.col.s12.m6.l6
                                     span Price
@@ -104,7 +104,7 @@ div.row
                                             span(style='display:flex;flex-direction:row; flex-grow:2;border:none;')
                                                 i.fa.fa-inr.left(aria-hidden='true' style='padding-top:12px;')
                                         div.col.s8.m11.l11
-                                            input.validate#price(type='text', style='color:black; text-transform:capitalize; font-size: 18px;font-weight: 400;' required='required')
+                                            input.validate#price(type='text', style='color:black; font-size: 18px;font-weight: 400;' required='required')
 
                         div.row
                             div.col.s12.m12.l12
@@ -121,7 +121,7 @@ div.row
                         div#drug_form2
                             div.col.s12.m6.l6
                                 span Prescription
-                                    input(list='pres', id='prescription', style='text-transform:capitalize;color:black;font-size: 18px;font-weight: 400;')
+                                    input(list='pres', id='prescription', style='color:black;font-size: 18px;font-weight: 400;')
                                     datalist#pres
                                         option Needed
                                         option Not Needed
@@ -129,25 +129,25 @@ div.row
 
                             div.col.s12.m6.l6
                                 span Dose Taken
-                                input.validate(type='text', id='dose_taken', style='color:black;text-transform:capitalize;font-size: 18px;font-weight: 400;')
+                                input.validate(type='text', id='dose_taken', style='color:black;font-size: 18px;font-weight: 400;')
                             div.col.s12.m6.l6
                                 span Dose Timings
-                                input.validate(type='text', id='dose_timing', style='color:black;font-size: 18px;text-transform:capitalize;font-weight: 400;')
+                                input.validate(type='text', id='dose_timing', style='color:black;font-size: 18px;font-weight: 400;')
                                 //input.button(type='submit')
                             div.col.s12.m6.l6
                                 span Type
-                                    input(list='types', id='type', style='color:black;font-size: 18px;text-transform:capitalize;font-weight: 400;')
+                                    input(list='types', id='type', style='color:black;font-size: 18px;font-weight: 400;')
                                     datalist#types
                                         option Branded
                                         option Generic
 
                             div.col.s12.m12.l12
                                 span Primarily Used For
-                                textarea.materialize-textarea.validate(id='primarily_used_for', style='text-transform:capitalize;color:black;font-size: 18px;font-weight: 400;')
+                                textarea.materialize-textarea.validate(id='primarily_used_for', style='color:black;font-size: 18px;font-weight: 400;')
 
                             div.col.s12.m12.l12
                                 span Warnings
-                                textarea.materialize-textarea(id='warnings', style='text-transform:capitalize;color:black;font-size: 18px;font-weight: 400;')
+                                textarea.materialize-textarea(id='warnings', style='color:black;font-size: 18px;font-weight: 400;')
 
                             div.row
                                 div.col.s12.l12.m12
