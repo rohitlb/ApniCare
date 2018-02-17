@@ -692,7 +692,6 @@ app.post('/needhelp' , function (req,res) {
     var subject = req.body.subject;
     var contact_message = req.body.contact_message;
 
-
     var needhelp = new Needhelp({
         //here user ID should be added
         subject : subject,
