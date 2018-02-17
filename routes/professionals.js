@@ -61,7 +61,35 @@ function healthrequiresLogin(req, res, next) {
     }
 }
 
+
+function userrequiresLogin(req, res, next) {
+    if (req.session && req.session.userID) {
+        return next();
+    } else {
+        //var err = new Error('You must be logged in to view this page.');
+        res.redirect('/');
+    }
+}
+
+
 //*********************************************HEALTH_CARE REGISTER*************************************************
+
+//user profile info for app
+router.get('/appprofile',userrequiresLogin, function (req, res) {
+    if (req.session.userID) {
+        User.find({_id : req.session.userID},function(err,user){
+            if(err){
+                console.log(err);
+            }
+            else{
+                var page = "profile";
+                res.send({status: "logged in", profileinfo: user});
+                res.end();
+            }
+        });
+    }
+});
+
 
 router.post('/doctorregister', function (req, res) {
     //regex for checking whether entered number is indian or not
