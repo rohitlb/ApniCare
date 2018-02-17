@@ -116,6 +116,14 @@ function adminrequiresLogin(req, res, next) {
     }
 }
 
+//===============================================Rohit testing area=================================
+app.get('/rohitsearching',function (req,res) {
+   res.render('rohitsearching') ;
+});
+
+
+
+
 app.get('/', function (req, res) {
     if (req.session.userID) {
         res.redirect('/users/profile');
