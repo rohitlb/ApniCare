@@ -750,6 +750,14 @@ app.get('/licence',function(req,res){
     res.render('./staticpages/opensource');
 });
 
+app.get('/licence',function(req,res){
+    res.render('./staticpages/opensource');
+});
+
+app.get('/aboutus',function(req,res){
+    res.render('./staticpages/aboutUs');
+});
+
 
 //////////////////PAGE NOT FOUND///////////////////////////////////////////////
 
