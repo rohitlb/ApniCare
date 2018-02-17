@@ -121,7 +121,7 @@ app.get('/rohitsearching',function (req,res) {
    res.render('rohitsearching') ;
 });
 
-
+//===============================================middle wares=================================
 
 
 app.get('/', function (req, res) {
