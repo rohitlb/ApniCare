@@ -15,8 +15,8 @@ div.row
                         div.col.s12.m12.l12
                             span.target1 Disease Name
                             span.red-text &nbsp*
-                            input.validate(type='text', id='disease_name' class="r003" style='text-transform:uppercase;' required)
-
+                            input.validate(type='text', id='disease_name' class="r003" style='text-transform:uppercase;' aria-required="true" required="")
+                            label(for="disease_name")
                         div.col.s12.m12.l12
                             span.target2 What are its Symptoms?
                             span.red-text &nbsp*
@@ -46,7 +46,7 @@ div.row
                                 div
                                     input.browser-default.repeat_subhead1.r003.validate#subhead1(type='text', placeholder='Enter a subheading' required)
                                     button.remove x
-                                    textarea.materialize-textarea.tobig.text_areas4.text_subhead1.validate#subhead_text1(class="r003")
+                                    textarea.materialize-textarea.tobig.text_areas4.text_subhead1.validate#subhead_text1(class="r003" required)
                                     label(for='subhead1')
                                     label(for='subhead_text1')
                             button.repeat1 Add A Subheading
@@ -77,7 +77,7 @@ div.row
                         div.col.s12.m12.l12
                             span.target7 What is the Outlook for it?
                             span.red-text &nbsp*
-                            textarea.materialize-textarea.tobig.text_areas6#outlook( class="r003" required)
+                            textarea.validate.materialize-textarea.tobig.text_areas6#outlook( class="r003" required)
                             label.validate(for='outlook')
                             //input.val16(type='text', style='color:black;font-size: 15px;font-weight: 400;')
                         br
