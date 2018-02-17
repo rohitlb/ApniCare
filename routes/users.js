@@ -148,22 +148,6 @@ router.get('/profile',userrequiresLogin, function (req, res) {
     }
 });
 
-//user profile info for app
-router.get('/appprofile',userrequiresLogin, function (req, res) {
-    if (req.session.userID) {
-        User.find({_id : req.session.userID},function(err,user){
-            if(err){
-                console.log(err);
-            }
-            else{
-                var page = "profile";
-                res.send({status: "logged in", profileinfo: user});
-                res.end();
-            }
-        });
-    }
-});
-
 
 //***************************************frontend*******************************************
 
