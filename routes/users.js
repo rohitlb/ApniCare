@@ -66,9 +66,6 @@ function userrequiresLogin(req, res, next) {
     }
 }
 
-
-
-
 //*************************************User Register*************************************************************
 
 //User registration

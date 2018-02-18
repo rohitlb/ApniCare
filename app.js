@@ -103,7 +103,8 @@ function requiresLogin(req, res, next) {
         return next();
     } else {
         //var err = new Error('You must be logged in to view this page.');
-        res.redirect('/');
+        res.send({status : "logout" , message : "Please Login First"});
+        //res.redirect('/');
     }
 }
 
@@ -112,7 +113,8 @@ function adminrequiresLogin(req, res, next) {
         return next();
     } else {
         //var err = new Error('You must be logged in to view this page.');
-        res.redirect('/');
+        res.send({status : "logout" , message : "Please Login First"});
+        //res.redirect('/');
     }
 }
 

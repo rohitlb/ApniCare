@@ -57,7 +57,8 @@ function healthrequiresLogin(req, res, next) {
         return next();
     } else {
         //var err = new Error('You must be logged in to view this page.');
-        res.redirect('/');
+        res.send({status : "logout" , message : "Please Login First"});
+        // res.redirect('/');
     }
 }
 
@@ -67,7 +68,8 @@ function userrequiresLogin(req, res, next) {
         return next();
     } else {
         //var err = new Error('You must be logged in to view this page.');
-        res.redirect('/');
+        res.send({status : "logout" , message : "Please Login First"});
+        //res.redirect('/');
     }
 }
 
@@ -82,7 +84,6 @@ router.get('/appprofile',userrequiresLogin, function (req, res) {
                 console.log(err);
             }
             else{
-                var page = "profile";
                 res.send({status: "logged in", profileinfo: user});
                 res.end();
             }
