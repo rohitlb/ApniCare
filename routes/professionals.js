@@ -687,7 +687,7 @@ router.post('/formolecule',function (req,res){
     if(req.body.page == 'combination'){
         Brand.find({},'-_id brand_name').populate({path : 'dosage_id', select : '-_id dosage_form' ,
             populate : {path : 'strength_id', select : '_id price potent_substance.name'
-                , match : {$and : [{'potent_substance.name' : {$size : 1}},{'potent_substance.name' : molecule}]}}})
+                , match : {$and : [{'potent_substance.name.1' : { $exists: true }},{'potent_substance.name' : molecule}]}}})
             .populate({path : 'company_id', select : '-_id  -__v '})
             .sort({brand_name: 1}).exec(function (err,brands) {
             if (err) {
