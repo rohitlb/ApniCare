@@ -226,7 +226,7 @@ router.post('/brandslist'/*,healthrequiresLogin*/,function(req,res){
         {path : 'dosage_id', select : '-_id dosage_form',populate :
             {path : 'strength_id', select : '-_id strength packaging potent_substance.name price'}
         }).populate(
-        {path : 'company_id', select: '-_id company_name'}).sort({company_name : 1}).skip(skip).limit(10).exec(function (err,brand) {
+        {path : 'company_id', select: '-_id company_name'}).sort({brand_name : 1}).skip(skip).limit(10).exec(function (err,brand) {
         if (err) {
             console.log(err);
         }

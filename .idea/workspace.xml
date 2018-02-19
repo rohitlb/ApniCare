@@ -1,23 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-<<<<<<< HEAD
-    <list default="true" id="35d8e505-c9a8-48ba-bc90-bc79537c0dab" name="Default" comment="" />
-=======
-    <list default="true" id="35d8e505-c9a8-48ba-bc90-bc79537c0dab" name="Default" comment="">
-<<<<<<< HEAD
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/views/staticpages/faq.pug" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/views/staticpages/opensource.pug" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/views/staticpages/policy.pug" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/views/staticpages/terms.pug" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app.js" afterPath="$PROJECT_DIR$/app.js" />
-=======
-      <change beforePath="" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
->>>>>>> 80970ac39c8c35507e6d5258ddc33650983f22e7
+    <list default="true" id="6d793453-72b5-4b34-ab3c-ea2f364a8061" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
+      <change beforePath="$PROJECT_DIR$/.idea/ApniCare.iml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/NEW WORK.iml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/example-upload-with-cloudinary.iml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/watcherTasks.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/app.js" afterPath="$PROJECT_DIR$/app.js" />
+      <change beforePath="$PROJECT_DIR$/routes/professionals.js" afterPath="$PROJECT_DIR$/routes/professionals.js" />
+      <change beforePath="$PROJECT_DIR$/views/rohitsearching.pug" afterPath="$PROJECT_DIR$/views/rohitsearching.pug" />
     </list>
->>>>>>> a3169dabae90c8c23aa416ddf00cc3d8ca5e7605
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -29,131 +26,72 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="app.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app.js">
-          <provider selected="true" editor-type-id="text-editor">
-<<<<<<< HEAD
-            <state relative-caret-position="685">
-              <caret line="786" column="3" lean-forward="true" selection-start-line="786" selection-start-column="3" selection-end-line="786" selection-end-column="3" />
-=======
-<<<<<<< HEAD
-            <state relative-caret-position="152">
-              <caret line="723" column="0" lean-forward="true" selection-start-line="723" selection-start-column="0" selection-end-line="723" selection-end-column="0" />
-              <folding>
-                <element signature="e#2570#2718#0" expanded="false" />
-                <element signature="n#!!block;n#requiresLogin#0" expanded="false" />
-                <element signature="e#3264#3632#0" expanded="false" />
-                <element signature="e#3794#6523#0" expanded="false" />
-                <element signature="e#6569#7223#0" expanded="false" />
-                <element signature="e#7227#7259#0" expanded="false" />
-                <element signature="e#10451#14477#0" expanded="false" />
-                <element signature="e#14550#16932#0" expanded="false" />
-                <element signature="e#21371#21530#0" expanded="false" />
-                <element signature="e#21720#22598#0" expanded="false" />
-                <element signature="e#22644#23169#0" expanded="false" />
-                <element signature="e#23217#23864#0" expanded="false" />
-                <element signature="e#24024#24066#0" expanded="false" />
-                <element signature="e#24103#24129#0" expanded="false" />
-                <element signature="e#24168#24196#0" expanded="false" />
-                <element signature="e#24236#24269#0" expanded="false" />
-                <element signature="e#24381#24425#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="faq.pug" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/views/staticpages/faq.pug">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="402">
-              <caret line="31" column="0" lean-forward="true" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="opensource.pug" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/views/staticpages/opensource.pug">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="402">
-              <caret line="42" column="0" lean-forward="false" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="policy.pug" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/views/staticpages/policy.pug">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="51">
-              <caret line="3" column="17" lean-forward="false" selection-start-line="3" selection-start-column="17" selection-end-line="3" selection-end-column="17" />
-=======
-            <state relative-caret-position="336">
-              <caret line="14" column="0" lean-forward="false" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
->>>>>>> 80970ac39c8c35507e6d5258ddc33650983f22e7
->>>>>>> a3169dabae90c8c23aa416ddf00cc3d8ca5e7605
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-<<<<<<< HEAD
-      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="false">
-=======
-<<<<<<< HEAD
-      <file leaf-file-name="terms.pug" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/views/staticpages/terms.pug">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="275">
-              <caret line="775" column="14" lean-forward="true" selection-start-line="775" selection-start-column="14" selection-end-line="775" selection-end-column="14" />
-=======
-      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
->>>>>>> a3169dabae90c8c23aa416ddf00cc3d8ca5e7605
-        <entry file="file://$PROJECT_DIR$/.gitignore">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="24">
-              <caret line="1" column="5" lean-forward="false" selection-start-line="1" selection-start-column="5" selection-end-line="1" selection-end-column="5" />
->>>>>>> 80970ac39c8c35507e6d5258ddc33650983f22e7
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <splitter split-orientation="horizontal" split-proportion="0.67466986">
+      <split-first>
+        <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
+          <file leaf-file-name="app.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/app.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="8413">
+                  <caret line="782" column="0" lean-forward="true" selection-start-line="782" selection-start-column="0" selection-end-line="782" selection-end-column="0" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="rohitsearching.pug" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/views/rohitsearching.pug">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="192">
+                  <caret line="8" column="14" lean-forward="true" selection-start-line="8" selection-start-column="14" selection-end-line="8" selection-end-column="14" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="professionals.js" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/routes/professionals.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="433">
+                  <caret line="236" column="3" lean-forward="true" selection-start-line="236" selection-start-column="3" selection-end-line="236" selection-end-column="3" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="users.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/routes/users.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="269">
+                  <caret line="225" column="46" lean-forward="false" selection-start-line="225" selection-start-column="42" selection-end-line="225" selection-end-column="46" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-first>
+      <split-second>
+        <leaf>
+          <file leaf-file-name="users.js" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/routes/users.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="61">
+                  <caret line="191" column="5" lean-forward="true" selection-start-line="191" selection-start-column="5" selection-end-line="191" selection-end-column="5" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-second>
+    </splitter>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>dose</find>
-      <find>dose.</find>
-      <find>/Uinut</find>
-      <find>/ApniCare</find>
-      <find>.bold</find>
-      <find>.next_line</find>
-      <find>/ApniCare/</find>
-      <find>ApniCare</find>
-      <find>diagno</find>
-      <find>drug_int</find>
-      <find>submitt</find>
-      <find>source</find>
-      <find>ApniCare/</find>
-      <find>val</find>
-      <find>val.</find>
-      <find>/feed</find>
-      <find>/admin_activityMolecule</find>
-      <find>block</find>
-      <find>feedback</find>
-      <find>/feedback</find>
-      <find>price/u</find>
-      <find>app.se</find>
-      <find>healthre</find>
-      <find>healthreq</find>
-      <find>searchspecific</find>
-      <find>brandsdata</find>
-      <find>/basic</find>
-      <find>brands</find>
-      <find>bcryp</find>
-      <find>�</find>
+      <find>sort</find>
+      <find>formolecule</find>
+      <find>brandlist</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -162,55 +100,10 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/views/health_care_provider/partial/head.pug" />
-        <option value="$PROJECT_DIR$/views/index.pug" />
-        <option value="$PROJECT_DIR$/views/UserProfile/AboutUS.pug" />
-        <option value="$PROJECT_DIR$/model/brand.js" />
-        <option value="$PROJECT_DIR$/model/company.js" />
-        <option value="$PROJECT_DIR$/model/disease.js" />
-        <option value="$PROJECT_DIR$/model/molecule.js" />
-        <option value="$PROJECT_DIR$/views/health_care_provider/partial/drug_data_form.pug" />
-        <option value="$PROJECT_DIR$/model/strength.js" />
-        <option value="$PROJECT_DIR$/public/js/n_userlogin.js" />
-        <option value="$PROJECT_DIR$/views/health_care_provider/partial/drugdata.pug" />
-        <option value="$PROJECT_DIR$/model/registration.js" />
-        <option value="$PROJECT_DIR$/model/issue.js" />
-        <option value="$PROJECT_DIR$/model/moleculedatalive.js" />
-        <option value="$PROJECT_DIR$/model/drugdatalive.js" />
-        <option value="$PROJECT_DIR$/model/pharma.js" />
-        <option value="$PROJECT_DIR$/model/doctorregistration.js" />
-        <option value="$PROJECT_DIR$/views/admin_activityDataIssue.pug" />
-        <option value="$PROJECT_DIR$/views/adminDrugDataInfo.pug" />
-        <option value="$PROJECT_DIR$/views/admin_activityDrug.pug" />
-        <option value="$PROJECT_DIR$/views/admin_activityDisease.pug" />
-        <option value="$PROJECT_DIR$/views/admin_activityMolecule.pug" />
-        <option value="$PROJECT_DIR$/views/adminMoleculeDataInfo.pug" />
-        <option value="$PROJECT_DIR$/views/adminDiseaseDataInfo.pug" />
-        <option value="$PROJECT_DIR$/views/health_care_provider/partial/disease_data_view.pug" />
-        <option value="$PROJECT_DIR$/views/health_care_provider/partial/molecule_data_view.pug" />
-        <option value="$PROJECT_DIR$/views/editaddress.pug" />
-        <option value="$PROJECT_DIR$/views/home_sideNav.pug" />
-        <option value="$PROJECT_DIR$/model/diseasedatalive.js" />
-        <option value="$PROJECT_DIR$/views/health_care_provider/partial/disease_data_form.pug" />
-        <option value="$PROJECT_DIR$/views/molecule information/browse_main.pug" />
-        <option value="$PROJECT_DIR$/public/css/n_moleculeInfo.css" />
-        <option value="$PROJECT_DIR$/views/molecule information/disease.pug" />
-        <option value="$PROJECT_DIR$/views/molecule information/molecule.pug" />
-        <option value="$PROJECT_DIR$/views/health_care_provider/partial/drug_data_view.pug" />
-        <option value="$PROJECT_DIR$/public/js/r_test.js" />
-        <option value="$PROJECT_DIR$/views/admin_accountUser.pug" />
-        <option value="$PROJECT_DIR$/views/molecule information/drug.pug" />
-        <option value="$PROJECT_DIR$/views/admin_dataCenterParticularDrug.pug" />
-        <option value="$PROJECT_DIR$/views/staticpages/TermsAndConditions.pug" />
-        <option value="$PROJECT_DIR$/views/staticpages/terms.pug" />
-        <option value="$PROJECT_DIR$/app.js" />
-<<<<<<< HEAD
-        <option value="$PROJECT_DIR$/views/staticpages/policy.pug" />
-        <option value="$PROJECT_DIR$/views/staticpages/opensource.pug" />
-        <option value="$PROJECT_DIR$/views/staticpages/faq.pug" />
-=======
         <option value="$PROJECT_DIR$/.gitignore" />
->>>>>>> 80970ac39c8c35507e6d5258ddc33650983f22e7
+        <option value="$PROJECT_DIR$/app.js" />
+        <option value="$PROJECT_DIR$/views/rohitsearching.pug" />
+        <option value="$PROJECT_DIR$/routes/professionals.js" />
       </list>
     </option>
   </component>
@@ -225,16 +118,10 @@
   <component name="NodeModulesDirectoryManager">
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
-  <component name="PackageJsonUpdateNotifier">
-    <dismissed value="$PROJECT_DIR$/package.json" />
-  </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-8" />
+    <option name="x" value="952" />
     <option name="width" value="976" />
     <option name="height" value="1038" />
-  </component>
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
-    <ConfirmationsSetting value="2" id="Add" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -263,13 +150,7 @@
             <path>
               <item name="ApniCare" type="b2602c69:ProjectViewProjectNode" />
               <item name="ApniCare" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ApniCare" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ApniCare" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="staticpages" type="462c0819:PsiDirectoryNode" />
+              <item name="routes" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -279,20 +160,6 @@
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="nodejs_interpreter_path" value="C:/Program Files/nodejs/node" />
-    <property name="HbShouldOpenHtmlAsHb" value="" />
-    <property name="restartRequiresConfirmation" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../HealthWings" />
-  </component>
-  <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\Shido\Desktop\ApniCare\views\staticpages" />
-    </key>
-  </component>
-  <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="E:\projects\ApniCare" />
-    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -322,76 +189,42 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="35d8e505-c9a8-48ba-bc90-bc79537c0dab" name="Default" comment="" />
-      <created>1517822300604</created>
+      <changelist id="6d793453-72b5-4b34-ab3c-ea2f364a8061" name="Default" comment="" />
+      <created>1519042359438</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1517822300604</updated>
-      <workItem from="1517822306325" duration="1445000" />
-      <workItem from="1517824293381" duration="5591000" />
-      <workItem from="1517859449250" duration="1635000" />
-      <workItem from="1518003039156" duration="4941000" />
-      <workItem from="1518008077216" duration="598000" />
-      <workItem from="1518019045476" duration="817000" />
-      <workItem from="1518028690476" duration="26000" />
-      <workItem from="1518029767791" duration="6000" />
-      <workItem from="1518030004392" duration="696000" />
-      <workItem from="1518064495411" duration="52000" />
-      <workItem from="1518257173710" duration="668000" />
-      <workItem from="1518346847691" duration="9909000" />
-      <workItem from="1518437798032" duration="21995000" />
-      <workItem from="1518517132168" duration="24844000" />
-      <workItem from="1518587045229" duration="33002000" />
-      <workItem from="1518692063206" duration="4438000" />
-      <workItem from="1518704602485" duration="1201000" />
+      <updated>1519042359438</updated>
+      <workItem from="1519042361913" duration="6000" />
+      <workItem from="1519042378961" duration="20000" />
+      <workItem from="1519042410408" duration="1398000" />
+      <workItem from="1519045249489" duration="1089000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-<<<<<<< HEAD
-    <option name="totallyTimeSpent" value="111864000" />
-=======
-<<<<<<< HEAD
-    <option name="totallyTimeSpent" value="113365000" />
-=======
-    <option name="totallyTimeSpent" value="110728000" />
->>>>>>> 80970ac39c8c35507e6d5258ddc33650983f22e7
->>>>>>> a3169dabae90c8c23aa416ddf00cc3d8ca5e7605
-  </component>
-  <component name="TodoView">
-    <todo-panel id="selected-file">
-      <is-autoscroll-to-source value="true" />
-    </todo-panel>
-    <todo-panel id="all">
-      <are-packages-shown value="true" />
-      <is-autoscroll-to-source value="true" />
-    </todo-panel>
+    <option name="totallyTimeSpent" value="2513000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17552084" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32894737" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22532895" sideWeight="0.5029762" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.14473684" sideWeight="0.49702382" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32894737" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13229166" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-<<<<<<< HEAD
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26480263" sideWeight="0.49702382" order="2" side_tool="false" content_ui="tabs" />
-=======
->>>>>>> 80970ac39c8c35507e6d5258ddc33650983f22e7
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32928178" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.18092105" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32894737" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -402,253 +235,35 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <option name="time" value="22" />
-    </breakpoint-manager>
+    <breakpoint-manager />
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-<<<<<<< HEAD
-=======
-    <entry file="file://$PROJECT_DIR$/views/molecule.pug" />
-    <entry file="file://$PROJECT_DIR$/views/logContent1.pug">
+    <entry file="file://$PROJECT_DIR$/app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/profile.pug">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
->>>>>>> 80970ac39c8c35507e6d5258ddc33650983f22e7
-    <entry file="file://$PROJECT_DIR$/views/medicine.pug" />
-    <entry file="file://$PROJECT_DIR$/views/index.pug">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/home_profile_doctor.pug">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/forgotPassword.pug">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/forForgotPass.pug">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/findingredients.pug" />
-    <entry file="file://$PROJECT_DIR$/views/findcompany.pug" />
-    <entry file="file://$PROJECT_DIR$/views/findbrand.pug" />
-    <entry file="file://$PROJECT_DIR$/views/emergencypassword.pug" />
-    <entry file="file://$PROJECT_DIR$/views/editemergency.pug" />
-    <entry file="file://$PROJECT_DIR$/views/editconfidential.pug" />
-    <entry file="file://$PROJECT_DIR$/views/drug_index.pug">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/editaddress.pug" />
-    <entry file="file://$PROJECT_DIR$/views/doctoruser.pug" />
-    <entry file="file://$PROJECT_DIR$/views/doctorprofile.pug" />
-    <entry file="file://$PROJECT_DIR$/views/doctorpage.pug" />
-    <entry file="file://$PROJECT_DIR$/views/doctorlogedin.pug" />
-    <entry file="file://$PROJECT_DIR$/views/doctordetails.pug" />
-    <entry file="file://$PROJECT_DIR$/views/doctor_home.pug">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/diseasebrands.pug" />
-    <entry file="file://$PROJECT_DIR$/views/disease.pug" />
-    <entry file="file://$PROJECT_DIR$/views/confidentialpassword.pug" />
-    <entry file="file://$PROJECT_DIR$/views/category.pug" />
-    <entry file="file://$PROJECT_DIR$/views/body.pug">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/all.pug">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="110">
-          <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/home_sideNav.pug">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/health_care_provider/partial/disease_data_form.pug">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="14" column="43" lean-forward="false" selection-start-line="14" selection-start-column="43" selection-end-line="14" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/model/diseasedatalive.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="42" lean-forward="false" selection-start-line="5" selection-start-column="42" selection-end-line="5" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/molecule information/disease_front_view.pug" />
-    <entry file="file://$PROJECT_DIR$/public/css/n_moleculeInfo.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="346">
-          <caret line="185" column="1" lean-forward="true" selection-start-line="185" selection-start-column="1" selection-end-line="185" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/molecule information/browse_main.pug">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="112">
-          <caret line="128" column="37" lean-forward="true" selection-start-line="128" selection-start-column="37" selection-end-line="128" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/health_care_provider/partial/disease_data_view.pug">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1241">
-          <caret line="73" column="22" lean-forward="true" selection-start-line="73" selection-start-column="22" selection-end-line="73" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/molecule information/disease.pug">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="116">
-          <caret line="145" column="46" lean-forward="true" selection-start-line="145" selection-start-column="46" selection-end-line="145" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/health_care_provider/partial/molecule_data_view.pug">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="148">
-          <caret line="140" column="61" lean-forward="true" selection-start-line="137" selection-start-column="24" selection-end-line="140" selection-end-column="61" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/molecule information/molecule.pug">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="208">
-          <caret line="179" column="69" lean-forward="true" selection-start-line="179" selection-start-column="69" selection-end-line="179" selection-end-column="69" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/health_care_provider/partial/drug_data_view.pug">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="83">
-          <caret line="78" column="33" lean-forward="true" selection-start-line="78" selection-start-column="33" selection-end-line="78" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/admin_accountUser.pug">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/UserProfile/ConfidentialInformation.pug">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="229">
-          <caret line="19" column="40" lean-forward="true" selection-start-line="19" selection-start-column="40" selection-end-line="19" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/molecule information/drug.pug">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="382">
-          <caret line="123" column="42" lean-forward="true" selection-start-line="123" selection-start-column="42" selection-end-line="123" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/model/adminfeedback.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" column="31" lean-forward="true" selection-start-line="12" selection-start-column="31" selection-end-line="12" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/admin_dataCenterParticularDrug.pug">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="26" lean-forward="true" selection-start-line="7" selection-start-column="26" selection-end-line="7" selection-end-column="26" />
-<<<<<<< HEAD
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/js/r_test.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="309">
-          <caret line="1645" column="9" lean-forward="false" selection-start-line="1645" selection-start-column="9" selection-end-line="1645" selection-end-column="9" />
-          <folding>
-            <element signature="e#61784#61881#0" expanded="false" />
-          </folding>
+        <state relative-caret-position="528">
+          <caret line="22" column="0" lean-forward="false" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/routes/professionals.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="64" column="0" lean-forward="false" selection-start-line="64" selection-start-column="0" selection-end-line="64" selection-end-column="0" />
+        <state relative-caret-position="5304">
+          <caret line="221" column="0" lean-forward="true" selection-start-line="221" selection-start-column="0" selection-end-line="221" selection-end-column="0" />
           <folding />
-=======
->>>>>>> 80970ac39c8c35507e6d5258ddc33650983f22e7
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/users.js">
+    <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-<<<<<<< HEAD
-        <state relative-caret-position="438">
-          <caret line="43" column="40" lean-forward="false" selection-start-line="43" selection-start-column="40" selection-end-line="43" selection-end-column="40" />
-=======
-        <state relative-caret-position="1680">
-          <caret line="70" column="57" lean-forward="false" selection-start-line="70" selection-start-column="57" selection-end-line="70" selection-end-column="57" />
->>>>>>> 80970ac39c8c35507e6d5258ddc33650983f22e7
+        <state relative-caret-position="0">
+          <caret line="0" column="12" lean-forward="false" selection-start-line="0" selection-start-column="12" selection-end-line="0" selection-end-column="12" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/health_care_provider/partial/drug_data_form.pug">
-      <provider selected="true" editor-type-id="text-editor">
-<<<<<<< HEAD
-        <state relative-caret-position="420">
-          <caret line="70" column="57" lean-forward="false" selection-start-line="70" selection-start-column="57" selection-end-line="70" selection-end-column="57" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/admin.js">
+    <entry file="file://$PROJECT_DIR$/app.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -656,107 +271,45 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/staticpages/terms.pug">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="275">
-          <caret line="775" column="14" lean-forward="true" selection-start-line="775" selection-start-column="14" selection-end-line="775" selection-end-column="14" />
-=======
-        <state relative-caret-position="39480">
-          <caret line="1703" column="9" lean-forward="false" selection-start-line="1703" selection-start-column="9" selection-end-line="1703" selection-end-column="9" />
-          <folding>
-            <marker date="1518704503385" expanded="true" signature="59749:59797" ph="{&quot;url&quot;: '/pharma_certificate'...}" />
-            <marker date="1518704503385" expanded="true" signature="60954:61085" ph="{&quot;today&quot;: 'Today'...}" />
-            <marker date="1518704503385" expanded="true" signature="61123:61776" ph="{&quot;edge&quot;: 'left'...}" />
-            <marker date="1518704503385" expanded="true" signature="63210:64659" ph="{...}" />
-            <marker date="1518704503385" expanded="true" signature="63278:63786" ph="{&quot;url&quot;: &quot;/brandsdata&quot;...}" />
-            <marker date="1518704503385" expanded="true" signature="63652:63728" ph="{&quot;label&quot;: el.brand_name...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/admin.js" />
-    <entry file="file://$PROJECT_DIR$/routes/professionals.js" />
-    <entry file="file://$PROJECT_DIR$/routes/users.js" />
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-<<<<<<< HEAD
-        <state relative-caret-position="24">
-          <caret line="1" column="5" lean-forward="false" selection-start-line="1" selection-start-column="5" selection-end-line="1" selection-end-column="5" />
-=======
-        <state relative-caret-position="336">
-          <caret line="14" column="0" lean-forward="false" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
->>>>>>> 80970ac39c8c35507e6d5258ddc33650983f22e7
+        <state relative-caret-position="0">
+          <caret line="0" column="12" lean-forward="false" selection-start-line="0" selection-start-column="12" selection-end-line="0" selection-end-column="12" />
           <folding />
         </state>
       </provider>
     </entry>
-<<<<<<< HEAD
-    <entry file="file://$PROJECT_DIR$/views/staticpages/policy.pug">
+    <entry file="file://$PROJECT_DIR$/views/rohitsearching.pug">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="17" lean-forward="false" selection-start-line="3" selection-start-column="17" selection-end-line="3" selection-end-column="17" />
->>>>>>> a3169dabae90c8c23aa416ddf00cc3d8ca5e7605
+        <state relative-caret-position="192">
+          <caret line="8" column="14" lean-forward="true" selection-start-line="8" selection-start-column="14" selection-end-line="8" selection-end-column="14" />
           <folding />
         </state>
       </provider>
     </entry>
-<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="685">
-          <caret line="786" column="3" lean-forward="true" selection-start-line="786" selection-start-column="3" selection-end-line="786" selection-end-column="3" />
-=======
-    <entry file="file://$PROJECT_DIR$/views/staticpages/opensource.pug">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="402">
-          <caret line="42" column="0" lean-forward="false" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
+        <state relative-caret-position="8413">
+          <caret line="782" column="0" lean-forward="true" selection-start-line="782" selection-start-column="0" selection-end-line="782" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/staticpages/faq.pug">
+    <entry file="file://$PROJECT_DIR$/routes/users.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="402">
-          <caret line="31" column="0" lean-forward="true" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
-=======
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="24">
-          <caret line="1" column="5" lean-forward="false" selection-start-line="1" selection-start-column="5" selection-end-line="1" selection-end-column="5" />
->>>>>>> 80970ac39c8c35507e6d5258ddc33650983f22e7
->>>>>>> a3169dabae90c8c23aa416ddf00cc3d8ca5e7605
+        <state relative-caret-position="269">
+          <caret line="225" column="46" lean-forward="false" selection-start-line="225" selection-start-column="42" selection-end-line="225" selection-end-column="46" />
           <folding />
         </state>
       </provider>
     </entry>
-<<<<<<< HEAD
-    <entry file="file://$PROJECT_DIR$/app.js">
+    <entry file="file://$PROJECT_DIR$/routes/professionals.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="723" column="0" lean-forward="true" selection-start-line="723" selection-start-column="0" selection-end-line="723" selection-end-column="0" />
-          <folding>
-            <element signature="e#2570#2718#0" expanded="false" />
-            <element signature="n#!!block;n#requiresLogin#0" expanded="false" />
-            <element signature="e#3264#3632#0" expanded="false" />
-            <element signature="e#3794#6523#0" expanded="false" />
-            <element signature="e#6569#7223#0" expanded="false" />
-            <element signature="e#7227#7259#0" expanded="false" />
-            <element signature="e#10451#14477#0" expanded="false" />
-            <element signature="e#14550#16932#0" expanded="false" />
-            <element signature="e#21371#21530#0" expanded="false" />
-            <element signature="e#21720#22598#0" expanded="false" />
-            <element signature="e#22644#23169#0" expanded="false" />
-            <element signature="e#23217#23864#0" expanded="false" />
-            <element signature="e#24024#24066#0" expanded="false" />
-            <element signature="e#24103#24129#0" expanded="false" />
-            <element signature="e#24168#24196#0" expanded="false" />
-            <element signature="e#24236#24269#0" expanded="false" />
-            <element signature="e#24381#24425#0" expanded="false" />
-          </folding>
+        <state relative-caret-position="433">
+          <caret line="236" column="3" lean-forward="true" selection-start-line="236" selection-start-column="3" selection-end-line="236" selection-end-column="3" />
+          <folding />
         </state>
       </provider>
     </entry>
-=======
->>>>>>> 80970ac39c8c35507e6d5258ddc33650983f22e7
   </component>
 </project>
