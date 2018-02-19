@@ -1,0 +1,217 @@
+nav.navbar-fixed#nav
+    .nav-wrapper
+        h3.brand-logo(href='/') &nbsp &nbsp &nbsp ApniCare &nbsp &nbsp &nbsp
+            ul.right.hide-on-med-and-down
+                li
+                    a(href='/users/ApniCare/About?page=AboutUs') &nbsp &nbsp &nbsp About Us &nbsp &nbsp &nbsp
+                li
+                    a(href='/users/ApniCare/About?page=Contact') &nbsp &nbsp &nbsp Contact &nbsp &nbsp &nbsp
+                li
+                    a(href='/users/ApniCare/About?page=NeedHelp') &nbsp &nbsp &nbsp Need Help &nbsp &nbsp &nbsp
+                li
+                    a(href='/users/ApniCare/About?page=FeedBack') &nbsp &nbsp &nbsp Feedback &nbsp &nbsp &nbsp
+
+            // Dropdown Trigger
+            //li
+                a.dropdown-button(href='#!', data-activates='dropdown1') &nbsp &nbsp &nbsp
+                    | profile &nbsp &nbsp &nbsp
+                    i.material-icons.right arrow_drop_down
+if(page=='AboutUs')
+    div.im
+        h2.center About Us
+    //img#drug(src='/images/drugsData.jpg', style='width:100%;height:5%;')
+    div
+    br
+    div.row
+    div.col.s1.m1.l2
+    div.col.s10.m10.l8.black-text
+        ul#tabs-swipe-demo.tabs
+            li.tab.col.s6.m6.l6
+                a(href='#test-swipe-1') Company History
+
+            li.tab.col.s5.m5.l5
+                a.active(href='#test-swipe-2') Our Mission
+
+        #test-swipe-1.col.s12
+            br
+            br
+            h4 Hello!
+            p.black-text
+            | We're ApniCare - a great place for people serious about health and fitness.
+            | We connect commoners with healthcare providers.
+
+
+        #test-swipe-2.col.s12
+            br
+            br
+            h4 The Goal
+            .divider
+            p.black-text.italics &nbsp &nbsp "Healthy you and Yours"
+
+            h4 Affordable and Digital India
+            .divider
+            p
+            | Our aim is to become India's largest and most profitable fulfilment company for digital commerce.
+            | Driven by our guiding principles of user centricity, enablement and efficiency, we focus on
+            | digitalization in India, and beyond. The customer is the heart of our business.
+            p
+            | We provide products and services with the singular aim of building trust and improving the lives of our
+            | 2 primary sets of customers: consumers and HealthCare Providers.
+    div.col.s1.m1.l2
+else if(page=='Contact')
+    div.im
+        h2.center Contact Us
+    //img#drug(src='/images/drugsData.jpg', style='width:100%;height:5%;')
+    div.row
+        div.col.s1.m1.l2
+        div.col.s10.m10.l7.black-text
+            br
+            br
+            i.material-icons.prefix contacts
+            h5 Communication Address:
+            p TBI,KIET group of Institutions Ghaziabad, Uttar Pradesh,201206
+            i.material-icons.prefix contact_phone
+            h5 Phone Numbers:
+            p +91-8630051462
+            br
+            i.material-icons.prefix email
+            h5 E-mails
+            p support@apnicare.com
+
+
+
+else if(page=='NeedHelp')
+    div.im
+        h2.center HELP ?
+    //img#drug(src='/images/drugsData.jpg', style='width:100%;height:5%;')
+    div
+    br
+    div.row
+    div.col.s1.m1.l2
+    div.col.s10.m10.l8.black-text
+        h7.black-text.center We think you are not satisfied with our services
+            | Please let us know your queries using the form below.
+        br
+        .input-field.col.s12
+            select.browser.default.black-text#fdropdown
+                option(value='query') Query
+                option(value='drug') Drug related
+                option(value='disease') Disease related
+                option(value='molecule') Molecule related
+                option(value='issue') Other Issues
+        if(page == 'index')
+            .input-field.col.s4.black-text
+                input(type="text")#name
+                label(for="name") Name
+        if(page == 'index')
+            .input-field.col.s3.black-text
+                input(type="text")#number
+                label(for="number") Number
+        if(page == 'index')
+            .input-field.col.s5.black-text
+                input(type="email")#n_email
+                label(for="n_email") Email
+        label(for='textarea1') Description
+        .input-field.col.s11#n_description
+            textarea#textarea1.materialize-textarea.black-text
+        br
+        br
+        button.hoverable.btn(title="submit your suggestions" style={width: "40%"} type="submit")#submitbutt Submit
+
+else if(page=='FeedBack')
+    div.im
+        h2.center FeedBack
+    //img#drug(src='/images/drugsData.jpg', style='width:100%;height:5%;')
+    div
+    br
+    div.row
+    div.col.s1.m1.l2
+    div.col.s10.m10.l8
+//footer
+footer.page-footer#footer0
+    .container
+        .row
+            .col.s12.l4.m6
+                br
+                br
+                h5.e Connect with Us
+
+                p.grey-text.text-lighten-4
+                span.fa-stack.fa-lg
+                    i.fa.fa-square-o.fa-stack-2x
+                    i.fa.fa-facebook.fa-stack-1x
+                span.fa-stack.fa-lg
+                    i.fa.fa-square-o.fa-stack-2x
+                    i.fa.fa-twitter.fa-stack-1x
+                span.fa-stack.fa-lg
+                    i.fa.fa-square-o.fa-stack-2x
+                    i.fa.fa-linkedin.fa-stack-1x
+                span.fa-stack.fa-lg
+                    i.fa.fa-square-o.fa-stack-2x
+                    i.fa.fa-youtube.fa-stack-1x
+
+            .col.s12.l8.m6
+                br
+                br
+                h5.e Download our app
+                p.grey-text.text-lighten-4
+                //a(href="https://play.google.com/store/apps/details?id=com.medengage.drugindex&hl=en")
+                    img.Uimg(src="/images/playstore.jpg" height="40")
+                //img.Uimg(src="/images/appstore.jpg" height="100")
+
+
+    .footer-copyright#footer5
+
+footer.page-footer#footer1
+    .container
+        .row
+            .col.l4.s12.m4
+                h5.e Company Information
+                p.grey-text.text-lighten-4
+                ul
+                    li
+                        a.grey-text.text-lighten-3(href='/users/ApniCare/About?page=AboutUs') - About ApniCare
+                    li
+                        a.grey-text.text-lighten-3(href='/') - Careers
+                    li
+                        a.grey-text.text-lighten-3(href='/') - News & Reports
+                    li
+                        a.grey-text.text-lighten-3(href='/') - Terms & Conditions
+
+            .col.l4.s12.m4
+                br
+                br
+                p.grey-text.text-lighten-4
+                    ul
+                        li
+                            a.grey-text.text-lighten-3(href='/') - Privacy Policy
+                        li
+                            a.grey-text.text-lighten-3.modal-trigger(href='#modal_needhelp') - Need Help?
+                            include ../UserProfile/NeedHelp
+                            //a.grey-text.text-lighten-3(href='/') - Contact Us
+                        li
+                            a.grey-text.text-lighten-3(href='/') - Feedback
+
+
+            .col.l4.s12.m4
+                h5.e Your ApniCare Account
+                p.grey-text.text-lighten-4
+                ul
+                    li
+                        a.grey-text.text-lighten-3(href='/') - SignUp/Login
+                    li
+                        a.grey-text.text-lighten-3(href='/') - Your Profile
+                    li
+                        a.grey-text.text-lighten-3(href='/') - HealthCare Providers
+                    li
+                        a.grey-text.text-lighten-3(href='/') - Refer your Friend
+    .footer-copyright#footer4
+    .footer-copyright#footer3
+        .container
+            //img.center(src="/images/az.png" height="50px" width="100px")
+            a.center(href='/')
+                img#logoimg2.center(src="/images/az.png" height="50px" width="100px")
+                p.center.logo#logo1 ApniCare.com
+            p.center#madeforIndia Made for India
+            p.center#copyright Copyright © 2017 SBEPL All right reserved
+

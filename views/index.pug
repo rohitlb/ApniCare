@@ -1,0 +1,57 @@
+doctype html
+
+html
+
+    head
+        //for search
+        meta(charset='utf-8')
+        meta(name='viewport', content='width=device-width, initial-scale=1')
+        //title jQuery UI Autocomplete - Default functionality
+        link(rel='stylesheet', href='//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css')
+        link(rel='stylesheet', href='/resources/demos/style.css')
+        script(src='https://code.jquery.com/jquery-1.12.4.js')
+        script(src='https://code.jquery.com/ui/1.12.1/jquery-ui.js')
+        script(src="/js/search.js")
+        link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css")
+
+        link(href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css" rel="stylesheet")
+
+        link(href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet")
+
+        //script(src="https://code.jquery.com/jquery-3.2.1.min.js")
+
+        //for materialize
+        script(src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js")
+        //for font awsome icons
+        //------------------js files included--------------------------
+        script(src="/js/n_MyProfile.js")
+        script(src="/js/n_userlogin.js")
+        script(src="/js/n_main.js")
+        script(src="/js/n_LogReg.js")
+        script(src="/js/search.js")
+        //----------------css file included-------------------
+        link(href="/css/n_index.css" rel="stylesheet")
+        link(href="/css/n_moleculeInfo.css" rel="stylesheet")
+        link(href="/css/n_footer.css" rel="stylesheet")
+        link(href="/css/n_login.css" rel="stylesheet")
+        //link(href="/styles/rstyle.css" rel="stylesheet")
+
+    title ApniCare
+
+    body
+        if(page == 'AboutUs' || page == 'Contact' || page == 'NeedHelp' || page == 'FeedBack')
+            include UserProfile/AboutUS
+
+        else if(page == 'similar_Drug' || page == 'Drug_Information'||page =='Disease_Information'||page == 'Molecule_Information')
+            include molecule information/browse_main
+            //include n_partial/footer
+        else if(page == 'molecule_name')
+            include molecule information/molecule
+        else if(page == 'drug_data_view')
+            include molecule information/molecule
+        else if(page == 'disease_name')
+            include molecule information/molecule
+        else
+            include ./n_partial/header
+            div
+                include ./n_partial/footer

@@ -1,0 +1,14 @@
+doctype html
+html
+    head
+    body
+        h1 Enter Your Response
+        p ticket number is - #{Ticket}
+        - var ticket = Ticket;
+        form(action='/admin/adminFeedbackEnterResponse?ticket='+ ticket, method='POST')
+            | Enter Response :
+            br
+            textarea(rows='4', name='response', cols='50')
+            br
+            br
+            input(type='submit', name='submit')

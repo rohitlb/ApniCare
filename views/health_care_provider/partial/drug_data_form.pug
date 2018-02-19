@@ -1,0 +1,158 @@
+div.row
+    div.col.s12.m12.l9.offset-l3
+        img#drug(src='/images/drugsData.jpg', style='position:fixed;top:0px;left:0px;width:100%;height:100%;z-index:-1;')
+        div.container#drugdata
+            .row
+                center
+                    h3(style='font-weight:600;') Enter Drug Data
+                    span.small_font (All&nbsp
+                    span.red-text *&nbsp
+                    span.small_font fields are mandatory)
+                    br
+                    br
+                //a.btn.right(href='/health_care_provider?page=molecule_data') Enter Molecule Data
+
+                .col.s12
+                    form(name='drug_form1', method='post', onsubmit='return validateForm()', action='#drug_form2')
+                        div.col.s12.m6.l6
+                            span Brand Name
+                            span.red-text &nbsp*
+                                //input(list='brand_list')
+                                //datalist#brand_list
+                                //    each lis in data
+                                //        //h4 #{lis.brand_name}
+                                //        option #{lis.brand_name}
+                            label(for='brand_name')
+                            input.validate(type='text', id='brand_name', style='text-transform:capitalize; color:black;font-size: 18px;font-weight: 400;' required=true)
+                        div.col.s12.m6.l6
+                            span Company Name
+                            //each lis in data
+                            //    h4 #{lis.brand_name}
+                            span.red-text &nbsp*
+                            input.validate(type='text', id='company_name', style='text-transform:capitalize;color:black;font-size: 18px;font-weight: 400;' required)
+                        div.col.s12.m6.l6
+                            span Category
+                            //span.red-text &nbsp*
+                            input(type='text', id='categories', style='text-transform:capitalize;color:black;font-size: 18px;font-weight: 400;' required)
+                        div.col.s12.m12.l12
+                            span Potent Substances
+                            span.red-text &nbsp*
+                            div.col.s12.m12.l12
+                                div.row
+                                    div.repeater6
+                                        div
+                                            div.collection(style='border-color:transparent;padding-right:43px;')
+                                                div.col.s12.m6.l6
+                                                    input.validate.repeat_subhead6#subheading6(type='text', style="text-transform:capitalize;" placeholder='Enter Name' required)
+                                                div.col.s12.m6.l6
+                                                    input.validate.text_subhead6#subhead_text6(type='text', placeholder='Enter Molecule Strength' required)
+                                    button.repeat6 Add Another
+                                    br
+                        div.col.s12.m12.l12
+                            div.row
+                                div.col.s12.m6.l6
+                                    span Dosage Form
+                                    span.red-text &nbsp*
+                                    input.validate(list='dosages', id='dosage_form', style='color:black;font-size: 18px;font-weight: 400;' required)
+                                    datalist#dosages
+                                        option(value='Tablet') Tablet
+                                        option(value='Capsule') Capsule
+                                        option(value='Solution') Solution
+                                        option(value='Gels') Gels
+                                        option(value='Pill') Pill
+                                        option(value='Powder') Powder
+                                        option(value='Talc') Talc
+                                        option(value='Paste') Paste
+                                        option(value='Drops') Drops
+                                        option(value='Ointment') Ointment
+                                        option(value='Inhaler') Inhaler
+                                        option(value='Aerosol') Aerosol
+                                        option(value='Injection') Injection
+                                        option(value='Cream') Cream
+                                        option(value='Eye & Ear Drops') Eye & Ear Drops
+                                        option(value='Ear Drops') Ear Drops
+                                        option(value='Patch') Patch
+                                        option(value='Dermal Patch') Dermal Patch
+                                        option(value='Lotion') Lotion
+                                        option(value='Balm') Balm
+                                        option(value='Skin Patch') Skin Patch
+                                        option(value='Syrup') Syrup
+                                        option(value='Infusion') Infusion
+                                        option(value='Vial') Vial
+                                        option(value='Suppository') Suppository
+                                        option(value='Gargle') Gargle
+                                        option(value='Kit') Kit
+                                        option(value='Shampoo') Shampoo
+                                        option(value='Mouth wash') Mouth wash
+                                        option(value='Soft-gel') Soft-gel
+
+                                div.col.s12.m6.l6
+                                    span Strength
+                                    div.row
+                                        div.col.s12.m12.l12
+                                            input(type='text', id='strength', placeholder='eg.500 mg' style='color:black;font-size: 18px;font-weight: 400;' required)
+
+                                div.col.s12.m6.l6
+                                    span Packaging
+                                    input(type='text', id='packaging', style='color:black;font-size: 18px;font-weight: 400;')
+
+                                div.col.s12.m6.l6
+                                    span Price
+                                    span.red-text &nbsp*
+                                    div.row
+                                        div.col.s2.m1.l1
+                                            span(style='display:flex;flex-direction:row; flex-grow:2;border:none;')
+                                                i.fa.fa-inr.left(aria-hidden='true' style='padding-top:12px;')
+                                        div.col.s8.m11.l11
+                                            input.validate#price(type='text', style='color:black; font-size: 18px;font-weight: 400;' required='required')
+
+                        div.row
+                            div.col.s12.m12.l12
+                                div.col.s6.l4.m4
+                                    input.reset#reset_button(type='reset')
+                                div.col.s12.l5.m5
+                                    input.button#enter_more_data(type='button', value='Enter more data')
+                                div.col.s6.l3.m3
+                                    input.button.btn-drugs#drugs1(type='submit', value='Submit')
+
+                            //a#enter_more_data.btn.right(href='#drug_form2') Enter more data...
+
+                        //form#drug_form2(method='post', onsubmit='return validateForm()')
+                        div#drug_form2
+                            div.col.s12.m6.l6
+                                span Prescription
+                                    input(list='pres', id='prescription', style='color:black;font-size: 18px;font-weight: 400;')
+                                    datalist#pres
+                                        option Needed
+                                        option Not Needed
+                                        //input.validate(type='text', id='prescription', style='color:black;font-size: 18px;font-weight: 400;')
+
+                            div.col.s12.m6.l6
+                                span Dose Taken
+                                input.validate(type='text', id='dose_taken', style='color:black;font-size: 18px;font-weight: 400;')
+                            div.col.s12.m6.l6
+                                span Dose Timings
+                                input.validate(type='text', id='dose_timing', style='color:black;font-size: 18px;font-weight: 400;')
+                                //input.button(type='submit')
+                            div.col.s12.m6.l6
+                                span Type
+                                    input(list='types', id='type', style='color:black;font-size: 18px;font-weight: 400;')
+                                    datalist#types
+                                        option Branded
+                                        option Generic
+
+                            div.col.s12.m12.l12
+                                span Primarily Used For
+                                textarea.materialize-textarea.validate(id='primarily_used_for', style='color:black;font-size: 18px;font-weight: 400;')
+
+                            div.col.s12.m12.l12
+                                span Warnings
+                                textarea.materialize-textarea(id='warnings', style='color:black;font-size: 18px;font-weight: 400;')
+
+                            div.row
+                                div.col.s12.l12.m12
+                                    div.col.s6.l4.m4
+                                        input.reset(type='reset')
+                                    div.col.s6.l3.m3.offset-l5
+                                        input.button.btn-drugs(type='submit' value='Submit')
+

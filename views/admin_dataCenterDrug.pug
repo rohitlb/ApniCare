@@ -1,0 +1,12 @@
+doctype html
+html
+    head
+    body
+        h3 Brand list
+        br
+        br
+        ol
+          each brand in brands
+               li
+                  a(href="/admin/admin_dataCenterParticularDrug?brand="+brand.brand_name) #{brand.brand_name}
+

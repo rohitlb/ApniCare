@@ -1,0 +1,238 @@
+.p_body{
+    margin:0;
+    background-color:white;
+    color: black;
+    font-weight: 300;
+    font-family: OpenSans-Regular, sans-serif;
+    line-height: 28px;
+}
+
+.p_i{
+    font-size: x-large;
+    margin-left: 10px;
+    color: #4a148c;
+}
+#p_user{
+    position: absolute;
+    top: 61px;
+    right:5px;
+}
+#p_Mdiv1{
+
+    background-image: url('../images/doctor-spotligh.jpg');
+    font-family: OpenSans-Regular,sans-serif;
+}
+.p_logo{
+    font-size: 30px;
+}
+
+#p_dropdown2
+{
+padding-left: 10px;
+min-width:5%;
+height: 73px;
+top: 700px;
+left:150%;
+opacity: 1;
+}
+#p_Pcard0
+{
+    margin-left: -120px;
+}
+
+#p_Pcard1
+{
+    height:75px ;
+    padding-left: 0px;
+    background-color:white;
+    /*padding: 2px;*/
+    margin-top: 10px;
+    margin-bottom: 30px;
+    margin-left: 1px;
+    border-color: white;
+}
+#p_Pname
+{
+    margin-left: -90px;
+}
+#p_person
+{
+    margin-left: 30px;
+}
+.p_P
+{
+    padding: 0px;
+    margin: 0px;
+    font-weight: bolder;
+    font-size: 20px;
+}
+.p_P4
+{
+    padding: 0px;
+    margin: 0px;
+    font-size: 15px;
+    font-weight: lighter;
+}
+.p_ul
+{
+    margin: 0px;
+}
+#p_Pcard2
+{
+    width: 100%;
+    background-color: white;
+    font-family: OpenSans-Regular,sans-serif;
+    margin-top: 2px;
+    margin-left: 1px;
+    margin-right: 0px;
+    border-color: white;
+}
+
+#p_Pcard3
+{
+    height:120% ;
+    width: 130%;
+    background-color: white;
+    padding: 40px;
+    padding-left: 100px;
+    margin-right: 0px;
+    margin-top: 10px;
+    margin-left: 20px;
+    font-size: 20px;
+    border: inset;
+    border-width: 1px;
+    border-color: white;
+}
+.p_Pspan1
+{
+    font-family: OpenSans-Regular, sans-serif;
+    font-size: 20px;
+    margin: 0px;
+    padding: 0px;
+    padding-left: 50px;
+    color: black;
+}
+.p_Pspan1:hover {
+    font-weight:bold ;
+    color: #660099;
+}
+/*.p_lispan:hover*/
+/*{*/
+    /*background-color: white;*/
+/*}*/
+.p_Pspan2
+{
+    padding-left: 20px;
+    font-family: OpenSans-Regular, sans-serif;
+    font-size: 30px;
+    color: black;
+}
+
+.p_span{
+    font-size: 20px;
+}
+.p_Pespan
+{
+    position: absolute;
+    right: 10px;
+    font-size: 18px;
+}
+/*search fiels*/
+.p_input
+{
+    background-color: white;
+    font-size: x-large;
+    font-weight: bold;
+}
+.p_input1
+{
+    width: 58%;
+
+}
+#p_input1 {
+    background-color:white;
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+    width: 100%;
+    padding-left: 7%;
+    margin-left: 2%;
+}
+#p_Pphone,#p_pfirstname,#p_pemail
+{
+    font-size: larger;
+    color: black;
+}
+
+.p_label1
+{
+    color: black;
+    font-size: 3rem;
+    font-weight: bold;
+}
+#p_Psearch
+{
+    background-color: rgba(81, 255, 179, 0.01);
+    font-size: x-large;
+    font-weight: bold;
+    color: white;
+    height: 50px;
+    width: 150%;
+    margin-bottom: 0;
+    padding-bottom: 0px;
+}
+#p_Pbox
+{
+    margin-left: 39px;
+    width: 32%;
+}
+
+.Pformfordetail
+{
+    margin-left: 1%;
+
+}
+#p_Pdatepicker,#p_Pweight,#p_Pheight
+{
+    margin-left: 50px;
+    font-size: x-large;
+    width: 50%;
+    border-color: black;
+
+}
+.p_label
+{
+    margin-left: 1rem;
+    font-size: x-large;
+    color:black;
+    font-weight:200;
+}
+
+.p_Pheadings,.p_Pheadings1
+{
+    padding-left: 150px;
+    font-size:30px ;
+    color:#660099;
+}
+#p_dateofbirth
+{
+    font-size:x-large;
+    font-weight: bold;
+    width: 35%;
+    margin-left: 50px;
+}
+#p_modal2
+{
+    padding: 15px;
+    padding-top: 0px;
+    color: black;
+}
+#p_Pperson
+{
+    margin-left: -20px;
+    padding: 0px;
+}
+#p_dropdownforupdate
+{
+    width: 50px;
+    margin-left: 28px;
+}

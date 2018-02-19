@@ -1,0 +1,56 @@
+#modal_needhelp.modal.white
+    .modal-content
+        ul#tabs-swipe-demo.tabs
+            a.modal-action.modal-close
+                i.modal-action.modal-close.material-icons.right close
+            li.tab.col.s3
+                a.active(href='#test-swipe-1') Need Help?
+            li.tab.col.s3
+                a(href='#test-swipe-2') Contact Us
+        #test-swipe-1.col.s12.white
+            br
+            //h5.black-text.center#main_text Did you find this page helpful?
+            //h5.black-text.center#main_text Did you find this page helpful?
+            h5.black-text.center#main_text found any issue?
+            h7.black-text.center We think you are not satisfied with our services
+                | Please let us know your queries using the form below.
+            br
+            .input-field.col.s12
+                select.browser.default.black-text#fdropdown
+                    option(value='query') Query
+                    option(value='drug') Drug related
+                    option(value='disease') Disease related
+                    option(value='molecule') Molecule related
+                    option(value='issue') Other Issues
+            if(page=='index')
+                .input-field.col.s4.black-text
+                    input(type="text")#name
+                    label(for="name") Name
+            if(page=='index')
+                .input-field.col.s3.black-text
+                    input(type="text")#number
+                    label(for="number") Number
+            if(page=='index')
+                .input-field.col.s5.black-text
+                    input(type="email")#n_email
+                    label(for="n_email") Email
+            label(for='textarea1') Description
+            .input-field.col.s11#n_description
+                textarea#textarea1.materialize-textarea.black-text
+            br
+            br
+            button.hoverable.btn(title="submit your suggestions" style={width: "40%"} type="submit")#submitbutt Submit
+
+        #test-swipe-2.col.s12.black-text
+            br
+            i.material-icons.prefix contacts
+            h5 Communication Address:
+            p TBI,KIET group of Institutions Ghaziabad, Uttar Pradesh,201206
+            i.material-icons.prefix contact_phone
+            h5 Phone Numbers:
+            p +91-8630051462
+            br
+            i.material-icons.prefix email
+            h5 E-mails
+            p support@apnicare.com
+

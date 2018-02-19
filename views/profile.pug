@@ -1,0 +1,58 @@
+doctype html
+html
+    head
+        //for search
+        meta(charset='utf-8')
+        meta(name='viewport', content='width=device-width, initial-scale=1')
+        //title jQuery UI Autocomplete - Default functionality
+        link(rel='stylesheet', href='//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css')
+        link(rel='stylesheet', href='/resources/demos/style.css')
+        script(src='https://code.jquery.com/jquery-1.12.4.js')
+        script(src='https://code.jquery.com/ui/1.12.1/jquery-ui.js')
+        script(src="/js/search.js")
+        link(href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css" rel="stylesheet")
+
+        link(href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet")
+
+        //script(src="https://code.jquery.com/jquery-3.2.1.min.js")
+
+        link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css")
+        script(src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js")
+
+        //-----------js files------------------
+
+        script(src="/js/n_MyProfile.js")
+        script(src="/js/n_main.js")
+        //script(src="/js/search.js")
+        //--------------css files-----------------
+        link(href="/css/n_index.css" rel="stylesheet")
+        //link(href="/css/n_moleculeInfo.css" rel="stylesheet")
+        link(href="/css/n_footer.css" rel="stylesheet")
+        link(href="/css/n_MyProfile.css" rel="stylesheet")
+
+
+    title Profile
+    body.p_body
+        //*****************************************dropdown for user*************************************************************************
+        ul#dropdown1.dropdown-content
+            li
+                a(href='/users/profile/userprofile?page=My_Profile') My Profile
+            //li
+                a(href='/users/profile/userprofile?page=My_Activity') My Activity
+            //li
+                a(href='/users/profile/userprofile?page=Refer_Friends') Refer Friends
+            li
+                a(href='/users/ApniCare/About?page=Contact') Contact Us
+            li
+                a(href='/logout') Logout
+
+
+
+        if(page == 'My_Profile'||page=='Contact_Us'||page == 'My_Activity'||page=='Refer_Friends'||page=='Confidential_Information'||page == 'Emergency_Contact_Details'||page=='Address')
+            include ./UserProfile/MyProfile
+        else
+
+            include ./n_partial/header
+        div
+            include ./n_partial/footer
+

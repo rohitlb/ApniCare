@@ -1,0 +1,11 @@
+doctype html
+html
+    head
+    body
+        h3 Molecule list
+        br
+        br
+        ol
+           each molecule in molecules
+                    li
+                        a(href="/admin/admin_dataCenterParticularMolecule?molecule="+molecule.molecule_name) #{molecule.molecule_name}

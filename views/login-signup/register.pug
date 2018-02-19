@@ -1,0 +1,76 @@
+//-------------------------register----------------------------
+div.row.register
+    br
+    br
+    div.row.black-text#register
+        div.input-field.col.s12.m12.l12.active.basic
+            input.required(type="text")#name
+            label(for="name") Name
+        span#healthCare Are you a HEALTHCARE PROVIDER ?
+        div.input-field.col.s12.m12.l12.basic
+            input.validate(type="email")#email
+            label(for="email") Email
+        br
+        div.input-field.col.s12.m12.l12.basic1
+            input.required(type="text")#number
+            label(for="number") Number
+            //span(style={position: "absolute", right: "0"}).badge.btn.right#change ChangeNo.?
+            //span(style={position: "absolute", right: "0"}).badge.btn.right#send Send OTP
+    div.row#common
+        div.row.center.user
+            //if(data=='UserRegister')
+            a.waves-effect.waves-purple.btn.hoverable.mediumpurple.buttu(title="OTP for user")#send Continue
+            a.waves-effect.waves-light.btn.modal-trigger.existing(title="LOGIN for user")#loginButton12 Existing User?Log in
+            //else if(data == 'ifDoctor')
+        div.row.center.doctor
+            a.waves-effect.waves-purple.btn.hoverable.mediumpurple.buttu(title=" OTP(for doctor)")#Dsend Continue
+            a.waves-effect.waves-light.btn.modal-trigger.existing(title="LOGIN for doctor")#D_loginButton Existing Doctor?Log in
+            //else if(data == 'ifPhamacist')
+        div.row.center.pharmacist
+            a.waves-effect.waves-purple.btn.hoverable.mediumpurple.buttu(title="OTP for pharmacist")#Psend Continue
+            a.waves-effect.waves-light.btn.modal-trigger.existing(title="LOGIN for pharmacist")#P_loginButton Existing Pharmacist?Log in
+
+        //------------------------------------------------after OTP has been sent-----------------------------------------------------------------------------
+    div.row#pass
+        div.col.s12.m12.l12
+            p OTP sent to  your Mobile
+                //span.badge.btn-flat.right Resend?
+
+        div.input-field.col.s9.m9.l9
+            input(type="text")#otp
+            label(for="otp") Enter OTP
+            //--------------------------------------------verification of otp-------------------------------------------------------
+        div.col.s3.m3.l3
+            a.waves-effect.waves-purple.btn.purple(title="verify OTP(user/doctor/pharmacist)")#verify Verify
+            //span.right.verify(title="verify OTP(user/doctor/pharmacist)")#verify Verify OTP
+        br
+        br
+        div.input-field.col.s12.m12.l12
+            input.required(type="password" placeholder="numeric")#password1
+            label(for="password1") Password
+        div.col.s12.m12.l12
+            br
+            input(type="checkbox")#check1
+            label(for="check1") show password
+            br
+            br
+        div#pswd_info
+            h4 Password must meet the listed requirement:
+            ul
+                li#numbe.invalid
+                    | only
+                    strong 4 digit number
+
+        //-------------------------------------------submit button---------------------------------------------------------------------------
+
+        div.row.center.use
+            //if(data == 'UserRegister')
+            a.waves-effect.waves-purple.btn.purple.hoverable.darken-2.buttu(title="click to register(user)")#submitButton Signup
+            //else if(data == 'ifDoctor')
+        div.row.center.doc
+            a.waves-effect.waves-purple.btn.purple.hoverable.darken-2.buttu(title="click to register(doctor)")#DsubmitButton Signup
+            //else if(data == 'ifPhamacist')
+        div.row.center.phar
+            a.waves-effect.waves-purple.btn.purple.hoverable.darken-2.buttu(title="click to register(pharmacist)")#PsubmitButton Signup
+
+

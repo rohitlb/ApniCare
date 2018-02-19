@@ -1,0 +1,42 @@
+doctype html
+html
+    head
+        script.
+            function validate()
+            {
+                if(document.getElementById('check').checked)
+                {
+                    var values = document.getElementById('check').name;
+                    window.location.href='/admin/blockDoctor?number='+values;
+                }
+                else
+                {
+                    var values = document.getElementById('check').name;
+                    window.location.href = '/admin/unblockDoctor?number=' + values;
+                }
+            }
+
+    body
+        h3 Admin/Account/Doctor
+        br
+        br
+
+
+        h4 Total User Account - #{result.TotalDoctor}
+        br
+
+        table
+            h3 Name &nbsp&nbsp&nbsp&nbsp&nbsp Number &nbsp&nbsp&nbsp&nbsp&nbsp Profile &nbsp&nbsp&nbsp&nbsp&nbsp Block
+            each data in result.DoctorData
+                p
+                    span #{data.name} &nbsp&nbsp
+                    span #{data.number} &nbsp&nbsp&nbsp&nbsp
+                    span
+                        a(href="/admin/adminloginpage") Show Profile
+
+                    span &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    if(data.status == 'blocked')
+                        input(id="check" onclick="validate()" type = "checkbox" name=data.number checked)
+                    else
+                        input(id="check" onclick="validate()" type = "checkbox" name=data.number)
+

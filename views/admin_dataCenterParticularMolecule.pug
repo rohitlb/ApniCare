@@ -1,0 +1,40 @@
+doctype html
+html
+    head
+    body
+        h3 Molecule list
+        br
+        br
+        table
+                p Molecule Name - #{molecules[0].molecule_name}
+                p Drug Categories - #{molecules[0].drug_categories}
+                p Description - #{molecules[0].description}
+                p Absorption - #{molecules[0].absorption}
+                p Distribution - #{molecules[0].distribution}
+                p Metabolism - #{molecules[0].metabolism}
+                p Excretion - #{molecules[0].excretion}
+                p Side effect - #{molecules[0].side_effect}
+                p Precaution - #{molecules[0].precaution}
+                p Food - #{molecules[0].food}
+                h5 ContraIndiction
+                -for(var i = 0;i< molecules[0].contraindications.info.length ; i++)
+                    h5
+                        li #{molecules[0].contraindications.subhead[i]}
+                    p #{molecules[0].contraindications.info[i]}
+                h5 Dosage
+                -for(var j = 0;j< molecules[0].dosage.info.length ; j++)
+                    h5
+                        li #{molecules[0].dosage.subhead[j]}
+                    p #{molecules[0].dosage.info[j]}
+                h5 Other Interaction
+                -for(var i = 0;i< molecules[0].other_interaction.info.length ; i++)
+                    h5
+                        li #{molecules[0].other_interaction.subhead[i]}
+                    p #{molecules[0].other_interaction.info[i]}
+                h5 Other Drug Interaction
+                -for(var j = 0;j< molecules[0].other_drug_interaction.info.length ; j++)
+                    h5
+                        li #{molecules[0].other_drug_interaction.subhead[j]}
+                    p #{molecules[0].other_drug_interaction.info[j]}
+                br
+                p Source - #{molecules[0].source}

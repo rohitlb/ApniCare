@@ -1,0 +1,141 @@
+//header for Myprofile********************************************************************************************
+div#p_Mdiv1
+    div.col.s12.m12.l12
+        //i.material-icons.white-text.right notifications
+
+        div.row#p_irow1
+            div.col.s3.m2.l2
+                br
+                a.black-text(href="/users/profile")
+                    span.p_logo ApniCare
+                    br
+                    span &nbsp &nbsp " Healthy You and Yours "
+
+            div.col.s6.m6.l8
+                a(href="#")
+                br
+                br
+                .input-field#input1
+                    input#search-query(type='search', required='',placeholder="Search here")
+                    label.label-icon(for='search-query')
+            div.col.s3.m4.l2
+                br
+                br
+                br
+                a.dropdown-button.btn-flat.right#p_profileperson(data-activates='dropdown1') #{data.name}
+                    i.material-icons person
+
+ul.p_ul#p_dropdownforupdate.dropdown-content
+    li
+        i.material-icons.prefix camera_alt
+        //a(href='#p_').Pspan2 Update
+        //    | Picture
+        a.waves-effect.black-text.waves-light.btn-flat.modal-trigger(href='#modal3')#p_signup Update Picture
+#modal3.modal
+    .modal-content(style={padding: "0px", margin: "0px", border: "0"})
+        a(href="/")
+            i.modal-action.modal-close.material-icons.right close
+        form(method='POST' action='/users/uploadimage' enctype='multipart/form-data' id='uploadImage')
+            span Upload Your Profile Pic
+            br
+            input.white-text(type='file' name='file')#p_file
+            input.button(type='submit' name='submit' value='UPLOAD')
+            br
+            br
+
+
+
+div
+    .container
+        div.row
+            div.col.s12.m5.l4#p_Pcard0
+                div#p_Pcard1
+                    div.row
+                        div.col.s5.m6.l8#p_Pperson
+                            //i.material-icons.medium image
+                            a.dropdown-button.btn-flat.white-text(data-activates='dropdownforupdate')
+                                img#p_apnilogo.circle.center(src="/images/moleculeData.jpg", height="73px" width="100px")
+                        div.col.s7.m6.l4#p_Pname
+                            p.p_P4.black-text.center Hello,
+                            p.p_P.black-text.center #{data.name}
+                            //#p_{data.name}
+                div#p_Pcard2
+                    .divider
+                    div.row
+                        div.col.s12.m12.l12
+                            ul.p_ul
+                                br
+                                li
+                                    i.p_i.material-icons.prefix account_circle
+                                        a(href="#").p_Pspan2 My Profile
+                                    br
+                                li.p_lispan
+                                    a(href='/users/profile/userprofile?page=My_Profile').p_Pspan1 &nbsp Personal Information
+                                    br
+                                    //.divider
+                                li.p_lispan
+                                    a(href='/users/profile/userprofile?page=Contact_Us').p_Pspan1 &nbsp Contact Information
+                                    br
+                                    //.divider
+                                li.p_lispan
+                                    a(href='/users/profile/userprofile?page=Confidential_Information').p_Pspan1 &nbsp Confidential Information
+                                    br
+                                    //.divider
+                                li.p_lispan
+                                    a(href='/users/profile/userprofile?page=Emergency_Contact_Details').p_Pspan1 &nbsp Emergency Contact Details
+                                    br
+                                    //.divider
+                                li.p_lispan
+                                    a(href='/users/profile/userprofile?page=Address').p_Pspan1 &nbsp Address
+                                    br
+
+
+                            //ul.p_ul
+                                br
+                                .divider
+                                br
+                                li
+                                    i.p_i.material-icons.prefix local_activity
+                                    a(href='/profile/userprofile?page=My_Activity').p_Pspan2 &nbsp My Activity
+                                    br
+                                li
+                                    a(href="#").p_Pspan1 &nbsp My Doctor
+                                    br
+                                li
+                                    a(href="#").p_Pspan1 &nbsp My Drugs
+                                    br
+                                li
+                                    a(href="#").p_Pspan1 &nbsp My Diseases
+                                    br
+
+                            //ul.p_ul
+                                br
+                                .divider
+                                br
+                                li
+                                    a(href='/profile/userprofile?page=Refer_Friends').p_Pspan2 &nbsp Refer Friends
+                            ul.p_ul
+                                br
+                                .divider
+                                br
+                                li
+                                    i.p_i.material-icons.small.prefix call
+                                    a(href='/users/ApniCare/About?page=Contact').p_Pspan2 &nbsp Contact Us
+                br
+                //i.material-icons person
+            div.col.s12.m7.l8
+                if(page == 'My_Profile')
+                    include ../UserProfile/PersonalInformation
+                else if(page == 'Contact_Us')
+                    include ../UserProfile/ContactUs
+                else if(page == 'Confidential_Information')
+                    include ../UserProfile/ConfidentialInformation
+                else if(page == 'Emergency_Contact_Details')
+                    include ../UserProfile/EmergencyContactDetails
+                else if(page == 'Address')
+                    include ../UserProfile/Address
+                else if(page == 'My_Activity')
+                    include ../UserProfile/MyActivity
+                else if(page == 'Refer_Friends')
+                    include ../UserProfile/ReferFriends
+

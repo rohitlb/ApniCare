@@ -1,0 +1,43 @@
+doctype html
+html
+    head
+    body
+        h3 Admin/Activity/Molecule
+
+        p molecule_name--#{result[0].molecule_name}
+        p drug_categories--#{result[0].drug_categories}
+        p description--#{result[0].description}
+        p absorption--#{result[0].absorption}
+        p distribution--#{result[0].distribution}
+        p metabolism--#{result[0].metabolism}
+        p excretion--#{result[0].excretion}
+        p side_effect--#{result[0].side_effect}
+        p precaution--#{result[0].precaution}
+        p food--#{result[0].food}
+        h5 ContraIndication
+        -for(var i = 0;i< result[0].contraindications.info.length ; i++)
+            h5
+                li #{result[0].contraindications.subhead[i]}
+            p #{result[0].contraindications.info[i]}
+        h5 Dosage
+        -for(var j = 0;j< result[0].dosage.info.length ; j++)
+            h5
+                li #{result[0].dosage.subhead[j]}
+            p #{result[0].dosage.info[j]}
+        h5 Other Interaction
+        -for(var i = 0;i< result[0].other_interaction.info.length ; i++)
+            h5
+                li #{result[0].other_interaction.subhead[i]}
+            p #{result[0].other_interaction.info[i]}
+        h5 Other Drug Interaction
+        -for(var j = 0;j< result[0].other_drug_interaction.info.length ; j++)
+            h5
+                li #{result[0].other_drug_interaction.subhead[j]}
+            p #{result[0].other_drug_interaction.info[j]}
+        p source : #{result[0].source}
+
+    if(result[0].issue_status != 0)
+        h3
+            a(href="/admin/adminMoleculeDataMakeLive?molecule=" + result[0].molecule_name) Make it live
+        h3
+            a(href="/admin/adminMoleculeDataIssue?molecule=" + result[0].molecule_name) Having issue

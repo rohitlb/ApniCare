@@ -1,0 +1,29 @@
+doctype html
+html
+    head
+    body
+        h3 Admin/Activity/Disease
+        p disease_name--#{result[0].disease_name}
+        p symptoms--#{result[0].symptoms}
+        p risk_factor--#{result[0].risk_factor}
+        p cause--#{result[0].cause}
+        p treatment--#{result[0].treatment}
+        h5 Organs
+        -for(var i = 0;i< result[0].organs.info.length ; i++)
+            h5
+                li #{result[0].organs.subhead[i]}
+            p #{result[0].organs.info[i]}
+        h5 Diagnosis
+        -for(var j = 0;j< result[0].diagnosis.info.length ; j++)
+            h5
+                li #{result[0].diagnosis.subhead[j]}
+            p #{result[0].diagnosis.info[j]}
+        p outlook--#{result[0].outlook}
+        p prevention--#{result[0].prevention}
+        p source--#{result[0].source}
+
+        if(result[0].issue_status != 0)
+            h3
+                a(href="/admin/adminDiseaseDataMakeLive?disease=" + result[0].disease_name) Make it live
+            h3
+                a(href="/admin/adminDiseaseDataIssue?disease=" + result[0].disease_name) Having issue

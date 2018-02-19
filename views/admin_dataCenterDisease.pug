@@ -1,0 +1,11 @@
+doctype html
+html
+    head
+    body
+        h3 Disease list
+        br
+        br
+        ol
+            each disease in diseases
+                    li
+                        a(href="/admin/admin_dataCenterParticularDisease?disease="+disease.disease_name) #{disease.disease_name}

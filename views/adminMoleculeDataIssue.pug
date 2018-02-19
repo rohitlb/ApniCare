@@ -1,0 +1,12 @@
+doctype html
+html
+    head
+    body
+        h1 Having Issue
+        form(action='/admin/adminMoleculeDataIssueSend', method='POST')
+            | Enter Issue :
+            br
+            textarea(rows='4', name='moleculeIssue', cols='50')
+            br
+            br
+            input(type='submit', name='submit')

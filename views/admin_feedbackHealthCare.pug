@@ -1,0 +1,21 @@
+doctype html
+html
+    head
+    body
+        h3 Admin/Feedback/Health Care
+
+            table
+                h3 Name &nbsp&nbsp&nbsp&nbsp&nbsp Number &nbsp&nbsp&nbsp&nbsp&nbsp
+                    span Categories &nbsp&nbsp&nbsp&nbsp&nbsp Feedback &nbsp&nbsp&nbsp&nbsp&nbsp
+                    span Ticket no. &nbsp&nbsp&nbsp&nbsp&nbsp Our Response
+                each feedback in data.feedbacks
+                    p
+                        span  #{feedback.Status} #{feedback.Name} &nbsp&nbsp
+                        span #{feedback.Number} &nbsp&nbsp&nbsp&nbsp
+                        span #{feedback.Categories} &nbsp&nbsp&nbsp&nbsp
+                        span
+                            a(href="/admin/adminFeedbackInfo?ticket="+feedback.Ticket) Feedback
+                        span &nbsp&nbsp&nbsp&nbsp
+                        span #{feedback.Ticket}&nbsp&nbsp&nbsp&nbsp
+                        span
+                            a(href="/admin/adminFeedbackResponse?ticket="+feedback.Ticket) Our Response

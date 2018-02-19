@@ -1,0 +1,161 @@
+- val = data.disease[0]
+- sub = data[0]
+- other = data[0]
+- index = data[0]
+div.col.l10.s10.m10#mol_col1
+    div.row.center#mol_row1_subrow2
+        h4   #{val.disease_name}
+    div.row.center#mol_row1_subrow3
+        div.drug_alphabets.pull-left
+            span.center
+                ul
+                    li.active
+                        a.btn2.all.hoverable(href='/users/ApniCare/information?page=Disease_Information' type='all') All
+                    li
+                        a.btn2.hoverable(href='/users/ApniCare/information?page=Disease_Information') A
+                    li
+                        a.btn2.hoverable(href='/users/ApniCare/information?page=Disease_Information') B
+                    li
+                        a.btn2.hoverable(href='/users/ApniCare/information?page=Disease_Information') C
+                    li
+                        a.btn2.hoverable(href='/users/ApniCare/information?page=Disease_Information') D
+                    li
+                        a.btn2.hoverable(href='/users/ApniCare/information?page=Disease_Information') E
+                    li
+                        a.btn2.hoverable(href='/users/ApniCare/information?page=Disease_Information') F
+                    li
+                        a.btn2.hoverable(href='/users/ApniCare/information?page=Disease_Information') G
+                    li
+                        a.btn2.hoverable(href='/users/ApniCare/information?page=Disease_Information') H
+                    li
+                        a.btn2.hoverable(href='/users/ApniCare/information?page=Disease_Information') I
+                    li
+                        a.btn2.hoverable(href='/users/ApniCare/information?page=Disease_Information') J
+                    li
+                        a.btn2.hoverable(href='/users/ApniCare/information?page=Disease_Information') K
+                    li
+                        a.btn2.hoverable(href='/users/ApniCare/information?page=Disease_Information') L
+                    li
+                        a.btn2.hoverable(href='/users/ApniCare/information?page=Disease_Information') M
+                    li
+                        a.btn2.hoverable(href='/users/ApniCare/information?page=Disease_Information') N
+                    li
+                        a.btn2.hoverable(href='/users/ApniCare/information?page=Disease_Information') O
+                    li
+                        a.btn2.hoverable(href='/users/ApniCare/information?page=Disease_Information') P
+                    li
+                        a.btn2.hoverable(href='/users/ApniCare/information?page=Disease_Information') Q
+                    li
+                        a.btn2.hoverable(href='/users/ApniCare/information?page=Disease_Information') R
+                    li
+                        a.btn2.hoverable(href='/users/ApniCare/information?page=Disease_Information') S
+                    li
+                        a.btn2.hoverable(href='/users/ApniCare/information?page=Disease_Information') T
+                    li
+                        a.btn2.hoverable(href='/users/ApniCare/information?page=Disease_Information') U
+                    li
+                        a.btn2.hoverable(href='/users/ApniCare/information?page=Disease_Information') V
+                    li
+                        a.btn2.hoverable(href='/users/ApniCare/information?page=Disease_Information') W
+                    li
+                        a.btn2.hoverable(href='/users/ApniCare/information?page=Disease_Information') X
+                    li
+                        a.btn2.hoverable(href='/users/ApniCare/information?page=Disease_Information') Y
+                    li
+                        a.btn2.hoverable(href='/users/ApniCare/information?page=Disease_Information') Z
+                    li
+                        a.btn2.all.hoverable(href='/users/ApniCare/information?page=Disease_Information' type='other') Other
+    div.row.m_p_info
+        div.col.lighten-3.s12.m8.l11
+
+                //h3 #{val.disease_name.toUpperCase()}
+                if(val.symptoms!='')
+                    li.section.scrollspy#symptoms
+                        span.m_p What are the Symptoms of #{val.disease_name}?
+                        br
+                        span.next_line.m_p_info.flow-text #{val.symptoms}
+                        br
+                if(val.risk_factor !='')
+                    li.section.scrollspy#risk
+                        span.m_p Who is at Risk for #{val.disease_name.toUpperCase()}?
+                        br
+                        span.next_line.m_p_info.flow-text #{val.risk_factor}
+                        br
+                if(val.cause !='')
+                    li.section.scrollspy#cause
+                        span.m_p What Causes #{val.disease_name.toUpperCase()}?
+                        br
+                        span.next_line.m_p_info.flow-text #{val.cause}
+                        br
+                if(val.diagnosis)
+                    .section.scrollspy#diagnosis
+                        h5.m_p  How is #{val.disease_name.toUpperCase()} Diagnosed?
+                        each other,index in val.diagnosis.subhead
+                            //each sub, index in other.subhead
+                            p
+                                span.m_p= other
+                                span.small_font.left ►
+                            span.next_line.m_p_info.small_font= val.diagnosis.info[index]
+                if(val.organs !='')
+                    li.section.scrollspy#organs
+                        span.m_p  Which Organs are affected by #{val.disease_name.toUpperCase()}?
+                        br
+                        each other,index in val.organs.subhead
+                            //each sub, index in other.subhead
+                            h5.m_p= other
+                            span.small_font.left ►
+                            span.next_line.m_p_info.small_font= val.organs.info[index]
+                if(val.treatment !='')
+                    li.section.scrollspy#treatment
+                        span.m_p How is #{val.disease_name.toUpperCase()} Treated?
+                        br
+                        span.next_line.m_p_info.flow-text #{val.treatment}
+                if(val.outlook !='')
+                    li.section.scrollspy#outlook
+                        span.m_p What is the Outlook for #{val.disease_name.toUpperCase()}?
+                        br
+                        span.next_line.m_p_info.flow-text #{val.outlook}
+                if(val.prevention !='')
+                    li.section.scrollspy#prevention
+                        span.m_p.m_p How can #{val.disease_name.toUpperCase()} be Prevented?
+                        br
+                        span.next_line.m_p_info.flow-text #{val.prevention}
+                if(val.source !='')
+                    h5.section.scrollspy#source Source:&nbsp
+                        span.next_line.m_p_info #{val.source}
+                h5.right
+                    span.small_font Information Submitted By :-
+                    br
+                    span #{data.titles} #{data.names}
+
+
+div.col#mol_row1_subrow4
+    h5 Page Contents
+    ul.section.table-of-contents(style='position:fixed;padding-bottom:10px;')
+        if(val.absorption != '' || val.distribution != '' || val.metabolism != '' || val.excretion != '')
+            li
+                a(href='#symptoms') Symptoms
+        if(val.side_effect != '')
+            li
+                a(href='#risk') Risk Factors
+        if(val.precaution != '')
+            li
+                a(href='#cause') Causes
+        if(val.drug_interaction != '')
+            li
+                a(href='#diagnosis') Diagnosis
+        if(val.organ!='')
+            li
+                a(href='#organs') Effect on Organs
+        if(val.treatment !='')
+            li
+                a(href='#treatment') Treatment
+        if(val.dosage != '')
+            li
+                a(href='#outlook') Outlook
+        if(val.food != '')
+            li
+                a(href='#prevention') Prevention
+        if(val.source !='')
+            li
+                a(href='#source') Source of Information

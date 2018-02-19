@@ -1,0 +1,35 @@
+doctype html
+html
+    head
+    body
+        h3 Brand list
+        br
+        br
+        each drug in brand
+            p Company Name - #{drug.company_id[0].company_name}
+            p Brand Name - #{drug.brand_name}
+            p Categories - #{drug.categories}
+            p Types - #{drug.types}
+            p primarily_used_for - #{drug.primarily_used_for}
+
+            each dosage in drug.dosage_id
+                ol
+                    li Dosage Form - #{dosage.dosage_form}
+                    ol
+                        each strength in dosage.strength_id
+                            li Strength - #{strength.strength}
+                            table
+                            li
+                                h3 Potent &nbsp&nbsp&nbsp&nbsp&nbsp Strength &nbsp&nbsp&nbsp&nbsp&nbsp
+                                -for(var i = 0;i< strength.potent_substance.name.length ; i++)
+                                     p
+                                         span #{strength.potent_substance.name[i]} &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                                         span #{strength.potent_substance.molecule_strength[i]}
+                            li Packaging - #{strength.packaging}
+                            li Price - #{strength.price}
+                            li Dose Taken - #{strength.dose_taken}
+                            li Dose Timing - #{strength.dose_timing}
+                            li Warnings - #{strength.warnings}
+                            li Prescriptions - #{strength.prescription}
+
+

@@ -1,0 +1,164 @@
+- pots = data[0]
+- potse = data[0]
+- var i = 0;
+- var tin = data.rating
+- var vas = data.brands[0]
+- var val = data.brands[0]
+div.col.l10.m10.s10#mol_col1
+    div.row.center#mol_row1_subrow2
+        h4   #{val.brand_name}
+    div.row.center#mol_row1_subrow3
+        div.drug_alphabets.pull-left
+            span.center
+                ul
+                    li.active
+                        a.btn2.all.hoverable(href='/users/ApniCare/information?page=Drug_Information' type='all') All
+                    li
+                        a.btn2.hoverable(href='/users/ApniCare/information?page=Drug_Information') A
+                    li
+                        a.btn2.hoverable(href='/users/ApniCare/information?page=Drug_Information') B
+                    li
+                        a.btn2.hoverable(href='/users/ApniCare/information?page=Drug_Information') C
+                    li
+                        a.btn2.hoverable(href='/users/ApniCare/information?page=Drug_Information') D
+                    li
+                        a.btn2.hoverable(href='/users/ApniCare/information?page=Drug_Information') E
+                    li
+                        a.btn2.hoverable(href='/users/ApniCare/information?page=Drug_Information') F
+                    li
+                        a.btn2.hoverable(href='/users/ApniCare/information?page=Drug_Information') G
+                    li
+                        a.btn2.hoverable(href='/users/ApniCare/information?page=Drug_Information') H
+                    li
+                        a.btn2.hoverable(href='/users/ApniCare/information?page=Drug_Information') I
+                    li
+                        a.btn2.hoverable(href='/users/ApniCare/information?page=Drug_Information') J
+                    li
+                        a.btn2.hoverable(href='/users/ApniCare/information?page=Drug_Information') K
+                    li
+                        a.btn2.hoverable(href='/users/ApniCare/information?page=Drug_Information') L
+                    li
+                        a.btn2.hoverable(href='/users/ApniCare/information?page=Drug_Information') M
+                    li
+                        a.btn2.hoverable(href='/users/ApniCare/information?page=Drug_Information') N
+                    li
+                        a.btn2.hoverable(href='/users/ApniCare/information?page=Drug_Information') O
+                    li
+                        a.btn2.hoverable(href='/users/ApniCare/information?page=Drug_Information') P
+                    li
+                        a.btn2.hoverable(href='/users/ApniCare/information?page=Drug_Information') Q
+                    li
+                        a.btn2.hoverable(href='/users/ApniCare/information?page=Drug_Information') R
+                    li
+                        a.btn2.hoverable(href='/users/ApniCare/information?page=Drug_Information') S
+                    li
+                        a.btn2.hoverable(href='/users/ApniCare/information?page=Drug_Information') T
+                    li
+                        a.btn2.hoverable(href='/users/ApniCare/information?page=Drug_Information') U
+                    li
+                        a.btn2.hoverable(href='/users/ApniCare/information?page=Drug_Information') V
+                    li
+                        a.btn2.hoverable(href='/users/ApniCare/information?page=Drug_Information') W
+                    li
+                        a.btn2.hoverable(href='/users/ApniCare/information?page=Drug_Information') X
+                    li
+                        a.btn2.hoverable(href='/users/ApniCare/information?page=Drug_Information') Y
+                    li
+                        a.btn2.hoverable(href='/users/ApniCare/information?page=Drug_Information') Z
+                    li
+                        a.btn2.all.hoverable(href='/users/ApniCare/information?page=Drug_Information' type='other') Other
+    div.row.m_p_info
+        div.col.s12.n12.l11
+                h3.section.scrollspy#data_name #{vas.brand_name.toUpperCase()}
+                    span <em>&nbsp - &nbsp</em>
+                    each company in vas.company_id
+                        span.next_line <strong>manufactured by #{company.company_name.toUpperCase()}</strong>
+                    //each dosages in vas.dosage_id
+                    if(vas.dosage_id[0].strength_id[0].prescription != '')
+                        if(vas.dosage_id[0].strength_id[0].prescription === 'Needed')
+                            span.right(style='border: groove; background-color:red; border-radius: 15px')= "Rx: " + vas.dosage_id[0].strength_id[0].prescription
+                        else if(vas.dosage_id[0].strength_id[0].prescription === 'Not Needed')
+                            span.right(style='border: groove; background-color:green; border-radius: 15px')= "Rx: " + vas.dosage_id[0].strength_id[0].prescription
+                        else
+                            span.right(style='border: groove; border-radius: 15px')= "Rx: " + vas.dosage_id[0].strength_id[0].prescription
+
+
+                    if(vas.categories != '')
+                        h5.to_capital  [#{vas.categories}]
+
+                ul.collapsible(data-collapsible="expandable")
+                    each dosages in vas.dosage_id
+                        each doses in dosages.strength_id
+                            li
+                                div.collapsible-header
+                                    table.responsive-table.hide-on-down-only
+                                        thead(style="background-color:lavender;")
+                                            tr
+                                                th.section.scrollspy#dosage_form Dosage Form
+                                                th Strength
+                                                th Packaging
+                                                th Price
+                                                if(dosages.dosage_form == 'Tablet')
+                                                    th Price/Unit
+                                        tbody
+                                            tr
+                                                td <strong>#{dosages.dosage_form.toUpperCase()}</strong> &nbsp &nbsp
+                                                td.to_capital <strong>#{doses.strength}</strong> &nbsp &nbsp
+                                                td.to_capital <strong>#{doses.packaging}</strong> &nbsp &nbsp
+                                                td <strong>₹ #{doses.price}</strong>
+                                                if(dosages.dosage_form == 'Tablet')
+                                                    td
+                                                        p &#x20b9;
+                                                            span= Number(tin[i].rateper).toFixed(2)
+                                                    -i = i+1;
+                                            tr#read_more
+                                                td
+                                                td
+                                                td
+                                                td.blue-text Read More.....
+
+                                div.collapsible-body
+                                    span
+                                        span.section.scrollspy#potent <strong>▪ Involves Potent Substances: </strong>
+                                        each j, index in doses.potent_substance.name
+                                            span.to_capital &nbsp #{j} &nbsp
+                                                span.small_font.next_line= doses.potent_substance.molecule_strength[index]
+                                            br
+                                        if(doses.dose_taken != '')
+                                            span.section.scrollspy#dose_taken <strong>▪ Dose Taken As:&nbsp</strong>
+                                                span.small_font.to_capital #{doses.dose_taken}
+                                            br
+                                        if(doses.dose_timing != '')
+                                            span.section.scrollspy#timing <strong>▪ Dose Timings:&nbsp</strong>
+                                                span.small_font.to_capital #{doses.dose_timing}
+                                            br
+                                        if(vas.primarily_used_for != '')
+                                            span.next_line.section.scrollspy#primarily <strong>▪ The Drug <strong>#{vas.brand_name.toUpperCase()}</strong> is primarily used for: </strong>
+                                                br
+                                                span.next_line.small_font.to_capital #{vas.primarily_used_for}
+                                            br
+                                        if(doses.warnings != '')
+                                            i.material-icons.left warning
+                                            span.section.scrollspy#warnings.red-text <strong>Warnings</strong>
+                                            br
+                                            span.next_line.to_capital <strong>#{doses.warnings}</strong>
+
+
+//div.col#mol_row1_subrow4
+    h5 Page Contents
+    ul.section.table-of-contents(style='position:fixed;z-index:2;padding-bottom:10px;')
+            each dosages in vas.dosage_id
+                each doses in dosages.strength_id
+                    if(val.categories != '')
+                        li
+                            a(href="#brand") &nbsp &nbsp Brand
+                            each vas in data
+                                if(vas.types != '')
+                                    span.to_capital -#{vas.types}
+                    if(doses.prescription != "")
+                        a(href="#prescription") &nbsp &nbsp Prescription
+                    li
+                        a(href="#potent") &nbsp &nbsp Potent
+                    if(doses.strength != "")
+                        li
+                            a(href="#dosage_form") &nbsp &nbsp Dosage form

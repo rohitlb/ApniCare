@@ -1,0 +1,132 @@
+//#modalbackground(style=' position: absolute; height:100%; widh:100%; display:none; z-index:10001; background-color: #7F7F7F; opacity: 0.3;')
+div#idiv1
+    div.row#irow1
+        br
+
+        div.col.s12.m3.l3
+            if(page == 'index')
+                a.black-text(href="/")
+                    br
+                    span#logo1 ApniCare
+                    br
+                    span.span3.lavender-text - " Healthy You & Yours "
+            if(page == 'profile')
+                a.black-text(href="/profile")
+                    br
+                    span#logo1 ApniCare
+                    br
+                    span.span3.lavender-text - " Healthy You & Yours "
+
+        div.col.s12.m6.l6
+            .bs-example
+                label.black-text.label-icon(for='search-query')
+                input#search-query(type='text',placeholder="Search here")
+
+        div.col.s12.m3.l3
+            br
+            if(page == 'index')
+                include ../login-signup/main
+            if(page == 'profile')
+                a.dropdown-button.btn-flat.center.right.black-text#user(data-activates='dropdown1') #{number}
+                    i.material-icons.black-text.large person
+                    span #{user}
+            i.material-icons.black-text.right notifications
+
+
+    //div.row#irow4
+    div.row#irow3.center.hid-on-small-only
+        div.col.s3.m3.l4
+            div.col.s12.m10.l9#col1
+                br
+                br
+                a(href='/users/ApniCare/information?page=Drug_Information')
+                    span.white-text Drug Information
+            div.col.l3.hide-on-med-and-down
+                .headerdivider
+        div.col.s3.m3.l4
+            div.col.s12.m10.l9#col2
+                br
+                br
+                a(href='/users/ApniCare/information?page=Disease_Information')
+                    span.white-text Disease Information
+            div.col.l3.hide-on-med-and-down
+                .headerdivider1
+        div.col.s3.m3.l4
+            div.col.s12.m10.l9#col3
+                br
+                br
+                a(href='/users/ApniCare/information?page=Molecule_Information')
+                    span.white-text Molecule Information
+            //div.headerdivider2
+        //div.col.l3#col5
+
+            br
+            a.waves-effect.waves-light.btn-flat.right.modal-trigger.initial(href='#modal1')#signupbut
+            span.white-text For HealthCare Providers
+                //include ../login-signup/main
+
+        //div.col.s4.m4.l1#col4
+
+            br
+            a(href='/ApniCare/information?page=Find_a_Right_Doctor')
+                span.white-text Find A Right Doctor
+            div.headerdivider3
+
+
+div#idiv2
+    div.row
+        br
+        div.col.s12.m12.l4#idiv3
+            div.row
+                a(href='/users/ApniCare/information?page=Drug_Information').content
+                    span.btn-flat#drugInformation Drug Information
+
+            br
+            div.row
+                a(href='/users/ApniCare/information?page=Disease_Information').content
+                    span.btn-flat#diseaseInformation Disease Information
+
+            br
+            div.row
+                a(href='/users/ApniCare/information?page=Molecule_Information').content
+                    span.btn-flat#moleculeInformation Molecule Information
+
+            //br
+            //div.row#find_doctor
+                a(href='/ApniCare/information?page=Find_a_Right_Doctor').content
+                    span.btn-flat#find_a_right_doctor Find a Right Doctor
+
+        div.col.l8.hide-on-med-and-down#idiv4
+            div.row
+                br
+                span.white-text BE AWARE ABOUT
+                .divider#divider1
+            div.row#irow2
+                div
+                    div.row#carousel
+
+                        a(href='/users/ApniCare/information?page=Drug_Information')
+                            div.row#crousel1.c
+                                br
+                                h4.center.black-text Drug Information
+                                p.center.black-text Impact where it matters
+
+                            .divider.b#drugdivider
+                        a(href='/users/ApniCare/information?page=Disease_Information')
+                            div.row#crousel2.a
+                                br
+                                h4.center.black-text Disease Information
+                                p.center.black-text Impact where it matters
+                            .divider.b#diseasedivider
+                        a(href='/users/ApniCare/information?page=Molecule_Information')
+                            div.row#crousel3.a
+                                br
+                                h4.center.white-text Molecule/Potent Substance Information
+                                p.center.white-text Impact where it matters
+                            .divider.b#moleculedivider
+                        a(href='/users/ApniCare/information?page=Find_a_Right_Doctor')
+                            div.row#crousel4.a
+                                br
+                                h4.center.black-text Find A Right Doctor
+                                p.center.black-text
+                            .divider.b#doctordivider

@@ -1,0 +1,128 @@
+img#drug(src='/images/moleculeData.jpg', style='position:fixed;top:0px;left:0px;width:100%;height:100%;z-index:-1;')
+div.row
+    div.col.s12.m12.l9.offset-l3
+
+        div.container#moleculeData
+            .row
+                .col.s12
+                    form(name='next', method='POST', onsubmit='return validateForm();', action='#molecule_data_form')
+                        center
+                            h2(style='font-weight:600;') Enter Molecule Data
+                        div.col.s12.m6.l6
+                            span Molecule Name
+                            span.red-text &nbsp*
+                            input.validate#molecule_name(type='text', name='t1', style='text-transform:uppercase;color:black;font-size: 18px;font-weight: 400; ' required)
+                        div.col.s12.m6.l6
+                            span Category
+                            span.red-text &nbsp*
+                            input.validate#drug_category(type='text', name='t2', style='text-transform:capitalize;color:black;font-size: 18px;font-weight: 400;' required)
+                        div.col.s12.m12.l12
+                            span Short Description
+                            span.red-text &nbsp*
+                            textarea.tobig.text_areas.materialize-textarea.validate#short_description(name='t3', style='text-transform:capitalize;color:black;font-size: 18px;font-weight: 400;' required)
+                        div.col.s12.m12.l12
+                            span Pharmacokinetics
+                            span.red-text &nbsp*
+                            br
+                            div.col.s12.m12.l12
+                                span.flow-text Absorption
+                                    br
+                                    textarea.materialize-textarea.validate#absorption(name='t4', style='text-transform:capitalize;color:black;font-size: 18px;font-weight: 400;' required)
+                            div.col.s12.m12.l12
+                                span.flow-text Distribution
+                                    br
+                                    textarea.materialize-textarea.validate#distribution(name='t4', style='text-transform:capitalize;color:black;font-size: 18px;font-weight: 400;' required)
+                            div.col.s12.m12.l12
+                                span.flow-text Metabolism
+                                    br
+                                    textarea.materialize-textarea.validate#metabolism(name='t4', style='text-transform:capitalize;color:black;font-size: 18px;font-weight: 400;' required)
+                            div.col.s12.m12.l12
+                                span.flow-text Excretion
+                                    br
+                                    textarea.materialize-textarea.validate#excretion(name='t4', style='text-transform:capitalize;color:black;font-size: 18px;font-weight: 400;' required)
+
+                        div.col.s12.m12.l12
+                            span Side Effects
+                            span.red-text &nbsp*
+                            textarea.materialize-textarea.tobig.text_areas.validate#side_effect(name='t5', style='text-transform:capitalize;color:black;font-size: 18px;font-weight: 400;' required)
+                            //input.button(type='submit')
+                        div.col.s12.m12.l12
+                            span Special Precautions
+                            span.red-text &nbsp*
+                            textarea.materialize-textarea.tobig.text_areas.validate#precaution(name='t6', style='text-transform:capitalize;color:black;font-size: 18px;font-weight: 400;' required)
+                            //input.button(type='submit')
+                        div.col.s12.m12.l12
+                            span Other Drug Interactions
+                            div.repeater5
+                                div
+                                    input.browser-default.repeat_subhead5.validate#subheading5(type='text', placeholder='Enter subheading' required)
+                                    button.remove x
+                                    textarea.materialize-textarea.tobig.text_areas.text_subhead5.validate#subhead_text5(placeholder='Enter Text ', style='text-transform:capitalize;color:black;font-size: 15px;font-weight: 400;' required)
+                                    //label(for='subhead_text3', style='color:black;font-size: 15px;font-weight: 400;' required)
+                                    label(for='subheading5', style='text-transform:capitalize;color:black;font-size: 15px;font-weight: 400;')
+                            button.repeat5 Add Subheading
+
+                        div.col.s12.m12.l12
+                            span Other Interactions
+                            br
+                            div.repeater4
+                                div
+                                    input.browser-default.repeat_subhead4.validate#subheading4(list='other_int', type='text', placeholder='Choose subheading' required)
+                                    button.remove x
+                                    textarea.tobig.text_areas.materialize-textarea.text_subhead4.validate#subhead_text4(placeholder='Enter Text', style='text-transform:capitalize;color:black;font-size: 15px;font-weight: 400;' required)
+                                    //label(for='subhead_text4', style='color:black;font-size: 15px;font-weight: 400;' required)
+                                    label(for='subheading4', style='text-transform:capitalize;color:black;font-size: 15px;font-weight: 400;')
+                                    datalist#other_int
+                                        option Food Interactions
+                            button.repeat4 Add Subheading
+
+                        div.col.s12.m12.l12
+                            span Dosage
+                            span.red-text &nbsp*
+                            br
+                            div.repeater3
+                                div
+                                    input.browser-default.repeat_subhead3.validate#subheading3(list='dosage', type='text', placeholder='Choose subheading' required)
+                                    button.remove x
+                                    textarea.validate.materialize-textarea.tobig.text_areas.text_subhead3#subhead_text3(placeholder='Enter Text', style='text-transform:capitalize;color:black;font-size: 15px;font-weight: 400;' required)
+                                    label(for='subheading3', style='text-transform:capitalize;color:black;font-size: 15px;font-weight: 400;')
+                                    datalist#dosage
+                                        option Oral
+                                        option Intravenous
+                                        option Liver Disorder
+                                        option Hepatic
+                                        option COPD
+                            button.repeat3 Add Subheading
+
+                        div.col.s12.m12.l12
+                            span Taken (before/after) Food
+                                input.validate#food_taken(type='text', name='t9', style='color:black;font-size: 18px;font-weight: 400;' required)
+
+                        div.col.s12.m12.l12
+                                span#contraindications List of Contraindications
+                                br
+                                div.repeater2
+                                    div
+                                        input.browser-default.repeat_subhead2.validate#subheading2(list='contra',type='text', placeholder='Choose subheading' required)
+                                        button.remove x
+                                        textarea.tobig.text_areas.text_subhead2.materialize-textarea.validate#subhead_text2(style='text-transform:capitalize;color:black;font-size: 15px;font-weight: 400;' required)
+                                        //label(for='subhead_text', style='color:black;font-size: 15px;font-weight: 400;' required)
+                                        label(for='subheading2', style='text-transform:capitalize;color:black;font-size: 15px;font-weight: 400;')
+                                        datalist#contra
+                                            option In Lactation
+                                            option In Pregnancy
+                                            option In Children
+                                            option Storage
+                                            option Lab Interference
+                                            option In Geriatric/Old Person
+                                            option Other Contraindications
+                                button.repeat2 Add Subheading
+
+                        div.col.s12.m12.l12
+                            span Source
+                                textarea.materialize-textarea.tobig.text_areas.validate#source(name='t12', placeholder='Source of Information', style='text-transform:capitalize;color:black;font-size: 18px;font-weight: 400;' required)
+                        div.row
+                            div.col.s6.l4.m4
+                                input.reset(type='reset')
+                            div.col.s6.l4.m4.offset-l4
+                                input.button#molecule_data_form(type='submit' value='Submit')

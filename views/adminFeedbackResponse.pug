@@ -1,0 +1,12 @@
+doctype html
+html
+    head
+    body
+        br
+        br
+        p Our Response
+        each value in data
+            p #{value.feedbackResponse}
+            br
+            br
+        a(href="/admin/adminFeedbackAddResponse?ticket="+data[0].feedbackTicket) Add Response

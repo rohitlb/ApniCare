@@ -1,0 +1,48 @@
+div#p_Pcard3
+    div
+        div.row.p_Pheadings1
+            a(href="#") Address
+            a.btn-flat.small.right#p_UPedit Edit
+            a.btn-flat.small.right#p_UPcancel Cancel
+            br
+            br
+        form#p_InfoForm
+            div.row.p_Pformfordetail
+                div.row
+                    .input-field.col.s6
+                        i.p_i.material-icons.prefix
+                        input.p_input.black-text.validate#p_address(type="text", value=data.address.addresses)
+                        label.p_label(for="p_address") House No./ Street Name/ Area
+                        br
+                        br
+                div.row
+                    .input-field.col.s6
+                        i.p_i.material-icons.prefix
+                        input.p_input.black-text.validate#p_landmark(type="text", value=data.address.landmarks)
+                        label.p_label(for="p_landmark") Colony / Street / Locality
+                        br
+                        br
+
+                div.row
+                    .input-field.col.s6
+                        i.p_i.material-icons.prefix
+                        input.p_input.black-text.validate#p_city(type="text", value=data.address.city)
+                        label(for="p_city") City
+                        br
+                        br
+                div.row
+                    .input-field.col.s6
+                        i.material-icons.prefix
+                        input.p_input.black-text.validate#p_state(type="text", value=data.address.state)
+                        label.p_label(for="p_state") State
+                        br
+                        br
+                div.row
+                    .input-field.col.s6
+                        i.p_i.material-icons.prefix
+                        input.p_input.black-text.validate#p_pincode(type="tel", value=data.address.pin_code)
+                        label.p_label(for="p_pincode") Pincode
+                        br
+                        br
+                div.row
+                    a.btn.right#p_AddressSubmit Submit

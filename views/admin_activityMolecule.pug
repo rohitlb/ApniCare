@@ -1,0 +1,18 @@
+doctype html
+html
+    head
+    body
+        h3 Admin/Activity/Molecule
+
+
+            table
+                h3 Name &nbsp&nbsp&nbsp&nbsp&nbsp Number &nbsp&nbsp&nbsp&nbsp&nbsp
+                    span Drug Data &nbsp&nbsp&nbsp&nbsp&nbsp Current status &nbsp&nbsp&nbsp&nbsp&nbsp
+                each data in result.submitted
+                    p
+                        span  #{data.name} &nbsp&nbsp
+                        span #{data.number} &nbsp&nbsp&nbsp&nbsp
+                        span
+                            a(href="/admin/adminMoleculeDataInfo?molecule="+data.molecule) #{data.molecule}
+                        span &nbsp&nbsp&nbsp&nbsp
+                        span 'Not Live'

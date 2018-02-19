@@ -1,0 +1,287 @@
+div#Mdiv1
+    div.row#irow11
+        div.col.s3.m4.l4
+            br
+            br
+            a.black-text(href="/")
+                span#logo1 ApniCare
+                    br
+                    span.span3 - " Health You and Yours "
+
+            //a(href='/profile/userprofile?page=profilePage')
+                img#logoimg(src="/images/az.png" height="80px" width="150px")
+
+        div.col.s6.m6.l6
+            a(href="#")
+            br
+            br
+            .input-field#input1
+                input#search-query(type='search', required='',placeholder="search here")
+                label.label-icon(for='search-query')
+                //.material-icons#searchbutton search
+        div.col.s3.m2.l2
+            br
+            br
+            if(page=='index')
+                include ../login-signup/main
+            if(page == 'profile')
+                a.dropdown-button.btn-flat.center.right.black-text#user(data-activates='dropdown1') #{number}
+                    i.material-icons.black-text.large person
+                    span hi user
+            i.material-icons.black-text.right notifications
+
+div
+    div.row#moleculeInformation1
+        div.col.s12.m12.l12#mcol2
+            div.row#mol_row1
+                //**********data*********************
+                if(page == 'drug_data_view')
+                    include ./drug
+                if (page == 'disease_name')
+                    include ./disease
+                if (page == 'molecule_name')
+                    div.col.l10.m10.s10#mol_col1
+                        - val = data.molecule[0]
+                        div.row.center#mol_row1_subrow2
+                            h4   #{val.molecule_name}
+                        div.row.center#mol_row1_subrow3
+                            div.drug_alphabets.pull-left
+                                span.center
+                                    ul
+                                        li.active
+                                            a.btn2.all.hoverable(href='/users/ApniCare/information?page=Molecule_Information' type='all') All
+                                        li
+                                            a.btn2.hoverable(href='/users/ApniCare/information?page=Molecule_Information') A
+                                        li
+                                            a.btn2.hoverable(href='/users/ApniCare/information?page=Molecule_Information') B
+                                        li
+                                            a.btn2.hoverable(href='/users/ApniCare/information?page=Molecule_Information') C
+                                        li
+                                            a.btn2.hoverable(href='/users/ApniCare/information?page=Molecule_Information') D
+                                        li
+                                            a.btn2.hoverable(href='/users/ApniCare/information?page=Molecule_Information') E
+                                        li
+                                            a.btn2.hoverable(href='/users/ApniCare/information?page=Molecule_Information') F
+                                        li
+                                            a.btn2.hoverable(href='/users/ApniCare/information?page=Molecule_Information') G
+                                        li
+                                            a.btn2.hoverable(href='/users/ApniCare/information?page=Molecule_Information') H
+                                        li
+                                            a.btn2.hoverable(href='/users/ApniCare/information?page=Molecule_Information') I
+                                        li
+                                            a.btn2.hoverable(href='/users/ApniCare/information?page=Molecule_Information') J
+                                        li
+                                            a.btn2.hoverable(href='/users/ApniCare/information?page=Molecule_Information') K
+                                        li
+                                            a.btn2.hoverable(href='/users/ApniCare/information?page=Molecule_Information') L
+                                        li
+                                            a.btn2.hoverable(href='/users/ApniCare/information?page=Molecule_Information') M
+                                        li
+                                            a.btn2.hoverable(href='/users/ApniCare/information?page=Molecule_Information') N
+                                        li
+                                            a.btn2.hoverable(href='/users/ApniCare/information?page=Molecule_Information') O
+                                        li
+                                            a.btn2.hoverable(href='/users/ApniCare/information?page=Molecule_Information') P
+                                        li
+                                            a.btn2.hoverable(href='/users/ApniCare/information?page=Molecule_Information') Q
+                                        li
+                                            a.btn2.hoverable(href='/users/ApniCare/information?page=Molecule_Information') R
+                                        li
+                                            a.btn2.hoverable(href='/users/ApniCare/information?page=Molecule_Information') S
+                                        li
+                                            a.btn2.hoverable(href='/users/ApniCare/information?page=Molecule_Information') T
+                                        li
+                                            a.btn2.hoverable(href='/users/ApniCare/information?page=Molecule_Information') U
+                                        li
+                                            a.btn2.hoverable(href='/users/ApniCare/information?page=Molecule_Information') V
+                                        li
+                                            a.btn2.hoverable(href='/users/ApniCare/information?page=Molecule_Information') W
+                                        li
+                                            a.btn2.hoverable(href='/users/ApniCare/information?page=Molecule_Information') X
+                                        li
+                                            a.btn2.hoverable(href='/users/ApniCare/information?page=Molecule_Information') Y
+                                        li
+                                            a.btn2.hoverable(href='/users/ApniCare/information?page=Molecule_Information') Z
+                                        li
+                                            a.btn2.all.hoverable(href='/users/ApniCare/information?page=Molecule_Information' type='other') Other
+                        each val in data.molecule
+                            div.row.m_p_info
+                                if(val.description !='')
+                                    //h4.center #{val.molecule_name}
+                                    p.black-text.lighten-2 #{val.description}
+                                    //li #{val.description}
+                                    //li Drug Category #{val.drug_categories}
+                            div.row
+                                div.row
+                                    if(val.absorption != '' || val.distribution != '' || val.metabolism != '' || val.excretion != '')
+                                        a(name="Pharma")
+                                            p.m_p Pharmacokinetics
+
+                                                ul.m_p_info
+                                                    if(val.absorption != '')
+                                                        p.m_p1 &nbsp &nbsp - Absorption:
+                                                        li #{val.absorption}
+                                                    if(val.distribution != '')
+                                                        p.m_p1 &nbsp &nbsp - Distribution:
+                                                        li #{val.distribution}
+                                                    if(val.metabolism != '')
+                                                        p.m_p1 &nbsp &nbsp - Metabolism:
+                                                        li #{val.metabolism}
+                                                    if(val.excretion != '')
+                                                        p.m_p1 &nbsp &nbsp - Excretion:
+                                                        li #{val.excretion}
+                            div.row
+                                if(val.side_effect != '')
+                                    a(name="SideEffects")
+                                        p.m_p Adverse Reactions /  Side Effects
+                                    li.m_p_info #{val.side_effect}
+                                if(val.precaution != '')
+                                    a(name="Precautions")
+                                        p.m_p Special Precautions
+                                    li.m_p_info #{val.precaution}
+                                if(val.other_drug_interaction)
+                                    a(name='other drug interaction')
+                                        p.m_p#drug_int OTHER DRUG INTERACTION
+                                    each j,index in val.other_drug_interaction.subhead
+                                        h5.m_p.to_capital &nbsp &nbsp #{j}
+                                        span.small_font.left.m_p_info ►
+                                        span.next_line.m_p_info.small_font.to_capital= val.other_drug_interaction.info[index]
+
+                                    //li.m_p_info #{val.drug_interaction}
+                                    a(name="interactions")
+                                        p.m_p Other Interactions
+                                    //each other,index in val.other_interaction.subhead
+                                        h5.bold.to_capital= other
+                                        span.small_font.left ►
+                                        span.next_line.small_font.to_capital= val.other_interaction.info[index]
+
+                                if(val.dosage != '')
+                                    p.m_p Dosage
+                                    //each dose,index in val.dosage.subhead
+                                        h5.bold.to_capital= dose
+                                        span.small_font.left ►
+                                        span.next_line.small_font.to_capital= val.dosage.info[index]
+
+                                if(val.food != '')
+                                    p.m_p Food(before/after)
+                                    li.m_p_info #{val.food}
+                                if(val.contraindications!='')
+                                    p.m_p.scrollspy#contraindications LIST OF CONTRAINDICATIONS
+                                    //each cont,index in val.contraindications.subhead
+                                        h5.bold.to_capital= cont
+                                        span.small_font.left ►
+                                        span.next_line.m_p_info= val.contraindications.info[index]
+                                if(val.source!='')
+                                    p.m_p.scrollspy#source SOURCE OF INFORMATION
+                                    span.next_line.m_p_info #{val.source}
+                                h5.right
+                                    span.small_font Information Submitted By :-
+                                    br
+                                    span #{data.titles} #{data.names}
+
+
+
+
+                    div.col#mol_row1_subrow4
+                        h5 Page Contents
+                        each val in data
+                            ul.section.table-of-contents
+                                if(val.absorption !=''||val.distribution !=''||val.metabolism !=''||val.excretion !='')
+                                    li
+                                        a(href="#Pharma") &nbsp Pharmacokinetics
+                                if(val.side_effect !='')
+                                    li
+                                        a(href="#SideEffects") &nbsp Side Effects
+                                if(val.precaution !='')
+                                    li
+                                        a(href="#Precautions") &nbsp Special Precautions
+                                if(val.drug_interaction !='')
+                                    li
+                                        a(href="#interactions") &nbsp Other Drug Interactions
+                                if(val.dosage != '')
+                                    li
+                                    a(href="#Dosage") &nbsp Dosage
+                                if(val.food != '')
+                                    a(href="food") &nbsp Food (before/after)
+
+                                if(val.contraindications!='')
+                                    li
+                                        a(href='#contraindications') &nbsp List of contraindications
+                                if(val.source!='')
+                                    li
+                                        a(href='#source') &nbsp Source of Information
+
+                                //a(href="#Contradictions") List of Contraindications
+
+
+
+    //h5 Molecule related brand names
+
+
+
+    //div.row.center#mol_row1_subrow3
+            //    div.drug_alphabets.pull-left
+            //        span.center
+            //            ul
+            //                li.active
+            //                    a.btn2.all.hoverable(href='/users/ApniCare/information?page=Molecule_Information' type='all') All
+            //                li
+            //                    a.btn2.hoverable(href='/users/ApniCare/information?page=Molecule_Information') A
+            //                li
+            //                    a.btn2.hoverable(href='/users/ApniCare/information?page=Molecule_Information') B
+            //                li
+            //                    a.btn2.hoverable(href='/users/ApniCare/information?page=Molecule_Information') C
+            //                li
+            //                    a.btn2.hoverable(href='/users/ApniCare/information?page=Molecule_Information') D
+            //                li
+            //                    a.btn2.hoverable(href='/users/ApniCare/information?page=Molecule_Information') E
+            //                li
+            //                    a.btn2.hoverable(href='/users/ApniCare/information?page=Molecule_Information') F
+            //                li
+            //                    a.btn2.hoverable(href='/users/ApniCare/information?page=Molecule_Information') G
+            //                li
+            //                    a.btn2.hoverable(href='/users/ApniCare/information?page=Molecule_Information') H
+            //                li
+            //                    a.btn2.hoverable(href='/users/ApniCare/information?page=Molecule_Information') I
+            //                li
+            //                    a.btn2.hoverable(href='/users/ApniCare/information?page=Molecule_Information') J
+            //                li
+            //                    a.btn2.hoverable(href='/users/ApniCare/information?page=Molecule_Information') K
+            //                li
+            //                    a.btn2.hoverable(href='/users/ApniCare/information?page=Molecule_Information') L
+            //                li
+            //                    a.btn2.hoverable(href='/users/ApniCare/information?page=Molecule_Information') M
+            //                li
+            //                    a.btn2.hoverable(href='/users/ApniCare/information?page=Molecule_Information') N
+            //                li
+            //                    a.btn2.hoverable(href='/users/ApniCare/information?page=Molecule_Information') O
+            //                li
+            //                    a.btn2.hoverable(href='/users/ApniCare/information?page=Molecule_Information') P
+            //                li
+            //                    a.btn2.hoverable(href='/users/ApniCare/information?page=Molecule_Information') Q
+            //                li
+            //                    a.btn2.hoverable(href='/users/ApniCare/information?page=Molecule_Information') R
+            //                li
+            //                    a.btn2.hoverable(href='/users/ApniCare/information?page=Molecule_Information') S
+            //                li
+            //                    a.btn2.hoverable(href='/users/ApniCare/information?page=Molecule_Information') T
+            //                li
+            //                    a.btn2.hoverable(href='/users/ApniCare/information?page=Molecule_Information') U
+            //                li
+            //                    a.btn2.hoverable(href='/users/ApniCare/information?page=Molecule_Information') V
+            //                li
+            //                    a.btn2.hoverable(href='/users/ApniCare/information?page=Molecule_Information') W
+            //                li
+            //                    a.btn2.hoverable(href='/users/ApniCare/information?page=Molecule_Information') X
+            //                li
+            //                    a.btn2.hoverable(href='/users/ApniCare/information?page=Molecule_Information') Y
+            //                li
+            //                    a.btn2.hoverable(href='/users/ApniCare/information?page=Molecule_Information') Z
+            //                li
+            //                    a.btn2.all.hoverable(href='/users/ApniCare/information?page=Molecule_Information' type='other') Other
+            //div.row.center
+                //h6 Search Generic / Brand name
+                //.input-field#input3
+                //    input#search3(type='search', required='',placeholder="search here")
+                //    label.black-text.label-icon(for='search3')
+                //        button#go.black-text Go

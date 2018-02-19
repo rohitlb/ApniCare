@@ -1,0 +1,16 @@
+doctype html
+html
+    head
+    body
+        h3 Admin/Account/Blocked/Health Care Provider
+
+        br
+        br
+        h4 - Blocked Doctor
+        each value in data.Doctor
+              p - #{value.name}
+
+        br
+        h4 - Blocked Pharma
+        each value in data.Pharma
+              p - #{value.name}

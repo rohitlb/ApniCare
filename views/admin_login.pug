@@ -1,0 +1,50 @@
+doctype html
+head
+    title Admin Login
+
+    link(href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet")
+
+    link(href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css" rel="stylesheet")
+
+    script(src="https://code.jquery.com/jquery-3.2.1.min.js")
+
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.js")
+
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js")
+
+    link(rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css")
+
+    link(rel='stylesheet' href="/css/admin_login.css")
+
+    //link(rel='stylesheet' href="/styles/rstyle4.css")
+
+body(style="background-color: #F8F8F8;color : #000; text-align:center;")
+    div.center-align#page(style="width:500px; margin:0 auto;text-align: center; background-color: #F8F8F8")
+        br
+        br
+        br
+        br
+        br
+        br
+
+        div.collection.center(style='background-color:white; text-align:center;border-color:blue')
+            form(method="post", name="Login", action="#")
+                 table.center(width="100%", cellspacing="20")
+                        h4.center-align(style='color:blue;') Admin Login
+                        tr.login_table_left
+                        td.label(width="220px" align="right")
+                            h5(style='color:blue;') &nbsp&nbsp&nbsp&nbspMobile Number
+                        td
+                            input.browser-default(name="auth_number" id="auth_number"  type="text" maxlength="32" autofocus="autofocus"  class="input"  tabindex="1")
+                        tr.login_table_left
+                        td(width="220" align="right" class="label")
+                            h5(style='color:blue;') &nbsp&nbsp&nbsp&nbspPassword
+                        td
+                            input.browser-default(name="auth_password" id="auth_password" type="password" maxlength="128" class="input"  tabindex="2")
+                 input.button(type="submit" value="Log in")
+                 br
+                 br
+        div.hint
+            a(href="#" style='color:blue;') Forgot Number |&nbsp
+            a(href="#" style='color:blue;') Reset password |&nbsp
+            a(href="http://www.apnicare.com" style='color:blue;') www.apnicare.com

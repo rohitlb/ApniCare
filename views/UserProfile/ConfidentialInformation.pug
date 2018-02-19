@@ -1,0 +1,38 @@
+div#p_Pcard3
+    div
+        div.row.p_Pheadings1
+            a(href="#") Confidential Information
+            a.btn-flat.small.right.black-text#p_UPedit Edit
+            a.btn-flat.small.right#p_UPcancel Cancel
+            br
+            br
+        form#p_InfoForm
+            div.row.p_Pformfordetail
+                div.row
+                    .input-field.col.s6
+                        i.p_i.material-icons.prefix fingerprint
+                        input.p_input.validate.black-text#p_Aadhar(type="text", value=data.aadhaar_number)
+                        label.p_label(for="p_Aadhar") Aadhar Number
+                        br
+                        br
+                div.row
+                    i.p_i.material-icons.prefix attach_money
+                    label.p_label.strong Income Range
+                    select.black-text.browser-default#p_Pbox
+                        option.disabled.selected(value=" ")
+                        if((data.income == 'low')||(data.income == " "))
+                            option(value="low" selected) Low < 10,000
+                            option(value="normal") Normal 10,000-30,000
+                            option(value="high") High > 30,000
+                        if(data.income == 'normal')
+                            option(value="low") Low < 10,000
+                            option(value="normal" selected) Normal 10,000-30,000
+                            option(value="high") High > 30,000
+                        if(data.income == 'high')
+                            option(value="low") Low < 10,000
+                            option(value="normal") Normal 10,000-30,000
+                            option(value="high" selected) High > 30,000
+                    br
+                    br
+                div.row
+                    a.btn.right#p_ConfidentialInfoSubmit Submit

@@ -1,0 +1,77 @@
+a.waves-effect.waves-light.btn-flat.right.modal-trigger.initial(href='#modal1')#loginbut Login
+a.waves-effect.waves-light.btn-flat.right.modal-trigger.initial(href='#modal1')#signupbut Signup
+
+#modal1.modal.white
+    .modal-content(style={padding: "0px",margin:"0px",border:"0"})
+        div.row
+            div.col.l4.hide-on-med-and-down#div1
+                br
+                br
+                br
+                br
+                div.row
+                    h3.white-text &nbsp &nbsp Login
+                    p.black-text.p2
+                    | &nbsp &nbsp Get access to your
+                    | account
+                    |
+                    br
+                    br
+                div.row.image1
+                    br
+                    br
+                    br
+                div.row.extra
+                //div.row
+                    br
+                    br
+                    img(src="/images/aaa.png" height="100%" width="100%")
+            div.col.l4.hide-on-med-and-down#div2
+                br
+                br
+                br
+                br
+                div.row
+                    h3.white-text &nbsp &nbsp Signup
+                    p.black-text.p2
+                    | &nbsp We do not share your
+                    | personal &nbsp &nbsp &nbsp &nbsp
+                    | &nbsp details with anyone.
+                    br
+
+                div.row.image1
+                    br
+                div.row.extra
+
+            div.col.s12.m12.l8#exa
+                div.row#closebutton
+                    a.modal-action.modal-close
+                        i.modal-action.modal-close.material-icons.right close
+                div.provide
+                    div.row#providers
+                        br
+                        div.col.s6.m6.l4
+                            a.waves-effect.btn-flat#Customer(title="back to user")
+                                i.material-icons &nbsp &nbsp arrow_back
+                        div.col.s6.m6.l8
+                            h5.right For HealthCare Provider
+                    div.row#doctorPharmacist
+                        h5 You are a....
+                        br
+                        br
+                        div.col.s5.m3.l5.center#imdoctor
+                            i.fa.fa-user-md.icon(style="font-size: 50px")
+                            br
+                            a(title="doctor") Doctor
+                        div.col.s2.m2.l2.center
+                            br
+                            h6.black-text OR
+                        div.col.s5.m3.l5.center#impharmacist
+                            i.fa.fa-medkit.icon(style="font-size: 50px")
+                            br
+                            a(title="Pharmacist") Pharmacist
+                div.row#form
+                    form
+                        include login
+                        include register
+                        include forgotPassword

@@ -1,0 +1,29 @@
+doctype html
+html
+    head
+    body
+        h3 Admin/Activity
+        p company_name--#{result[0].company_name}
+        p brand_name--#{result[0].brand_name}
+        p categories--#{result[0].categories}
+        p dosage_form--#{result[0].dosage_form}
+        p strength--#{result[0].strength} #{result[0].strength_unit}
+        p price--#{result[0].price}
+        p packaging--#{result[0].packaging}
+        table
+            h3 Potent &nbsp&nbsp&nbsp&nbsp&nbsp Strength &nbsp&nbsp&nbsp&nbsp&nbsp
+            -for(var l = 0;l< result[0].potent_substance.name.length ; l++)
+                p
+                    span #{result[0].potent_substance.name[l]} &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    span #{result[0].potent_substance.molecule_strength[l]}
+        p prescription--#{result[0].prescription}
+        p dose_taken--#{result[0].dose_taken}
+        p dose_timing--#{result[0].dose_timing}
+        p warnings--#{result[0].warnings},
+        p primarily_used_for--#{result[0].primarily_used_for}
+
+        if(result[0].issue_status != 0)
+            h3
+              a(href="/admin/adminDrugDataMakeLive?str_ticket="+result[0].ticket) Make it live
+            h3
+              a(href="/admin/adminDrugDataIssue?str_ticket="+result[0].ticket) Having issue

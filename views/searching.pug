@@ -1,0 +1,57 @@
+doctype html
+html(lang='en')
+    head
+        meta(charset='utf-8')
+        meta(name='viewport', content='width=device-width, initial-scale=1')
+        title jQuery UI Autocomplete - Default functionality
+        link(rel='stylesheet', href='//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css')
+        link(rel='stylesheet', href='/resources/demos/style.css')
+        script(src='https://code.jquery.com/jquery-1.12.4.js')
+        script(src='https://code.jquery.com/ui/1.12.1/jquery-ui.js')
+        script.
+            $(function () {
+
+                $("#search-query").autocomplete({
+                    source: function (request, response) {
+                        $.ajax({
+                            url: "/brandsdata",
+                            type: "POST",
+                            data: request,  // request is the value of search input
+                            success: function (data) {
+                                //alert(data);
+                                // Map response values to field label and value
+                                response($.map(data, function (el) {
+                                    return {
+                                        label: el.brand_name
+                                    };
+                                }));
+                            }
+                        });
+                    },
+
+                    // The minimum number of characters a user must type before a search is performed.
+                    minLength: 1,
+
+                    // set an onFocus event to show the result on input field when result is focused
+                    focus: function (event, ui) {
+                        this.value = ui.item.label;
+                        // Prevent other event from not being execute
+                        event.preventDefault();
+                    },
+                    select: function (event, ui) {
+                        // Prevent value from being put in the input:
+                        this.value = ui.item.label;
+                        // Set the id to the next input hidden field
+                        $(this).next("input").val(ui.item.value);
+                        // Prevent other event from not being execute
+                        event.preventDefault();
+                        // optionnal: submit the form after field has been filled up
+                        $('#quicksearch').submit();
+                    }
+                });
+
+            });
+    body
+        .bs-example
+            label(for='search-query') Tags:
+            input#search-query(type='text')

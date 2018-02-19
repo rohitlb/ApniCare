@@ -1,0 +1,184 @@
+#pswd_info {
+    position:absolute;
+    bottom:-75px;
+    bottom: -115px\9; /* IE Specific */
+    right:55px;
+    width:500px;
+    padding:15px;
+    background:#fefefe;
+    font-size:.875em;
+    border-radius:5px;
+    box-shadow:0 1px 3px #ccc;
+    border:1px solid #ddd;
+}
+#pswd_info h4 {
+    margin:0 0 10px 0;
+    padding:0;
+    font-weight:normal;
+}
+#pswd_info::before {
+    content: "\25B2";
+    position:absolute;
+    top:-12px;
+    left:45%;
+    font-size:14px;
+    line-height:14px;
+    color:#ddd;
+    text-shadow:none;
+    display:block;
+}
+.invalid {
+    /*background:url(../images/invalid.png) no-repeat 0 50%;*/
+    padding-left:22px;
+    line-height:24px;
+    color:#ec3f41;
+}
+.valid {
+    /*background:url(../images/valid.png) no-repeat 0 50%;*/
+    padding-left:22px;
+    line-height:24px;
+    color:#3a7d34;
+}
+.initial{
+    width: 90px;
+}
+
+a{
+    cursor: pointer;
+}
+.btn
+{
+    background-color: mediumpurple;
+}
+.modal-content{
+    margin-bottom: 5%;
+}
+#exa{
+    display: block;
+    margin-bottom:-30px;
+}
+#form{
+}
+#modal1{
+    width:50%;
+    max-height:95%;
+    margin-top: -3%;
+    /*height:95%;*/
+
+}
+#div1
+{
+    display: block;
+    height: 95%;
+    padding: 0px;
+    border: 0px;
+    margin: 0px;
+    background-color: mediumpurple;
+    margin-bottom: -2.5%;
+}
+#div2
+{
+    display: block;
+    height:95%;
+    padding: 0px;
+    border: 0px;
+    margin: 0px;
+    background-color: rebeccapurple;
+    margin-bottom: -2.5%;
+}
+.image1
+{
+    height:230px;
+    width:150%;
+    padding:0px;
+    margin-left: -35%;
+    border: 0px;
+    background-image: url("../images/aaa.png");
+}
+.extra{
+    max-height: 110px;
+    height: 90px;
+    border-color: rebeccapurple;
+}
+.image2
+{
+    height:1px;
+    width:40%;
+}
+#healthCare
+{
+    top:25px;
+    color: #660099;
+    position: absolute;
+    right: 0px;
+    /*left: 55%;*/
+    cursor: pointer;
+}
+#Customer
+{
+    font-size: xx-large;
+    font-weight: bold;
+    position: absolute;
+    left:30%;
+    color: teal;
+    cursor:pointer;
+}
+
+.verify{
+    position: absolute;
+    right: 10px;
+    top: 11px;
+}
+#closebutton{
+    position: absolute;
+    top: 1px;
+    right: 3px;
+}
+form
+{
+    background-color: white;
+    padding: 0px;
+    border: 0px;
+}
+/*.row*/
+/*{*/
+    /*padding:0px;*/
+    /*border:0px;*/
+    /*margin-bottom: 0px;*/
+/*}*/
+input, .input-field
+{
+    height: 40px;
+    background-color: white;
+}
+.textarea
+{
+    background-color: white;
+}
+.register>label{
+    color: black;
+    font-weight: 200;
+}
+.buttu
+{
+    background-color: mediumpurple;
+    width: 70%;
+    height:40%;
+}
+#providers
+{
+    color: teal;
+}
+#loginButton12,#NewtoApniCare,#D_loginButton,#P_loginButton
+{
+    color: purple;
+    background-color: whitesmoke;
+    width: 70%;
+}
+.p2
+{
+    font-size: 12px;
+}
+.icon{
+    color: black;
+}
