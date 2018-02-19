@@ -671,39 +671,29 @@ router.post('/formolecule',function (req,res){
         });
     }
     if(req.body.page == 'brands'){
-        Brand.find({},'-_id brand_name categories types primarily_used_for').populate(
-            {path : 'dosage_id', select : '-_id dosage_form',populate :
-                    {path : 'strength_id', select : '-_id strength strengths packaging prescription dose_taken warnings price dose_timing potent_substance.name potent_substance.molecule_strength'}
-            }).populate(
-            {path : 'company_id', select: '-_id company_name'}).sort({brand_name : 1}).exec(function (err,brands) {
+
+        Strength.find({ $and: [ { 'potent_substance.name' : molecule}, { 'potent_substance.name': { $size: 1 } } ] } ,'-_id potent_substance.name price')
+            .populate({path : 'brands_id', select : '-_id brand_name' ,
+            populate : {path : 'company_id', select : '-_id -brand_id -__v'} , populate : {path : 'dosage_id', select : '-_id -strength_id -__v'}})
+            .sort({brand_name: 1}).exec(function (err,brands) {
             if (err) {
                 console.log(err);
             }
-
-        // Brand.find({},'-_id brand_name').populate({path : 'dosage_id', select : '-_id dosage_form' ,
-        //     populate : {path : 'strength_id', select : '_id price potent_substance.name'
-        //         , match : {$and : [{'potent_substance.name' : {$size : 1}},{'potent_substance.name' : molecule}]}}})
-        //     .populate({path : 'company_id', select : '-_id  -__v '})
-        //     .sort({brand_name: 1}).exec(function (err,brands) {
-        //     if (err) {
-        //         console.log(err);
-        //     }
             else {
                 res.send({data : brands , message : 'molecule brands'});
             }
         });
     }
     if(req.body.page == 'combination'){
-        Brand.find({},'-_id brand_name').populate({path : 'dosage_id', select : '-_id dosage_form' ,
-            populate : {path : 'strength_id', select : '_id price potent_substance.name'
-                , match : {$and : [{'potent_substance.name.1' : { $exists: true }},{'potent_substance.name' : molecule}]}}})
-            .populate({path : 'company_id', select : '-_id  -__v '})
+        Strength.find({ $and: [ { 'potent_substance.name' : molecule}, {'potent_substance.name.1' : { $exists: true } } ] } ,'-_id potent_substance.name price')
+            .populate({path : 'brands_id', select : '-_id brand_name' ,
+                populate : {path : 'company_id', select : '-_id -brand_id -__v'} , populate : {path : 'dosage_id', select : '-_id -strength_id -__v'}})
             .sort({brand_name: 1}).exec(function (err,brands) {
             if (err) {
                 console.log(err);
             }
             else {
-                res.send({data : brands , message : 'molecule combination'});
+                res.send({data : brands , message : 'molecule brands'});
             }
         });
     }

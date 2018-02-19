@@ -955,7 +955,7 @@ router.get('/adminDrugDataMakeLive',adminrequiresLogin,function(req,res,next){
                                             $set: {submitted_by: value1[0].submitted_by}
                                         }, function (err8, result8) {
                                             DrugData.remove({_id: value1[0]._id}, function (err, result) {
-                                                res.send({message : 'Drug added successfully'});
+                                                res.send({message: 'Drug added successfully'});
                                             });
                                         });
                                     }
@@ -1006,9 +1006,10 @@ router.get('/adminDrugDataMakeLive',adminrequiresLogin,function(req,res) {
                             $set: {submitted_by: value1[0].submitted_by}
                         }, function (err8, result8) {
                             DrugData.remove({_id: value1[0]._id}, function (err, result) {
-                                res.send({message : 'Drug added successfully'});
+                                res.send({message: 'Drug added successfully'});
                             });
                         });
+
                     }
                 });
             }
