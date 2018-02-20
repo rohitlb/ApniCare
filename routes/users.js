@@ -47,7 +47,6 @@ var Licence = require('../model/open_source_licence');
 /////Data having Issue
 var Issue = require('../model/issue');
 
-
 function requiresLogin(req, res, next) {
     if (req.session && ((req.session.userID) ||(req.session.doctorID) || (req.session.pharmaID))) {
         return next();

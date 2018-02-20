@@ -1549,7 +1549,6 @@ router.get('/health_care_provider',healthrequiresLogin,function(req,res) {
     }
 
     if(req.query.page == 'drug_data') {
-
         Brand.find({},'-_id brand_name').sort({brand_name : 1}).exec(function (err,brand) {
             if (err) {
                 console.log(err);
@@ -1559,6 +1558,7 @@ router.get('/health_care_provider',healthrequiresLogin,function(req,res) {
                     if (req.query.page == 'home' || req.query.page == 'profile_doctor' || req.query.page == 'profile_student_pharmacist' || req.query.page == 'profile_student_doctor' || req.query.page == 'profile_student_pharmacist' || req.query.page == 'profile' || req.query.page == 'profile_pharmacist' || req.query.page == 'drug_data' || req.query.page == 'molecule_data' || req.query.page == 'disease_data' || req.query.page == 'drug_data_form' || req.query.page == 'molecule_data_form' || req.query.page == 'disease_data_form' || req.query.page == 'feedback_contributions' || req.query.page == 'feedback_profile' || req.query.page == 'notifications' || req.query.page == 'need_help') {
                         page = req.query.page;
                     }
+                    console.log(brand);
                     res.render('home_profile_doctor',
                         {
                             page: page,
