@@ -680,24 +680,29 @@ router.post('/formolecule',function (req,res){
                 console.log(err);
             }
             else {
-                var data ={};
-                data['strengths'] = [];
-                var drug = {};
-                drug['drugdata'] = [];
-                async.each(brands,function(results,callback){
-                    if((data.strengths.indexOf(results.brands_id[0].brand_name) > -1) === false){
-                        drug['drugdata'].push({
-                            forbrands : results
-                        });
-                        data['strengths'].push(
-                            results.brands_id[0].brand_name
-                        );
-                    }
-                    else{
-                        callback();
-                    }
-                });
-                res.send({data: drug.drugdata, message: 'molecule brands'});
+                if((brands[0] === undefined) || (brands[0].brands_id[0] === undefined)){
+                    res.send({status : 'failure' , message : 'no brands available'});
+                }
+                else{
+                    var data ={};
+                    data['strengths'] = [];
+                    var drug = {};
+                    drug['drugdata'] = [];
+                    async.each(brands,function(results,callback){
+                        if((data.strengths.indexOf(results.brands_id[0].brand_name) > -1) === false){
+                            drug['drugdata'].push({
+                                forbrands : results
+                            });
+                            data['strengths'].push(
+                                results.brands_id[0].brand_name
+                            );
+                        }
+                        else{
+                            callback();
+                        }
+                    });
+                    res.send({data: drug.drugdata, message: 'molecule brands'});
+                }
             }
         });
     }
@@ -714,24 +719,29 @@ router.post('/formolecule',function (req,res){
                 console.log(err);
             }
             else {
-                var data = {};
-                data['strengths'] = [];
-                var drug = {};
-                drug['drugdata'] = [];
-                async.each(brands, function (results, callback) {
-                    if ((data.strengths.indexOf(results.brands_id[0].brand_name) > -1) === false) {
-                        drug['drugdata'].push({
-                            forbrands: results
-                        });
-                        data['strengths'].push(
-                            results.brands_id[0].brand_name
-                        );
-                    }
-                    else {
-                        callback();
-                    }
-                });
-                res.send({data: drug.drugdata, message: 'molecule combination'});
+                if((brands[0] === undefined) || (brands[0].brands_id[0] === undefined)){
+                    res.send({status : 'failure' , message : 'no brands available'});
+                }
+                else{
+                    var data ={};
+                    data['strengths'] = [];
+                    var drug = {};
+                    drug['drugdata'] = [];
+                    async.each(brands,function(results,callback){
+                        if((data.strengths.indexOf(results.brands_id[0].brand_name) > -1) === false){
+                            drug['drugdata'].push({
+                                forbrands : results
+                            });
+                            data['strengths'].push(
+                                results.brands_id[0].brand_name
+                            );
+                        }
+                        else{
+                            callback();
+                        }
+                    });
+                    res.send({data: drug.drugdata, message: 'molecule brands'});
+                }
             }
         });
     }
