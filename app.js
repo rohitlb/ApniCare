@@ -307,7 +307,8 @@ app.post('/VerifyOTP',function (req, res) {
 });
 
 // with real 2factor OTP service
-//
+
+
 // app.post('/sendOTP',function (req, res) {
 //     var number = req.body.number;
 //     //regex for checking whether entered number is indian or not
