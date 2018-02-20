@@ -120,7 +120,7 @@ function adminrequiresLogin(req, res, next) {
 
 //===============================================Rohit testing area=================================
 app.get('/rohitsearching',function (req,res) {
-   res.render('rohitsearching') ;
+     res.render('rohitsearching') ;
 });
 
 //===============================================middle wares=================================
@@ -809,7 +809,7 @@ app.get('/faqs',function(req,res){
 });
 
 app.get('/policy',function(req,res){
-   res.render('./staticpages/policy');
+    res.render('./staticpages/policy');
 });
 
 app.get('/licence',function(req,res){
