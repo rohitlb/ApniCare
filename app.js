@@ -130,7 +130,7 @@ function adminrequiresLogin(req, res, next) {
 
 //===============================================Rohit testing area=================================
 app.get('/rohitsearching',function (req,res) {
-     res.render('rohitsearching') ;
+    res.render('rohitsearching') ;
 });
 
 //===============================================middle wares=================================
