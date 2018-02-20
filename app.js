@@ -125,6 +125,63 @@ app.get('/rohitsearching',function (req,res) {
 
 //===============================================middle wares=================================
 
+//User registration
+router.post('/userregister', function (req, res) {
+    //regex for checking whether entered number is indian or not
+    var num = /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[6789]\d{9}|(\d[ -]?){10}\d$/.test(req.body.number);
+    if (num === false) {
+        res.send({status: "failure", message: "wrong number ! please try again "});
+        return;
+    }
+    // regex for checking whether password is numeric or not (pass iff pwd is numeric)
+    var a = /[0-9]{4}/.test(req.body.password);
+    if (a === false) {
+        res.send({status: "failure", message: "please enter a numeric password and try again"});
+        return;
+    }
+    var email = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(req.body.email);
+    if(email === false ){
+        res.send({status: "failure", message: "please enter a valid email and try again"});
+        return;
+    }
+    User.findOne({number: req.body.number}).exec(function (err, result) {
+        if (err) {
+            console.log(err);
+            res.end();
+        } else {
+            if (result) {
+                res.send({status: "failure", message: "user Already Exists"});
+                res.end();
+            } else {
+                bcrypt.genSalt(10, function (err, salt) {
+                    bcrypt.hash(req.body.password, salt, function (err, hash) {
+                        if(err){
+                            console.log(err);
+                        }
+                        else {
+                            var user = new User({
+                                name: req.body.name,
+                                email: req.body.email,
+                                number: req.body.number,
+                                password: hash
+                            });
+                            user.save(function (err, results) {
+                                if (err) {
+                                    console.log(err);
+                                    res.end();
+                                } else {
+                                    req.session.userID = results._id;
+                                    res.send({status: "success", message: "successfully registered"});
+                                    res.end();
+                                }
+                            });
+                        }
+                    });
+                });
+            }
+        }
+    });
+});
 
 app.get('/', function (req, res) {
     if (req.session.userID) {
