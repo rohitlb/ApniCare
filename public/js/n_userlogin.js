@@ -261,7 +261,7 @@ $(document).ready(function() {
 
             $.ajax(
                 {
-                    url: "/users/userregister",
+                    url: "/userregister",
                     method: 'POST',
                     data: JSON.stringify(data),
                     contentType: 'application/json',

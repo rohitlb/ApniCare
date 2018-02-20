@@ -270,7 +270,6 @@ $('#DagainLogin').click(function () {
             data: JSON.stringify(data1),
             contentType: 'application/json',
             success: function (result) {
-
                 if (result.status === "success") {
                     window.location = '/users/profiles';
 
