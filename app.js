@@ -117,7 +117,6 @@ function userrequiresLogin(req, res, next) {
     }
 }
 
-
 function adminrequiresLogin(req, res, next) {
     if (req.session && req.session.admin) {
         return next();

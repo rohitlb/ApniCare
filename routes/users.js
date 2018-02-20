@@ -68,7 +68,6 @@ function userrequiresLogin(req, res, next) {
 //*************************************User Register*************************************************************
 
 
-
 //render profile page of user
 router.get('/profile',userrequiresLogin, function (req, res) {
     if (req.session.userID) {
