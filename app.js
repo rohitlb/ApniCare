@@ -510,7 +510,6 @@ app.post('/checkforgotpassword',function (req,res) {
                         req.session.sid = temp.Details;
                         req.session.updatenumber = number;
                         res.send({status: "success", message: "OTP sent to your number"});
-
                     }
                 });
             }

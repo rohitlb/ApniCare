@@ -362,7 +362,6 @@ router.post('/searchspecific',function(req,res){
     });
 });
 
-
 // search molecule , brand, category and takes raw name for it
 router.post('/search_mbc',function (req,res) {
     console.log("search_mbc");
