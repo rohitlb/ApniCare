@@ -680,20 +680,58 @@ router.post('/formolecule',function (req,res){
                 console.log(err);
             }
             else {
-                res.send({data : brands , message : 'molecule brands'});
+                var data ={};
+                data['strengths'] = [];
+                var drug = {};
+                drug['drugdata'] = [];
+                async.each(brands,function(results,callback){
+                    if((data.strengths.indexOf(results.brands_id[0].brand_name) > -1) === false){
+                        drug['drugdata'].push({
+                            forbrands : results
+                        });
+                        data['strengths'].push(
+                            results.brands_id[0].brand_name
+                        );
+                    }
+                    else{
+                        callback();
+                    }
+                });
+                res.send({data: drug.drugdata, message: 'molecule brands'});
             }
         });
     }
-    if(req.body.page == 'combination'){
-        Strength.find({ $and: [ { 'potent_substance.name' : molecule}, {'potent_substance.name.1' : { $exists: true } } ] } ,'-_id potent_substance.name price')
-            .populate({path : 'brands_id', select : '-_id brand_name' ,
-                populate : {path : 'company_id', select : '-_id -brand_id -__v'} , populate : {path : 'dosage_id', select : '-_id -strength_id -__v'}})
-            .sort({brand_name: 1}).exec(function (err,brands) {
+    if(req.body.page == 'combination') {
+        Strength.find({$and: [{'potent_substance.name': molecule}, {'potent_substance.name.1': {$exists: true}}]}, '-_id potent_substance.name price')
+            .populate({
+                path: 'brands_id',
+                select: '-_id brand_name',
+                populate: {path: 'company_id', select: '-_id -brand_id -__v'},
+                populate: {path: 'dosage_id', select: '-_id -strength_id -__v'}
+            })
+            .sort({brand_name: 1}).exec(function (err, brands) {
             if (err) {
                 console.log(err);
             }
             else {
-                res.send({data : brands , message : 'molecule brands'});
+                var data = {};
+                data['strengths'] = [];
+                var drug = {};
+                drug['drugdata'] = [];
+                async.each(brands, function (results, callback) {
+                    if ((data.strengths.indexOf(results.brands_id[0].brand_name) > -1) === false) {
+                        drug['drugdata'].push({
+                            forbrands: results
+                        });
+                        data['strengths'].push(
+                            results.brands_id[0].brand_name
+                        );
+                    }
+                    else {
+                        callback();
+                    }
+                });
+                res.send({data: drug.drugdata, message: 'molecule combination'});
             }
         });
     }
