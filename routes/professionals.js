@@ -238,12 +238,13 @@ router.post('/brandslist'/*,healthrequiresLogin*/,function(req,res){
 
 router.post('/categorieslist'/*,healthrequiresLogin*/,function(req,res){
     var skip = parseInt(req.body.nskip);
-    Brand.find({}, '-_id categories').sort({categories : 1}).skip(skip).limit(10).exec(function (err, result) {
+    var category =req.body.category;
+    CategoryData.find({ category : category }, '-_id -__v').sort({category : 1}).skip(skip).limit(10).exec(function (err, result) {
         if(err){
             console.log(err);
         }
         else{
-            res.send({ message : "categories list" , data :result });
+            res.send({ message : "category info" , data :result });
         }
     });
 });
