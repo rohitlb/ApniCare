@@ -108,6 +108,16 @@ function requiresLogin(req, res, next) {
     }
 }
 
+function userrequiresLogin(req, res, next) {
+    if (req.session && req.session.userID) {
+        return next();
+    } else {
+        //var err = new Error('You must be logged in to view this page.');
+        res.send({status : "logout" , message : "Please Login First"});
+    }
+}
+
+
 function adminrequiresLogin(req, res, next) {
     if (req.session && req.session.admin) {
         return next();
@@ -126,7 +136,7 @@ app.get('/rohitsearching',function (req,res) {
 //===============================================middle wares=================================
 
 //User registration
-router.post('/userregister', function (req, res) {
+app.post('/userregister', function (req, res) {
     //regex for checking whether entered number is indian or not
     var num = /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[6789]\d{9}|(\d[ -]?){10}\d$/.test(req.body.number);
     if (num === false) {
