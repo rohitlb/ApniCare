@@ -126,7 +126,7 @@ app.get('/rohitsearching',function (req,res) {
 //===============================================middle wares=================================
 
 //User registration
-router.post('/userregister', function (req, res) {
+app.post('/userregister', function (req, res) {
     //regex for checking whether entered number is indian or not
     var num = /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[6789]\d{9}|(\d[ -]?){10}\d$/.test(req.body.number);
     if (num === false) {
