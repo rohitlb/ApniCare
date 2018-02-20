@@ -2697,7 +2697,7 @@ router.post('/drugData',healthrequiresLogin,function(req,res){
 });
 
 router.post('/diseaseData',healthrequiresLogin,function(req,res) {
-    var disease_name = req.body.disease_name;
+    var disease_name = (req.body.disease_name).replace(/\b\w/g, function(l){ return l.toUpperCase() });
     var symptoms = req.body.symptoms;
     var risk_factor = req.body.risk_factor;
     var cause = req.body.cause;
@@ -2781,7 +2781,7 @@ router.post('/diseaseData',healthrequiresLogin,function(req,res) {
 });
 
 router.post('/moleculeData',healthrequiresLogin,function(req,res) {
-    var molecule_name = req.body.molecule_name;
+    var molecule_name = (req.body.molecule_name).replace(/\b\w/g, function(l){ return l.toUpperCase() });
     var drug_categories = req.body.drug_categories;
     var description = req.body.description;
     var absorption = req.body.absorption;
