@@ -82,9 +82,10 @@ function userrequiresLogin(req, res, next) {
 
 //user profile info for app
 router.get('/appprofile',userrequiresLogin, function (req, res) {
+    var sid = req.body.sid;
     console.log("appprofile session ID = "+req.session.userID);
-    if (req.session.userID) {
-        User.find({_id : req.session.userID}, '-_id -__v -password -registered_at',function(err,user){
+    if (sid) {
+        User.find({_id : sid}, '-_id -__v -password -registered_at',function(err,user){
             if(err){
                 console.log(err);
             }
