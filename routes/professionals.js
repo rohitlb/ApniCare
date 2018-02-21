@@ -1064,7 +1064,7 @@ router.post('/formolecule',function (req,res){
 });
 
 // similar disease + organ + symptom FILTERED + TAKES RAW
-router.post('/DOSlist',healthrequiresLogin,function (req,res) {
+router.post('/DOSlist',function (req,res) {
     var raw = req.body.search;
     var skip = parseInt(req.body.nskip);
     var spaceRemoved = raw.replace(/\s/g, '');
@@ -1102,7 +1102,7 @@ router.post('/DOSlist',healthrequiresLogin,function (req,res) {
 });
 
 // same molecule same strength => output is list of brands
-router.post('/similarbrands',healthrequiresLogin,function(req,res){
+router.post('/similarbrands',function(req,res){
     var molecule = req.body.molecule;
     var strength = req.body.strength;
     var skip = req.body.nskip;
@@ -2834,7 +2834,7 @@ router.post('/healthcarelogin',healthrequiresLogin,function(req,res) {
         })
 });
 
-router.post('/drugData',healthrequiresLogin,function(req,res){
+router.post('/drugData',function(req,res){
     var company_name = req.body.company_name;
     var brand_name = (req.body.brand_name).replace(/\b\w/g, function(l){ return l.toUpperCase() });
     var categories = req.body.categories;
@@ -3012,7 +3012,7 @@ router.post('/drugData',healthrequiresLogin,function(req,res){
     }
 });
 
-router.post('/diseaseData',healthrequiresLogin,function(req,res) {
+router.post('/diseaseData',function(req,res) {
     var disease_name = (req.body.disease_name).replace(/\b\w/g, function(l){ return l.toUpperCase() });
     var symptoms = req.body.symptoms;
     var risk_factor = req.body.risk_factor;
@@ -3096,7 +3096,7 @@ router.post('/diseaseData',healthrequiresLogin,function(req,res) {
     });
 });
 
-router.post('/moleculeData',healthrequiresLogin,function(req,res) {
+router.post('/moleculeData',function(req,res) {
     var molecule_name = (req.body.molecule_name).replace(/\b\w/g, function(l){ return l.toUpperCase() });
     var drug_categories = req.body.drug_categories;
     var description = req.body.description;
