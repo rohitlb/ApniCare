@@ -73,8 +73,11 @@ div.row
                     h3.about#data_name #{val.disease_name.toUpperCase()}
                     if(val.symptoms)
                         .section.scrollspy#symptoms
-                            h5.bold What are the Symptoms of #{val.disease_name.toUpperCase()}?
-                            span.next_line.small_font #{val.symptoms}
+                            h5.bold  What are the Symptoms of #{val.disease_name.toUpperCase()}?
+                            each other,index in val.symptoms
+                                p
+                                    span.bold= other
+                                    span.small_font.left ►
                     if(val.risk_factor)
                         .section.scrollspy#risk
                             h5.bold Who is at Risk for #{val.disease_name.toUpperCase()}?

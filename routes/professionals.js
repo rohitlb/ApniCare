@@ -1139,7 +1139,6 @@ router.post('/similarbrands',function(req,res){
 
 // have regex , search for molecule_name,categories,brand_name,disease_name,organs,symptoms
 router.post('/searchall',function (req,res) {
-    console.log('reaches');
     var raw = req.body.search;
     var spaceRemoved = (!isNaN(raw)) ? raw.replace(/\s/g, '') : raw;
     var skip = parseInt(req.body.nskip);
@@ -1187,7 +1186,7 @@ router.post('/searchall',function (req,res) {
             });
         },
         organs: function (callback) {  // gives organs sorted list
-            Search.find({name : search}, '-_id name').sort({"updated_at":-1}).sort({"created_at":-1}).skip(skip).limit(10).exec(function (err, result) {
+            Search.find({name : search}, '-_id name').sort({name: 1}).skip(skip).limit(10).exec(function (err, result) {
                 if (err) {
                     console.log(err);
                 }
@@ -1197,7 +1196,7 @@ router.post('/searchall',function (req,res) {
             });
         },
         symptoms: function (callback) { // gives symptoms sorted list
-            Disease.find({symptoms: search}, '-_id symptoms').sort({symptoms: 1}).skip(skip).limit(10).exec(function (err, result) {
+            Search.find({name: search}, '-_id name').sort({name: 1}).skip(skip).limit(10).exec(function (err, result) {
                 if (err) {
                     console.log(err);
                 }
