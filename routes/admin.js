@@ -1144,13 +1144,32 @@ router.get('/adminDiseaseDataMakeLive',adminrequiresLogin,function(req,res){
                                 callback();
                             }
                         });
-                    },function(organerr,organ){
+                    },function(organerr){
                         if(organerr){
                             console.log(organerr);
                         }
                         else{
-                            DiseaseData.remove({disease_name : disease},function(errors){
-                                res.send({message : 'Disease successfully Added'});
+                            async.each(result[0].symptoms,function(sympt,callback){
+                                var search  = new Search({
+                                    name : sympt
+                                });
+                                search.save(function(sympterr){
+                                    if(sympterr){
+                                        console.log(sympterr);
+                                    }
+                                    else{
+                                        callback();
+                                    }
+                                });
+                            },function(sympterr){
+                                if(sympterr){
+                                    console.log(sympterr)
+                                }
+                                else{
+                                    DiseaseData.remove({disease_name : disease},function(errors){
+                                        res.send({message : 'Disease successfully Added'});
+                                    });
+                                }
                             });
                         }
                     });

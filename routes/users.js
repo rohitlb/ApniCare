@@ -516,7 +516,7 @@ router.post('/searchweb', function(req, res) {
             });
         },
         Symptoms: function (callback) {  // gives organs sorted list
-            Disease.find({symptoms : search}, '-_id symptoms').sort({"updated_at":-1}).sort({"created_at":-1}).exec(function (err, result) {
+            Search.find({name : search}, '-_id name').sort({"updated_at":-1}).sort({"created_at":-1}).exec(function (err, result) {
                 if (err) {
                     console.log(err);
                 }
