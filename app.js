@@ -230,101 +230,6 @@ app.get('/adminlogin',function(req,res){
 //*************************************OTP*******************************************************************
 
 //user
-app.post('/sendOTP',function (req, res) {
-    var number = req.body.number;
-    //regex for checking whether entered number is indian or not
-    var num = /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[6789]\d{9}|(\d[ -]?){10}\d$/.test(number);
-    if(num === false){
-        res.send({status: "failure", message: "wrong number ! please try again "});
-        return;
-    }
-    var email = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(req.body.email);
-    if(email === false ){
-        res.send({status: "failure", message: "please enter a valid email and try again"});
-        return;
-    }
-    async.series({
-        Doctors: function (callback) {
-            Doctor.find({number: number}, function (err, result) {
-                if (err) {
-                    console.log(err);
-                }
-                else {
-                    callback(null, result);
-                }
-            });
-        },
-        Pharmas : function(callback){
-            Pharma.find({number : number},function(err,result){
-                if(err){
-                    console.log(err);
-                }
-                else{
-                    callback(null,result);
-                }
-            });
-        },
-        Users : function(callback){
-            User.find({number : number},function(err,result){
-                if(err){
-                    console.log(err);
-                }
-                else{
-                    callback(null,result);
-                }
-            });
-        }
-    },function(err,result){
-        if(err){
-            console.log(err);
-        }
-        else{
-            if(((result.Doctors.length === 0)&&(result.Pharmas.length === 0))&&(result.Users.length === 0)){
-                var options = { method: 'GET',
-                    url: 'http://2factor.in/API/V1/'+keys.api_key()+'/SMS/'+number+'/AUTOGEN',
-                    headers: { 'content-type': 'application/x-www-form-urlencoded' },
-                    form: {} };
-                res.send({status: "success", message: "OTP sent to your number"});
-                // request(options, function (error, response, body) {
-                //     if (error) {
-                //         throw new Error(error);
-                //     }
-                //     else {
-                //         var temp = JSON.parse(body);
-                //         req.session.sid = temp.Details;
-                //         res.send({status: "success", message: "OTP sent to your number"});
-                //     }
-                // });
-            }
-            else{
-                res.send({status: "failure", message: "number Already Exists"});
-            }
-        }
-    });
-});
-
-app.post('/VerifyOTP',function (req, res) {
-    var otp = req.body.number;
-    if(otp == 1234){
-        res.send({status : 'success' , message : 'OTP verified'});
-    }
-    else{
-        return;
-    }
-    // var options = { method: 'GET',
-    //     url: 'http://2factor.in/API/V1/'+keys.api_key()+'/SMS/VERIFY/'+req.session.sid+'/'+otp,
-    //     headers: { 'content-type': 'application/x-www-form-urlencoded' },
-    //     form: {} };
-    //
-    // request(options, function (error, response, body) {
-    //     if (error) throw new Error(error);
-    //     var temp = JSON.parse(body);
-    //     res.send({status : 'success' , message: temp.Status })
-    // });
-    req.session.sid = null;
-});
-
-// with real 2factor OTP service
 //
 // app.post('/sendOTP',function (req, res) {
 //     var number = req.body.number;
@@ -332,6 +237,11 @@ app.post('/VerifyOTP',function (req, res) {
 //     var num = /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[6789]\d{9}|(\d[ -]?){10}\d$/.test(number);
 //     if(num === false){
 //         res.send({status: "failure", message: "wrong number ! please try again "});
+//         return;
+//     }
+//     var email = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(req.body.email);
+//     if(email === false ){
+//         res.send({status: "failure", message: "please enter a valid email and try again"});
 //         return;
 //     }
 //     async.series({
@@ -375,17 +285,17 @@ app.post('/VerifyOTP',function (req, res) {
 //                     url: 'http://2factor.in/API/V1/'+keys.api_key()+'/SMS/'+number+'/AUTOGEN',
 //                     headers: { 'content-type': 'application/x-www-form-urlencoded' },
 //                     form: {} };
-//
-//                 request(options, function (error, response, body) {
-//                     if (error) {
-//                         throw new Error(error);
-//                     }
-//                     else {
-//                         var temp = JSON.parse(body);
-//                         req.session.sid = temp.Details;
-//                         res.send({status: "success", message: "OTP sent to your number"});
-//                     }
-//                 });
+//                 res.send({status: "success", message: "OTP sent to your number"});
+//                 // request(options, function (error, response, body) {
+//                 //     if (error) {
+//                 //         throw new Error(error);
+//                 //     }
+//                 //     else {
+//                 //         var temp = JSON.parse(body);
+//                 //         req.session.sid = temp.Details;
+//                 //         res.send({status: "success", message: "OTP sent to your number"});
+//                 //     }
+//                 // });
 //             }
 //             else{
 //                 res.send({status: "failure", message: "number Already Exists"});
@@ -396,20 +306,111 @@ app.post('/VerifyOTP',function (req, res) {
 //
 // app.post('/VerifyOTP',function (req, res) {
 //     var otp = req.body.number;
-//
-//     var options = { method: 'GET',
-//         url: 'http://2factor.in/API/V1/'+keys.api_key()+'/SMS/VERIFY/'+req.session.sid+'/'+otp,
-//         headers: { 'content-type': 'application/x-www-form-urlencoded' },
-//         form: {} };
-//
-//     request(options, function (error, response, body) {
-//         if (error) throw new Error(error);
-//         console.log(body);
-//         var temp = JSON.parse(body);
-//         res.send({status : 'success' , message: temp.Status });
-//         req.session.sid = null;
-//     });
+//     if(otp == 1234){
+//         res.send({status : 'success' , message : 'OTP verified'});
+//     }
+//     else{
+//         return;
+//     }
+//     // var options = { method: 'GET',
+//     //     url: 'http://2factor.in/API/V1/'+keys.api_key()+'/SMS/VERIFY/'+req.session.sid+'/'+otp,
+//     //     headers: { 'content-type': 'application/x-www-form-urlencoded' },
+//     //     form: {} };
+//     //
+//     // request(options, function (error, response, body) {
+//     //     if (error) throw new Error(error);
+//     //     var temp = JSON.parse(body);
+//     //     res.send({status : 'success' , message: temp.Status })
+//     // });
+//     req.session.sid = null;
 // });
+
+// with real 2factor OTP service
+
+app.post('/sendOTP',function (req, res) {
+    var number = req.body.number;
+    //regex for checking whether entered number is indian or not
+    var num = /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[6789]\d{9}|(\d[ -]?){10}\d$/.test(number);
+    if(num === false){
+        res.send({status: "failure", message: "wrong number ! please try again "});
+        return;
+    }
+    async.series({
+        Doctors: function (callback) {
+            Doctor.find({number: number}, function (err, result) {
+                if (err) {
+                    console.log(err);
+                }
+                else {
+                    callback(null, result);
+                }
+            });
+        },
+        Pharmas : function(callback){
+            Pharma.find({number : number},function(err,result){
+                if(err){
+                    console.log(err);
+                }
+                else{
+                    callback(null,result);
+                }
+            });
+        },
+        Users : function(callback){
+            User.find({number : number},function(err,result){
+                if(err){
+                    console.log(err);
+                }
+                else{
+                    callback(null,result);
+                }
+            });
+        }
+    },function(err,result){
+        if(err){
+            console.log(err);
+        }
+        else{
+            if(((result.Doctors.length === 0)&&(result.Pharmas.length === 0))&&(result.Users.length === 0)){
+                var options = { method: 'GET',
+                    url: 'http://2factor.in/API/V1/'+keys.api_key()+'/SMS/'+number+'/AUTOGEN',
+                    headers: { 'content-type': 'application/x-www-form-urlencoded' },
+                    form: {} };
+
+                request(options, function (error, response, body) {
+                    if (error) {
+                        throw new Error(error);
+                    }
+                    else {
+                        var temp = JSON.parse(body);
+                        req.session.sid = temp.Details;
+                        res.send({status: "success", message: "OTP sent to your number"});
+                    }
+                });
+            }
+            else{
+                res.send({status: "failure", message: "number Already Exists"});
+            }
+        }
+    });
+});
+
+app.post('/VerifyOTP',function (req, res) {
+    var otp = req.body.number;
+
+    var options = { method: 'GET',
+        url: 'http://2factor.in/API/V1/'+keys.api_key()+'/SMS/VERIFY/'+req.session.sid+'/'+otp,
+        headers: { 'content-type': 'application/x-www-form-urlencoded' },
+        form: {} };
+
+    request(options, function (error, response, body) {
+        if (error) throw new Error(error);
+        console.log(body);
+        var temp = JSON.parse(body);
+        res.send({status : 'success' , message: temp.Status });
+        req.session.sid = null;
+    });
+});
 
 app.post('/login',function (req,res) {
     var user = null;
@@ -524,7 +525,221 @@ app.post('/login',function (req,res) {
     });
 });
 
+//=================================================APP forgot password==============================================
+
 //forgot password
+app.post('/appforgotpassword',function (req,res) {
+    var number = req.body.number;
+    //regex for checking whether entered number is indian
+    var num = /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[6789]\d{9}|(\d[ -]?){10}\d$/.test(number);
+    if (num === false) {
+        res.send({status: "failure", message: "wrong number ! please try again "});
+        return;
+    }
+    async.parallel({
+        User: function (callback) {
+            User.find({number: number}, function (err, result) {
+                if (err) {
+                    console.log(err);
+                }
+                else {
+                    callback(null, result);
+                }
+            });
+        },
+        Doctor: function (callback) {
+            Doctor.find({number: number}, function (err, result) {
+                if (err) {
+                    console.log(err);
+                }
+                else {
+                    callback(null, result);
+                }
+            });
+        },
+        Pharma: function (callback) {
+            Pharma.find({number: number}, function (err, result) {
+                if (err) {
+                    console.log(err);
+                }
+                else {
+                    callback(null, result);
+                }
+            });
+        }
+    }, function (err, result) {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            if ((result.Doctor != "") || (result.User != "") || (result.Pharma)) {
+                var options = {
+                    method: 'GET',
+                    url: 'http://2factor.in/API/V1/' + keys.api_key() + '/SMS/' + number + '/AUTOGEN',
+                    headers: {'content-type': 'application/x-www-form-urlencoded'},
+                    form: {}
+                };
+
+                request(options, function (error, response, body) {
+                    if (error) {
+                        throw new Error(error);
+                    }
+                    else {
+                        var temp = JSON.parse(body);
+                        var sid = req.session.sid = temp.Details;
+                        var number = req.session.updatenumber = number;
+                        console.log("update number ="+number);
+                        res.send({status: "success",sid : sid , number : number, message: "OTP sent to your number"});
+                    }
+                });
+            }
+            else {
+                res.send({status: 'success', message: 'Please check your number'});
+            }
+        }
+    });
+});
+
+app.post('/appVerifyOTP',function (req, res) {
+    var otp = req.body.number;
+    var sid = req.body.sid;
+    var options = { method: 'GET',
+        url: 'http://2factor.in/API/V1/'+keys.api_key()+'/SMS/VERIFY/'+sid+'/'+otp,
+        headers: { 'content-type': 'application/x-www-form-urlencoded' },
+        form: {} };
+
+    request(options, function (error, response, body) {
+        if (error) throw new Error(error);
+        console.log(body);
+        var temp = JSON.parse(body);
+        res.send({status : 'success' , message: temp.Status });
+        req.session.sid = null;
+    });
+});
+
+app.post('/appupdateforgotpassword',userrequiresLogin,function(req,res){
+    var sid = req.body.sid;
+    var number = req.body.number;
+    var password = req.body.password;
+    if(password == null){
+        res.send({status : 'success' , message : "Please enter some password"});
+        return;
+    }
+    async.parallel({
+        User: function (callback) {
+            User.find({number: number}, function (err, result) {
+                if (err) {
+                    console.log(err);
+                }
+                else {
+                    callback(null, result);
+                }
+            });
+        },
+        Doctor: function (callback) {
+            Doctor.find({number: number}, function (err, result) {
+                if (err) {
+                    console.log(err);
+                }
+                else {
+                    callback(null, result);
+                }
+            });
+        },
+        Pharma: function (callback) {
+            Pharma.find({number: number}, function (err, result) {
+                if (err) {
+                    console.log(err);
+                }
+                else {
+                    callback(null, result);
+                }
+            });
+        }
+    }, function (err, result) {
+        if (err) {
+            console.log(err);
+        }
+        else {
+
+            if(result.User != "") {
+                bcrypt.genSalt(10, function (err, salt) {
+                    bcrypt.hash(password, salt, function (err, hash) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        else {
+                            User.update({number: number}, {
+                                $set: {
+                                    password: hash
+                                }
+                            }, function (err) {
+                                if (err) {
+                                    console.log(err);
+                                }
+                                else {
+                                    req.session.userID = sid;
+                                    res.send({status: 'success', data: result});
+                                }
+                            });
+                        }
+                    });
+                });
+            }
+            if(result.Doctor != "") {
+                bcrypt.genSalt(10, function (err, salt) {
+                    bcrypt.hash(password, salt, function (err, hash) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        else {
+                            Doctor.update({number: number}, {
+                                $set: {
+                                    password: hash
+                                }
+                            }, function (err) {
+                                if (err) {
+                                    console.log(err);
+                                }
+                                else {
+                                    req.session.doctorID = result.Doctor[0]._id;
+                                    res.send({status: 'success', data: result});
+                                }
+                            });
+                        }
+                    });
+                });
+            }
+            if(result.Pharma != ""){
+                bcrypt.genSalt(10, function (err, salt) {
+                    bcrypt.hash(password, salt, function (err, hash) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        else {
+                            Pharma.update({number: number}, {
+                                $set: {
+                                    password: hash
+                                }
+                            }, function (err) {
+                                if (err) {
+                                    console.log(err);
+                                }
+                                else {
+                                    req.session.pharmaID = result.Pharma[0]._id;
+                                    res.send({status: 'success', data: result});
+                                }
+                            });
+                        }
+                    });
+                });
+            }
+        }
+    });
+});
+
+//=================================================================================================================
+
 app.post('/checkforgotpassword',function (req,res) {
     var number = req.body.number;
     //regex for checking whether entered number is indian
@@ -596,11 +811,13 @@ app.post('/checkforgotpassword',function (req,res) {
     });
 });
 
+
+
 app.post('/updateforgotpassword',function(req,res){
     var number = req.session.updatenumber;
     var password = req.body.password;
     if(password == null){
-        res.send({status : 'success' , message : "Please enter some password"})
+        res.send({status : 'success' , message : "Please enter some password"});
         return;
     }
     async.parallel({
