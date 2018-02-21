@@ -738,8 +738,6 @@ router.post('/formolecule',function (req,res){
                             callback();
                         }
                     });
-                    console.log(drug.drugdata[0].forbrands.brands_id);
-
                     res.send({data: drug.drugdata, message: 'molecule brands'});
                 }
             }
