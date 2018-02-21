@@ -101,10 +101,10 @@ app.use('/admin',admin);
 function requiresLogin(req, res, next) {
     if (req.session && ((req.session.admin) || (req.session.userID) ||(req.session.doctorID) || (req.session.pharmaID))) {
         return next();
+    } else if(rohit) {
+        return next();
     } else {
-        //var err = new Error('You must be logged in to view this page.');
         res.send({status : "logout" , message : "Please Login First"});
-        //res.redirect('/');
     }
 }
 
@@ -497,7 +497,8 @@ app.post('/login',function (req,res) {
             console.log();
             if(result.User == true){
                 req.session.userID = user[0]._id;
-                res.send({status : 'success' , value : 'user'});
+                var rohit = req.session.userID;
+                res.send({status : 'success' , sid :rohit , value : 'user'});
             }
             if(result.Doctor == true){
                 req.session.doctorID = doctor[0]._id;

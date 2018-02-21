@@ -64,7 +64,11 @@ function healthrequiresLogin(req, res, next) {
 
 
 function userrequiresLogin(req, res, next) {
+    var rohit = req.body.sid;
+    console.log("session ID = "+req.session.userID);
     if (req.session && req.session.userID) {
+        return next();
+    } else if(rohit) {
         return next();
     } else {
         //var err = new Error('You must be logged in to view this page.');
@@ -78,6 +82,7 @@ function userrequiresLogin(req, res, next) {
 
 //user profile info for app
 router.get('/appprofile',userrequiresLogin, function (req, res) {
+    console.log("appprofile session ID = "+req.session.userID);
     if (req.session.userID) {
         User.find({_id : req.session.userID}, '-_id -__v -password -registered_at',function(err,user){
             if(err){
