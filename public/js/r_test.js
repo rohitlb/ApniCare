@@ -25,6 +25,14 @@ $(function () {
         }
     });
 
+    // ------------------------------ DISEASE DATA PORM= Symptoms list ---------------
+    $('.chips').material_chip();
+    $('.chips-initial').material_chip('chip_data');
+    $('.chips-placeholder').material_chip({
+        placeholder: 'Enter symptoms',
+        secondaryPlaceholder: 'Add more'
+    });
+
     // $('#text1').val();
     // $('#text1').trigger('autoresize');
 
@@ -409,12 +417,24 @@ $(function () {
         return false; //prevent form submission
     });
 
+    // ----------------------------- For Symptoms in Disease Form ----------------------//
+
+    $('.repeat8').on('click', function() {
+            $('.repeater8').append('<div><button class="remove right">x</button>' +
+                '<input id="subhead8" type="text"  placeholder="Enter Symptom" class="validate r003 repeat_subhead8" required/>' +
+                '<label for="subhead1" style="color:black;font-size: 15px;font-weight: 400;">' +
+                '</label></div>');
+            return false; //prevent form submission
+        });
+        $('.repeater8').on('click', '.remove', function() {
+            $(this).parent().remove();
+            return false; //prevent form submission
+        });
+
     // .............................. For ORGANS in Disease Form ....................//
     $('.repeat7').on('click', function() {
-        $('.repeater7').append('<div><input id="subhead7" type="text"  placeholder="Enter a subheading" ' +
-            'class="browser-default repeat_subhead7" required/><button class="remove">x</button>' +
-            '<textarea class="validate text_subhead7 materialize-textarea tobig" id="subhead_text7" required>' +
-            '</textarea><label for="subhead7" style="color:black;font-size: 15px;font-weight: 400;">' +
+        $('.repeater7').append('<div><input id="subhead7" type="text"  placeholder="Enter a subheading" class="browser-default repeat_subhead7" required/><button class="remove">x</button>' +
+            '<textarea class="text_subhead7 materialize-textarea tobig" id="subhead_text7" required></textarea><label for="subhead7" style="color:black;font-size: 15px;font-weight: 400;">' +
             '</label><label for="subhead_text7",placeholder="Enter text", style="color:black;font-size: 15px;font-weight: 400;"></label></div></div>');
         return false; //prevent form submission
     });
@@ -628,11 +648,42 @@ $(function () {
 
     //$('.next_line').add("<span>-&nbsp</span>").appendTo(document.body);
 
+    // ------------------------ FOR LOGOUT -----------------------//
+    $('.logout').click(function(){
+
+        confirm("Are you sure you want to Logout?");
+        // event.preventDefault();
+        // event.stopPropagation();
+        alert('here!');
+        $.ajax({
+            url:'/logout',
+            // type: 'GET',
+            // content: 'application/json',
+            success: function (result) {
+                if (result.status === 'logout') {
+                    Materialize.toast(result.message, 2000);
+                    window.location = result.redirect;
+                }
+                else {
+                    Materialize.toast('Could Not Logout. Try Again!', 2000);
+                }
+            }
+        });
+
+    });
+
+
 
     //- ................... DISEASE DATA FORM SUBMIT ....................
     $('#disease_data_button').click(function () {
         var disease_name = $('#disease_name').val();
-        var symptoms = $('#symptoms').val();
+        var symptoms = [];
+        $('.repeat_subhead8').each(function () {
+            symptoms.push($(this).val());
+        });
+        // $('.chips').on('chip.add', function(e,chip){
+        //     symptoms.push($(this).val());
+        // });
         var risk_factor = $('#risk_factors').val();
         var cause = $('#causes').val();
         var subhead1 = [];
@@ -656,6 +707,7 @@ $(function () {
         var prevention = $('#prevention').val();
         var source = $('#source').val();
 
+        alert(symptoms);
         var data = {
             disease_name: disease_name,
             symptoms: symptoms,
@@ -702,7 +754,7 @@ $(function () {
         var strength1 = $("#strength").val();
         var subhead1 = [];
         $('.repeat_subhead6').each(function(){
-            subhead1.push($(this).val()); //output <-- ['a','b','c']
+            subhead1.push($(this).val());
         });
         var subhead2 = [];
         $('.text_subhead6').each(function () {

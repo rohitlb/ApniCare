@@ -85,6 +85,7 @@ div.row
                             else
                                 span.right(style='border: groove; border-radius: 15px')= "Rx: "+ vas.dosage_id[0].strength_id[0].prescription
 
+                        br
 
                         if(vas.categories != '')
                             h5.to_capital  [#{vas.categories}]
@@ -123,6 +124,8 @@ div.row
                                                     td
                                                     //if(doses.packaging != '')
                                                     td
+                                                    if(dosages.dosage_form == 'Tablet')
+                                                        td= '\t'
                                                     td.blue-text Read More.....
 
                                     div.collapsible-body
@@ -178,7 +181,7 @@ div.row
                                                 a.to_capital(href='#timing') &nbsp&nbsp&nbsp&nbspDose Timing for #{dosage.dosage_form}
                                         if(vas.primarily_used_for)
                                             li
-                                                a.to_capital(href='#primarily') &nbsp&nbsp&nbsp&nbspPrimarily Used For for #{dosage.dosage_form}
+                                                a.to_capital(href='#primarily') &nbsp&nbsp&nbsp&nbspPrimarily Used For #{dosage.dosage_form}
                                         if(dose.warnings)
                                             li
                                                 a.to_capital(href='#warnings') &nbsp&nbsp&nbsp&nbspWarnings for #{dosage.dosage_form}

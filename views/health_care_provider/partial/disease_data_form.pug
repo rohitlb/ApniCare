@@ -20,9 +20,19 @@ div.row
                         div.col.s12.m12.l12
                             span.target2 What are its Symptoms?
                             span.red-text &nbsp*
-                            textarea.materialize-textarea.text_areas1.tobig.validate#symptoms(class="r003" required)
-                            label(for='symptoms')
                             //input.val11(style='color:black;font-size: 15px;font-weight: 400;')
+                            //div.chips.chips-placeholder#symptoms
+                            //textarea.materialize-textarea.text_areas1.tobig.validate#symptoms(class="r003" required)
+                            //label(for='symptoms')
+                        div.col.s12.m6.l6
+                            div.repeater8
+                                div
+                                    label(for='subhead8')
+                                    input.repeat_subhead8.r003.validate#subhead8(type='text', placeholder='Enter Symptoms' required)
+                            button.repeat8 Add Symptoms
+                            br
+                            br
+
                         div.col.s12.m12.l12
                             span.target3 What are its possible Risk Factors?
                             span.red-text &nbsp*

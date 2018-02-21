@@ -80,4 +80,4 @@ div.row
                                 .brands
                                     each val in data
                                         h5(name=val.disease_name, style="width: 228px;margin-top: 0px;")
-                                            a(href='/health_care_provider?disease=' + val.disease_name).text_upper_case #{val.disease_name}
+                                            a(href='/health_care_provider?disease=' + val.disease_name).to_capital #{val.disease_name}

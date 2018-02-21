@@ -4,7 +4,7 @@ var Schema = mongoose.Schema;
 
 var Disease = new Schema({
     disease_name : {type : String , trim : true},
-    symptoms : {type:String, trim:true},
+    symptoms : [{type:String, trim:true}],
     risk_factor : {type:String, trim:true},
     cause : {type:String, trim:true},
     diagnosis : {subhead : [{type:String, trim:true }],info : [{type:String, trim:true }]},

@@ -71,7 +71,6 @@ div.row
                  //-var val = data.disease
                  each val in data.disease
                     h3.about#data_name #{val.disease_name.toUpperCase()}
-                    br
                     if(val.symptoms)
                         .section.scrollspy#symptoms
                             h5.bold What are the Symptoms of #{val.disease_name.toUpperCase()}?

@@ -722,7 +722,7 @@ app.get('/logout',requiresLogin, function (req, res) {
         if (err) {
             console.log(err);
         } else {
-            res.send({status : 'logout' , message : "Please login first"});
+            res.json({status : 'logout' , message : "Please login first" , redirect:'/'});
         }
     });
 });
@@ -852,9 +852,9 @@ app.use(function(req, res) {
 
 
 // Handle 500
-app.use(function(error, req, res, next) {
-    res.status(500).send("Internal server error");
-});
+// app.use(function(error, req, res, next) {
+//     res.status(500).send("Internal server error");
+// });
 
 module.exports = app;
 
