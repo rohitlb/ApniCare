@@ -98,9 +98,7 @@ router.post('/verifypassword',userrequiresLogin,function (req,res) {
                     }
                     else {
                         if(results) {
-                            //next();
-                            //res.send({status: "success", message: "Password match"})
-                            res.render('updatenameandemail',{status: "success", message: "Password match"});
+                            res.send({status: "success", message: "Password match"});
                         }
                         else{
                             res.send({status: "failure", message: "Wrong credentials"});
@@ -170,7 +168,6 @@ router.post('/updatepassword',userrequiresLogin,function (req,res) {
                             if (newpassword === confpassword) {
                                 bcrypt.genSalt(10, function (err, salt) {
                                     bcrypt.hash(newpassword, salt, function (err, hash) {
-
                                         User.update({_id: sid}, {
                                             $set: {password: hash}
                                         }, function (err1, result1) {
@@ -202,37 +199,6 @@ router.post('/updatepassword',userrequiresLogin,function (req,res) {
 });
 
 //****************Edit Personal Information********************************
-
-router.post('/verifydetailspassword',userrequiresLogin,function (req,res) {
-    var password = req.body.password;
-    var sid = req.body.sid;
-    User.findOne({_id : sid},function (err,result) {
-        if(err){
-            console.log(err);
-        }
-        else{
-            if(result) {
-                bcrypt.compare(password, result.password, function (err, results) {
-                    if (err) {
-                        console.log(err);
-                    }
-                    else {
-                        if(results) {
-                            //res.send({status: "success", message: "Password match"})
-                            res.render('updateusersdetails',{status: "success", message: "Password match"});
-                        }
-                        else{
-                            res.send({status: "failure", message: "Wrong credentials"});
-                        }
-                    }
-                });
-            }
-            else{
-                res.send({status: "failure", message: "Incorrect password"});
-            }
-        }
-    });
-});
 
 router.post('/userpersonalinfo',userrequiresLogin,function (req,res) {
     var sid = req.body.sid;
@@ -292,37 +258,6 @@ router.post('/userpersonalinfo',userrequiresLogin,function (req,res) {
 
 //*****************Edit address*********************************************
 
-router.post('/addresspassword',userrequiresLogin,function (req,res) {
-    var sid = req.body.sid;
-    var password = req.body.password;
-    User.findOne({_id : sid},function (err,result) {
-        if(err){
-            console.log(err);
-        }
-        else{
-            if(result) {
-                bcrypt.compare(password, result.password, function (err, results) {
-                    if (err) {
-                        console.log(err);
-                    }
-                    else {
-                        if(results) {
-                            //res.send({status: "success", message: "Password match"})
-                            res.render('editaddress',{status: "success", message: "Password match"});
-                        }
-                        else{
-                            res.send({status: "failure", message: "Wrong credentials"});
-                        }
-                    }
-                });
-            }
-            else{
-                res.send({status: "failure", message: "Incorrect password"});
-            }
-        }
-    });
-});
-
 router.post('/useraddress',userrequiresLogin,function (req,res) {
     var sid = req.body.sid;
     var addresses = req.body.addresses;
@@ -376,37 +311,6 @@ router.post('/useraddress',userrequiresLogin,function (req,res) {
 
 //********************Edit Confidential *************************************
 
-router.post('/confidentialpassword',userrequiresLogin,function (req,res) {
-    var sid = req.body.sid;
-    var password = req.body.password;
-    User.findOne({_id : sid},function (err,result) {
-        if(err){
-            console.log(err);
-        }
-        else{
-            if(result) {
-                bcrypt.compare(password, result.password, function (err, results) {
-                    if (err) {
-                        console.log(err);
-                    }
-                    else {
-                        if(results) {
-                            //res.send({status: "success", message: "Password match"})
-                            res.render('editconfidential',{status: "success", message: "Password match"});
-                        }
-                        else{
-                            res.send({status: "failure", message: "Wrong credentials"});
-                        }
-                    }
-                });
-            }
-            else{
-                res.send({status: "failure", message: "Incorrect password"});
-            }
-        }
-    });
-});
-
 router.post('/editconfidential',userrequiresLogin,function (req,res) {
     var sid = req.body.sid;
     var aadhaarnumber = req.body.aadhaar_number;
@@ -442,37 +346,6 @@ router.post('/editconfidential',userrequiresLogin,function (req,res) {
 });
 
 //***********************Edit Emergency **************************************
-
-router.post('/emergencypassword',userrequiresLogin,function (req,res) {
-    var sid = req.body.sid;
-    var password = req.body.password;
-    User.findOne({_id : sid},function (err,result) {
-        if(err){
-            console.log(err);
-        }
-        else{
-            if(result) {
-                bcrypt.compare(password, result.password, function (err, results) {
-                    if (err) {
-                        console.log(err);
-                    }
-                    else {
-                        if(results) {
-                            //res.send({status: "success", message: "Password match"})
-                            res.render('editemergency',{status: "success", message: "Password match"});
-                        }
-                        else{
-                            res.send({status: "failure", message: "Wrong credentials"});
-                        }
-                    }
-                });
-            }
-            else{
-                res.send({status: "failure", message: "Incorrect password"});
-            }
-        }
-    });
-});
 
 router.post('/useremergency',userrequiresLogin,function (req,res) {
     var sid = req.body.sid;
