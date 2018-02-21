@@ -2836,6 +2836,7 @@ router.post('/healthcarelogin',healthrequiresLogin,function(req,res) {
 
 router.post('/drugData',function(req,res){
     var company_name = req.body.company_name;
+    console.log('reaches drugs');
     var brand_name = (req.body.brand_name).replace(/\b\w/g, function(l){ return l.toUpperCase() });
     var categories = req.body.categories;
     var primarily_used_for = req.body.primarily_used_for;
@@ -3033,7 +3034,8 @@ router.post('/diseaseData',function(req,res) {
     if (req.session.pharmaID) {
         var name = req.session.pharmaID;
     }
-
+    console.log(organ_subhead);
+    console.log('symptoms= '+symptoms);
     async.series({
         diseasedatas :  function (callback) {
             DiseaseData.find({disease_name: disease_name}, function (err, result) {
