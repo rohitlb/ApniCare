@@ -373,7 +373,6 @@ router.get('/ApniCare/information/Drug',function (req,res) {
 //*****************************************USER LOGIN*******************************************************************
 //login with filter and session
 
-
 //===================================for WEB============================
 router.post('/searchspecificweb',function(req,res){
     console.log('reaches');
@@ -589,8 +588,6 @@ router.get('/searchcategories',function(req,res){
     //res.render('index',{page : 'Drug_Information' , data : value});
 });
 
-
-
 //***************************************Edit User Profile*****************************************************************
 //***************Edit Name and Email **********************************
 
@@ -602,7 +599,6 @@ router.get('/verifypassword',userrequiresLogin,function (req,res) {
 });
 
 router.post('/verifypassword',userrequiresLogin,function (req,res) {
-
     var password = req.body.password;
     User.findOne({_id : req.session.userID},function (err,result) {
         if(err){
@@ -667,7 +663,6 @@ router.post('/updatenameandemail',userrequiresLogin,function (req,res) {
                     res.send({status: "success", message: "Successfully Updated"});
                 }
             });
-
         }
     });
 });

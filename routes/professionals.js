@@ -77,6 +77,437 @@ function userrequiresLogin(req, res, next) {
     }
 }
 
+//////////////////// FOR ANDROID ////////////////////////////////////////
+
+
+//***************************************Edit User Profile*****************************************************************
+//***************Edit Name and Email **********************************
+
+router.post('/appverifypassword',userrequiresLogin,function (req,res) {
+    var sid = req.body.sid;
+    var password = req.body.password;
+    User.findOne({_id : sid},function (err,result) {
+        if(err){
+            console.log(err);
+        }
+        else{
+            if(result) {
+                bcrypt.compare(password, result.password, function (err, results) {
+                    if (err) {
+                        console.log(err);
+                    }
+                    else {
+                        if(results) {
+                            //next();
+                            //res.send({status: "success", message: "Password match"})
+                            res.render('updatenameandemail',{status: "success", message: "Password match"});
+                        }
+                        else{
+                            res.send({status: "failure", message: "Wrong credentials"});
+                        }
+                    }
+                });
+            }
+            else{
+                res.send({status: "failure", message: "Incorrect password"});
+            }
+        }
+    });
+});
+
+router.post('/appupdatenameandemail',userrequiresLogin,function (req,res) {
+    var sid = req.body.sid;
+    var name = req.body.name;
+    var email = req.body.email;
+    User.find({_id: req.session.userID}, function (err, result) {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            if (name === "") {
+                name = result[0].name;
+            }
+            if (email === "") {
+                email = result[0].email;
+            }
+            User.update({_id: req.session.userID}, {
+                $set: {
+                    name: name,
+                    email: email
+                }
+            }, function (err, result) {
+                if (err) {
+                    console.log(err);
+                }
+                else {
+                    res.send({status: "success", message: "Successfully Updated"});
+                }
+            });
+        }
+    });
+});
+
+//*******************Edit Password**************************************
+
+router.post('/updatepassword',userrequiresLogin,function (req,res) {
+    var oldpassword = req.body.oldpassword;
+    var newpassword = req.body.newpassword;
+    var confpassword = req.body.confpassword;
+
+    User.findOne({_id : req.session.userID},function (err,result) {
+        if(err){
+            console.log(err);
+        }
+        else{
+            if(result){
+                bcrypt.compare(oldpassword,result.password,function(err, results) {
+                    if (err) {
+                        console.log(err);
+                    }
+                    else {
+                        if (results) {
+                            if (newpassword === confpassword) {
+                                bcrypt.genSalt(10, function (err, salt) {
+                                    bcrypt.hash(newpassword, salt, function (err, hash) {
+
+                                        User.update({_id: req.session.userID}, {
+                                            $set: {password: hash}
+                                        }, function (err1, result1) {
+                                            if (err1) {
+                                                console.log(err1);
+                                            }
+                                            else {
+                                                res.send({status: "success", message: "Password Successfully Updated"});
+                                            }
+                                        });
+                                    });
+                                });
+                            }
+                            else {
+                                res.send({status: "failure", message: "Both password not match"});
+                            }
+                        }
+                        else{
+                            res.send({status: "failure", message: "Wrong credentials"});
+                        }
+                    }
+                });
+            }
+            else{
+                res.send({status: "failure", message: "Please enter correct old password"});
+            }
+        }
+    });
+});
+
+//****************Edit Personal Information********************************
+
+router.post('/verifydetailspassword',userrequiresLogin,function (req,res) {
+    var password = req.body.password;
+    User.findOne({_id : req.session.userID},function (err,result) {
+        if(err){
+            console.log(err);
+        }
+        else{
+            if(result) {
+                bcrypt.compare(password, result.password, function (err, results) {
+                    if (err) {
+                        console.log(err);
+                    }
+                    else {
+                        if(results) {
+                            //res.send({status: "success", message: "Password match"})
+                            res.render('updateusersdetails',{status: "success", message: "Password match"});
+                        }
+                        else{
+                            res.send({status: "failure", message: "Wrong credentials"});
+                        }
+                    }
+                });
+            }
+            else{
+                res.send({status: "failure", message: "Incorrect password"});
+            }
+        }
+    });
+});
+
+router.post('/userpersonalinfo',userrequiresLogin,function (req,res) {
+    var dob = req.body.dob;
+    var gender = req.body.gender;
+    var blood_group = req.body.blood_group;
+    var marital_status = req.body.marital_status;
+    var height = req.body.height;
+    var weight = req.body.weight;
+
+    User.find({_id: req.session.userID}, function (err, result) {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            console.log(result[0]._id);
+            if (dob === "") {
+                dob = result[0].dob;
+            }
+            if (gender === "") {
+                gender = result[0].gender;
+            }
+            if (blood_group === "") {
+                blood_group = result[0].blood_group;
+            }
+            if (marital_status === "") {
+                marital_status = result[0].marital_status;
+            }
+            if (height === "") {
+                height = result[0].height;
+            }
+            if (weight === "") {
+                weight = result[0].weight;
+            }
+
+            User.update({_id: req.session.userID}, {
+                $set: {
+                    dob: dob,
+                    gender: gender,
+                    blood_group: blood_group,
+                    marital_status: marital_status,
+                    height: height,
+                    weight: weight
+                }
+            }, function (err, results) {
+                if (err) {
+                    console.log(err);
+                }
+                else {
+                    console.log(results);
+                    res.send({status: "success", message: "Details Updated"});
+                }
+            });
+        }
+    });
+});
+
+//*****************Edit address*********************************************
+
+router.post('/addresspassword',userrequiresLogin,function (req,res) {
+    var password = req.body.password;
+    User.findOne({_id : req.session.userID},function (err,result) {
+        if(err){
+            console.log(err);
+        }
+        else{
+            if(result) {
+                bcrypt.compare(password, result.password, function (err, results) {
+                    if (err) {
+                        console.log(err);
+                    }
+                    else {
+                        if(results) {
+                            //res.send({status: "success", message: "Password match"})
+                            res.render('editaddress',{status: "success", message: "Password match"});
+                        }
+                        else{
+                            res.send({status: "failure", message: "Wrong credentials"});
+                        }
+                    }
+                });
+            }
+            else{
+                res.send({status: "failure", message: "Incorrect password"});
+            }
+        }
+    });
+});
+
+router.post('/useraddress',userrequiresLogin,function (req,res) {
+    var addresses = req.body.addresses;
+    var landmark = req.body.landmarks;
+    var pincode = req.body.pincodes;
+    var city = req.body.city;
+    var state = req.body.state;
+    console.log(addresses + landmark);
+    User.find({_id: req.session.userID}, function (err, result) {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            if (addresses === "") {
+                addresses = result[0].address.address;
+            }
+            if (landmark === "") {
+                landmark = result[0].address.landmarks;
+            }
+            if (pincode === "") {
+                pincode = result[0].address.pin_code;
+            }
+            if (city === "") {
+                city = result[0].address.city;
+            }
+            if (state === "") {
+                state = result[0].address.state;
+            }
+
+            User.update({_id: req.session.userID}, {
+                $set: {
+                    address: {
+                        addresses: addresses,
+                        landmarks: landmark,
+                        pin_code: pincode,
+                        city: city,
+                        state: state
+                    }
+                }
+            }, function (err1, result1) {
+                if (err1) {
+                    console.log(err1);
+                }
+                else {
+                    res.send({status: "success", message: "Address successfully updated"});
+                }
+            });
+
+        }
+    });
+});
+
+//********************Edit Confidential *************************************
+
+router.post('/confidentialpassword',userrequiresLogin,function (req,res) {
+    var password = req.body.password;
+    User.findOne({_id : req.session.userID},function (err,result) {
+        if(err){
+            console.log(err);
+        }
+        else{
+            if(result) {
+                bcrypt.compare(password, result.password, function (err, results) {
+                    if (err) {
+                        console.log(err);
+                    }
+                    else {
+                        if(results) {
+                            //res.send({status: "success", message: "Password match"})
+                            res.render('editconfidential',{status: "success", message: "Password match"});
+                        }
+                        else{
+                            res.send({status: "failure", message: "Wrong credentials"});
+                        }
+                    }
+                });
+            }
+            else{
+                res.send({status: "failure", message: "Incorrect password"});
+            }
+        }
+    });
+});
+
+router.post('/editconfidential',userrequiresLogin,function (req,res) {
+    var aadhaarnumber = req.body.aadhaar_number;
+    var income = req.body.income;
+
+    User.find({_id: req.session.userID}, function (err, result) {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            if (aadhaarnumber === "") {
+                aadhaarnumber = result[0].aadhaar_number;
+            }
+            if (income === "") {
+                income = result[0].income;
+            }
+
+            User.update({_id: req.session.userID}, {
+                $set: {
+                    aadhaar_number: aadhaarnumber,
+                    income: income
+                }
+            }, function (err1, result1) {
+                if (err1) {
+                    console.log(err1);
+                }
+                else {
+                    res.send({status: "success", message: "confidential updated"});
+                }
+            });
+        }
+    });
+});
+
+//***********************Edit Emergency **************************************
+
+router.post('/emergencypassword',userrequiresLogin,function (req,res) {
+    var password = req.body.password;
+    User.findOne({_id : req.session.userID},function (err,result) {
+        if(err){
+            console.log(err);
+        }
+        else{
+            if(result) {
+                bcrypt.compare(password, result.password, function (err, results) {
+                    if (err) {
+                        console.log(err);
+                    }
+                    else {
+                        if(results) {
+                            //res.send({status: "success", message: "Password match"})
+                            res.render('editemergency',{status: "success", message: "Password match"});
+                        }
+                        else{
+                            res.send({status: "failure", message: "Wrong credentials"});
+                        }
+                    }
+                });
+            }
+            else{
+                res.send({status: "failure", message: "Incorrect password"});
+            }
+        }
+    });
+});
+
+router.post('/useremergency',userrequiresLogin,function (req,res) {
+    var rel_name = req.body.rel_name;
+    var rel_contact = req.body.rel_contact;
+    var relation = req.body.relation;
+    User.find({_id: req.session.userID}, function (err, result) {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            if (rel_name === "") {
+                rel_name = result[0].relative_name;
+            }
+            if (rel_contact === "") {
+                rel_name = result[0].relative_contact;
+            }
+            if (relation === "") {
+                relation = result[0].relation;
+            }
+
+            User.update({_id: req.session.userID}, {
+                $set: {
+                    relative_name: rel_name,
+                    relative_contact: rel_contact,
+                    relation: relation
+                }
+            }, function (err1, result1) {
+                if (err1) {
+                    console.log(err1)
+                }
+                else {
+                    res.send({status: "success", message: "Emergency Contact Updates"});
+                }
+            });
+
+        }
+    });
+});
+
+
+
+
 
 //*********************************************HEALTH_CARE REGISTER*************************************************
 
