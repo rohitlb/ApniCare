@@ -145,6 +145,8 @@ app.get('/rohitsearching',function (req,res) {
 
 //User registration
 app.post('/userregister', function (req, res) {
+    console.log("number" +number);
+    console.log("paswd" +password);
     //regex for checking whether entered number is indian or not
     var num = /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[6789]\d{9}|(\d[ -]?){10}\d$/.test(req.body.number);
     if (num === false) {
@@ -157,11 +159,11 @@ app.post('/userregister', function (req, res) {
         res.send({status: "failure", message: "please enter a numeric password and try again"});
         return;
     }
-    var email = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(req.body.email);
-    if(email === false ){
-        res.send({status: "failure", message: "please enter a valid email and try again"});
-        return;
-    }
+    //var email = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(req.body.email);
+    // if(email === false ){
+    //     res.send({status: "failure", message: "please enter a valid email and try again"});
+    //     return;
+    // }
     User.findOne({number: req.body.number}).exec(function (err, result) {
         if (err) {
             console.log(err);
@@ -526,6 +528,75 @@ app.post('/login',function (req,res) {
 });
 
 //=================================================APP forgot password==============================================
+
+app.post('/appsendOTP',function (req, res) {
+    var number = req.body.number;
+    //regex for checking whether entered number is indian or not
+    var num = /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[6789]\d{9}|(\d[ -]?){10}\d$/.test(number);
+    if(num === false){
+        res.send({status: "failure", message: "wrong number ! please try again "});
+        return;
+    }
+    async.series({
+        Doctors: function (callback) {
+            Doctor.find({number: number}, function (err, result) {
+                if (err) {
+                    console.log(err);
+                }
+                else {
+                    callback(null, result);
+                }
+            });
+        },
+        Pharmas : function(callback){
+            Pharma.find({number : number},function(err,result){
+                if(err){
+                    console.log(err);
+                }
+                else{
+                    callback(null,result);
+                }
+            });
+        },
+        Users : function(callback){
+            User.find({number : number},function(err,result){
+                if(err){
+                    console.log(err);
+                }
+                else{
+                    callback(null,result);
+                }
+            });
+        }
+    },function(err,result){
+        if(err){
+            console.log(err);
+        }
+        else{
+            if(((result.Doctors.length === 0)&&(result.Pharmas.length === 0))&&(result.Users.length === 0)){
+                var options = { method: 'GET',
+                    url: 'http://2factor.in/API/V1/'+keys.api_key()+'/SMS/'+number+'/AUTOGEN',
+                    headers: { 'content-type': 'application/x-www-form-urlencoded' },
+                    form: {} };
+
+                request(options, function (error, response, body) {
+                    if (error) {
+                        throw new Error(error);
+                    }
+                    else {
+                        var temp = JSON.parse(body);
+                        var sid = req.session.sid = temp.Details;
+                        res.send({status: "success",sid : sid, message: "OTP sent to your number"});
+                    }
+                });
+            }
+            else{
+                res.send({status: "failure", message: "number Already Exists"});
+            }
+        }
+    });
+});
+
 
 //forgot password
 app.post('/appforgotpassword',function (req,res) {
