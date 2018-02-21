@@ -188,8 +188,8 @@ app.post('/userregister', function (req, res) {
                                     console.log(err);
                                     res.end();
                                 } else {
-                                    req.session.userID = results._id;
-                                    res.send({status: "success", message: "successfully registered"});
+                                    var sid = req.session.userID = results._id;
+                                    res.send({status: "success", sid : sid, message: "successfully registered"});
                                     res.end();
                                 }
                             });
