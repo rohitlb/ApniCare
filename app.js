@@ -1,4 +1,3 @@
-
 // require dependencies
 var express = require('express');
 var bodyParser = require('body-parser');
@@ -33,14 +32,6 @@ var CategoryData = require('./model/categorydatalive');
 var User  = require('./model/registration');
 var Doctor = require('./model/doctorregistration');
 var Pharma = require('./model/pharma');
-
-
-// to save profile pic of user
-///Some Policies///
-var Terms = require('./model/terms');
-var FAQ = require('./model/faq');
-var Policy = require('./model/policy');
-var Licence = require('./model/open_source_licence');
 
 //declare the app
 var app = express();
@@ -143,7 +134,6 @@ app.get('/rohitsearching',function (req,res) {
 });
 
 //===============================================middle wares=================================
-
 
 //User registration
 app.post('/appuserregister', function (req, res) {
@@ -278,7 +268,6 @@ app.post('/userregister', function (req, res) {
         }
     });
 });
-
 
 app.get('/', function (req, res) {
     if (req.session.userID) {
