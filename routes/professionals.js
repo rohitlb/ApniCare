@@ -2829,7 +2829,7 @@ router.post('/healthcarelogin',healthrequiresLogin,function(req,res) {
                         req.session.pharmaID = result.pharma[0]._id;
                         res.redirect('/health_care_provider');
                     }
-                };
+                }
             }
         })
 });
@@ -2843,8 +2843,12 @@ router.post('/drugData',function(req,res){
     var types = req.body.types;
     var dosage_form = req.body.dosage_form;
     var strength = req.body.strength1;
-    var potent_name = req.body.subhead111;
+    var potent_name_array = req.body.subhead111;
     var potent_strength = req.body.subhead222;
+    var potent_name = [];
+    for(var x = 0; x < potent_name_array.length; x++){
+        potent_name.push(potent_name_array[x].charAt(0).toUpperCase()+potent_name_array[x].slice(1));
+    }
     var packaging = req.body.packaging;
     var price = req.body.price;
     var prescription = req.body.prescription;
@@ -3016,6 +3020,7 @@ router.post('/drugData',function(req,res){
 router.post('/diseaseData',function(req,res) {
     var disease_name = (req.body.disease_name).replace(/\b\w/g, function(l){ return l.toUpperCase() });
     var symptoms = req.body.symptoms;
+    console.log(symptoms);
     var risk_factor = req.body.risk_factor;
     var cause = req.body.cause;
     //for diagnosis
@@ -3271,7 +3276,6 @@ router.get('/diseasesdata',function(req,res){
         }
     })
 });
-
 
 
 module.exports = router;
