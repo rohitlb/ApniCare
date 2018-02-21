@@ -99,21 +99,30 @@ app.use('/admin',admin);
 /////////////////////////////////////////START////////////////////////////////////////////////////////////////
 
 function requiresLogin(req, res, next) {
+    var rohit = req.body.sid;
     if (req.session && ((req.session.admin) || (req.session.userID) ||(req.session.doctorID) || (req.session.pharmaID))) {
         return next();
-    } else if(rohit) {
-        return next();
     } else {
-        res.send({status : "logout" , message : "Please Login First"});
+
+        if (rohit) {
+            return next();
+        } else {
+            res.send({status: "logout", message: "Please Login First"});
+        }
     }
 }
 
 function userrequiresLogin(req, res, next) {
+    var rohit = req.body.sid;
+    console.log("session ID = "+req.session.userID);
     if (req.session && req.session.userID) {
+        return next();
+    } else if(rohit) {
         return next();
     } else {
         //var err = new Error('You must be logged in to view this page.');
         res.send({status : "logout" , message : "Please Login First"});
+        //res.redirect('/');
     }
 }
 
