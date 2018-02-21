@@ -83,7 +83,7 @@ function userrequiresLogin(req, res, next) {
 //***************************************Edit User Profile*****************************************************************
 //***************Edit Name and Email **********************************
 
-router.post('/appverifypassword',userrequiresLogin,function (req,res) {
+router.post('/verifypassword',userrequiresLogin,function (req,res) {
     var sid = req.body.sid;
     var password = req.body.password;
     User.findOne({_id : sid},function (err,result) {
@@ -115,11 +115,11 @@ router.post('/appverifypassword',userrequiresLogin,function (req,res) {
     });
 });
 
-router.post('/appupdatenameandemail',userrequiresLogin,function (req,res) {
+router.post('/updatenameandemail',userrequiresLogin,function (req,res) {
     var sid = req.body.sid;
     var name = req.body.name;
     var email = req.body.email;
-    User.find({_id: req.session.userID}, function (err, result) {
+    User.find({_id: sid}, function (err, result) {
         if (err) {
             console.log(err);
         }
@@ -130,7 +130,7 @@ router.post('/appupdatenameandemail',userrequiresLogin,function (req,res) {
             if (email === "") {
                 email = result[0].email;
             }
-            User.update({_id: req.session.userID}, {
+            User.update({_id: sid}, {
                 $set: {
                     name: name,
                     email: email
@@ -150,11 +150,12 @@ router.post('/appupdatenameandemail',userrequiresLogin,function (req,res) {
 //*******************Edit Password**************************************
 
 router.post('/updatepassword',userrequiresLogin,function (req,res) {
+    var sid = req.body.sid;
     var oldpassword = req.body.oldpassword;
     var newpassword = req.body.newpassword;
     var confpassword = req.body.confpassword;
 
-    User.findOne({_id : req.session.userID},function (err,result) {
+    User.findOne({_id : sid},function (err,result) {
         if(err){
             console.log(err);
         }
@@ -170,7 +171,7 @@ router.post('/updatepassword',userrequiresLogin,function (req,res) {
                                 bcrypt.genSalt(10, function (err, salt) {
                                     bcrypt.hash(newpassword, salt, function (err, hash) {
 
-                                        User.update({_id: req.session.userID}, {
+                                        User.update({_id: sid}, {
                                             $set: {password: hash}
                                         }, function (err1, result1) {
                                             if (err1) {
@@ -204,7 +205,8 @@ router.post('/updatepassword',userrequiresLogin,function (req,res) {
 
 router.post('/verifydetailspassword',userrequiresLogin,function (req,res) {
     var password = req.body.password;
-    User.findOne({_id : req.session.userID},function (err,result) {
+    var sid = req.body.sid;
+    User.findOne({_id : sid},function (err,result) {
         if(err){
             console.log(err);
         }
@@ -233,6 +235,7 @@ router.post('/verifydetailspassword',userrequiresLogin,function (req,res) {
 });
 
 router.post('/userpersonalinfo',userrequiresLogin,function (req,res) {
+    var sid = req.body.sid;
     var dob = req.body.dob;
     var gender = req.body.gender;
     var blood_group = req.body.blood_group;
@@ -240,7 +243,7 @@ router.post('/userpersonalinfo',userrequiresLogin,function (req,res) {
     var height = req.body.height;
     var weight = req.body.weight;
 
-    User.find({_id: req.session.userID}, function (err, result) {
+    User.find({_id: sid}, function (err, result) {
         if (err) {
             console.log(err);
         }
@@ -265,7 +268,7 @@ router.post('/userpersonalinfo',userrequiresLogin,function (req,res) {
                 weight = result[0].weight;
             }
 
-            User.update({_id: req.session.userID}, {
+            User.update({_id: sid}, {
                 $set: {
                     dob: dob,
                     gender: gender,
@@ -290,8 +293,9 @@ router.post('/userpersonalinfo',userrequiresLogin,function (req,res) {
 //*****************Edit address*********************************************
 
 router.post('/addresspassword',userrequiresLogin,function (req,res) {
+    var sid = req.body.sid;
     var password = req.body.password;
-    User.findOne({_id : req.session.userID},function (err,result) {
+    User.findOne({_id : sid},function (err,result) {
         if(err){
             console.log(err);
         }
@@ -320,13 +324,13 @@ router.post('/addresspassword',userrequiresLogin,function (req,res) {
 });
 
 router.post('/useraddress',userrequiresLogin,function (req,res) {
+    var sid = req.body.sid;
     var addresses = req.body.addresses;
     var landmark = req.body.landmarks;
     var pincode = req.body.pincodes;
     var city = req.body.city;
     var state = req.body.state;
-    console.log(addresses + landmark);
-    User.find({_id: req.session.userID}, function (err, result) {
+    User.find({_id: sid}, function (err, result) {
         if (err) {
             console.log(err);
         }
@@ -347,7 +351,7 @@ router.post('/useraddress',userrequiresLogin,function (req,res) {
                 state = result[0].address.state;
             }
 
-            User.update({_id: req.session.userID}, {
+            User.update({_id: sid}, {
                 $set: {
                     address: {
                         addresses: addresses,
@@ -373,8 +377,9 @@ router.post('/useraddress',userrequiresLogin,function (req,res) {
 //********************Edit Confidential *************************************
 
 router.post('/confidentialpassword',userrequiresLogin,function (req,res) {
+    var sid = req.body.sid;
     var password = req.body.password;
-    User.findOne({_id : req.session.userID},function (err,result) {
+    User.findOne({_id : sid},function (err,result) {
         if(err){
             console.log(err);
         }
@@ -403,10 +408,11 @@ router.post('/confidentialpassword',userrequiresLogin,function (req,res) {
 });
 
 router.post('/editconfidential',userrequiresLogin,function (req,res) {
+    var sid = req.body.sid;
     var aadhaarnumber = req.body.aadhaar_number;
     var income = req.body.income;
 
-    User.find({_id: req.session.userID}, function (err, result) {
+    User.find({_id: sid}, function (err, result) {
         if (err) {
             console.log(err);
         }
@@ -438,8 +444,9 @@ router.post('/editconfidential',userrequiresLogin,function (req,res) {
 //***********************Edit Emergency **************************************
 
 router.post('/emergencypassword',userrequiresLogin,function (req,res) {
+    var sid = req.body.sid;
     var password = req.body.password;
-    User.findOne({_id : req.session.userID},function (err,result) {
+    User.findOne({_id : sid},function (err,result) {
         if(err){
             console.log(err);
         }
@@ -468,10 +475,11 @@ router.post('/emergencypassword',userrequiresLogin,function (req,res) {
 });
 
 router.post('/useremergency',userrequiresLogin,function (req,res) {
+    var sid = req.body.sid;
     var rel_name = req.body.rel_name;
     var rel_contact = req.body.rel_contact;
     var relation = req.body.relation;
-    User.find({_id: req.session.userID}, function (err, result) {
+    User.find({_id: sid}, function (err, result) {
         if (err) {
             console.log(err);
         }
@@ -486,7 +494,7 @@ router.post('/useremergency',userrequiresLogin,function (req,res) {
                 relation = result[0].relation;
             }
 
-            User.update({_id: req.session.userID}, {
+            User.update({_id: sid}, {
                 $set: {
                     relative_name: rel_name,
                     relative_contact: rel_contact,
