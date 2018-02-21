@@ -674,7 +674,8 @@ router.post('/formolecule',function (req,res){
 
         Strength.find({ $and: [ { 'potent_substance.name' : molecule}, { 'potent_substance.name': { $size: 1 } } ] } ,'-_id potent_substance.name price')
             .populate({path : 'brands_id', select : '-_id brand_name' ,
-            populate : {path : 'company_id', select : '-_id -brand_id -__v'} , populate : {path : 'dosage_id', select : '-_id -strength_id -__v'}})
+                populate : {path : 'dosage_id', select : '-_id -strength_id -__v'}})
+            .populate({path : 'brands_id' , select : '-_id __v' , populate : {path : 'company_id', select : '-_id -brand_id -__v'}})
             .sort({brand_name: 1}).exec(function (err,brands) {
             if (err) {
                 console.log(err);
@@ -711,9 +712,8 @@ router.post('/formolecule',function (req,res){
             .populate({
                 path: 'brands_id',
                 select: '-_id brand_name',
-                populate: {path: 'company_id', select: '-_id -brand_id -__v'},
-                populate: {path: 'dosage_id', select: '-_id -strength_id -__v'}
-            })
+                populate: {path: 'dosage_id', select: '-_id -strength_id -__v'}})
+            .populate({path : 'brands_id' , select : '-_id __v' , populate : {path : 'company_id', select : '-_id -brand_id -__v'}})
             .sort({brand_name: 1}).exec(function (err, brands) {
             if (err) {
                 console.log(err);
