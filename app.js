@@ -1,3 +1,4 @@
+
 // require dependencies
 var express = require('express');
 var bodyParser = require('body-parser');
@@ -143,10 +144,18 @@ app.get('/rohitsearching',function (req,res) {
 
 //===============================================middle wares=================================
 
+
 //User registration
-app.post('/userregister', function (req, res) {
-    console.log("number" +number);
-    console.log("paswd" +password);
+app.post('/appuserregister', function (req, res) {
+    var d = req.body.number;
+    var b = req.body.password;
+    var c = req.body.name;
+    var sid = req.body.sid;
+
+    console.log("number"+d);
+    console.log("pswd"+b);
+    console.log("name"+c);
+
     //regex for checking whether entered number is indian or not
     var num = /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[6789]\d{9}|(\d[ -]?){10}\d$/.test(req.body.number);
     if (num === false) {
@@ -190,8 +199,8 @@ app.post('/userregister', function (req, res) {
                                     console.log(err);
                                     res.end();
                                 } else {
-                                    var sid = req.session.userID = results._id;
-                                    res.send({status: "success", sid : sid, message: "successfully registered"});
+                                    //var sid = req.session.userID = results._id;
+                                    res.send({status: "success",sid : sid,  message: "successfully registered"});
                                     res.end();
                                 }
                             });
@@ -202,6 +211,74 @@ app.post('/userregister', function (req, res) {
         }
     });
 });
+
+
+//User registration
+app.post('/userregister', function (req, res) {
+    var d = req.body.number;
+    var b = req.body.password;
+    var c = req.body.name;
+
+    console.log("number"+d);
+    console.log("pswd"+b);
+    console.log("name"+c);
+
+    //regex for checking whether entered number is indian or not
+    var num = /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[6789]\d{9}|(\d[ -]?){10}\d$/.test(req.body.number);
+    if (num === false) {
+        res.send({status: "failure", message: "wrong number ! please try again "});
+        return;
+    }
+    // regex for checking whether password is numeric or not (pass iff pwd is numeric)
+    var a = /[0-9]{4}/.test(req.body.password);
+    if (a === false) {
+        res.send({status: "failure", message: "please enter a numeric password and try again"});
+        return;
+    }
+    //var email = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(req.body.email);
+    // if(email === false ){
+    //     res.send({status: "failure", message: "please enter a valid email and try again"});
+    //     return;
+    // }
+    User.findOne({number: req.body.number}).exec(function (err, result) {
+        if (err) {
+            console.log(err);
+            res.end();
+        } else {
+            if (result) {
+                res.send({status: "failure", message: "user Already Exists"});
+                res.end();
+            } else {
+                bcrypt.genSalt(10, function (err, salt) {
+                    bcrypt.hash(req.body.password, salt, function (err, hash) {
+                        if(err){
+                            console.log(err);
+                        }
+                        else {
+                            var user = new User({
+                                name: req.body.name,
+                                email: req.body.email,
+                                number: req.body.number,
+                                password: hash
+                            });
+                            user.save(function (err, results) {
+                                if (err) {
+                                    console.log(err);
+                                    res.end();
+                                } else {
+                                    //var sid = req.session.userID = results._id;
+                                    res.send({status: "success",  message: "successfully registered"});
+                                    res.end();
+                                }
+                            });
+                        }
+                    });
+                });
+            }
+        }
+    });
+});
+
 
 app.get('/', function (req, res) {
     if (req.session.userID) {
@@ -232,102 +309,6 @@ app.get('/adminlogin',function(req,res){
 //*************************************OTP*******************************************************************
 
 //user
-//
-// app.post('/sendOTP',function (req, res) {
-//     var number = req.body.number;
-//     //regex for checking whether entered number is indian or not
-//     var num = /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[6789]\d{9}|(\d[ -]?){10}\d$/.test(number);
-//     if(num === false){
-//         res.send({status: "failure", message: "wrong number ! please try again "});
-//         return;
-//     }
-//     var email = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(req.body.email);
-//     if(email === false ){
-//         res.send({status: "failure", message: "please enter a valid email and try again"});
-//         return;
-//     }
-//     async.series({
-//         Doctors: function (callback) {
-//             Doctor.find({number: number}, function (err, result) {
-//                 if (err) {
-//                     console.log(err);
-//                 }
-//                 else {
-//                     callback(null, result);
-//                 }
-//             });
-//         },
-//         Pharmas : function(callback){
-//             Pharma.find({number : number},function(err,result){
-//                 if(err){
-//                     console.log(err);
-//                 }
-//                 else{
-//                     callback(null,result);
-//                 }
-//             });
-//         },
-//         Users : function(callback){
-//             User.find({number : number},function(err,result){
-//                 if(err){
-//                     console.log(err);
-//                 }
-//                 else{
-//                     callback(null,result);
-//                 }
-//             });
-//         }
-//     },function(err,result){
-//         if(err){
-//             console.log(err);
-//         }
-//         else{
-//             if(((result.Doctors.length === 0)&&(result.Pharmas.length === 0))&&(result.Users.length === 0)){
-//                 var options = { method: 'GET',
-//                     url: 'http://2factor.in/API/V1/'+keys.api_key()+'/SMS/'+number+'/AUTOGEN',
-//                     headers: { 'content-type': 'application/x-www-form-urlencoded' },
-//                     form: {} };
-//                 res.send({status: "success", message: "OTP sent to your number"});
-//                 // request(options, function (error, response, body) {
-//                 //     if (error) {
-//                 //         throw new Error(error);
-//                 //     }
-//                 //     else {
-//                 //         var temp = JSON.parse(body);
-//                 //         req.session.sid = temp.Details;
-//                 //         res.send({status: "success", message: "OTP sent to your number"});
-//                 //     }
-//                 // });
-//             }
-//             else{
-//                 res.send({status: "failure", message: "number Already Exists"});
-//             }
-//         }
-//     });
-// });
-//
-// app.post('/VerifyOTP',function (req, res) {
-//     var otp = req.body.number;
-//     if(otp == 1234){
-//         res.send({status : 'success' , message : 'OTP verified'});
-//     }
-//     else{
-//         return;
-//     }
-//     // var options = { method: 'GET',
-//     //     url: 'http://2factor.in/API/V1/'+keys.api_key()+'/SMS/VERIFY/'+req.session.sid+'/'+otp,
-//     //     headers: { 'content-type': 'application/x-www-form-urlencoded' },
-//     //     form: {} };
-//     //
-//     // request(options, function (error, response, body) {
-//     //     if (error) throw new Error(error);
-//     //     var temp = JSON.parse(body);
-//     //     res.send({status : 'success' , message: temp.Status })
-//     // });
-//     req.session.sid = null;
-// });
-
-// with real 2factor OTP service
 
 app.post('/sendOTP',function (req, res) {
     var number = req.body.number;
@@ -335,6 +316,11 @@ app.post('/sendOTP',function (req, res) {
     var num = /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[6789]\d{9}|(\d[ -]?){10}\d$/.test(number);
     if(num === false){
         res.send({status: "failure", message: "wrong number ! please try again "});
+        return;
+    }
+    var email = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(req.body.email);
+    if(email === false ){
+        res.send({status: "failure", message: "please enter a valid email and try again"});
         return;
     }
     async.series({
@@ -378,17 +364,17 @@ app.post('/sendOTP',function (req, res) {
                     url: 'http://2factor.in/API/V1/'+keys.api_key()+'/SMS/'+number+'/AUTOGEN',
                     headers: { 'content-type': 'application/x-www-form-urlencoded' },
                     form: {} };
-
-                request(options, function (error, response, body) {
-                    if (error) {
-                        throw new Error(error);
-                    }
-                    else {
-                        var temp = JSON.parse(body);
-                        req.session.sid = temp.Details;
-                        res.send({status: "success", message: "OTP sent to your number"});
-                    }
-                });
+                res.send({status: "success", message: "OTP sent to your number"});
+                // request(options, function (error, response, body) {
+                //     if (error) {
+                //         throw new Error(error);
+                //     }
+                //     else {
+                //         var temp = JSON.parse(body);
+                //         req.session.sid = temp.Details;
+                //         res.send({status: "success", message: "OTP sent to your number"});
+                //     }
+                // });
             }
             else{
                 res.send({status: "failure", message: "number Already Exists"});
@@ -399,20 +385,111 @@ app.post('/sendOTP',function (req, res) {
 
 app.post('/VerifyOTP',function (req, res) {
     var otp = req.body.number;
-
-    var options = { method: 'GET',
-        url: 'http://2factor.in/API/V1/'+keys.api_key()+'/SMS/VERIFY/'+req.session.sid+'/'+otp,
-        headers: { 'content-type': 'application/x-www-form-urlencoded' },
-        form: {} };
-
-    request(options, function (error, response, body) {
-        if (error) throw new Error(error);
-        console.log(body);
-        var temp = JSON.parse(body);
-        res.send({status : 'success' , message: temp.Status });
-        req.session.sid = null;
-    });
+    if(otp == 1234){
+        res.send({status : 'success' , message : 'OTP verified'});
+    }
+    else{
+        return;
+    }
+    // var options = { method: 'GET',
+    //     url: 'http://2factor.in/API/V1/'+keys.api_key()+'/SMS/VERIFY/'+req.session.sid+'/'+otp,
+    //     headers: { 'content-type': 'application/x-www-form-urlencoded' },
+    //     form: {} };
+    //
+    // request(options, function (error, response, body) {
+    //     if (error) throw new Error(error);
+    //     var temp = JSON.parse(body);
+    //     res.send({status : 'success' , message: temp.Status })
+    // });
+    req.session.sid = null;
 });
+
+// with real 2factor OTP service
+//
+// app.post('/sendOTP',function (req, res) {
+//     var number = req.body.number;
+//     //regex for checking whether entered number is indian or not
+//     var num = /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[6789]\d{9}|(\d[ -]?){10}\d$/.test(number);
+//     if(num === false){
+//         res.send({status: "failure", message: "wrong number ! please try again "});
+//         return;
+//     }
+//     async.series({
+//         Doctors: function (callback) {
+//             Doctor.find({number: number}, function (err, result) {
+//                 if (err) {
+//                     console.log(err);
+//                 }
+//                 else {
+//                     callback(null, result);
+//                 }
+//             });
+//         },
+//         Pharmas : function(callback){
+//             Pharma.find({number : number},function(err,result){
+//                 if(err){
+//                     console.log(err);
+//                 }
+//                 else{
+//                     callback(null,result);
+//                 }
+//             });
+//         },
+//         Users : function(callback){
+//             User.find({number : number},function(err,result){
+//                 if(err){
+//                     console.log(err);
+//                 }
+//                 else{
+//                     callback(null,result);
+//                 }
+//             });
+//         }
+//     },function(err,result){
+//         if(err){
+//             console.log(err);
+//         }
+//         else{
+//             if(((result.Doctors.length === 0)&&(result.Pharmas.length === 0))&&(result.Users.length === 0)){
+//                 var options = { method: 'GET',
+//                     url: 'http://2factor.in/API/V1/'+keys.api_key()+'/SMS/'+number+'/AUTOGEN',
+//                     headers: { 'content-type': 'application/x-www-form-urlencoded' },
+//                     form: {} };
+//
+//                 request(options, function (error, response, body) {
+//                     if (error) {
+//                         throw new Error(error);
+//                     }
+//                     else {
+//                         var temp = JSON.parse(body);
+//                         req.session.sid = temp.Details;
+//                         res.send({status: "success", message: "OTP sent to your number"});
+//                     }
+//                 });
+//             }
+//             else{
+//                 res.send({status: "failure", message: "number Already Exists"});
+//             }
+//         }
+//     });
+// });
+//
+// app.post('/VerifyOTP',function (req, res) {
+//     var otp = req.body.number;
+//
+//     var options = { method: 'GET',
+//         url: 'http://2factor.in/API/V1/'+keys.api_key()+'/SMS/VERIFY/'+req.session.sid+'/'+otp,
+//         headers: { 'content-type': 'application/x-www-form-urlencoded' },
+//         form: {} };
+//
+//     request(options, function (error, response, body) {
+//         if (error) throw new Error(error);
+//         console.log(body);
+//         var temp = JSON.parse(body);
+//         res.send({status : 'success' , message: temp.Status });
+//         req.session.sid = null;
+//     });
+// });
 
 app.post('/login',function (req,res) {
     var user = null;
