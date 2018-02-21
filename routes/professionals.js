@@ -673,9 +673,9 @@ router.post('/formolecule',function (req,res){
     if(req.body.page == 'brands'){
 
         Strength.find({ $and: [ { 'potent_substance.name' : molecule}, { 'potent_substance.name': { $size: 1 } } ] } ,'-_id potent_substance.name price')
-            .populate({path : 'brands_id', select : '-_id brand_name' ,
+            .populate({path : 'brands_id', select : '-_id __v' ,
                 populate : {path : 'dosage_id', select : '-_id -strength_id -__v'}})
-            .populate({path : 'brands_id' , select : '-_id __v' , populate : {path : 'company_id', select : '-_id -brand_id -__v'}})
+            .populate({path : 'brands_id' , select : '-_id brand_name' , populate : {path : 'company_id', select : '-_id -brand_id -__v'}})
             .sort({brand_name: 1}).exec(function (err,brands) {
             if (err) {
                 console.log(err);
@@ -709,11 +709,9 @@ router.post('/formolecule',function (req,res){
     }
     if(req.body.page == 'combination') {
         Strength.find({$and: [{'potent_substance.name': molecule}, {'potent_substance.name.1': {$exists: true}}]}, '-_id potent_substance.name price')
-            .populate({
-                path: 'brands_id',
-                select: '-_id brand_name',
-                populate: {path: 'dosage_id', select: '-_id -strength_id -__v'}})
-            .populate({path : 'brands_id' , select : '-_id __v' , populate : {path : 'company_id', select : '-_id -brand_id -__v'}})
+            .populate({path : 'brands_id', select : '-_id __v' ,
+                populate : {path : 'dosage_id', select : '-_id -strength_id -__v'}})
+            .populate({path : 'brands_id' , select : '-_id brand_name' , populate : {path : 'company_id', select : '-_id -brand_id -__v'}})
             .sort({brand_name: 1}).exec(function (err, brands) {
             if (err) {
                 console.log(err);
@@ -740,6 +738,8 @@ router.post('/formolecule',function (req,res){
                             callback();
                         }
                     });
+                    console.log(drug.drugdata[0].forbrands.brands_id);
+
                     res.send({data: drug.drugdata, message: 'molecule brands'});
                 }
             }
