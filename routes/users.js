@@ -1154,6 +1154,8 @@ router.post('/upload',userrequiresLogin, fileParser, function(req, res){
             var path = result.url;
             //res.send({image_src : result.url});
             //res.render('upload', {url: result.url});
+            console.log("path bef"+path);
+
             User.find({_id: req.session.userID}, function (err, result) {
                 if (err) {
                     console.log(err);
@@ -1175,6 +1177,8 @@ router.post('/upload',userrequiresLogin, fileParser, function(req, res){
                     // }
 
                     );
+                    console.log("path aft"+path);
+
                 }
                 res.send({status: "success", message: "Successfully image Updated"});
             });
