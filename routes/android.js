@@ -821,7 +821,7 @@ router.post('/appupdateforgotpassword',appuserrequiresLogin,function(req,res){
 });
 
 //user profile info for app
-router.get('/appprofile',appuserrequiresLogin, function (req, res) {
+router.post('/appprofile',appuserrequiresLogin, function (req, res) {
     var sid = req.body.sid;
     console.log("appprofile session ID = "+req.session.userID);
     if (sid) {
@@ -837,7 +837,7 @@ router.get('/appprofile',appuserrequiresLogin, function (req, res) {
     }
 });
 
-router.post('/moleculeslist',appuserrequiresLogin,function(req,res){
+router.post('/moleculeslist',function(req,res){
     var skip = parseInt(req.body.nskip);
     Molecule.find({},'-_id molecule_name').sort({molecule_name: 1}).skip(skip).limit(10).exec(function(err,result){
         if(err){
@@ -849,7 +849,7 @@ router.post('/moleculeslist',appuserrequiresLogin,function(req,res){
     });
 });
 
-router.post('/brandslist',appuserrequiresLogin,function(req,res){
+router.post('/brandslist',function(req,res){
     var skip = parseInt(req.body.nskip);
     Brand.find({},'-_id brand_name').populate(
         {path : 'dosage_id', select : '-_id dosage_form',populate :
