@@ -37,12 +37,7 @@ var Disease = require('../model/disease');
 //require molecule
 var Molecule = require('../model/molecule');
 var Search = require('../model/search');
-// to save profile pic of user
-///Some Policies///
-var Terms = require('../model/terms');
-var FAQ = require('../model/faq');
-var Policy = require('../model/policy');
-var Licence = require('../model/open_source_licence');
+
 
 /////Data having Issue
 var Issue = require('../model/issue');
