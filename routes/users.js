@@ -1143,44 +1143,38 @@ cloudinary.config({
 });
 
 router.post('/upload',userrequiresLogin, fileParser, function(req, res){
-    console.log("app");
     var imageFile = req.files.image;
 
     cloudinary.uploader.upload(imageFile.path, function(result){
         if (result.url) {
 
             //url should be stored in the database .. it is the path for profile pic of user
-            console.log(result.url);
             var path = result.url;
             //res.send({image_src : result.url});
             //res.render('upload', {url: result.url});
-            console.log("path bef"+path);
 
             User.find({_id: req.session.userID}, function (err, result) {
                 if (err) {
                     console.log(err);
                 }
                 else {
-
+                    console.log("session is = "+req.session.userID);
                     User.update({_id: req.session.userID}, {
                         $set: {
                             path: path
                         }
                     }
-                    // , function (err, result) {
-                    //     if (err) {
-                    //         console.log(err);
-                    //     }
-                    //     else {
-                    //         res.send({status: "success", message: "Successfully image Updated"});
-                    //     }
-                    // }
-
+                    , function (err, result) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        else {
+                            console.log(result);
+                            res.send({status: "success", message: "Successfully image Updated"});
+                        }
+                    }
                     );
-                    console.log("path aft"+path);
-
                 }
-                res.send({status: "success", message: "Successfully image Updated"});
             });
         } else {
             //if error
