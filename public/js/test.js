@@ -99,7 +99,7 @@ $(function () {
             city : city
         };
         $.ajax({
-            url: '/doctor_details',
+            url: '/health/doctor_details',
             type: 'POST',
             data : JSON.stringify(data),
             contentType : 'application/json',
@@ -107,11 +107,11 @@ $(function () {
                 if(result.success == 'success')
                 {
                     Materialize.toast(result.message,1000);
-                    window.location= '/health_care_provider?page=profile_doctor';
+                    window.location= '/health/health_care_provider?page=profile_doctor';
                 }
                 else {
                         Materialize.toast(result.message, 1000);
-                        window.location= '/health_care_provider?page=profile';
+                        window.location= '/health/health_care_provider?page=profile';
                     }
 
             }
@@ -135,7 +135,7 @@ $(function () {
             about: about
         };
         $.ajax({
-            url: '/basic',
+            url: '/health/basic',
             type: 'POST',
             data : JSON.stringify(data),
             contentType : 'application/json',
@@ -171,7 +171,7 @@ $(function () {
             completion : completion_year
         };
         $.ajax({
-            url: '/education',
+            url: '/health/education',
             type: 'POST',
             data : JSON.stringify(data),
             contentType : 'application/json',
@@ -208,7 +208,7 @@ $(function () {
             council_year : council_year
         }
         $.ajax({
-            url: '/certificate',
+            url: '/health/certificate',
             type: 'POST',
             data : JSON.stringify(data),
             contentType : 'application/json',
@@ -258,7 +258,7 @@ $(function () {
             city : city
         };
         $.ajax({
-            url: '/doctor_details',
+            url: '/health/doctor_details',
             type: 'POST',
             data : JSON.stringify(data),
             contentType : 'application/json',
@@ -266,12 +266,12 @@ $(function () {
                 if(result.success === 'success')
                 {
                     Materialize.toast(result.message,1000);
-                    window.location= '/health_care_provider?page=profile_pharmacist';
+                    window.location= '/health/health_care_provider?page=profile_pharmacist';
                 }
                 else
                 {
                     Materialize.toast(result.message,1000);
-                    window.location= '/health_care_provider?page=profile';
+                    window.location= '/health/health_care_provider?page=profile';
                 }
             }
         //window.location = '/health_care_provider?page=profile_pharmacist';

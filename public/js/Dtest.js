@@ -13,7 +13,7 @@ $('#Dsend').click(function () {
 
     $.ajax(
         {
-            url: "/DoctorsendOTP",
+            url: "/health/DoctorsendOTP",
             method: 'POST',
             data: JSON.stringify(data),
             contentType: 'application/json',
@@ -100,14 +100,14 @@ $('#DsubmitButton').click(function () {
 
     $.ajax(
         {
-            url: "/doctorregister",
+            url: "/health/doctorregister",
             method: 'POST',
             data: JSON.stringify(data),
             contentType: 'application/json',
             success: function (result) {
 
                 if (result.status === "success") {
-                    window.location = '/occupation';
+                    window.location = '/health/occupation';
 
                 }
                 else {
@@ -122,7 +122,6 @@ $('#DsubmitButton').click(function () {
         }
     )
 });
-
 
 
 
@@ -143,7 +142,7 @@ $('#DloginButton1').click(function () {
 
     $.ajax(
         {
-            url: "/doctorlogin",
+            url: "/weblogin",
             method: 'POST',
             data: JSON.stringify(data1),
             contentType: 'application/json',
@@ -179,7 +178,7 @@ $('#DOTPforForgot').click(function () {
 
     $.ajax(
         {
-            url: "/doctorcheckforgotpassword",
+            url: "/health/doctorcheckforgotpassword",
             method: 'POST',
             data: JSON.stringify(data),
             contentType: 'application/json',
@@ -265,7 +264,7 @@ $('#DagainLogin').click(function () {
 
     $.ajax(
         {
-            url: "/doctorupdatepassword",
+            url: "/health/doctorupdatepassword",
             method: 'POST',
             data: JSON.stringify(data1),
             contentType: 'application/json',

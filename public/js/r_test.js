@@ -38,239 +38,7 @@ $(function () {
 
     $(':reset');
 
-    // $( "#progressbar" ).progressbar(function(){
-    //     value: 35
-    // });
-    //............................./////////// Bullets in text area /////////////////////////////
-    // $(".text_areas1").focus(function() {
-    //     if(document.getElementById('symptoms').value === ''){
-    //         document.getElementById('symptoms').value +='• '+'\n';
-    //     }
-    // });
-    // $(".text_areas1").keyup(function(event){
-    //     var keycode = (event.keyCode ? event.keyCode : event.which);
-    //     if(keycode == '13'){
-    //         document.getElementById('symptoms').value +='• ';
-    //     }
-    //     var txtval = document.getElementById('symptoms').value;
-    //     if(txtval.substr(txtval.length - 1) == '\n'){
-    //         document.getElementById('symptoms').value = txtval.substring(0,txtval.length - 1);
-    //     }
-    // });
-    //
-    // $(".text_areas2").focus(function() {
-    //     if(document.getElementById('risk_factors').value === ''){
-    //         document.getElementById('risk_factors').value +='• '+'\n';
-    //     }
-    // });
-    // $(".text_areas2").keyup(function(event){
-    //     var keycode = (event.keyCode ? event.keyCode : event.which);
-    //     if(keycode == '13'){
-    //         document.getElementById('risk_factors').value +='• ';
-    //     }
-    //     var txtval = document.getElementById('risk_factors').value;
-    //     if(txtval.substr(txtval.length - 1) == '\n'){
-    //         document.getElementById('risk_factors').value = txtval.substring(0,txtval.length - 1);
-    //     }
-    // });
-    //
-    // $(".text_areas3").focus(function() {
-    //     if(document.getElementById('causes').value === ''){
-    //         document.getElementById('causes').value +='• '+'\n';
-    //     }
-    // });
-    // $(".text_areas3").keyup(function(event){
-    //     var keycode = (event.keyCode ? event.keyCode : event.which);
-    //     if(keycode == '13'){
-    //         document.getElementById('causes').value +='• ';
-    //     }
-    //     var txtval = document.getElementById('causes').value;
-    //     if(txtval.substr(txtval.length - 1) == '\n'){
-    //         document.getElementById('causes').value = txtval.substring(0,txtval.length - 1);
-    //     }
-    // });
-    //
-    // $(".text_areas4").focus(function() {
-    //     if(document.getElementById('subhead_text').value === ''){
-    //         document.getElementById('subhead_text').value +='• '+'\n';
-    //     }
-    // });
-    // $(".text_areas4").keyup(function(event){
-    //     var keycode = (event.keyCode ? event.keyCode : event.which);
-    //     if(keycode == '13'){
-    //         document.getElementById('subhead_text').value +='• ';
-    //     }
-    //     var txtval = document.getElementById('subhead_text').value;
-    //     if(txtval.substr(txtval.length - 1) == '\n'){
-    //         document.getElementById('subhead_text').value = txtval.substring(0,txtval.length - 1);
-    //     }
-    // });
-    //
-    // $(".text_areas5").focus(function() {
-    //     if(document.getElementById('treatment').value === ''){
-    //         document.getElementById('treatment').value +='• '+'\n';
-    //     }
-    // });
-    // $(".text_areas5").keyup(function(event){
-    //     var keycode = (event.keyCode ? event.keyCode : event.which);
-    //     if(keycode == '13'){
-    //         document.getElementById('treatment').value +='• ';
-    //     }
-    //     var txtval = document.getElementById('treatment').value;
-    //     if(txtval.substr(txtval.length - 1) == '\n'){
-    //         document.getElementById('treatment').value = txtval.substring(0,txtval.length - 1);
-    //     }
-    // });
-    //
-    // $(".text_areas6").focus(function() {
-    //     if(document.getElementById('outlook').value === ''){
-    //         document.getElementById('outlook').value +='• '+'\n';
-    //     }
-    // });
-    // $(".text_areas6").keyup(function(event){
-    //     var keycode = (event.keyCode ? event.keyCode : event.which);
-    //     if(keycode == '13'){
-    //         document.getElementById('outlook').value +='• ';
-    //     }
-    //     var txtval = document.getElementById('outlook').value;
-    //     if(txtval.substr(txtval.length - 1) == '\n'){
-    //         document.getElementById('outlook').value = txtval.substring(0,txtval.length - 1);
-    //     }
-    // });
-    //
-    // $(".text_areas7").focus(function() {
-    //     if(document.getElementById('prevention').value === ''){
-    //         document.getElementById('prevention').value +='• '+'\n';
-    //     }
-    // });
-    // $(".text_areas7").keyup(function(event){
-    //     var keycode = (event.keyCode ? event.keyCode : event.which);
-    //     if(keycode == '13'){
-    //         document.getElementById('prevention').value +='• ';
-    //     }
-    //     var txtval = document.getElementById('prevention').value;
-    //     if(txtval.substr(txtval.length - 1) == '\n'){
-    //         document.getElementById('prevention').value = txtval.substring(0,txtval.length - 1);
-    //     }
-    // });
-    //
-    // $(".text_areas8").focus(function() {
-    //     if(document.getElementById('source').value === ''){
-    //         document.getElementById('source').value +='• '+'\n';
-    //     }
-    // });
-    // $(".text_areas8").keyup(function(event){
-    //     var keycode = (event.keyCode ? event.keyCode : event.which);
-    //     if(keycode == '13'){
-    //         document.getElementById('source').value +='• ';
-    //     }
-    //     var txtval = document.getElementById('source').value;
-    //     if(txtval.substr(txtval.length - 1) == '\n'){
-    //         document.getElementById('source').value = txtval.substring(0,txtval.length - 1);
-    //     }
-    // });
-    //
-    // $(".text_areas9").focus(function() {
-    //     if(document.getElementById('causes').value === ''){
-    //         document.getElementById('causes').value +='• '+'\n';
-    //     }
-    // });
-    // $(".text_areas9").keyup(function(event){
-    //     var keycode = (event.keyCode ? event.keyCode : event.which);
-    //     if(keycode == '13'){
-    //         document.getElementById('causes').value +='• ';
-    //     }
-    //     var txtval = document.getElementById('causes').value;
-    //     if(txtval.substr(txtval.length - 1) == '\n'){
-    //         document.getElementById('causes').value = txtval.substring(0,txtval.length - 1);
-    //     }
-    // });
-    //
-    // $(".text_areas10").focus(function() {
-    //     if(document.getElementById('causes').value === ''){
-    //         document.getElementById('causes').value +='• '+'\n';
-    //     }
-    // });
-    // $(".text_areas10").keyup(function(event){
-    //     var keycode = (event.keyCode ? event.keyCode : event.which);
-    //     if(keycode == '13'){
-    //         document.getElementById('causes').value +='• ';
-    //     }
-    //     var txtval = document.getElementById('causes').value;
-    //     if(txtval.substr(txtval.length - 1) == '\n'){
-    //         document.getElementById('causes').value = txtval.substring(0,txtval.length - 1);
-    //     }
-    // });
-    //
-    // $(".text_areas11").focus(function() {
-    //     if(document.getElementById('causes').value === ''){
-    //         document.getElementById('causes').value +='• '+'\n';
-    //     }
-    // });
-    // $(".text_areas11").keyup(function(event){
-    //     var keycode = (event.keyCode ? event.keyCode : event.which);
-    //     if(keycode == '13'){
-    //         document.getElementById('causes').value +='• ';
-    //     }
-    //     var txtval = document.getElementById('causes').value;
-    //     if(txtval.substr(txtval.length - 1) == '\n'){
-    //         document.getElementById('causes').value = txtval.substring(0,txtval.length - 1);
-    //     }
-    // });
-    //
-    // $(".text_areas12").focus(function() {
-    //     if(document.getElementById('causes').value === ''){
-    //         document.getElementById('causes').value +='• '+'\n';
-    //     }
-    // });
-    // $(".text_areas12").keyup(function(event){
-    //     var keycode = (event.keyCode ? event.keyCode : event.which);
-    //     if(keycode == '13'){
-    //         document.getElementById('causes').value +='• ';
-    //     }
-    //     var txtval = document.getElementById('causes').value;
-    //     if(txtval.substr(txtval.length - 1) == '\n'){
-    //         document.getElementById('causes').value = txtval.substring(0,txtval.length - 1);
-    //     }
-    // });
-    //
-    // $(".text_areas13").focus(function() {
-    //     if(document.getElementById('causes').value === ''){
-    //         document.getElementById('causes').value +='• '+'\n';
-    //     }
-    // });
-    // $(".text_areas13").keyup(function(event){
-    //     var keycode = (event.keyCode ? event.keyCode : event.which);
-    //     if(keycode == '13'){
-    //         document.getElementById('causes').value +='• ';
-    //     }
-    //     var txtval = document.getElementById('causes').value;
-    //     if(txtval.substr(txtval.length - 1) == '\n'){
-    //         document.getElementById('causes').value = txtval.substring(0,txtval.length - 1);
-    //     }
-    // });
 
-    // $( "#progressbar" ).progressbar({
-    //     disabled: true,
-    //     value: 35,
-    //     max: 98,
-    //     min: 20,
-    //     classes: {
-    //         "ui-progressbar": "highlight"
-    //     }
-    // });
-    //
-    //
-    // //- .......... PROFILE OF DOCTOR AND PHARMACIST IF STUDENT ....................
-    // // $('.card-s').select(function () {
-    // //     // $('#tab1').active();
-    // //     // $('#city').hide();
-    // //     // $('#year_of_experience').hide();
-    // //     // $('#about_you').hide();
-    // //     // $('#qualification').hide();
-    // //     // $('#tab3').hide();
-    // //     // $('#register_doc').hide();
-    // // });
 
     //$('#profile2').hide();
     //$('#profile3').hide();
@@ -326,49 +94,6 @@ $(function () {
         });
     });
 
-    // $('#drug_dataa').click(function () {
-    //    $('#drug_list').hide();
-    // });
-    // $( "li", "#test" ).sort(function( a, b ) {
-    //     return $( a ).text() > $( b ).text();
-    // }).appendTo( "#test" );
-    // // TO ADD NEW TEXT FIELD IN MOLECULE DATA FORM
-    // $('#new_text').hide();
-    // $('#diagnosis_sub').hide();
-    // $('#new_info').hide();
-    // $('#close').hide();
-    // $('#list_input').hide();
-    // $('#add_button').click(function () {
-    //     $('#new_text').show();
-    //     $('#diagnosis_sub').show();
-    //     $('#new_info').show();
-    //     $('#close').show();
-    //     $('#list_input').show();
-    //     $('#close').click(function () {
-    //         $('#new_text').hide();
-    //         $('#new_info').hide();
-    //         $('#list_input').hide();
-    //         $('#close').hide();
-    //     });
-    // });
-    // TO CLOSE THE ABOVE OPENED TEXT FIELD IN MOLECULE DATA FORM
-    // $('#cl').click(function () {
-    //     $('#new_field').hide();
-    // });
-
-    //-------------------------- Drug Data view READ MORE On Clicking ------------//
-    // $('#read_more').toggle(function () {
-    //     $('#read_more').toggle();
-    //     // var i = 0;
-    //     // if(i%2 == 0) {
-    //     //     $('#read_more').show();
-    //     // }
-    //     // else {
-    //     //     $('#read_more').hide();
-    //     // }
-    //     // i=i+1;
-    // });
-
 
     $('.dropdown-button').dropdown({
         inDuration: 300,
@@ -389,19 +114,6 @@ $(function () {
 
     //- .................FOR DISEASE DATA FORM HIDING TEXT AREAS....................
 
-    // $('#subhead2').hide();
-    // $('#subhead_text').hide();
-    // $('#add_button').click(function ()  {
-    //     $('#subhead2').show();
-    //     $('#subhead_text').show();
-    // });
-
-    // $(".repeat").click(function (e) {
-    //     e.preventDefault();
-    //     var $self = $(this);
-    //     $self.before($self.prev('.repeated').clone());
-    //     //$self.remove();
-    // });
 
     //............................... For Diagnosis in Disease form...............//
     $('.repeat1').on('click', function() {
@@ -649,28 +361,28 @@ $(function () {
     //$('.next_line').add("<span>-&nbsp</span>").appendTo(document.body);
 
     // ------------------------ FOR LOGOUT -----------------------//
-    $('.logout').click(function(){
-
-        confirm("Are you sure you want to Logout?");
-        // event.preventDefault();
-        // event.stopPropagation();
-        alert('here!');
-        $.ajax({
-            url:'/logout',
-            // type: 'GET',
-            // content: 'application/json',
-            success: function (result) {
-                if (result.status === 'logout') {
-                    Materialize.toast(result.message, 2000);
-                    window.location = result.redirect;
-                }
-                else {
-                    Materialize.toast('Could Not Logout. Try Again!', 2000);
-                }
-            }
-        });
-
-    });
+    // $('.logout').click(function(){
+    //
+    //     confirm("Are you sure you want to Logout?");
+    //     // event.preventDefault();
+    //     // event.stopPropagation();
+    //     alert('here!');
+    //     $.ajax({
+    //         url:'/logout',
+    //         // type: 'GET',
+    //         // content: 'application/json',
+    //         success: function (result) {
+    //             if (result.status === 'logout') {
+    //                 Materialize.toast(result.message, 2000);
+    //                 window.location = result.redirect;
+    //             }
+    //             else {
+    //                 Materialize.toast('Could Not Logout. Try Again!', 2000);
+    //             }
+    //         }
+    //     });
+    //
+    // });
 
 
 
@@ -707,7 +419,6 @@ $(function () {
         var prevention = $('#prevention').val();
         var source = $('#source').val();
 
-        alert(symptoms);
         var data = {
             disease_name: disease_name,
             symptoms: symptoms,
@@ -726,14 +437,14 @@ $(function () {
         event.stopPropagation();
         if (confirm('Confirm to submit')) {
             $.ajax({
-                url: '/diseaseData',
+                url: '/health/diseaseData',
                 type: 'POST',
                 data: JSON.stringify(data),
                 contentType: 'application/json',
                 success: function (result) {
                     if(result.status === 'success') {
                         Materialize.toast(result.message,1000);
-                        window.location = '/health_care_provider?page=disease_data_form';
+                        window.location = '/health/health_care_provider?page=disease_data_form';
                     }
                     else{
                         Materialize.toast(result.message,1000);
@@ -808,14 +519,14 @@ $(function () {
         event.stopPropagation();
         if(confirm('Confirm to submit')){
             $.ajax({
-                url: '/drugData',
+                url: '/health/drugData',
                 type: 'POST',
                 data: JSON.stringify(data),
                 contentType: 'application/json',
                 success: function (result) {
                     if(result.status === "success") {
                         Materialize.toast(result.message,1000);
-                        window.location = '/health_care_provider?page=drug_data_form';
+                        window.location = '/health/health_care_provider?page=drug_data_form';
                     }
                     else{
                         Materialize.toast(result.message,1000);
@@ -913,14 +624,14 @@ $(function () {
         event.stopPropagation();
         if(confirm('Confirm to submit')) {
             $.ajax({
-                url: '/moleculeData',
+                url: '/health/moleculeData',
                 type: 'POST',
                 data: JSON.stringify(data),
                 contentType: 'application/json',
                 success: function (result) {
                     if(result.status === 'success') {
                         Materialize.toast(result.message,1000);
-                        window.location = '/health_care_provider?page=molecule_data_form';
+                        window.location = '/health/health_care_provider?page=molecule_data_form';
                     }
                     else{
                         Materialize.toast(result.message,1000);
@@ -1099,7 +810,7 @@ $(function () {
             profession: profession
         };
         $.ajax({
-            url : '/profession',
+            url : '/health/profession',
             type: 'POST',
             data : JSON.stringify(data),
             contentType:'application/json',
@@ -1120,7 +831,7 @@ $(function () {
             profession: profession
         };
         $.ajax({
-            url : '/profession',
+            url : '/health/profession',
             type: 'POST',
             data : JSON.stringify(data),
             contentType:'application/json',
@@ -1144,7 +855,7 @@ $(function () {
             profession: profession
         };
         $.ajax({
-            url : '/pharma_profession',
+            url : '/health/pharma_profession',
             type: 'POST',
             data : JSON.stringify(data),
             contentType:'application/json',
@@ -1165,7 +876,7 @@ $(function () {
             profession: profession
         };
         $.ajax({
-            url : '/pharma_profession',
+            url : '/health/pharma_profession',
             type: 'POST',
             data : JSON.stringify(data),
             contentType:'application/json',
@@ -1353,9 +1064,8 @@ $(function () {
         var gender = $("input[type='radio'][name='gender']:checked").val();
         var city = $('#city').val();
         var experience = $('#year_of_experience').val();
-        var email = $('#email').val();
         var about = $('#about_you').val();
-        alert(email);
+        var email = $('#email').val();
         var data = {
             title: title,
             name: name,
@@ -1363,23 +1073,21 @@ $(function () {
             city: city,
             experience: experience,
             about: about,
-            email: email
+            email : email
         };
         event.preventDefault();
         event.stopPropagation();
         $.ajax({
-            url: '/basic',
+            url: '/health/basic',
             type: 'POST',
             data: JSON.stringify(data),
             contentType: 'application/json',
             success: function (result) {
-                if(result.success === 'success') {
-                    Materialize.toast(result.message,1000);
+                if (result.success === 'success') {
+                    Materialize.toast(result.message, 1000);
                 }
-                else{
-                    Materialize.toast(result.message,1000);
-                    $('#email').focus();
-                    return false;
+                else {
+                    Materialize.toast(result.message, 1000);
                 }
             }
             //window.location = '/health_care_provider?page=profile_pharmacist';
@@ -1388,21 +1096,20 @@ $(function () {
         });
         //$('#tab2').focus();
         //$('#main_profile_doctor ul.tabs li.tab a').hover(function() {
-        $('#tab22').focus();
-        $('#basic_detail_pharma').hide();
-        $('#edu_special_pharma').show();
+        $('#tab2').focus();
+        $('#basic_detail').hide();
+        $('#edu_special').show();
     });
 
-    $('#edu_special_pharma').hide();
+    $('#edu_special').hide();
     $('#basic_details_pharma').click(function () {
-        var i=0;
         var title = $('#title').val();
         var name = $('#name').val();
         var gender = $("input[type='radio'][name='gender']:checked").val();
         var city = $('#city').val();
         var experience = $('#year_of_experience').val();
-        var email = $('#email').val();
         var about = $('#about_you').val();
+        var email = $('#email').val();
         var data = {
             title: title,
             name: name,
@@ -1410,50 +1117,30 @@ $(function () {
             city: city,
             experience: experience,
             about: about,
-            email: email
+            email : email
         };
-        event.preventDefault();
-        event.stopPropagation();
-        alert("i="+i);
         $.ajax({
-            url: '/pharma_basic',
+            url: '/health/pharma_basic',
             type: 'POST',
             data: JSON.stringify(data),
             contentType: 'application/json',
             success: function (result) {
-                if(result.success === 'success') {
-                    Materialize.toast(result.message,2000);
-                    //$('#tab2').focus();
-                    alert("new i ="+i);
-                    // return func();
-                    // $('#tab2').focus();
-                    // $('#basic_detail').hide();
-                    // $('#edu_special').show();
+                if (result.success === 'success') {
+                    Materialize.toast(result.message, 1000);
                 }
-
-                if(result.success === 'failure')
-                    {
-                    Materialize.toast(result.message,2000);
-                    $('#email').focus();
-                    i=1;
-                    alert("now i="+i);
-                    return false;
+                else {
+                    Materialize.toast(result.message, 1000);
                 }
             }
-
             //window.location = '/health_care_provider?page=profile_pharmacist';
             // $('#profile3').hide();
             // $('#main_profile_pharmacist').show();
         });
-        alert("c: i=" + i);
-        if (i == 0) {
-            $('#tab22').focus();
-            $('#basic_detail_pharma').hide();
-            $('#edu_special_pharma').show();
-        }
-        else {
-            alert("not submitted");
-        }
+        //$('#tab2').focus();
+        //$('#main_profile_doctor ul.tabs li.tab a').hover(function() {
+        $('#tab2').focus();
+        $('#basic_detail').hide();
+        $('#edu_special').show();
     });
 
     $('#education').click(function () {
@@ -1474,16 +1161,16 @@ $(function () {
         event.preventDefault();
         event.stopPropagation();
         $.ajax({
-            url: '/education',
+            url: '/health/education',
             type: 'POST',
             data: JSON.stringify(data),
             contentType: 'application/json',
             success: function (result) {
-                if(result.success === 'success') {
-                    Materialize.toast(result.message,1000);
+                if (result.success === 'success') {
+                    Materialize.toast(result.message, 1000);
                 }
-                else{
-                    Materialize.toast(result.message,1000);
+                else {
+                    Materialize.toast(result.message, 1000);
                 }
             }
         });
@@ -1515,16 +1202,16 @@ $(function () {
         event.preventDefault();
         event.stopPropagation();
         $.ajax({
-            url: '/pharma_education',
+            url: '/health/pharma_education',
             type: 'POST',
             data: JSON.stringify(data),
             contentType: 'application/json',
             success: function (result) {
-                if(result.success === 'success') {
-                    Materialize.toast(result.message,1000);
+                if (result.success === 'success') {
+                    Materialize.toast(result.message, 1000);
                 }
-                else{
-                    Materialize.toast(result.message,1000);
+                else {
+                    Materialize.toast(result.message, 1000);
                     return false;
                 }
             }
@@ -1542,16 +1229,14 @@ $(function () {
         var council_number = $('#council_reg_no').val();
         var council_name = $('#council_name').val();
         var council_year = $('#council_year').val();
-        // alert(council_number);
-        // alert(council_name);
-        // alert(council_year);
+
         var data = {
             council_number: council_number,
             council_name: council_name,
             council_year: council_year
         };
         $.ajax({
-            url: '/certificate',
+            url: '/health/certificate',
             type: 'POST',
             data: JSON.stringify(data),
             contentType: 'application/json',
@@ -1570,16 +1255,14 @@ $(function () {
         var council_number = $('#council_reg_no').val();
         var council_name = $('#council_name').val();
         var council_year = $('#council_year').val();
-        // alert(council_number);
-        // alert(council_name);
-        // alert(council_year);
+
         var data = {
             council_number: council_number,
             council_name: council_name,
             council_year: council_year
         };
         $.ajax({
-            url: '/pharma_certificate',
+            url: '/health/pharma_certificate',
             type: 'POST',
             data: JSON.stringify(data),
             contentType: 'application/json',
@@ -1706,11 +1389,10 @@ $(function () {
     $("#brand_name").autocomplete({
         source: function (request, response) {
             $.ajax({
-                url: "/brandsdata",
+                url: "/health/brandsdata",
                 type: "POST",
                 data: request,  // request is the value of search input
                 success: function (data) {
-                    //alert(data);
                     // Map response values to fiedl label and value
                     response($.map(data, function (el) {
                         return {

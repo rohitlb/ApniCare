@@ -36,7 +36,7 @@ div.collection#main_profile_doctor
                     h3 Personal Details
 
                 div.col.s12.m4.l4
-                    form(action='/upload', method='post', accept-charset='utf-8', enctype='multipart/form-data')
+                    form(action='/health/upload', method='post', accept-charset='utf-8', enctype='multipart/form-data')
                         span Upload Your Profile Pic
                         br
                         img(src="{{url}}", alt="Profile image")
@@ -217,4 +217,4 @@ div.collection#main_profile_doctor
                     div.col.s6.m4.l3.offset-l3.offset-m2
                         input.reset(type='reset')
                     div.col.s6.m4.l3
-                        input.button#certificate(type='submit' value='Submit' href='/health_care_provider?page=home')
+                        input.button#certificate(type='submit' value='Submit' href='/health/health_care_provider?page=home')

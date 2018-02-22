@@ -19,7 +19,7 @@ $(document).ready(function() {
 
         $.ajax(
             {
-                url: "/login",
+                url: "/weblogin",
                 method: 'POST',
                 data: JSON.stringify(data1),
                 contentType: 'application/json',
@@ -30,10 +30,10 @@ $(document).ready(function() {
                             window.location = '/users/profile';
                         }
                         if(result.value === 'doctor'){
-                            window.location = '/health_care_provider'
+                            window.location = '/health/health_care_provider'
                         }
                         if(result.value === 'pharma'){
-                            window.location = '/health_care_provider';
+                            window.location = '/health/health_care_provider';
                         }
 
                     }
@@ -261,7 +261,7 @@ $(document).ready(function() {
 
             $.ajax(
                 {
-                    url: "/userregister",
+                    url: "/users/userregister",
                     method: 'POST',
                     data: JSON.stringify(data),
                     contentType: 'application/json',
@@ -352,14 +352,14 @@ $(document).ready(function() {
 
             $.ajax(
                 {
-                    url: "/doctorregister",
+                    url: "/health/doctorregister",
                     method: 'POST',
                     data: JSON.stringify(data),
                     contentType: 'application/json',
                     success: function (result) {
 
                         if (result.status === "success") {
-                            window.location = '/health_care_provider?page=doctor_registered'
+                            window.location = '/health/health_care_provider?page=doctor_registered'
                         }
                         else {
                             Materialize.toast(result.message, 2000);
@@ -444,7 +444,7 @@ $(document).ready(function() {
 
             $.ajax(
                 {
-                    url: "/pharmaregister",
+                    url: "/health/pharmaregister",
                     method: 'POST',
                     data: JSON.stringify(data),
                     contentType: 'application/json',
@@ -452,7 +452,7 @@ $(document).ready(function() {
 
                         if (result.status === "success") {
                             Materialize.toast(result.message, 2000);
-                            window.location = '/health_care_provider?page=pharma_registered';
+                            window.location = '/health/health_care_provider?page=pharma_registered';
 
                         }
                         else {

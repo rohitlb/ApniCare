@@ -6,7 +6,7 @@ div.row
                         center
                             h2(style='font-weight:600;') Drug Data
 
-                            a.btn.waves-effect.waves-light.white-text.hoverable(href='/health_care_provider?page=drug_data_form' style='background-color:#660099; position:absolute;right:50px;') Contribute
+                            a.btn.waves-effect.waves-light.white-text.hoverable(href='/health/health_care_provider?page=drug_data_form' style='background-color:#660099; position:absolute;right:50px;') Contribute
                         br
                         br
 
@@ -81,5 +81,5 @@ div.row
                                             ul
                                                 each val in data
                                                     li
-                                                        a#drug_dataa(href='/health_care_provider?brand=' + val.brand_name)
+                                                        a#drug_dataa(href='/health/health_care_provider?brand=' + val.brand_name)
                                                             h5(name=val.brand_name, style="text-transform: capitalize; width: 228px;margin-top: 0px;") #{val.brand_name}

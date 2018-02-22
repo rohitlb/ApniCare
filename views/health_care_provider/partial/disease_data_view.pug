@@ -10,61 +10,61 @@ div.row
                         span.center
                             ul
                                 li.active
-                                    a.btn2.all.hoverable(href='/health_care_provider?page=disease_data' type='all') All
+                                    a.btn2.all.hoverable(href='/health/health_care_provider?page=disease_data' type='all') All
                                 li
-                                    a.btn2.hoverable(href='/health_care_provider?page=disease_data') A
+                                    a.btn2.hoverable(href='/health/health_care_provider?page=disease_data') A
                                 li
-                                    a.btn2.hoverable(href='/health_care_provider?page=disease_data') B
+                                    a.btn2.hoverable(href='/health/health_care_provider?page=disease_data') B
                                 li
-                                    a.btn2.hoverable(href='/health_care_provider?page=disease_data') C
+                                    a.btn2.hoverable(href='/health/health_care_provider?page=disease_data') C
                                 li
-                                    a.btn2.hoverable(href='/health_care_provider?page=disease_data') D
+                                    a.btn2.hoverable(href='/health/health_care_provider?page=disease_data') D
                                 li
-                                    a.btn2.hoverable(href='/health_care_provider?page=disease_data') E
+                                    a.btn2.hoverable(href='/health/health_care_provider?page=disease_data') E
                                 li
-                                    a.btn2.hoverable(href='/health_care_provider?page=disease_data') F
+                                    a.btn2.hoverable(href='/health/health_care_provider?page=disease_data') F
                                 li
-                                    a.btn2.hoverable(href='/health_care_provider?page=disease_data') G
+                                    a.btn2.hoverable(href='/health/health_care_provider?page=disease_data') G
                                 li
-                                    a.btn2.hoverable(href='/health_care_provider?page=disease_data') H
+                                    a.btn2.hoverable(href='/health/health_care_provider?page=disease_data') H
                                 li
-                                    a.btn2.hoverable(href='/health_care_provider?page=disease_data') I
+                                    a.btn2.hoverable(href='/health/health_care_provider?page=disease_data') I
                                 li
-                                    a.btn2.hoverable(href='/health_care_provider?page=disease_data') J
+                                    a.btn2.hoverable(href='/health/health_care_provider?page=disease_data') J
                                 li
-                                    a.btn2.hoverable(href='/health_care_provider?page=disease_data') K
+                                    a.btn2.hoverable(href='/health/health_care_provider?page=disease_data') K
                                 li
-                                    a.btn2.hoverable(href='/health_care_provider?page=disease_data') L
+                                    a.btn2.hoverable(href='/health/health_care_provider?page=disease_data') L
                                 li
-                                    a.btn2.hoverable(href='/health_care_provider?page=disease_data') M
+                                    a.btn2.hoverable(href='/health/health_care_provider?page=disease_data') M
                                 li
-                                    a.btn2.hoverable(href='/health_care_provider?page=disease_data') N
+                                    a.btn2.hoverable(href='/health/health_care_provider?page=disease_data') N
                                 li
-                                    a.btn2.hoverable(href='/health_care_provider?page=disease_data') O
+                                    a.btn2.hoverable(href='/health/health_care_provider?page=disease_data') O
                                 li
-                                    a.btn2.hoverable(href='/health_care_provider?page=disease_data') P
+                                    a.btn2.hoverable(href='/health/health_care_provider?page=disease_data') P
                                 li
-                                    a.btn2.hoverable(href='/health_care_provider?page=disease_data') Q
+                                    a.btn2.hoverable(href='/health/health_care_provider?page=disease_data') Q
                                 li
-                                    a.btn2.hoverable(href='/health_care_provider?page=disease_data') R
+                                    a.btn2.hoverable(href='/health/health_care_provider?page=disease_data') R
                                 li
-                                    a.btn2.hoverable(href='/health_care_provider?page=disease_data') S
+                                    a.btn2.hoverable(href='/health/health_care_provider?page=disease_data') S
                                 li
-                                    a.btn2.hoverable(href='/health_care_provider?page=disease_data') T
+                                    a.btn2.hoverable(href='/health/health_care_provider?page=disease_data') T
                                 li
-                                    a.btn2.hoverable(href='/health_care_provider?page=disease_data') U
+                                    a.btn2.hoverable(href='/health/health_care_provider?page=disease_data') U
                                 li
-                                    a.btn2.hoverable(href='/health_care_provider?page=disease_data') V
+                                    a.btn2.hoverable(href='/health/health_care_provider?page=disease_data') V
                                 li
-                                    a.btn2.hoverable(href='/health_care_provider?page=disease_data') W
+                                    a.btn2.hoverable(href='/health/health_care_provider?page=disease_data') W
                                 li
-                                    a.btn2.hoverable(href='/health_care_provider?page=disease_data') X
+                                    a.btn2.hoverable(href='/health/health_care_provider?page=disease_data') X
                                 li
-                                    a.btn2.hoverable(href='/health_care_provider?page=disease_data') Y
+                                    a.btn2.hoverable(href='/health/health_care_provider?page=disease_data') Y
                                 li
-                                    a.btn2.hoverable(href='/health_care_provider?page=disease_data') Z
+                                    a.btn2.hoverable(href='/health/health_care_provider?page=disease_data') Z
                                 li
-                                    a.btn2.all.hoverable(href='/health_care_provider?page=disease_data' type='other') Other
+                                    a.btn2.all.hoverable(href='/health/health_care_provider?page=disease_data' type='other') Other
 
         div.col.s12.m12.l12
             div.col.grey.lighten-3.s12.m8.l8.offset-l1
@@ -161,7 +161,7 @@ div.row
         div.modal#modal2
             div.modal-content
                 h4.center.teal-text.darken-2 Your Feedback is valuable...
-                form.col.l10.m10.s10#form_feedback(method='POST' action='/health_care_provider?page=disease_data')
+                form.col.l10.m10.s10#form_feedback(method='POST' action='/health/health_care_provider?page=disease_data')
                     div
                         each val in data.disease
                             input#about(type="hidden" value='Disease Data-' + (val.disease_name.toUpperCase()))

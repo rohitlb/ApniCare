@@ -2,8 +2,8 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 
-var Search = new Schema({
+var OrganSearch = new Schema({
         name: {type: String, trim:true}
 });
 
-module.exports = mongoose.model('search',Search);
+module.exports = mongoose.model('organsearch',OrganSearch);

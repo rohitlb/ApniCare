@@ -13,12 +13,12 @@ html
                                 a.button-collapse#menubar.top-nav.hide-on-large-only(data-activates='side_navbar')
                                     i.fa.fa-bars.fa-2x
 
-                                a.brand-logo.center-on-small-only.hide-on-large-only(href='/health_care_provider') ApniCare
+                                a.brand-logo.center-on-small-only.hide-on-large-only(href='/health/health_care_provider') ApniCare
 
                                 ul.right.hide-on-med-and-down
                                     li
                                         //div.col.s4.m4.l4.offset-l2.offset-m1.offset-s1
-                                        a.btn.btn-flat.white-text(href='/health_care_provider?page=notifications' data-balloon-pos="down" data-balloon="Notifications" data-delay="50" style="background-color: #660099")
+                                        a.btn.btn-flat.white-text(href='/health/health_care_provider?page=notifications' data-balloon-pos="down" data-balloon="Notifications" data-delay="50" style="background-color: #660099")
                                             i.material-icons.large(style="font-size: 35px") notifications
                                     li
                                         a.btn.btn-flat.white-text.dropdown-button(href='#' data-activates='profile_drop' data-beloworigin='true' style="background-color: #660099")
@@ -26,11 +26,11 @@ html
 
                 ul.dropdown-content#profile_drop
                     li
-                        a(href="/health_care_provider?page=profile") My Profile
+                        a(href="/health/health_care_provider?page=profile") My Profile
                     li
                         a(href='#') My Activity
                     li
-                        a.logout(href="/logout") Logout
+                        a.logout(href="/weblogout") Logout
 
         div.col.s12.m12.l8.offset-s4.offset-m4.offset-l4
                 if(page == 'home')

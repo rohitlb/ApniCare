@@ -6,7 +6,7 @@ div.row
                 center
                     h2(style='font-weight:600;') Disease Data
 
-                    a.btn.waves-effect.waves-light.white-text.hoverable(href='/health_care_provider?page=disease_data_form' style='background-color:#660099; position:absolute;right:50px;') Contribute
+                    a.btn.waves-effect.waves-light.white-text.hoverable(href='/health/health_care_provider?page=disease_data_form' style='background-color:#660099; position:absolute;right:50px;') Contribute
                 br
                 br
 
@@ -80,4 +80,4 @@ div.row
                                 .brands
                                     each val in data
                                         h5(name=val.disease_name, style="width: 228px;margin-top: 0px;")
-                                            a(href='/health_care_provider?disease=' + val.disease_name).to_capital #{val.disease_name}
+                                            a(href='/health/health_care_provider?disease=' + val.disease_name).to_capital #{val.disease_name}

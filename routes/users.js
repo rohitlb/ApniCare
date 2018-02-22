@@ -36,7 +36,8 @@ var Strength = require('../model/strength');
 var Disease = require('../model/disease');
 //require molecule
 var Molecule = require('../model/molecule');
-var Search = require('../model/search');
+var OrganSearch = require('../model/organsearch');
+var SymptomSearch = require('../model/symptomsearch');
 
 
 /////Data having Issue
@@ -47,7 +48,7 @@ function requiresLogin(req, res, next) {
         return next();
     } else {
         //var err = new Error('You must be logged in to view this page.');
-        res.send({status : "logout" , message : "Please Login First"});
+        res.render('/');
     }
 }
 
@@ -55,7 +56,6 @@ function userrequiresLogin(req, res, next) {
     if (req.session && req.session.userID) {
         return next();
     } else {
-        //var err = new Error('You must be logged in to view this page.');
         res.redirect('/');
     }
 }
@@ -82,6 +82,63 @@ router.get('/profile',userrequiresLogin, function (req, res) {
     }
 });
 
+router.post('/userregister', function (req, res) {
+
+    //regex for checking whether entered number is indian or not
+    var num = /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[6789]\d{9}|(\d[ -]?){10}\d$/.test(req.body.number);
+    if (num === false) {
+        res.send({status: "failure", message: "wrong number ! please try again "});
+        return;
+    }
+    // regex for checking whether password is numeric or not (pass iff pwd is numeric)
+    var password = /[0-9]{4}/.test(req.body.password);
+    if (password === false) {
+        res.send({status: "failure", message: "please enter a numeric password and try again"});
+        return;
+    }
+    var email = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(req.body.email);
+    if(email === false ){
+        res.send({status: "failure", message: "please enter a valid email and try again"});
+        return;
+    }
+    User.findOne({number: req.body.number}).exec(function (err, result) {
+        if (err) {
+            console.log(err);
+            res.end();
+        } else {
+            if (result) {
+                res.send({status: "failure", message: "user Already Exists"});
+                res.end();
+            } else {
+                bcrypt.genSalt(10, function (err, salt) {
+                    bcrypt.hash(req.body.password, salt, function (err, hash) {
+                        if(err){
+                            console.log(err);
+                        }
+                        else {
+                            var user = new User({
+                                name: req.body.name,
+                                email: req.body.email,
+                                number: req.body.number,
+                                password: hash
+                            });
+                            user.save(function (err, results) {
+                                if (err) {
+                                    console.log(err);
+                                    res.end();
+                                } else {
+                                    req.session.userID = results._id;
+                                    res.send({status: "success",  message: "successfully registered"});
+                                    res.end();
+                                }
+                            });
+                        }
+                    });
+                });
+            }
+        }
+    });
+});
 
 //***************************************frontend*******************************************
 
@@ -501,7 +558,7 @@ router.post('/searchweb', function(req, res) {
             });
         },
         Organs: function (callback) {  // gives organs sorted list
-            Search.find({name : search}, '-_id name').sort({"updated_at":-1}).sort({"created_at":-1}).exec(function (err, result) {
+            OrganSearch.find({name : search}, '-_id name').sort({"updated_at":-1}).sort({"created_at":-1}).exec(function (err, result) {
                 if (err) {
                     console.log(err);
                 }
@@ -511,7 +568,7 @@ router.post('/searchweb', function(req, res) {
             });
         },
         Symptoms: function (callback) {  // gives organs sorted list
-            Search.find({name : search}, '-_id name').sort({"updated_at":-1}).sort({"created_at":-1}).exec(function (err, result) {
+            SymptomSearch.find({name : search}, '-_id name').sort({"updated_at":-1}).sort({"created_at":-1}).exec(function (err, result) {
                 if (err) {
                     console.log(err);
                 }

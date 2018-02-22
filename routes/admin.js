@@ -38,8 +38,8 @@ var Strength = require('../model/strength');
 var Disease = require('../model/disease');
 //require molecule
 var Molecule = require('../model/molecule');
-var Search = require('../model/search');
-// to save profile pic of user
+var OrganSearch = require('../model/organsearch');
+var SymptomSearch = require('../model/symptomsearch');
 
 //AdminPanel
 var DrugData = require('../model/drugdatalive');
@@ -1129,10 +1129,10 @@ router.get('/adminDiseaseDataMakeLive',adminrequiresLogin,function(req,res){
                 }
                 else{
                     async.each(result[0].organs.subhead,function(organ,callback){
-                        var search  = new Search({
+                        var organsearch  = new OrganSearch({
                             name : organ
                         });
-                        search.save(function(organerr,organ){
+                        organsearch.save(function(organerr,organ){
                             if(organerr){
                                 console.log(organerr);
                             }
@@ -1146,10 +1146,10 @@ router.get('/adminDiseaseDataMakeLive',adminrequiresLogin,function(req,res){
                         }
                         else{
                             async.each(result[0].symptoms,function(sympt,callback){
-                                var search  = new Search({
+                                var symptomsearch  = new SymptomSearch({
                                     name : sympt
                                 });
-                                search.save(function(sympterr){
+                                symptomsearch.save(function(sympterr){
                                     if(sympterr){
                                         console.log(sympterr);
                                     }
