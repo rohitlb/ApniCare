@@ -2114,6 +2114,77 @@ router.get('/diseasesdata',function(req,res){
     })
 });
 
+/// doctor save images here ///
+
+cloudinary.config({
+    cloud_name: 'dgxhqin7e',
+    api_key:    '825578459372821',
+    api_secret: 'wk9ez8EkyiKVeGzGWD0rlUS1l0U'
+});
+
+router.post('/doctorupload',healthrequiresLogin, fileParser, function(req, res){
+    var imageFile = req.files.image;
+
+    cloudinary.uploader.upload(imageFile.path, function(result){
+        if (result.url) {
+
+            //url should be stored in the database .. it is the path for profile pic of user
+            var path = result.url;
+
+            Doctor.update({_id: req.session.doctorID}, {
+                    $set: {
+                        path: path
+                    }
+                }
+                , function (err, result) {
+                    if (err) {
+                        console.log(err);
+                    }
+                    else {
+                        console.log(result);
+                        res.redirect('/health/health_care_provider?page=profile');
+                    }
+                });
+
+        } else {
+            //if error
+            console.log('Error uploading to cloudinary: ',result);
+            res.send('did not get url');
+        }
+    });
+});
+
+router.post('/pharmaupload',healthrequiresLogin, fileParser, function(req, res){
+    var imageFile = req.files.image;
+
+    cloudinary.uploader.upload(imageFile.path, function(result){
+        if (result.url) {
+
+            //url should be stored in the database .. it is the path for profile pic of user
+            var path = result.url;
+
+            Pharma.update({_id: req.session.pharmaID}, {
+                    $set: {
+                        path: path
+                    }
+                }
+                , function (err, result) {
+                    if (err) {
+                        console.log(err);
+                    }
+                    else {
+                        console.log(result);
+                        res.redirect('/health/health_care_provider?page=profile');
+                    }
+                });
+
+        } else {
+            res.send('did not get url');
+        }
+    });
+});
+
+
 
 module.exports = router;
 

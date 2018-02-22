@@ -36,13 +36,13 @@ div.collection#main_profile_doctor
                     h3 Personal Details
 
                 div.col.s12.m4.l4
-                    form(method='POST' action='/upload' accept-charset='UTF-8' enctype='multipart/form-data' id='uploadImage')
+                    form(method='POST' action='/health/doctorupload' accept-charset='UTF-8' enctype='multipart/form-data' id='uploadImage')
                         span Upload A Profile Pic
                         br
                         div.image-upload
                             label(for="image")
-                                img(src="{{image_src}}", style='width:150px;height:150px;' alt="Profile image")
-                            input(type='file' name='image')#image
+                                img(src= data[0].path  style={width: '250px', height: '150px'} alt="Profile image")
+                        input(type='file' name='image')#image
                         input.button(type='submit' name='submit' value='UPLOAD')
 
                         //div.image-upload

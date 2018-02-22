@@ -1127,7 +1127,6 @@ router.post('/useremergency',userrequiresLogin,function (req,res) {
 });
 
 
-
 //======================= save profile pic ====================================
 //using cloudinary
 
@@ -1183,10 +1182,5 @@ router.post('/upload',userrequiresLogin, fileParser, function(req, res){
         }
     });
 });
-
-
-
-
-
 
 module.exports = router;
