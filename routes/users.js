@@ -1131,7 +1131,7 @@ router.post('/useremergency',userrequiresLogin,function (req,res) {
 //======================= save profile pic ====================================
 //using cloudinary
 
-router.get('/upload', function(res,res){
+router.get('/upload', function(req,res){
     res.render('rohitimage') ;
 });
 
@@ -1142,9 +1142,8 @@ cloudinary.config({
     api_secret: 'wk9ez8EkyiKVeGzGWD0rlUS1l0U'
 });
 
-router.post('/upload', fileParser, function(req, res){
+router.post('/upload',userrequiresLogin, fileParser, function(req, res){
     console.log("app");
-
     var imageFile = req.files.image;
 
     cloudinary.uploader.upload(imageFile.path, function(result){
@@ -1152,8 +1151,33 @@ router.post('/upload', fileParser, function(req, res){
 
             //url should be stored in the database .. it is the path for profile pic of user
             console.log(result.url);
-            res.send({image_src : result.url});
+            var path = result.url;
+            //res.send({image_src : result.url});
             //res.render('upload', {url: result.url});
+            User.find({_id: req.session.userID}, function (err, result) {
+                if (err) {
+                    console.log(err);
+                }
+                else {
+
+                    User.update({_id: req.session.userID}, {
+                        $set: {
+                            path: path
+                        }
+                    }
+                    // , function (err, result) {
+                    //     if (err) {
+                    //         console.log(err);
+                    //     }
+                    //     else {
+                    //         res.send({status: "success", message: "Successfully image Updated"});
+                    //     }
+                    // }
+
+                    );
+                }
+                res.send({status: "success", message: "Successfully image Updated"});
+            });
         } else {
             //if error
             console.log('Error uploading to cloudinary: ',result);
