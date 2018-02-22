@@ -823,7 +823,7 @@ router.post('/appupdateforgotpassword',appuserrequiresLogin,function(req,res){
 //user profile info for app
 router.post('/appprofile',appuserrequiresLogin, function (req, res) {
     var sid = req.body.sid;
-    console.log("appprofile session ID = "+req.session.userID);
+    console.log("appprofile session ID = "+sid);
     if (sid) {
         User.find({_id : sid}, '-_id -__v -password -registered_at',function(err,user){
             if(err){
