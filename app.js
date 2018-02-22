@@ -135,16 +135,19 @@ app.get('/rohitsearching',function (req,res) {
 
 //===============================================middle wares=================================
 
-//User registration
+
+//APP User registration
 app.post('/appuserregister', function (req, res) {
     var d = req.body.number;
     var b = req.body.password;
     var c = req.body.name;
     var sid = req.body.sid;
+    // var sid = req.body.sid;
 
     console.log("number"+d);
     console.log("pswd"+b);
     console.log("name"+c);
+    console.log("sid"+sid);
 
     //regex for checking whether entered number is indian or not
     var num = /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[6789]\d{9}|(\d[ -]?){10}\d$/.test(req.body.number);
@@ -201,6 +204,7 @@ app.post('/appuserregister', function (req, res) {
         }
     });
 });
+
 
 
 //User registration
