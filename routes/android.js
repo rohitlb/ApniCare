@@ -1412,7 +1412,7 @@ router.post('/DOSlist',function (req,res) {
     }
 });
 
-// same molecules same strengths => output is list of brands
+// same molecules same strengths => output is list of brands + jois brand k liye search kiya wo nai ana chaiye
 router.post('/similarbrands',function(req,res){
     var molecule = req.body.molecule;
     var strength = req.body.strength;
