@@ -1412,7 +1412,7 @@ router.post('/DOSlist',function (req,res) {
     }
 });
 
-// same molecule same strength => output is list of brands
+// same molecules same strengths => output is list of brands
 router.post('/similarbrands',function(req,res){
     var molecule = req.body.molecule;
     var strength = req.body.strength;
