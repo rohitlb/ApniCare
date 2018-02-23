@@ -20,7 +20,7 @@ div#p_Pcard3
                     label.p_label.strong Income Range
                     select.black-text.browser-default#p_Pbox
                         option.disabled.selected(value=" ")
-                        if((data.income == 'low')||(data.income == " "))
+                        if((data.income == 'low')||(data.income == null))
                             option(value="low" selected) Low < 10,000
                             option(value="normal") Normal 10,000-30,000
                             option(value="high") High > 30,000
