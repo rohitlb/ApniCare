@@ -1,31 +1,44 @@
-.e{
-    color: grey;
-}
 #footer0,#footer1,#footer2,#footer3
 {
-    background-color: #111111;
-    font-family: OpenSans-Regular,sans-serif;
+    z-index: 5;
+    background-color: rgb(250, 251, 252);
+    font-family: Whitney-SemiBold, Whitney;
     font-size: 15px;
     line-height: 24px;
-    font-weight: 300;
+    font-weight: 500;
     letter-spacing: .025em;
     padding: 0px;
     margin: 0px;
-    color: #fff;
+    color: #111111;
 }
-#footer1{
-    background-color: #0f0f0f;
+#footer0 {
+    background-color: rgba(237, 238, 239, 0.92);
 }
-#footer2{
-background-color: #0d0d0d;
+#footer1 {
+    margin-top: -4%;
+    background-color: rgba(245, 246, 247, 0.92);
 }
-#footer3{
-    background-color: #000000;
+#footer3 {
+    margin-top: -3%;
+    background-color: rgba(245, 246, 247, 0.92);
 }
+
+#footer0,#footer1 a{
+    color:black;
+    font-size: 14px;
+    font-weight: 600;
+
+}
+#footer0,#footer1 h5{
+    color:black;
+    font-weight: 600;
+
+}
+
 
 #madeforIndia{
     font-size: 15px;
-    margin-left: -25px;
+    margin-left: 2px;
     margin-top: -30px;
 }
 #logoimg2{
@@ -33,13 +46,32 @@ background-color: #0d0d0d;
     margin-left: 30%;
 }
 #logo1{
-    font-size: 37px;
-    margin-top: -4%;
+    font-weight: 300;
+    font-family: OpenSans-Regular, sans-serif;
+    color:black;
+    font-size: 30px;
+    margin-top: 0%;
+    margin-right: 4%;
+}
+#footer3 #logo1:before{
+    content: "";
+    background-image:url("../images/aaa.png");
+    background-size: 100% 100%;
+    display: inline-block;
+
+    /*size of your image*/
+    height: 50px;
+    width:100px;
+
+    /*if you want to change the position you can use margins or:*/
+    position:relative;
+    top:15px;
+    right:-20px;
 }
 #copyright{
     font-size: 15px;
     margin-top: -1%;
-    margin-left: -26px;
+    margin-left: 0px;
 }
 #footer4,#footer5
 {

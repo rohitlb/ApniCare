@@ -71,9 +71,8 @@ router.get('/profile',userrequiresLogin, function (req, res) {
                 console.log(err);
             }
             else{
-                var page = "profile";
                 res.render('profile', {
-                    page: page,
+                    page1: 'profile',
                     user : user[0].name
                 });
                 res.end();
@@ -192,11 +191,22 @@ router.get('/ApniCare/information',function (req,res) {
                 console.log(err);
             }
             else {
-                res.render('index',
-                    {
-                        page: page,
-                        data: result
-                    });
+                if (req.session.userID) {
+                    res.render('profile',
+                        {
+                            page1: 'profile',
+                            page: page,
+                            data: result
+                        });
+                }
+                else {
+                    res.render('index',
+                        {
+                            page1:'index',
+                            page: page,
+                            data: result
+                        });
+                }
             }
         });
     }
@@ -207,11 +217,22 @@ router.get('/ApniCare/information',function (req,res) {
                 console.log(err);
             }
             else {
-                res.render('index',
-                    {
-                        page: page,
-                        data: result
-                    });
+                if (req.session.userID) {
+                    res.render('profile',
+                        {
+                            page1: 'profile',
+                            page: page,
+                            data: result
+                        });
+                }
+                else {
+                    res.render('index',
+                        {
+                            page1:'index',
+                            page: page,
+                            data: result
+                        });
+                }
             }
         });
     }
@@ -223,11 +244,24 @@ router.get('/ApniCare/information',function (req,res) {
             }
             else {
                 if (brand != "") {
-                    res.render('index',
-                        {
-                            page: page,
-                            data: brand
-                        });
+
+                    if (req.session.userID) {
+                        res.render('profile',
+                            {
+                                page1: 'profile',
+                                page: page,
+                                data: brand
+                            });
+                    }
+                    else {
+                        res.render('index',
+                            {
+                                page1:'index',
+                                page: page,
+                                data: brand
+                            });
+                    }
+
                 }
                 else {
                     res.send({details: "failure", message: "No brand exist"});
@@ -289,11 +323,23 @@ router.get('/ApniCare/information/Molecules',function (req,res) {
                             });
                         }
                         console.log(datas.output[0]);
-                        res.render('index',
-                            {
-                                page: 'molecule_name',
-                                data: datas.output[0]
-                            });
+                        if (req.session.userID) {
+                            res.render('profile',
+                                {
+                                    page1: 'profile',
+                                    page: 'molecule_name',
+                                    data: datas.output[0]
+                                });
+                        }
+                        else {
+                            res.render('index',
+                                {
+                                    page1:'index',
+                                    page: 'molecule_name',
+                                    data: datas.output[0]
+                                });
+                        }
+
                     }
                 });
             }
@@ -355,11 +401,24 @@ router.get('/ApniCare/information/Diseases',function (req,res) {
                             });
                         }
                         console.log(datas.output[0]);
-                        res.render('index',
-                            {
-                                page: 'disease_name',
-                                data: datas.output[0]
-                            });
+                        if (req.session.userID) {
+                            res.render('profile',
+                                {
+                                    page1: 'profile',
+                                    page: 'disease_name',
+                                    data: datas.output[0]
+                                });
+                        }
+                        else {
+                            res.render('index',
+                                {
+                                    page1:'index',
+                                    page: 'disease_name',
+                                    data: datas.output[0]
+                                });
+                        }
+
+
                     }
                 });
             }
@@ -408,11 +467,24 @@ router.get('/ApniCare/information/Drug',function (req,res) {
                     rating : brand.rates
                 });
                 page = req.query.page;
-                res.render('index',
-                    {
-                        page: 'drug_data_view',
-                        data: datas.all[0]
-                    });
+                if (req.session.userID) {
+                    res.render('profile',
+                        {
+                            page1: 'profile',
+                            page: 'drug_data_view',
+                            data: datas.all[0]
+                        });
+                }
+                else {
+                    res.render('index',
+                        {
+                            page1:'index',
+                            page: 'drug_data_view',
+                            data: datas.all[0]
+                        });
+                }
+
+
                 console.log(datas.all[0]);
             }
             else{

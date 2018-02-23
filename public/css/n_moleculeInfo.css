@@ -3,7 +3,6 @@
 .drug_alphabets {
     width: fit-content;
     height: fit-content;
-    background: teal;
     font-size: 14px;
     position: relative;
     padding: 2px;
@@ -21,7 +20,7 @@
     margin: 1.5px;
     text-transform: uppercase;
     color: #000;
-    line-height: 0.8;
+    line-height: 1;
     padding: 2px;
     font-family: OpenSans-Regular;
 }
@@ -32,24 +31,26 @@ ul {
 ul li {
     list-style: none;
 }
-::after, ::before {
-    box-sizing: border-box;
-}
 li {
     text-align: -webkit-match-parent;
 }
 .drug_alphabets li a.btn2 {
     font-size: 22px;
-    width: fit-content;
-    height: 24px;
+    width: 50px;
+    height: 32px;
     padding: 2px 1px 2px 1px;
     color: black;
     background-color: white;
 }
-.drug_alphabets li a.btn2:hover {
+.drug_alphabets li a.all {
+    width: 80px;
+}
+.drug_alphabets li a.btn2:focus {
     box-shadow: lavender;
-    font-size: 28px;
-    background-color: lavender;
+    background-color: blue;
+}
+.drug_alphabets li a.btn2:hover {
+    background-color: lightgray;
 }
 .drug_alphabets li a.btn2.active {
     background-color: lavender;
@@ -61,7 +62,7 @@ li {
     position: relative;
     text-decoration: none;
     background: #FFF;
-    border: #d1ecf1 solid 1px;
+    border: lightgrey solid 1px;
 }
 
 
@@ -84,74 +85,83 @@ li {
         column-count: 1;
     }
 }
-#mol_row1_subrow5{
-    background-color: white;
-    height: 500px;
-}
-
-
-/*----------------------------------------------------------------------------------------------------------------------------------------------------------------*/
-#mdiv1{
-    background-color: black;
-    font-family: OpenSans-Regular, sans-serif;
-    margin:0px;
-    padding: 0px;
-}
-#moleculeInformation1{
-    color: black;
-    margin-top: -20px;
-    padding: 0px;
-    background-color:lavender;
-}
-#mcol1{
-    background-color: lightgrey;
-    margin: 0px;
-}
-#mcol2{
-    margin-bottom: -20px;
-    background-color: lavender;
-}
-#mcol3{
-    background-color: lightgray;
-}
-
 
 /*---------------------------molecule section----------------------------------------------------------------------*/
-#mol_row1{
-    margin-top: 0.5%;
-    margin-left: 11%;
+
+#moleculeInformation1{
+    color: black;
+    font-family:Source Sans Pro,Verdana,sans-serif ;
+    padding-top: 2%;
 }
-                #mol_row1_subrow1{
-                    padding-left: 7px;
-                    margin-left: -10px;
-                    margin-top: 3%;
-                    border-radius: 15px;
-                    background-color: white;
-                }
+#moleculeInformation1 .heading{
+    font-size: 1.2888rem;
+    text-transform: capitalize;
+}
+#moleculeInformation1 #data{
+    background-color: lavender;
+}
+#moleculeInformation1 #data a{
+    font-size: 20px;
+}
+#moleculeInformation1 #data .m_p{
+    color: black;
+    padding-left: 5%;
+    font-size: 21px;
+    font-weight: 600;
+}
+#moleculeInformation1 #data .m_p_info{
+    margin-left: 10%;
+    color:#2d2d2d;
+}
+#moleculeInformation1 #data .m_p1{
+    font-size: 18px;
+    font-weight: 600;
+    margin-left: -2%;
+    color:#2d2d2d;
+}
+#moleculeInformation1 #data .m_p1:before{
+    color:black;
+    content : "►";
+}
+#moleculeInformation1 #data .divider{
+    margin-left: 5%;
+    color: black;
+    height: 1.5px;
+    margin-right: 5%;
+}
+#moleculeInformation1 #data ul{
+    list-style-type:'none';
+}
+#pageContent{
+    margin-top: 5%;
+    position: fixed;
+    right: 1%;
+}
+#pageContent ul{
+    font-size: 15px;
+}
+#mol_col1{
+    padding: 0px;
+    margin: 0px;
+    border-radius: 15px;
+    background-color: white;
+}
 
-
-        #mol_col1{
-            padding: 0px;
-            margin: 0px;
-            border-radius: 15px;
-            background-color: white;
-        }
-
-                #mol_row1_subrow2{
-                    border-top-left-radius: 5px;
-                    border-top-right-radius: 5px;
-                    margin-top: -10px;
-                    padding-top: 1px;
-                    background-color:#660099;
-                    color: white;
-                }
-                #mol_row1_subrow3{
-                    background-color:#660099;
-                    color: white;
-                    height: 36px;
-                    margin-bottom: 10px;
-                    margin-top: -5px;
-                }
+#mol_row1_subrow2{
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    margin-top: -10px;
+    padding-top: 1px;
+    background-color:#660099;
+    color: white;
+}
+#mol_row1_subrow3{
+    background-color:#660099;
+    color: white;
+    height: 36px;
+    margin-bottom: 10px;
+    margin-top: -5px;
+}
 #input3{
     margin-left: 20%;
 }
@@ -168,22 +178,8 @@ li {
     width: 10%;
     height: 98%;
 }
-.m_p{
-    color: black;
-    padding-left: 8%;
-    font-size: 21px;
-    font-weight: 600;
-}
-.m_p_info{
-    margin-left: 15%;
-    color:#2d2d2d;
-}
-.m_p1{
-    font-size: 18px;
-    font-weight: 600;
-    margin-left: -8%;
-    color:#2d2d2d;
-}
+
+
 #mol_row1_subrow4{
     z-index: 2;
     position: fixed;
@@ -200,7 +196,7 @@ li {
 }
 span.next_line, ul li.next_line, .next_line {
     white-space: pre-line;
-    list-style-type: disc;
+    list-style-type: none;
 }
 .to_capital {
     text-transform: capitalize;
@@ -218,6 +214,7 @@ span.next_line, ul li.next_line, .next_line {
     position: relative;
     z-index: 1;
 }
+
 
 .flowtext{
 

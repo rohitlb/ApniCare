@@ -142,9 +142,8 @@ app.get('/', function (req, res) {
             res.redirect('/health/health_care_provider');
         }
         else{
-            var page="index";
             res.render('index',{
-                page : page
+                page1 : 'index'
             });
             res.end();
         }

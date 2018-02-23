@@ -9,7 +9,7 @@ html
         link(rel='stylesheet', href='/resources/demos/style.css')
         script(src='https://code.jquery.com/jquery-1.12.4.js')
         script(src='https://code.jquery.com/ui/1.12.1/jquery-ui.js')
-        script(src="/js/organsearch.js")
+        script(src="/js/search.js")
         link(href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css" rel="stylesheet")
 
         link(href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet")
@@ -26,7 +26,7 @@ html
         //script(src="/js/organsearch.js")
         //--------------css files-----------------
         link(href="/css/n_index.css" rel="stylesheet")
-        //link(href="/css/n_moleculeInfo.css" rel="stylesheet")
+        link(href="/css/n_moleculeInfo.css" rel="stylesheet")
         link(href="/css/n_footer.css" rel="stylesheet")
         link(href="/css/n_MyProfile.css" rel="stylesheet")
 
@@ -52,7 +52,7 @@ html
             include ./UserProfile/MyProfile
         else
 
-            include ./n_partial/header
+            include ./users/partial/header
         div
-            include ./n_partial/footer
+            include ./users/partial/footer
 

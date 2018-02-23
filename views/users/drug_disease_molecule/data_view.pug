@@ -1,0 +1,104 @@
+div.scroll
+    div.row#moleculeInformation1
+        div.col.s1.m1.l2
+        div.col.s10.m10.l8
+            if(page == 'Drug_Information')
+                //*********************drug front view*****************************
+                div.row.heading
+                    h2 Drugs Data
+                //include ./drug
+            else if (page == 'Disease_Information')
+                //*******************disease front view*******************************
+                div.row.heading
+                    h2 Disease Data
+                //include ./disease_front_view
+            else if (page == 'Molecule_Information')
+                //*************************************molecule front viw*******************************************************
+                div.row.heading
+                    h2 Molecule Data
+            div.row.center#alphabets
+                div.drug_alphabets.pull-left
+                    span.center
+                        ul.center
+                            li.active
+                                a.btn2.all.hoverable(href='#' type='all') All &nbsp
+                            li
+                                a.btn2.hoverable(href='#') A
+                            li
+                                a.btn2.hoverable(href='#') B
+                            li
+                                a.btn2.hoverable(href='#') C
+                            li
+                                a.btn2.hoverable(href='#') D
+                            li
+                                a.btn2.hoverable(href='#') E
+                            li
+                                a.btn2.hoverable(href='#') F
+                            li
+                                a.btn2.hoverable(href='#') G
+                            li
+                                a.btn2.hoverable(href='#') H
+                            li
+                                a.btn2.hoverable(href='#') I
+                            li
+                                a.btn2.hoverable(href='#') J
+                            li
+                                a.btn2.hoverable(href='#') K
+                            li
+                                a.btn2.hoverable(href='#') L
+                            li
+                                a.btn2.hoverable(href='#') M
+                            li
+                                a.btn2.hoverable(href='#') N
+                            li
+                                a.btn2.hoverable(href='#') O
+                            li
+                                a.btn2.hoverable(href='#') P
+                            li
+                                a.btn2.hoverable(href='#') Q
+                            li
+                                a.btn2.hoverable(href='#') R
+                            li
+                                a.btn2.hoverable(href='#') S
+                            li
+                                a.btn2.hoverable(href='#') T
+                            li
+                                a.btn2.hoverable(href='#') U
+                            li
+                                a.btn2.hoverable(href='#') V
+                            li
+                                a.btn2.hoverable(href='#') W
+                            li
+                                a.btn2.hoverable(href='#') X
+                            li
+                                a.btn2.hoverable(href='#') Y
+                            li
+                                a.btn2.hoverable(href='#') Z
+                            li
+                                a.btn2.all.hoverable(href='#' type='other') Other
+            div.row.center#data
+                div.col.l10.s10.m10
+                    br
+                    div.four-cols
+                        ul.brands
+                            each val in data
+                                //------------------------------------values-----------------------------------------------------
+
+                                if(page == 'Drug_Information')
+                                    //*********************drug front view*****************************
+                                    a#drug_data(name=val.brand_name,title='drug name' href='/users/ApniCare/information/Drug?brand=' + val.brand_name) #{val.brand_name.toLocaleUpperCase()}
+                                        br
+                                    //include ./drug
+                                if (page == 'Disease_Information')
+                                    //*******************disease front view*******************************
+                                    a(name=val.disease_name,href='/users/ApniCare/information/Diseases?disease=' + val.disease_name) #{val.disease_name.toUpperCase()}
+                                    br
+                                    //include ./disease_front_view
+
+                                if (page == 'Molecule_Information')
+                                    //*************************************molecule front viw*******************************************************
+                                    a(name=val.molecule_name,href='/users/ApniCare/information/Molecules?molecule=' + val.molecule_name) #{val.molecule_name.toUpperCase()}
+                                    br
+
+
+        div.col.s1.m1.l2
