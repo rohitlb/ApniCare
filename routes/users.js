@@ -90,9 +90,10 @@ router.post('/userregister', function (req, res) {
         return;
     }
     // regex for checking whether password is numeric or not (pass iff pwd is numeric)
-    var password = /[0-9]{4}/.test(req.body.password);
+
+    var password = /^[0-9]{4}$/.test(req.body.password);
     if (password === false) {
-        res.send({status: "failure", message: "please enter a numeric password and try again"});
+        res.send({status: "failure", message: "please enter a 4 digit numeric password and try again"});
         return;
     }
     var email = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(req.body.email);
