@@ -37,7 +37,7 @@ html
 
     body
         if(page == 'AboutUs' || page == 'Contact' || page == 'NeedHelp' || page == 'FeedBack')
-            include UserProfile/AboutUS
+            include ./users/profile_info/AboutUS
 
         else if(page == 'disease_name'||page == 'drug_data_view'||page == 'molecule_name'||page == 'Drug_Information'||page =='Disease_Information'||page == 'Molecule_Information')
             include ./users/partial/header
@@ -45,5 +45,7 @@ html
 
         else
             include ./users/partial/header
+        .divider
+        .divider
         div
             include ./users/partial/footer

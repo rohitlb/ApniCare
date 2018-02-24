@@ -14,7 +14,7 @@ body{
     .modal{
         margin-top: 5%;
         width: 90%;
-        min-height: 60%;
+        min-height: 70%;
         max-height: 150%;
     }
     .modal .modal-content{
@@ -33,14 +33,17 @@ body{
     }
     #signupbut{
         background-color: #660099;
-        width: 7%;
-        margin:0px;
+        width: 35%;
+        margin-left:5px;
         border: 0px;
         padding: 0px;
         border-radius: 10px;
     }
     #notification{
         margin-right: 2px;
+    }
+    #irow3{
+        margin-left: -80px;
     }
 
 }
@@ -69,11 +72,14 @@ body{
     }
     #signupbut{
         background-color: #660099;
-        width: 10%;
+        width: 15%;
         border-radius: 10px;
     }
     #notification{
         margin-right: 25px;
+    }
+    #irow3{
+        margin-left: -40px;
     }
     #irow3 ul li a{
         display: inline-block;
@@ -85,6 +91,7 @@ body{
         padding-right:1px;
         padding-left: 1px;
         text-decoration: none;
+
     }
     #irow3 ul li{
         padding: 0px;
@@ -99,6 +106,11 @@ body{
 
 }
 @media only screen and (min-width:1024px){
+    #signupbut{
+        background-color: #660099;
+        width: 10%;
+        border-radius: 10px;
+    }
 
     .image1 span
     {
@@ -198,11 +210,7 @@ input, .input-field {
 .icon{
     color: black;
 }
-#signupbut{
-    background-color: #660099;
-    width: 10%;
-    border-radius: 10px;
-}
+
 #notification{
     margin-right: 25px;
 }

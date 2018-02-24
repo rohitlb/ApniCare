@@ -157,6 +157,7 @@ router.get('/profile/userprofile',function (req,res) {
             if(result !== ""){
                 res.render('profile',
                     {
+                        page1:'profile',
                         page:page,
                         data : result
                     });

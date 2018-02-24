@@ -1,0 +1,35 @@
+div#p_Pcard3
+    div
+        div.row.p_Pheadings1
+            a(href="#") Emergency Contact Details
+            a.btn-flat.small.right#p_UPedit Edit
+            a.btn-flat.small.right#p_UPcancel Cancel
+            br
+            br
+        form#p_InfoForm
+            div.row.Pformfordetail
+                div.row
+                    .input-field.col.s6
+                        i.p_i.material-icons.prefix account_circle
+                        input.p_input.validate.black-text#p_names(type="text", value=data.relative_name)
+                        label.p_label(for="p_names") Name Of Relative
+                        br
+                        br
+                div.row
+                    .input-field.col.s6
+                        i.p_i.material-icons.prefix group
+                        input.p_input.validate.black-text#p_relation(type="text" , value=data.relation)
+                        label.p_label(for="p_relation") Relation
+                        br
+                        br
+
+                div.row
+                    .input-field.col.s6
+                        i.p_i.material-icons.prefix phone
+                        input.p_input.validate#p_Pphone.black-text(type="tel" , value=data.relative_contact)
+                        label.p_label(for="p_Pphone") Relative Mobile Number
+                        br
+                        br
+
+                div.row
+                    a.btn.right#p_EmergencyContactSubmit Submit

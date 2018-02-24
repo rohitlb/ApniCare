@@ -22,19 +22,19 @@ div#idiv1(style={background:'#f9f9f9'})
                     span#logo1 ApniCare
                     br
                     span.span3
-        div.col.s12.m5.l7.hide-on-med-and-down#irow3
-            ul(style={color:'#660099',padding:'0px',margin:'0px',border:'0px'})
-                li(style={padding:'0px',margin:'0px',border:'0px'})
+        div.col.s12.m5.l6.hide-on-med-and-down#irow3
+            ul
+                li
                     a(href='/users/ApniCare/information?page=Drug_Information')
                         span.btn-flat Drug Information
-                li(style={padding:'0px',margin:'0px',border:'0px'})
+                li
                     a(href='/users/ApniCare/information?page=Disease_Information')
                         span.btn-flat Disease Information
-                li(style={padding:'0px',margin:'0px',border:'0px'})
+                li
                     a(href='/users/ApniCare/information?page=Molecule_Information')
                         span.btn-flat Molecule Information
 
-        div.col.s12.m6.l2
+        div.col.s12.m6.l3
             .search-container
                 form
                     .input-field
@@ -42,25 +42,11 @@ div#idiv1(style={background:'#f9f9f9'})
                         button#btnSearch(type='submit')
                             i.fa.fa-search
 .divider
-//div.row#extr
-    div.col.s12.m12.l12
-        br
-        br
-        br
-        if(page1 == 'index')
-            include ../login-signup/main
-        if(page1 == 'profile')
-            a.dropdown-button.btn-flat.center.right.black-text#user(data-activates='dropdown1') #{number}
-                i.material-icons.black-text.large person
-                //span #{user}
-        i.material-icons.black-text.right#notification notifications
-
-            //.bs-example
-                label.black-text.label-icon(for='search-query')
-                input#search-query(type='text',placeholder="Search here")
 //if(page == 'AboutUs' || page == 'Contact' || page == 'NeedHelp' || page == 'FeedBack')
             include ../profile_info
-if(page == 'Drug_Information'||page =='Disease_Information'||page == 'Molecule_Information')
+if(page == 'My_Profile' || page == 'Contact_Us' || page == 'My_Activity' || page == 'Refer_Friends' || page == 'Confidential_Information' || page == 'Emergency_Contact_Details' || page == 'Address')
+    include ../profile_info/MyProfile
+else if(page == 'Drug_Information'||page =='Disease_Information'||page == 'Molecule_Information')
     include ../drug_disease_molecule/data_view
 else if(page == 'molecule_name'||page == 'drug_data_view'||page == 'disease_name')
     include ../drug_disease_molecule/data_description

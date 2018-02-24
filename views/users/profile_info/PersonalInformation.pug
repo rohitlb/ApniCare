@@ -1,0 +1,155 @@
+div#p_Pcard3
+    div
+        div.row.p_Pheadings
+            a(href='/users/ApniCare?page=My Profile') Personal Information
+            a.btn-flat.small.right#p_UPedit Edit
+            a.btn-flat.small.right#p_UPcancel Cancel
+            br
+            br
+        form#p_InfoForm
+            div.row.p_Pformfordetail
+                div.row
+                    i.p_i.material-icons.prefix cake
+                    label.p_label Date Of Birth
+                    .input-field.p_input1#p_dateofbirth
+                        input#p_datepicker.p_textbox.black-text(type="text" , value=data.dob).datepicker
+                        //label.p_label(for="p_datepicker")
+                div.row
+                    i.p_i.material-icons.prefix wc
+                    label.p_label Your Gender
+                    br
+                    br
+                    span &nbsp &nbsp &nbsp &nbsp
+                        if((data.gender == 'male')||(data.gender == null))
+                             input.p_input.with-gap(name="gender", type="radio", id="Ptest5", value='male' checked)
+                             label.p_label(for="Ptest5")  Male
+                             input.p_input.with-gap(name="gender", type="radio", id="Ptest6", value="female")
+                             label.p_label(for="Ptest6") Female
+                             input.p_input.with-gap(name="gender", type="radio", id="Ptest7", value="other")
+                             label.p_label(for="Ptest7") Others
+                        else if(data.gender == 'female')
+                             input.p_input.with-gap(name="gender", type="radio", id="Ptest5", value='male')
+                             label.p_label(for="Ptest5")  Male
+                             input.p_input.with-gap(name="gender", type="radio", id="Ptest6", value="female" checked)
+                             label.p_label(for="Ptest6") Female
+                             input.p_input.with-gap(name="gender", type="radio", id="Ptest7", value="other")
+                             label.p_label(for="Ptest7") Others
+                        else if(data.gender == 'other')
+                             input.p_input.with-gap(name="gender", type="radio", id="Ptest5", value='male')
+                             label.p_label(for="Ptest5")  Male
+                             input.p_input.with-gap(name="gender", type="radio", id="Ptest6", value="female")
+                             label.p_label(for="Ptest6") Female
+                             input.p_input.with-gap(name="gender", type="radio", id="Ptest7", value="other" checked)
+                             label.p_label(for="Ptest7") Others
+                br
+                div.row.black-text
+                    i.p_i.material-icons.prefix opacity
+                    label.p_label.strong Blood Group
+                    select.browser-default#p_Pbox
+                        option.disabled.selected(value="")
+                        if((data.blood_group == null)||(data.blood_group == 'A+'))
+                                option(value="A+" selected) A+
+                                option(value="A-") A-
+                                option(value="B+") B+
+                                option(value="B-" ) B-
+                                option(value="AB+") AB+
+                                option(value="AB-") AB-
+                                option(value="O+") O+
+                                option(value="O-") O-
+                        if(data.blood_group == 'A-')
+                            option(value="A+") A+
+                            option(value="A-" selected) A-
+                            option(value="B+") B+
+                            option(value="B-" ) B-
+                            option(value="AB+") AB+
+                            option(value="AB-") AB-
+                            option(value="O+") O+
+                            option(value="O-") O-
+                        if(data.blood_group == 'B+')
+                            option(value="A+" ) A+
+                            option(value="A-") A-
+                            option(value="B+" selected) B+
+                            option(value="B-" ) B-
+                            option(value="AB+") AB+
+                            option(value="AB-") AB-
+                            option(value="O+") O+
+                            option(value="O-") O-
+                        if(data.blood_group == 'B-')
+                            option(value="A+" ) A+
+                            option(value="A-") A-
+                            option(value="B+") B+
+                            option(value="B-" selected) B-
+                            option(value="AB+") AB+
+                            option(value="AB-") AB-
+                            option(value="O+") O+
+                            option(value="O-") O-
+                        if(data.blood_group == 'AB+')
+                            option(value="A+" ) A+
+                            option(value="A-") A-
+                            option(value="B+") B+
+                            option(value="B-" ) B-
+                            option(value="AB+" selected) AB+
+                            option(value="AB-") AB-
+                            option(value="O+") O+
+                            option(value="O-") O-
+                        if(data.blood_group == 'AB-')
+                            option(value="A+" ) A+
+                                option(value="A-") A-
+                                option(value="B+") B+
+                                option(value="B-" ) B-
+                                option(value="AB+") AB+
+                                option(value="AB-" selected) AB-
+                                option(value="O+") O+
+                                option(value="O-") O-
+                        if(data.blood_group == 'O+')
+                            option(value="A+" ) A+
+                            option(value="A-") A-
+                            option(value="B+") B+
+                            option(value="B-" ) B-
+                            option(value="AB+") AB+
+                            option(value="AB-") AB-
+                            option(value="O+" selected) O+
+                            option(value="O-") O-
+                        if(data.blood_group == 'O-')
+                            option(value="A+" ) A+
+                            option(value="A-") A-
+                            option(value="B+") B+
+                            option(value="B-" ) B-
+                            option(value="AB+") AB+
+                            option(value="AB-") AB-
+                            option(value="O+") O+
+                            option(value="O-" selected) O-
+                div.row
+                    br
+                    i.p_i.material-icons.prefix favorite
+                    label.p_label Marital Status
+                    br
+                    br
+                    span &nbsp &nbsp &nbsp &nbsp
+                    if((data.marital_status == null)||(data.marital_status == 'married'))
+                        input.p_input.with-gap(name="marital", type="radio", id="p_Ptest1", value="married" checked)
+                        label.p_label(for="p_Ptest1") Married
+                        input.p_input.with-gap(name="marital", type="radio", id="p_Ptest2", value="unmarried")
+                        label.p_label(for="p_Ptest2") UnMarried
+                    if(data.marital_status == 'unmarried')
+                        input.p_input.with-gap(name="marital", type="radio", id="p_Ptest1", value="married")
+                        label.p_label(for="p_Ptest1") Married
+                        input.p_input.with-gap(name="marital", type="radio", id="p_Ptest2", value="unmarried" checked)
+                        label.p_label(for="p_Ptest2") UnMarried
+                div.row
+                    br
+                    i.p_i.material-icons.prefix import_export
+                    label.p_label Height
+                    .input-field.input1
+                        input.p_input.p_textbox.black-text(type="text", value=data.height)#p_Pheight
+                        //label.p_label(for="p_Pheight") Height
+                div.row
+                    br
+                    i.p_i.material-icons.prefix help
+                    label.p_label Weight
+                    .input-field.p_input1
+                        input.p_input.textbox.black-text(type="text", value=data.weight)#p_Pweight
+                        //label.p_label(for="p_Pheight") Weight
+                        br
+                div.row
+                    a.btn.right#p_PersonalDetailsSubmit Submit
