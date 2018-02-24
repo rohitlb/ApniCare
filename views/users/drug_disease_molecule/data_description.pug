@@ -234,7 +234,7 @@
                                         //each sub, index in other.subhead
                                         li#symptoms
                                             a(href='#symptoms')
-                                                p.m_p_info= other
+                                                p.next_line.m_p_info= other
                             if(val.risk_factor != '')
                                 p.m_p Who is at Risk for #{val.disease_name.toUpperCase()}?
                                 li#risk.next_line.m_p_info
@@ -261,8 +261,8 @@
                                     li#organs
                                         p.m_p.m_p= other
                                         li.next_line.m_p_info
-                                            span.small_font.left ►
-                                            span.next_line.m_p_info.small_font= val.organs.info[index]
+                                            //span.left ►
+                                            span= val.organs.info[index]
                             if(val.treatment != '')
                                 p.m_p.strong How is #{val.disease_name.toUpperCase()} Treated?
                                 li#treatment.next_line.m_p_info
@@ -277,7 +277,8 @@
                                     span #{val.prevention}
                             if(val.source != '')
                                 p.m_p#source Source:&nbsp
-                                span.next_line.m_p_info #{val.source}
+                                p
+                                    span.next_line.m_p_info #{val.source}
                             h5.right
                                 p.small_font(style={padding: '0px', margin: '0px', border: '0px'}) Information Submitted By :-
                                 span.m_p(style={color: '#660099'}) #{data.titles} #{data.names.toUpperCase()}
