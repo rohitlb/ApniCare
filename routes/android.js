@@ -1537,6 +1537,8 @@ router.post('/similarbrand',function(req,res) {
     var brand = req.body.brand;
     var dosages = {};
     dosages['data'] = [];
+    var strengths = {};
+    strengths['data'] = [];
     Brand.find({brand_name: brand}, "-_id brand_name").populate({
         path: 'dosage_id', select: "-_id dosage_form"
         , populate: {path: "strength_id", select: "-_id potent_substance.name potent_substance.molecule_strength"}
@@ -1545,31 +1547,60 @@ router.post('/similarbrand',function(req,res) {
             async.each(result, function (brands, callback) {
                 async.each(brands.dosage_id, function (dosage, callback) {
                     dosages['data'].push(dosage.dosage_form);
+                    // async.each(dosage.strength_id,function(strength,callback){
+                    //     strengths['data']
+                    // });
                 });
             });
-            console.log(dosages.data);
-            var matchdosage = {};
-            matchdosage['matchdata'] = [];
+            var matchbrand = {};
+            matchbrand['matchdata'] = [];
             Brand.find({}, '-_id brand_name').where({dosage_id: {$size: dosages.data.length}})
                 .populate({path: "dosage_id", select: "-_id dosage_form"})
                 .exec(function (err, brands) {
                     async.each(brands, function (total, callback) {
+                        var x = 0;
                         if (total.brand_name != brand) {
                             async.each(total.dosage_id, function (match, callbacks) {
-                                console.log((dosages.data.indexOf(match.dosage_form) > -1));
                                 if((dosages.data.indexOf(match.dosage_form) > -1) === true) {
-                                    console.log('1');
+                                    x = x + 1;
                                     callbacks();
                                 }
-                                console.log('2');
-                                    callback();
-
+                                else{
+                                    callbacks();
+                                }
                             });
-                            matchdosage['matchdata'].push(total.brand_name);
+                            if(x === dosages.data.length){
+                                matchbrand['matchdata'].push(total.brand_name);
+                            }
+                        }
+                        else {
+                            callback();
                         }
                     });
-                    console.log(matchdosage.matchdata);
-                    res.send({status: "success", data: brands});
+                    console.log(matchbrand.matchdata);
+                    async.each(matchbrand.matchdata,function(singlebrand,callback) {
+                        Brand.find({brand_name: singlebrand}, "-_id brand_name").populate({
+                            path: 'dosage_id',
+                            select: "-_id dosage_form"
+                            ,
+                            populate: {
+                                path: "strength_id",
+                                select: "-_id potent_substance.name potent_substance.molecule_strength"
+                            }
+                        }).exec(function (err, Brands) {
+                            if (err) {
+                                console.log(err);
+                            }
+                            else {
+                                async.each(Brands,function(singledosage,callback){
+                                    async.each(singledosage.dosage_id,function(strength,callback){
+                                        console.log(strength)
+                                    });
+                                });
+                            }
+                        });
+                    });
+                    res.send({status: "success", data: result});
                 });
         });
 });

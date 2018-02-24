@@ -1678,7 +1678,8 @@ router.post('/drugData',function(req,res){
     var categories = req.body.categories;
     var primarily_used_for = req.body.primarily_used_for;
     var types = req.body.types;
-    var dosage_form = (req.body.dosage_form).replace(/\b\w/g, function(l){ return l.toUpperCase() });
+    var dosage_form = (req.body.dosage_form);
+    //.replace(/\b\w/g, function(l){ return l.toUpperCase() });
     var strength = req.body.strength1;
     var potent_name_array = req.body.subhead111;
     var potent_strength = req.body.subhead222;
