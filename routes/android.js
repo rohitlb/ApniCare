@@ -1533,8 +1533,46 @@ router.post('/searchall',function (req,res) {
     });
 });
 
+router.post('/similarbrand',function(req,res) {
+    var brand = req.body.brand;
+    var dosages = {};
+    dosages['data'] = [];
+    Brand.find({brand_name: brand}, "-_id brand_name").populate({
+        path: 'dosage_id', select: "-_id dosage_form"
+        , populate: {path: "strength_id", select: "-_id potent_substance.name potent_substance.molecule_strength"}
+    })
+        .exec(function (err, result) {
+            async.each(result, function (brands, callback) {
+                async.each(brands.dosage_id, function (dosage, callback) {
+                    dosages['data'].push(dosage.dosage_form);
+                });
+            });
+            console.log(dosages.data);
+            var matchdosage = {};
+            matchdosage['matchdata'] = [];
+            Brand.find({}, '-_id brand_name').where({dosage_id: {$size: dosages.data.length}})
+                .populate({path: "dosage_id", select: "-_id dosage_form"})
+                .exec(function (err, brands) {
+                    async.each(brands, function (total, callback) {
+                        if (total.brand_name != brand) {
+                            async.each(total.dosage_id, function (match, callbacks) {
+                                console.log((dosages.data.indexOf(match.dosage_form) > -1));
+                                if((dosages.data.indexOf(match.dosage_form) > -1) === true) {
+                                    console.log('1');
+                                    callbacks();
+                                }
+                                console.log('2');
+                                    callback();
 
-
+                            });
+                            matchdosage['matchdata'].push(total.brand_name);
+                        }
+                    });
+                    console.log(matchdosage.matchdata);
+                    res.send({status: "success", data: brands});
+                });
+        });
+});
 
 
 module.exports = router;
