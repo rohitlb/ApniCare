@@ -34,6 +34,8 @@ var Dosage = require('../model/dosage');
 var Strength = require('../model/strength');
 //require for disease
 var Disease = require('../model/disease');
+var CategoryData = require('../model/categorydatalive');
+
 //require molecule
 var Molecule = require('../model/molecule');
 var OrganSearch = require('../model/organsearch');

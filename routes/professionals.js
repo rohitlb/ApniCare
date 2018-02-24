@@ -1854,6 +1854,189 @@ router.post('/drugData',function(req,res){
         res.send({status : 'failure' , message : 'Field Can\'t be empty'})
     }
 });
+router.post('/drugData',function(req,res){
+    var company_name = req.body.company_name;
+    console.log('reaches drugs');
+    var brand_name = (req.body.brand_name).replace(/\b\w/g, function(l){ return l.toUpperCase() });
+    var categories = req.body.categories;
+    var primarily_used_for = req.body.primarily_used_for;
+    var types = req.body.types;
+    var dosage_form = (req.body.dosage_form);
+    //.replace(/\b\w/g, function(l){ return l.toUpperCase() });
+    var strength = req.body.strength1;
+    var potent_name_array = req.body.subhead111;
+    var potent_strength = req.body.subhead222;
+    var potent_name = [];
+    for(var x = 0; x < potent_name_array.length; x++){
+        potent_name.push(potent_name_array[x].charAt(0).toUpperCase()+potent_name_array[x].slice(1));
+    }
+    var packaging = req.body.packaging;
+    var price = req.body.price;
+    var prescription = req.body.prescription;
+    var dose_taken = req.body.dose_taken;
+    var dose_timing = req.body.dose_timing;
+    var warnings = req.body.warnings;
+    var ticket = req.body.ticket;
+    if((brand_name != null)&&(company_name != null)&&(potent_name != null)&&(dosage_form != null)) {
+        if (req.session.doctorID) {
+            var name = req.session.doctorID;
+        }
+        if (req.session.pharmaID) {
+            var name = req.session.pharmaID;
+        }
+        DrugData.find({company_name : company_name , brand_name : brand_name , dosage_form : dosage_form , strength : strength},function(errs,results){
+            if(results != ""){
+                res.send({status : 'failure' , message : 'Drug Already Exist'});
+            }
+            else{
+                Company.find({company_name : company_name},function(err,result){
+                    if(result != ""){
+                        Brand.find({_id : result[0].brand_id , brand_name : brand_name},function(err1,result1){
+                            if(result1 != ""){
+                                Dosage.find({_id : result1[0].dosage_id , dosage_form : dosage_form},function(err2,result2){
+                                    if(result2 != ""){
+                                        Strength.find({_id : result2[0].strength_id , strength : strength},function(err3,result3){
+                                            if(result3[0] === undefined){
+                                                var drugData = new DrugData({
+                                                    company_name: company_name,
+                                                    brand_name: brand_name,
+                                                    categories: categories,
+                                                    primarily_used_for: primarily_used_for,
+                                                    types: types,
+                                                    dosage_form: dosage_form,
+                                                    strength: strength,
+                                                    potent_substance: {
+                                                        name: potent_name,
+                                                        molecule_strength: potent_strength
+                                                    },
+                                                    packaging: packaging,
+                                                    price: price,
+                                                    prescription: prescription,
+                                                    dose_taken: dose_taken,
+                                                    dose_timing: dose_timing,
+                                                    warnings: warnings,
+                                                    submitted_by: name,
+                                                    ticket: ticket
+                                                });
+                                                drugData.save(function (err) {
+                                                    if (err) {
+                                                        console.log(err);
+                                                    }
+                                                    else {
+                                                        res.send({status:'success', message:'New medicine added'});
+                                                    }
+                                                });
+                                            }
+                                            else{
+                                                res.send({status : 'failure' , message : 'Drug Already Exist'});
+                                            }
+                                        });
+                                    }
+                                    else{
+                                        var drugData = new DrugData({
+                                            company_name: company_name,
+                                            brand_name: brand_name,
+                                            categories: categories,
+                                            primarily_used_for: primarily_used_for,
+                                            types: types,
+                                            dosage_form: dosage_form,
+                                            strength: strength,
+                                            potent_substance: {
+                                                name: potent_name,
+                                                molecule_strength: potent_strength
+                                            },
+                                            packaging: packaging,
+                                            price: price,
+                                            prescription: prescription,
+                                            dose_taken: dose_taken,
+                                            dose_timing: dose_timing,
+                                            warnings: warnings,
+                                            submitted_by: name,
+                                            ticket: ticket
+                                        });
+                                        drugData.save(function (err) {
+                                            if (err) {
+                                                console.log(err);
+                                            }
+                                            else {
+                                                res.send({status:'success', message:'New medicine added'});
+                                            }
+                                        });
+                                    }
+                                });
+                            }
+                            else{
+                                var drugData = new DrugData({
+                                    company_name: company_name,
+                                    brand_name: brand_name,
+                                    categories: categories,
+                                    primarily_used_for: primarily_used_for,
+                                    types: types,
+                                    dosage_form: dosage_form,
+                                    strength: strength,
+                                    potent_substance: {
+                                        name: potent_name,
+                                        molecule_strength: potent_strength
+                                    },
+                                    packaging: packaging,
+                                    price: price,
+                                    prescription: prescription,
+                                    dose_taken: dose_taken,
+                                    dose_timing: dose_timing,
+                                    warnings: warnings,
+                                    submitted_by: name,
+                                    ticket: ticket
+                                });
+                                drugData.save(function (err) {
+                                    if (err) {
+                                        console.log(err);
+                                    }
+                                    else {
+                                        res.send({status:'success', message:'New medicine added'});
+                                    }
+                                });
+                            }
+                        });
+                    }
+                    else{
+                        var drugData = new DrugData({
+                            company_name: company_name,
+                            brand_name: brand_name,
+                            categories: categories,
+                            primarily_used_for: primarily_used_for,
+                            types: types,
+                            dosage_form: dosage_form,
+                            strength: strength,
+                            potent_substance: {
+                                name: potent_name,
+                                molecule_strength: potent_strength
+                            },
+                            packaging: packaging,
+                            price: price,
+                            prescription: prescription,
+                            dose_taken: dose_taken,
+                            dose_timing: dose_timing,
+                            warnings: warnings,
+                            submitted_by: name,
+                            ticket: ticket
+                        });
+                        drugData.save(function (err) {
+                            if (err) {
+                                console.log(err);
+                            }
+                            else {
+                                res.send({status:'success', message:'New medicine added'});
+                            }
+                        });
+                    }
+                });
+            }
+        });
+    }
+    else{
+        res.send({status : 'failure' , message : 'Field Can\'t be empty'})
+    }
+});
 
 router.post('/diseaseData',function(req,res) {
     var disease_name = (req.body.disease_name).replace(/\b\w/g, function(l){ return l.toUpperCase() });
