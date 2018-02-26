@@ -16,11 +16,12 @@ var mongoDBStore = require('connect-mongodb-session')(session);
 mongoose.Promise = promise;
 var logger = require('morgan');
 var async = require('async');
-
+var url = require('url');
 var admin = require('./routes/admin');
 var users = require('./routes/users');
 var professionals = require('./routes/professionals');
 var android = require('./routes/android');
+
 
 var keys = require('./private/keys');
 
@@ -501,7 +502,7 @@ app.post('/checkforgotpassword',function (req,res) {
             console.log(err);
         }
         else {
-            if ((result.Doctor != "") || (result.User != "") || (result.Pharma)) {
+            if ((result.Doctor != "") || (result.User != "") || (result.Pharma != "")) {
                 var options = {
                     method: 'GET',
                     url: 'http://2factor.in/API/V1/' + keys.api_key() + '/SMS/' + number + '/AUTOGEN',

@@ -187,7 +187,7 @@ router.get('/ApniCare/information',function (req,res) {
     var brand = req.query.brand;
     if(req.query.page=='Molecule_Information') {
         page = req.query.page;
-        Molecule.find({}, '-_id molecule_name').exec(function (err, result) {
+        Molecule.find({}, '-_id molecule_name').sort({molecule_name : 1}).exec(function (err, result) {
             if (err) {
                 console.log(err);
             }
@@ -213,7 +213,7 @@ router.get('/ApniCare/information',function (req,res) {
     }
     if(req.query.page=='Disease_Information') {
         page = req.query.page;
-        Disease.find({}, '-_id disease_name').exec(function (err, result) {
+        Disease.find({}, '-_id disease_name').sort({disease_name : 1}).exec(function (err, result) {
             if (err) {
                 console.log(err);
             }
@@ -500,7 +500,6 @@ router.get('/ApniCare/information/Drug',function (req,res) {
 
 //===================================for WEB============================
 router.post('/searchspecificweb',function(req,res){
-    console.log('reaches');
     var value = req.body.search;
     async.parallel({
         Brands : function(callback){

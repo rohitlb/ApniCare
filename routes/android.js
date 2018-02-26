@@ -58,11 +58,6 @@ router.post('/appuserregister', function (req, res) {
     var d = req.body.number;
     var b = req.body.password;
     var c = req.body.name;
-
-    console.log("number"+d);
-    console.log("pswd"+b);
-    console.log("name"+c);
-
     //regex for checking whether entered number is indian or not
     var num = /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[6789]\d{9}|(\d[ -]?){10}\d$/.test(req.body.number);
     if (num === false) {
@@ -611,7 +606,6 @@ router.post('/appsendOTP',function (req, res) {
     });
 });
 
-
 //forgot password
 router.post('/appforgotpassword',function (req,res) {
     var number = req.body.number;
@@ -631,33 +625,13 @@ router.post('/appforgotpassword',function (req,res) {
                     callback(null, result);
                 }
             });
-        },
-        Doctor: function (callback) {
-            Doctor.find({number: number}, function (err, result) {
-                if (err) {
-                    console.log(err);
-                }
-                else {
-                    callback(null, result);
-                }
-            });
-        },
-        Pharma: function (callback) {
-            Pharma.find({number: number}, function (err, result) {
-                if (err) {
-                    console.log(err);
-                }
-                else {
-                    callback(null, result);
-                }
-            });
         }
     }, function (err, result) {
         if (err) {
             console.log(err);
         }
         else {
-            if ((result.Doctor != "") || (result.User != "") || (result.Pharma)) {
+            if (result.User != "") {
                 var options = {
                     method: 'GET',
                     url: 'http://2factor.in/API/V1/' + keys.api_key() + '/SMS/' + number + '/AUTOGEN',
@@ -1415,6 +1389,7 @@ router.post('/DOSlist',function (req,res) {
 });
 
 // same molecules same strengths => output is list of brands + jis brand k liye search kiya wo nai ana chaiye
+
 router.post('/similarbrands',function(req,res){
     var molecule = req.body.molecule;
     var strength = req.body.strength;
@@ -1434,6 +1409,7 @@ router.post('/similarbrands',function(req,res){
                 res.send({status : 'failure' , message : 'no brands available'});
             }
             else {
+                console.log(brands[0].brands_id);
                 var data = {};
                 data['strengths'] = [];
                 var drug = {};
@@ -1461,6 +1437,53 @@ router.post('/similarbrands',function(req,res){
         }
     });
 });
+
+//correct similar brads
+
+// router.post('/similarbrands',function(req,res){
+//     var brands = req.body.brand;
+//     Brand.find({brand_name : brands},'-_id').populate({path : 'dosage_id' , select : '-_id dosage_form'
+//         , populate : {path : "strength_id" , select: "-_id potent_substance.name potent_substance.molecule_strength"}})
+//         .exec(function(err,brand){
+//             var potent_name = [];
+//             var potent_strength = [];
+//             potent_name = brand[0].dosage_id[0].strength_id[0].potent_substance.name;
+//             potent_strength = brand[0].dosage_id[0].strength_id[0].potent_substance.molecule_strength;
+//             Brand.find({},'-_id brand_name').populate({path : 'dosage_id' , select : "-_id dosage_form"
+//             ,populate : {path : 'strength_id' , select : "-_id potent_substance.name potent_substance.molecule_strength"}})
+//                 .exec(function(err,result){
+//                     var brandresult = [];
+//                     async.each(result,function(match,callback) {
+//                         var name = [];
+//                         var strength = [];
+//                         if (brands != match.brand_name) {
+//                             name = match.dosage_id[0].strength_id[0].potent_substance.name;
+//                             strength = match.dosage_id[0].strength_id[0].potent_substance.molecule_strength;
+//                             Array.prototype.compare = function (testArr) {
+//                                 if (this.length != testArr.length) return false;
+//                                 for (var i = 0; i < testArr.length; i++) {
+//                                     if (this[i].compare) { //To test values in nested arrays
+//                                         if (!this[i].compare(testArr[i])) return false;
+//                                     }
+//                                     else if (this[i] !== testArr[i]) return false;
+//                                 }
+//                                 return true;
+//                             };
+//
+//                             if ((potent_name.sort().compare(name.sort()) === true) && (potent_strength.sort().compare(strength.sort()) === true)) {
+//                                 brandresult.push(match);
+//                             } else {
+//                                 callback();
+//                             }
+//                         }
+//                         else {
+//                             callback();
+//                         }
+//                     });
+//                     res.send({status : "success" , data:brandresult});
+//                 });
+//         });
+// });
 
 // have regex , search for molecule_name,categories,brand_name,disease_name,organs,symptoms
 router.post('/searchall',function (req,res) {
